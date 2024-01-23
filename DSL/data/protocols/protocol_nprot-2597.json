@@ -1,0 +1,259 @@
+{
+    "identity": "nprot-2597",
+    "title": "CloVR-ITS: Automated ITS amplicon sequence analysis pipeline for fungal microbiota analysis\u2013 standard operating procedure, version 1.0",
+    "content": [
+        {
+            "header": "Equipment",
+            "content": "<h1>Software</h1><table border=\"0\" cellspacing=\"0\" cellpadding=\"0\"><tbody><tr><td width=\"155\"><p align=\"center\">Step</p></td><td width=\"97\"><p align=\"center\">Program</p></td><td width=\"73\"><p align=\"center\">Version</p></td><td width=\"204\"><p align=\"center\">URL</p></td><td width=\"55\"><p align=\"center\">Ref.</p></td></tr><tr><td width=\"155\"><p align=\"center\">Preprocessing, OTU clustering</p></td><td width=\"97\"><p align=\"center\">QIIME</p></td><td width=\"73\"><p align=\"center\">1.1.0</p></td><td width=\"204\"><p align=\"center\">http://qiime.sourceforge.net/</p></td><td width=\"55\"><p align=\"center\">\\[<ahref=\"file:///C:/Documents%20and%20Settings/b.dekker/Local%20Settings/Temporary%20Internet%20Files/OLKB2/CloVR-ITS_SOP_20130207.docx#_ENREF_1\"title=\"Caporaso, 2010 #323\">1</a>]</p></td></tr><tr><td width=\"155\"><p align=\"center\">Chimera detection</p></td><td width=\"97\"><p align=\"center\">UCHIME</p></td><td width=\"73\"><p align=\"center\">4.0.87</p></td><td width=\"204\"><p align=\"center\">http://www.drive5.com/</p><p align=\"center\">uchime/</p></td><td width=\"55\"><p align=\"center\">\\[<ahref=\"file:///C:/Documents%20and%20Settings/b.dekker/Local%20Settings/Temporary%20Internet%20Files/OLKB2/CloVR-ITS_SOP_20130207.docx#_ENREF_3\"title=\"Edgar, 2011 #456\">3</a>]</p></td></tr><tr><td width=\"155\"><p align=\"center\">Alpha-diversity analysis</p></td><td width=\"97\"><p align=\"center\">Mothur</p></td><td width=\"73\"><p align=\"center\">1.12.0</p></td><td width=\"204\"><p align=\"center\">http://www.mothur.org/</p></td><td width=\"55\"><p align=\"center\">\\[<ahref=\"file:///C:/Documents%20and%20Settings/b.dekker/Local%20Settings/Temporary%20Internet%20Files/OLKB2/CloVR-ITS_SOP_20130207.docx#_ENREF_4\"title=\"Schloss, 2009 #322\">4</a>]</p></td></tr><tr><td width=\"155\"><p align=\"center\">Taxonomic classification of sequences</p></td><td width=\"97\"><p align=\"center\">BLASTN</p></td><td width=\"73\"><p align=\"center\">2.2.21</p></td><td width=\"204\"><p align=\"center\">http://<cite>blast.ncbi.nlm.nih.gov</cite></p></td><td width=\"55\"><p align=\"center\">\\[<ahref=\"file:///C:/Documents%20and%20Settings/b.dekker/Local%20Settings/Temporary%20Internet%20Files/OLKB2/CloVR-ITS_SOP_20130207.docx#_ENREF_5\"title=\"Altschul, 1997 #310\">5</a>]</p></td></tr><tr><td width=\"155\"><p align=\"center\">Differential taxonomic prevalence calculation</p></td><td width=\"97\"><p align=\"center\">Metastats</p></td><td width=\"73\"><p align=\"center\">1.0</p></td><td width=\"204\"><p align=\"center\">http://metastats.cbcb.umd.edu/</p></td><td width=\"55\"><p align=\"center\">\\[<ahref=\"file:///C:/Documents%20and%20Settings/b.dekker/Local%20Settings/Temporary%20Internet%20Files/OLKB2/CloVR-ITS_SOP_20130207.docx#_ENREF_6\"title=\"White, 2009 #217\">6</a>]</p></td></tr><tr><td width=\"155\"><p align=\"center\">Statistical and graphical evaluation</p></td><td width=\"97\"><p align=\"center\">R</p></td><td width=\"73\"><p align=\"center\">2.10.1-2</p></td><td width=\"204\"><p align=\"center\">http://www.r-project.org/</p></td><td width=\"55\"><p align=\"center\">&#160;</p></td></tr></tbody></table><p>&#160;</p><p>&#160;</p><p>&#160;</p><h1>Reference data</h1><table border=\"0\" cellspacing=\"0\" cellpadding=\"0\"><tbody><tr><td width=\"97\"><p align=\"center\">Database</p></td><td width=\"234\"><p align=\"center\">Data</p></td><td width=\"198\"><p align=\"center\">URL</p></td><td width=\"56\"><p align=\"center\">Ref.</p></td></tr><tr><td width=\"97\"><p align=\"center\"><em>clovr-itsdb</em>, version 1.0</p></td><td width=\"234\"><p align=\"center\">ITS2-derived custom database, curated full ribosomal ITS sequences \\(not only ITS2) with taxonomic information down to the species level</p></td><td width=\"198\"><p align=\"center\">http://its2.bioapps.biozentrum.uni-wuerzburg.de/</p></td><td width=\"56\"><p align=\"center\">\\[<ahref=\"file:///C:/Documents%20and%20Settings/b.dekker/Local%20Settings/Temporary%20Internet%20Files/OLKB2/CloVR-ITS_SOP_20130207.docx#_ENREF_7\"title=\"Koetschan, 2012 #643\">7</a>]</p></td></tr></tbody></table><p>&#160;</p><p>&#160;</p><p>&#160;</p><h1>Pipeline input</h1><table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"579\"><tbody><tr><td width=\"127\"><p align=\"center\">Data</p></td><td width=\"78\"><p align=\"center\">Suffix</p></td><td width=\"374\"><p align=\"center\">Description</p></td></tr><tr><td width=\"127\"><p align=\"center\">Single sequence input file</p></td><td width=\"78\"><p align=\"center\">.fasta</p></td><td width=\"374\"><p align=\"center\">Single sequence file containing pooled, barcoded, unprocessed 454 sequences</p></td></tr><tr><td width=\"127\"><p align=\"center\">Multiple sequence input files</p></td><td width=\"78\"><p align=\"center\">.fasta</p></td><td width=\"374\"><p align=\"center\">Pre-processed, trimmed and binned sequences with 1 file per sample</p></td></tr><tr><td width=\"127\"><p align=\"center\">Sequence quality file\\(s) \\(optional)</p></td><td width=\"78\"><p align=\"center\">.qual</p></td><td width=\"374\"><p align=\"center\">Sequence quality file\\(s) corresponding to single or multiple sequence input files</p></td></tr><tr><td width=\"127\"><p align=\"center\">&#160;</p></td><td width=\"78\"><p align=\"center\">&#160;</p></td><td width=\"374\"><p align=\"center\">&#160;</p></td></tr><tr><td width=\"127\"><p align=\"center\">Metadata mapping file</p></td><td width=\"78\"><p align=\"center\">.txt</p></td><td width=\"374\"><p align=\"center\">Tab-delimited table containing sample-associated metadata information</p></td></tr></tbody></table><p>&#160;</p><p>&#160;</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "A. Requirements for pipeline Input\nTo run the full CloVR-ITS analysis pipeline, at least two different inputs have to be provided by the user: one or multiple sequence file\\(s) and a samplemetadata mapping file. Sequence data may consist of a single fasta file that contains pooled and barcoded sequences from multiple samples, or multiplepre-processed fasta files with each sample being represented by a single fasta file. No two fasta headers within any submitted file may be identical. Themapping file provides sample-associated metadata information used for beta diversity analysis.\nA.1 Mapping file requirements for single sequence file input\nExample for tab-delimited table to be used as mapping file in combination with a single sequence input file \\(pooled, barcoded, unprocessed 454 sequences),in QIIME format:\n#SampleID BarcodeSequence LinkerPrimerSequence Treatment_p Description\nSample_1 AGCACGAGCCTA CATGCTGCCTCCCGTAGGAGT Control mouse_ID_300\nSample_2 AGCACGAGCCTA CATGCTGCCTCCCGTAGGAGT Diabetic mouse_ID_354\nSample_3 AACTCGTCGATG CATGCTGCCTCCCGTAGGAGT Control mouse_ID_355\nSample_4 ACAGACCACTCA CATGCTGCCTCCCGTAGGAGT Diabetic mouse_ID_356\nThe following rules apply:\n1. All entries are tab-delimited.\n2. All entries in every column are defined \\(no empty fields).\n3. The header line begins with the following fields:\n#SampleID<tab>BarcodeSequence<tab>LinkerPrimerSequence\n4. The header line must end with the field Description, i.e. the total number of columns is four or more.\n5. The BarcodeSequence and LinkerPrimerSequence fields have valid IUPAC DNA characters.\n6. There are no duplicate header fields and no duplicate entries in the #SampleID column.\n7. No header fields or corresponding entries contain invalid characters \\(only alphanumeric and underscore characters allowed).\n8. There are no duplicates when the primer and barcodes are appended.\nA.2 Mapping file requirements for multiple sequence file input\nExample for tab-delimited table to be used as mapping file in combination with multiple sequence input files \\(one FASTA file per sample):\n#File SampleName ph_p Treatment Temperature_p Description\nA.fasta sampleA high control mild patientA\nB.fasta sampleB high sick medium patientB\nC.fasta sampleC low treated high patientC\nThe following rules apply:\n1. All entries are tab-delimited.\n2. All entries in every column are defined \\(no empty fields).\n3. The header line begins with: #File<tab>SampleName.\n4. The #File column contains the names of all input fasta files and does not contain duplicate entries.\n5. There are no duplicate header fields.\n6. No header fields or corresponding entries contain invalid characters \\(only alphanumeric and underscores characters allowed).\nA.3 Pairwise comparisons with Metastats\nTo utilize the Metastats statistical methodology, which detects differential abundances of taxa between two sample groups, the associated header field mustend with \"_p\", \\(e.g. \"Treatment_p\", or \"ph_p\"). If a header with the \"_p\" ending exists, pairwise Metastats calculations will be carried out between allgroups specified in the corresponding column \\(provided that a group contains at least three samples).\nA.4 Providing quality scores with sequence data\nTo include quality scores as input, for each input fasta file <prefix>.fasta there must exist a separate quality score file <prefix>.qual. Forexample, if the input fasta files are A.fasta, B.fasta and C.fasta, then there must also exist A.qual, B.qual, and C.qual for quality filtering to beperformed\n\\[1]\n. The quality score files are tagged similarly to the input fasta files before starting a pipeline.\nB. Sequence preprocessing\nInput data are initially assessed for quality and chimeric sequences. Problematic sequences are removed before subsequent processing.\nB.1 File consistency check\nAll input fasta files are first checked for consistency with the input mapping file. If a fasta file listed within the mapping file does not exist, or ifan input fasta file is not listed in the mapping file, the pipeline will halt with an error. Likewise consistency is checked for any input quality scorefiles.\nB.2 Splitting by samples and quality filtering\nTo check each read from the sequence pool for quality and to sort sequences based on the sample-specific barcodes, the QIIME script split_libraries.py isused with the following parameters:\n--min-seq-length 100\n\\(sets the minimum sequence length to 100 bp)\n--max-seq-length 2000\n\\(sets the minimum sequence length to 2000 bp)\n--barcode-type variable_length\n\\(disables barcode corrections and allows for unique barcodes with varying lengths)\n--max-homopolymer 8\n\\(sets the maximum homopolymer length to 8 bp)\n--min-qual-score 25\n\\(sets the minimum average quality score to 25, applies only when quality scores are provided to the pipeline)\n--max-ambig 0\n\\(sets the maximum number of ambiguous bases allowed to 0)The output of this component \\(seqs.fna) is a single set of filtered reads identified by sample and meeting the above quality criteria.\nB.3 Selection of high identity clusters\nTo assist in\nde novo\nchimera detection and downstream taxonomic analysis, sequences are clustered into high identity OTUs using a 99% identitythreshold and the QIIME command pick_otus.py. We allow for reverse complement searching by UCLUST here. The longest sequences in each stringent cluster areselected as OTU representatives using pick_rep_set.py. The relative abundance of each OTU is denoted with each representative sequence for UCHIME.\nB.4 Chimera identification and removal\nTo detect putative chimeric sequences in the filtered data, representative sequences are input to UCHIME \\(using\nde novo\nmode with defaultparameters). Representatives assigned as chimeras propagate the assignment across their clusters, and a single list of all putative chimeras is output. Allchimeric sequences are then removed from consideration before the next step in the pipeline.\nC. Sequence processing\nC.1 Sequence clustering\nThe QIIME script pick_otus.py is used to cluster all non-chimeric reads from all samples into genus-level operational taxonomic units \\(OTUs) based on anucleotide sequence identity threshold. The clustering program for this step is UCLUST \\[\n2\n] and the nucleotide sequence identity threshold for all reads within an OTU is 85%. UCLUST is set to examine both the forward and reverse complementsequences during clustering.\nC.2 Alpha-diversity analysis.\nGenus-level OTUs created by the QIIME commands above are reorganized and input to Mothur which uses the scripts read.otu, rarefaction.single, andsummary.single to generate rarefaction curves and estimators of species diversity for each sample. Finally a custom program called Leech is used to plotall rarefaction curves together defined by varying color schemes related to the input mapping file.\nC3. Taxonomic annotation of high identity clusters\nAll non-chimeric representative sequences from the 99% clusters generated in step\nB.3\nare searched against a custom database of ITSreference sequences from known species \\(\nclovritsdb v1.0\n) using BLASTN with the following options: \"-e 1.0e-5\" \\(e-value threshold), \"-b 10\" \\(numberof hits to show) and \"-m 8\" \\(tabular output). Each sequence is assigned to the taxonomic lineage of the best BLAST alignment covering at least 90% of thequery sequence length and matching with a minimum identity of 90%, 85%, 75%, 70%, and 60% identity for species, genus, family, order, and class-levelassignments, respectively. Representatives without alignments of sufficient coverage or identity at a specific taxonomic-level are denoted as\"Unclassified.\" Hits are propagated across the corresponding clusters.\nD. Additional analysis using Metastats and the R statistical package\nThe output from the taxonomic classification of each sequence from all samples by the BLAST-based classification step is further analyzed and graphicallyrepresented using the Metastats program \\[\n6\n] and customized scripts in the R programming language.\nD.1 Detection of differentially abundant features\nMetastats uses count data from annotated sequences to compare two populations in order to detect differentially abundant features \\[\n6\n]. BLASTN results are processed to detect different taxonomic groups at multiple levels \\(class, order, family, genus, species). Metastats produces atab-delimited table displaying the mean relative abundance of a feature, variance and standard error together with a p value and q value to describesignificance of the detected variations \\(see project website: http://metastats.cbcb.umd.edu/). Note Metastats can run analyses of 1 sample vs. 1 sample, or\nN\nsamples vs.\nM\nsamples, where\nN\nand\nM\nare greater than 1. It cannot perform a comparison of 1 sample vs. 2 samples.\nD.2 Stacked histogram generation\nCustom R scripts are used to normalize taxonomic group counts to relative abundances. Stacked histograms of the relative abundances are generated in the.pdf format, if there are at most 50 samples and at most 25 taxon groups. Beyond these limits a visualized histogram is not generated.\nD.3 Unsupervised sample clustering\nA custom R script called skiff is used to normalize taxon counts and to calculate distance matrices for samples and taxonomic groups, using a Euclideandistance metric. Complete-linkage \\(furthest neighbor) clustering is employed to create dendrograms of samples and taxa in the .pdf format. The R packagesRColorBrewer and gplots are included in this task.\nD.4 Pie chart visualization\nCustom R scripts are used to form pie charts displaying proportions of sequences assigned to specific functional and taxonomic levels for up to 12 samples.Outputs are in .pdf format. For more than 12 samples this function is not performed, as the visual comparison for the user would be cumbersome.\n\\[1]\nNote: fasta and quality files can be retrieved from an sff file using the Roche/454 proprietary program sffinfo.\n</div"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<h1>Pipeline output</h1><table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"573\"><tbody><tr><td width=\"124\"><p align=\"center\">Data</p></td><td width=\"79\"><p align=\"center\">Suffix</p></td><td width=\"370\"><p align=\"center\">Description</p></td></tr><tr><td width=\"124\"><p align=\"center\">Filtered sequences</p></td><td width=\"79\"><p align=\"center\">.fna</p></td><td width=\"370\"><p align=\"center\">Sequences passing QIIME-based poor-</p><p align=\"center\">quality filter \\(filename: seqs.fna)</p></td></tr><tr><td width=\"124\"><p align=\"center\">Detected chimeras</p></td><td width=\"79\"><p align=\"center\">.txt</p></td><td width=\"370\"><p align=\"center\">Sequence names from seqs.fna</p><p align=\"center\">\\(and OTU representatives) identified as</p><p align=\"center\">putative chimeras \\(filename: allchimeraids.txt)</p></td></tr><tr><td width=\"124\"><p align=\"center\">OTU assignments</p></td><td width=\"79\"><p align=\"center\">.txt</p></td><td width=\"370\"><p align=\"center\">List of genus-level OTUs \\(QIIME)</p></td></tr><tr><td width=\"124\"><p align=\"center\">Alpha diversity</p></td><td width=\"79\"><p align=\"center\">.rarefaction</p></td><td width=\"370\"><p align=\"center\">Rarefaction numerical curves</p><p align=\"center\">separated by sample \\(Mothur)</p></td></tr><tr><td width=\"124\"><p align=\"center\"></p></td><td width=\"79\"><p align=\"center\">.pdf</p></td><td width=\"370\"><p align=\"center\">Rarefaction plots separated</p><p align=\"center\">by metadata type \\(Leech/CloVR)</p></td></tr><tr><td width=\"124\"><p align=\"center\"></p></td><td width=\"79\"><p align=\"center\">.summary</p></td><td width=\"370\"><p align=\"center\">Richness and diversity</p><p align=\"center\">estimators \\(Mothur)</p></td></tr><tr><td width=\"124\"><p align=\"center\">BLAST hits</p></td><td width=\"79\"><p align=\"center\">.raw</p></td><td width=\"370\"><p align=\"center\">BLASTN to reference datasets results</p><p align=\"center\">table \\(\"-m 8\" format)</p></td></tr><tr><td width=\"124\"><p align=\"center\">Taxonomic assignments</p></td><td width=\"79\"><p align=\"center\">.tsv</p></td><td width=\"370\"><p align=\"center\">Table \\(tab-delimited) displaying taxonomic</p><p align=\"center\">assignment counts for each sample</p></td></tr><tr><td width=\"124\"><p align=\"center\">Metastats output</p></td><td width=\"79\"><p align=\"center\">.csv</p></td><td width=\"370\"><p align=\"center\">Differentially abundant taxonomic groups</p><p align=\"center\">\\(as pre-defined in Metadata input)</p></td></tr><tr><td width=\"124\"><p align=\"center\">Skiff clustering</p></td><td width=\"79\"><p align=\"center\">.pdf</p></td><td width=\"370\"><p align=\"center\">Heatmap and two-way clustering based on</p><p align=\"center\">taxonomic assignment abundances</p></td></tr><tr><td width=\"124\"><p align=\"center\">Pie charts</p></td><td width=\"79\"><p align=\"center\">.pdf</p></td><td width=\"370\"><p align=\"center\">Pie charts describing assignment abundances for up to 12 samples \\(not performed if &gt;12 samples are given)</p></td></tr><tr><td width=\"124\"><p align=\"center\">Stacked histograms</p></td><td width=\"79\"><p align=\"center\">.pdf</p></td><td width=\"370\"><p align=\"center\">Stacked histograms displaying relative abundances for up to 50 samples and 25 features \\(not performed if beyond these thresholds)</p></td></tr></tbody></table><p></p><p></p>>"
+        },
+        {
+            "header": "References",
+            "content": "1. Caporaso J.G. et al. QIIME allows analysis of high-throughput community sequencing data. Nat Methods. 7:335-336 \\(2010).\r\n  2. Edgar R.C. Search and clustering orders of magnitude faster than BLAST. Bioinformatics 26\\(19):2460-2461 \\(2010).\r\n  3. Edgar R.C. et al. UCHIME improves sensitivity and speed of chimera detection. Bioinformatics 27:2194-2200 \\(2011).\r\n  4. Schloss P.D. et al. Introducing mothur: open-source, platform-independent, community-supported software for describing and comparing microbial communities. Appl Environ Microbiol. 75:7537-7541 \\(2009).\r\n  5. Altschul S.F. et al. Gapped BLAST and PSI-BLAST: a new generation of protein database search programs. Nucleic Acids Res. 25:3389-3402 \\(1997).\r\n  6. White J.R. et al. Statistical methods for detecting differentially abundant features in clinical metagenomic samples. PLoS Comput Biol. 5:e1000352 \\(2009).\r\n  7. Koetschan C. et al. ITS2 database IV: Interactive taxon sampling for internal transcribed spacer 2 based phylogenies. Mol Phyl Evol. 63\\(3):585-588 \\(2012)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "This material is based upon work supported by the National Science Foundation under Grant No. 0949201 and by the National Human Genome Research Institute under Grant No. 5RC2HG005597-02."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1186/2049-2618-1-6",
+                "date": "2013-02-06 17:11:40",
+                "title": "CloVR-ITS: Automated internal transcribed spacer amplicon sequence analysis pipeline for the characterization of fungal microbiota",
+                "authors": [
+                    "James Robert White",
+                    "Cynthia Maddox",
+                    "Owen White",
+                    "Samuel V Angiuoli",
+                    "and W Florian Fricke"
+                ],
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 12337,
+                "identity": "9fe92312-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "James Robert White",
+                "email": "jwhite@som.umaryland.edu",
+                "orcid": "",
+                "institution": "Institute for Genome Sciences, University of Maryland School of Medicine",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "James",
+                "middleName": "Robert",
+                "lastName": "White",
+                "suffix": ""
+            },
+            {
+                "id": 12338,
+                "identity": "9fe9268e-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "W. Florian Fricke",
+                "email": "wffricke@som.umaryland.edu",
+                "orcid": "",
+                "institution": "Institute for Genome Sciences, University of Maryland School of Medicine",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "W.",
+                "middleName": "Florian",
+                "lastName": "Fricke",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2013-02-06 17:27:00",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2013.017",
+        "doiUrl": "https://doi.org/10.1038/protex.2013.017",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13464560,
+                "identity": "f2f824ed-80e6-41d2-944a-5c801da96776",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:43:49",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 381794,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-2597/v1/c5d945d0-2e73-4eb7-8e44-abb4e626d32f.pdf"
+            },
+            {
+                "id": 2608652,
+                "identity": "691debce-fbcb-4dfa-8a42-69f8961e4f80",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:23",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 25088,
+                "visible": true,
+                "origin": "",
+                "legend": "Table2_MultipleSequencesInput_MappingFile   Table 2. Mapping file, example 2.   Example for tab-delimited table to be used as mapping file in combination with multiple sequence input files (one FASTA file per sample).",
+                "description": "",
+                "filename": "supplement0.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-2597/v1/supplement_0.pdf"
+            },
+            {
+                "id": 2608659,
+                "identity": "5ab9dfff-731a-4ee1-817b-92b0cf113976",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:23",
+                "extension": "doc",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 133632,
+                "visible": true,
+                "origin": "",
+                "legend": "Full text document   CloVR-ITS Protocol",
+                "description": "",
+                "filename": "supplement0.doc",
+                "url": "https://assets.researchsquare.com/files/nprot-2597/v1/supplement_0.doc"
+            },
+            {
+                "id": 2608650,
+                "identity": "c6a9d405-78a3-4d41-b61f-0e895b5593e5",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:22",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 32007,
+                "visible": true,
+                "origin": "",
+                "legend": "Table1_SingleSequenceInput_MappingFile   Table 1. Mapping file, example 1.   Example for tab-delimited table to be used as mapping file in combination with a single sequence input file.",
+                "description": "",
+                "filename": "supplement0.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-2597/v1/supplement_0.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "internal transcribed spacer, ITS, fungal microbiota, automated sequence analysis pipeline, cloud computing",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "Next-generation sequencing has been successfully used to characterize microbial communities based on the amplification and sequencing of phylogenetic marker genes, e.g. the 16S rRNA gene. In comparison to 16S rRNA amplicon sequencing-based procedures for bacterial and archaeal microbiota analysis, few comparable protocols have been made available to study fungal organisms. Here we describe the CloVR-ITS protocol for fungal microbiota analysis using internal transcript spacer \\(ITS) amplicon sequencing. CloVR-ITS includes well known bioinformatic tools for alpha and beta diversity analyses, suitable to process even large sequence datasets:\r\n\n\nA) QIIME \\[1] for sequence processing and beta phylogenetic analysis using different methods including UCLUST \\[2];  \r\n\n\nB) UCHIME \\[3] for rapid identification of chimeric sequences; \r\n\n\nC) Mothur \\[4] for alpha diversity and ecological parameter calculations;\r\n\n\nD) BLASTN \\[5] for taxonomic sequence assignments using custom databases; \r\n\n\nE) Metastats \\[6] and custom R scripts for statistical and graphical evaluations. \r\n\n\nCloVR-ITS accepts as input either a single raw multiplex 454-pyrosequencer output file \\(i.e. pooled barcoded sequences from multiple samples), or alternatively, pre-processed sequences from multiple samples in separate files. CloVR-ITS is available as part of the CloVR package \\(http://clovr.org).",
+        "manuscriptTitle": "CloVR-ITS: Automated ITS amplicon sequence analysis pipeline for fungal microbiota analysis\u2013 standard operating procedure, version 1.0",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2013-02-14 14:59:33",
+                "doi": "10.1038/protex.2013.017",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9fe8cebf-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "February 14th, 2013",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 2881,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 2882,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 2883,
+                "name": "Microbiology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2013-02-14 14:59:33",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

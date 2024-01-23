@@ -1,0 +1,264 @@
+{
+    "identity": "pex-1358",
+    "title": "<p>Simultaneous spatiotemporal computational super-resolution and multi-parametric fluorescence microscopy</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>We describe a protocol to perform simultaneous multi-parametric analysis using fast and sensitive cameras (EMCCD and sCMOS) and a combination of super-resolution and spectroscopy techniques \u2013 super resolution radial fluctuation (SRRF)/super-resolution optical fluctuation imaging (SOFI)/deconvolution, fluorescence correlation spectroscopy (FCS) analysis, number and brightness analysis (N&amp;B), and FCS diffusion law analysis.</p><p>SRRF [1] (with its roots in SOFI [2]) analyzes the fluctuations in radiality stacks to obtain super resolved images. One could also apply deconvolution algorithms to the raw image stack [3]. Imaging fluorescence correlation spectroscopy (Imaging FCS) [4][5] analyzes the fluctuations in fluorescence intensity in a pixel to estimate the diffusion coefficient (<em>D</em>) and the number of particles in that pixel (<em>N</em>). The relationship between observation area and diffusion coefficient is determined in FCS diffusion law analysis to understand the mode of diffusion [6]. The concentration and brightness at each pixel is estimated from the mean and variance of intensity in a pixel in N&amp;B analysis [7][8].</p><p>We introduce a GPU-supported, camera-based approach to achieve high spatiotemporal resolution from a single data set and perform multiple analyses on it to extract maximum information.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p>1. For the point spread function&nbsp;(PSF) calibration of the system, a sample exhibiting free diffusion is needed. We recommend DOPC (<a href=\"https://avantilipids.com/product/850375\" rel=\"noopener noreferrer\" target=\"_blank\" style=\"letter-spacing: 0.1px;\">2-dioleoyl-sn-glycero-3-phosphocholine</a>; Avanti Polar Lipids, Alabama, USA) bilayer containing a fluorescent label. Examples of fluorescent labels include:</p><p>\u2022 Lipilight 488 (Idylle, Paris, France) for 488 nm excitation.</p><p>\u2022 Rhodamine PE (<a href=\"https://avantilipids.com/product/810157\" rel=\"noopener noreferrer\" target=\"_blank\">14:0 Liss Rhod PE</a>, Avanti Polar Lipids, Alabama, USA) for 561 nm excitation.</p><p>2. Experimental sample (e.g. live cell preparations).</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>1. Total Internal Reflection Fluorescence (TIRF) Microscope (Olympus, Japan):</p><p>\u2022 <a href=\"https://www.olympus-lifescience.com/en/microscopes/inverted/ix83/\" rel=\"noopener noreferrer\" target=\"_blank\">IX83</a> inverted epi-fluorescence microscope</p><p>\u2022 Motorized <a href=\"https://www.olympus-lifescience.com/en/microscopes/inverted/ix83/celltirf4/\" rel=\"noopener noreferrer\" target=\"_blank\">cellTIRF-4Line</a> IX3-MITICO illumination combiner</p><p>\u2022 Laser system of different wavelengths.</p><p>2. Dual-emission image splitter (<a href=\"https://www.cairn-research.co.uk/product/optosplit-ii/\" rel=\"noopener noreferrer\" target=\"_blank\">OptoSplit II</a>; Cairn Research, Faversham, UK) (<em>if dual-channel measurements are required</em>).</p><p>3. Detector:</p><p>\u2022 Electron multiplying charge-coupled device (EMCCD; iXon<sup>EM</sup>+ 860, 24 \u00b5m&nbsp;pixel size, 128\u00d7128 pixels, <a href=\"https://andor.oxinst.com/\" rel=\"noopener noreferrer\" target=\"_blank\">Andor</a>, Oxford Instruments, UK),</p><p>or</p><p>\u2022 Scientific complementary metal oxide semiconductor (sCMOS; <a href=\"https://andor.oxinst.com/products/scmos-camera-series/sona-scmos\" rel=\"noopener noreferrer\" target=\"_blank\">Sona 4.2B-11</a>, 11 \u00b5m&nbsp;pixel size, 2048\u00d72048 pixels, Andor, Oxford Instruments, UK).</p><p>\u2022 Camera control software (<a href=\"https://andor.oxinst.com/products/solis-software/\" rel=\"noopener noreferrer\" target=\"_blank\">Andor Solis</a>, Andor, Oxford Instruments, UK).</p><p>4. High numerical aperture (NA) microscope objective (100\u00d7, Apo N, NA 1.49 oil-immersion; <a href=\"https://www.olympus-lifescience.com/en/landing/objectives/research/tirf/\" rel=\"noopener noreferrer\" target=\"_blank\">Olympus</a>, Japan).</p><p>\u2022 For the iXon<sup>EM</sup>+ 860 EMCCD and Sona 4.2B-11 sCMOS, this translates to a 240 nm and 110 nm image pixel size, respectively.</p><p>5. Magnification changer slider (1\u00d7, 1.6\u00d7 and 2\u00d7, IX3-cAS, Olympus, Japan).</p><p>\u2022 With the extra 2\u00d7 magnification, the image pixel size for the iXon<sup>EM</sup>+ 860 EMCCD and Sona 4.2B-11 sCMOS is 120 nm and 65 nm, respectively.</p><p>6. On-stage temperature and CO<sub>2</sub> incubator (Chamlide TC, <a href=\"http://lcibio.com/\" rel=\"noopener noreferrer\" target=\"_blank\">Live Cell Instrument</a>, South Korea).</p><p>7. Appropriate emission dichroic mirror and optical filters.</p><p>8. Image processing software</p><p>a. <a href=\"https://imagej.net/Fiji\" rel=\"noopener noreferrer\" target=\"_blank\">Fiji</a>-ImageJ</p><p>\u2022 For Imaging FCS, FCS diffusion law and N&amp;B - Imaging FCS (ImFCS) 1.52 plugin included in ImageJ update site. Also can be downloaded <a href=\"http://www.dbs.nus.edu.sg/lab/BFL/imfcs_image_j_plugin.html\" rel=\"noopener noreferrer\" target=\"_blank\">here</a>. The ImFCS 1.52 manual is available <a href=\"https://www.dbs.nus.edu.sg/lab/BFL/Imaging_FCS_1_52/Documentation/ImFCS%20documentation%201_52.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">here</a>.</p><p>\u2022 For SOFI and SRRF - <a href=\"https://henriqueslab.github.io/resources/NanoJ-SRRF/\" rel=\"noopener noreferrer\" target=\"_blank\">NanoJ-SRRF</a> <a href=\"https://github.com/HenriquesLab/NanoJ-SRRF\" rel=\"noopener noreferrer\" target=\"_blank\">plugin</a> (version 1.14Stable1)&nbsp;included in ImageJ update site.</p><p>b. For deconvolution - <a href=\"https://svi.nl/Huygens-Professional\" rel=\"noopener noreferrer\" target=\"_blank\">Huygens Professional</a> version 20.04 (Scientific Volume Imaging, The Netherlands)</p><p>9. An <a href=\"https://www.nvidia.com/\" rel=\"noopener noreferrer\" target=\"_blank\">NVIDIA</a> graphics processing unit (GPU) for faster analyses.</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "A. Data acquisition\n1. Using the appropriate microscopy setup and camera.\n\u2022\u00a0Use the magnification slider if higher magnification is required.\n\u2022\u00a0Use the dual-emission image splitter if dual channel measurements are to be done.\n2. Excite the sample with suitable laser powers and record a stack of images at high temporal resolution. As an example, we use the following settings for our measurements:\n\u2022\u00a0Laser powers of 100-300 \u00b5W for 488 nm excitation and 0.1-1 mW for 561 nm excitation when using an EMCCD with EM gain of 300. If sCMOS is used as detector, higher laser powers in mW range may be necessary.\n3. Record at 1,000 frames per second (fps) for bilayer measurements and 500 fps for cell membrane measurements. If sufficient signal-to-noise ratio (SNR) is achievable, faster recording rates can be used.\n\u2022\u00a0In Andor Solis, for the EMCCD, the kinetic mode of image acquisition was used and the \u2018baseline clamp\u2019 was always used to minimize the baseline fluctuation. The camera was operated using 10 MHz pixel readout speed. Maximum analog-to-digital gain was set to 4.7, and 0.45 \u00b5s vertical shift speed was used. The EM gain used was 300.\n\u2022\u00a0Similarly, for the sCMOS, the pixel readout rate used was 200 MHz in an overlap readout mode. The rolling electronic shuttering mode and 12-bit dynamic range was used.\n4.\u00a0Save the image stack as a 16-bit tiff image stack since that is the input for the ImFCS plugin in ImageJ.\nB. Data pre-processing\nTo maintain a good SNR, post-acquisition spatial or temporal binning might be necessary. We suggest the following based on our experience:\na.\nImaging FCS\n- 1\u00d71 binning or 2\u00d72 binning\u00a0depending on SNR. For EMCCD, 1\u00d71 binning usually works at 240 nm image pixel size. If higher magnification or sCMOS is used, 2\u00d72 binning\u00a0might be required.\nb.\nFCS diffusion law\n- The plot can usually be generated and fit with spatial binning of 1\u00d71 to 5\u00d75. But at low SNR, the smaller bins have large errors and higher spatial binnings might be required.\nc.\nN&B analysis\n- Time bin to at least 10 ms per frame, otherwise the brightness calibration might underestimate the fluorescence probability of the fluorescent protein. We use a higher time binning of 20 ms to get better differentiation of the background and the cell for intensity thresholding,\nd.\nComputational super-resolution microscopy\n- We observed optimal results for SOFI/SRRF after time binning to 200 ms per frame. For deconvolution, temporally bin all the frames to obtain a single time-averaged image.\nC. Calibration of point spread function\u00a0(PSF) for Imaging FCS\n1. To calibrate the PSF for the experimental setup, load the bilayer measurement file into the ImFCS plugin in ImageJ.\n2. Set the appropriate values for following parameters in the plugin: frame time, correlator (p, q), pixel size, NA, and \u03bb\n1\n.\n3. The program will compute and displayed a plot of the diffusion coefficient values for various combinations of PSF and binning values.\n4. Refer to the ImFCS manual for more details.\nD. Data analyses\nRefer to the ImFCS, NanoJ-SRRF and Huygens manuals for more details.\na.\nFCS and FCS diffusion law\n1. Load the image stacks in ImFCS 1.52 plugin.\n2. Set the appropriate values for following parameters in the plugin: frame time, correlator (p, q), pixel size, NA, \u03bb\n1\nand bleach correction (refer to ImFCS manual for details).\n3. Calculate and fit the ACFs with a suitable diffusion model. To exclude outliers or non-converged fits, threshold the data using the available filters (e.g.\nN\nor\nD\nfilter).\n4. In the \u201cDiff. Law\u201d tab, the diffusion law plot can be generated and fit with a straight line for square binning of desired range.\nb.\nN&B\n1. Temporally bin the image stack in ImageJ using the\nImage \u2192 Transform \u2192 Bin\ncommand sequence. Set the desired X, Y and Z shrink factor and choose the\nSum\nbin method.\n2. Load the temporally-binned image stacks in ImFCS 1.52 plugin.\n3. Set the appropriate values for following parameters in the plugin: frame time, bleach correction and intensity filter (refer to ImFCS manual for details). The intensity filter excludes the background pixels and include only the pixels containing the cell.\n4. Load a dark image (image taken with the camera shutter closed) with the same spatiotemporal dimensions as the measurement image for background correction in the \u201cBgr NUM\u201d tab.\n5. In the \u201cN&B\u201d tab, select \u201cG1\u201d in the \u201cNB mode\u201d.\n6. Press the \u201cN&B\u201d button in \u201cN&B analysis\u201d to generate the N&B maps.\nc.\nComputational super-resolution microscopy\n\u2022\nSOFI/SRRF\n1. Temporally bin the image stacks as described in the previous N&B section. The\nAverage\nbin method is recommended to avoid pixel count saturation.\n2. In the NanoJ-SRRF plugin choose the \u201cSRRF analysis\u201d option. Set the desired values for ring radius, radiality magnification, axes in ring, display_mode, and temporal analysis mode.\n3. Click \"OK\" and the SRRF images will be generated.\n4. For SOFI images, follow the same steps as above but set the ring radius, radiality magnification, and axes in ring to the minimum allowed values.\n\u2022\nDeconvolution\n1. Temporally bin the image stacks to generate single time-averaged images.\n2. Load the images into Huygens Professional.\n3. Set the microscope type to confocal.\n4. Set the X, Y and Z sampling intervals to the ideal Nyquist value.\n5. Set the optical parameters according to the microscopy system used: NA, refractive indices of lens immersion oil and embedding medium, objective quality.\n6. Set the channel parameters: backprojected pinhole = maximum allowed value, excitation wavelength, emission wavelength, excitation fill factor = 2.\n7. The theoretical PSF will be automatically generated. The background value of the image will also be automatically estimated with the emission mode set to lowest and the area radius set to the default 0.7 microns.\n8. Use a suitable deconvolution algorithm. e.g. Classic Maximum Likelihood Estimation (CMLE).\n9. The deconvolved image will be generated."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": ""
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>A typical data set is acquired at 2 ms exposure time for 50,000 frames and requires 100 seconds of measurement.</p><p>If using a GPU, the multi-parametric data analyses can be completed in ~5 minutes.</p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>Using this protocol, one can generate diffusion coefficient maps, brightness maps, FCS diffusion law plots and computationally super-resolved images from a single data set.</p><p>Performing multiple analyses as described above and retaining only those pixels that are validated by all the different techniques produces mutually consistent structure and dynamics data.</p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>[1] Gustafsson, N., et al. (2016).<a href=\"https://www.nature.com/articles/ncomms12471\" rel=\"noopener noreferrer\" target=\"_blank\"> <strong>Fast live-cell conventional fluorophore nanoscopy with ImageJ through super-resolution radial fluctuations</strong></a><em>.</em> <em>Nature Communications</em>, 7(1): p. 12471.</p><p>[2] Dertinger, T.,et al. (2009). <a href=\"https://www.pnas.org/content/106/52/22287\" rel=\"noopener noreferrer\" target=\"_blank\"><strong>Fast, background-free, 3D super-resolution optical fluctuation imaging (SOFI)</strong></a>. <em>Proceedings of the National Academy of Sciences,</em> 106&nbsp;(52)&nbsp;22287-22292.</p><p>[3] Sibarita JB. (2005). <a href=\"https://link.springer.com/chapter/10.1007/b102215#citeas\" rel=\"noopener noreferrer\" target=\"_blank\"><strong>Deconvolution Microscopy</strong></a>. In: Rietdorf J. (eds) <strong>Microscopy Techniques</strong>. <em>Advances in Biochemical Engineering</em>, vol 95., p. 201-243, Springer, Berlin, Heidelberg.</p><p>[4] Kannan, B., et al. (2007), <a href=\"https://pubs.acs.org/doi/10.1021/ac0624546\" rel=\"noopener noreferrer\" target=\"_blank\"><strong>Spatially resolved total internal reflection fluorescence correlation microscopy using an electron multiplying charge-coupled device camera</strong></a><em>.</em> <em>Analytical Chemistry</em>, 79(12): p. 4463-4470.</p><p>[5]&nbsp;Wohland, T., et al. (2010), <a href=\"https://www.osapublishing.org/oe/fulltext.cfm?uri=oe-18-10-10627&amp;id=199367\" rel=\"noopener noreferrer\" target=\"_blank\"><strong>Single Plane Illumination Fluorescence Correlation Spectroscopy (SPIM-FCS) probes inhomogeneous three-dimensional environments</strong><em>.</em></a> <em>Optics Express</em>, 18(10): p. 10627-10641.</p><p>[6]&nbsp;Wawrezinieck, L., et al. (2005), <a href=\"https://www.cell.com/biophysj/fulltext/S0006-3495(05)73044-7\" rel=\"noopener noreferrer\" target=\"_blank\"><strong>Fluorescence correlation spectroscopy diffusion laws to probe the submicron cell membrane organization</strong></a><em>. Biophysical Journal</em>, 89(6): p. 4029-42.</p><p>[7]&nbsp;Digman, M.A., et al. (2008), <a href=\"https://www.cell.com/biophysj/fulltext/S0006-3495(08)70576-9\" rel=\"noopener noreferrer\" target=\"_blank\"><strong>Mapping the number of molecules and brightness in the laser scanning microscope</strong></a><strong>. </strong><em>Biophysical Journal</em>, 94(6): p. 2320-2332.</p><p>[8]&nbsp;Unruh, J.R. and E. Gratton (2008), <a href=\"https://www.cell.com/biophysj/fulltext/S0006-3495(08)78962-8\" rel=\"noopener noreferrer\" target=\"_blank\"><strong>Analysis of molecular concentration and brightness from fluorescence fluctuation data with an electron multiplied CCD camera</strong></a><em>.</em> <em>Biophysical Journal</em>, 95(11): p. 5385-98.</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41467-021-22002-9",
+                "date": "",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 9302978,
+                "identity": "7a775680-048f-455c-883d-58b7f0a389ad",
+                "order_by": 0,
+                "name": "Jagadish Sankaran",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0001-7021-9807",
+                "institution": "National University of Singapore",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jagadish",
+                "middleName": "",
+                "lastName": "Sankaran",
+                "suffix": ""
+            },
+            {
+                "id": 9302979,
+                "identity": "2bc7b26c-05c0-4023-a0b7-52a86320c74e",
+                "order_by": 1,
+                "name": "Harikrushnan Balasubramanian",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0003-4966-0221",
+                "institution": "National University of Singapore",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Harikrushnan",
+                "middleName": "",
+                "lastName": "Balasubramanian",
+                "suffix": ""
+            },
+            {
+                "id": 9902532,
+                "identity": "620113eb-f5db-4a6e-a4ff-83bf2e4fa851",
+                "order_by": 2,
+                "name": "Wai Hoh Tang",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-6717-9426",
+                "institution": "National University of Singapore",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Wai",
+                "middleName": "Hoh",
+                "lastName": "Tang",
+                "suffix": ""
+            },
+            {
+                "id": 9902533,
+                "identity": "923daae8-c23b-48f2-9172-166a9e666e54",
+                "order_by": 3,
+                "name": "Xue Wen Ng",
+                "email": "",
+                "orcid": "",
+                "institution": "National University of Singapore",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Xue",
+                "middleName": "Wen",
+                "lastName": "Ng",
+                "suffix": ""
+            },
+            {
+                "id": 9902534,
+                "identity": "e2c5e488-d463-4ed7-8abc-792d6abb58cf",
+                "order_by": 4,
+                "name": "Adrian R\u00f6llin",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0003-0488-0183",
+                "institution": "National University of Singapore",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Adrian",
+                "middleName": "",
+                "lastName": "R\u00f6llin",
+                "suffix": ""
+            },
+            {
+                "id": 9902535,
+                "identity": "d8209240-3b37-4a09-a7b6-d0f143acb0e8",
+                "order_by": 5,
+                "name": "Thorsten Wohland",
+                "email": "twohland@nus.edu.sg",
+                "orcid": "https://orcid.org/0000-0002-0148-4321",
+                "institution": "National University of Singapore",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Thorsten",
+                "middleName": "",
+                "lastName": "Wohland",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2021-01-28 09:18:25",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1358/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1358/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13682806,
+                "identity": "23bc8752-081d-4b57-9385-b4aed792c9a0",
+                "added_by": "auto",
+                "created_at": "2021-09-17 11:59:19",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 429963,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1358/v1/46f69fc5-f8e8-416e-8acd-1615248f97bb.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Imaging fluorescence correlation spectroscopy, total internal reflection fluorescence microscopy, diffusion law, number and brightness, super-resolution radial fluctuation, super-resolution optical fluctuation imaging, deconvolution",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>We describe here a protocol for performing simultaneous spatiotemporal computational super-resolution and multi-parametric fluorescence microscopy. Our approach does not need specialized instrumentation, utilizes a GPU for faster data evaluation, and produces mutually consistent structure and dynamics data.</p>",
+        "manuscriptTitle": "Simultaneous spatiotemporal computational super-resolution and multi-parametric fluorescence microscopy",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2021-03-30 08:15:43",
+                "doi": "10.21203/rs.3.pex-1358/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "5ac243e7-64e6-4ab5-842a-39f274d9daaf",
+        "owner": [],
+        "postedDate": "March 30th, 2021",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 2217706,
+                "name": "Biophysics"
+            },
+            {
+                "id": 2217707,
+                "name": "Biological techniques"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2021-03-30 08:15:43",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

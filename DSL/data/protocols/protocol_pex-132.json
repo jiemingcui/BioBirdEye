@@ -1,0 +1,367 @@
+{
+    "identity": "pex-132",
+    "title": "Co-transcriptional quantification of RNA synthesis, RNA folding and RNA-protein interactions by \"Systems NMR\" approach.",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p><br></p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p>### DNA/RNA template prepation:</p><p>- Standard DNA cloning, bacterial expression and DNA purification reagents</p><p>- Midi/Maxi kit for DNA purification allowing to purify \u2265 250 ug plasmid DNA</p><p>- NEB buffer 3.1</p><p>- BsaI enzyme for plasmid linearization</p><p><br></p><p>### In-vitro-transcription in NMR tube</p><p>- 5mm (or 3mm) NMR tubes (TA type is ok)</p><p>- 20x transcription buffer (TTD77): 800 mM Tris-HCl, pH 7.7, 0.2% Triton X-100, 100 mM dithiothreitol (DTT).</p><p>- 0.5mM DSS (4,4-dimethyl-4-silapentane-1-sulfonic acid) solution in D2O</p><p>- 80 mM nucleotide triphosphate (NTP) solutions (for each NTP, Applichem, ATP: A1348.0005; GTP: A1803.0001; CTP: A2145.0500; UTP: A2237.0001) - adjusted to pH 7.7-8.</p><p>- 1M MgCl2</p><p>- 100 U/ml Inorganic Pyrophosphatase from baker\u2019s yeast (Sigma)</p><p>- ~70 uM (7 g/l 100 kDa) - 250x T7 RNA Polymerase (usually prepared in-house)</p><p>- [If protein observations are planned]: RNA-binding protein of interest</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>- Standard DNA cloning, bacterial expression and DNA purification equipment</p><p>- NMR spectrometer with 1H + 31P cryoprobe (e.g. CPQCI), and \u2265 500 MHz 1H frequency (~12 Tesla)</p><p>- Computer with TopSpin and Matlab software</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "The most up-to-date version of the protocol (including example code and data) is available at:\ngithub.com/systemsnmr/ivtnmr\n### (A) Design and preparation of RNA transcription template(s), and protein (~8 days)\n#### 1. RNA sequence design (~0.5 day)\nBecause substantial fraction (30-70%) of transcription products are short abortive RNA products, an ~8nt-long 5'-overhang nucleotide sequence needs to be prepended to the main RNA, to minimize interference of these short abortive RNAs with specific protein-RNA interactions and RNA folding. This sequence is designed algorithmically and can be used as a separate control to identify specific RNA effects from the other network perturbations.\nHaving decided on the primary RNA sequence, run `sample_prep/aborts_n_backfolding_XX.m` script, following instructions/examples in the header of the script for 5'-overhang generation (e.g. avoiding formation of dimers, excluding GG/purine pairs, etc. The script will produce a range of possible 5'-overhang variants, from which one or several can be selected for experimental tests. Main criteria for downstream experimental selection are:\n- Judging from denaturing / non-denaturing gel-electrophoresis:\n- homogeniety of transcription product\n- yield of transcription product\n- If observation of imino signals from the folded RNA is important, and you're choosing between several 5'-overhang variants: run 1D1H NMR of the transcription mixture, and choose the sequence which produces the least number of \"background\" signals in the imino region of the spectrum.\n#### 2. Preparation of DNA templates (~7 days)\nTo ensure maximum homogeniety of synthesized RNA, we do the transcription from a plasmid DNA template (not from synthetic oligo-nucleotide templates). To increase efficiency, multiple templates can be prepared in parallel.\n#### 2A. Clone the template DNA under T7 RNA Pol promoter (~1 day cloning, ~1 day wait for colonies, ~2 days miniprep + sequencing)\nWe are using pTX1 vector system [Michel E. et. al, 2018](https://doi.org/10.1007/978-1-4939-7634-8_11). The `sample_prep/ptx1_primers.xls` provides automated template for design of cloning primers (see instructions in the file).\n#### 2B. Purify DNA template (~1.5 days)\n- Use a kit Nucleobond Xtra Maxi (Macherey-Nagel) or an equivalent from Qiagen, etc. This yields per column \u2265250-350 ug pTX1 plasmid DNA template, enough for ~10 transcription-NMR reactions (450ul each, at 33 nM DNA template).\nTips for the procedure:\n- Per one Maxi column grow ~300ml culture till OD600\u22483 (OD*V=900).\n- Can try to saturate the Maxi columns more, to reach 500-1000 ug plasmid yield per column: then grow e.g. 600ml of OD600\u22483 culture, and increase the volumes of buffer used for lysis & etc.\n- To get max yields: start the culture use a fresh (<7 days) colony, make overday preculture in 10ml until OD600\u22481, dilute 1:100 in the final ~300 ml medium for overnight growth. (or store the fresh OD600\u22481 preculture at 4\u00baC and start main culture in the morning).\n- Use baffled flasks, this allows to reach OD600\u22483, giving 4g cells / L culture.\n- Use 2x antibiotic amount than usual.\n- Elution from column: pre-heat elution buffer + make elution twice (reapplying same eluate).\n- After isopropanol precipitation centrifuge 1h @ 4000xg, 4\u00baC.\n- After isopropanol removal, wash the pellet not once, but 3 times with 70% ethanol, each time detaching DNA pellet from the walls by inverting the tube, and then centrifugation. This removes salts which reduce the yield &/or quality of transcription.\n- Dry the pellet on air for 4-6 hours (overnight also ok).\n- Dissolve DNA in H2O to ~0.41 \u00b5M concentration (650 \u00b5g/ml for 2.4kb plasmid) - this allows to have sufficiently concentrated DNA in the end (after linearization), to not dilute the final NMR sample too much.\n- To ensure homogenous dissolution of DNA pellet after drying, perform 3 cycles of: [vortex, incubate 10-20 minutes at 50\u00baC, vortex, freeze at -20\u00baC, thaw]. If pellet did not detach from the wall after first vortex, use the pipet to detach it.\n#### 2C. Linearize the DNA template (~0.5 day).\nTo maximize the yield and homogeniety of the main RNA product, it is important to thoroughly linearize the template. For the pTX1 plasmid we use BsaI enzyme (NOT the BsaI-HF version!), at 1.5U/ug DNA, in NEB buffer 3.1, for 13-15 hours at 50\u00baC, followed by 1h at 65\u00baC inactivation. Check the plasmid cleavage on 1% agarose gel.\n#### 2D. Optimize the MgCl2 concentration for transcription (~1 day)\nRun small-scale transcriptions (~25 \u00b5l is enough) and analyze them using denaturing PAGE with urea. In our hands for pure DNA template optimal MgCl2 range was always close to 1:1 ratio with NTPs (e.g. 20-24mM MgCl2 when using 20mM NTPs).\n#### 3. Buffer exchange for protein of interest (~0.5 day)\nTo match the starting Tris-Triton-DTT (TTD) transcription buffer, transfer your protein into: 40 mM Tris-HCl, 0.01% Triton-X100, 5 mM Dithiothreitol, pH 7.7. From our experience many proteins are stable in this buffer. To stabilize the protein more, one can potentially add:\n- 50 mM L-Arg/L-Glu (this leads to increased broadening of imino signals)\n- up to ~75 mM NaCl / KCl (salt decreases transcription efficiency)\n- ~1 mM NTPs - these seem capable to mask RNA-binding interfaces, reducing self-aggregation of protein through those. Added NTPs need to be taken into account in the total NTP concentration -- for addition of MgCl2, and for setting the initial concentrations during ODE network modeling.\n### (B) Setup of an in-vitro-transcription-NMR reaction (30-60 minutes)\n#### 1. Sample prep\n- Sample preparation template: `sample_prep/ivtnmr.xslx`\n- Below setup is for 450 ul samples in 5mm TA NMR tubes. One can also use 250-300ul samples is shigemi tubes and/or 150ul in 3mm tubes (but for 3mm tubes the acquisition times may need to be adjusted).\n- To increase observability of imino signals we:\n- Run reactions at 30\u00baC instead of 37\u00baC.\n- Exclude commonly added spermidine from the transcription buffer because it leads to significant broadening of imino signals.\n- Use transcription buffer with pH 7.7. T7 RNA Pol gives better yields at pH 8.1, but iminos are observed better at lower pH. During typical transcription reaction (starting with 20mM NTPs), due to release of free xPO4, pH goes down by ~0.2 pH units. The pH change can be monitored from the shift of 31P xPO4 signal and/or shift of 1H Tris signal.\n- In case you need larger fraction of sample volume to add diluted protein or other additives, the NTPs, MgCl2 and DNA template components can be pre-lyophilized together. This seems to not affect the yield or homogeniety of RNA product.\n- T7 RNA polymerase is added only after time0 reference spectra are recorded.\n#### 2. NMR setup\nNotes:\n!!!!!!!!!!\nWARNING: the TopSpin Python scripts and pulseprograms are provided here \"as is\" - merely as a guideline for automated setup. These were not thoroughly tested on different spectrometers and may contain bugs and incompatibilities with TopSpin and spectrometer console versions!\n!!!!!!!!!!\ufeff\n- We use an automated script `nmr/py/in_v02.yn.py` which makes tuning-matching, shimming, pulse calibrations and experiment setup.\n- The measured experiments are configured by this script based on the template experiments which are placed into an empty IVTNMR_template - template dataset (example in `nmr/IVTNMR_template`):\n- 1D1H (expno 12, pp `nmr/pp/zg-wg001`) - full 1H spectrum - for DSS calibration, pH check from Tris position, and potential quantification of individual NTPs (A/U/G/C) consumption rates (all four nucleotides have some specific signals in the aromatic region of the spectrum).\n- 2D 1H1H TOCSY (expno 13, pp `nmr/pp/stocsy003`) - (not required for the setup described in the paper) - allows to observe RNA with higher resolution on certain signals, e.g. U/C H5-H6 correlations.\n- 1D31P (expno 14, pp `nmr/pp/zgig002`) - to observe 31P-containing molecules\n- 2DHN-sofast-hmqc (expno 15, pp `nmr/pp/sfhmqc01`) - to observe protein\n- 1D1H-sofast (expno 16, pp `nmr/pp/zg-sofast006`) - to observe RNA imino region with increased sensitivity\nStep-by-step procedure:\n1. Create new dataset, including main information in its name, for simplification of automated analysis: `YYMMDD_INXXX_RNANAME_PROTEINNAME_TEMPERATURE_MAGNET` (e.g. `180914_IN71b_SMN1_coNUP1_303K_600`). Here, INXXX (IN71b) - is the experiment ID, implying same ID for the same RNA and protein combination. Replicate experiments are denoted with lowercase letter (IN71a, IN71b, ..) - so its easy to find similar experiments programmatically from shell, Matlab, etc.\n2. Make temperature calibration (we use expno 1 consistently).\n3. Insert the sample into magnet. Wait 1 min for temperature equilibration. Run `nmr/py/in_v02.yn.py` script for the setup of series. Check and test this script carefully before doing real runs.\n4. After the automation script has finished:\n- In 2DHN spectrum - set the SW / carrier / TD / etc parameters to the values optimal for your protein\n- Check the 90-degree 31P pulse value (script runs `paropt` procedure, storing results in expno 4 999) - and enter it into 1D31P experiment.\n- (If expect drift of tune-matching system): check the tune-match of channels of interest.\n- Start reference (time0) experiments.\n- **NOTE**: The key reference spectra required at this stage are 1D31P (as a reference for initial NTP concentration) and 2DHN (as a reference for initial protein peak positions / intensities). If the same batches of protein / NTPs are used - one can potentially start directly without recording new time0 references, and for downstream data analysis just make a copy of the references recorded in earlier days.\n5. Check that Autoshim is turned off (in our experience Autoshim can introduce variation in lineshapes between individual 1D/2D spectra, which is later hard to distinguish from real changes in the network / molecule dynamics).\n6. While references are running: use `nmr/py/createExpSeries.py` to generate time-series of repeating experiments for required time-period from the reference spectra. See the header of the script for details.\n7. If some tuning-matching was done during setup (if not doing consecutive measurements in the same buffer): check the probe did not detune on the channels of interest while references were running.\n8. Take sample out of the magnet, then:\n- (2 min) add T7 RNA Pol, mix the sample, spin if need to remove bubbles, insert sample back to the magnet.\n- (2 min) lock, temperature equilibration, check tune-match.\n- (1 min) topshim, twice!.\n- **NOTE**: remember/write down the time at which the RNA Pol was added. Later insert the exact time into the `notes.txt` file in the dataset directory. This file and time0 tag is automatically created by the `in_v02.xx.py` script. The\ntag gives the downstream analysis scripts info on when reaction was started:\n`\nYYYY-MM-DD HH:MM:SS\n`\n**Currently the analysis scripts assume the time zone is set identical on the spectrometer computer and the spectrometer console and don't check GMT zone. So be careful if the GMT setting of your spectrometer station is different from the GMT setting written by console into audita.txt file (these settings m/b different on NEO consoles)**\n9. Start experiment series (`qumulti ##-##`).\n### (D) Data processing (>= 1 hour per sample)\n1. Sort experiments: `sort.py`. This script sorts data by experiment type, adds rough experiment time to the title, creates cara repository with linked 2DHN spectra and `integr_datasets_31P.txt` file for 31P integration. See script header for details. For auto-generation of cara repository, two fragments of final repository (`180917_INx_blank_1top.cara`, `180917_INx_blank_2bottom.cara`) need to be present in the py/user directory.\n2. For quick visualization / comparison of data in TopSpin - see helper scripts: `res.py` (reading data by giving only parts of dataset name), `md.py` (overlaying series), `zim.py` and `zh33.py` (zooming on specific regions of spectra).\n2. Except for 31P spectra - the phases of 1D1H, 1D1H-iminos and 2DHN spectra need to be detemined manually for optimal results. For 1D1H and 2DHN - ideally the common phase for time-resolved series is determined not on the first (time0) spectrum, but on the second spectrum - one after T7 addition. One might want to check the phases of 2DHN and 1D1H time0 spectra then (these might be slightly different from \"time1\" spectra).\n3. Process 1D31P:\n- `qumulti 5000-5500`\n- example of processing command (check only SR corrections, in our setup phase seems determined robustly enough by `apks` routine):\n`SR -139; si 64k; wdw EM; lb 2; efp; apks; absf1 14; absf2 -26; absg 5; absn`\n4. Integrate: TopSpin `intser` command, pointing to the `integr_datasets_31P.txt` as the list of spectra to integrate (it should be created by `sort.py` in the dataset folder). Use default settings for integration - the calibration of integrals to internal NTP signal happens later during analysis.\n- Integration regions we use:\n```\n#\u00a0\u00a03.4714285714285715\u00a01.5571428571428572\u00a0\u00a0-- PO4\n#\u00a0\u00a00.42857142857142855\u00a0-2.676190476190476\u00a0-- PPi\n#\u00a0\u00a0-4.3238095238095235\u00a0-5.352380952380952\u00a0-- RNA\n#\u00a0\u00a0-5.352380952380952\u00a0-5.390476190476191\u00a0\u00a0-- gammaNTP\n#\u00a0\u00a0-5.390476190476191\u00a0-5.804761904761905\u00a0\u00a0-- RNA-5'gamma?\n#\u00a0\u00a0-9.101442036015632\u00a0-9.806884238970339\u00a0\u00a0-- betaNDP\n#\u00a0\u00a0-9.80952380952381\u00a0-10.433333333333334\u00a0\u00a0-- alphaNDP\n#\u00a0\u00a0-10.433333333333334\u00a0-11.219047619047618 -- alphaNTP\n#\u00a0\u00a0-17.60952380952381\u00a0-19.052380952380954\u00a0-- RNA-5'beta?\n#\u00a0\u00a0-19.052380952380954\u00a0-19.714285714285715 -- betaNTP\n```\n4. Process 2DHN:\n- `qumulti 4000-4500`\n- example of processing command (check phase, SR corrections, STSI/STSR for the dimensions of the final spectrum, etc):\n`2 sr -26.41; 1 sr -2.676; 2 phc0 -264.203; 2 phc1 0; 2 si 8k; 1 si 512; 2 STSI 2214; 2 STSR 1512; 1 stsi 0; 1 stsr 0; 2 absf1 11; 2 absf2 5.5; 1 absf1 200; 1 absf2 80; absg 5; xfb n nc_proc 7; abs2; abs1`\n5. Pick peaks in 2DHN spectra: create a project and a peaklist in a Cara repository, then pick peaks of interest and trace their positions across time series using peak aliasing in Cara Monoscope. The `sort.py` script creates a cara repository with linked spectra in the dataset folder. Downstream analysis scripts read the peaks information from cara repositories at the moment. If analyzing multiple datasets at once, it is, however, convenient instead of having multiple Cara files, to have one Cara file with each dataset represented by own project and peaklist. Useful shortcuts for peak tracing in Monoscope:\n- `Ctrl+1 / Ctrl+2` - move between spectra\n- `mp / ma` - move peak or its alias\n- `gp` - go to peak\n- `gs` - go to spectrum (if not argument provided will switch to the first spectrum in series)\n### (E) Data analysis and model fitting (\u2248 0.5 day)\nUnless stated otherwise, most below procedures are done in Matlab (`*.m` files).\n#### 1. Generate data structure for ODE model fit.\nRun `analysis/ODE/v01/model_and_data/gen_ivtnmr.m` - this script will read 31P integrals from above 31P integration file, and 2DHN chemical shifts from cara repository, and then create the data structure used by the ODE model fitting procedure in `ODE/v01/model_and_data/data_for_fit` folder. It will also generate \"ivtnmr\" data object in `ODE/v01/model_and_data/data_ivtnmr_full/` - which contains main information about IVTNMR experiment in one Matlab structure (names, number of time-points, integrals, chemical shifts, etc). The code in `v01` folder is largely self-contained - so its convenient to just duplicate and rename it (e.g. `v02_test`) to keep track of different versions when you're making adjustments to data analysis / model structure / etc.\n#### 2. Fit the ODE model.\nRun `analysis/ODE/v01/a_fit_multi.m`, which can fit multiple IVTNMR datasets sequentially. The procedure reads the ODE model from `model_and_data/xIVT.mdf` file and fits it into experimental data from `model_and_data/data_for_fit` generated at the previous step. You may need to adjust the rna length in the MDF file to suit your RNA length - it is included in the\nsection (e.g. for 28-nucleotide RNA: `+f1*(27/28) +f2 -f3`). The mdf file is generated by Matlab `convertBNGL_to_MDF.m` script based on the `xIVT.bngl` - Rule-Based-Model defined in BioNetGen language (mode details below). The fitting script will generate PDF figures of the fit summary (in `ODE/v01/model_and_data/figure_images`) and will export fitting results into `ODE/v01/model_and_data/a_fit_multi.mat` which can be read and analyzed further.\n#### 3. Visualize ODE fit results.\nRun `analysis/ODE/v01/a_visualize.m` - this will automatically read fitting results from `ODE/v01/model_and_data/a_fit_multi.mat` and visualize the fitted constants, replicates and errors.\n#### 4. Analyze and visualize time-resolved imino linewidths.\nRun `analysis/LW/a_fit_LW.m` to fit and visualize imino linewidths. This fitting assumes a sigle peak with lorentzian lineshape, and thus works best for well-resolved signals. Decrease of pH during reaction (usually around ~0.2 pH units) might lead to slight systematic change of linewidth with reaction time. Also, a \"growing\" baseline in a crowded region may lead to apparent narrowing of linewidth with reaction time, because the current fitting routine assumes baseline fixed at zero intensity. This effect can be factored out, if appropriate baseline correction is found. In the single-lorentzian fit, the intrinsic broadening of one imino signal cannot be distinguished from broadening caused by overlap with neighboring signals, which has to be considered when interpreting the data.\n### (F) Analysis of parameter (reaction constant) uncertainty\n- **Replicates.** Based on our current experience, the most sensible / realistic parameter uncertainties are obtained by running \u22652 experimental replicates - ideally using different batches of DNA template and/or protein. Basic code for calculation of such uncertainties is included in `analysis/ODE/v01/a_visualize.m`\n- **Bootstrap.** Uncertainties obtained from bootstrap analysis (resampling of the full data vector with replacement prior to the fitting), in our setup yield too narrow confidence intervals - most likely due to very high number of recorded data points.\n- **FIM.** The standard Fisher Information Matrix / Cramer Rao bound also often yields unrealistically narrow or unrealistically large uncertainties - most likely due to the lack of reasonable error estimates on the individual NMR integral / chemical shift data points.\n### (G) Adjusting ODE model\n1. In [RuleBender](http://visualizlab.org/rulebender/) software (or just text editor): **edit the BioNetGen network** definition (`ODE/v01/model_and_data/xIVT.bngl`). For downstream fitting it is important to match the number and order of defined observables to the data vectors you actually provide for model fitting.\n2. In shell/terminal: **recompile the model**.\n```\ncd ODE/v01/model_and_data\n../../../soft/BioNetGen217/Perl2/BNG2.pl xIVT.bngl\n```\n3. In Matlab: **convert the model to MDF format** for fitting.\n```\ncd ODE/v01/model_and_data\nconvertBNGL_to_MDF('xIVT.bngl')\n```\n4. In Matlab: **adjust the fitting routine** `v01/a_fit.m` to match the observables / data / constants used in the new network model. Key things which need to be checked:\n- Order/number of data vectors used for fitting (needs to match the observables in mdf file) - check `obs_data_to_keep` variable;\n- If added new observables/reactions: check if model initial params (NDP, Prot(s) conc, ..) are set correctly\n- If added new constants/params: check their init values in the `a_fit.m`, file and/or exclude from optimization. And potentially add their normalization and saving into the output of model fit results.\n**Note**: In the used here implementation BioNetGen cannot provide arbitrary rate laws and algebraic constants for scaling. If want such things included - need to specify them in the final `*.mdf` file used for fitting - similar to what we do for RNA length definition. Alternatively one can switch to e.g. [PottersWheel](https://potterswheel.de/) software which provides more advanced, up-to-date and fully integrated environment for model definition and optimization, including model optimization in log-space.\n### Disclaimer: Limitations of Liability for the code\nThe code, pulseprograms, and especially TopSpin Python scripts, in this repository are provided \"as is\" - merely as a guideline for automated setup. These were not thoroughly tested on different spectrometers and may contain bugs and incompatibilities with TopSpin versions. Authors assume no responsibility, and shall not be liable to you or to any third party for any direct, indirect, special, consequential, indirect or incidental losses, damages, or expenses, directly or indirectly relating to the use or misuse of the code and pulseprograms provided here."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p>Indicated directly in corresponding sections.</p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>Indicated directly in corresponding sections.</p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>Key results from the network reconstruction:</p><p>- Overall pattern of RNA iminos - reporting on the structural fold of the RNA.</p><p>- Time-resolved LineWidths of RNA imino signals - quantitatively reporting on structural in RNA during transcription reaction. Linewidths are convertible to \u2206G - free energy of folding, when the intrinsic and base-flipping rates of imino exchange (kex,intrinsic and kex,base-flipping) are known.</p><p>- Time-resolved and RNA-concentration resolved chemical shift and signal intensity perturbations for all observable residues in the protein of interest - reporting on potential interaction sites / structural changes in the protein.</p><p>- Kd of the protein-RNA interaction (if protein becomes saturated during reaction, and/or if chemical shifts of protein residues in RNA-saturated state are known).</p><p>- kcat rate of RNA transcription.</p><p>- Individual rates of ATP, GTP, UTP, CTP consumption (currently not yet implemented in the automated analysis).</p>"
+        },
+        {
+            "header": "References",
+            "content": ""
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>We thank J. Vollmer and G. Fengos for the help with network modeling. We acknowledge G. Wider and all members of the ETH BNSP platform for excellent maintenance of the NMR infrastructure. We thank all members of the Allain Lab, in particular F. Damberger, and the Parpan retreat participants for helpful discussions. This work was supported by the Promedica Stiftung, Chur (Grant 1300/M to Y.N.), Novartis Foundation and Krebsliga Zurich (Y.N.), NCCR RNA and Disease by the Swiss National Science Foundation (F.A. and N.R.).</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41592-019-0495-7",
+                "date": "2019-07-30 16:04:20",
+                "title": "Systems NMR: single-sample quantification of RNA, proteins and metabolites for biomolecular network analysis",
+                "authors": [
+                    "Yaroslav Nikolaev",
+                    "Nina Ripin",
+                    "Martin Soste",
+                    "Paola Picotti",
+                    "Dagmar Iber",
+                    "Fr\u00e9d\u00e9ric H.-T. Allain"
+                ],
+                "journal": "Nature Methods",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 82582,
+                "identity": "7b8d2d8a-b034-4d33-b4d6-2f38c61f4fad",
+                "order_by": 1,
+                "name": "Yaroslav Nikolaev",
+                "email": "yaroslav.v.nikolaev@gmail.com",
+                "orcid": "https://orcid.org/0000-0002-1479-7474",
+                "institution": "ETH Zurich",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Yaroslav",
+                "middleName": "",
+                "lastName": "Nikolaev",
+                "suffix": ""
+            },
+            {
+                "id": 82584,
+                "identity": "bb54d99a-9b24-41bd-8cc5-03eea22ed3e2",
+                "order_by": 2,
+                "name": "Nina Ripin",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0001-6099-6506",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Nina",
+                "middleName": "",
+                "lastName": "Ripin",
+                "suffix": ""
+            },
+            {
+                "id": 82585,
+                "identity": "9f17f32c-d74a-4653-ace9-485daa1a7376",
+                "order_by": 3,
+                "name": "Martin Soste",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Martin",
+                "middleName": "",
+                "lastName": "Soste",
+                "suffix": ""
+            },
+            {
+                "id": 82586,
+                "identity": "6cc5f817-dc8d-42c3-8866-91cb057a1b64",
+                "order_by": 4,
+                "name": "Paola Picotti",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-4109-3552",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Paola",
+                "middleName": "",
+                "lastName": "Picotti",
+                "suffix": ""
+            },
+            {
+                "id": 82587,
+                "identity": "f98bf532-547a-47d7-be29-849ee28922f6",
+                "order_by": 5,
+                "name": "Dagmar Iber",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0001-8051-1035",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Dagmar",
+                "middleName": "",
+                "lastName": "Iber",
+                "suffix": ""
+            },
+            {
+                "id": 82589,
+                "identity": "1dc95bbe-906f-4ae8-be8b-fd64e1ed24b0",
+                "order_by": 6,
+                "name": "Fr\u00e9d\u00e9ric H.-T. Allain",
+                "email": "allain@mol.biol.ethz.ch",
+                "orcid": "https://orcid.org/0000-0002-2131-6237",
+                "institution": "ETH Zurich",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Fr\u00e9d\u00e9ric",
+                "middleName": "H.-T.",
+                "lastName": "Allain",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2019-04-12 09:02:24",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.2.9160/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.2.9160/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2610791,
+                "identity": "8c95b377-c419-477e-826a-0bec62079ed1",
+                "added_by": "b5c1bd82-c6ed-4f37-95f6-c9a8ecfdbd4c",
+                "created_at": "2020-09-25 20:51:52",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 130053,
+                "visible": true,
+                "origin": "",
+                "legend": "Network model of the co-transcriptional system monitored/quantified in this Systems NMR assay.",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/pex-132/v1/figure_1.png"
+            },
+            {
+                "id": 13471196,
+                "identity": "4df3f8e9-1b31-43b8-a16e-1b1baf935057",
+                "added_by": "auto",
+                "created_at": "2021-09-16 21:08:16",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 380546,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-132/v1/56a5d2d1-64f2-4c94-a7c6-ea6a2d8ab9f1.pdf"
+            },
+            {
+                "id": 2610756,
+                "identity": "2a621756-fc06-49c5-ad27-7439771cf54a",
+                "added_by": "b5c1bd82-c6ed-4f37-95f6-c9a8ecfdbd4c",
+                "created_at": "2020-09-25 20:51:50",
+                "extension": "zip",
+                "order_by": 2,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 50835143,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "supplement2.zip",
+                "url": "https://assets.researchsquare.com/files/pex-132/v1/supplement_2.zip"
+            },
+            {
+                "id": 2614154,
+                "identity": "74b175bc-52fb-4853-bb44-3ff70ed3bcd5",
+                "added_by": "0073f0d3-a757-4a82-bad1-ea1dd7a7a77a",
+                "created_at": "2020-09-25 20:54:03",
+                "extension": "mp4",
+                "order_by": 3,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 682121,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "supplement3.mp4",
+                "url": "https://assets.researchsquare.com/files/pex-132/v1/supplement_3.mp4"
+            },
+            {
+                "id": 2610790,
+                "identity": "88be98ef-3251-4549-9c8a-1da52ebc25b7",
+                "added_by": "b5c1bd82-c6ed-4f37-95f6-c9a8ecfdbd4c",
+                "created_at": "2020-09-25 20:51:52",
+                "extension": "png",
+                "order_by": 3,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 130053,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "supplement3.png",
+                "url": "https://assets.researchsquare.com/files/pex-132/v1/supplement_3.png"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Systems Biology, NMR, biochemical networks, transcription, RNA folding, interactions, phase separation, liquid-liquid-phase-separation, NMR spectroscopy, RNA-binding proteins",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>The protocol describes how to setup and analyse observation of a co-transcriptional RNA folding network by Systems NMR approach. While most experimental approaches can monitor only a single molecule class or reaction type at a time, Systems NMR permits single-sample dynamic quantification of entire \u201cheterotypic\u201d networks \u2013 involving different reaction and molecule types. It thus provides a deeper systems-level understanding of biological network dynamics by combining the dynamic resolution of biochemical assays and the multiplexing ability of \u201comics\u201d.</p><p>\t\tThis particular protocol describes the reconstruction of an 8-reaction co-transcriptional network - with simultaneous monitoring of RNA, metabolite, and proteins in a single sample at the same time. From reactions side, the protocol simultaneously quantifies RNA transcription, RNA folding and RNA-protein interactions (observed both from RNA and from protein side) and few other auxiliary reactions. In addition to fundamental analyses of reaction constants under different conditions, the current applications of this particular reconstruction are: (1) map RNA-binding interfaces on proteins without having to purify/order the RNA; (2) monitor co-transcriptional RNA folding perturbations by proteins and small molecules; (3) monitor RNA-transcription-driven protein phase-separation with the possibility to observe multiple proteins at once, each with residue-level resolution. Not counting the protein and RNA template preparation times, the NMR measurement and data analysis parts take about 1 day each.</p><p>\t\tThis protocol accompanies Nikolaev et al, Nature Methods, 2019 (doi:XXX). The most up-to-date version of the protocol (including example code and data) is available at: <a href=\"https://github.com/systemsnmr/ivtnmr\" target=\"_blank\">github.com/systemsnmr/ivtnmr</a></p>",
+        "manuscriptTitle": "Co-transcriptional quantification of RNA synthesis, RNA folding and RNA-protein interactions by \"Systems NMR\" approach.",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2019-08-22 16:14:36",
+                "doi": "10.21203/rs.2.9160/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "b5c1bd82-c6ed-4f37-95f6-c9a8ecfdbd4c",
+        "owner": [],
+        "postedDate": "August 22nd, 2019",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 11308,
+                "name": "Chemistry"
+            },
+            {
+                "id": 11310,
+                "name": "Biochemistry"
+            },
+            {
+                "id": 11311,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 11312,
+                "name": "Structural biology"
+            },
+            {
+                "id": 11313,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 11314,
+                "name": "Chemical biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2019-08-22 16:14:36",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

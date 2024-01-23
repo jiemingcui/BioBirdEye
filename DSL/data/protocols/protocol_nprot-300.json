@@ -1,0 +1,377 @@
+{
+    "identity": "nprot-300",
+    "title": "Investigating patchiness of spatially organized ecosystems using field and simulated data",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Individuals of a population are rarely spatially homogeneously distributed.  In most ecosystems, individuals present a certain degree of clustering, meaning that they are more often close to each other than by chance, forming patches of individuals<sup>1</sup>.  Changes in external conditions \\(such as climate changes or human land use changes) might induce a spatial reorganization of the individuals.  Particularly, some systems, called critical systems, are well-known to develop a characteristic spatial organization when close to a dramatic shift in state, that can involve important changes in population abundance and species diversity<sup>2</sup>.  Classical examples are wind-disturbed tropical forests<sup>3</sup>, fire-disturbed forest<sup>4</sup> and intertidal mussel beds<sup>5</sup>.  In these systems, near the critical point of transition to complete extinction, the patch size distribution of tree or mussel cover exhibits a power law behaviour<sup>3,6</sup>.\r\n\n\nHere, we present a technique that provides a way of characterizing the spatial organization of patchy systems, and to investigate if there are fundamental changes in this spatial organization when conditions change.  The protocol we propose can be applied to spatially organized real systems or to spatially explicit lattice model systems, and we expose the protocol for these two cases.  The protocol consists in estimating the patch size distribution, i.e. the number of patches of individuals as a function of their size.  The patch size distribution can be described by a mathematical law \\(e.g. a line, or a polynomial on a logarithm scale).  When external conditions change, this law might change as well.  Statistical tests allow the selection of the model that describes best the patch size distribution.  In the case of Mediterranean arid ecosystems, we found that the patch size distribution of vegetation is characterized by a power law, and that this distribution deviates from a power law when external conditions deteriorate towards desertification<sup>7</sup>.  The different steps of the protocol are summarized in a scheme \\(Fig. 1).\r\n\n\nNote that investigating the patch size distribution is only one of the possible ways of characterizing the spatial organization of a system.  This methodology can be applied to any patchy system, and we expect similar results than ours in ecosystems subjected to stressful conditions \\(e.g. harsh environments such as alpine systems, salt marshes, intertidal habitats) where local positive interactions operate."
+        },
+        {
+            "header": "Equipment",
+            "content": "**A) Real system**\r\n\n\nIt is best to be two persons to record a transect.\r\n\n\nMetallic nails to put at the ends of the transects \\(two nails per transect).\r\n\n\nMeasuring tape \\(of the size of the transects at least), to measure the size of the patches along the transect.  We used a 50 m long measuring tape.\r\n\n\nIron stick 3mm wide to go along the transect and evaluate the beginning and the end of each patch.  The height of the stick should be more or less similar to the highest element of the system to have an accurate prediction of the vertical projection of the element on the ground.\r\n\n\nGPS to record the position of the transects \\(not essential).\r\n\n\nPsion series 5mx \\(Palm computer) to record the data \\(that is what we used, with a specific program for our data recording).  A pad with data sheets and a pen is also possible.  \r\n\n\nAny necessary material to evaluate the condition varying.  In our case, we estimated the grazing pressure in three sites of each of the studied area.  For this, a GPS, a binocular and a chronometer were used. Psion series 5mx with a specific program was also used for collecting feeding activity. \r\n\n\n\r\n\n\n**B) Model**\r\n\n\nIn the case of a model analysis, there is no specific material needed \\(except for a normal PC with no specific requirements).  In the following, we suppose that a spatial model of the system is available, including the fundamental mechanisms driving the dynamics of the system, and reproducing the same kind of patches as observed in the field.  In our case, we derived a stochastic cellular automaton model that described the spatio-temporal dynamics of vegetation in arid Mediterranean ecosystems.  We performed our analyses using the software MATLAB&#xAE; \\(7.0)."
+        },
+        {
+            "header": "Procedure",
+            "content": "**I| Choice of the system** \r\n\n\n\r\n\n\nDefine what a patch is. In our case of Mediterranean ecosystems, we defined a patch as an area totally covered by vegetation. \r\n\n\n\r\n\n\n**A) In case of a real system** \r\n\n\nThe line-intercept method is an appropriate sampling method to measure vegetation cover in patchy systems\n8\n.  This method consists in measuring the vertical projection of vegetation on the ground. It provides a one-dimensional measure, but it is proven to be a good estimation for patch size\n8\n. This method assumes isotropy of the system.  We selected areas with gentle slope, and to avoid anisotropy we established transects perpendicular to the slope.  If the terrain would have been flat, we would have taken random orientation for the transects.\r\n\n\n1. Choice of different sites corresponding to the different conditions to be compared.  Except for the condition, the sites should be as similar as possible.  In our case, the studied condition was the level of grazing pressure.  We chose sites under different grazing pressures that had equivalent climate, vegetation type, soil type, slope aspect, and slope angle.\r\n  2. The condition must then be evaluated for each site.  In our case, three grazing pressures were identified: low, medium and high.  Effective stocking rates \\(animals ha-1 year-1) were calculated by animals observation.  Animals \\(goats and sheep) were followed in the field.  Their movement \\(position located by GPS and transferred to a map in a GIS) and the time spent in each site were recorded.  Effective stocking rate was calculated as the average stocking rate multiplied by the percentage of time each grazing site was used\n9\n.   \r\n  3. Decide the time of the year to collect the data.  In our case, Mediterranean climate presents a strong seasonality.  Therefore, the data were collected at the peak vegetation growth period, which is from April to June. \r\n  4. Choose the size of the transects.  This depends on the size of the patches.  A transect should be big enough to include all the spatial variability of interest.  For the areas in Greece \\(shrubland) and Spain \\(scrubland), we took transects of 32 meters long.  In Morocco however, we estimated a priori that 16 m was long enough, because the vegetation type was different \\(mountain grassland). \r\n  5. Choose the number of transects \\(number of repetitions).  We recorded 30 transects per grazing pressure \\(low, medium and high) and per area \\(Spain, Greece, Morocco). \r\n  6. Choose a random location in the sites for all the transects so that the estimates are accurate.\r\n  7. Put a nail at each of the ends of the transects.\r\n  8. Put the measuring tape in between the two nails of each transect on top of the elements \\(e.g. above the shrubs in shrublands and herbaceous species in grasslands).\r\n  9. Recording the location of the transects by GPS can be useful to follow the transects in time or to plot the transects on a map \\(this step is not necessary)\r\n  10. It is easier to be two persons to record a transect.  One person goes along the transect, holding a stick vertically in his hand.  The stick follows the measuring tape.  When the sticks touches an element of the patch \\(e.g. a plant), the second person records the beginning point of the patch as a distance on the transect from the beginning nail.  The first person keeps going along the transect, still holding the stick vertically.  The end point of the patch \\(again as a distance from the beginning nail) is recorded as soon as the stick does not touch any element of the patch anymore \\(Fig. 2). \r\n  \r\n\n\n**B) In case of a model system**\r\n\n\nLet us assume that there is a spatial lattice-structured model that describes the system of interest.  At the end of the simulation of the system dynamics, the model provides the spatial repartition of the elements that form the patches \\(e.g. vegetation).  The lattice is then a two-phases mosaic: the patches of elements \\(e.g. patches of vegetation) and the rest of the lattice \\(e.g. sites without any vegetation).\r\n\n\n1. Define the type of neighbourhood.  In our case, we decided that the four nearest neighbours of a lattice cell \\(top, bottom, left, right) constitute the neighbourhood of this cell.  This is called the von Neumann neighbourhood\n10\n. \r\n  2. Based on this definition, the patches can be delimited: two elements are part of the same patch if they are neighbours according to the definition.\r\n  \r\n\n\n\r\n\n\n**2| Extraction of the number and size of the patches**\r\n\n\n\r\n\n\nDefine sizes-classes.  We took classes of 5 cells for the model analyses, and of 10 cm for the system analyses.  The choice of the size-classes was motivated by the final number of classes obtained \\(and was therefore determined by the maximum patch size), but it does not affect the results.\r\n\n\n\r\n\n\n**A) In case of a real system** \r\n\n\n1. Transform the data into patch size.  The length of a patch along the transect is calculated as: end point minus beginning point \\(in cm).  For each transect, record the size of all the patches, and the number of patches.\r\n  2. Evaluate the number of patches in each size-class \\(e.g. number of patches whose size is between 0 and 10 cm, between 10 and 20 cm, etc).\r\n  \r\n\n\n**B) In case of a model system**\r\n\n\n1. Evaluate the size of the patches \\(number of cells belonging to the same patch).\r\n  2. Calculate the number of patches in each class \\(e.g. number of patches that have a size between 1 and 5 cells, between 5 and 10 cells, etc)\r\n  \r\n\n\n_a) If the model is stochastic:_\r\n\n\n\\(i) Along a simulation, once the steady state reached \\(e.g. the vegetation cover does not vary anymore), record the number and size of the patches at each time step during several time steps\n11\n. We did this for 2000 time step after steady state. \r\n\n\n\\(ii) Average these distributions \\(e.g. total number of patches between 0 and 5 cells divided by the number of time steps).\r\n\n\nNote that these latest points are different than what is done in real systems. Indeed in a stochastic model, simulations outputs differ at each time step even if the steady state is reached \\(e.g. the vegetation cover does not vary anymore).  Having a high number of repetitions allows having a much better estimation of the law describing the patch size distribution. \r\n\n\n\r\n\n\n_b) If the model is deterministic:_\r\n\n\n\\(i) Once the steady state reached, evaluate the number and size of the patches in the same way as in the real system.\r\n\n\n\r\n\n\n\r\n\n\n**III| Analysis of the patch size distribution**\r\n\n\n\r\n\n\n1. On a logarithmic scale, plot the number of patches in a given size-class as a function of the size-class. \r\n  2. Compare different model fits statistically \\(see next point).\r\n  \r\n\n\n\r\n\n\n**IV| Comparison of different models for the description of the patch size distribution**\r\n\n\n\r\n\n\nIn our case of arid Mediterranean ecosystems, both in the data and in the model, the patch size distribution of the vegetation on a logarithm scale was either linear, meaning that the distribution follows a power law, or bended, what we call truncated power law in the following.  Let _N\\(S)_ be the number of patches of size _S_. A power law can be described by: _N\\(S)=C S\n-\u03b3\n_, and a truncated power law by _N\\(S)=C S\n-\u03b3\ne\n-S/S\nx\n_ \\(_C_, _\u03b3_ and _S\nx\n_ are constants).  These two models are nested.  The truncated power law is the full model, and the power law the reduced model. \r\n\n\n\r\n\n\n1. Fit all the patch size distributions to the possible models \\(in our case power law and truncated power law). \r\n  2. For each patch size distribution, perform a sum of square reduction test\n12\nto decide which model describes best the data.  The _F_ value of the sum of square reduction test can be obtained as following _F\nobs\n=\\(SSR\nr\n- SSR\nf\n)/\\(q MSR\nf\n)_, with _SSR\nf\n_ and _SSR\nr\n_ the residuals sum of squares in the full and reduced model, respectively, _MSR\nf\n_ the residual mean square in the full model, and _q_ is the difference in the number of parameters between the full and the reduced model \\(in our case _q_=1, the only different parameter is _S\nx\n_).  \r\n  Under the null hypothesis, the statistics _F\nobs\n_ has an _F_ distribution with _q_ numerator and _dfR\nf\n_ denominator degrees of freedom.  _F\nobs\n_ is compared to _F\n\u03b1,q,dfRf\n_.  If the resulting _p_-value that is larger than _\u03b1_, the reduced model describes best the data \\(In our case, we took _\u03b1_=0.05).\r\n\n\nDoing this for patch size distributions corresponding to different conditions allows checking whether a different model describes the patch size distribution under different external conditions \\(Fig. 3). \r\n\n\nIn the case of arid Mediterranean ecosystems, at low level of external stress \\(i.e. low grazing pressure), the patch size distribution was linear on a logarithm scale, meaning that the patch size distribution followed a power law.  For low grazing pressure, a power law described best the model.  For high grazing pressure the patch size distribution was bended on a logarithm scale, and a truncated power law described best the model."
+        },
+        {
+            "header": "Timing",
+            "content": "In the field, it takes about two to three hours to analyze a transect of 30 meters long with two persons.  Once the model available and running, the model analyses can be performed in about a few days/weeks."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "To avoid person related errors in observation, the person measuring should ideally always be the same in the line-intercept method.  The accuracy of the method is good if the vertical projection can be well defined, which can be difficult for high elements of the system \\(i.e. elements that are much taller than the stick), such as tall trees."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "For harsh ecosystems where local facilitation, or local positive interactions, are driving mechanisms of ecosystem functioning, we expect the patch size distribution to follow a power law \\(i.e. a linear relationship on a logarithm scale) for a low level of external stress, and deviate from this power law at higher levels of external stress.  Based on our model results, we expect deviations to always and only occur before a drastic change in the ecosystem state \\(Fig. 3)."
+        },
+        {
+            "header": "References",
+            "content": "1. Levin, S. A. The Problem of Pattern and Scale in Ecology. Ecology 73, 1943-1967 \\(1992).\r\n  2. Pascual, M. &amp; Guichard, F. Criticality and disturbance in spatial ecological systems. Trends in Ecology &amp; Evolution 20, 88-95 \\(2005).\r\n  3. Kubo, T., Iwasa, Y. &amp; Furumoto, N. Forest spatial dynamics with gap expansion: Total gap area and gap size distribution. Journal of Theoretical Biology 180, 229-246 \\(1996).\r\n  4. Malamud, B. D., Morein, G. &amp; Turcotte, D. L. Forest fires: An example of self-organized critical behavior. Science 281, 1840-1842 \\(1998).\r\n  5. Guichard, F., Halpin, P. M., Allison, G. W., Lubchenco, J. &amp; Menge, B. A. Mussel disturbance dynamics: Signatures of oceanographic forcing from local interactions. American Naturalist 161, 889-904 \\(2003).\r\n  6. Sole, R. V. &amp; Manrubia, S. C. Are Rain-Forests Self-Organized in a Critical-State. Journal of Theoretical Biology 173, 31-40 \\(1995).\r\n  7. K&#xE9;fi, S. et al. Spatial vegetation patterns and imminent desertification in Mediterranean arid ecosystems. Nature, Accepted in principle \\(2007).\r\n  8. Bonham, C. D. Measurements for terrestrial vegetation \\(John Wiley &amp; Sons, New York, 1988).\r\n  9. Alados, C. L. et al. Change in plant spatial patterns and diversity along the successional gradient of Mediterranean grazing ecosystems. Ecological Modelling 180, 523-535 \\(2004).\r\n  10. Iwasa, Y. in The geometry of ecological interactions. Simplify ecological complexity. \\(eds. Dieckmann, U., Law, R. &amp; Metz, J. A. J.) 227-251 \\(Cambridge University Press, Cambridge, 2000).\r\n  11. Pascual, M., Roy, M., Guichard, F. &amp; Flierl, G. Cluster size distributions: signatures of self-organization in spatial ecologies. Philosophical Transactions of the Royal Society of London Series B-Biological Sciences 357, 657-666 \\(2002).\r\n  12. Schabenberger, O. &amp; Pierce, F. J. Contemporary statistical models for the plant and soil sciences \\(CRC Press LLC, Boca Raton, 2002)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "The research of S.K. and M.R. is supported by a personal VIDI grant of the Netherlands Organization of Scientific Research / Earth and Life Sciences \\(NWO-ALW) to M. R.  The research of Y.P. is funded by Secretar&#xED;a de Estado de Universidades e Investigaci&#xF3;n of Ministerio de Educaci&#xF3;n y Ciencia \\(Spain).  The research of P.C.R. is supported by the LNV-NL Strategic Research Program &#x201C;Sustainable spatial development of ecosystems, landscapes and regions&#x201D;.  We are grateful to Micha&#xEB;l K&#xE9;fi for helping with the figures."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nature06111",
+                "date": "2007-07-11 10:05:11",
+                "title": "Spatial vegetation patterns and imminent desertification in Mediterranean arid ecosystems",
+                "authors": [
+                    "Sonia Kefi",
+                    "Max Rietkerk",
+                    "Concepcion L. Alados",
+                    "Yolanda Pueyo",
+                    "Vasilios P. Papanastasis",
+                    "Ahmed ElAich  &  Peter C. de Ruiter"
+                ],
+                "journal": "Nature",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 10434,
+                "identity": "9f04680e-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Sonia K\u00e9fi",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Environmental Sciences, Copernicus Institute, Utrecht University, The Nertherlands",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Sonia",
+                "middleName": "",
+                "lastName": "K\u00e9fi",
+                "suffix": ""
+            },
+            {
+                "id": 10435,
+                "identity": "9f046abf-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Max Rietkerk",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Environmental Sciences, Copernicus Institute, Utrecht university, The Netherlands",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Max",
+                "middleName": "",
+                "lastName": "Rietkerk",
+                "suffix": ""
+            },
+            {
+                "id": 10436,
+                "identity": "9f046ca3-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Concepti\u00f3n L. Alados",
+                "email": "",
+                "orcid": "",
+                "institution": "Pyrenean Institute of Ecology, Spain",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Concepti\u00f3n",
+                "middleName": "L.",
+                "lastName": "Alados",
+                "suffix": ""
+            },
+            {
+                "id": 10437,
+                "identity": "9f046e2c-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Yolanda Pueyo",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Environmental Sciences, Copernicus Institute, Utrecht University, The Netherlands",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Yolanda",
+                "middleName": "",
+                "lastName": "Pueyo",
+                "suffix": ""
+            },
+            {
+                "id": 10438,
+                "identity": "9f047038-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Vasilios P. Papanastasis",
+                "email": "",
+                "orcid": "",
+                "institution": "Laboratory of Rangeland Ecology, Aristotle University, Greece",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Vasilios",
+                "middleName": "P.",
+                "lastName": "Papanastasis",
+                "suffix": ""
+            },
+            {
+                "id": 10439,
+                "identity": "9f0471ae-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Ahmed  Elaich",
+                "email": "",
+                "orcid": "",
+                "institution": "Dpartement des Productions Animales, Institut Agronomique et V\u00e9t\u00e9rinaire Hassan II, Rabat, Morocco",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Ahmed",
+                "middleName": "",
+                "lastName": "Elaich",
+                "suffix": ""
+            },
+            {
+                "id": 10440,
+                "identity": "9f047332-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Peter C. de Ruiter",
+                "email": "",
+                "orcid": "",
+                "institution": "Soil Center, Wageningen University and Research Center, Wageningen, The Netherlands",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Peter",
+                "middleName": "C.",
+                "lastName": "de Ruiter",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2010-08-18 10:44:17",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/nprot.2007.387",
+        "doiUrl": "https://doi.org/10.1038/nprot.2007.387",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2607797,
+                "identity": "f71ce396-d660-4cff-8f37-e60070acaa85",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:47",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 223634,
+                "visible": true,
+                "origin": "",
+                "legend": "Steps of the protocol depending on the type of systems under study.     Purple: steps common to the three types of systems.  Green: specific steps to field data.  Blue: specific steps to deterministic model systems.  Yellow: specific steps to stochastic model systems.  The numbers between brackets under the boxes correspond to the particular values we used.",
+                "description": "",
+                "filename": "figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-300/v1/figure_1.jpg"
+            },
+            {
+                "id": 2607799,
+                "identity": "41d702b9-f70c-48f4-a939-2c91a8bded97",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:47",
+                "extension": "jpg",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 116460,
+                "visible": true,
+                "origin": "",
+                "legend": "Illustration of the line-intercept method used in patchy real ecosystems.     (a)  Schematic representation of a patchy system.  Black: patches of elements (e.g. vegetation patches).  White: rest of the system (e.g. area deprived of vegetation cover).  (b) Same patchy system as in (a) with three randomly located and oriented transects designed (grey lines) (flat terrain case).  (c) Same transects as in (b) with the patches projection.  Grey: empty areas.  Black: parts of the transect that cross a patch.  The number on the left of the transects refer as the same numbers in (b).  The patch sizes obtained by this method are measures of the length of the black areas.    ",
+                "description": "",
+                "filename": "figure2.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-300/v1/figure_2.jpg"
+            },
+            {
+                "id": 2607800,
+                "identity": "d0e2d511-5a4d-4ed2-9d9d-86499fa8b665",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:47",
+                "extension": "jpg",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 179878,
+                "visible": true,
+                "origin": "",
+                "legend": "Illustration of the link between the proposed procedure and the expected results.     Along a gradient of condition (e.g. grazing pressure), for different values of this condition, the patch size distribution of the system can be derived as proposed in the procedure.  The best-fitted models for the patch distribution can be compared for the different values of the condition.  Based on our model results, for harsh ecosystems with local positive interactions, we expect the patch size distribution to follow a power law (PL) until a range of conditions just before the system shifts to a degraded state.  In this range of conditions, the patch size distribution would follow a truncated power law (TPL). ",
+                "description": "",
+                "filename": "figure3.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-300/v1/figure_3.jpg"
+            },
+            {
+                "id": 2607798,
+                "identity": "8e0dd46b-3ffa-4c0c-8ba7-6b7470958ea8",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:47",
+                "extension": "png",
+                "order_by": 4,
+                "title": "Figure 4",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 125202,
+                "visible": true,
+                "origin": "",
+                "legend": "Figure 1",
+                "description": "",
+                "filename": "figure4.png",
+                "url": "https://assets.researchsquare.com/files/nprot-300/v1/figure_4.png"
+            },
+            {
+                "id": 2607801,
+                "identity": "8bc5cb08-494e-416b-91d0-a89d87ae140e",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:47",
+                "extension": "png",
+                "order_by": 5,
+                "title": "Figure 5",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 85169,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "figure5.png",
+                "url": "https://assets.researchsquare.com/files/nprot-300/v1/figure_5.png"
+            },
+            {
+                "id": 13464354,
+                "identity": "c044156c-2914-424c-bf86-f2de2f7628cd",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:43:01",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 537196,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-300/v1/875d4fc6-c678-40d0-ae31-24795dbf4455.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "line-intercept method, cellular automaton, lattice-structured models, spatial patterns, patch size distribution, truncated power law\r\n\r\n",
+        "license": {
+            "name": "None",
+            "url": ""
+        },
+        "manuscriptAbstract": "",
+        "manuscriptTitle": "Investigating patchiness of spatially organized ecosystems using field and simulated data",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2007-09-17 08:00:32",
+                "doi": "10.1038/nprot.2007.387",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9f040ef6-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "September 17th, 2007",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 1846,
+                "name": "Computational biology and bioinformatics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2007-09-17 08:00:32",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

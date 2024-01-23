@@ -1,0 +1,238 @@
+{
+    "identity": "pex-791",
+    "title": "<p>Generation of human knock-in organoids by CRISPR-HOT</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>The generation of engineered human adult stem cells (ASC)-derived organoids requires efficient strategies for&nbsp;<em>in vitro</em>&nbsp;genome editing to be applied after the lines have been established. CRISPR/Cas9 technology has considerably simplified genetic engineering.&nbsp;The used approaches so far were limited to harnessing the homology directed repair (HDR) pathway by taking advantage of a mechanism used by cells to repair double strand breaks (DSBs) which can be introduced at specific sites by CRISPR/Cas9. HDR is the most commonly used approach for targeted insertion, but this process is inefficient and requires cells to be in S phase. Additionally, it&nbsp;requires cloning of the donor plasmid due to the necessity of the presence of homology arms specific to each gene.&nbsp;</p><p>Non-homologous end joining (NHEJ), another key DNA repair system, is active in all cell cycle phases, and by ligating DNA ends, does not require regions of homology. Since it is generally believed to be error prone, NHEJ is not widely used for precision transgene insertion. Yet, it has been suggested that NHEJ can be fundamentally accurate and can re-ligate DNA ends without mistakes. Indeed, a handful of studies have exploited NHEJ to ensure the targeted insertion of exogenous DNA in zebrafish, mouse, immortalized human cell lines, and ES cells. We leveraged NHEJ-mediated knock-in to the human organoid field (Artegiani, Hendriks et al.,in press), an approach termed CRISPR-HOT,&nbsp;as&nbsp;a versatile, efficient and robust homology-independent method to obtain knock-in human wild-type organoids from different organs. Here, we describe the protocol of CRISPR-HOT to generate human knock-in organoids.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p>Addgene plasmids (#47108, #67166, #66939, #66940, #66941, #138567, #138568, #138570, #138571)</p><p>DH5a competent cells</p><p>LB medium and LB/agar plates</p><p>Ampicillin</p><p>T4 polynucleotide kinase (New England BioLabs, cat. no. M0201S)</p><p>T4 DNA ligase reaction buffer, 10\u00d7 (New England BioLabs, cat. no. B0202S)</p><p>Adenosine 5\u2032-triphosphate, 10 mM (New England BioLabs, cat. no. P0756S)</p><p>PlasmidSafe ATP-dependent DNase (Epicentre, cat. no. E3101K)</p><p>FastDigest BbsI (BpiI) (Fermentas/Thermo Scientific, cat. no. FD1014)</p><p>Fermentas Tango buffer (Fermentas/Thermo Scientific, cat. no. BY5)</p><p>DTT (Fermentas/Thermo Scientific, cat. no. R0862)</p><p>T7 DNA ligase with 2\u00d7 rapid ligation buffer (Enzymatics, cat. no. L602L).&nbsp;</p><p>Accutase (Life Technologies, cat. no. 00-4555-56)</p><p>Basement Membrane Extract (AMSBIO, cat. no. 3533-005-02)</p><p>OptiMEM (Gibco cat. no. 11058021)</p><p>Advance DMEM (Gibco cat. no. 12634010)</p><p>PBS</p><p>GlutaMAX (100\u00d7; Life Technologies, cat. no. 35050-068)</p><p>HEPES, 1 M (Life Technologies, cat. no. 15630-056)</p><p>Penicillin/streptomycin (10,000 U/ml; Life Technologies, cat. no. 15140-122)</p><p>B27 Supplement 50\u00d7, minus vitamin A (Life Technologies, cat. no. 12587-010)</p><p><em>N</em>-acetylcysteine (Sigma-Aldrich, cat. no. A0737-5MG)</p><p>Nicotinamide (Sigma-Aldrich, cat. no. N0636)</p><p>Recombinant human FGF10 (Peprotech, cat. no. 100-26)</p><p>Recombinant human EGF (Peprotech, cat. no. AF-100-15)</p><p>Recombinant human HGF (Peprotech, cat. no. 100-39)</p><p>Recombinant human KGF (FGF-7) (Peprotech, cat. no. 100-19)</p><p>Recombinant human TGF-\u03b1 (Peprotech, cat. no. 100-16A)</p><p>[Leu15]-gastrin I human (Sigma-Aldrich, cat. no. G9145)</p><p>A 83-01 (TGF\u03b2 inhibitor) (Tocris Bioscience, cat. no. 2939)</p><p>Forskolin (Tocris Bioscience, cat. no. 2939)</p><p>Rho kinase inhibitor Y-27632 dihydrochloride (Sigma-Aldrich, cat. no. Y0503)</p><p>Wnt surrogate (U-Protein Expression)</p><p>Noggin (U-Protein Expression)</p><p>Primocin (Invivogen, cat. no. NC9141851)</p><p>Noggin-conditioned medium (homemade)</p><p>Rspo1-conditioned medium (homemade)</p><p><br></p><p><br></p><p><br></p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>Biological safety cabinets</p><p>Calibrated pipettes&nbsp;</p><p>Cell culture incubator with 5% CO2, 37 \u00b0C</p><p>Bright-field microscope</p><p>High-speed centrifuge</p><p>Water bath 37 \u00b0C</p><p>Electroporator (e.g. NepaGene)</p><p>24-Well suspension culture plate (GreinerBio-one)</p><p>12-Well suspension culture plate (GreinerBio-one)</p><p>NEPA-21 electroporator (NEPAGENE)</p><p><br></p><p><br></p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "Designing of sgRNA to target endogenous loci\n1) Identify the gene to target and design sgRNAs preferably (but not restricted to) in the last exon as close as possible but preceding the stop codon. A few sgRNAs should be tested to obtain optimal result.\n2) Clone the sgRNA into the empty pSPgRNA (#47108) with the reagents and protocol described in (Ran et al., Nature Protocol 2013).\n3) Determine which frame selector to use according to where the sgRNA cuts in the genome (PAM -3nt). For example, if the sgRNA cut leaves a +1 overhang in the ORF, use the frame selector+2, according to (Schmid-Burgk et al. Nature Communications 2016).\nPreparation of DNA for transfection\n1) Mix together 5 ug of sgRNA plasmid targeting the locus of interest, 5 ug of the appropriate frame selector plasmid (0, 1, or 2), and 5 ug of the universal NHEJ targeting vector of interest.\nTransfection of organoids\n1) Determine optimal organoid transfection protocol according to the organ. For example, for small intestinal organoids use the protocol as described in (Fujii et al. Nature Protocols 2015). For human liver ductal organoids use the protocol as described in (Artegiani et al. Cell Stem Cell 2019). For human hepatocyte organoids, use the protocol as described in Fujii et al. Nature Protocols 2015, with the following Electroporator adjustments: Poring Pulse (Voltage=175 V, Pulse Length=7.5 msec, Pulse Interval=50 msec, Number of Pulse=2), Transfer Pulse (Voltage=20 V, Pulse Length=50 msec, Pulse Interval=50 msec, Number of Pulse=5).\nSelection of knocked-in organoids\n1) When tagging with a fluorescent tag, signal can be readily seen within 3-4 days in the case of endogenously expressed genes. Organoids/cell clumps containing positive cells are picked with a P200 pipette under a fluorescent microscope.\n2) Make the single picked organoids into single cells and grow/expand them until a line is generated.\n3) Genotype by sanger sequencing of PCR fragments to confirm correct integration."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p>If no fluorescence is observed, make sure the gene is expressed. If the gene is expressed, test different sgRNAs for tagging the gene, also consider designing sgRNA in different gene regions/exons. If the gene is lowly or nor expressed, consider using a targeting plasmid that has a resistance gene under the control of an independent promoter (e.g. Clover-PGK-BlastR) to allow for selection of knock-in events. Alternatively, FAC-sort transfected cells and pick individual outgrowing organoids that can later be genotyped for knock-in events.</p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": ""
+        },
+        {
+            "header": "Anticipated Results",
+            "content": ""
+        },
+        {
+            "header": "References",
+            "content": "<p>Ran, F.A.&nbsp;<em>et al.</em>&nbsp;Genome engineering using the CRISPR-Cas9 system.&nbsp;<em>Nat Protoc&nbsp;</em><strong>8</strong>, 2281-2308 (2013).</p><p>Schmid-Burgk, J.L., Honing, K., Ebert, T.S. &amp; Hornung, V. CRISPaint allows modular base-specific gene tagging using a ligase-4-dependent mechanism.&nbsp;<em>Nat Commun</em>&nbsp;<strong>7</strong>, 12338 (2016).</p><p>Fujii, M., Matano, M., Nanki, K. &amp; Sato, T. Efficient genetic engineering of human intestinal organoids using electroporation.&nbsp;<em>Nat Protoc</em>&nbsp;<strong>10</strong>, 1474-1485 (2015).</p><p>Artegiani, B.<em>&nbsp;et al.</em>&nbsp;Probing the Tumor Suppressor Function of BAP1 in CRISPR-Engineered Human Liver Organoids.&nbsp;<em>Cell Stem Cell</em>&nbsp;<strong>24</strong>, 927-943 e926 (2019).</p><p><br></p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": ""
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41556-020-0472-5",
+                "date": "2020-03-02 17:16:27",
+                "title": "Fast and efficient generation of knock-in human organoids using homology-independent CRISPR\u2013Cas9 precision genome editing",
+                "authors": [
+                    "Benedetta Artegiani",
+                    "Delilah Hendriks",
+                    "Joep Beumer",
+                    "Rutger Kok",
+                    "Xuan Zheng",
+                    "Indi Joore",
+                    "Susana Chuva de Sousa Lopes",
+                    "Jeroen van Zon",
+                    "Sander Tans",
+                    "Hans Clevers"
+                ],
+                "journal": "Nature Cell Biology",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 282716,
+                "identity": "216f951b-affe-46de-bad3-904585744b34",
+                "order_by": 1,
+                "name": "Benedetta Artegiani",
+                "email": "b.artegiani@hubrecht.eu",
+                "orcid": "",
+                "institution": "Hubrecht Institute",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Benedetta",
+                "middleName": "",
+                "lastName": "Artegiani",
+                "suffix": ""
+            },
+            {
+                "id": 282717,
+                "identity": "abb06f75-46f6-457b-bd40-35eda31026c8",
+                "order_by": 2,
+                "name": "Delilah Hendriks",
+                "email": "d.hendriks@hubrecht.eu",
+                "orcid": "",
+                "institution": "Hubrecht Institute",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Delilah",
+                "middleName": "",
+                "lastName": "Hendriks",
+                "suffix": ""
+            },
+            {
+                "id": 282784,
+                "identity": "64122bab-5547-4a34-9b7c-b0f61edf00c3",
+                "order_by": 3,
+                "name": "Hans Clevers",
+                "email": "h.clevers@hubrecht.eu",
+                "orcid": "",
+                "institution": "Hubrecht Institute",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Hans",
+                "middleName": "",
+                "lastName": "Clevers",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2020-01-06 16:03:29",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-791/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-791/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13492234,
+                "identity": "643106ea-dbb6-4f1e-a1f0-d2e7f2f303b1",
+                "added_by": "auto",
+                "created_at": "2021-09-16 22:30:52",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 191051,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-791/v1/9cf07ae2-cacc-41ec-a0f6-86a440a1dd62.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "CRISPR/Cas9, NHEJ, human organoids, knock-in, CRISPR-HOT",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>This protocol outlines reagents and procedures to generate human knock-in organoids using our established strategy named CRISPR-HOT. The protocol describes the plasmids to be used and strategies to generate knock-in organoids from different organs.</p>",
+        "manuscriptTitle": "Generation of human knock-in organoids by CRISPR-HOT",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2020-03-09 10:37:07",
+                "doi": "10.21203/rs.3.pex-791/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a28d6223-5efe-4a18-ba3a-d1fd8df81f88",
+        "owner": [],
+        "postedDate": "March 9th, 2020",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 47067,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 47068,
+                "name": "Developmental biology"
+            },
+            {
+                "id": 47069,
+                "name": "Biological techniques"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2020-03-09 10:37:07",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

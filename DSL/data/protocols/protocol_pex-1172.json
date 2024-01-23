@@ -1,0 +1,362 @@
+{
+    "identity": "pex-1172",
+    "title": "<p>Using XlinkCyNET to visualize protein cross-links in Cytoscape software</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>In systems biology, it is essential to understand what biomolecules are involved in different biological processes and how they coordinate to precisely execute an immensely broad range of cellular functions through interactions[<a href=\"https://www.sciencedirect.com/science/article/abs/pii/S0165614714001126?via%3Dihub\" rel=\"noopener noreferrer\" target=\"_blank\">1</a>]. An indispensable approach to visualize and interpret these interactions is to use network diagrams. So far, several software tools have been developed for this purpose, such as Biogrid[<a href=\"https://academic.oup.com/nar/article/47/D1/D529/5204333\" rel=\"noopener noreferrer\" target=\"_blank\">2</a>] and Cytoscape[<a href=\"https://genome.cshlp.org/content/13/11/2498\" rel=\"noopener noreferrer\" target=\"_blank\">3</a>]. Among various options, Cytoscape is arguably one of the most popular network visualization tools. In particular, it offers a great selection of plugins capable of customizing layouts to facilitate the interpretation of the data (<em>e.g.</em>, Cerebral [<a href=\"https://academic.oup.com/bioinformatics/article/23/8/1040/199068\" rel=\"noopener noreferrer\" target=\"_blank\">4</a>] and stringApp[<a href=\"https://pubs.acs.org/doi/10.1021/acs.jproteome.8b00702\" rel=\"noopener noreferrer\" target=\"_blank\">5</a>]). However, a plugin that allows the detailed visualization of residue-to-residue connections from cross-linking mass spectrometry (XL-MS) data and annotation of protein domains is still lacking. In light of the suitability and versatility provided by the Cytoscape platform, here we introduce <strong>XlinkCyNET</strong>, a Cytoscape app that supports the visualization of XL-MS data. We present a step-by-step protocol onto illustrate the usage of XlinkCyNET and describe the functionality functions of important parameters.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": ""
+        },
+        {
+            "header": "Equipment",
+            "content": "<p><strong>Software</strong></p><p>\u2022&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cytoscape 3.0 or later</p><p>\u2022&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Java 8 or later</p><p>\u2022&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;XlinkCyNET is freely available from Cytoscape App Store: <a href=\"http://apps.cytoscape.org/apps/xlinkcynet\" rel=\"noopener noreferrer\" target=\"_blank\">http://apps.cytoscape.org/apps/xlinkcynet</a>, and <a href=\"https://www.theliulab.com/software/XlinkCyNET\" rel=\"noopener noreferrer\" target=\"_blank\">https://www.theliulab.com/software/XlinkCyNET</a>.</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "1.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0App installation:\n1.1.\nInstall\nCytoscape\non your computer.\n1.2.\nDownload XlinkCyNET app\n1.2.1.\nLaunch Cytoscape. Go to Apps menu -> App Manager\u2026 -> search for XlinkCyNET -> click on\nInstall\n.\n1.2.2.\nClick on the\nDownload\nbutton at\nhttps://www.theliulab.com/software/XlinkCyNET\n.\n1.2.2.1.\nLaunch Cytoscape. Go to Apps menu -> App Manager\u2026 -> click on\nInstall from file\nand select the jar plugin downloaded in step 1.2.2.\n2.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Workflow\nThe following workflow demonstrates how to use\nXlinkCyNET\nin Cytoscape.\n2.1.\nIn Cytoscape, load a protein interaction network by clicking on File menu -> Import -> Network from file.\n2.1.1.\nThe input file must have the following columns, which should be assigned to the correct column type in Cytoscape. (\nFigure 1\n)\nRequired columns\n:\ngene_a\n-> represents the node name:\nsource node (Local)\n,\ngene_b\n-> represents the node name:\ntarget node (Local)\n,\nlength_protein_a\n-> represents the number of residues of protein\na\n:\nSource Node Attribute (Shared)\n,\nlength_protein_b\n-> represents the number of residues of protein\nb\n:\nTarget Node Attribute (Shared)\n,\nprotein_a\n-> represents the Uniprot protein accession number of protein\na\nin the following format:\ndb|Unique_Identifier|Entry_Name\n:\nSource Node Attribute (Shared)\n,\nprotein_b\n-> represents the Uniprot protein accession number of protein\nb\nin the following format:\ndb|Unique_Identifier|Entry_Name\n:\nTarget Node Attribute (Shared)\n,\npro_site_ab\n-> represents all links (inter and intra) between protein\na\nand\nb\n. The links must be separated by \u2018#\u2019:\nSource Node Attribute (Shared)\n,\npro_site_ba\n-> represents all links (inter and intra) between protein\nb\nand\na\n. The links must be separated by \u2018#\u2019:\nTarget Node Attribute (Shared)\n.\nFigure 1: Example of input file of an interaction network in Cytoscape.\n2.2.\nOnce an interaction network is loaded, XlinkCyNET can be applied automatically to display the residue interaction layout. Two options are currently available: applying the layout to a single node or a set of nodes.\n2.2.1.\nApply the layout to a single node.\nAfter selecting a node, the layout can be applied by clicking on Apps menu -> XlinkCyNET -> Apply layout (or by pressing CTRL + E). The node will be expanded based on the length of the protein (\ni.e.\n, number of residues). All cross-links will be displayed\n*\nas well as annotated protein domains\n**\n(\nFigure 2\n). Note that at least one node needs to be selected, otherwise a warning message will be displayed. To restore the original layout, press CTRL + E again.\n*\nIf \u2018\nDisplay Intralink\n\u2019 and/or \u2018\nDisplay Interlink\n\u2019 is checked. See step 2.4.1.1 for more details.\n**\nIf domain annotation is loaded for the protein. See step 2.3 for more details.\nFigure 2: Example of applying layout of protein-protein interactions to single / multiple nodes\n2.2.1.1.\nAnother way to apply cross-link layouts on single nodes is by right-clicking on the node -> Apps -> XlinkCyNET (or by pressing CTRL + U). A new window will be opened (\nFigure 3\n).\n2.2.1.1.\nTroubleshooting\n: If the\nNode table\ndoes not contain\nlength_protein_a\nor\nlength_protein_b\ncolumns, no window will be opened.\nFigure 3: Applying protein-protein interaction layouts to single nodes.\n2.2.1.1.2.\nThe protein node can be expanded horizontally or vertically, according to the checked\nExpansion\noption.\n2.2.1.1.3.\nThe length of the protein expansion is determined by the value of scaling factor, which ranges between 0.1 (small) and 1 (original protein length).\n2.2.1.1.4.\nProtein domain annotations can be downloaded from Supfam [\n6\n][\n7\n] or Pfam [\n8\n] databases by clicking on the respective button. All domain annotations will be automatically incorporated in the table under column \u201c\nDomain\n\u201d.\n2.2.1.1.5.\nProtein domains can also be added by inserting domain information directly in the table\n\u00a7\n. The following information can be included:\nDomain\n,\nStart\nResidue, End Residue\n, and\nColor\n.\nColumns marked as (\n*\n) are required. Colors for protein domains can be chosen manually, otherwise random colors will be displayed\n***\n. \u00a0New rows can be inserted by CTRL + I and existing rows can be deleted by CTRL + D.\n***\nSpecific colors for protein domains can also be set globally from Apps menu -> XlinkCyNET -> Protein Domains -> Set domains color (or by pressing CTRL + T). For more details, see step 2.3.3.\n\u00a7\nSupfam/Pfam computes the domain reliability for the protein, which is represented by\ne-value\n.\n2.2.1.1.6.\nTo apply the layout, click on\nOK\nbutton. An example is shown in\nFigure 2\n.\n2.2.1.1.6.1.\nOnce protein domain annotations have been loaded into a node, they will be inserted into the\nCytoscape Node Table\nin the column\ndomain_annotation\n.\n2.2.1.1.7.\nThe original node layout can be restored by clicking on\nRestore style\nbutton.\n2.2.2.\nApply the layout to a set of nodes\n: If more than one node has been selected, the layout can be automatically applied by pressing CTRL + E (\nFigure 2\n). The original layout can be restored to all nodes by pressing CTRL + E again.\n2.2.3.\nThe process can be aborted by clicking on\nCancel\nbutton.\n2.3.\nIn XlinkCyNET, protein domains can be loaded, exported and the color of a specific domain can be selected under domain global settings, Apps -> XlinkCyNET -> Protein Domains.\n2.3.1.\nProtein domains can be loaded by clicking on Apps -> XlinkCyNET -> Protein Domains -> Load (or by pressing CTRL + R). A new window will be opened (\nFigure 4\n).\nFigure 4: Load domains for a set of proteins.\nProtein domains can be added manually, by inserting the corresponding information in the table or importing from a text file.\n2.3.1.1.\nNode Name\n, which represents exactly the name set up to the node (case-sensitive).\n2.3.1.2.\nDomain(s)\n, which represents all domains that are displayed for the protein. The following pattern is required:\nname_of_domain[start_range-end_range], other_name_of_domain[start_range-end_range]\n. Different domains are comma-separated.\n2.3.1.3.\nTo insert a new row in the table, press CTRL + I; to delete an existing row, press CTRL + D.\n2.3.1.4.\nProtein domain annotations can be downloaded from Supfam [\n6\n][\n7\n] or Pfam [\n8\n] databases by clicking on the respective button. All domain annotations will be automatically incorporated in the table under column \u201c\nDomain\n\u201d.\n2.3.1.5.\nAn input file with node names and domains can be imported through File menu -> Import file.\n2.3.1.5.1.\nTwo formats of the input file are currently supported: comma-separated (\nCSV\n) and tab-delimited (\ntab\n) formats. The\nCSV\nfiles must align with the format in the table (Node Name, Domains\n****\n). XlinkCyNET can also recognize\ntab\nfiles that are directly downloaded from Uniprot. However, they must contain the following columns:\nGene names\n(\nin Names & Taxonomy category\n); and\nTopological domain\n(\nin Subcellular location category\n).\n2.3.1.5.2.\nDomain information can also be copied and pasted from an external table following the same format (Node Name, Domains\n****\n).\n****\nProtein domains must follow the same pattern of columns described in 2.3.1.2.\n2.3.1.6.\nTo load protein domains, click on\nOK\nbutton. A message will be displayed confirming the process.\n2.3.1.6.1.\nOnce the protein domain annotations have been loaded, they will be inserted into the\nCytoscape Node Table\nin the column\ndomain_annotation\n.\n2.3.1.7.\nThe process can be aborted by clicking on\nCancel\nbutton.\n2.3.2.\nTo export the protein domains, click on Apps menu -> XlinkCyNET -> Protein Domains -> Export (or by pressing CTRL + D). A message will be displayed showing the selected network and a new window will be opened to set the file name. All protein domains will be exported to a CSV file.\n2.3.3.\nTo customize the colors of protein domains, click on Apps menu -> XlinkCyNET -> Protein Domains -> Set domains color, or press CTRL + T. A new window will be opened, and all loaded domains will be displayed in the table (\nFigure 5\n).\n2.3.3.1.\nClick on the corresponding cell and select a color from the palette (\nFigure 6\n).\nFigure 5: Customize protein domain color\nFigure 6: Color palette in Cytoscape.\n2.4.\nXlinkCyNET includes a set of features for the display of legends and nodes of cross-links.\u00a0The\nSettings\npanel can be opened by clicking on Apps menu -> XlinkCyNET -> Settings, or by clicking on\nXlinkCyNET Settings\ntab in the Control panel on the right side of the Cytoscape window (\nFigure 7\n).\nFigure 7: XlinkCyNET Settings\n2.4.1.\nThe settings are grouped into two categories:\nLink\nand\nNode\n.\n2.4.1.1.\nIntralinks and interlinks can be displayed or hidden separately based on the respective check options. Once checked, their colors can be modified by clicking on the color palette (\nFigure 6\n).\n2.4.1.1.1.\nThe opacity of the link can be modified within the range of 0 (transparent) to 255 (opaque). The width of the link can also be modified within the range of 1 (thin) and 10 (thick).\n2.4.1.1.2.\nThe legend can be displayed or hidden by checking the respective option. Once checked, it\u2019s the font size and opacity can be modified. Opacity ranges between 0 (transparent) to 255 (opaque). Nodes need to be moved once to update the new settings in the network.\n2.4.1.2.\nSome features of the nodes can also be modified, including the font size of the node name as well as the color, opacity and width of the node border (\nFigure 7\n).\n2.5.\nFor any further questions, please send an email to\ndiogobor@gmail.com\nor visit our website at Apps -> XlinkCyNET -> About."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p><strong>2.2.1.a. </strong><em>Troubleshooting</em>: If no network is loaded or selected, no action will be done.</p><p><strong>2.2.1.b.</strong> <em>Troubleshooting</em>: If the purpose of the analysis is to investigate intermolecular interactions, we recommend unchecking the \u2018<em>Display Intralink\u2019</em> option before applying the layout, in order to speed up the application of the layout.</p><p><strong>2.2.1.c.</strong> <em>Troubleshooting</em>: Once the goal is to analyze as many proteins as possible at the same time, we recommend enabling the \u2018<em>Always Show Graphics Details\u2019 </em>option, as shown in <strong>Figure 8</strong>.</p><p><strong>2.2.1.1. </strong><em>Troubleshooting</em>: If the <em>Node table</em> does not contain <em>length_protein_a</em> or <em>length_protein_b</em> columns, no window will be opened.</p><p><strong>2.2.1.1.4.</strong> <em>Troubleshooting</em>: If there is no internet connection or Supfam/Pfam website is offline, an alert will be shown in <em>Cytoscape Task History</em>.</p><p><strong>2.2.1.1.6.2.</strong> <em>Troubleshooting</em>: Once the goal is to analyze as many proteins as possible at the same time, we recommend enabling the \u2018<em>Always Show Graphics Details\u2019 </em>option, as shown in <strong>Figure 7</strong>.</p><p><strong>2.2.2.</strong> <em>Troubleshooting</em>: Once the goal is to analyze as many proteins as possible at the same time, we recommend enabling the \u2018<em>Always Show Graphics Details\u2019 </em>option, as shown in <strong>Figure 7</strong>.</p><p><strong>2.3.1.4. </strong><em>Troubleshooting</em>: If there is no internet connection or Supfam/Pfam website is offline, an alert will be shown in <em>Cytoscape Task History</em>.</p><p><strong>2.3.1.5.2.</strong> <em>Troubleshooting</em>: If there is a typo in the <em>Domain </em>column, information will not be loaded, and a warning message will be shown in <em>Cytoscape Task History</em>.</p><p><strong>2.3.1.6. </strong><em>Troubleshooting</em>: If the domains are being searched in the Supfam/Pfam database and the process has not been completed, a warning message will be displayed asking for confirmation.</p><p><strong>2.3.1.7. </strong><em>Troubleshooting</em>: If the domains are being searched in the Supfam/Pfam database and the process has not been completed, a warning message will be displayed asking for confirmation.</p><p><strong>2.4. </strong><em>Troubleshooting</em>: If control panel is hidden, go to View menu -&gt; Show Control Panel.</p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": ""
+        },
+        {
+            "header": "Anticipated Results",
+            "content": ""
+        },
+        {
+            "header": "References",
+            "content": "<p><a href=\"https://www.sciencedirect.com/science/article/abs/pii/S0165614714001126?via%3Dihub\" rel=\"noopener noreferrer\" target=\"_blank\">1</a>.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A. Ma\u2019ayan, A. D. Rouillard, N. R. Clark, Z. Wang, Q. Duan, and Y. Kou, \u201cLean Big Data integration in systems biology and systems pharmacology,\u201d <em>Trends Pharmacol. Sci.</em>, Aug. 2014, doi: 10.1016/j.tips.2014.07.001.</p><p><a href=\"https://academic.oup.com/nar/article/47/D1/D529/5204333\" rel=\"noopener noreferrer\" target=\"_blank\">2</a>.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R. Oughtred <em>et al.</em>, \u201cThe BioGRID interaction database: 2019 update,\u201d <em>Nucleic Acids Res.</em>, vol. 47, no. D1, pp. D529\u2013D541, Jan. 2019, doi: 10.1093/nar/gky1079.</p><p><a href=\"https://genome.cshlp.org/content/13/11/2498\" rel=\"noopener noreferrer\" target=\"_blank\">3</a>.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P. Shannon <em>et al.</em>, \u201cCytoscape: A Software Environment for Integrated Models of Biomolecular Interaction Networks,\u201d <em>Genome Res.</em>, vol. 13, no. 11, pp. 2498\u20132504, Nov. 2003, doi: 10.1101/gr.1239303.</p><p><a href=\"https://academic.oup.com/bioinformatics/article/23/8/1040/199068\" rel=\"noopener noreferrer\" target=\"_blank\">4</a>.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A. Barsky, J. L. Gardy, R. E. W. Hancock, and T. Munzner, \u201cCerebral: a Cytoscape plugin for layout of and interaction with biological networks using subcellular localization annotation,\u201d <em>Bioinformatics</em>, vol. 23, no. 8, pp. 1040\u20131042, Apr. 2007, doi: 10.1093/bioinformatics/btm057.</p><p><a href=\"https://pubs.acs.org/doi/10.1021/acs.jproteome.8b00702\" rel=\"noopener noreferrer\" target=\"_blank\">5</a>.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;N. T. Doncheva, J. H. Morris, J. Gorodkin, and L. J. Jensen, \u201cCytoscape StringApp: Network Analysis and Visualization of Proteomics Data,\u201d <em>J. Proteome Res.</em>, vol. 18, no. 2, pp. 623\u2013632, Feb. 2019, doi: 10.1021/acs.jproteome.8b00702.</p><p><a href=\"https://www.sciencedirect.com/science/article/pii/S0022283601950806?via%3Dihub\" rel=\"noopener noreferrer\" target=\"_blank\">6</a>.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;J. Gough, K. Karplus, R. Hughey, and C. Chothia, \u201cAssignment of homology to genome sequences using a library of hidden Markov models that represent all proteins of known structure11Edited by G. Von Heijne,\u201d <em>J. Mol. Biol.</em>, vol. 313, no. 4, pp. 903\u2013919, Nov. 2001, doi: 10.1006/jmbi.2001.5080.</p><p><a href=\"https://academic.oup.com/nar/article/47/D1/D490/5184710\" rel=\"noopener noreferrer\" target=\"_blank\">7</a>.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A. P. Pandurangan, J. Stahlhacke, M. E. Oates, B. Smithers, and J. Gough, \u201cThe SUPERFAMILY 2.0 database: a significant proteome update and a new webserver,\u201d <em>Nucleic Acids Res.</em>, vol. 47, no. D1, pp. D490\u2013D494, Jan. 2019, doi: 10.1093/nar/gky1130.</p><p><a href=\"https://academic.oup.com/nar/article/40/D1/D290/2903007\" rel=\"noopener noreferrer\" target=\"_blank\">8</a>.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;M. Punta <em>et al.</em>, \u201cThe Pfam protein families database,\u201d <em>Nucleic Acids Res.</em>, vol. 40, no. Database issue, pp. D290-301, Jan. 2012, doi: 10.1093/nar/gkr1065.</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 2716628,
+                "identity": "67300b4e-8e57-4fda-9782-b7911e18c1ce",
+                "order_by": 0,
+                "name": "Diogo Borges Lima",
+                "email": "diogobor@gmail.com",
+                "orcid": "https://orcid.org/0000-0001-6056-0825",
+                "institution": "Department of Chemical Biology, Leibniz - Forschungsinstitut fu\u0308r Molekulare Pharmakologie (FMP),13125, Berlin, Germany",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Diogo",
+                "middleName": "Borges",
+                "lastName": "Lima",
+                "suffix": ""
+            },
+            {
+                "id": 4838300,
+                "identity": "09a2a3ec-1009-4a85-aa76-d781d660ecb4",
+                "order_by": 1,
+                "name": "Ying Zhu",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Chemical Biology, Leibniz - Forschungsinstitut fu\u0308r Molekulare Pharmakologie (FMP),13125, Berlin, Germany",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Ying",
+                "middleName": "",
+                "lastName": "Zhu",
+                "suffix": ""
+            },
+            {
+                "id": 2716629,
+                "identity": "82c2b07e-03fa-4718-a0ca-17c833bfe249",
+                "order_by": 2,
+                "name": "Fan Liu",
+                "email": "fliu@fmp-berlin.de",
+                "orcid": "",
+                "institution": "Department of Chemical Biology, Leibniz - Forschungsinstitut fu\u0308r Molekulare Pharmakologie (FMP),13125, Berlin, Germany",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Fan",
+                "middleName": "",
+                "lastName": "Liu",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2020-09-24 14:05:16",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1172/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1172/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 3888578,
+                "identity": "74834b44-4e10-4945-bd1c-6702084fb1b4",
+                "added_by": "auto",
+                "created_at": "2020-11-30 08:59:18",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 800716,
+                "visible": true,
+                "origin": "",
+                "legend": "Example of input file of an interaction network in Cytoscape.",
+                "description": "",
+                "filename": "Figure1.png",
+                "url": "https://assets.researchsquare.com/files/pex-1172/v1/626b7e35a0eec6c051970b9d.png"
+            },
+            {
+                "id": 3888579,
+                "identity": "b0a88855-0295-46dd-9bfc-e69e48ba8a41",
+                "added_by": "auto",
+                "created_at": "2020-11-30 08:59:18",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 95370,
+                "visible": true,
+                "origin": "",
+                "legend": "Example of applying layout of protein-protein interactions to single / multiple nodes.",
+                "description": "",
+                "filename": "Figure2.png",
+                "url": "https://assets.researchsquare.com/files/pex-1172/v1/aa24cc46e4fe74c89ad48eb5.png"
+            },
+            {
+                "id": 3888580,
+                "identity": "ce11c735-d2dd-4639-8f30-95f1257ecf6a",
+                "added_by": "auto",
+                "created_at": "2020-11-30 08:59:19",
+                "extension": "png",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 653229,
+                "visible": true,
+                "origin": "",
+                "legend": "Applying protein-protein interaction layouts to single nodes.",
+                "description": "",
+                "filename": "Figure3.png",
+                "url": "https://assets.researchsquare.com/files/pex-1172/v1/7b3df3275df6e2d64bb1113d.png"
+            },
+            {
+                "id": 3888581,
+                "identity": "4816c4fb-b3da-405a-9cc6-ab14491daa66",
+                "added_by": "auto",
+                "created_at": "2020-11-30 08:59:19",
+                "extension": "png",
+                "order_by": 4,
+                "title": "Figure 4",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 791174,
+                "visible": true,
+                "origin": "",
+                "legend": "Load domains for a set of proteins.",
+                "description": "",
+                "filename": "Figure4.png",
+                "url": "https://assets.researchsquare.com/files/pex-1172/v1/6aad258b4d2157444816ffe0.png"
+            },
+            {
+                "id": 3888582,
+                "identity": "9e156810-50c0-4f56-904c-c16b5e329f5c",
+                "added_by": "auto",
+                "created_at": "2020-11-30 08:59:19",
+                "extension": "png",
+                "order_by": 5,
+                "title": "Figure 5",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 481607,
+                "visible": true,
+                "origin": "",
+                "legend": "Customize protein domain color.",
+                "description": "",
+                "filename": "Figure5a.png",
+                "url": "https://assets.researchsquare.com/files/pex-1172/v1/1d0a49d4fb1f33225159d918.png"
+            },
+            {
+                "id": 3888583,
+                "identity": "2b32ca11-0c29-4aab-be77-3da4ee7446ad",
+                "added_by": "auto",
+                "created_at": "2020-11-30 08:59:19",
+                "extension": "png",
+                "order_by": 6,
+                "title": "Figure 6",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 357879,
+                "visible": true,
+                "origin": "",
+                "legend": "Color palette in Cytoscape.",
+                "description": "",
+                "filename": "Figure5b.png",
+                "url": "https://assets.researchsquare.com/files/pex-1172/v1/caaa927c9588bb7bdd90392a.png"
+            },
+            {
+                "id": 3888584,
+                "identity": "4225ef05-0db6-4ac4-81e7-3b3ac72087fc",
+                "added_by": "auto",
+                "created_at": "2020-11-30 08:59:19",
+                "extension": "png",
+                "order_by": 7,
+                "title": "Figure 7",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 408735,
+                "visible": true,
+                "origin": "",
+                "legend": "XlinkCyNET Settings.",
+                "description": "",
+                "filename": "Figure6.png",
+                "url": "https://assets.researchsquare.com/files/pex-1172/v1/d405790a18b279b70c0d04d9.png"
+            },
+            {
+                "id": 3888585,
+                "identity": "066e2ef7-c2b2-403c-9508-902a2d111494",
+                "added_by": "auto",
+                "created_at": "2020-11-30 08:59:19",
+                "extension": "png",
+                "order_by": 8,
+                "title": "Figure 8",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 34372,
+                "visible": true,
+                "origin": "",
+                "legend": "Enabling option to always render all graphics details in Cytoscape.",
+                "description": "",
+                "filename": "Figure7.png",
+                "url": "https://assets.researchsquare.com/files/pex-1172/v1/fd5425379665eaf57c5b4586.png"
+            },
+            {
+                "id": 13620476,
+                "identity": "e1b302a2-48bd-4e9b-bf04-fdfb9c624a54",
+                "added_by": "auto",
+                "created_at": "2021-09-17 07:05:51",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 2612780,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1172/v1/dda954c4-7641-485b-99a8-3cdc12dc38a8.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "cytoscape, protein-protein interaction, cross-linking mass spectrometry",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>We present a high-performance app for Cytoscape to visualize cross-linking mass-spectrometry (XL-MS) data. <strong>XlinkCyNET</strong> is an open-source Java plugin that generates residue-to-residue connections provided by XL-MS in protein interaction networks. Importantly, it provides an interactive interface for the exploration of cross-links and offers various options to display protein domains. XlinkCyNET works well in complex networks containing thousands of proteins.</p>",
+        "manuscriptTitle": "Using XlinkCyNET to visualize protein cross-links in Cytoscape software",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2020-11-30 08:59:16",
+                "doi": "10.21203/rs.3.pex-1172/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a0458b46-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "November 30th, 2020",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 1092880,
+                "name": "Structural biology"
+            },
+            {
+                "id": 1092881,
+                "name": "Computational biology and bioinformatics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2020-11-30 08:59:16",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

@@ -1,0 +1,414 @@
+{
+    "identity": "nprot-556",
+    "title": "DNA origami design of 3D nanostructures",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Structural DNA nanotechnology has been heavily dependent on the development of dedicated software tools for the design of unique helical junctions, to define unique sticky-ends for tile assembly, and for predicting the products of the self-assembly reaction of multiple DNA strands \\[1-3]. Recently, several dedicated 3D editors for computer-aided design of DNA structures have been developed \\[4-7]. However, many of these tools are not efficient for designing DNA origami structures that requires the design of more than 200 unique DNA strands to be folded along a scaffold strand into a defined 3D shape \\[8]. We have recently developed a semi-automated DNA origami software package \\[9] that uses a 2D sequence editor in conjunction with several automated tools to facilitate the design process. Here we extend the use of the program for designing DNA origami structures in 3D and show the application by the construction of a DNA box with dimensions of 42 x 36 x 36 nm<sup>3</sup>. The software is available at \"www.cdna.dk/origami/\":http://www.cdna.dk/origami/ ."
+        },
+        {
+            "header": "Reagents",
+            "content": "Coffee"
+        },
+        {
+            "header": "Equipment",
+            "content": "1. A personal computer \\(Macintosh or Unix/Linux; Windows operating system is not supported yet).\r\n  2. Java and Perl \\(available from \"www.java.com\":http://www.java.com/ and \"www.perl.org\":http://www.perl.org/ ).\r\n  3. SARSE v. 1.38 with DNA origami package v. 1.1 \\(available from \"www.cdna.dk/origami/\":http://www.cdna.dk/origami/ ).\r\n  4. PyMOL \\[10] \\(available from \"www.pymol.org\":http://www.pymol.org/ )."
+        },
+        {
+            "header": "Procedure",
+            "content": "**1. Start the program:**\r\n\n\n- by clicking the SARSE icon.\r\n\n\n\r\n\n\n**2. Import bitmap files:**\r\n\n\n- Select _New_ in the _File_ menu and open the file _blank.txt_ located in the _tutorial-data_ folder.\r\n\n\n- Write the _Project name_ \"ACE\" \\(for the similar design of face A, C, and E) and click _Browse_ to select your preferred working directory.\r\n\n\n- Select _Programs_ in the _Tools_ menu.\r\n\n\n- Select the program package _DNA-origami_ and the program _import-bitmap_. \r\n\n\n- Click the _Options_ and click _Browse_ to select the _ABCE.bmp_ file in the _tutorial-data_ folder.\r\n\n\n- Click _Ok_ to activate the program and _Ok_ to accept the result. The result is loaded back in the editor.\r\n\n\n- Repeat these steps to create separate projects called \"B\" \\(for unique face B design), \"DF-left\" \\(for the left part of face D and F design), and \"DF-right\" \\(for the right part of face D and F design) and import the corresponding bitmap files.\r\n\n\n\r\n\n\nIn the resulting files each black pixel of the bitmap file is translated into the symbol \"A\" \\(see Fig. 1). Each pixel is defined as having dimensions of 3.375 \u00c5 on the _x_-axis and 3 \u00c5 on the _y_-axis, corresponding to the helical rise per base pair in the B-form DNA double helix and to 1/10th of the measured distance between helices in the DNA origami structures \\[8], respectively. Because of this definition the shape has to be slightly longer on the _y_-axis in the editor.\r\n\n\n\r\n\n\nTIPS. In the _import-bitmap_ program there are options to help you rescale your bitmap to the appropriate size. The option called \"Rescale\" allows you to input the length of the DNA that you want to fold which will make the program rescale the shape to the appropriate amount of pixels. The option \"Adjust dimensions\" will slightly stretch the bitmap on the _y_-axis according to the definition given above.\r\n\n\n\r\n\n\n**3. Fold the DNA strand through the shape:**\r\n\n\n- Choose the \"ACE\" project by clicking the button at the top of the editing area \\(Fig. 1).\r\n\n\n- Choose _Programs_ in the _Tools_ menu.\r\n\n\n- Select the _DNA-origami_ package.\r\n\n\n- Select the _DNA-origami-fold_ program and click the _Options_ button.\r\n\n\n- Choose the five parameters for folding the different type of faces as specified in Table 1.\r\n\n\n- Click _Ok_ to activate the program.\r\n\n\n- Click _Ok_ to accept the result \\(Fig. 2).\r\n\n\n- Repeat the operations for all projects.\r\n\n\n\r\n\n\nFaces D and F are done in two parts \\(left and right) to be able to create a seam \\[8] down the middle.\r\n\n\n\r\n\n\nThe path of the scaffold strand is indicated with the symbol \"R\" and the staple strands with either \"B\" or \"G\" \\(Fig. 2). The colour scale of the symbols indicate the helical twist of each base in respect to the plane \\(blue = down, red = up, green = out, white = in). The staple strands crossover positions point from blue to red since they are crossing over between two adjacent helices in the plane. \r\n\n\n\r\n\n\nTIPS. Use the _Overview_ window that can be activated in the _View_ menu \\(Fig. 2). The _Overview_ window provides a zoomable image of the design file that is interactively linked to the editor window. By clicking at a specific position of the _Overview_ window the editor is moved to the corresponding position.\r\n\n\n\r\n\n\nCAUTION. The position of the staple strand crossover has to be a half number since it is defined to be between the two phosphates of the nucleotides in two adjacent columns.\r\n\n\n\r\n\n\nTIPS. The symbols \"R\", \"G\" and \"B\" stands for \"red\", \"green\" and \"blue\", respectively. To get a more easy view of the folded scaffold and staple strands you can use the _color-symbols_ program \\(Fig. 3) and switch back to the twist colours by the _color-twist_ program \\(Fig. 2).\r\n\n\n\r\n\n\n**4. Inspect the edges of the design to modify staple strands:**\r\n\n\n- Activate the _color-symbols_ program as described above. The symbol colours are more easy to look at when editing the staple strands. If new crossovers should be designed \\(where the orientation of the phosphate backbone is important) it is useful to re-colour using the _color-twist_ program.\r\n\n\n- Delete staple strand crossovers if they do not continue \\(as in Fig. 4). Deletion is done by selecting and changing the symbol to \"-\".\r\n\n\n- For creating staple strand connections across the seam of \"DF-left\" and \"DF-right\" the staple strand crossovers at the edges should be broken. Insert a \"X\" symbol at the positions where you want the staple strand to continue into another project file \\(Fig. 5). The \"X\" symbols will be combined at a later stage.\r\n\n\n- Add T-loops and T-ends at edges \\(as in Fig. 6). The editing is done by selecting a position or region with the mouse and changing the symbol to \"T\" by pressing the change symbol button or using the change symbol in the Edit menu or the short cut _Alt+t_.\r\n\n\n- Combine staple strands if regions exist that are smaller than e.g. 10 nucleotides. The staple strands are combined across the scaffold strand by making a connection of \"B\" or \"G\" symbols across the \"R\" symbols \\(as in Fig. 4).\r\n\n\n\r\n\n\nTIPS. Use the _History_ window that can be opened in the _Edit_ menu to undo unwanted editing or if a wrong program was run on your design. Be aware that not all changes can be undone \\(refer to the documentation at \"www.sarse.org\":http://www.sarse.org/ ).\r\n\n\n\r\n\n\n**5. Create sequence files for the final designs:**\r\n\n\n- Determine sequence length for the design files individually by running the program _calculate-length_. Look at the header of the output file in the working directory where the length data is written.\r\n\n\n- Use a vector editor program like CLCbio Workbench - \"www.clcbio.com\":www.clcbio.com to define regions on the circular m13mp18 strand of the determined lengths of face A, B, C, D, E, F.\r\n\n\n- Export a fasta file for each region \\(premade fasta files can also be found in the _tutorial-data_ folder).\r\n\n\n\r\n\n\nCAUTION. Sequence directions should not be reversed at this point, since the programs used below will take care of this using the folding parameter information that is stored in the header of the design files.\r\n\n\n\r\n\n\n**6. Construct atomic models of the DNA origami sheets:**\r\n\n\n- Make seperate projects for all faces by opening the final \"ACE\" design and saving it as \"A\", \"C\" and \"E\". Do the same to create a seperate project for all.\r\n\n\n- Select the \"A\" project.\r\n\n\n- Open the _Programs_ window and choose _pdb-generator_.\r\n\n\n- Choose _Options_ and _Browse_ for the file _A.fasta_.\r\n\n\n- Run the program. The program will tell you that an additional file was created in the working directory called _pdbout.pdb_. Accept the result.\r\n\n\n- In the \"A\" working directory rename the _pdbout.pdb_ file to _A.pdb_.\r\n\n\n- Do the same for the \"B\", \"C\", \"D-left\", \"D-right\", \"E\", \"F-left\" and \"F-right\" projects to create pdb files with corresponding names.\r\n\n\n- Combine _D-left.pdb_ and _D-right.pdb_ into one _D.pdb_ file by merging the two files in a text editor. Do the same for _F-left.pdb_ and _F-right.pdb_ to create _F.pdb_.\r\n\n\n\r\n\n\nNOTE. The _pdb-generator_ models the bending of the helices towards the staple strand crossovers and at the edges it models the scaffold crossovers. This realistic modeling is important for the design of 3D crossovers between the faces, which will be done in step 8.\r\n\n\n\r\n\n\nCAUTION. If you have a slow computer it will have difficulty in loading all the atomic model files in the next step. Instead of making the full atomic models it is possible to model only the phosphate backbone of the helices. To do this, choose it in the _pdb-generator Options_.\r\n\n\n\r\n\n\n**7. Orient the atomic models into the 3D shape:**\r\n\n\n- Open the PyMOL program and load all faces \\(A-F).\r\n\n\n- Rotate all faces to position them face on as displayed in SARSE. This can be done by executing the following commands in PyMOL:\r\n\n\nPyMOL> rotate y,90\r\n\n\nPyMOL> rotate x,-90\r\n\n\n\r\n\n\n- First we contruct the main box using the following commands:\r\n\n\nPyMOL> rotate x,90,B\r\n\n\nPyMOL> translate \\[0,-170,-170],B\r\n\n\nPyMOL> rotate x,180,C\r\n\n\nPyMOL> translate \\[0,0,-340],C\r\n\n\nPyMOL> rotate z,180,E\r\n\n\nPyMOL> rotate x,-90,E\r\n\n\nPyMOL> translate \\[55,170,-170],E\r\n\n\n\r\n\n\n- Second we add the lids:\r\n\n\nPyMOL> rotate y,90,D\r\n\n\nPyMOL> rotate x,180,D\r\n\n\nPyMOL> translate \\[225,0,-170],D\r\n\n\nPyMOL> rotate y,90,F\r\n\n\nPyMOL> rotate x,180,F\r\n\n\nPyMOL> translate \\[-170,0,-170],F\r\n\n\n\r\n\n\n- Now we colour the models as in SARSE:\r\n\n\nPyMOL> select chain M\r\n\n\nChoose red color for the selection.\r\n\n\nPyMOL> select chain B\r\n\n\nChoose blue color for the selection.\r\n\n\nPyMOL> select chain F\r\n\n\nChoose green color for the selection.\r\n\n\n\r\n\n\nNow there is a direct translation between the SARSE 2D editor and the 3D view in PyMOL \\(Fig. 7). The side of the faces seen in SARSE are placed on the outside of the box in the 3D editor for face A-E, but on the inside for face F.\r\n\n\n\r\n\n\n**8. Design 3D crossover positions:**\r\n\n\n- Place the SARSE and PyMOL windows side by side on a large screen.\r\n\n\n- In PyMOL show only face A and B by deselecting the others and rotate 45 degrees to view the edge between the faces \\(Fig. 8):\r\n\n\nPyMOL> rotate x, 45\r\n\n\n- Find the best crossover positions between the two faces by measuring the distance between staple strand 5' and 3' ends using the PyMOL Measurement Wizard.\r\n\n\n- Calculate the amount of T nucleotides needed for a linker connecting the 5' and 3' ends, where one single stranded nucleotide is assumed to be 4 \u00c5.\r\n\n\n- Add \"T\"s for the linker and an \"X\" to mark the crossover between projects in the SARSE program.\r\n\n\n- Repeat this procedure for all twelve edges.\r\n\n\n\r\n\n\n**9. Insert sequences into the design:**\r\n\n\n- Select project \"A\".\r\n\n\n- Open the program _oligo-track_ and in _Options_ choose the sequence file _A.fasta_.\r\n\n\n- Run the program and accept results. The result file shows the sequences plotted onto your design with staple strand names positioned at their 5' ends and composed of the row and column number of the first nucleotide \\(Fig. 9). \r\n\n\n- Repeat procedure for all faces.\r\n\n\n- The designed staple strands are printed in the file _out2.txt_ in the working directory \\(Fig. 9).\r\n\n\n\r\n\n\n**10. Merge staple strands:**\r\n\n\n- Copy all _out2.txt_ files into a common Word file.\r\n\n\n- Color the staple strands of the faces in different colors.\r\n\n\n- Rename the staple strands to reflect which face they belong to.\r\n\n\n- Merge staple strands from different faces at the \"X\" symbols. Use SARSE to navigate the final design files with names and sequences to determine which staple strands should be combined.\r\n\n\n- Rename the merged staples to indicate which faces they link together.\r\n\n\n- When you are satisfied and confident that no errors were made during the design process, the file is used to order the sequences from your favorite DNA synthesis company.\r\n\n\n\r\n\n\nDISCLAIMER. The ordering of 200+ oligos of 32+ nucleotides each represents a considerable price. We take no responsibility for possible errors in the programs used. Ordering primers designed using the _SARSE - DNA origami package_ is solely your own responsibility."
+        },
+        {
+            "header": "Timing",
+            "content": "Due to the semi-automated procedures the design can be made in less than one hour."
+        },
+        {
+            "header": "Critical Steps",
+            "content": "**1. Constructing appropriate bitmaps files and folding paths.**\r\n\n\nTo start the design process it is nessesary to create appropriate bitmap files with dimensions as mentioned in the Procedure section, step 2. This is especially neccesary if you have complex shapes. Simple shapes can be made directly in the SARSE editor by selecting an area and changing the symbol to \"A\". SARSE only folds a DNA strand from top to bottom of a shape, so it is nessesary to devise a folding path strategy for a given 3D object, which is best done on paper.\r\n\n\n\r\n\n\n**2. Folding DNA strands with 5' and 3' ends placed correctly.**\r\n\n\nIn relation to designing the folding path it is critical to place the 5' and 3' ends correctly in the design to have the m13mp18 strand run continuously and directionally through the design.\r\n\n\n\r\n\n\n**3. Orienting the DNA origami sheets in the PyMOL viewer.**\r\n\n\nWhen working to produce crossovers between the planar DNA origami sheets in PyMOL it is important to orient them correctly. The best way to do this is to start orienting the sheets like they appear in SARSE, which can be done with the following two commands: \r\n\n\nPyMOL&gt; rotate y,90\r\n\n\nPyMOL&gt; rotate x,-90\r\n\n\nRemember that the DNA sheets have two unique faces.\r\n\n\n\r\n\n\n**4. Connecting staple strands manually.**\r\n\n\nAfter producing the final output of the sequence design it is nessesary to manually connect the staple strands crossing the edges between elements. If unique symbols were used in the design files as suggested in Procedure, step 4 then this can be done. Alternatively, it is neccesary to compare the names of the oligos with column and row numbers and finding the partners by navigating the final sequence design in the SARSE editor."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "**1. Program fails and a Warning message is displayed.**\r\n\n\nClick the _View log_ to see the error messages that were generated from the program. If the error message contains \"file not found\\!\" then you likely didn't click _Browse_ to select the correct path to the file. Check the path to the file. The default path is written for a Mac operating system with the SARSE program placed in the _Applications_ folder. You may change the standard path used by modifying the _programs.xml_ file situated in the _properties_ folder.\r\n\n\n\r\n\n\n**2. Bitmap import fails.**\r\n\n\nIf the view log displays \"file not found\\!\" then the above situation might apply. If not then you might be trying to import a bitmap file with a formatting that is not supported. Currently the package only supports bitmaps at 1 bit depth, i.e. monochrome.\r\n\n\nIn addition, line endings may cause a problem. If the line ending of a bitmap file is not identical to that recognized by the Perl interpreter of your system, an error will occur. This likely happens if the bitmap is constructed on another operating system than the SARSE program runs on. The solution could be to change the line ending in an appropriate text editor or save the bitmap file in a graphics program running on the same system.\r\n\n\n\r\n\n\n**3. Molecular models made by pdb-generator look strange.**\r\n\n\nThis might either be caused by errors in the design of staple strands like the ones edited in Procedure step 4. Please inspect your design file for errors.\r\n\n\n\r\n\n\n**4. Oligotrack produces staple strand output files with F symbols.**\r\n\n\nThis normally occurs if auto-generated staple strands have not been edited correctly \\(see examples of editing in Procedure step 4). To fix the problem use the _History_ window to step back to the design file before the sequence was inserted. Identify the problem and correct it.\r\n\n\n\r\n\n\n**More troubleshooting:**\r\n\n\nWe have recently created a wiki site for the SARSE program available at \"www.sarse.org\":http://www.sarse.org/ . Here troubleshooting points will be continuously added."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "**1. Design project files.**\r\n\n\nThe files produced by the _Programs_ that are run inside SARSE are stored in the project folder and the editing steps are saved as undoable actions in the _History_ window. This logging of your project will help in reproducing complex designs and other collaborators can inspect your design suggestions. If packaged in e.g. zip format they take up much less space.\r\n\n\n\r\n\n\n**2. Atomic model.**\r\n\n\nThe construction of an atomic model of your designed 3D origami structure. The theoretical model can be used to compare to experimental data like DLS, SAXS and cryo-EM. Having this structure will allow you to further modify and functionalize your structure \\(like the DNA locks in the Andersen et al. paper). Easily compare your design with other nanoscale objects or biological macromolecules. \r\n\n\n\r\n\n\n**3. Staple strand design.**\r\n\n\nThe final staple strand design with sets corresponding to faces and staple strands connecting the edges. If different versions of the same structure is desired it is recommended to do mutually exclusive sets of staple strands, so that a set of e.g. edge crossovers might be substituted by staple strands that break these. The list is ready for ordering to manifest your design in reality."
+        },
+        {
+            "header": "References",
+            "content": "\\[1] Seeman. Nucleic acid junctions and lattices. J Theor Biol,  99, 237-47 \\(1982).\r\n\n\n\\[2] E. Winfree. DNA design toolbox. \"http://www.dna.caltech.edu/DNAdesign/\":http://www.dna.caltech.edu/DNAdesign/\r\n\n\n\\[3] N. A. Pierce. NUPACK. \"http://nupack.org/\":http://nupack.org/\r\n\n\n\\[4] J. J. Birac, W. B. Sherman, J. Kopatsch, P. E. Constantinou &amp; N. C. Seeman. Architecture with GIDEON, a Program for Design in Structural DNA Nanotechnology. J Mol Graph Model, 25, 470-480 \\(2006).\r\n\n\n\\[5] S. Williams, K. Lund, C. Lin, P. Wonka, S. Lindsay &amp; H. Yan. Tiamat: A Three-Dimensional Editing Tool for Complex DNA Structures. DNA Computing. \\(2008)\r\n\n\n\\[6] NanoEngineer-1 \"http://www.nanoengineer-1.com/\":http://www.nanoengineer-1.com/ \\(2008).\r\n\n\n\\[7] J. Zhu, B. Wei, Y. Yuan &amp; Y. Mi. UNIQUIMER 3D, a software system for structural DNA nanotechnology design, analysis and evaluation. Nucleic Acids Res \\(2009) \r\n\n\n\\[8] P. W. Rothemund. Folding DNA to create nanoscale shapes and patterns. Nature 440, 297-302 \\(2006).\r\n\n\n\\[9] E. S. Andersen, M. Dong, M. M. Nielsen, K. Jahn, A. Lind-Thomsen, W. Mamdouh, K. V. Gothelf, F. Besenbacher, J. Kjems. DNA origami design of dolphin-shaped structures with flexible tails. ACS Nano 2, 1213-1218 \\(2008).\r\n\n\n\\[10] The PyMOL Molecular Graphics System \"http://www.pymol.org/\":http://www.pymol.org/ \\(2002)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "We would like to thank Prof. J&#xF8;rgen Kjems for supporting the development of the software program. Also Alan Lindt Thomsen for developing and extending the SARSE java editor and Jan Gorodkin for initiating this long-term editor project. We would like to thank the users of the _SARSE - DNA origami package_ for their constructive comments on the first release of the program."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nature07971",
+                "date": "2009-03-06 21:01:24",
+                "title": "Self-assembly of a nanoscale DNA box with a controllable lid",
+                "authors": [
+                    "Ebbe S. Andersen",
+                    "Mingdong Dong",
+                    "Morten M. Nielsen",
+                    "Kasper Jahn",
+                    "Ramesh Subramani",
+                    "Wael Mamdouh",
+                    "Monika M. Golas",
+                    "Bjoern Sander",
+                    "Holger Stark",
+                    "Cristiano L. P. Oliveira",
+                    "et al."
+                ],
+                "journal": "Nature",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 11176,
+                "identity": "9f56db6f-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Ebbe Andersen",
+                "email": "",
+                "orcid": "",
+                "institution": "Centre for DNA Nanotechnology (CDNA), Aarhus University, 8000 Aarhus, Denmark",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Ebbe",
+                "middleName": "",
+                "lastName": "Andersen",
+                "suffix": ""
+            },
+            {
+                "id": 11177,
+                "identity": "9f56de8f-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Morten Nielsen",
+                "email": "",
+                "orcid": "",
+                "institution": "Centre for DNA Nanotechnology (CDNA), Aarhus University, 8000 Aarhus, Denmark",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Morten",
+                "middleName": "",
+                "lastName": "Nielsen",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2015-04-17 17:49:15",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/nprot.2009.75",
+        "doiUrl": "https://doi.org/10.1038/nprot.2009.75",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2607987,
+                "identity": "ef183f0f-5da4-4f66-985e-d3e8c9ae1f51",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:53",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 107751,
+                "visible": true,
+                "origin": "",
+                "legend": "SARSE editor with imported shape shown as \"A\" symbols.",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-556/v1/figure_1.png"
+            },
+            {
+                "id": 2607985,
+                "identity": "cac5097b-6ce9-40c2-9893-518cd49a9cb3",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:53",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 9691,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 1   Input parameters for folding the different faces using the _DNA-origami-fold_ program.",
+                "description": "",
+                "filename": "figure2.png",
+                "url": "https://assets.researchsquare.com/files/nprot-556/v1/figure_2.png"
+            },
+            {
+                "id": 2607986,
+                "identity": "258d3cba-07bf-4f78-afbd-50cf605cedb5",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:53",
+                "extension": "png",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 90523,
+                "visible": true,
+                "origin": "",
+                "legend": "Figure 2   SARSE editor showing the result of the _DNA-origami-fold_ with colours indicating the helical twist. The _Overview_ window is opened to show the full design.",
+                "description": "",
+                "filename": "figure3.png",
+                "url": "https://assets.researchsquare.com/files/nprot-556/v1/figure_3.png"
+            },
+            {
+                "id": 2607988,
+                "identity": "b96bab6e-1606-4175-935c-33c1a7e88371",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:53",
+                "extension": "png",
+                "order_by": 4,
+                "title": "Figure 4",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 82868,
+                "visible": true,
+                "origin": "",
+                "legend": "Figure 3   SARSE editor showing the result of the _color-symbols_ program with the _Overview_ window open.",
+                "description": "",
+                "filename": "figure4.png",
+                "url": "https://assets.researchsquare.com/files/nprot-556/v1/figure_4.png"
+            },
+            {
+                "id": 2607989,
+                "identity": "a73179fd-c20d-4660-a982-bf9daab21628",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:53",
+                "extension": "png",
+                "order_by": 5,
+                "title": "Figure 5",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 88959,
+                "visible": true,
+                "origin": "",
+                "legend": "Figure 4   _Change symbol_ is used to delete unwanted symbols by inserting a \"-\" symbol. ",
+                "description": "",
+                "filename": "figure5.png",
+                "url": "https://assets.researchsquare.com/files/nprot-556/v1/figure_5.png"
+            },
+            {
+                "id": 2607993,
+                "identity": "07ca6b5e-7775-4efd-8ba1-e41e1b623c64",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:54",
+                "extension": "png",
+                "order_by": 6,
+                "title": "Figure 6",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 80513,
+                "visible": true,
+                "origin": "",
+                "legend": "Figure 5   An \"X\" is inserted to show the connection point of staple strands between project files.",
+                "description": "",
+                "filename": "figure6.png",
+                "url": "https://assets.researchsquare.com/files/nprot-556/v1/figure_6.png"
+            },
+            {
+                "id": 2607990,
+                "identity": "00814c16-ffe0-4879-bf0e-543d33e74b85",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:54",
+                "extension": "png",
+                "order_by": 7,
+                "title": "Figure 7",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 87806,
+                "visible": true,
+                "origin": "",
+                "legend": "Figure 6   T-loops and T-ends are manually added by inserting \"T\"-symbols. Staple strands are merged by connecting them with symbols \"B\" or \"G\" (crossing the backbone strand \"R\" if necessary).",
+                "description": "",
+                "filename": "figure7.png",
+                "url": "https://assets.researchsquare.com/files/nprot-556/v1/figure_7.png"
+            },
+            {
+                "id": 2607991,
+                "identity": "6cfcd5d1-3550-478d-8298-251c8e20247c",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:54",
+                "extension": "png",
+                "order_by": 8,
+                "title": "Figure 8",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 168658,
+                "visible": true,
+                "origin": "",
+                "legend": "Figure 7   PyMol viewer showing the six faces oriented to form a box. The staple strands and backbone strand are coloured according to the colours used in the SARSE editor.",
+                "description": "",
+                "filename": "figure8.png",
+                "url": "https://assets.researchsquare.com/files/nprot-556/v1/figure_8.png"
+            },
+            {
+                "id": 2607994,
+                "identity": "f5582549-71bd-4796-afbc-cff9ef0a48aa",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:54",
+                "extension": "png",
+                "order_by": 9,
+                "title": "Figure 9",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 186001,
+                "visible": true,
+                "origin": "",
+                "legend": "Figure 8   PyMol viewer showing the edge between face A and B allowing the design of 3D linkers.",
+                "description": "",
+                "filename": "figure9.png",
+                "url": "https://assets.researchsquare.com/files/nprot-556/v1/figure_9.png"
+            },
+            {
+                "id": 2607992,
+                "identity": "8ec76fb9-e5b7-4de6-aef7-eab1cc46e656",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:54",
+                "extension": "png",
+                "order_by": 10,
+                "title": "Figure 10",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 120440,
+                "visible": true,
+                "origin": "",
+                "legend": "Figure 9   SARSE editor showing the final sequence design of face A. The output text file with all staple strands is shown.",
+                "description": "",
+                "filename": "figure10.png",
+                "url": "https://assets.researchsquare.com/files/nprot-556/v1/figure_10.png"
+            },
+            {
+                "id": 13465252,
+                "identity": "f103d841-9289-467c-8f53-1a6deb80fc3b",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:46:09",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 1060201,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-556/v1/7c9a8d7b-f314-408e-ad5e-b2d53c38f67e.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "DNA origami, nanotechnology, software, design, self-assembly, modeling\r\n\r\n",
+        "license": {
+            "name": "None",
+            "url": ""
+        },
+        "manuscriptAbstract": "",
+        "manuscriptTitle": "DNA origami design of 3D nanostructures",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2009-05-07 05:21:33",
+                "doi": "10.1038/nprot.2009.75",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 2
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9f56874b-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "May 7th, 2009",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 2258,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 2259,
+                "name": "Nanoscience and technology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2009-05-07 05:21:33",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

@@ -1,0 +1,188 @@
+{
+    "identity": "nprot-472",
+    "title": "Quantile regression for trend analysis",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Quantile regression extends ordinary least-squares regression to quantiles of the response variable. Ordinary regression is a model for the conditional mean, where the mean is conditional on the value of the explanatory variable.  Likewise, quantile regression is a model for the conditional quantiles.  For trend analysis the explanatory variable is time. Quantiles are points taken at regular intervals from the cumulative distribution function of a random variable. The quantiles mark a set of ordered data into equal-sized data subsets.\r\n\n\n\r\n\n\nThe software is downloaded from the internet and installed on a computer.  A data set from the internet is imported into a software session.  An exploratory plot of the data is created to visualize the trends.  A quantile regression model is fit to the data to quantify the trends and determine their statistical significance."
+        },
+        {
+            "header": "Equipment",
+            "content": "1. Computer running Macintosh, Linux/Unix, or Windows\r\n  2. Internet connection\r\n  3. R environment for statistical computing - \"http://www.r-project.org/\":http://www.r-project.org <sup>1</sup>"
+        },
+        {
+            "header": "Procedure",
+            "content": "1. Download and install R.\r\n  **Tip:** Only the base directory is needed.\r\n\n\n\r\n\n\n2. Click on the icon to start R.  With Linux/Unix, type the letter R from a command window.\r\n  \r\n\n\n3. Read the data into R by typing on the command line:\r\n  _StormMax=read.csv - \"http://garnet.fsu.edu/\njelsner/extspace/extremedatasince1899.csv\":http://garnet.fsu.edu/\njelsner/extspace/extremedatasince1899.csv\r\n\n\n**Caution:** The quotes must be bidirectional.  With a copy/paste directly from this document, the quotes will most likely be unidirectional causing an error message.\r\n\n\n\r\n\n\n4. Subset the cyclones by basin \\(cyclones away from the U.S. coastline) and by year after 1977 \\(satellite era) by typing:\r\n  _StormMaxBasin=subset\\(StormMax,Region==\"Basin\"); StormMaxBasin=subset\\(StormMaxBasin,Yr>1977)_\r\n\n\n\r\n\n\n5. Make the columns of the data set available by name by typing: \r\n  _attach\\(StormMaxBasin)_\r\n\n\n\r\n\n\n6. Create an exploratory plot of the annual lifetime maximum wind speed \\(intensity) as a function of year by typing:\r\n  _x=boxplot\\(Wmax~as.factor\\(Yr),plot=F)_\r\n\n\n_boxplot\\(Wmax~as.factor\\(Yr),ylim=c\\(35,175),xlab=\"Year\",ylab=\"Intensity \\(kt)\")_\r\n\n\n_xx=1:29_\r\n\n\n_abline\\(lm\\(x$stats\\[5,]~xx),col=\"red\")_\r\n\n\n_abline\\(lm\\(x$stats\\[4,]~xx),col=\"blue\")_\r\n\n\n_abline\\(lm\\(x$stats\\[3,]~xx),col=\"green\")_\r\n\n\n\r\n\n\n7. Install and load the _quantreg_ package developed by Roger Koenker\n2\n.  Then print the reference citation.\r\n  _install.packages\\(\"quantreg\")_\r\n\n\n_library\\(quantreg)_\r\n\n\n_citation\\(\"quantreg\")_\r\n\n\n\r\n\n\n8. Summarize the results of a quantile regression at the upper quantiles 0.75, 0.9, and 0.95.\r\n  _summary\\(rq\\(Wmax~Yr,tau=c\\(0.75,0.9,0.95)),se=\"iid\")_\r\n\n\n**Tip:** The standard errors \\(_se=_ argument) can be estimated using other methods, type: _?summary.rq_\r\n\n\n\r\n\n\n9. Plot the model results.\r\n  _model=rq\\(Wmax~Yr,tau=seq\\(0.2,0.8,0.1))_\r\n\n\n_plot\\(summary\\(model,alpha=.05,se=\"iid\"),parm=2,pch=19,cex=1.2,mar=c\\(5,5,4,2)+0.1,ylab=\"Trend \\(kt/yr)\",xlab=\"Quantile\")_"
+        },
+        {
+            "header": "Timing",
+            "content": "20 minutes"
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "Make sure there is permission on the computer to install software.\r\n\n\nMake sure the commands are typed exactly as shown with bidirectional double quotes.\r\n\n\nIf copy/paste is used, make sure to change the quotations to bidirectional."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "The exploratory plot should verify the lack of trend in the median lifetime maximum intensity.  It should also show a tendency for the strongest cyclones \\(higher quantiles) to get stronger during the past 30 years.  The statistical significance of the trends is assessed with a quantile regression model and the results are plotted."
+        },
+        {
+            "header": "References",
+            "content": "1. R Development Core Team, R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. ISBN 3-900051-07-0, \"http://www.R-project.org\":http://www.R-project.org \\(2006).\r\n  \r\n\n\n2. Koenker, R. _quantreg: Quantile Regression_. R package version 4.10. \"http://www.r-project.org\":http://www.r-project.org \\(2007)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "Thanks go to all involved with the R project for statistical computing. Special thanks go to Thomas Jagger for his statistical help.  The work is supported by the U.S. National Science Foundation, Risk Prediction Initiative of the Bermuda Institute for Ocean Studies, and the Florida Catastrophic Storm Risk Management Center of Florida State University."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nature07234",
+                "date": "2008-07-04 16:15:49",
+                "title": "The increasing intensity of the strongest tropical cyclones",
+                "authors": [
+                    "James B. Elsner",
+                    "James P. Kossin & Thomas H. Jagger"
+                ],
+                "journal": "Nature",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 10989,
+                "identity": "9f3a7472-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "James Elsner",
+                "email": "",
+                "orcid": "",
+                "institution": "Florida State University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "James",
+                "middleName": "",
+                "lastName": "Elsner",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2010-08-26 13:27:07",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/nprot.2008.203",
+        "doiUrl": "https://doi.org/10.1038/nprot.2008.203",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13464488,
+                "identity": "c911f806-bda3-4bf5-9a9b-7ad691f86223",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:43:32",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 110335,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-472/v1/9275e7ea-31b9-40fb-9f18-34d08e65d225.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "quantiles, quantile regression, R project for statistical computing, trend analysis, tropical cyclones\r\n\r\n",
+        "license": {
+            "name": "None",
+            "url": ""
+        },
+        "manuscriptAbstract": "",
+        "manuscriptTitle": "Quantile regression for trend analysis",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2008-09-16 06:24:10",
+                "doi": "10.1038/nprot.2008.203",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9f3a2172-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "September 16th, 2008",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 2138,
+                "name": "Computational biology and bioinformatics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2008-09-16 06:24:10",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

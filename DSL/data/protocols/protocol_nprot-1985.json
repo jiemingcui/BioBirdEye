@@ -1,0 +1,302 @@
+{
+    "identity": "nprot-1985",
+    "title": "Aptamer-facilitated Protein Isolation from Cells",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "While over-expression of recombinant proteins in cell cultures is a fairly standard procedure, the purification of such proteins from the cell lysate remains a lengthy and a labor-intensive process. This is especially true of newly discovered proteins for which no standard purification protocols are established. Affinity purification remains the most efficient and high-yielding mode of protein purification, but it is limited by a scarce availability of target-specific affinity ligands <sup>1</sup>.\r\n\n\nThis is complicated by the fact that the development of target-specific affinity ligands, antibodies being the most commonly used type, often requires the availability of the target protein in a pure form.  While the use of genetically fused affinity tags is common in purification of proteins, their use may often introduce unwanted effects, such as changes in target protein conformation, decreased protein expression levels, and toxicity to host cells <sup>2</sup>. Moreover, it is often difficult to efficiently cleave off an affinity tag without affecting the target protein. The need for introduction of affinity tags can be overcome by using target-specific affinity ligands, such as aptamers. Aptamers are short 20-100 nucleotide RNA or DNA molecules that can bind their target molecules with high affinity and specificity. \r\n\n\nAptaPIC is a technique that allows for: \\(1) the development of aptamers for a single protein target in the context of a crude cell lysate; \\(2) and the subsequent use of the developed aptamers in affinity purification of the target protein <sup>3</sup>. This technique was developed to shorten the optimization time for purification of novel protein targets, while achieving high-quality of purification. Figure 1 summarizes the major steps involved in AptaPIC. \r\n\n\n \r\n\n\n<a href=\"http://www.nature.com/protocolexchange/system/uploads/1654/original/f1.jpg?1291913914\" > <img src=\"http://www.nature.com/protocolexchange/system/uploads/1654/thumbnail/f1.png?1291913914\" > </a>\r\n\n\n**Figure 1:** Schematic representation of major AptaPIC steps.\r\n\n\n\r\n\n\n\r\n\n\nTo make the generation of target-specific aptamers possible in the context of a cell lysate, AptaPIC employs the strategy of alternating positive and negative selection steps. In positive selection, the DNA library is exposed to the target-containing cell lysate \\(i.e. the lysate of cells in which the target protein is over-expressed) and the bound fraction of DNA is collected and retained for further processing. This step results in the enrichment of the DNA pool with aptamers for both the target protein and for the non-target components of the cell lysate. To eliminate these non-target-specific aptamers, the step of negative selection is introduced. In this step, the enriched DNA pool obtained in the positive aptamer selection step is exposed to the target-free cell lysate \\(i.e. the lysate of the cells which were transformed with an empty vector), but in contrast to the positive selection step, the non-bound fraction of DNA is collected. The success of aptamer generation through AptaPIC strongly depends on whether the target-containing \\(positive) and the target-free \\(negative) cell lysates meet two conditions. The first condition is that the positive cell lysate contains the target protein in the soluble form at a sufficiently high proportion. We have shown that AptaPIC is effective with over-expression levels of the target protein as low as 5% of total protein in the cell lysate. It is advised, however, that the target protein is to be expressed at levels of 10-30% of total protein in the cell lysate. Thus, for best results it important to select a high-yielding protein expression system, such as E. coli BL21 \\(DE3). The second condition is that the negative cell lysate resembles the positive cell lysate as closely as possible, with the exception of lacking the target protein. As the strategy of alternating positive and negative selection steps will yield aptamers to any components that are differentially expressed between the two cell lysates, it is important to eliminate any differences in expression levels of such components that can arise due to differences in handling. Thus, the best strategy for obtaining the negative cell lysate is to transform the batch of host cells with an empty vector, and to expose them to the same manipulations as the target-expressing cells. This will ensure that components such as antibiotic resistance agents and transcription/translation machinery agents are present in the negative cell lysates at comparable levels to the positive cell lysate. As requirements for protein expression differ from target to target, the procedure for protein expression is not discussed in this protocol. While this protocol focuses on bacterial protein expression, it can be modified to work with other expression systems, as long as the two previously discussed conditions are met.\r\n\n\nIn this protocol we utilize capillary electrophoresis \\(CE) for the separation of bound and non-bound DNA sequences. While other partitioning methods are compatible with AptaPIC, due to its high resolving power, the use of CE significantly decreases the time of aptamer generation while maintaining high stringency <sup>4, 5</sup>. In particular, we use Non-Equilibrium Capillary Electrophoresis of Equilibrium Mixtures \\(NECEEM) mode of CE. In addition to partitioning, NECEEM can also be used to make quantitative measurements of equilibrium and rate constants, allowing for convenient affinity characterization of the obtained aptamer pools <sup>6</sup>. You should be familiar with the basics of NECEEM and capillary electrophoresis before attempting this protocol <sup>5</sup>.\r\n\n\nTo reduce nuclease-facilitated degradation of the DNA ligands and the negative effects of DNA-binding proteins on the efficiency of aptamer generation, AptaPIC uses masking DNA, the sequence of which is chosen such that it cannot be PCR amplified along with the molecules of the DNA library. The choice of the concentration of the masking DNA has a significant effect on the efficiency of AptaPIC. If the chosen concentration of masking DNA is too low, it will cause the saturation of the aptamer pool with non-aptamer sequences that are collected as a result of their non-specific binding to the components of the cell lysate. If the chosen concentration of masking DNA is too high, it will cause the loss of aptamer sequences in the negative selection steps. Masking DNA concentration titration step, described in this protocol, is performed to determine the minimum concentration of the masking DNA that achieves the desired levels of suppression of DNA degradation and non-specific binding. The determined minimum masking DNA concentration should be used in the DNA selection steps.     \r\n\n\n\r\n\n\nAmplification of heterogeneous pools of DNA through PCR often results in accumulation of disruptive byproducts <sup>7</sup>. Accumulation of these byproducts is dependent on the number of amplification cycles. It is thus important to identify an optimal number of amplification cycles for each pool obtained during AptaPIC. This protocol describes a quantitative PCR-based approach for determination of this optimum. As aptamers are single-stranded DNA ligands, this protocol also includes a step of asymmetric PCR that results in enrichment of the DNA pools with aptamer strands over their complimentary strands.     \r\n\n\n\r\n\n\nDuring aptamer pool generation steps, some uncertainty will always be present regarding the specificity of the emerging aptamer pools. If the positive and the negative cell lysates are not balanced properly, AptaPIC may produce aptamer pools with high cross-reactivity to non-target components of the cell lysate. As a final evaluation of specificity of the acquired aptamer pool, its ability to isolate the target protein from the cell lysate should be tested. This protocol describes an aptamer-facilitated protein pull-down test that will allow such characterizations to be made. This step should not be viewed as a preparative method. Once an aptamer pool with desired characteristic is obtained, it can be used in high-scale column chromatography procedures <sup>8</sup>."
+        },
+        {
+            "header": "Reagents",
+            "content": "\u2022 Cell lysate containing the target protein \\(Positive lysate) \\(see REAGENT SETUP)\r\n\n\n\u2022 Cell lysate lacking  the target protein \\(Negative lysate) \\(see REAGENT SETUP)\r\n\n\n\u2022 Bicinchoninic Acid \\(BCA) assay kit \\(Thermo Scientific, cat. no. 23221)\r\n\n\n\u2022 Naive DNA oligonucleotide library: 5\u2019-FAM-CTC CTC TGA CTG TAA CCA CG-\\(N)<sub>40</sub>-GCA TAG GTA GTC CAG AAG CC-3\u2019 \\(see REAGENT SETUP)\r\n\n\n\u2022 PCR Primers, as described below \\(Integrated DNA Technologies, see REAGENT SETUP).\r\n\n\n\u2022 PCR Forward primer: 5\u2019- CTC CTC TGA CTG TAA CCA CG -3\u2019 \r\n\n\n\u2022 PCR FAM-Forward primer: 5\u2019-FAM- CTC CTC TGA CTG TAA CCA CG -3\u2019 \r\n\n\n\u2022 PCR Biotin-Forward primer: 5\u2019- Biotin - CTC CTC TGA CTG TAA CCA CG -3\u2019 \r\n\n\n\u2022 PCR Reverse primer: 5\u2019- GGC TTC TGG ACT ACC TAT GC -3\u2019 \r\n\n\n\u2022 PCR Biotin-Reverse primer: 5\u2019-Biotin- GGC TTC TGG ACT ACC TAT GC -3\u2019 \r\n\n\n\u2022 Single stranded masking DNA: 5\u2019-CAA AAA ATG AGT CAT CCG GA-3\u2019\r\n\n\n\u2022 Double stranded masking DNA: 5\u2019-\\(ATT)<sub>18</sub>-AT-3\u2019 and the complementary strand.\r\n\n\n\u2022 _Taq_ DNA polymerase, 5 units per mL and 10x PCR buffer \\(Sigma-Aldrich, cat. no. D1806)\r\n\n\n\u2022 Protease Inhibitor cocktail \\(Sigma-Aldrich, cat. no. P8340)\r\n\n\n\u2022 dNTP solution, 10 mM of each dNTP \\(Sigma Aldrich, cat. no. D7295)\r\n\n\n\u2022 2x real-time PCR master mix with SYBR Green \\(Bio-Rad, cat. no. 170-8882)\r\n\n\n\u2022 DNA storage buffer \\(DSB): 10 mM Tris-HCl, pH 7.4\r\n\n\n\u2022 MagnaBind Streptavidin-coated paramagnetic beads \\(magnetic beads) \\(Thermo Scientific, cat. no. PI21344)\r\n\n\n\u2022 Bead washing buffer \\(BWB): 10 mM Tris-HCl, pH 8.0, 500 mM NaCl and 1 mM EDTA\r\n\n\n\u2022 RNase-AWAY solution \\(Molecular Bio-Products) \\(see REAGENT SETUP)\r\n\n\n\u2022 Capillary rinsing solutions: 100 mM NaOH, 100 mM HCl and ddH<sub>2</sub>O \\(see REAGENT SETUP)\r\n\n\n\u2022 CE Run Buffer \\(RB): 50 mM Tris-acetate, pH 8.2\r\n\n\n\u2022 Selection buffer \\(SB) \\(see REAGENT SETUP)\r\n\n\n\u2022 ddH<sub>2</sub>O purified with a Milli-Q water-purification system \\(Millipore)\r\n\n\n\u2022 Sodium dodecyl sulfate polyacrylamide gel and reagents for SDS-PAGE \\(see REAGENT SETUP).\r\n\n\n\r\n\n\n**Reagent setup**\r\n\n\n\r\n\n\n\u2022 Cell lysates: Use a high-yielding bacterial protein expression system, such as BL21 \\(DE3) to express the target protein. Lysis buffer should be similar to the SB, but with added protease inhibitor cocktail, according to manufacturer\u2019s instructions. Lyse the bacterial cells either by sonication or using a French cell press. **CRITICAL:** A high level of the target protein over-expression is key for successful aptamer selection. Target expression levels at 10% to 30% of total protein in soluble fraction of the cell lysate are optimal.    \r\n\n\n\u2022 Negative cell lysate: Transform the host bacterial cells with an empty vector, and expose them to the same manipulations as the cells that were transformed with the target-encoding vector. This includes the treatment with the expression-inducing agent, such as IPTG. **CRITICAL:** The cell lysate for negative selection should resemble the target-containing cell lysate as closely as possible, with the exception of not containing the target protein.\r\n\n\n\u2022 Oligonucleotide library: Resuspend the naive library in DSB to a concentration of 100 mM. The library can be stored at \u201320 \u00b0C for several years. **CRITICAL:** Choose manual mixing when ordering the library to ensure a 1:1:1:1 ratio of the four nucleotides in the randomized region of the library.\r\n\n\n\u2022 Oligonucleotide PCR primers: PCR primers should be HPLC-purified or PAGE-purified by the supplier. Resuspend the primers in DNA storage buffer to a concentration of 10 mM.\r\n\n\n\u2022 Buffers and solutions: All solutions and buffers should be filtered through a 0.22-\u00b5m filter before use.\r\n\n\n\u2022 Selection buffer: Choose a buffer that would ensure the native state of the target. The buffer should preferably have less than 200 mM total salts, and its viscosity should be similar to that of water. \r\n\n\n\u2022 SDS-PAGE: Select a protocol appropriate for the available equipment. We suggest using gradient polyacrylamide gels, as they work especially well with complex samples, as cell lysates. Gradient of 10% to 17% polyacrylamide works best with most protein targets. Use an SDS-containing loading buffer."
+        },
+        {
+            "header": "Equipment",
+            "content": "\u2022 CE instrument \\(see EQUIPMENT SETUP)\r\n\n\n\u2022 Bare-fused silica capillary \\(Polymicro, cat. no. TSP075375), inner diameter \\(ID) = 75 \u00b5m; outer diameter \\(OD) = 375 \u00b5m. \\(see EQUIPMENT SETUP)\r\n\n\n\u2022 Real-time thermal cycler \\(Bio-Rad)\r\n\n\n\u2022 Magnetic bead separator \\(Dynal, cat. no. CS15000)\r\n\n\n\u2022 Millex-GS 0.22 \u00b5m pore size filters for filtering of solutions, non-sterile: \\(Millipore, cat. no. SLGS025NB)\r\n\n\n\u2022 Microcon Ultracel YM-30, centrifugal 30,000 molecular weight cut-off filters, \\(Millipore, cat. no. 42410)\r\n\n\n\u2022 Temperature-controlled centrifuge that can maintain temperatures as low as 4 \u00b0C \r\n\n\n\u2022 Polyacrylamide gel electrophoresis setup\r\n\n\n\r\n\n\n**Equipment Setup**\r\n\n\n\r\n\n\n\u2022 Aptamer selection will be performed with an 80-cm capillary, while analysis of aptamer pools will undergo in a 50-cm capillary. Prepare the capillaries to match the following dimensions. Selection capillary: total length \\(L<sub>total</sub>) = 80 cm, length to the detection window \\(L<sub>detection</sub>) = 70 cm; Analysis capillary: L<sub>total</sub> = 50 cm, length to the detection window L<sub>detection</sub> = 40 cm. The 50-cm capillary is only used in steps 29, 43 to 47. For all other steps where capillary electrophoresis is performed, use the 80-cm capillary.\r\n\n\n\u2022 CE instrument should be equipped with laser-induced fluorescence \\(LIF) detection system, with excitation of fluorescence at 488 nm and detection of fluorescence at 520 nm. Technically suitable CE instruments are produced by Beckman-Coulter \\(PA 800 and PACE MDQ)."
+        },
+        {
+            "header": "Procedure",
+            "content": "**Preparation of the cell lysates**\r\n\n\n\r\n\n\n1. Centrifuge the positive and negative cell lysates, each at 17,500 \u00d7 g for 1 h at 4 \u00b0C. Discard the pellets.\r\n  \r\n\n\n2. Divide the supernatants from step 1 \\(the soluble fractions of the cell lysates) into 10 \u00b5L aliquots and store at -80 \u00b0C.\r\n  \r\n\n\n3. Perform SDS-PAGE with the positive cell lysate to ensure that the target protein is in the soluble fraction.\r\n    \r\n\n\n4. Using the BCA protein assay kit, measure the total protein concentration in both the positive and the negative cell lysates, following the manufacturer\u2019s instructions. \r\n  \r\n\n\n**PAUSE POINT** The cell lysates should be stored at -80 \u00b0C for up to two months.\r\n\n\n\r\n\n\n\r\n\n\n**Capillary preconditioning and library preparation**\r\n\n\n\r\n\n\n5. Rinse every new capillary with approximately four capillary volumes of each of the capillary rinsing solutions: 100 mM HCl, 100 mM NaOH, ddH\n2\nO and RB. Maintain the order of rinsing solutions as listed. Repeat these steps immediately before and after every CE run.\r\n  \r\n\n\n6. Prepare 10 \u00b5L of 500 \u00b5M naive DNA library in SB. Heat the mixture in a thermal cycler to 94 \u00b0C and cool down to 20 \u00b0C at a rate of 0.5 \u00b0C per s. In future steps, when preparing equilibrium mixtures, treat all the DNA library samples and DNA aptamer samples in this manner.  \r\n  \r\n\n\n7. Prepare a 100 \u00b5M solution of the temperature-treated DNA library \\(from step 6) in 100 \u00b5L SB.\r\n  \r\n\n\n\r\n\n\n**Determination of library and fluorescein migration times**\r\n\n\n\r\n\n\n8. Prepare a 10 \u00b5L sample of equilibrium mixture with the following components: 10 \u00b5M of DNA library and 100 \u00b5M of each of the masking DNAs. Incubate for 10 minutes at room temperature.\r\n  \r\n\n\n9. Inject 150 nL of the mixture from step 8 into the capillary and perform NECEEM in RB at 375 V cm\n\u20131\n\\(normal polarity and positive electrode at the injection end). Usually, 60 min is sufficient to observe the free DNA component. See troubleshooting.\r\n  \r\n\n\n10. Determine the migration time of the DNA library to the end of the capillary. This is the migration time of the free DNA component of the equilibrium mixture.\r\n  \r\n\n\n11. As described in step 9, perform NECEEM with the same equilibrium mixture, but with added 100 nM of fluorescein. Fluorescein will act as the collection window migration marker.\r\n  \r\n\n\n12. Determine the migration time of fluorescein to the end of the capillary and its relative elution time to the free DNA. \r\n  \r\n\n\n\r\n\n\n**Masking DNA concentration titration**\r\n\n\n\r\n\n\n13. Prepare 10 \u00b5L of equilibrium mixture with the following components:  10 \u00b5M of DNA library, 20 \u00b5g mL\n-1\nof positive cell lysate, 100 nM of fluorescein. Incubate for 10 minutes at room temperature.\r\n  \r\n\n\n14. Run the sample in CE as described in step 9. Observe the peaks that correspond to species other than the fluorescein and the free DNA. \r\n  \r\n\n\n15. Prepare three 10 \u00b5L equilibrium mixtures with varying concentrations of masking DNAs. The equilibrium mixtures should contain the following components:  10 \u00b5M of DNA library, 20 \u00b5g mL\n-1\nof positive cell lysate, 100 nM of fluorescein, and each of the masking DNA\u2019s at concentrations of 100 \u00b5M, 1 mM and 10 mM respectively per each sample. Incubate each mixture for 10 minutes at room temperature before performing NECEEM analysis as described in step 9. Observe the effect of varying masking DNA concentrations on the lysate peaks. Select the lowest masking DNA concentration that has a significant suppressing effect on these peaks. While full suppression is desirable, do not increase the concentration of the masking DNAs above 10 mM.\r\n  \r\n\n\n\r\n\n\n**Positive Selection**\r\n\n\n\r\n\n\n16. Before rinsing the capillary as described in step 5, rinse it with 4 capillary volumes of RNase-AWAY solution.\r\n  \r\n\n\n17. Prepare 10 \u00b5L equilibrium mixture with the following components: 10 \u00b5M of DNA library, 20 \u00b5g mL\n-1\nof positive cell lysate, 100 nM of fluorescein, and the determined concentration of masking DNAs from step 15. Incubate for 10 minutes at room temperature.\r\n  \r\n\n\n18.  Initiate NECEEM as described in step 9, with the following modifications. At the capillary outlet, place a tube with 5 \u00b5L of SB. Collect the eluent from the beginning of CE run, to the elution of the fluorescein peak. At this point, briefly pause the electric current, switch the outlet of the capillary into an outlet containing RB, and continue the electric current. Stop the separation after the free DNA component of the equilibrium mixture elutes. Collection window is illustrated in figure 2.\r\n  \r\n\n\n19.  Incubate the collected fraction for 15 min at room temperature.\r\n  \r\n\n\n\r\n\n\n**Negative Selection**\r\n\n\n\r\n\n\n20. Before rinsing the capillary as described in step 5, rinse it with 4 capillary volumes of RNase-AWAY solution.\r\n  \r\n\n\n21. Prepare 10 \u00b5L equilibrium mixture with the following components: 5 \u00b5L of the DNA fraction from step 19, 20 \u00b5g mL\n-1\nof negative cell lysate, 100 nM of fluorescein, and the determined concentration of masking DNAs from step 15. Incubate for 10 min at room temperature.\r\n  \r\n\n\n22.  Perform NECEEM as described in step 9, with the following modifications. At the capillary outlet, place a reservoir containing RB. When the peak corresponding to fluorescein starts eluting, briefly pause the electric current, switch the outlet of the capillary into a tube with 5 \u00b5L of SB, and continue the electric current. Keep collecting the eluents 5 minutes after the expected elution time of the free DNA component, from step 9. Collection window is illustrated in figure 2.\n**Figure 2:** DNA collection windows for positive \\(bottom trace) and negative \\(top trace) selection steps.\r\n\n\n\r\n\n\n\r\n\n\n**PAUSE POINT** The collected fraction should be stored at \u201320 \u00b0C. DNA in the fractions is stable for several months.\r\n\n\n\r\n\n\n\r\n\n\n**Determination of optimum number of cycles for preparative PCR**\r\n\n\n\r\n\n\n23. Set up 20 \u00b5L amplification reaction mixture for the fraction collected in step 22, with the components as described in table 1. \r\n  \r\n\n\n**Table 1:** Contents of the quantitative PCR amplification reaction mixture\r\n\n\n\u2022 2x real-time PCR master mix with SYBR Green - **10 \u00b5L**\r\n\n\n\u2022 Forward primer \\(10 \u00b5M) - **0.6 \u00b5L \\(to 300 nM)**\r\n\n\n\u2022 Reverse primer \\(10 \u00b5M) - **0.6 \u00b5L \\(to 300 nM)**\r\n\n\n\u2022 Template - **1 \u00b5L**\r\n\n\n\u2022 ddH2O - **7.8 \u00b5L**\r\n\n\n\r\n\n\n24.  Amplify the reactions using the PCR program detailed in table 2. Program the real-time thermal cycler to measure fluorescence from SYBR green after every amplification cycle.\r\n  \r\n\n\n**Table 2:** Thermal cycler program for quantitative PCR amplification\r\n\n\n\u2022 Cycle 1: Denaturation step - **180 s at 94 \u00b0C**.\r\n\n\n\u2022 Cycles 2-40: Denaturation step - **10 s at 94 \u00b0C**; annealing step - **10 s at 56 \u00b0C**; polymerization step - **10 s at 72 \u00b0C**.\r\n\n\n\u2022 Hold at 4 \u00b0C.\r\n\n\n\r\n\n\n25. Real-time PCR produces an S-shaped amplification curve \\(product yield versus number of cycles). Determine how many cycles are required for the reaction mixture to generate the product at a level of 50\u201360% of the maximum. This is the number of cycles required to generate the optimal amount of amplified library product in the subsequent preparative PCR.\r\n  \r\n\n\n\r\n\n\n**Preparative PCR**\r\n\n\n\r\n\n\n26. Set up 40 \u00b5L amplification reaction mixture for the fraction collected in step 22, with the components as described in table 3.\r\n  \r\n\n\n**Table 3:** Contents of the preparative PCR amplification reaction mixture\r\n\n\n\u2022 10x PCR buffer - **4 \u00b5L**\r\n\n\n\u2022 FAM-Forward primer \\(10 \u00b5M) - **1.2 \u00b5L \\(to 300 nM)**\r\n\n\n\u2022 Biotin-Reverse primer \\(10 \u00b5M) - **1.2 \u00b5L \\(to 300 nM)**\r\n\n\n\u2022 dNTPs \\(10 mM) - **0.8 \u00b5L \\(to 200 nM)**\r\n\n\n\u2022 Taq DNA polymerase \\(5 units mL\n-1\n) - **0.4 \u00b5L \\(to 0.05 units mL\n-1\n)**\r\n\n\n\u2022 Template - **2 \u00b5L**\r\n\n\n\u2022 ddH2O - **30.4 \u00b5L**\r\n\n\n\r\n\n\n27. In addition to the sample from step 26, set up a 40 \u00b5L control mixture, with the components as described in table 3, but with ddH\n2\nO instead of the template.\r\n  \r\n\n\n28. Amplify the samples from steps 26 and 27 using the PCR program detailed in table 4. There is no need to measure the fluorescence signal from this reaction. Perform the number of cycles that was determined to be optimal for amplification of the pool, in step 25.\r\n  \r\n\n\n**Table 4:** Thermal cycler program for preparative and asymmetric PCR amplifications\r\n\n\n\u2022 Cycle 1: Denaturation step - **30 s at 94 \u00b0C**.\r\n\n\n\u2022 Cycles 2-optimum: Denaturation step - **10 s at 94 \u00b0C**; annealing step - **10 s at 55 \u00b0C**; polymerization step - **10 s at 72 \u00b0C**.\r\n\n\n\u2022 Hold at 4 \u00b0C.\r\n\n\n\r\n\n\n29. Transfer 5 \u00b5L of each of the amplification products from step 27 into new sample tubes. Precondition a 50-cm capillary as described in step 5. Using this 50-cm capillary, perform NECEEM on each of the samples, as described in step 9. The electropherogram for the control sample should contain only a single peak, representing the labeled primer, while the sample from step 26 should also have a second smaller peak, representing the double-stranded DNA amplification product. The presence of the double-stranded DNA peak will confirm the efficiency of the PCR amplification step. \r\n  \r\n\n\n\r\n\n\n**Asymmetric PCR** \r\n\n\n\r\n\n\n30. Set up 40 \u00b5L amplification reaction mixture for the products of amplification reaction from step 28, using the components as described in table 5.\r\n  \r\n\n\n**Table 5:** Contents of the asymmetric PCR amplification reaction mixture\r\n\n\n\u2022 10x PCR buffer - **4 \u00b5L**\r\n\n\n\u2022 FAM-Forward primer \\(10 \u00b5M) - **4 \u00b5L \\(to 1 \u00b5M)**\r\n\n\n\u2022 Biotin-Reverse primer \\(10 \u00b5M) - **0.2 \u00b5L \\(to 50 nM)**\r\n\n\n\u2022 dNTPs \\(10 mM) - **0.8 \u00b5L \\(to 200 nM)**\r\n\n\n\u2022 _Taq_ DNA polymerase \\(5 units mL\n-1\n) - **0.4 \u00b5L \\(to 0.05 units mL\n-1\n)**\r\n\n\n\u2022 Template - **2 \u00b5L**\r\n\n\n\u2022 ddH2O - **28.6 \u00b5L**\r\n\n\n\r\n\n\n31. Amplify the reactions using the PCR program detailed in table 4. There is no need to measure the fluorescence signal from this reaction. Perform 15 amplification cycles.\r\n  \r\n\n\n\r\n\n\n**Purification of aptamer DNA strands**\r\n\n\n\r\n\n\n32. Aliquot 20 \u00b5L streptavidin magnetic beads into an empty microcentrifuge tube. Wash the beads twice with 200 \u00b5L BWB. After each wash, remove the beads from the solution with a magnetic bead separator.\r\n  \r\n\n\n33.  Mix 40 \u00b5L of PCR-amplified samples from step 28 with 40 \u00b5L BWB.\r\n  \r\n\n\n34. Resuspend the beads from step 32 in the sample solutions from step 33, and gently mix. Incubate at room temperature for 20 min, gently mixing every five min to facilitate faster binding of DNA to the beads.\r\n  \r\n\n\n35.  Pull down the beads from the solution using a magnetic separator and collect the supernatant. Load the supernatant on to the molecular cut-off filters. Discard the beads.\r\n  \r\n\n\n36. Centrifuge the molecular cut-off filters with the supernatant from step 35, at 7,000 \u00d7 g for 20 minutes at 15\u00b0 C.\r\n  \r\n\n\n37. Load 200 \u00b5L of SB on to the filter and repeat step 36. Wash the filters in this manner three more times. Discard the flow-through as the test tube becomes filled.\r\n  \r\n\n\n38.  Load 15 \u00b5L of SB on to the filter and incubate, without centrifugation, for 30 min at 15\u00b0 C.\r\n  \r\n\n\n39. Place the filter up-side-down into a new clean test tube and centrifuge at 7,000 \u00d7 g for 10 minutes at 15\u00b0 C.\r\n  \r\n\n\n40. Collect the eluted fraction and discard the filters. The collected fraction contains the DNA aptamer pool.\r\n  \r\n\n\n**PAUSE POINT** Amplified aptamer pools can be stored at \u201320 \u00b0C for several years.\r\n\n\n\r\n\n\n\r\n\n\n**Approximation of resultant pool concentration**\r\n\n\n\r\n\n\n41. Prepare the following dilutions of the FAM-Forward primer: 50nM, 200 nM, 500nM and 1 \u00b5M. \r\n  \r\n\n\n42. Perform NECEEM as described in step 9 with each of the dilutions of the FAM-labeled primer. Plot the heights of the produced peaks against primer concentrations to obtain a standard curve. Using the standard curve and the peak height from step 41 roughly approximate the concentration of the aptamer pool. \r\n  \r\n\n\n\r\n\n\n**Affinity analysis of aptamer pools**\r\n\n\n\r\n\n\n43. Use temperature treatment, as described in step 6, on 5 \u00b5L of aptamer pool from step 40.\r\n  \r\n\n\n44. Prepare a 5 \u00b5L equilibrium mixture with the following components: 1 \u00b5L of aptamer pool from step 43, 20 \u00b5g mL\n-1\nof positive cell lysate, 100 nM of fluorescein, and the concentration of masking DNAs as used in step 15. Incubate for 10 min at room temperature.\r\n  \r\n\n\n45.  Use a 50-cm capillary for the following CE run. Rinse the capillary as described in step 5.\r\n  \r\n\n\n46. Inject 50 nL of the equilibrium mixture from step 44 into the capillary and run NECEEM in RB at 375 V cm\n\u20131\n\\(normal polarity and positive electrode at the injection end).\r\n  \r\n\n\n47. Compare the resultant electropherogram to the one produced in step 12. Any peak, or peaks, that increase in area should be suspected to correspond to complexes between the target protein and the DNA aptamers. Using equation 1, calculate the bulk EC\n50\nvalue of the aptamer pool to the target in using the combined areas of the suspected peaks. In equation 1, \\[T]\ntot\nand \\[DNA]\ntot\nare the total concentrations of the target and DNA, respectively; A\n1\nis the area of the peak of free DNA divided by the migration time of free DNA, A\n2\nis the area of the peak of DNA that dissociated from the complex during NECEEM divided by the migration time of free DNA and A\n3\nis the area of the peak of the intact complex that reached the detector divided by the migration time of the complex. EC\n50\nis a measure of an effective abundance of aptamers in the library, which is used for qualitatively monitoring the progress of selection \u2014 a decrease of this value throughout the steps of partitioning indicates that the selection is progressing. The division of areas by corresponding migration times is performed to ensure that peak areas are proportional to the amounts of the species. This procedure is necessary for CE instruments with the on-column detection mode only. For CE instruments with past-column detection, normalization by time is not required. See troubleshooting.\n**Equation 1:** Calculation of the bulk EC\n50\nvalue for an aptamer pool.\r\n\n\n\r\n\n\n**PAUSE POINT** Use the data collected from these steps for subsequent rounds at your convenience.\r\n\n\n\r\n\n\n\r\n\n\n**Subsequent aptamer selection rounds** \r\n\n\n\r\n\n\n48. Subsequent rounds of aptamer selection should be repeated in the same manner as described above in steps 16 to step 47. Some modifications are as follows: In all steps where the original DNA library is used, it should be substituted with the aptamer pool obtained in the previous round. In all equilibrium mixtures add the DNA aptamer pool to a final concentration of approximately 100-200 nM. To maintain the ratio between aptamer DNA and masking DNA, reduce the concentration of the masking DNAs by 50 times.\r\n  \r\n\n\n49. When the peaks suspected to represent the complex between aptamers and the target protein become distinguishable, narrow down the collection window around these peaks. \r\n  \r\n\n\n50. Repeat aptamer selection rounds until the pool displays the desired EC\n50\nvalue, or until no improvements to are observed for three consecutive rounds. See troubleshooting.\r\n  \r\n\n\n\r\n\n\n**Aptamer pool biotinylation**\r\n\n\n\r\n\n\n51. Set up a 120 \u00b5L amplification reaction mixture for the fraction collected in the step 40 of the corresponding selection round, with the components as described in table 6.\r\n  \r\n\n\n\r\n\n\n**Table 6:** Contents of the symmetric PCR amplification reaction mixture for pool biotinylation\r\n\n\n\u2022 10x PCR buffer - **12 \u00b5L**\r\n\n\n\u2022 Biotin-Forward primer \\(10 \u00b5M) - **3.6 \u00b5L \\(to 300 nM)**\r\n\n\n\u2022 Reverse primer \\(10 \u00b5M) - **3.6 \u00b5L \\(to 300 nM)**\r\n\n\n\u2022 dNTPs \\(10 mM) - **2.4 \u00b5L \\(to 200 nM)**\r\n\n\n\u2022 _Taq_ DNA polymerase \\(5 units mL\n-1\n) - **1.2 \u00b5L \\(to 0.05 units mL\n-1\n)**\r\n\n\n\u2022 Template - **6 \u00b5L**\r\n\n\n\u2022 ddH2O - **91.2 \u00b5L**\r\n\n\n\r\n\n\n52. Amplify the reactions using the PCR program described in table 4. Perform 15 amplification cycles.\r\n  \r\n\n\n53. Set up 120 \u00b5L PCR amplification reactions for each collected fraction from step 52. The recipe for the PCR reaction is shown in table 7.\r\n  \r\n\n\n**Table 7:** Contents of the asymmetric PCR amplification reaction mixture for pool biotinylation\r\n\n\n\u2022 10x PCR buffer - **12 \u00b5L**\r\n\n\n\u2022 Biotin-Forward primer \\(10 \u00b5M) - **12 \u00b5L \\(to 1 \u00b5M)**\r\n\n\n\u2022 Reverse primer \\(10 \u00b5M) - **0.6 \u00b5L \\(to 50 nM)**\r\n\n\n\u2022 dNTPs \\(10 mM) - **2.4 \u00b5L \\(to 200 nM)**\r\n\n\n\u2022 _Taq_ DNA polymerase \\(5 units mL\n-1\n) - **1.2 \u00b5L \\(to 0.05 units mL\n-1\n)**\r\n\n\n\u2022 Product of amplification from step 52 - **6 \u00b5L**\r\n\n\n\u2022 ddH2O - **91.2 \u00b5L**\r\n\n\n\r\n\n\n54. Amplify the reactions using the PCR program described in table 4. Perform 15 amplification cycles.\r\n  \r\n\n\n55. Load the product of the PCR amplification on to the molecular cut-off filters.\r\n  \r\n\n\n56. Centrifuge the molecular cut-off filters with the supernatant from step 55, at 7,000 \u00d7 g for 20 minutes at 15\u00b0 C.\r\n  \r\n\n\n57. Load 200 \u00b5L of SB on to the filter and repeat step 56. Wash the filters in this manner three more times. Discard the flow-through as the test tube becomes filled.\r\n  \r\n\n\n58.  Load 15 \u00b5L of SB on to the filter and incubate, without centrifugation, for 30 min at 15\u00b0 C.\r\n  \r\n\n\n59. Place the filter up-side-down into a new clean test tube and centrifuge at 7,000 \u00d7 g for 10 minutes at 15\u00b0 C.\r\n  \r\n\n\n60. Collect the eluted fraction and discard the filters. The collected fraction contains the biotinylated DNA aptamer pool.\r\n  \r\n\n\n**PAUSE POINT** Biotinylated aptamer pools can be stored at \u201320 \u00b0C for several months.\r\n\n\n\r\n\n\n\r\n\n\n**Aptamer-facilitated target protein pull-down**\r\n\n\n\r\n\n\n61. Use temperature treatment, as described in step 6, on 15 \u00b5L of biotinylated aptamer pool from step 60.\r\n  \r\n\n\n62.  Treat a sample of 500 \u00b5M naive DNA library as described in step 6. From the temperature-treated stock prepare 100 \u00b5L of 100 \u00b5M naive DNA library in SB.\r\n  \r\n\n\n63. Prepare 50 \u00b5L equilibrium mixtures with the each of the samples from steps 60 and 61: 15 \u00b5L of DNA sample, 20 \u00b5g mL\n-1\nof positive cell lysate, and the concentration of masking DNAs as in step 48. Incubate for 10 minutes at room temperature.\r\n  \r\n\n\n64. For each pull-down sample from step 63, aliquot 50 \u00b5L streptavidin beads into an empty test tube. Wash the beads twice with 200 \u00b5L bead washing buffer. After each wash, precipitate the beads from the solution with a magnetic bead separator. \r\n  \r\n\n\n65. After the final washing step, remove the bead washing buffer and add the pull-down samples to the beads.  Incubate at room temperature for 20 min, gently mixing every five minutes to facilitate faster binding of DNA to the beads.\r\n  \r\n\n\n66.  Pull down the beads from the solution using a magnetic separator and separate the beads and the supernatant. Preserve the supernatant for further analysis through SDS-PAGE. Wash the beads three times with 100 \u00b5L of bead washing buffer. After each wash, precipitate the beads from the solution with a magnetic bead separator.\r\n  \r\n\n\n67.  After the final washing step, remove the BWB and add SDS-containing loading buffer according to the employed SDS-PAGE protocol. Maintain a low volume, preferably less than 20 \u00b5L. Incubate at 99 \u00b0C for 5 min.\r\n  \r\n\n\n68. Pull down the beads from the solution using a magnetic separator and collect the supernatant. Load directly on to a polyacrylamide gel for SDS-PAGE analysis.\r\n  \r\n\n\n69. Perform SDS-PAGE analysis on the pull-downs by the DNA aptamer pool and the naive DNA library, and on their respective supernatant samples from step 66. \r\n  \r\n\n\n70. Stain the gel with Coomassie Blue dye and analyze the results of SDS-PAGE to determine aptamers\u2019 ability to selectively isolate the target protein, and the level of cross-reactivity of the aptamer pool with non-target components of the cell lysate. See troubleshooting."
+        },
+        {
+            "header": "Timing",
+            "content": "\u2022 Day 1: Preparation of cell lysates \\(5 h).\r\n\n\n\r\n\n\n\u2022 Day 2: Capillary preconditioning and library preparation \\(0.5 h), determination of library and fluorescein migration times \\(1-2 h), masking DNA concentration titration \\(2 h), positive selection \\(1 h), negative selection \\(1 h).\r\n\n\n\r\n\n\n\u2022 Day 3: Determination of optimum number of cycles for preparative PCR \\(3 h), preparative PCR \\(2 h), asymmetric PCR \\(2 h), purification of aptamer DNA strands \\(2 h).\r\n\n\n\r\n\n\n\u2022 Day 4: Approximation of resultant pool concentration \\(2 h), affinity analysis of aptamer pools \\(2 h).\r\n\n\n\r\n\n\n\u2022 Days 5-29: Subsequent selection rounds \\(3 days per round). Time requirement will vary depending on the nature of the target protein.\r\n\n\n\r\n\n\n\u2022 Day 30: Aptamer pool biotinylation \\(4 h), aptamer-facilitated target protein pull-down \\(4 h)."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "\u2022 Step 9\r\n\n\nProblem: DNA library gives many peaks.\r\n\n\nExplanation and Solution: The naive DNA library contains impurities. Purify DNA with PAGE under denaturing conditions.\r\n\n\n\r\n\n\n\u2022 Step 9\r\n\n\nProblem: No free DNA is detectable.\r\n\n\nExplanation and Solution:DNA degradation or levels of non-specific interactions with the cell lysate are too high. Choose one or more of the following options: decrease the concentration of the cell lysates; decrease the incubation times for equilibrium mixtures; increase concentration of masking DNAs.\r\n\n\n\r\n\n\n\u2022 Steps 47 and 50\r\n\n\nProblem: Dissociation of complex is not detectable.\r\n\n\nExplanation and Solution: The complex is highly stable. The area of dissociation is negligible. Assume that A<sub>2</sub> = 0 in equation 1.\r\n\n\n\r\n\n\n\u2022 Steps 47 and 50\r\n\n\nProblem: Two or more peaks of complexes are observed.\r\n\n\nExplanation and Solution: The target interacts with DNA with several stoichiometries. Summarize peak areas of all complexes to calculate bulk affinity.\r\n\n\n\r\n\n\n\u2022 Steps 47 and 50\r\n\n\nProblem: The peak\\(s) suspected to represent the complex of aptamers with the target migrate too closely to the free DNA component.\r\n\n\nExplanation and Solution: Separation of the target protein and DNA is poor. Choose one or more of the following options: increase the length of the capillary; change the pH and concentration of the CE run buffer; use a different CE run buffer, such as tetraborate-based buffers.\r\n\n\n\r\n\n\n\u2022 Step 50\r\n\n\nProblem: No complex peaks are observed after 3 rounds of selection.\r\n\n\nExplanation and Solution: Bulk affinity of target to the naive DNA library is too low. Choose one or more of the following options: increase the concentration of the cell lysates; decrease the concentration of salts in the selection buffer; decrease the concentration of masking DNA.\r\n\n\n\r\n\n\n\u2022 Step 70\r\n\n\nProblem: Aptamer-facilitated protein isolation does not precipitate the target protein in detectable amounts.\r\n\n\nExplanation and Solution: Negative selection conditions are too stringent, and aptamer sequences are being lost. Decrease the concentration of masking DNA\u2019s. \r\n\n\n\r\n\n\n\u2022 Step 70\r\n\n\nProblem: Aptamer-facilitated protein isolation precipitates a non-target protein, or it results in a significant level of impurities.\r\n\n\nExplanation and Solution: Aptamers for non-target components of the cell lysate are not eliminated efficiently. Increase the concentration of masking DNA. Alternatively, this may be caused by the choice of the bacterial expression system. Chose a bacterial expression system that induces protein expression with a smaller number of biological events."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "The described protocol results in a pool of aptamers that are specific to the chosen target protein. The aptamer pool should be capable of binding the target with affinity and selectivity sufficient for isolation of the protein from the cell lysate. Expected purity level of the protein after an aptamer pool-facilitated purification step is between 80-99%. Obtained aptamer pools should be amplified by PCR to produce them in required amounts. To increase purification yield, the aptamer pool can be immobilized on resin and used in column chromatography mode. In such a case, depending on the nature of the protein, it can be recovered from a column either by a gradient of NaCl between 0 to 2 M, by a gradient of urea between 0 to 6 M, or by increasing the temperature in the column \\(temperature range should be optimized for each protein target)."
+        },
+        {
+            "header": "References",
+            "content": "1. Janson, J. Large-scale affinity purification - state of the art and future prospects. Trends Biotechnol. 2, 31-38 \\(1984). \r\n  \r\n\n\n2. Arnau, J., Lauritzen, C., Petersen, G. & Pedersen, J. Current strategies for the use of affinity tags and tag removal for the purification of recombinant proteins. Protein Expr. Purif. 48, 1-13 \\(2006). \r\n  \r\n\n\n3. Javaherian, S., Musheev, M. U., Kanoatov, M., Berezovski, M. V. & Krylov, S. N. Selection of aptamers for a protein target in cell lysate and their application to protein purification. Nucl.Acids Res. \\(2009). \r\n  \r\n\n\n4. Mosing, R., Mendonsa, S. & Bowser, M. Capillary electrophoresis-SELEX selection of aptamers with affinity for HIV-1 reverse transcriptase. Anal. Chem. 77, 6107-6112 \\(2005). \r\n  \r\n\n\n5. Berezovski, M. et al. Nonequilibrium capillary electrophoresis of equilibrium mixtures: A universal tool for development of aptamers. J. Am. Chem. Soc. 127, 3165-3171 \\(2005). \r\n  \r\n\n\n6. Petrov, A., Okhonin, V., Berezovski, M. & Krylov, S. N. Kinetic capillary electrophoresis \\(KCE): A conceptual platform for kinetic homogeneous affinity methods. J. Am. Chem. Soc. 127, 17104-17110 \\(2005). \r\n  \r\n\n\n7. Musheev, M. U. & Krylov, S. N. Selection of aptamers by systematic evolution of ligands by exponential enrichment: Addressing the polymerase chain reaction issue. Anal. Chim. Acta 564, 91-96 \\(2006). \r\n  \r\n\n\n8. Romig, T., Bell, C. & Drolet, D. Aptamer affinity chromatography: combinatorial chemistry applied to protein purification. Journal of chromatography.Biomedical applications 731, 275-284 \\(1999)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "We thank all the previous undergraduate and graduate students who have completed a project or a thesis in the laboratory and helped to build the foundations of these protocols. This research is supported by the Natural Sciences and Engineering Research Council of Canada \\(NSERC)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1093/nar/gkp176",
+                "date": "2010-12-09 23:06:06",
+                "title": "Selection of aptamers for a protein target in cell lysate and their application to protein purification",
+                "authors": [
+                    "S. Javaherian",
+                    "M. U. Musheev",
+                    "M. Kanoatov",
+                    "M. V. Berezovski",
+                    "and S. N. Krylov"
+                ],
+                "journal": "Nucleic Acids Research",
+                "logo": ""
+            },
+            {
+                "doi": "10.1016/j.aca.2010.09.044",
+                "date": "2010-12-09 23:06:38",
+                "title": "Selection of aptamers for a non-DNA binding protein in the context of cell lysate",
+                "authors": [
+                    "Mirzo Kanoatov",
+                    "Sahar Javaherian",
+                    "and Sergey N. Krylov"
+                ],
+                "journal": "Analytica Chimica Acta ",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 11624,
+                "identity": "9f8c895e-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Sergey Krylov",
+                "email": "skrylov@yorku.ca",
+                "orcid": "",
+                "institution": "York University",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Sergey",
+                "middleName": "",
+                "lastName": "Krylov",
+                "suffix": ""
+            },
+            {
+                "id": 11622,
+                "identity": "9f8c84b9-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Mirzo Kanoatov",
+                "email": "",
+                "orcid": "",
+                "institution": "York University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Mirzo",
+                "middleName": "",
+                "lastName": "Kanoatov",
+                "suffix": ""
+            },
+            {
+                "id": 11623,
+                "identity": "9f8c878a-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Sahar Javaherian",
+                "email": "",
+                "orcid": "",
+                "institution": "University of Toronto",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Sahar",
+                "middleName": "",
+                "lastName": "Javaherian",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2011-01-11 15:52:30",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2011.204",
+        "doiUrl": "https://doi.org/10.1038/protex.2011.204",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2608204,
+                "identity": "8b33d31f-6778-4bdf-87d8-e3443da3ae81",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:01",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 846004,
+                "visible": true,
+                "origin": "",
+                "legend": "Schematic representation of major AptaPIC steps",
+                "description": "",
+                "filename": "figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-1985/v1/figure_1.jpg"
+            },
+            {
+                "id": 2608203,
+                "identity": "0322bf05-1a76-448e-97f0-1b481cdaef55",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:01",
+                "extension": "jpg",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 103945,
+                "visible": true,
+                "origin": "",
+                "legend": "DNA collection windows for positive (bottom trace) and negative (top trace) selection steps.",
+                "description": "",
+                "filename": "figure2.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-1985/v1/figure_2.jpg"
+            },
+            {
+                "id": 2608202,
+                "identity": "0d1bede9-3051-4569-a100-6119f074f8f5",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:01",
+                "extension": "gif",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 2942,
+                "visible": true,
+                "origin": "",
+                "legend": "Equation 1   Calculation of the bulk EC~50~ value for an aptamer pool   Where [T]~tot~ and [DNA]~tot~ are the total concentrations of the target and DNA, respectively; A~1~ is the area of the peak of free DNA divided by the migration time of free DNA, A~2~ is the area of the peak of DNA that dissociated from the complex during NECEEM divided by the migration time of free DNA and A~3~ is the area of the peak of the intact complex that reached the detector divided by the migration time of the complex. EC~50~ is a measure of an effective abundance of aptamers in the library, which is used for qualitatively monitoring the progress of selection \u2014 a decrease of this value throughout the steps of partitioning indicates that the selection is progressing. The division of areas by corresponding migration times is performed to ensure that peak areas are proportional to the amounts of the species. This procedure is necessary for CE instruments with the on-column detection mode only. For CE instruments with past-column detection, normalization by time is not required.",
+                "description": "",
+                "filename": "figure3.gif",
+                "url": "https://assets.researchsquare.com/files/nprot-1985/v1/figure_3.gif"
+            },
+            {
+                "id": 13464597,
+                "identity": "8d8e5955-d77c-4b1f-9197-9c23645d0e71",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:43:57",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 322973,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-1985/v1/00f58921-3db3-4ada-b7fc-04430bb1bf79.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Aptamer, protein purification, affinity ligand, affinity purification, tag-free purification",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "Protein isolation from cell lysate can represent a significant challenge. The most efficient way to purify a protein is through the use of target-specific affinity ligands. Development of such affinity ligands, in most cases requires the availability of the target protein in a pure form. Thus, isolating the protein from the cell lysate requires affinity ligands, while developing affinity ligands requires a pure protein. Aptamer-facilitated Protein Isolation from Cells \\(AptaPIC) resolves this loop problem. AptaPIC is a technique that allows the development of aptamers for a protein in a context of a cell lysate, without any prior purification steps, and the subsequent utilization of the developed aptamers for protein isolation from the cell lysate.",
+        "manuscriptTitle": "Aptamer-facilitated Protein Isolation from Cells",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2011-01-13 10:28:27",
+                "doi": "10.1038/protex.2011.204",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9f8c28a3-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "January 13th, 2011",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 2495,
+                "name": "Biochemistry"
+            },
+            {
+                "id": 2496,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 2497,
+                "name": "Computational biology and bioinformatics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2011-01-13 10:28:27",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

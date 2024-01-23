@@ -1,0 +1,366 @@
+{
+    "identity": "pex-1006",
+    "title": "<p>Artificial intelligence predicts the immunogenic landscape of SARS-CoV-2: toward universal blueprints for vaccine designs</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>The global population is at present suffering from a pandemic of Coronavirus disease 2019 (COVID-19), caused by the novel coronavirus Severe Acute Respiratory Syndrome Coronavirus 2 (SARS-CoV-2). The goal of this study was to use artificial intelligence (AI) to predict blueprints for designing universal vaccines against SARS-CoV-2, that contain a sufficiently broad repertoire of T-cell epitopes capable of providing coverage and protection across the global population. To help achieve these aims, we profiled the entire SARS-CoV-2 proteome across the most frequent 100 HLA-A, HLA-B and HLA-DR alleles in the human population, using host-infected cell surface antigen presentation and immunogenicity predictors from the<em>&nbsp;NEC Immune Profiler&nbsp;</em>suite of tools, and generated comprehensive epitope maps. We then used these epitope maps as input for a Monte Carlo simulation designed to identify statistically significant \u201cepitope hotspot\u201d regions in the virus that are most likely to be immunogenic across a broad spectrum of HLA types. We then removed epitope hotspots that shared significant homology with proteins in the human proteome to reduce the chance of inducing off-target autoimmune responses. We also analyzed the antigen presentation and immunogenic landscape of all the nonsynonymous mutations across 3400 different sequences of the virus, to identify a trend whereby SARS-COV-2 mutations are predicted to have reduced potential to be presented by host-infected cells, and consequently detected by the host immune system. A sequence conservation analysis then removed epitope hotspots that occurred in less-conserved regions of the viral proteome. Finally, we used a database of the HLA genotypes of approximately 22 000 individuals to develop a \u201cdigital twin\u201d type simulation to model how effective different combinations of hotspots would work in a diverse human population; the approach identified an optimal constellation of epitope hotspots that could provide maximum coverage in the global population.&nbsp;By combining the antigen presentation to the infected-host cell surface and immunogenicity predictions of the <em>NEC Immune Profiler</em> with a robust Monte Carlo and digital twin simulation, we have profiled the entire SARS-CoV-2 proteome and identified a subset of epitope hotspots that could be harnessed in a vaccine formulation to provide a broad coverage across the global population.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": ""
+        },
+        {
+            "header": "Equipment",
+            "content": ""
+        },
+        {
+            "header": "Procedure",
+            "content": "Module 1:\nGenerate epitope maps\nFor a given HLA allele, the score allocated to an amino acid corresponds to the best score obtained by an epitope prediction overlapping with this amino acid. For Class I HLA alleles, the epitope lengths are 8, 9, 10 and 11, and predicted for antigen presentation (AP) or immune presentation (IP) of the viral peptide to host-infected cell surface, generated using the NEC Immune Profiler software. These Class I scores range between 0 and 1, where by 1 is the best score, i.e., higher likelihood of being naturally presented on the cell surface (AP) or being recognized by a T cell (IP). For Class II HLA alleles, we only consider 15mers. The Class II were predictions were percentile rank binding affinity scores (not antigen presentation), so the lower scores are best (the scores range from 0 to 100, with 0 being the best score).\nModule 2:\nMonte Carlo simulation detection of epitope epitope hotspots\nInput data:\nThe data sets inputted into the statistical framework are epitope maps from module 1 generated for each amino-acid position in all the proteins in the SARS-CoV-2 proteome, for all of the studied 100 HLA alleles. A score for any given amino acid was determined as the maximum AP or IP score that a peptide overlapping that amino acid holds in the epitope map. All peptide lengths of size 8-11 amino acids for Class I, and 15 for Class II were processed, generating one HLA dataset per viral protein. Each row in the dataset represents the amino acid epitope scores predicted for one HLA type.\nHLA tracks:\nThe raw input datasets are first transformed into binary tracks. For each Class I HLA dataset, the epitope scores are transformed to binary (0 and 1) values, such that amino-acid positions with predicted epitope scores larger than 0.7 for AP, or larger than 0.5 for IP, are assigned the value 1 (positively predicted epitope), and the rest are assigned the value 0. Similarly, for Class II HLA datasets, amino-acid positions with predicted epitope scores smaller than 10 are assigned the value 1, otherwise 0. Each binary track can effectively be presented as a list of segments, intervals of consecutive ones, and gaps,\u00a0intervals of consecutive zeros.\nTest statistic:\nFor a group of K HLA binary tracks, a test statistic\nis calculated for each bin of given size dividing the protein in\nn\nbins. For details of the test statistic please see associated publication.\nNull model:\nA null model is defined as the generative model of the HLA tracks, if they were generated by chance. From the null model, through sampling, arises the null distribution of the test statistic. Amino acids that are positively predicted as epitopes will clump together in segments with minimal length of 8, which is the shortest peptide length for which epitope scores are predicted, and often form longer segments when the source peptides overlap each other. Similarly, non-epitope amino acids will form gaps, with a minimal possible length of 1 amino acid. To preserve these features of the observed HLA tracks in the null model, as a sampling strategy we selected to shuffle the order of the segments and the gaps, respectively, within an HLA track.\nModule 3:\nFilters of non-conserved peptides and human tissue expression\nFor each protein within the viral genome, the set of unique amino acid sequences was compiled from all the strains available in the GISAID database. These sets were individually processed using the Clustal Omega (v1.2.4) software via the command line interface with default parameter settings.The median conservation score was calculated by sampling 1,000 sub-sequences equal to the epitope hotspot size from the entire consensus sequence of a protein. Each sample was assigned a conservation score, and the median value from all 1,000 conservation scores was calculated. The minimum conservation score was calculated using a sliding window approach, with the window size being equal to the hotspot size. For each increment, a conservation score was calculated and the resulting minimum conservation score was kept.\nIn addition, to reduce the potential for off-target autoimmune responses against host tissue, we removed hotspots that contained exact sequence matches\u00a0for all epitope lengths analyzed to proteins in the human proteome\n.\nModule 4:\nThe digital twin simulation framework\nFigure 1 gives an overview of the problem setting.\n(Please see the paper description for the exact equations.)\nStep 1. Select a set of candidate vaccine elements\nFor this work, we select the hotspots filtered through Module 3.\nStep 2. Create a set of \u201cdigital twin\u201d citizens\n- Creating a distribution over genotypes for each region.\nWe collect full HLA genotypes from actual citizens available from high-quality samples in the Allele Frequency Net Database (AFND). we collect all genotypes observed at least once across all regions; we assign an index\ng\nto each genotype, and we call the total number of unique genotypes as\nG\n. Second, we specify a prior distribution over genotypes. We use a symmetric Dirichlet distribution with concentration parameter of 0.5 because this distribution is uninformative in an information theoretic sense and does not reflect strong prior beliefs that any particular genotypes are more likely to appear in any specific region. For each region, we then calculate a posterior distribution over genotypes as a Dirichlet distribution using standard equations.\n- Creating a set of \u201cdigital twin\u201d citizens.\nWe create a set of digital twin citizens using a two-step approach. Our method must be given the population size\np\n, as well as a distribution over regions. Concretely, the input is a Dirichlet distribution over the regions, as well as\np\n. (We note that this Dirichlet is completely independent of those over genotypes discussed in the previous section.) The number of citizens from each region is sampled using the same two-step sampling process described above.\nSecond, the genotypes for each region are sampled using the posterior distributions over genotypes discussed above.\nStep 3. Create a tripartite graph\nWe next use the vaccine elements and digital twins to construct a tripartite graph that will form the basis of the optimization problem for vaccine design. The graph has three sets of nodes:\n1. All candidate vaccine elements identified in Step 1\n2. All HLA alleles in all digital twin genotypes\n3. All digital twins\nThe graph also has two sets of weighted edges:\n1. An edge from each vaccine element to each HLA allele. The weight of this edge is the likelihood of no response for the allele from that particular vaccine element.\n2. An edge from each allele to each citizen which has that allele in its genotype. The weight of these edges is always 1.\nAs an intuition, we call the edges from a vaccine element to an allele (and, then, from the allele to each patient with that allele) as \u201cactive\u201d when the vaccine element is selected. Then, the log likelihood of response for a citizen is the sum of all active incoming edges. That is, the flow from selected vaccine elements to the citizens gives the likelihood of no response for that citizen.\nCalculating the likelihood of no response for a given digital twin and vaccine elements.\nMost short peptide prediction engines, e.g., netMHC, compute some sort of a score that a peptide will result in some immune response (e.g., binding, presentation, cytokine release, etc.), and this score generally takes into account a specific HLA allele. In some cases, this is already a probability, and in others, it can be converted into a probability using a transformation function, such as a logistic function.\nStep 4. Selecting a set of vaccine elements\nFinally, we pose the vaccine design problem as a type of network flow problem through the graph defined in Step 3. In particular, the minimization problem can be posed as an integer linear program (ILP); thus, it can be provably, optimally solved using conventional ILP solvers.\n- Handling the minimax problem.\nAs previously described, our goal is to choose the set of vaccine elements which minimize the log likelihood of no response for each patient. We ignore any interactions among vaccine elements. Standard ILP solvers cannot directly solve this minimax problem; however, we use the standard approach of a set of surrogate variables to address this problem. We then minimize the surrogate variables.\nPlease see the paper for exact equations and mathematical notation."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": ""
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>Epitope maps (Module 1): 6-12 hours</p><p>Monte Hotspot detection (Module 2): 2-6 hours</p><p>Non conserved filters (Module 3): 2-4 hours</p><p>Digital twin simulation (Module 4): 2-4 hours</p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>A subset of epitope hotspots that could be harnessed in a vaccine formulation to provide a broad coverage across the global population.</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": " 10.1101/2020.04.21.052084",
+                "date": "2020-04-22 11:26:07",
+                "title": "Artificial intelligence predicts the immunogenic landscape of SARS-CoV-2: toward universal blueprints for vaccine designs",
+                "authors": [
+                    "Brandon Malone",
+                    "Boris Simovski",
+                    "Cl\u00e9ment Molin\u00e9",
+                    "Jun Cheng",
+                    "Marius Gheorghe",
+                    "Hugues Fontenelle",
+                    "Ioannis Vardaxis",
+                    "Simen Tenn\u00f8e",
+                    "Jenny-Ann Malmberg",
+                    "Richard Stratford",
+                    "Trevor Clancy"
+                ],
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 744878,
+                "identity": "8fa34da6-7afc-4042-a7ee-4e98138d2034",
+                "order_by": 0,
+                "name": "Brandon Malone ",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-7027-3157",
+                "institution": "NEC Research Laboratories Europe",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Brandon",
+                "middleName": "",
+                "lastName": "Malone",
+                "suffix": ""
+            },
+            {
+                "id": 744879,
+                "identity": "c3134b2d-ce84-4281-a371-46459c6b8723",
+                "order_by": 1,
+                "name": "Boris Simovski",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-3629-1570",
+                "institution": "NEC OncoImmunity AS",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Boris",
+                "middleName": "",
+                "lastName": "Simovski",
+                "suffix": ""
+            },
+            {
+                "id": 744880,
+                "identity": "a26db84f-5f98-4f0a-a200-eb280013a93f",
+                "order_by": 2,
+                "name": "Cl\u00e9ment Molin\u00e9 ",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0003-2699-3226",
+                "institution": "NEC OncoImmunity AS",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Cl\u00e9ment",
+                "middleName": "",
+                "lastName": "Molin\u00e9",
+                "suffix": ""
+            },
+            {
+                "id": 744976,
+                "identity": "1a5200a4-9fcb-479f-bd13-bd306a08eb99",
+                "order_by": 3,
+                "name": "Jun Cheng ",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0001-5573-9791",
+                "institution": "NEC Research Laboratories Europe",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jun",
+                "middleName": "",
+                "lastName": "Cheng",
+                "suffix": ""
+            },
+            {
+                "id": 745014,
+                "identity": "5e0ccbaf-f1de-4965-bcbc-1dc422bfac0d",
+                "order_by": 4,
+                "name": "Marius Gheorghe",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-9666-0809",
+                "institution": "NEC OncoImmunity AS",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Marius",
+                "middleName": "",
+                "lastName": "Gheorghe",
+                "suffix": ""
+            },
+            {
+                "id": 745015,
+                "identity": "2b54ade5-dfe7-4670-a4c2-1ad9f2f97b9e",
+                "order_by": 5,
+                "name": "Hugues Fontenelle",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0003-0416-3096",
+                "institution": "NEC OncoImmunity AS",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Hugues",
+                "middleName": "",
+                "lastName": "Fontenelle",
+                "suffix": ""
+            },
+            {
+                "id": 745023,
+                "identity": "20360ee1-8b69-4d9b-a3ef-3a0ec64f768c",
+                "order_by": 6,
+                "name": "Ioannis Vardaxis",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-0296-1687",
+                "institution": "NEC OncoImmunity AS",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Ioannis",
+                "middleName": "",
+                "lastName": "Vardaxis",
+                "suffix": ""
+            },
+            {
+                "id": 745024,
+                "identity": "ac1255b0-89be-4fb8-8501-3701a9ee049a",
+                "order_by": 7,
+                "name": "Simen Tenn\u00f8e ",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-0120-8992",
+                "institution": "NEC OncoImmunity AS",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Simen",
+                "middleName": "",
+                "lastName": "Tenn\u00f8e",
+                "suffix": ""
+            },
+            {
+                "id": 745025,
+                "identity": "c260e6c8-40dd-4bdd-92a9-b5121cd75a76",
+                "order_by": 8,
+                "name": "Jenny-Ann Malmberg ",
+                "email": "",
+                "orcid": "",
+                "institution": "NEC OncoImmunity AS",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jenny-Ann",
+                "middleName": "",
+                "lastName": "Malmberg",
+                "suffix": ""
+            },
+            {
+                "id": 745026,
+                "identity": "05958194-9c0d-4d6e-a3a7-320420357801",
+                "order_by": 9,
+                "name": "Richard Stratford",
+                "email": "",
+                "orcid": "",
+                "institution": "NEC OncoImmunity AS",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Richard",
+                "middleName": "",
+                "lastName": "Stratford",
+                "suffix": ""
+            },
+            {
+                "id": 745027,
+                "identity": "e26f6f67-87f1-4f51-9903-110f1dd75f9a",
+                "order_by": 10,
+                "name": "Trevor Clancy ",
+                "email": "trevor@oncoimmunity.com",
+                "orcid": "https://orcid.org/0000-0001-9896-0613",
+                "institution": "NEC OncoImmunity AS",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Trevor",
+                "middleName": "",
+                "lastName": "Clancy",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2020-06-27 21:03:07",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1006/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1006/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 3841899,
+                "identity": "26cf83e6-c152-4b16-b564-fa2a01e5eb53",
+                "added_by": "auto",
+                "created_at": "2020-11-26 10:19:23",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 1007823,
+                "visible": true,
+                "origin": "",
+                "legend": "Schematic of the problem setting. The vaccines elements were the significant epitope hotspots that emerged from the statistical hotspot detection framework \n",
+                "description": "",
+                "filename": "Figure1excprotocols.jpg",
+                "url": "https://assets.researchsquare.com/files/pex-1006/v1/613d3662e62e4c2ccd100286.jpg"
+            },
+            {
+                "id": 13620442,
+                "identity": "f82e7b6a-87bc-456c-8fc6-f94efda8e2fb",
+                "added_by": "auto",
+                "created_at": "2021-09-17 07:05:44",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 327532,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1006/v1/7606805a-34a2-48b2-bf69-8f18bc8541a1.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "vaccine design, immune informatics, sars-cov-2",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>This protocol predicts blueprints for vaccine design that contain a broad repertoire of T-cell epitopes optimized for the global population. The protocol first requires a screening of the SARS-CoV-2 proteome using immunogenicity predictors to generate comprehensive epitope maps. Then, these epitope maps are used as input to Monte Carlo simulations designed to identify statistically significant \u201cepitope hotspot\u201d regions in the virus that are most likely to be immunogenic. The epitope hotspots that share significant homology with proteins in the human proteome are removed to reduce the chance of inducing off-target autoimmune responses. Finally, a database of the actual HLA genotypes of citizens is used to develop a \u201cdigital twin\u201d type simulation to model how effective different combinations of hotspots would work in a diverse human population. The approach identifies an optimal constellation of epitope hotspots that could provide maximum coverage in the human population.&nbsp;</p>",
+        "manuscriptTitle": "Artificial intelligence predicts the immunogenic landscape of SARS-CoV-2: toward universal blueprints for vaccine designs",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2020-11-26 10:19:21",
+                "doi": "10.21203/rs.3.pex-1006/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "fdc9e70f-3c92-4832-8b05-ea20e1a10cf6",
+        "owner": [],
+        "postedDate": "November 26th, 2020",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 136750,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 136751,
+                "name": "Immunology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2020-11-26 10:19:21",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

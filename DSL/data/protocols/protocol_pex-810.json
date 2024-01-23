@@ -1,0 +1,374 @@
+{
+    "identity": "pex-810",
+    "title": "<p>Long-term, <em>in toto</em> live imaging of the developing mouse heart</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>\tA central theme in organogenesis is how cell lineages of divergent sources are spatiotemporally deployed to assemble complex organ structures in mammals<sup>1,2</sup>. In particular, the formation of mammalian heart as the first functional organ reflects an exquisite choreography of massive numbers of cells dividing and migrating through the processes of heart tube looping, ballooning, and formation and coalescence of the inner trabecular layer, ultimately creating a four-chambered muscular pump <sup>1-4</sup>. Many congenital malformations result from abnormal cardiac growth<sup>5</sup>. However, cellular mechanisms of heart chamber formation remain controversial because an effective means offering spatiotemporal, holistic information of cell lineages is still lacking. </p><p>\tIdeally, to precisely map the developmental processes of embryogenesis and organogenesis, all single cells should be followed noninvasively through live imaging for a certain period of time. Recent breakthroughs in live imaging coupled with digital reconstructions open a new avenue to decipher morphogenetic rules through precisely tracking cell fate decisions and depicting a holistic lineage landscape<sup>6-9</sup>. Not only it has brought new fundamental understandings of the development of <em>Caenorhabditis elegans</em> and <em>Drosophila</em> embryos<sup>10,11</sup>, great strides have also been made on mouse embryo imaging using light-sheet microscopy, enabling single-cell imaging of yolk sac expansion<sup>12</sup> and gastrulation<sup>9</sup>. Because of technical challenges including rigorous culture conditions to support <em>ex vivo</em> development, depth of penetration to image solid organs <sup>9,15,16</sup>, and spontaneous heartbeats onset around E8.0 <sup>17</sup>, its implementation to mammalian hearts has not been possible, until now.</p><p>Here, we overcame the technical challenges as previously encountered by optimizing mouse embryo culture and mounting methods, developing a vertical, dual-side illumination light-sheet microscope, equipping it with an integrated embryo culture module, together with a heartbeat-gated imaging module. With this integrative approach, we realized a 36-h, all cell-resolved<em> </em>imaging of developing mouse heart at 3-min intervals. Further aided with innovative digital image processing pipelines, Grapebio, we generated, for the first time, all-cell landscapes and uninterrupted cell lineages for the developing mouse heart, through robustly segmenting and accurately locating ~20,000,000 cells of different shapes and intensities in ~7,200 volumetric stacks (obtained over 1.5 days at 3 min intervals). Taking these digital reconstructions, we reveal the cellular basis for the heart chamber ballooning and the cells of origin for the heart trabeculation.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p>NotI (NEB, R3189V)</p><p>BamHI (NEB, R3136V)</p><p>DMEM/F12 (Sigma, D2906)</p><p>Fetal bovine serum (Gibco, 16000-044)</p><p>Pen-Strep solution (Hyclone, SV30010)</p><p>HEPES (Sigma, H4034-500G)</p><p>Sodium bicarbonate (Sigma, S5761)</p><p>Glucose (Sigma, G7021)</p><p>Low-melt agarose (Sigma, A9414)</p><p>OCT (Leica, 14020108926)</p><p>Doxycycline (RPI, P6148-500G)</p><p>BrdU (Sigma, B5002)</p><p>anti-BrdU antibody (Abcam, Ab6326)</p><p>EdU (Life Technologies, C10638)</p><p>Click-it EdU imaging Kit (Life Technologies, C10638)</p><p>TNNI3 antibody (Abcam, Ab56357)</p><p>GATA4 antibody (Santa, Sc-25310)</p><p>Alexa Fluor 488 donkey anti rabbit (Invitrogen, A11078)</p><p>Alexa Fluor 488 donkey anti rat (Invitrogen, A21208)</p><p>Alexa Fluor 555 donkey anti goat (Invitrogen, A21432)</p><p>Alexa Fluor 647 donkey anti goat (Invitrogen , A21447)</p><p>T-A clone vector EZ-T (Vazyme, T168-101)</p><p>DIG RNA labeling kit (Roche, 11277073910)</p><p>&nbsp;anti-DIG-AP antibody (Roch, 11093274910)</p><p>&nbsp;BM Purple AP Substrate (Roche, 11442074001)</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>1.5 ml tube&nbsp;(Axygen, MCT-150-C)</p><p>0.2 ml 8-strip PCR tube&nbsp;(Axygen, PCR-0208-C)</p><p>Confocal microscope (Zeiss LSM 710)</p><p>Nikon SMZ18 microscope</p><p>Zeiss Axio Vert.A1 microscope</p><p>&nbsp;Zeiss Lumar V12</p><p>Centrifuge&nbsp;(Eppendorf)</p><p>Thermal cycler&nbsp;(Eppendorf)</p><p>ThermoMixer</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "Reagents Setup\n\u2022\u00a0Dissection medium\n88% DMEM/F12 (PH 7.2-7.4)\n10% fetal bovine serum\n2% Pen-Strep solution\n25 mM HEPES\n\u2022\u00a0Basic Culture medium-V1\n98% DMEM/F12 (PH 7.2-7.4)\n2% Pen-Strep solution\n15 mM HEPES\n\u2022\u00a0Culture medium-V2\n50% basic culture medium\n50% rat serum\n\u2022\u00a0Culture medium-V3\n83% dissection medium\n17% rat serum\nDissection medium and culture medium pre-heated and balanced in an incubator (37\u00b0C, 5% CO\n2\n, and 95% air) for 1 h before using.\nDetailed Experiment Procedure for embryo preparation\nEmbryo collection\n1.\u00a0\u00a0\u00a0\u00a0Pregnant mice are euthanized with 4% chloral hydrate.\n2.\u00a0\u00a0\u00a0\u00a0Soak abdomen with 70% ethanol, pinch the skin and make an incision at the midline of the abdomen with surgical scissors, then pull the skin apart.\n3.\u00a0\u00a0\u00a0\u00a0Cut the peritoneum to expose abdominal cavity.\n4.\u00a0\u00a0\u00a0\u00a0Cut the uterus and place it into the dissection medium.\n5.\u00a0\u00a0\u00a0\u00a0Separate each embryo with forceps between implantation sites.\n6.\u00a0\u00a0\u00a0\u00a0Peel back the surrounding muscle layer and expose decidua tissue.\n7.\u00a0\u00a0\u00a0\u00a0Clip off 1/5 portion of the decidua, and expose the embryo;\n8.\u00a0\u00a0\u00a0\u00a0Dissect out the enveloped decidua, Reichert\u2019s membrane with fine forceps.\n9.\u00a0\u00a0\u00a0\u00a0Remove ectoplacental cone, yolk sac and amnion with super fine forceps (when embryos are later than E8.25).\nEmbryo culture\n10\u00a0\u00a0Transfer the embryos to a Petri dish/agarose tube with culture medium-V2, put the Petri dish/agarose tube in an incubator (37\u00b0C, 5% CO\n2\n, and 95% air).\nEmbryo mounting\n11\u00a0\u00a0Make hollow agarose cylinders: Component B inserted with component A is filled with 2% low melting-temperature agarose. Triangular hollow is formed after removing component A (Figure 5).\n12\u00a0\u00a0Suck the mouse embryo with culture medium-V2 to the hollow in the agarose holder.\n13\u00a0\u00a0Combine the agarose holder with a base support, and mount the agarose holder and base on the chamber, full the chamber with culture medium-V3.\nLive imaging of the mouse embryos\n14\u00a0\u00a0Set up the environment on the microscopy: Open and adjust gas mixer to 5% CO\n2\n, 5% O\n2\nand 90% N\n2\n, pre-heat the chamber to 37\u00b0C using water bath which is rolling surrounding the chamber.\n15\u00a0\u00a0Image the embryos: Generally, 2.5 \u03bcm step size, up to total of ~400 \u03bcm, 3 min intervals, lower laser power and exposure time are used to obtain better results."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p><strong><u>1.</u></strong></p><p><strong>Step: </strong>9.</p><p><strong>Problem: The state of mouse embryo is not well when dissecting. </strong></p><p><strong>Possible reason: </strong>It takes too much time to dissect mouse embryos or destroys the embryo.</p><p><strong>Solution: </strong>Practice more times and decrease the operating time.</p><p><strong><u>2.</u></strong></p><p><strong>Step: </strong>15.</p><p><strong>Problem:&nbsp;The state of mouse embryo is not well when imaging .</strong></p><p><strong>Possible reason: </strong>The culture condition may be changed during long-term imaging.</p><p><strong>Solution: </strong>Check the imaging system, containing gas mixture (O<sub>2</sub>, N<sub>2</sub>, and CO<sub>2</sub>) and temperature control.</p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p><strong>Day 1</strong></p><p>\u2022&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>Dissect mouse embryos</u></p><p>\u2022&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>Mount embryos to V-slot</u></p><p>\u2022&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>Place the V-slot with embryo onto the vLSFM</u></p><p>\u2022&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>Adjust the imaging conditions</u></p><p>\u2022&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>Live imaging</u></p><p><strong>Day 2-3</strong></p><p>\u2022&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>Live imaging</u></p><p>\u2022&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>Obtain and analyze the imaging data</u></p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>1 The mouse embryos exhibit good state before imaging.</p><p>2 The imaging mouse embryo shows normal heart development.</p><p>3 Imaging results show positive signals at single-cell resolution.</p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Meilhac, S. M., Lescroart, F., Blanpain, C. &amp; Buckingham, M. E. Cardiac cell lineages that form the heart. <em>Cold Spring Harb Perspect Med</em> <strong>4</strong>, a013888, doi:10.1101/cshperspect.a013888 (2014).</p><p>2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kelly, R. G., Buckingham, M. E. &amp; Moorman, A. F. Heart fields and cardiac morphogenesis. <em>Cold Spring Harb Perspect Med</em> <strong>4</strong>, doi:10.1101/cshperspect.a015750 (2014).</p><p>3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vincent, S. D. &amp; Buckingham, M. E. How to make a heart: the origin and regulation of cardiac progenitor cells. <em>Curr Top Dev Biol</em> <strong>90</strong>, 1-41, doi:10.1016/S0070-2153(10)90001-X (2010).</p><p>4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sedmera, D., Pexieder, T., Vuillemin, M., Thompson, R. P. &amp; Anderson, R. H. Developmental patterning of the myocardium. <em>Anat Rec</em> <strong>258</strong>, 319-337 (2000).</p><p>5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hoffman, J. I. E., Kaplan, S. &amp; Liberthson, R. R. Prevalence of congenital heart disease. <em>Am Heart J</em> <strong>147</strong>, 425-439, doi:10.1016/j.ahj.2003.05.003 (2004).</p><p>6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Keller, P. J., Schmidt, A. D., Wittbrodt, J. &amp; Stelzer, E. H. K. Reconstruction of zebrafish early embryonic development by scanned light sheet microscopy. <em>Science</em> <strong>322</strong>, 1065-1069, doi:10.1126/science.1162493 (2008).</p><p>7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ichikawa, T.<em> et al.</em> Live imaging and quantitative analysis of gastrulation in mouse embryos using light-sheet microscopy and 3D tracking tools. <em>Nat Protoc</em> <strong>9</strong>, 575-585, doi:10.1038/nprot.2014.035 (2014).</p><p>8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Amat, F.<em> et al.</em> Fast, accurate reconstruction of cell lineages from large-scale fluorescence microscopy data. <em>Nat Methods</em> <strong>11</strong>, 951-958, doi:10.1038/nmeth.3036 (2014).</p><p>9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;McDole, K.<em> et al.</em> In Toto Imaging and Reconstruction of Post-Implantation Mouse Development at the Single-Cell Level. <em>Cell</em> <strong>175</strong>, 859-876 e833, doi:10.1016/j.cell.2018.09.031 (2018).</p><p>10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chen, B. C.<em> et al.</em> Lattice light-sheet microscopy: imaging molecules to embryos at high spatiotemporal resolution. <em>Science</em> <strong>346</strong>, 1257998, doi:10.1126/science.1257998 (2014).</p><p>11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Royer, L. A.<em> et al.</em> Adaptive light-sheet microscopy for long-term, high-resolution imaging in living organisms. <em>Nat Biotechnol</em> <strong>34</strong>, 1267-1278, doi:10.1038/nbt.3708 (2016).</p><p>12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Udan, R. S., Piazza, V. G., Hsu, C. W., Hadjantonakis, A. K. &amp; Dickinson, M. E. Quantitative imaging of cell dynamics in mouse embryos using light-sheet microscopy. <em>Development</em> <strong>141</strong>, 4406-4414, doi:10.1242/dev.111021 (2014).</p><p>13&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Huisken, J., Swoger, J., Del Bene, F., Wittbrodt, J. &amp; Stelzer, E. H. K. Optical sectioning deep inside live embryos by selective plane illumination microscopy. <em>Science</em> <strong>305</strong>, 1007-1009, doi:DOI 10.1126/science.1100035 (2004).</p><p>14&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mickoleit, M.<em> et al.</em> High-resolution reconstruction of the beating zebrafish heart. <em>Nat Methods</em> <strong>11</strong>, 919-922, doi:10.1038/nmeth.3037 (2014).</p><p>15&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Skylaki, S., Hilsenbeck, O. &amp; Schroeder, T. Challenges in long-term imaging and quantification of single-cell dynamics. <em>Nat Biotechnol</em> <strong>34</strong>, 1137-1144, doi:10.1038/nbt.3713 (2016).</p><p>16&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Massarwa, R. &amp; Niswander, L. In toto live imaging of mouse morphogenesis and new insights into neural tube closure. <em>Development</em> <strong>140</strong>, 226-236, doi:10.1242/dev.085001 (2013).</p><p>17&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tyser, R. C.<em> et al.</em> Calcium handling precedes cardiac differentiation to initiate the first heartbeat. <em>Elife</em> <strong>5</strong>, doi:10.7554/eLife.17113 (2016).</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>We thank R.H. Harvey for reviewing this manuscript, I.C. Bruce for manuscript editing, and Yangyang Xu, Lufeng Yuan, and Erlin Yao for technical assistance. A.H. was supported by grants from the National Basic Research Program of China (2017YFA0103402 and 2019YFA0801802), the National Natural Science Foundation of China (31571487, 31771607 and 31327901), the Peking-Tsinghua Center for Life Sciences, and the 1000 Youth Talents Program of China. H.C. was supported by grants from the National Key Technology R&amp;D Program (SQ2011SF11B01041), the National Key Basic Research Program of China (2016YFA0500403), and the National Science Foundation of China (31521062). W.Z. was supported by grants from the National Key Technology R&amp;D Program (2018YFA0109600). R.W. was supported by grants from the National Postdoctoral Program for Innovative Talents (8206200030).</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "",
+                "date": "",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            },
+            {
+                "doi": "10.1038/s41556-020-0475-2",
+                "date": "2020-03-02 17:16:27",
+                "title": "Long-term, in toto live imaging of cardiomyocyte behaviour during mouse ventricle chamber formation at single-cell resolution",
+                "authors": [
+                    "Yanzhu Yue",
+                    "Weijian Zong",
+                    "Xin Li",
+                    "Jinghang Li",
+                    "Youdong Zhang",
+                    "Runlong Wu",
+                    "Yazui Liu",
+                    "Jiahao Cui",
+                    "Qianhao Wang",
+                    "Yunkun Bian",
+                    "Xianhong Yu",
+                    "Yao Liu",
+                    "Guangming Tan",
+                    "Yunfeng Zhang",
+                    "Gang Zhao",
+                    "Bin Zhou",
+                    "Liangyi Chen",
+                    "Wenlei Xiao",
+                    "Heping Cheng",
+                    "Aibin He"
+                ],
+                "journal": "Nature Cell Biology",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 304301,
+                "identity": "0cb25375-1de2-4ec2-bf09-4c176ff7328b",
+                "order_by": 1,
+                "name": "Yanzhu Yue",
+                "email": "",
+                "orcid": "",
+                "institution": "State Key Laboratory of Membrane Biology, Beijing Key Laboratory of Cardiometabolic Molecular Medicine, Institute of Molecular Medicine, Peking-Tsinghua Center for Life Sciences, Peking University, Beijing 100871, China",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Yanzhu",
+                "middleName": "",
+                "lastName": "Yue",
+                "suffix": ""
+            },
+            {
+                "id": 304303,
+                "identity": "16cd9fe2-27cc-4113-8a5c-4b71c1ab5daa",
+                "order_by": 2,
+                "name": "Xin Li",
+                "email": "",
+                "orcid": "",
+                "institution": "State Key Laboratory of Membrane Biology, Beijing Key Laboratory of Cardiometabolic Molecular Medicine, Institute of Molecular Medicine, Peking-Tsinghua Center for Life Sciences, Peking University, Beijing 100871, China",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Xin",
+                "middleName": "",
+                "lastName": "Li",
+                "suffix": ""
+            },
+            {
+                "id": 304305,
+                "identity": "b32bb83d-b1d1-4788-856d-ee4220c4f5ae",
+                "order_by": 3,
+                "name": " Youdong Zhang",
+                "email": "",
+                "orcid": "",
+                "institution": "State Key Laboratory of Membrane Biology, Beijing Key Laboratory of Cardiometabolic Molecular Medicine, Institute of Molecular Medicine, Peking-Tsinghua Center for Life Sciences, Peking University, Beijing 100871, China",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Youdong",
+                "middleName": "",
+                "lastName": "Zhang",
+                "suffix": ""
+            },
+            {
+                "id": 304320,
+                "identity": "4d711b6c-5b2c-450a-960d-acc3b7bba20e",
+                "order_by": 4,
+                "name": "Aibin He",
+                "email": "ahe@pku.edu.cn",
+                "orcid": "",
+                "institution": "State Key Laboratory of Membrane Biology, Beijing Key Laboratory of Cardiometabolic Molecular Medicine, Institute of Molecular Medicine, Peking-Tsinghua Center for Life Sciences, Peking University, Beijing 100871, China",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Aibin",
+                "middleName": "",
+                "lastName": "He",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2020-01-18 08:20:05",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.2.21499/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.2.21499/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 382565,
+                "identity": "99516c01-cb7f-4f5e-b1e0-d8b2b9cfc894",
+                "added_by": "auto",
+                "created_at": "2020-01-20 11:23:02",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 965482,
+                "visible": true,
+                "origin": "",
+                "legend": "Close-up of the vLSFM imaging system, including the laser light source (1), two illumination arms (2), one detection arm with a sCMOS camera (3), near infrared heart-beating detection path (4), embryo culture and imaging chamber (5), and the 3-axis stage (6). \nb, 3D model about how to image a mouse embryo by vLSFM. The anterior, posterior and dorsal view of the mouse sheltered the light path so only the lateral and ventral view of the heart could use for illumination and detection.",
+                "description": "",
+                "filename": "Figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/328a4ac0-4da0-4f79-99d5-d1395a546cb5/v1/Figure 1.jpg"
+            },
+            {
+                "id": 382566,
+                "identity": "94dcc97c-9cae-40d4-9601-92592d261a0f",
+                "added_by": "auto",
+                "created_at": "2020-01-20 11:23:02",
+                "extension": "jpg",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 189617,
+                "visible": true,
+                "origin": "",
+                "legend": "Embryo culture system. The culture system comprises the gas mixer controller, the medium circulation, and temperature controller as well as the embryo culture and imaging chamber.",
+                "description": "",
+                "filename": "Figure2.jpg",
+                "url": "https://assets.researchsquare.com/files/328a4ac0-4da0-4f79-99d5-d1395a546cb5/v1/Figure 2.jpg"
+            },
+            {
+                "id": 382567,
+                "identity": "46d98776-e8c3-4c50-a2f5-5b1c09862f00",
+                "added_by": "auto",
+                "created_at": "2020-01-20 11:23:02",
+                "extension": "jpg",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 172856,
+                "visible": true,
+                "origin": "",
+                "legend": "Schematic of the optical tracking of heartbeats using near infrared (850 nm) bright-field imaging at 50 Hz.",
+                "description": "",
+                "filename": "Figure3.jpg",
+                "url": "https://assets.researchsquare.com/files/328a4ac0-4da0-4f79-99d5-d1395a546cb5/v1/Figure 3.jpg"
+            },
+            {
+                "id": 382568,
+                "identity": "42d155b7-92d6-4d93-8eaa-439a85339c4e",
+                "added_by": "auto",
+                "created_at": "2020-01-20 11:23:03",
+                "extension": "jpg",
+                "order_by": 4,
+                "title": "Figure 4",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 186703,
+                "visible": true,
+                "origin": "",
+                "legend": "Resolving all nuclei-labeled (H2B-GFP) cardiomyocytes in a developing mouse heart.",
+                "description": "",
+                "filename": "Figure4.jpg",
+                "url": "https://assets.researchsquare.com/files/328a4ac0-4da0-4f79-99d5-d1395a546cb5/v1/Figure 4.jpg"
+            },
+            {
+                "id": 382569,
+                "identity": "1d03522f-9b6c-4062-8712-917d3efc658f",
+                "added_by": "auto",
+                "created_at": "2020-01-20 11:23:03",
+                "extension": "jpg",
+                "order_by": 5,
+                "title": "Figure 5",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 113621,
+                "visible": true,
+                "origin": "",
+                "legend": "Component B inserted with component A is filled with 2% low melting-temperature agarose. Triangular hollow is formed after removing component A. Sucking the mouse embryo with culture medium to the hollow in the agarose holder.",
+                "description": "",
+                "filename": "Figure5.jpg",
+                "url": "https://assets.researchsquare.com/files/328a4ac0-4da0-4f79-99d5-d1395a546cb5/v1/Figure 5.jpg"
+            },
+            {
+                "id": 15665993,
+                "identity": "d249f52f-a289-449d-8cad-fbe43a3eba3d",
+                "added_by": "auto",
+                "created_at": "2021-11-18 13:34:36",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 640030,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-810/v1/6464cf80-e67e-46c3-a9d9-7188f013bc39.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Continuous live imaging, light-sheet microscopy, heart development, lineage tracing, cell behaviors",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>Mapping holistic cell behaviors sculpting mammalian heart has been a goal, but so far only successes in transparent invertebrates and lower vertebrates. Using a live-imaging system comprising a customized vertical light-sheet microscope equipped with a culture module, a heartbeat-gated imaging strategy, and a digital image processing framework, we realized imaging of developing mouse hearts with uninterrupted cell lineages for up to 1.5 days. Four-dimensional landscapes of cell behaviors revealed a blueprint for ventricle chamber formation in which biased outward migration of outermost cardiomyocytes coupled with cell intercalation and horizontal division. The trabeculae, an inner muscle architecture, was developed through early fate segregation and transmural cell arrangement involving both oriented cell division and directional migration. Thus, live-imaging reconstruction affords a transformative means for deciphering mammalian organogenesis.</p>",
+        "manuscriptTitle": "Long-term, in toto live imaging of the developing mouse heart",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2020-01-20 11:23:01",
+                "doi": "10.21203/rs.2.21499/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "84863ac7-cf20-48dc-a04b-bc0e1a1e902f",
+        "owner": [],
+        "postedDate": "January 20th, 2020",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 51018,
+                "name": "Developmental biology"
+            },
+            {
+                "id": 51019,
+                "name": "Cell Biology"
+            },
+            {
+                "id": 51020,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 51021,
+                "name": "Genetics"
+            },
+            {
+                "id": 51022,
+                "name": "Cardiology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2020-01-20 11:23:01",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

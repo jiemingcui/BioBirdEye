@@ -1,0 +1,239 @@
+{
+    "identity": "nprot-198",
+    "title": "A practical efficient approach in high throughput screening: using FDR and fold change",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "High throughput screening continues to present a common statistical challenge as the number of statistical comparisons vastly exceeds that of the biological replicates. Statisticians have developed methods for such large data sets, including the Bonferroni adjustment, FDR<sup>1</sup> and the recent optimal discovery procedure \\(ODP)<sup>2</sup>. We detail here the statistical protocol employed for a genome-wide RNAi-based synthetic lethal screening study<sup>3</sup>. A straightforward combination of both FDR control and fold change criteria identifies a highly reproducible list of hits. Preliminary comparison between this readily implemented method and other recently developed methods \\(such as ODP&#x2019;s) shows good properties for this practical approach<sup>4</sup>."
+        },
+        {
+            "header": "Reagents",
+            "content": ""
+        },
+        {
+            "header": "Equipment",
+            "content": "SAS or other statistical software"
+        },
+        {
+            "header": "Procedure",
+            "content": "We compared cell viability under two experimental conditions \\(paclitaxel treated or vehicle treated) for all genes available in the genome-scale RNAi library\n3\n. The analysis was performed in triplicate under each condition. The step by step statistical procedures we used are as follows:\r\n\n\n\r\n\n\n1. Collect the raw luminescence measurement from each well of the high throughput screen and record as a numeric value. Information about well location in the plate and plate number should also be recorded.\r\n  2. Normalize numeric luminescence values to internal reference control samples \\(cells with no siRNA in wells) on each plate to allow for plate-to-plate comparisons. The value of each experimental well should be divided by the reference well of the plate.\r\n  3. For each gene, perform a two sample t-test \\(with pooled variance) to determine whether there is a significant difference between the mean values under the two experimental conditions. Record a _P_-value. We performed this test using both GeneSpring and SAS. The results were almost identical with only minor decimal rounding differences. While we used a two sample t-test , other commonly used statistics, such as _S_- \\(SAM), _U_- \\(Mann\u2013Whitney) and _M_- statistics may also be used for computing the _P_-values for each gene. In situations where there are multiple experimental conditions, ANOVA-type of analysis can also be performed to calculate _P_-values.\r\n  4. With the _P_-values generated in step 3 \\(we had 20,960), perform Benjamini-Hochberg\u2019s method to control the false discovery rate \\(FDR)\n1\n; again, we recommend you use the standard operations in GeneSpring and SAS. The essence of this method is to inflate the raw _P_-values based on their rank in the distribution of all the _P_-values. Let _P\\(i)_ = the _P_-value of gene _i_, let _i_ = rank of _P\\(i)_ in the distribution, let _m_ = total number of comparisons \\(i.e. genes in the genome, in our case, _m_=20,960) and let _q*_ = false discovery rate, the FDR for the _i_\nth\ngene FDR\\(_i_)= P\\(_i_) \\(_m/i_). Since we pre-specified FDR criterion as FDR\u22640.05, genes with a FDR less or equal to 0.05 were selected into list A.\r\n  5. In order to take the magnitude of response into account, sort the viability ratios \\(e.g. fold change: mean\npaclitaxel\n/mean\ncarrier\n) in ascending order and select the genes with a fold change among the lowest 2.5 percentile of the fold change distribution into list B.\r\n  6. Include genes that were identified by both list A \\(so for our study, FDR\u22640.05) and list B \\(fold change among the lowest 2.5%) in a high priority hit list C. Genes selected in list C can be sorted either using FDR or fold change for further validation and functional tests. \r\n  \r\n\n\nNote:  In our \u201chigh confidence\u201d list C, we observed high extent of enrichment of proteasome subunits and of Gamma-TuRC subunits. Assuming hypergeometric distribution, the probability of obtaining this high enrichment by chance is close to zero. This further confirms the validity of list C."
+        },
+        {
+            "header": "Timing",
+            "content": "Within hours"
+        },
+        {
+            "header": "Critical Steps",
+            "content": "Step 4 uses Benjamini-Hochberg&#x2019;s false discovery rate instead of a Bonferroni adjustment.  This is because the Bonferroni adjustment is far too conservative in our experimental setting, where the number of comparisons is considerably large. We used 5% FDR in our study, however relaxing this cutoff, for example to 10%, may reduce false negatives and return a larger list of potential hits.\r\n\n\n\r\n\n\nStep 6 combines the strength of FDR and fold change in creating a highly reproducible joint hit list. This is especially advantageous for reducing false positives."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "Since the resulting list of &#x201C;hits&#x201D; has two criteria: a low FDR cutoff \\(_q**_) and a percentile cutoff of the fold change distribution \\(_q_), the reproducibility of these &#x201C;hits&#x201D; is expected to be very high \\(FDR &#x2264; _q**_). In experiments with over tens of thousands of comparisons such as genome-wide screening, this stringent protocol is important in identifying highly reproducible &#x201C;hits&#x201D; if small _q_* is specified along with a small percentile criterion _q_. However, this method may not render a very low false negative rate \\(FNR) if such criteria are so chosen.  In our genome-wide RNAi screening study, this method serves extremely well as our primary goal is to identify a short highly reproducible list of &#x201C;hits&#x201D; for further functional analysis.  Further improvement includes taking the known correlations among genes into consideration, and controlling FDR and FNR simultaneously when the study goal is not solely a short highly reproducible hit list."
+        },
+        {
+            "header": "References",
+            "content": "1. Benjamini Y and Hochberg Y \\(1995) Controlling the false discovery rate: a practical and powerful approach to multiple testing. _Journal of Royal Statistical Society. B_ **57\\(1)**:289\r\n  \r\n\n\n2. Storey JD, Dai JY, and Leek JT. \\(2007) The optimal discovery procedure for large-scale significance testing, with applications to comparative microarray experiments. _Biostatistics_, in press.\r\n  \r\n\n\n3. Whitehurst AW, Bodemann BO, Cardenas J, Ferguson D, Girard L, Payton M, Minna JD, Michnoff C, Hao W, Roth MG, Xie X-J, White MA \\(2007) Synthetic lethal screen identification of chemosensitizer loci in cancer cells. _Nature_, in press.\r\n  \r\n\n\n4. Cao J, Xie X-J, Whitehurst A, White M \\(2007) A Bayesian mixture model for high throughput screening \\(unpublished study)"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "We thank Aihua Bian, MPH for her helpful technical assistance."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nature05697",
+                "date": "2007-03-07 16:35:35",
+                "title": "Synthetic lethal screen identification of chemosensitizer loci in cancer cells",
+                "authors": [
+                    "Angelique W. Whitehurst",
+                    "Brian O. Bodemann",
+                    "Jessica Cardenas",
+                    "Deborah Ferguson",
+                    "Luc Girard",
+                    "Michael Peyton",
+                    "John D. Minna",
+                    "Carolyn Michnoff",
+                    "Weihua Hao",
+                    "Michael G. Roth",
+                    "Xian-Jin Xie & Michael A. White"
+                ],
+                "journal": "Nature",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 10169,
+                "identity": "9ee9fb88-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Xian-Jin Xie",
+                "email": "xian-jin.xie@utsouthwestern.edu",
+                "orcid": "",
+                "institution": "University of Texas Southwestern Medical Center",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Xian-Jin",
+                "middleName": "",
+                "lastName": "Xie",
+                "suffix": ""
+            },
+            {
+                "id": 10170,
+                "identity": "9ee9fe96-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Angelique Whitehurst",
+                "email": "",
+                "orcid": "",
+                "institution": "University of Texas Southwestern Medical Center",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Angelique",
+                "middleName": "",
+                "lastName": "Whitehurst",
+                "suffix": ""
+            },
+            {
+                "id": 10171,
+                "identity": "9eea004e-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Michael White",
+                "email": "",
+                "orcid": "",
+                "institution": "University of Texas Southwestern Medical Center",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Michael",
+                "middleName": "",
+                "lastName": "White",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2010-08-13 09:29:04",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/nprot.2007.188",
+        "doiUrl": "https://doi.org/10.1038/nprot.2007.188",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13465530,
+                "identity": "d24985d7-43ef-4a4e-ad56-e0e393c77f76",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:47:00",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 141756,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-198/v1/778c1d5a-1735-4698-aba1-b6a7607181a3.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "false discovery rate, fold change, high-throughput screening",
+        "license": {
+            "name": "None",
+            "url": ""
+        },
+        "manuscriptAbstract": "",
+        "manuscriptTitle": "A practical efficient approach in high throughput screening: using FDR and fold change",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2007-04-16 06:33:25",
+                "doi": "10.1038/nprot.2007.188",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9ee9a084-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "April 16th, 2007",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 1644,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 1645,
+                "name": "Biochemistry"
+            },
+            {
+                "id": 1646,
+                "name": "Computational biology and bioinformatics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2007-04-16 06:33:25",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

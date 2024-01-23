@@ -1,0 +1,430 @@
+{
+    "identity": "pex-1338",
+    "title": "<p>COVseq is a cost-effective workflow for mass-scale SARS-CoV-2 genomic surveillance</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>Since the identification of severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2) as the causative agent of coronavirus disease 2019 (COVID-19)<sup>1</sup>, thousands of SARS-CoV-2 genomes have been sequenced worldwide and the sequences have been made publicly available on the global initiative on sharing all influenza data (GISAID)<sup>2</sup> (<a href=\"https://www.gisaid.org/\" rel=\"noopener noreferrer\" target=\"_blank\">https://www.gisaid.org/</a>). This has enabled a phylogenetic reconstruction of the viral spread and evolution across different countries and continents at an unprecedented scale<sup>3</sup>, allowing the rapid identification of new viral variants, including the UK<sup>4</sup>, South African<sup>5</sup> and Brazilian<sup>6</sup> variants of concern (VOC). SARS-CoV-2 whole genome sequencing (WGS) based on next-generation sequencing (NGS) has been used for genomic surveillance to track infections in hospitals and community settings<sup>7,8</sup>, as well as to monitor viral outbreaks in breeding farms, such as mink farms<sup>9</sup>. More recently, with the advent of mass-scale vaccination campaigns worldwide, SARS-CoV-2 genomic surveillance has become vital to rapidly trace the emergence and spread of VOC with potentially reduced susceptibility to the current vaccines<sup>10,11</sup>.&nbsp;In this context, the availability of scalable and cost-effective methods for centralized sequencing of hundreds or potentially thousands of samples per week would be greatly beneficial. Various NGS based approaches have been developed to perform SARS-CoV-2 WGS using different sequencing platforms. These include direct RNA sequencing and metagenomics<sup>12\u201314</sup>, amplicon-based methods<sup>13,15,16</sup>, and oligonucleotide capture-based methods<sup>13,16\u201318</sup>. Recently, numerous commercial kits based on the above methods have become available on the market and are being deployed in SARS-CoV-2 genomic surveillance<sup>19</sup>. However, existing commercial solutions are very costly and/or difficult to scale up largely because, typically, one sequencing library must be prepared for each individual sample and multiple indexed libraries must be carefully quantified and balanced before pooling them together prior to sequencing. This limits the number of samples that can be sequenced on a weekly basis, increasing the risk of missing emerging variants of potential concern. In addition to its applications for WGS, NGS has also been used for mass-scale SARS-CoV-2 testing, such as in the SwabSeq method<sup>20</sup>; however, the latter does not provide full genome coverage. To counteract these limitations, here we present a versatile, scalable and cost-effective workflow\u2014COVseq\u2014that can be used to prepare multiplexed WGS libraries from many SARS-CoV-2 samples in parallel. We validate COVseq using RNA extracted from a SARS-CoV-2 viral culture as well as 274 diagnostic samples collected in three different phases of the ongoing pandemic at two hospitals in Italy. We demonstrate that the genome sequences obtained by COVseq are compatible with downstream phylogenomic analyses, including detailed phylogenetic reconstruction of a COVID-19 nosocomial outbreak that occurred in January 2021 at a single hospital in Italy. Lastly, we perform a real-life cost analysis based on our experience from the genomic surveillance program that we recently initiated for the Piemonte Region in North-West Italy, demonstrating that COVseq is a highly cost-effective method for SARS-CoV-2 genomic surveillance, including in low-income countries.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p><strong><u>Reagents:</u></strong></p><p>- Absolute Ethanol (VWR, cat. no. 20816.367)</p><p>- Nuclease-Free Water (Thermo Fisher Scientific, cat. no. AM9932)</p><p>- Mineral oil (Sigma, cat. no. M5904)</p><p>- Random hexamers (50 \u03bcM) (Thermo Fisher Scientific, cat. no. N80800127)</p><p>- dNTPs (10 mM) (Thermo Fisher Scientific, cat.no. R0191)</p><p>- NEBNext Q5 Hot Start HiFi PCR Master Mix (NEB, cat.no. M0543L)</p><p>- SYBR Green (Thermo Fisher Scientific, cat.no. S7563)</p><p>- Primer pools 1,2,3,4,5 and 6 (IDT custom @ 50 \u03bcM)</p><p>- IDT ARTIC nCoV-2019 V3 panel pools 100 \u03bcM (IDT, cat.no. 10006788)</p><p>- MseI (NEB, cat.no. R0525L)</p><p>- NlaIII (NEB, cat.no. R0125L)</p><p>- CutSmart\u00ae buffer (NEB, cat. no. B7204S)</p><p>- T4 DNA Ligase (Thermo Fisher Scientific, cat. no. EL0011)</p><p>- T4 DNA rapid Ligase (Thermo Fisher Scientific, cat. no. K1423)</p><p>- COVseq oligonucleotide adapters</p><p>- UltraPure\u2122 BSA (50 mg/ml) (Thermo Fisher Scientific, cat. no. AM2616)</p><p>- ATP Solution (100 mM) (Thermo Fisher Scientific, cat. no. R0441)</p><p>- dNTPs (25mM) (Thermo Fisher Scientific, cat.no. R1121)</p><p>- MEGAscript\u00ae T7 Transcription Kit (Thermo Fisher Scientific, cat. no. AM1334)</p><p>- DNase I, RNase-free (Thermo Fisher Scientific, cat. no. AM2222)</p><p>- RA3 adaptor and RTP, RP1 and RPI primers (custom-made by Integrated DNA Technologies Inc. based on the sequences in the TruSeq Small RNA Library Preparation kit, Illumina)</p><p>- RNaseOUT\u2122 Recombinant Ribonuclease Inhibitor (Invitrogen, cat. no. 10777-019)</p><p>- T4 RNA ligase 2, truncated (NEB, cat. no. M0242L)</p><p>- SuperScript\u00ae IV Reverse Transcriptase (Thermo Fisher Scientific, cat. no. 18090050)</p><p>- NEBNext UltraII Q5 PCR MasterMix (NEB, cat. no. M0544S)</p><p>- Agencourt RNAClean XP (Beckman Coulter, cat. no. A63987)</p><p>- Agencourt AMPure XP (Beckman Coulter, cat. no. A63881)</p><p>- Qubit<sup>TM</sup> RNA BR Assay Kit (Thermo Fisher Scientific, cat. no. Q10211)</p><p>- Qubit<sup>TM</sup> dsDNA BR Assay Kit (Thermo Fisher Scientific, cat. no. Q32850)</p><p>- Qubit<sup>TM</sup> dsDNA HS Assay Kit (Thermo Fisher Scientific, cat. no. Q32851)</p><p>- Bioanalyzer High Sensitivity DNA Kit (Agilent, cat. no. 5067-4627)</p><p>- Optional: RNase H (Thermo Fisher Scientific, cat.no. 18021014)</p><p><br></p><p><strong><u>Consumables:</u></strong></p><p><u>\ufeff</u>- Eppendorf\u00ae&nbsp;DNA LoBind microcentrifuge tubes 0.5 ml (Sigma, cat. no. EP0030108035-250EA)</p><p>- Eppendorf\u00ae&nbsp;DNA LoBind microcentrifuge tubes 1.5 ml (Sigma, cat. no. EP0030108051-250EA)</p><p>- Sapphire Filter tips, low retention (Greiner Bio-One, cat. no. 771265, 773265, 738265, 750265)</p><p>- microTUBE-50 AFA Fiber Screw-Cap (25) (Covaris, cat. no. 520166)</p><p>- # 96-well plates (Thermo Fisher Scientific, cat. no. 4316813)</p><p>- # 384-well plates (Thermo Fisher Scientific, cat. no. 4483320)</p><p>- Qubit<sup>TM</sup> Assay Tubes (Thermo Fisher Scientific, cat. no. Q32856)</p><p>- Bioanalyzer High-sensitivity DNA kit (Chips) (Agilent, cat. no. 5067-4626)</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>- Incubator (for example, Binder incubator, Model KB 53 or Boekel Scientific InSlide Out, cat. no. 05-450-50)</p><p>- Tabletop centrifuge (for example, Eppendorf\u00ae Microcentrifuge 5424)</p><p>- I-DOT One (Dispendix GmbH, Stuttgart, Germany)</p><p>- Thermoshaker (for example, Eppendorf\u00ae&nbsp;Thermomixer Compact)</p><p>- PCR thermocycler (for example, Biometra TRIO)</p><p>- Sonication device (for example, ME220 Focused-ultrasonicator, Covaris)</p><p>- DynaMag\u2122-2 Magnet (Thermo Fisher Scientific, cat. no. 12321D)</p><p>- Qubit\u00ae 2.0 Fluorometer (Thermo Fisher Scientific, cat. no. Q32866)</p><p>- Bioanalyzer 2100 (Agilent, cat. no. G2943CA)</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "DAY 1\nFirst strand synthesis\n1. Mix the following components:\nRNA 5 \u03bcL\n50 \u03bcM random hexamers 1 \u03bcL\n10 mM dNTPs 1 \u03bcL\nNuclease-Free Water 6 \u03bcL\n2. Incubate for 5 min @ 65 \u00b0C\n3. Place the tube immediately on ice for 5 min\n4. Add the following components:\n5x SSIV buffer 4 \u03bcL\n0.1 M DTT 1 \u03bcL\nRNaseOUT 1 \u03bcL\nSSIV Reverse Transcriptase enzyme 1 \u03bcL\n5. Perform the following steps in a PCR thermocycler with the lid set @ 85 \u00b0C:\n1. 23 \u00b0C 10 min\n2. 50 \u00b0C 10 min\n3. 85 \u00b0C 10 min\n4. 4 \u00b0C Hold\n6. Add 1 \u03bcL RNase H to the tube and incubate for 20 min at 37 \u00b0C\n7. Note\n: RNase H is an optional step\nOption 1: Multiplex PCR using the CDC primer pools\nNote\n: Prepare primers as 50 \u03bcM primer stocks. Add an equal amount of each 50 \u03bcM primer stock to six different Eppendorf tubes labeled as pool 1,2,3,4,5 and 6. Prepare 10 \u03bcM working concentration by diluting each pool 1:5 with Nuclease-Free Water.\n8.\u00a0Mix the following components:\nNEBNext Q5 Hot Start HiFi PCR Master Mix 15 \u03bcL\nNuclease-Free Water 9.2 \u03bcL\nPrimer pool 1,2,3,4,5 or 6 (10 \u03bcM) 1.8 \u03bcL\n4x SYBR Green 1 \u03bcL\n9.\u00a0Add 3 \u03bcL of cDNA to each tube/well\n10.\u00a0Perform the following steps in PCR thermocycler with the lid set to 105 \u00b0C:\n1. 98 \u00b0C 30 sec\n2. 98 \u00b0C 15 sec\n3. 65 \u00b0C 5 min\nGOTO step 2, 40 times\n4. 4 \u00b0C Hold\nDNA purification\n11. Pool 20 \u03bcL from each of the six amplicon pools into a 1.5 ml Eppendorf DNA LoBind tube or 96 well plate\n12. Add 1 vol/vol ratio of AMPure XP beads pre-warmed at room temperature\n13. Mix thoroughly and incubate for 10 min at room temperature\n14. Place the sample on a magnetic stand\n15. Incubate for at least 5 min until the liquid appears clear\n16. Remove and discard the supernatant\n17. Wash the beads twice with 200 \u03bcL of freshly prepared 80% ethanol\n18. Air-dry the beads at room temperature\nNote\n: do not dry the beads for more than 5\u20138 min, since this may result in low DNA yield\n19. Remove the sample from the magnetic stand\n20. Resuspend the beads in 80 \u03bcL of Nuclease-Free Water\n21. Incubate for 2 min at room temperature\n22. Place the sample back on the magnetic stand\n23. Incubate for at least 5 min until the liquid appears clear\n24. Transfer the supernatant to a new 1.5 \u03bcL Eppendorf DNA LoBind tube\n25. Check the library concentration using Qubit dsDNA BR kit\nNote\n: Samples can be stored for a long time at \u201320 \u00b0C\nOption 2: Multiplex PCR using the ARTIC V3 primer pools\nNote:\nIf using IDT ARTIC nCoV-2019 V3 panel pools,\nprepare 10 \u03bcM working concentration by diluting each pool 1:10 with Nuclease-Free Water. The average concentration of each primer in the final reaction is 15 nM.\n8. Mix the following components:\nNEBNext Q5 Hot Start HiFi PCR Master Mix 12.5 \u03bcL\nNuclease-Free Water 2.9 \u03bcL\nPrimer pool 1 or 2 (10 \u03bcM) 3.6 \u03bcL\n9. Add 6 \u03bcL of cDNA to each tube/well\n10. Perform the following steps in PCR thermocycler with the lid set to 105 \u00b0C:\n1. 98 \u00b0C 30 sec\n2. 98 \u00b0C 15 sec\n3. 63 \u00b0C 5 min\nGOTO step 2, 35 times\n4. 4 \u00b0C Hold\nDNA purification\n11. Pool 20 \u03bcL from each of the two amplicon pools into a 1.5 ml Eppendorf DNA LoBind tube or 96 well plate\n12.\u00a0Add 0.8 vol/vol ratio of AMPure XP beads pre-warmed at room temperature\n13.\u00a0Mix thoroughly and incubate for 10 min at room temperature\n14.\u00a0Place the sample on a magnetic stand\n15.\u00a0Incubate for at least 5 min until the liquid appears clear\n16.\u00a0Remove and discard the supernatant\n17.\u00a0Wash the beads twice with 200 \u03bcL of freshly prepared 80% ethanol\n18.\u00a0Air-dry the beads at room temperature\nNote\n: do not dry the beads for more than 5\u20138 min, since this may result in low DNA yield\n19.\u00a0Remove the sample from the magnetic stand\n20.\u00a0Resuspend the beads in 40 \u03bcL of Nuclease-Free Water\n21.\u00a0Incubate for 2 min at room temperature\n22.\u00a0Place the sample back on the magnetic stand\n23.\u00a0Incubate for at least 5 min until the liquid appears clear\n24.\u00a0Transfer the supernatant to a new 1.5 \u03bcL Eppendorf DNA LoBind tube\n25.\u00a0Check the library concentration using Qubit dsDNA BR kit\nNote\n: Samples can be stored for a long time at \u201320 \u00b0C\nDAY 2\nNote\n: To process multiple samples in parallel, we performed all reactions until IVT in 384-well plates. We used the I-DOT One nanodispensing device (Dispendix GmBH) to reduce the volumes of each reagent. Other dispensing systems may also be used; however, volumes might have to be adjusted depending on the technical specifications of each instrument.\nDNA digestion\n26.\u00a0Dispense manually 5 \u03bcL of mineral oil per well in the targeted region of 384-well plates\n27. Dispense 10 nL to 50 nL of purified PCR amplicons\nNote\n: The amount of purified PCR amplicons can be increased or reduced depending on the Ct value of the samples\n28.\u00a0Dispense Nuclease-Free Water to a total volume of 350 nL\nNote\n: From now, after dispensing for each step, we shake the plate in a ThermoMixer at 1,000 rpm for 1 min and centrifuge at 3,220 g for 5 min before each incubation\n29.\u00a0Mix the following components:\nNlaIII enzyme 50 nL\nMseI enzyme 50 nL\n10x CutSmart Buffer 50 nL\n30.\u00a0Dispense 150 nL per well\n31.\u00a0Perform the following incubation steps:\n1. 37 \u00b0C 1 h\n2. 65 \u00b0C 20 min\n3. 4 \u00b0C Hold\nLigation of COVseq adapters\n32.\u00a0Dispense 150 nL of 33 nM COVseq adaptor of NlaIII per well\n33.\u00a0Dispense 150 nL of 33 nM COVseq adaptor of MseI per well\n34.\u00a0Dispense 700 nL of ligation mix per well (standard ligase):\nNuclease-free water 250 nL\n5x T4 ligase buffer 150 nL\nATP 10 mM 120 nL\nBSA 50 mg/ml 30 nL\nT4 standard ligase 150 nL\nAlternatively, when using rapid ligase:\nNuclease-free water 50 nL\n5x T4 ligase buffer 300 nL\nATP 10 mM 120 nL\nBSA 50 mg/ml 30 nL\nT4 rapid ligase 200 nL\n35.\u00a0Perform incubation at 22\u00b0 C for 1h followed by inactivation at 70\u00b0 C for 5 min\nNote\n: When using rapid ligase decrease the incubation time to 30 min\n36.\u00a0Dispense manually 5 \u03bcl of Nuclease-Free Water/33 mM EDTA (for a final concentration of 25 mM) per well\n37.\u00a0Pool the content of multiple wells manually in a 1.5 mL or 5 mL eppendorf tube\n38.\u00a0Spin down the tube and carefully remove the upper phase containing mineral oil\nNote\n: The pooling step can be performed by centrifuging the plate upside down at 117 g for 1 min into a collection plate placed at the bottom of the centrifuge.\nDNA cleanup\n39.\u00a0Add 1.2 vol/vol ratio of AMPure XP beads pre-warmed at room temperature\n40.\u00a0Mix thoroughly and incubate for 10 min at room temperature\n41.\u00a0Place the sample on a magnetic stand\n42.\u00a0Incubate for at least 5 min until the liquid appears clear\n43.\u00a0Remove and discard the supernatant\n44.\u00a0Wash the beads twice with freshly prepared 80% ethanol (the ethanol should be enough to cover the beads)\n45.\u00a0Air-dry the beads at room temperature\nNote\n: do not dry the beads for more than 5\u20138 min, since this may result in low DNA yield\n46.\u00a0Remove the sample from the magnetic stand\n47.\u00a0Resuspend the beads in 10 \u03bcl of nuclease-free water\n48.\u00a0Incubate for 2 min at room temperature\n49.\u00a0Place the sample back on the magnetic stand\n50.\u00a0Incubate for at least 5 min until the liquid appears clear\n51.\u00a0Transfer the supernatant to a new 1.5 \u03bcl DNA LoBind tube\n52.\u00a0Check the library concentration using Qubit dsDNA HS kit\nNote\n: Samples can be stored for long time @ -20 \u00b0C\nIn vitro\ntranscription\n53.\u00a0Start with 8 \u03bcl from the previous step\n54.\u00a0Add the following reagents on ice:\nrATP+rUTP+rGTP+rCTP* 8 \u03bcl\n10x T7 polymerase buffer 2 \u03bcl\nT7 polymerase 1.5 \u03bcl\nRNaseOUT\nTM\nRecombinant Ribonuclease Inhibitor 0.5 \u03bcl\n*Prepared from separate rNTP solutions provided with the MEGAscript\n\u00ae\nT7 Transcription Kit\n55.\u00a0Incubate for 14 hours at 37 \u00b0C in a PCR thermocycler with the lid set @ 70 \u00b0C\nNote\n: IVT can also be performed at 37\u00b0C for 2 hours to save time.\nDAY 3\nRNA cleanup\n56.\u00a0Add 1 \u03bcl of DNase I (RNase-free) to the IVT product\n57.\u00a0Incubate for 15 min @ 37 \u00b0C\n58.\u00a0Bring up the volume to 50 \u03bcl by adding 29 \u03bcl Nuclease-Free Water, then mix with 90 \u03bcl (1.8 vol/vol) of RNAClean XP beads pre-warmed at room temperature\n59.\u00a0Mix thoroughly and incubate for 10 min at room temperature\n60.\u00a0Place the sample on a magnetic stand\n61.\u00a0Incubate for at least 5 min until the liquid appears clear\n62.\u00a0Remove and discard the supernatant\n63.\u00a0Wash the beads twice with 200 \u03bcl of freshly prepared 70% ethanol\n64.\u00a0Air-dry the beads at room temperature\nNote\n: do not dry the beads for more than 5\u20138 min, since this may result in low DNA yield\n65.\u00a0Remove the sample from the magnetic stand\n66.\u00a0Resuspend the beads in 9.5 \u03bcl of nuclease-free water\n67.\u00a0Incubate for 2 min at room temperature\n68.\u00a0Place the sample back on the magnetic stand\n69.\u00a0Incubate for at least 5 min until the liquid appears clear\n70.\u00a0Transfer 8.8 \u03bcl of supernatant to a new 0.5 \u03bcl DNA LoBind tube\n71.\u00a0Check the library concentration with 1 \u03bcl using Qubit dsDNA BR kit\nRA3 adapter ligation\n72.\u00a0Add 1 \u03bcl of 10 \u03bcM RA3 adapter to 7.8 \u03bcl obtained after RNA cleanup\n73.\u00a0Incubate for 2 min @ 70 \u00b0C in a PCR thermocycler, then immediately place the sample on ice\n74.\u00a0Add 3.2 \u03bcl of the following mix:\nRNA ligase buffer 1.2 \u03bcl\nRNaseOUT\nTM\nRecombinant Ribonuclease Inhibitor 1 \u03bcl\nT4 RNA ligase truncated 1 \u03bcl\n75.\u00a0Incubate for 2 hours @ 25 \u00b0C in a PCR thermocycler with the lid set @ 30 \u00b0C\nReverse transcription\n76.\u00a0Add 2 \u03bcl per sample of 10 \u03bcM RTP primer\n77.\u00a0In a PCR thermocycler, incubate for 2 min @ 70 \u00b0C\n78.\u00a0Quickly transfer the sample to ice\n79.\u00a0Add 11 \u03bcl of the following mix:\n5x SSIV buffer 5 \u03bcl\n25 mM dNTPs 1 \u03bcl\n0.1 M DTT 2 \u03bcl\nRNaseOUT\nTM\nRecombinant Ribonuclease Inhibitor 1 \u03bcl\nSuperScript IV reverse transcriptase 2 \u03bcl\n80.\u00a0Incubate for 20 min @ 50\u00b0C followed by inactivation for 10 min @ 80 \u00b0C in a PCR thermocycler with the lid set @ 80 \u00b0C\nLibrary indexing and amplification\n81.\u00a0Add 16 \u03bcl per sample of the desired indexed Illumina primer\n82.\u00a0Add 359 \u03bcl of the following mix:\nNuclease-free water 143 \u03bcl\nNEBNext\u00ae Ultra\nTM\nII PCR Master Mix 200 \u03bcl\n10 \u03bcM RP1 primer 16 \u03bcl\n83.\u00a0Divide the final mix in 8 PCR tubes with each containing 50 \u03bcl\n84.\u00a0In a PCR thermocycler perform the following cycles:\n1. 98 \u00b0C 30 sec\n2. 98 \u00b0C 10 sec\n3. 60 \u00b0C 30 sec\n4. 65 \u00b0C 45 sec\nGOTO step 2, 10 times\n5. 65 \u00b0C 5 min\n6. 4 \u00b0C Hold\nNote\n: 10 PCR cycles are used for an input to the IVT of \u2248 200 ng. Please, adjust PCR cycles accordingly to the input to the IVT step.\nFinal library cleanup\n85.\u00a0Pool the 8 tubes for each sample and add 0.8 vol/vol ratio of AMPure XP beads pre-warmed at room temperature\n86.\u00a0Mix thoroughly and incubate for 10 min at room temperature\n87.\u00a0Place the sample on a magnetic stand\n88.\u00a0Incubate for at least 5 min until the liquid appears clear\n89.\u00a0Remove and discard the supernatant\n90.\u00a0Wash the beads twice with 1 ml of freshly prepared 80% ethanol\n91.\u00a0Air-dry the beads at room temperature\nNote\n: do not dry the beads for more than 5\u20138 min, since this may result in low DNA yield\n92.\u00a0Remove the sample from the magnetic stand\n93.\u00a0Resuspend the beads in 50 \u03bcl of nuclease-free water\n94.\u00a0Incubate for 2 min at room temperature\n95.\u00a0Place the sample back on the magnetic stand\n96.\u00a0Incubate for at least 5 min until the liquid appears clear\n97.\u00a0Transfer the supernatant to a new 1.5 \u03bcl DNA LoBind tube\n98.\u00a0Check the library concentration using Qubit dsDNA HS kit\n99.\u00a0Check the fragment distribution on a Bioanalyzer 2100 using DNA HS chip\nNote\n: Libraries can be stored for long time @ -20 \u00b0C"
+        },
+        {
+            "header": "Troubleshooting",
+            "content": ""
+        },
+        {
+            "header": "Time Taken",
+            "content": ""
+        },
+        {
+            "header": "Anticipated Results",
+            "content": ""
+        },
+        {
+            "header": "References",
+            "content": "<p>&nbsp;&nbsp;1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Zhu, N. <em>et al.</em> A Novel Coronavirus from Patients with Pneumonia in China, 2019. <em>N. Engl. J. Med.</em> <strong>382</strong>, 727\u2013733 (2020).</p><p>2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Elbe, S. &amp; Buckland\u2010Merrett, G. Data, disease and diplomacy: GISAID\u2019s innovative contribution to global health. <em>Glob. Chall.</em> <strong>1</strong>, 33\u201346 (2017).</p><p>3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mercatelli, D. &amp; Giorgi, F. M. Geographic and Genomic Distribution of SARS-CoV-2 Mutations. <em>Front. Microbiol.</em> <strong>11</strong>, 1800 (2020).</p><p>4.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Preliminary genomic characterisation of an emergent SARS-CoV-2 lineage in the UK defined by a novel set of spike mutations. <em>Virological</em> https://virological.org/t/preliminary-genomic-characterisation-of-an-emergent-sars-cov-2-lineage-in-the-uk-defined-by-a-novel-set-of-spike-mutations/563 (2020).</p><p>5.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tegally, H. <em>et al.</em> Emergence and rapid spread of a new severe acute respiratory syndrome-related coronavirus 2 (SARS-CoV-2) lineage with multiple spike mutations in South Africa. <em>medRxiv</em> 2020.12.21.20248640 (2020) doi:10.1101/2020.12.21.20248640.</p><p>6.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Genomic characterisation of an emergent SARS-CoV-2 lineage in Manaus: preliminary findings - SARS-CoV-2 coronavirus / nCoV-2019 Genomic Epidemiology. <em>Virological</em> https://virological.org/t/genomic-characterisation-of-an-emergent-sars-cov-2-lineage-in-manaus-preliminary-findings/586 (2021).</p><p>7.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Harilal, D. <em>et al.</em> SARS-CoV-2 Whole Genome Amplification and Sequencing for Effective Population-Based Surveillance and Control of Viral Transmission. <em>Clin. Chem.</em> <strong>66</strong>, 1450\u20131458 (2020).</p><p>8.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Meredith, L. W. <em>et al.</em> Rapid implementation of SARS-CoV-2 sequencing to investigate cases of health-care associated COVID-19: a prospective genomic surveillance study. <em>Lancet Infect. Dis.</em> <strong>20</strong>, 1263\u20131272 (2020).</p><p>9.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Oude Munnink, B. B. <em>et al.</em> Transmission of SARS-CoV-2 on mink farms between humans and mink and back to humans. <em>Science</em> (2020) doi:10.1126/science.abe5901.</p><p>10.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cyranoski, D. Alarming COVID variants show vital role of genomic surveillance. <em>Nature</em> <strong>589</strong>, 337\u2013338 (2021).</p><p>11.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Abdool Karim, S. S. &amp; de Oliveira, T. New SARS-CoV-2 Variants - Clinical, Public Health, and Vaccine Implications. <em>N. Engl. J. Med.</em> (2021) doi:10.1056/NEJMc2100362.</p><p>12.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pillay, S. <em>et al.</em> Whole Genome Sequencing of SARS-CoV-2: Adapting Illumina Protocols for Quick and Accurate Outbreak Investigation during a Pandemic. <em>Genes</em> <strong>11</strong>, (2020).</p><p>13.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nasir, J. A. <em>et al.</em> A Comparison of Whole Genome Sequencing of SARS-CoV-2 Using Amplicon-Based Sequencing, Random Hexamers, and Bait Capture. <em>Viruses</em> <strong>12</strong>, (2020).</p><p>14.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chen, C. <em>et al.</em> MINERVA: A Facile Strategy for SARS-CoV-2 Whole-Genome Deep Sequencing of Clinical Samples. <em>Mol. Cell</em> <strong>80</strong>, 1123-1134.e4 (2020).</p><p>15.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tyson, J. R. <em>et al.</em> Improvements to the ARTIC multiplex PCR method for SARS-CoV-2 genome sequencing using nanopore. <em>bioRxiv</em> (2020) doi:10.1101/2020.09.04.283077.</p><p>16.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Xiao, M. <em>et al.</em> Multiple approaches for massively parallel sequencing of SARS-CoV-2 genomes directly from clinical samples. <em>Genome Med.</em> <strong>12</strong>, 57 (2020).</p><p>17.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Paden, C. R. <em>et al.</em> Rapid, Sensitive, Full-Genome Sequencing of Severe Acute Respiratory Syndrome Coronavirus 2. <em>Emerg. Infect. Dis.</em> <strong>26</strong>, 2401\u20132405 (2020).</p><p>18.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Doddapaneni, H. <em>et al.</em> Oligonucleotide capture sequencing of the SARS-CoV-2 genome and subgenomic fragments from COVID-19 individuals. <em>bioRxiv</em> (2020) doi:10.1101/2020.07.27.223495.</p><p>19.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chiara, M. <em>et al.</em> Next generation sequencing of SARS-CoV-2 genomes: challenges, applications and opportunities. <em>Brief. Bioinform.</em> <strong>22</strong>, 616\u2013630 (2021).</p><p>20.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bloom, J. S. <em>et al.</em> Swab-Seq: A high-throughput platform for massively scaled up SARS-CoV-2 testing. <em>MedRxiv Prepr. Serv. Health Sci.</em> (2020) doi:10.1101/2020.08.04.20167874.</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>We gratefully acknowledge the authors from the Originating Laboratories and the Submitting Laboratories who generated and shared via GISAID the data on which this research is based<sup>2</sup>. We thank Britta Bouwman (Bienko-Crosetto lab) for critically reading the manuscript and for helping during the final revision. We acknowledge support from the National Genomics Infrastructure in Stockholm funded by Science for Life Laboratory, the Knut and Alice Wallenberg Foundation and the Swedish Research Council, and SNIC/Uppsala Multidisciplinary Center for Advanced Computational Science for assistance with massively parallel sequencing and access to the UPPMAX computational infrastructure and the NGS Facility at the Candiolo Cancer Institute for their support with sequencing. This work was supported by funds from the National Natural Science Foundation of China (no. 81972475) and Chinese Postdoctoral Science Foundation (2019T120593, 2018M630787) to N.Z.; by a PhD fellowship under the funding of Dipartimenti di Eccellenza 2018\u20132022 (no. D15D18000410001) to E.B.; by funds from the Fondazione Piemontese per la Ricerca sul Cancro (INTEGRAZIONI DIAGNOSTICA IN ONCOLOGIA \u2013 INTERONC FPRC 5x1000 MIUR 2017) to A.S. and A.SO.; by a SciLifeLab/KAW National COVID-19 Research Program project grant, Research Area Viral Sequence Evolution to N.C.; by a grant from the Swedish Foundation for Strategic Research (SSF BD15-0095) to N.C., through which the I-DOT system was purchased; and by private donations for COVID-19 research from Chiesi Pharma AB and Tetra Pak also to N.C.</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 29358547,
+                "identity": "4252546d-295a-4561-8a3f-b395edd81e9d",
+                "order_by": 0,
+                "name": "Michele Simonetti",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0003-3322-1697",
+                "institution": "Science for Life Laboratory, Karolinska Institutet",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Michele",
+                "middleName": "",
+                "lastName": "Simonetti",
+                "suffix": ""
+            },
+            {
+                "id": 29358548,
+                "identity": "646aa2f1-efe7-43d8-bbb3-074f09839b01",
+                "order_by": 1,
+                "name": "Ning Zhang",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-6430-4236",
+                "institution": "Science for Life Laboratory, Karolinska Institutet and Qilu Hospital of Shandong University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Ning",
+                "middleName": "",
+                "lastName": "Zhang",
+                "suffix": ""
+            },
+            {
+                "id": 29358549,
+                "identity": "2ab0d46c-35d8-46f4-bea8-924c1fd88496",
+                "order_by": 2,
+                "name": "Luuk Harbers",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0003-3910-6497",
+                "institution": "Science for Life Laboratory, Karolinska Instituet",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Luuk",
+                "middleName": "",
+                "lastName": "Harbers",
+                "suffix": ""
+            },
+            {
+                "id": 29358550,
+                "identity": "7a566906-3bcb-41eb-acc7-cdadfa34fffd",
+                "order_by": 3,
+                "name": "Maria Grazia Milia",
+                "email": "",
+                "orcid": "",
+                "institution": "Ospedale Amedeo di Savoia",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Maria",
+                "middleName": "Grazia",
+                "lastName": "Milia",
+                "suffix": ""
+            },
+            {
+                "id": 29358551,
+                "identity": "e73e5653-ed2c-4b89-90c8-960f9decf7bc",
+                "order_by": 4,
+                "name": "Silvia Brossa",
+                "email": "",
+                "orcid": "",
+                "institution": "Instituto di Candiolo FPO - IRCCS",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Silvia",
+                "middleName": "",
+                "lastName": "Brossa",
+                "suffix": ""
+            },
+            {
+                "id": 29358552,
+                "identity": "0ab6b923-26a3-4a7b-8072-df7fe58fcfec",
+                "order_by": 5,
+                "name": "Thi Thu Huong Nguyen",
+                "email": "",
+                "orcid": "",
+                "institution": "Science for Life Laboratory, Karolinska Instituet",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Thi",
+                "middleName": "Thu Huong",
+                "lastName": "Nguyen",
+                "suffix": ""
+            },
+            {
+                "id": 29358553,
+                "identity": "5e1b307f-7ec5-4680-bf50-5a153937de6c",
+                "order_by": 6,
+                "name": "Francesco Cerruti",
+                "email": "",
+                "orcid": "",
+                "institution": "Ospedale Amedeo di Savoia",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Francesco",
+                "middleName": "",
+                "lastName": "Cerruti",
+                "suffix": ""
+            },
+            {
+                "id": 29358554,
+                "identity": "58478aef-0d10-4862-8be9-5b7f98d16dfa",
+                "order_by": 7,
+                "name": "Enrico Berrino",
+                "email": "",
+                "orcid": "",
+                "institution": "Instituto di Candiolo FPO - IRCCS",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Enrico",
+                "middleName": "",
+                "lastName": "Berrino",
+                "suffix": ""
+            },
+            {
+                "id": 29358555,
+                "identity": "55c5e143-42d6-44bb-9241-976d72634eae",
+                "order_by": 8,
+                "name": "Anna Sapino",
+                "email": "",
+                "orcid": "",
+                "institution": "Instituto di Candiolo FPO - IRCCS",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Anna",
+                "middleName": "",
+                "lastName": "Sapino",
+                "suffix": ""
+            },
+            {
+                "id": 29358556,
+                "identity": "aaf14b01-789a-45c7-8d37-4aa5ab01ff91",
+                "order_by": 9,
+                "name": "Magda Bienko",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-6499-9082",
+                "institution": "Science for Life Laboratory, Karolinska Institutet",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Magda",
+                "middleName": "",
+                "lastName": "Bienko",
+                "suffix": ""
+            },
+            {
+                "id": 29358557,
+                "identity": "0b7f63ba-9219-41e6-97cc-09e8c52a1c92",
+                "order_by": 10,
+                "name": "Antonino Sottile",
+                "email": "",
+                "orcid": "",
+                "institution": "Instituto di Candiolo FPO - IRCCS",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Antonino",
+                "middleName": "",
+                "lastName": "Sottile",
+                "suffix": ""
+            },
+            {
+                "id": 29358558,
+                "identity": "a0d78d56-570f-4936-ae6e-3b9202fc2ea1",
+                "order_by": 11,
+                "name": "Valeria Ghisetti",
+                "email": "valeria.ghisetti@gmail.com",
+                "orcid": "",
+                "institution": "Ospedale Amedeo di Savoia",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Valeria",
+                "middleName": "",
+                "lastName": "Ghisetti",
+                "suffix": ""
+            },
+            {
+                "id": 29358559,
+                "identity": "4334744c-78b6-4f49-98b9-961a30778ea6",
+                "order_by": 12,
+                "name": "Nicola Crosetto",
+                "email": "nicola.crosetto@ki.se",
+                "orcid": "https://orcid.org/0000-0002-3019-6978",
+                "institution": "Science for Life Laboratory, Karolinska Institutet",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Nicola",
+                "middleName": "",
+                "lastName": "Crosetto",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2021-01-16 09:32:01",
+        "currentVersionCode": 3,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1338/v3",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1338/v3",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13703114,
+                "identity": "750b1a71-add8-4cd0-884b-b6c250f072bb",
+                "added_by": "auto",
+                "created_at": "2021-09-17 13:39:26",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 341789,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1338/v3/f16764ef-630b-4b7d-a36d-2200edb96b50.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": true,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "SARS-CoV-2, Next-generation sequencing, genomic surveillance, COVseq, virology",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>While mass-scale vaccination campaigns are ongoing worldwide, genomic surveillance of severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2) is critical to monitor the emergence and global spread of viral variants of concern (VOC). Here, we present a streamlined workflow\u2014COVseq\u2014which can be used to generate highly multiplexed sequencing libraries compatible with Illumina platforms from hundreds of SARS-CoV-2 samples in parallel, in a rapid and cost-effective manner. We benchmarked COVseq against a standard library preparation method (NEBNext) on 29 SARS-CoV-2 positive samples, reaching 95.4% of concordance between single-nucleotide variants detected by both methods. Application of COVseq to 245 additional SARS-CoV-2 positive samples demonstrated the ability of the method to reliably detect emergent VOC as well as its compatibility with downstream phylogenetic analyses. A cost analysis showed that COVseq could be used to sequence thousands of samples at less than 15 USD per sample, including library preparation and sequencing costs. We conclude that COVseq is a versatile and scalable method that is immediately applicable for SARS-CoV-2 genomic surveillance and easily adaptable to other pathogens such as influenza viruses.</p>",
+        "manuscriptTitle": "COVseq is a cost-effective workflow for mass-scale SARS-CoV-2 genomic surveillance",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2021-02-05 18:32:25",
+                "doi": "10.21203/rs.3.pex-1338/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            },
+            {
+                "code": 2,
+                "date": "2021-05-26 11:42:02",
+                "doi": "10.21203/rs.3.pex-1338/v2",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            },
+            {
+                "code": 3,
+                "date": "2021-07-09 11:11:18",
+                "doi": "10.21203/rs.3.pex-1338/v3",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "001a7af6-1ee5-4dc5-b6e6-f7b1be998c78",
+        "owner": [],
+        "postedDate": "July 9th, 2021",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 4588874,
+                "name": "Genetics"
+            },
+            {
+                "id": 4588875,
+                "name": "Diseases"
+            },
+            {
+                "id": 4588876,
+                "name": "Molecular biology"
+            },
+            {
+                "id": 4588877,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 4588878,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 4588879,
+                "name": "Molecular medicine"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2021-07-09 11:11:18",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

@@ -1,0 +1,395 @@
+{
+    "identity": "nprot-3937",
+    "title": "BAC ends library generation for Illumina sequencing",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Here, we describe an easily transposable method for BES library preparation and sequencing on Illumina platform from standard BACs libraries \\(Figure 1). DNA is mechanically fragmented and ends are repaired. After ligation of Cre-Lox adaptors, fragments of sizes around 8kb are purified from agarose gel and circularized. BAC ends are selected by a first 20-cycles PCR with vector specific primers. A nested PCR is performed to increase specificity and sensitivity in the selection and to join the first part of the Illumina adaptors sequences. The remaining sequences of Illumina adaptors are added in a third 5-cycles PCR.\r\n\n\nWe validated the protocol by preparing BES libraries from pools of 384 BACs belonging to the Minimum Tiling Path \\(MTP) of _Triticum aestivum_ 1B chromosome long arm \\(1BL). The MTP includes 8,597 BAC clones \\(average insert size of 150 kb) in pIndigo-BAC5 vector \\(7.5 kb). They cover 502 Mb \\(94% of the chromosome arm)<sup>1</sup>. \r\n\n\nThis protocol can be adapted to any BAC library providing that:\r\n\n\ni) Primers for BES selective amplification should be designed on the vector in which BACs are cloned.\r\n\n\nii) Primers used in the second PCR, for Illumina adaptor sequences addition, should be nested.\r\n\n\niii)  Size selection should be adapted to the vector size \\(add 0.5-1.5 kb to the vector size).\r\n\n\niv) The number of BACs to be included in each library should be adapted to the sequencing and assembly strategies used to produce the genome draft sequence."
+        },
+        {
+            "header": "Reagents",
+            "content": "- Covaris g-TUBEs - Covaris, cat. no. 520079\r\n\n\n- DNA 12000 reagents \u2013 Agilent Technologies, cat. no. 5067-1508\r\n\n\n- DNA High sensitivity reagents \u2013 Agilent Technologies, cat. no. 5067-4626\r\n\n\n- Qubit dsDNA HS assay kit - Life Technologies, cat. no.  Q-33120\r\n\n\n- Nucleospin Extract II DNA purification kit - Macherey-Nagel, cat. no. 740609.250\r\n\n\n- End-It DNA end-repair kit - Epicentre, cat. no. 035ER81050 \r\n\n\n- T4 DNA Ligase kit - Promega, cat. no. M1804\r\n\n\n- _Bst_ DNA Polymerase, Large Fragment \\(8 000 U/ml) - NEB, cat. no. M0275S\r\n\n\n- PCR Nucleotide Mix \\(10 mM each) - Roche, cat. no. 11581295001\r\n\n\n- _Cre_ recombinase \\(1 000 U/ml) - NEB, cat. no. M0298L\r\n\n\n- Exonuclease I \\(20 000 U/ml) - NEB,  cat. no. M0293L\r\n\n\n- ATP, lithium salt, pH 7 \\(100 mM) - Roche, cat. no. 11140965001\r\n\n\n- 1,4-Dithiothreitol \\(ultrapure) -  General lab supplier\r\n\n\n- Plasmid safe ATP-dependent DNase - Epicentre, cat. no. 035E3105K\r\n\n\n- AMPure XP 5 ml kit - Beckman Coulter, cat. no. A63880\r\n\n\n- Megabase Agarose - Bio-Rad, cat. no. 161-3109\r\n\n\n- TAE 50X - Bio-Rad, cat. no. 161-0743\r\n\n\n- 1 kb DNA step ladder - Promega, cat. no. G6941\r\n\n\n- SybrGreen - Sigma, cat. no. S9430 \r\n\n\n- ZymocleanTM Large Fragment DNA Recovery Kit - ZymoResearch, cat. no.  D4046 \r\n\n\n- EDTA 0.5 M, pH8 - General lab supplier\r\n\n\n- Tris 1M, pH8 - General lab supplier\r\n\n\n- NaCl 5M - General lab supplier\r\n\n\n- Kapa Hifi Hotstart NGS Library Amplification Kit - KapaBiosystems, cat. no. KK2612\r\n\n\n- DNA gel loading dye \\(6x) - Life Technologies, cat. no. R0611\r\n\n\n- Ultrapure nuclease-free water - General lab supplier\r\n\n\n- Elution buffer: 10mM Tris-Cl, pH 8.5 - Qiagen, cat. no. 19086"
+        },
+        {
+            "header": "Equipment",
+            "content": "- 0.2 ml and 1.5 ml microtubes - General lab supplier\r\n\n\n- 1.5 ml DNA LoBind tubes - Eppendorf, cat. no.0030 108.051\r\n\n\n- MiniSpin Plus microcentrifuge - Eppendorf, cat. no. 5453000011\r\n\n\n- Heat blocks \\(20\u00b0C - 70\u00b0C) - General lab supplier\r\n\n\n- 2100 Bioanalyzer - Agilent Technologies, cat. no. G2938C\r\n\n\n- Mini-centrifuge for quick ~2000 g spins - General lab supplier\r\n\n\n- Micro-wave oven - General lab supplier\r\n\n\n- Horizontal electrophoresis system, with 20-well combs, 15 x 15 cm UV- transparent tray, casting gates - Bio-Rad, cat. no. 1704402\r\n\n\n- Standard power supply - Fisher Scientific, cat. no.  S65533Q \r\n\n\n- Transilluminator- General lab supplier\r\n\n\n- Magnetic separation device - Life Technologies, cat. no. 12321D \r\n\n\n- Qubit fluorometer 2.0 - Life Technologies, cat. no. Q32866 \r\n\n\n- Thermal cycler - General lab supplier\r\n\n\n- General lab equipment \\(pipettors, barrier tips, vortexer, lab vessels, scalpels, weighing scale, filters) - General lab supplier"
+        },
+        {
+            "header": "Procedure",
+            "content": "DNA input preparation and requirements\r\n\n\nThe quality and quantity of starting material are important for successful BES library generation. The procedure described here has been optimized starting from 30 \u00b5g of pooled BACs DNA. BACs should be grown and extracted individually on 96-well plates using modified alkaline lysis extraction\n2\n, which minimizes _E. coli_ genomic DNA contamination. After extraction, we recommend to perform a 0.5x AMPure beads cleanup: this step allows eliminating shorter useless DNA fragments \\(<1kb) and concentrating DNA. Indeed, for shearing constraints, the final volume containing 30 \u00b5g should not exceed 900 \u00b5l.\r\n\n\n\r\n\n\nSTEP 1: DNA fragmentation \r\n\n\n1.1 Dispatch BAC pool DNA in 6 aliquots of 5 \u00b5g in 150 \u00b5L elution buffer.\r\n\n\n1.2 Perform a first fragmentation on one aliquot in a Covaris g-TUBE device, following the manufacturer\u2019s instructions. Spin in an Eppendorf MiniSpin Plus at 9,000 rpm for 60 sec. Invert the g-TUBE, and spin it again using the same speed and duration.\r\n\n\n1.3 After the first fragmentation, check the approximate size range by loading 1 \u00b5l of a 1:2 DNA dilution on the Bioanalyzer 12000 chip or by running a 0.5% agarose gel. The expected DNA fragment size range is 7 to 10kb with a peak around 8kb. \r\n\n\n1.4 If the size is correct, fragment the next five aliquots and pool them all together. \r\n\n\n1.5 Nucleospin Extract II DNA Purification kit \\(Macherey Nagel) is used to concentrate sheared DNA. Split shared DNA on two columns and follow the manufacturer\u2019s protocol instructions for purification. The final product of each column is eluted with 65 \u00b5l NE buffer.\r\n\n\n\r\n\n\nSTEP 2: sheared DNA repair\r\n\n\n2.1 For each tube, combine and mix the following components in a LoBind tube using the End-It DNA end-repair kit:\r\n\n\nSheared DNA    65 \u00b5l\r\n\n\nEnd Repair Buffer \\(10x)  10 \u00b5l\r\n\n\ndNTP mix    10 \u00b5l\r\n\n\nATP     10 \u00b5l\r\n\n\nEnd repair enzyme mix    5 \u00b5l\r\n\n\nTotal reaction volume            100 \u00b5l\r\n\n\n2.2    Mix by gently inverting the tube 5 times and incubate the reaction at 20 \u00b0C for 1 hour.\r\n\n\n2.3 Purify each reaction on a Nucleospin Extract II DNA Purification column and elute in 100 \u00b5l NE buffer. At this point, DNA can be stored at -20 \u00b0C.\r\n\n\n\r\n\n\nSTEP 3: Circularization adaptors ligation \r\n\n\nAdaptors sequences\r\n\n\nLoxP_Ad1_top\r\n\n\n5\u2019-CGATAACTTCGTATAATGTATGCTATACGAAGTTATTACG-3\u2019\r\n\n\nLoxP_Ad1_bottom\r\n\n\n5\u2019-CGTAATAACTTCGTATAGCATACATTATACGAAGTTATCGAC*C-3\u2019\r\n\n\nLoxP_Ad2_top\r\n\n\n5\u2019-TCGTATAACTTCGTATAATGTATGCTATACGAAGTTATGCAC*C-3\u2019   \r\n\n\nLoxP_Ad2_bottom\r\n\n\n5\u2019-GCATAACTTCGTATAGCATACATTATACGAAGTTATACGA-3\u2019\r\n\n\n* phosphorothioate modified base\r\n  3.1 Adaptors preparation\r\n\n\nPrepare 10X Annealing buffer:\r\n\n\n100 mM Tris \r\n\n\n10 mM EDTA, pH 8.0 \r\n\n\n500 mM NaCl \r\n\n\nFor 10ml:\r\n\n\nTris 1M      1    ml \r\n\n\nEDTA 0,5M       0.2 ml \r\n\n\nNaCl  5M      1    ml \r\n\n\nH\n2\n0       7.8 ml \r\n\n\nTotal final volume   10    ml\r\n\n\nResuspend lyophilized adaptor oligonucleotides at a concentration of 250 \u03bcM in H\n2\nO.\r\n\n\nIn a 0.2 ml tube, mix the following components:\r\n\n\nAnnealing buffer \\(10X)       5 \u00b5l\r\n\n\nLoxP_Ad1_top  \\(250 \u00b5m)   10 \u00b5l\r\n\n\nLoxP_Ad1_bottom \\(250 \u00b5m)   10 \u00b5l\r\n\n\nH\n2\n0      25 \u00b5l\r\n\n\nTotal final volume    50 \u00b5l\r\n\n\nPrepare the same mixture using LoxP_Ad2_top and LoxP_Ad2_bottom oligonucleotides.\r\n\n\nAnneal oligonucleotides in a thermal cycler 5 min at 95 \u00b0C, then decrease temp 0.1 \u00b0C/sec to reach 4 \u00b0C. Hold at 4 \u00b0C. Freeze annealed adaptors in 10 \u00b5l aliquots at -20 \u00b0C.\r\n\n\n 3.2 To each tube containing the repaired DNA, add:\r\n\n\nPromega T4 DNA ligase buffer \\(10X)   15 \u00b5l\r\n\n\nLoxP_Ad1       3 \u00b5l\r\n\n\nLoxP_Ad2        3 \u00b5l\r\n\n\nH\n2\n0      19 \u00b5l\r\n\n\nMix by gently inverting the tube 5 times. \r\n\n\n3.3 Add 10 \u00b5l Promega T4 DNA ligase \\(final reaction volume = 150 \u00b5l). Mix again by gently inverting the tube 10 times, then spin the tube briefly to collect the contents at the bottom. \r\n\n\n3.4 Incubate for 16 hours at 16 \u00b0C. \r\n\n\n\r\n\n\nSTEP 4: gel size selection\r\n\n\n4.1 Prepare 0.5% Megabase agarose gel \\(150 ml) using 1X TAE buffer. \r\n\n\nUse a large gel tray \\(15x15 cm) and create large wells on the 20-wells comb by joining them together with tape. Each sample well should be approx. 2.4 cm wide.\r\n\n\n4.2 Add 20 \u00b5l of 6X loading dye to each 150 \u00b5l ligation and load the two reactions on two separate large combs. Prepare 30 \u03bcl of 1 kb DNA step ladder \\(900 ng ladder + loading dye) and load 10 \u00b5l into the lanes on either side of the sample lanes, leaving one empty lane between them. \r\n\n\n4.3 Run the gel for 4 hours at 85 V \\(constant voltage). \r\n\n\n4.4 After migration, stain the gel by incubation in a diluted SybrGreen bath according to the manufacturer instructions. Examine the gel on a transilluminator to visualize DNA.\r\n\n\n4.5 Using a clean scalpel blade, and the 1 kb DNA step ladder as a size guide, cut the gel slices containing DNA fragments ranging from 8 to 9 kb. \r\n\n\n4.6 Purify the two collected DNA slices separately using Zymoclean Large Fragment DNA Recovery Kit, following the manufacturer instructions. Elute each purified DNA in 40 \u00b5l elution buffer. Combine elutions from the two matching columns, to give a total 80 \u03bcl of sample.\r\n\n\n4.7 Quality control: run 1 \u03bcl of the elution on a Bioanalyzer 12000 LabChip to confirm the size of the extracted fraction and quantify how much DNA was recovered.\r\n\n\n\r\n\n\nSTEP 5: fill-in reaction\r\n\n\n5.1 Prepare two reactions in 1.5 ml LoBind tubes, each containing the following components:\r\n\n\nSize selected DNA               38 \u00b5l\r\n\n\nThermoPol buffer \\(10X)    5 \u00b5l\r\n\n\nPCR nucleotide mix \\(10 mM each)   4 \u00b5l\r\n\n\n_Bst_ DNA polymerase, large fragment \\(8 U/\u00b5l) 3 \u00b5l\r\n\n\nTotal reaction volume               50 \u00b5l\r\n\n\nMix by gently inverting the tubes 10 times, then spin briefly to collect the contents at the bottom. \r\n\n\n5.2 Incubate the fill-in reactions for 15 minutes at 50 \u00b0C. \r\n\n\n5.3 At the end of the incubation, pool the two reactions together and purify on a Nucleospin Extract II DNA Purification column. Elute in 50 \u00b5l NE buffer. \r\n\n\n5.4 Quality control: remove 1 \u00b5l, dilute 1/10 and use 1 \u00b5l of the diluted sample for Qubit High Sensitivity quantitation.  At this stage, sample can be stored at -20 \u00b0C overnight.\r\n\n\n\r\n\n\nSTEP 6: DNA circularization\r\n\n\n6.1 Set up 7 circularization reactions, each containing 300 ng DNA. Prepare each 300 ng aliquot of the filled-in DNA in a total volume of 80 \u00b5l \\(adjust volume with ultrapure water). For each reaction, add the following components in a 0.2 ml tube, in the order shown:\r\n\n\n_Cre_ buffer 10X    10 \u00b5l\r\n\n\nSize selected DNA \\(300 ng)  80 \u00b5l\r\n\n\n_Cre_ recombinase \\(1 U/\u00b5l)  10 \u00b5l\r\n\n\nTotal reaction volume             100 \u00b5l\r\n\n\nMix by gently inverting the tubes 10 times, then spin briefly to collect the contents at the bottom. \r\n\n\n6.2 Run the following incubation program in a thermal cycler, with the heated lid on: 45 min at 37 \u00b0C, 10 min at 70 \u00b0C.\r\n\n\n\r\n\n\nSTEP 7: linear DNA digestion\r\n\n\n7.1 Prepare a stock of 1 M 1,4-Dithiothreitol \\(DTT) solution in ultrapure water. Filter through a 0.45 \u00b5m filter and store in single use aliquots at -20\u00b0C.\r\n\n\n7.2 Prepare a fresh DTT solution by mixing 2 \u00b5l 1M DTT with 18 \u00b5l ultrapure water. \r\n\n\n7.3 At the end of the 70 \u00b0C incubation, add 1.1 \u00b5l 0.1M DTT to each tube. Gently mix by inverting the tubes 6 times and then spin briefly to collect the contents at the bottom.\r\n\n\n7.4 Then, add the following reagents: \r\n\n\nATP, lithium salt \\(100 mM)    1.1 \u00b5l\r\n\n\nPlasmid-safe ATP-dependent DNase \\(10 U/\u00b5l)    5 \u00b5l\r\n\n\nExonuclease I \\(20 U/\u00b5l)                3 \u00b5l\r\n\n\nGently mix by inverting the tubes 10 times and then spin briefly to collect the contents at the bottom. \r\n\n\n7.5 Run the following incubation program in a thermal cycler, with the heated lid on: 30 min at 37 \u00b0C, 10 min at 70 \u00b0C.\r\n\n\n7.6 Immediately at the end of the incubation, add 5 \u00b5l EDTA 0.5 M and mix by inverting the tubes.\r\n\n\n7.7 Split all the reactions in two 1.5 ml LoBind tubes. Purify the reactions on a unique Nucleospin Extract II DNA Purification column and elute in 24 \u00b5l NE buffer. Proceed immediately to amplification or store at 4 \u00b0C.\r\n\n\n\r\n\n\nStep 8: 1st PCR for BAC ends selective amplification\r\n\n\nOligonucleotides sequences used for PCR amplifications are listed in Table 1.\r\n\n\n8.1 Combine and mix the following components in a 0.2 ml tube:\r\n\n\nKAPA HiFi HotStart Ready Mix \\(2X)         25 \u00b5l\r\n\n\npIndigo_F \\(10 \u00b5M)      1 \u00b5l\r\n\n\npIndigo_R \\(10 \u00b5M)      1 \u00b5l\r\n\n\nCircularized DNA                23 \u00b5l\r\n\n\nTotal reaction volume              50 \u00b5l\r\n\n\n8.2 Amplify using the following PCR cycling conditions: 45 sec at 98 \u00b0C, \\[15 sec at 98 \u00b0C, 30 sec at 63 \u00b0C, 30 sec at 72 \u00b0C] 20 cycles total, 7 min at 72 \u00b0C, hold at 4 \u00b0C.\r\n\n\n8.3 Clean up the reaction by adding 50 \u00b5L \\(1 volume) AMPure XP beads and mix by short vortexing. Incubate for 5 minutes, then bind the beads and remove the supernatant. Add 200 \u00b5L 70% ethanol \\(made fresh each time), incubate 30 seconds and remove. Repeat once. Let the pellet dry completely \\(5 to 10 minutes), then elute in 25 \u00b5L elution buffer.\r\n\n\n\r\n\n\nSTEP 9: 2nd PCR for Illumina sequences addition\r\n\n\n9.1 Combine and mix the following components in a 0.2 ml tube:\r\n\n\nKAPA HiFi HotStart Ready Mix \\(2X)         25 \u00b5l\r\n\n\nPCR_2_Illum_F \\(10 \u00b5M)     1 \u00b5l\r\n\n\nPCR_2_Illum_R \\(10 \u00b5M)     1 \u00b5l\r\n\n\nFirst PCR product                23 \u00b5l\r\n\n\nTotal reaction volume   50 \u00b5l\r\n\n\n9.2 Amplify using the following PCR cycling conditions: 45 sec at 98 \u00b0C, \\[15 sec at 98 \u00b0C, 30 sec at 64 \u00b0C, 30 sec at 72 \u00b0C] 10 cycles total, 7 min at 72 \u00b0C, hold at 4 \u00b0C.\r\n\n\n9.3 Clean up the reaction using AMPure XP beads as described at step 8.3. Elute in 25 \u00b5L elution buffer.\r\n\n\n9.4 Quality control: remove 1 \u00b5l, dilute 1/20 with ultrapure water and use 1 \u00b5l of the diluted sample for Qubit High Sensitivity quantitation. Load 1 \u00b5l of diluted sample on a High Sensitivity DNA LabChip and run on a Bioanalyzer instrument. \r\n\n\n\r\n\n\nSTEP 10: 3rd PCR for Illumina sequences addition\r\n\n\n10.1 Perform four PCR reactions, each using 10 ng DNA from previous PCR as template.  \r\n\n\nCombine and mix the following components in 0.2 ml tubes:\r\n\n\nKAPA HiFi HotStart Ready Mix \\(2X)         25 \u00b5l\r\n\n\nPCR_3_Illum_F \\(10 \u00b5M)     1 \u00b5l\r\n\n\nPCR_3_Illum_IndN_R *     1 \u00b5l\r\n\n\nPCR product \\(10 ng)                   x \u00b5l\r\n\n\nH\n2\nO                           23-x \u00b5l\r\n\n\nTotal reaction volume               50 \u00b5l\r\n\n\n*Use one of 12 different primers containing 6-bases index.\r\n\n\n10.2 Amplify using the following PCR cycling conditions: 45 sec at 98 \u00b0C, \\[15 sec at 98 \u00b0C, 30 sec at 60 \u00b0C, 30 sec at 72 \u00b0C] 5 cycles total, 7 min at 72 \u00b0C, hold at 4 \u00b0C.\r\n\n\n10.3 Pool the four PCR reactions together in a 1.5 ml tube and clean up by adding 200 \u00b5l \\(1 volume) AMPure XP beads. Follow the same procedure described at step 8.3. Elute in 25 \u00b5L elution buffer.\r\n\n\n10.4 Final quality control: measure the concentration of the library by using 1 \u00b5l on a Qubit fluorometer with the dsDNA HS Assay kit. \r\n\n\nPrepare a 1ng/\u00b5l dilution, load 1 \u00b5l on a High Sensitivity DNA LabChip and run on a Bioanalyzer instrument. The expected library size range is 700 bp to 2000 bp \\(Figure 2a). \r\n\n\n\r\n\n\nSTEP 11: paired end sequencing on Illumina Miseq\r\n\n\nSequence the final QC validated library on a Miseq instrument using 150-bp length paired end mode \\(V3 chemistry), in order to obtain BES 10x coverage. For optimal clusterization \\(800-900 K cluster/mm\u00b2), after denaturation step, dilute library to 6pM in HT1. Combine the library with PhiX control spike-in \\(\u2265 20%)."
+        },
+        {
+            "header": "Timing",
+            "content": "The whole procedure takes ~ 5 days."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "- STEP 1: if most of DNA fragments size range is not between 7 and 10kb, modify g-TUBE fragmentation conditions, starting from centrifugation speed.\r\n\n\n- STEP 4: low yield after gel size selection. Check the quality of input DNA. A high quality DNA is essential for successful library construction.\r\n\n\n- STEP 6: the number of circularization reactions has been optimized in order to maximize BAC ends diversity in the circularized DNA template.  This should be adjusted by taking in consideration the number of BACs in the pool and a minimal circularization yield needed for BES amplification. We suggest performing at least 5 circularizations.\r\n\n\n- STEP 9: presence of a discrete peak on Bioanalyzer traces \\(Figure 2b). This could be due to amplification of a specific sequence on the genome. In step 10, instead of four PCR, perform at least 10 PCR and purify final PCR product on a gel in order to exclude the discrete band. \r\n\n\n- STEP 11: low quality of sequencing run metrics \\(Q30 and quality mean under Illumina specifications). This could be due to poor diversity of the library in the first bases. Increase PhiX spike-in % or add in the same lane high diversity libraries."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "The method has been validated on a pool of 384 BACs belonging to the _Triticum aestivum_ 1BL chromosome BAC library. We produced 2,296,478 paired end sequences on an Illumina Miseq instrument \\(V3 chemistry). After sequencing, an in-house quality control process was applied to reads that passed the Illumina quality filters, as described by Madoui et al<sup>3</sup>. Furthermore, an additional trimming process removed the sequences of the cloning vector and the circularization adaptor used during BES library construction \\(Table 2). After this trimming process, we obtained 1,438,662 useful paired end sequences. They were mapped with bwa aligner \\(version 0.6.1)<sup>4</sup> on the reference assembly obtained by standard Illumina sequences. Seventy-five percent of the BACs extremities were covered by the expected paired end sequences."
+        },
+        {
+            "header": "References",
+            "content": "1. Philippe, R. et al. A high density physical map of chromosome 1BL supports evolutionary studies, map-based cloning and sequencing in wheat. Genome Biol 14, R64, doi:10.1186/gb-2013-14-6-r64 \\(2013).\r\n  2. Choulet, F. et al. Structural and functional partitioning of bread wheat chromosome 3B. Science 345, 1249721, doi:10.1126/science.1249721 \\(2014).\r\n  3. Madoui, M. A. et al. Genome assembly using Nanopore-guided long and error-free DNA reads. BMC Genomics 16, 327, doi:10.1186/s12864-015-1519-z \\(2015).\r\n  4. Li, H. & Durbin, R. Fast and accurate short read alignment with Burrows-Wheeler transform. Bioinformatics 25, 1754-1760, doi:10.1093/bioinformatics/btp324 \\(2009)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "We thank Robert Olaso and Laurene Giraut for helpfull discussions.\r\n\n\nFunding was provided by France G\u00e9nomique \\(ANR-10-INBS-0009-08) as part of Investissements d\u2019Avenir Program."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 13372,
+                "identity": "a05f89d0-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Karine Labadie",
+                "email": "klabadie@genoscope.cns.fr",
+                "orcid": "",
+                "institution": "Wincker Lab",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Karine",
+                "middleName": "",
+                "lastName": "Labadie",
+                "suffix": ""
+            },
+            {
+                "id": 13377,
+                "identity": "a05f9737-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Adriana Alberti",
+                "email": "aalberti@genoscope.cns.fr",
+                "orcid": "",
+                "institution": "Wincker Lab",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Adriana",
+                "middleName": "",
+                "lastName": "Alberti",
+                "suffix": ""
+            },
+            {
+                "id": 13368,
+                "identity": "a05f7f82-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Laura Bri\u00f1as",
+                "email": "",
+                "orcid": "",
+                "institution": "Wincker Lab",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Laura",
+                "middleName": "",
+                "lastName": "Bri\u00f1as",
+                "suffix": ""
+            },
+            {
+                "id": 13369,
+                "identity": "a05f8268-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "C\u00e9line Orvain",
+                "email": "",
+                "orcid": "",
+                "institution": "Wincker Lab",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "C\u00e9line",
+                "middleName": "",
+                "lastName": "Orvain",
+                "suffix": ""
+            },
+            {
+                "id": 13370,
+                "identity": "a05f85c1-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Caroline Belser",
+                "email": "",
+                "orcid": "",
+                "institution": "Wincker Lab",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Caroline",
+                "middleName": "",
+                "lastName": "Belser",
+                "suffix": ""
+            },
+            {
+                "id": 13371,
+                "identity": "a05f879f-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Corinne Cruaud",
+                "email": "",
+                "orcid": "",
+                "institution": "Wincker Lab",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Corinne",
+                "middleName": "",
+                "lastName": "Cruaud",
+                "suffix": ""
+            },
+            {
+                "id": 13373,
+                "identity": "a05f8bbb-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Laurie Bertrand",
+                "email": "",
+                "orcid": "",
+                "institution": "Wincker Lab",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Laurie",
+                "middleName": "",
+                "lastName": "Bertrand",
+                "suffix": ""
+            },
+            {
+                "id": 13374,
+                "identity": "a05f8e39-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Valerie Barbe",
+                "email": "",
+                "orcid": "",
+                "institution": "Wincker Lab",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Valerie",
+                "middleName": "",
+                "lastName": "Barbe",
+                "suffix": ""
+            },
+            {
+                "id": 13375,
+                "identity": "a05f90d0-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Jean-Marc Aury",
+                "email": "",
+                "orcid": "",
+                "institution": "Wincker Lab",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jean-Marc",
+                "middleName": "",
+                "lastName": "Aury",
+                "suffix": ""
+            },
+            {
+                "id": 13376,
+                "identity": "a05f9371-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Patrick Wincker",
+                "email": "",
+                "orcid": "",
+                "institution": "Wincker Lab",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Patrick",
+                "middleName": "",
+                "lastName": "Wincker",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2015-05-21 10:47:35",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2015.048",
+        "doiUrl": "https://doi.org/10.1038/protex.2015.048",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2609178,
+                "identity": "b5efe82a-5b64-45b1-b4d5-1ec13e3357ba",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:44",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 310040,
+                "visible": true,
+                "origin": "",
+                "legend": "Library preparation workflow",
+                "description": "",
+                "filename": "figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-3937/v1/figure_1.jpg"
+            },
+            {
+                "id": 2609181,
+                "identity": "d910e1ee-5243-44c8-a831-7ffc9c0a15cc",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:44",
+                "extension": "jpg",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 490332,
+                "visible": true,
+                "origin": "",
+                "legend": "Bioanalyzer traces after PCR 3",
+                "description": "",
+                "filename": "figure2.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-3937/v1/figure_2.jpg"
+            },
+            {
+                "id": 13464928,
+                "identity": "ef61429b-3602-4a91-a4f7-ec3e0693a648",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:45:11",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 348362,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-3937/v1/edd576a8-8849-4268-b17c-325c8d807f69.pdf"
+            },
+            {
+                "id": 2609179,
+                "identity": "6fe5f3f1-d246-473b-8b7a-ca746d7bc156",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:44",
+                "extension": "docx",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 15223,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 1   Oligonucleotides sequences used for PCR amplifications steps",
+                "description": "",
+                "filename": "supplement0.docx",
+                "url": "https://assets.researchsquare.com/files/nprot-3937/v1/supplement_0.docx"
+            },
+            {
+                "id": 2609180,
+                "identity": "f24b405d-d671-488c-8178-159341d99047",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:44",
+                "extension": "docx",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 15631,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 2   Results of primary analysis on one 384 BACs pool library",
+                "description": "",
+                "filename": "supplement0.docx",
+                "url": "https://assets.researchsquare.com/files/nprot-3937/v1/supplement_0.docx"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "BAC ends libraries, Illumina sequencing, Cre-Lox recombination, Next Generation Sequencing",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "Bacterial artificial chromosome \\(BAC) libraries are still a valuable tool for _de novo_ assembly of complex genomes, such as many plants genomes. Shotgun sequencing of BACs, individually or by pools, produces first assemblies which usually need further improvement towards finished quality. We developed a new approach to obtain BAC ends libraries for Illumina sequencing \\(BES), overcoming the expensive and time consuming BAC ends Sanger sequencing. This new method could be useful for improving _de novo_ assembly, especially in the case of highly repeated genomes.",
+        "manuscriptTitle": "BAC ends library generation for Illumina sequencing",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2015-06-02 17:07:16",
+                "doi": "10.1038/protex.2015.048",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a05f129c-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "June 2nd, 2015",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3357,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 3358,
+                "name": "Molecular Biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2015-06-02 17:07:16",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

@@ -1,0 +1,378 @@
+{
+    "identity": "nprot-2965",
+    "title": "COHCAP Analysis of CpG Island Methylation for Illumina 450k Methylation Arrays",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "COHCAP<sup>1</sup> \\(City of Hope CpG Island Analysis Pipeline) provides a pipeline for analyzing single-nucleotide resolution DNA methylation data produced by either an Illumina methylation arrays or targeted bisulfite sequencing \\(BS-Seq).  More specifically, COHCAP provides tools to provide quality control metrics, differential methylation analysis \\(for CpG sites and CpG islands), and integration with gene expression data.\r\n\n\n\r\n\n\nCOHCAP was specifically designed in order determine regions showing differential methylation.  At the time that the COHCAP paper was published, there was only one other tool that provided this functionality \\(Illumina Methylation Analyzer, IMA<sup>2</sup>).  Since then, additional tools have been created that provide similar functionality, such as Bumphunter<sup>3</sup> \\(in the minfi<sup>4</sup> package), ChAMP<sup>5</sup>, and RnBeads<sup>6</sup>.  Accordingly, users may be interested in seeing updated benchmarks.  Briefly, \"Table 1\":http://www.nature.com/protocolexchange/system/uploads/2959/original/Table_1.jpg?1390601464 shows that the default parameters for COHCAP can still identify a relatively conservative list of regions with a reasonable run-time, while still providing novel candidates \\(Figure \"1\":http://www.nature.com/protocolexchange/system/uploads/2953/original/Figure_1.jpg?1390345855 - \"2\":http://www.nature.com/protocolexchange/system/uploads/2955/original/Figure_2.jpg?1390345857 ; IMA comparison is provided in Warden et al. 2013<sup>1</sup>; by default, Bumphunter doesn't provide gene mappings).  Among the 4 genes selected for EpiTect validation in the original COHCAP paper, COHCAP shows meets or exceeds the accuracy of all the other algorithms \\( \"Table 2\":http://www.nature.com/protocolexchange/system/uploads/2957/original/Table_2.jpg?1390347459 ).  Although this is a limited sample size to access accuracy, we believe the combined evidence from these simple benchmarks indicates that COHCAP is still likely to be a competitive choice to use for differential methylation analysis for 450k array data.\r\n\n\n\r\n\n\n<a href=\"http://www.nature.com/protocolexchange/protocols/2965/uploads/2959\" > <img src=\"http://www.nature.com/protocolexchange/system/uploads/2959/original/Table_1.jpg?1390601464\" width=\"90%\"> </a>\r\n\n\n\r\n\n\n<a href=\"http://www.nature.com/protocolexchange/protocols/2965/uploads/2953\" > <img src=\"http://www.nature.com/protocolexchange/system/uploads/2953/original/Figure_1.jpg?1390345855\" width=\"90%\"> </a>\r\n\n\n\r\n\n\n<a href=\"http://www.nature.com/protocolexchange/protocols/2965/uploads/2955\" > <img src=\"http://www.nature.com/protocolexchange/system/uploads/2955/original/Figure_2.jpg?1390345857\" width=\"90%\"> </a>\r\n\n\n\r\n\n\n<a href=\"http://www.nature.com/protocolexchange/protocols/2965/uploads/2957\" > <img src=\"http://www.nature.com/protocolexchange/system/uploads/2957/original/Table_2.jpg?1390347459\" width=\"90%\"> </a>\r\n\n\n\r\n\n\nWhen the COHCAP algorithm was initially published, the standalone version of the program could be run either using a GUI or command line.  Users had to provide slightly different input files for Illumina array versus targeted BS-Seq.  Annotation files had to be provided in all circumstances, and the COHCAP package was initially only compatible with the annotation file for the 450k Illumina methylation array.  Since the time of publication, minor feature updates have been added to the standalone version of COHCAP, such as the ability to also read annotation files for 27k Illumina methylation data.\r\n\n\n\r\n\n\nMore recently, COHCAP has been released as a Bioconductor<sup>2</sup> package.  Users familiar with R should find it easier to install the COHCAP package.  For example, the Bioconductor pacakge doesn't require Java to be installed.  Likewise, it require the user to specify the location of the Rscript file, which was required for the Perl-based standalone version.  The Bioconductor version of COHCAP also standardizes the analysis functions for both Illumina array and targeted BS-Seq data, while also providing a new function to help BS-Seq users create the necessary input files \\(allowing the use of annotations that are optimized for their own dataset).\r\n\n\n\r\n\n\nThe majority of COHCAP users have been concerned with analysis of Illumina 450k array data, so this protocol is designed to provide step-by-step instructions on how to analyze such data using the COHCAP Bioconductor package."
+        },
+        {
+            "header": "Reagents",
+            "content": "*Computer with at least 2 GB of RAM \\(Linux server required for large data set, but PC and Mac are also OK with the data set used in this protocol)"
+        },
+        {
+            "header": "Equipment",
+            "content": "**1) R**: \"http://www.r-project.org/\":http://www.r-project.org/\r\n\n\n\r\n\n\n**Please note that COHCAP is currently a 'devel' release**  Accordingly, you will need to use R-devel to run COHCAP using the instructions provided on the Bioconductor website.\r\n\n\n\r\n\n\nR-devel for Windows:  \"http://cran.r-project.org/bin/windows/base/rdevel.html\":http://cran.r-project.org/bin/windows/base/rdevel.html\r\n\n\n\r\n\n\n****Alternatively, you can download the source files for COHCAP and COHCAPanno and install them using **R CMD INSTALL** \\(for any version of R).  Please see the instructions below on how to use R CMD INSTALL:\r\n\n\n\r\n\n\n \"http://cran.r-project.org/doc/manuals/R-admin.html#Installing-packages\":http://cran.r-project.org/doc/manuals/R-admin.html#Installing-packages\r\n\n\n\r\n\n\n**2) Bioconductor**:  \"http://www.bioconductor.org/\":http://www.bioconductor.org/\r\n\n\n****minfi package:  \"http://www.bioconductor.org/packages/release/bioc/html/minfi.html\r\n\n\n\":http://www.bioconductor.org/packages/release/bioc/html/minfi.html\r\n\n\n****COHCAP package:\r\n\n\n \"http://www.bioconductor.org/packages/2.14/bioc/html/COHCAP.html\":http://www.bioconductor.org/packages/2.14/bioc/html/COHCAP.html\r\n\n\n\r\n\n\n**Please note that COHCAP is currently a 'devel' release**  This requires a slightly modified installation using R-devel \\(see above).  This is due to the Bioconductor release schedule.  This protocol will be updated when the next version of Bioconductor is released in Spring 2014\r\n\n\n\r\n\n\n**3) Illumina 450k array data**: Click \"here\":http://sourceforge.net/projects/cohcap/files/Protocol_Exchange_Example.zip/download to download data\r\n\n\n****This protocol uses .idat files, but COHCAP can also be used with a table of beta values \\(such as those that can be exported from Genome Studio)\r\n\n\n****In general, COHCAP is not limited to 450k data.  It can also handle targeted BS-Seq data, 27k data, etc.  However, this protocol specifically focus on step-by-step analysis for 450k data\r\n\n\n\r\n\n\n**4) IGV \\(optional)**: used to visualize .wig files\r\n\n\n\r\n\n\nClick \"here\":http://www.broadinstitute.org/igv/ to download IGV\r\n\n\n\r\n\n\n**5) UCSC Genome Browser \\(optional)**: used to visualize .wig files\r\n\n\n\r\n\n\nClick \"here\":http://genome.ucsc.edu/cgi-bin/hgGateway to view data in the UCSC Genome Browser and/or open custom tracks"
+        },
+        {
+            "header": "Procedure",
+            "content": "**1) Process Raw Data**\r\n\n\n\r\n\n\nThe input file for COHCAP is a table of beta values.  Users should typically be able to produce this table using Genome Studio.  Click \"here\":https://docs.google.com/uc?id=0B1xpw6_kQMKuVm1kS3V6dlJBbmc&export=download&revid=0B1xpw6_kQMKuQ25yS0RDQ3JlYWNKTEk0THRGZmxQQjVGTU40PQ for more detailed instructions on using this strategy.  The main benefit to using this input file format is that any sort of pre-processing can be preformed upstream of COHCAP.\r\n\n\n\r\n\n\nAlthough users can almost always find data matrices with beta values, it may not always be possible to find raw .idat files in the precise format that can be processed using Genome Studio.  To avoid this need, this protocol will use the _minfi_ package for pre-processing.\r\n\n\n\r\n\n\nThe cell line data set used in the COHCAP publication will be used as an example for this protocol.\r\n\n\n\r\n\n\n**1a) Download raw data**: Because the \"GEO entry\":http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE42308 doesn't provide raw .idat files, please download the data from this link: \"http://sourceforge.net/projects/cohcap/files/Protocol_Exchange_Example.zip/download\":http://sourceforge.net/projects/cohcap/files/Protocol_Exchange_Example.zip/download\r\n\n\n\r\n\n\nPlease note that this file also provides a template for running this protocol as well as the benchmarks described in the introduction. \r\n\n\n\r\n\n\n**1b) Run minfi to create COHCAP input file**\r\n\n\n\r\n\n\nFirst, open R.\r\n\n\n\r\n\n\nNext, set the working directory to the extracted \"Protocol_Exchange_Example\" folder.  This can be accomplished using the **setwd\\()** command in R.  The template script assumes that the .zip file has been extracted on the Desktop of a Windows computer \\(but it still requires some modification to the file path to work on your own computer).\r\n\n\n\r\n\n\nUsing the example data set, run the following code:\r\n\n\n\r\n\n\n**==== start code====**\r\n\n\n\r\n\n\n**library\\(minfi)**\r\n\n\n\r\n\n\n**idat.folder <- \"5958154021\"**\r\n\n\n**RG.raw <- read.450k.exp\\(idat.folder)**\r\n\n\n**methyl.norm <- preprocessIllumina\\(RG.raw, bg.correct = TRUE, normalize = \"controls\")**\r\n\n\n**beta.table <- getBeta\\(methyl.norm)**\r\n\n\n**probes <- rownames\\(beta.table)**\r\n\n\n\r\n\n\n**output.table <- data.frame\\(SiteID=probes, beta.table)**\r\n\n\n**beta.file <- \"minfi.txt\"**\r\n\n\n**write.table\\(output.table, file=beta.file, sep=\"\\t\", quote=F, row.names=F)**\r\n\n\n\r\n\n\n**====end code====**\r\n\n\n\r\n\n\nThe purpose of the code above is to create a text file \\(minfi.txt) that will be used as the input file for COHCAP.\r\n\n\n\r\n\n\n**2) Annotation and Quality Control**\r\n\n\n\r\n\n\n**==== start code====**\r\n\n\n\r\n\n\n**library\\(COHCAP)**\r\n\n\n**sample.file <- \"COHCAP_sample_description.txt\"**\r\n\n\n**project.folder <- getwd\\()**\r\n\n\n**project.name <- \"COHCAP_450k_Protocol_Exchange\"**\r\n\n\n\r\n\n\n**beta.table <- COHCAP.annotate\\(beta.file, project.name, project.folder, platform=\"450k-UCSC\")**\r\n\n\n\r\n\n\n**COHCAP.qc\\(sample.file, beta.table, project.name, project.folder)**\r\n\n\n\r\n\n\n**====end code====**\r\n\n\n\r\n\n\nThe above code should produce a table of annotated beta values in the \"Raw_Data\" folder as well as  the following quality control files in the \"QC\" folder:\r\n\n\n\r\n\n\n2a) \"COHCAP_450k_Protocol_Exchange_cluster.pdf\":http://www.nature.com/protocolexchange/system/uploads/2961/original/COHCAP_450k_Protocol_Express_cluster.jpg?1390603806 : allows user to see if samples within the same group cluster together\n2b) **COHCAP_450k_Protocol_Exchange_descriptive statistics.txt**: contains minimum, maximum, median and 25th/75th percentile beta values; intented to complement the sample histogram\r\n\n\n\r\n\n\n2c) \"COHCAP_450k_Protocol_Exchange_hist.pdf\":http://www.nature.com/protocolexchange/system/uploads/2963/original/COHCAP_450k_Protocol_Express_hist.jpg?1390603831 : allows use to see if any samples appear to have an abnormal beta distribution \\(in which case, we would recommend those samples should be removed as outliers); the descriptive statistics file can help users identify the specific outliers\\(s)\n2d) \"COHCAP_450k_Protocol_Exchange_pca.pdf\":http://www.nature.com/protocolexchange/system/uploads/2965/original/COHCAP_450k_Protocol_Express_pca.jpg?1390603854 : allows user to see if samples within the same group cluster together\n2e) **COHCAP_450k_Protocol_Exchange_pca.txt**: includes all principal components, allowing use to produce additional figures it they are not satisfied with the default 2D PCA plot\r\n\n\n\r\n\n\n**3) CpG Site Analysis**\r\n\n\n\r\n\n\n**==== start code====**\r\n\n\n\r\n\n\n**filtered.sites <- COHCAP.site\\(sample.file, beta.table, project.name, project.folder, ref=\"parental\")**\r\n\n\n\r\n\n\n\r\n\n\n**====end code====**\r\n\n\n\r\n\n\nThe code produces the following files:\r\n\n\n\r\n\n\n3a) **COHCAP_450k_Protocol_Exchange_CpG_site_filter.xlsx**: table of differentially methylated CpG sites\r\n\n\n\r\n\n\n3b) **COHCAP_450k_Protocol_Exchange_wig** folder: contains .wig files for visualization using IGV or the UCSC Genome Browser\r\n\n\n\r\n\n\nVisualizing these files will be described in the next section, but you can at least confirm the following files have been created:\r\n\n\n\r\n\n\n**mutant.avg.beta.wig**: average beta values per CpG site across all samples in the \"mutant\" group\r\n\n\n\r\n\n\n**mutant.vs.parental.delta.beta.wig**: average delta beta values per CpG sites for the average beta across all samples in the \"mutant\" group subtracted by the average beta across all samples in the \"parental\" group\r\n\n\n\r\n\n\n**parental.avg.beta.wig**:average beta values per CpG site across all samples in the \"parental\" group\r\n\n\n\r\n\n\n**4) CpG Island Analysis**\r\n\n\n\r\n\n\n**==== start code====**\r\n\n\n\r\n\n\n**filtered.islands <- COHCAP.avg.by.island\\(sample.file, filtered.sites, beta.table, project.name, project.folder, ref=\"parental\")**\r\n\n\n\r\n\n\n**====end code====**\r\n\n\n\r\n\n\nThe code produces the following files:\r\n\n\n\r\n\n\n4a) **COHCAP_450k_Protocol_Exchange_CpG_island_filtered-Avg_by_Island.xlsx**: statistics for differentially methylated CpG islands\r\n\n\n\r\n\n\n4b) **COHCAP_450k_Protocol_Exchange_Box_Plots**: folder containing box-plots for differentially methylated CpG islands.  For example, the box-plot for chr18:55862653-55862873 \\(mapped to gene NEDD4L, corresponding to the file \"NEDD4L_chr18_55862653_55862873.pdf\":http://www.nature.com/protocolexchange/system/uploads/2967/original/NEDD4L_chr18_55862653_55862873.jpg?1390852235 ) is shown below:\nThis CpG island will be used as an example to demonstrate how you can use the .wig files \\(in the \"CpG_Site\" folder) to visualize methylation patterns anywhere in the genome.\r\n\n\n\r\n\n\n**Visualizing CpG Site Methylation via IGV\n8\n\\(Optional)**\r\n\n\n\r\n\n\nStep #1) Download IGV: \"http://www.broadinstitute.org/software/igv/download\":http://www.broadinstitute.org/software/igv/download\r\n\n\n\r\n\n\nStep #2) Open IGV\r\n\n\n\r\n\n\nStep #3) Make sure the genome reference is set to hg19\r\n\n\n\r\n\n\nStep #4) Import the .wig files using \"File --> Load from File\".  If desired, you can also load other tracks \\(such as CpG Islands) the same way.\r\n\n\n\r\n\n\nStep #5) Enter the desired region of interest \\(can be coordinates in the form chrA:pos1-pos2 or a gene symbol).  As an example, we will visualize the regions summarized in the box plot above \\(chr18:55862653-55862873)\r\n\n\n\r\n\n\nStep #6) To make visulization easier, you may wish to expand the tracks by doing to \"Tracks --> Fit Data to Window\"\r\n\n\n\r\n\n\nStep #7) At any time, you can export a screenshot of what you view in IGV using \"File --> Save Image\".  Here is a screenshot for the region listed above \\(also see \"Figure 7\":http://www.nature.com/protocolexchange/system/uploads/2969/original/IGV_chr18_55862653_55862873.png?1390853127 ):\n**Visualizing CpG Site Methylation via UCSC Genome Browser\n9\n\\(Optional)**\r\n\n\n\r\n\n\nStep #1) Go to the UCSC Genome Browser web portal: \"http://genome.ucsc.edu/cgi-bin/hgGateway\":http://genome.ucsc.edu/cgi-bin/hgGateway\r\n\n\n\r\n\n\nMake sure you are using hg19 as your human reference sequence.\r\n\n\n\r\n\n\nStep #2) Click the button for \"add custom tracks\"\r\n\n\n\r\n\n\nStep #3) Upload your .wig files by clicking \"Select File\" and then \"Submit\".  This will need to be done separately for each .wig file.  Keep clicking \"add custom tracks\" until all necessary files are uploaded.\r\n\n\n\r\n\n\nUnlike IGV, you do not need to do anything special to upload tracks like the UCSC CpG Island locations.\r\n\n\n\r\n\n\nStep #4) Once all of the .wig files are uploaded, click \"go to genome browser\"\r\n\n\n\r\n\n\nStep #5) Enter the desired region of interest \\(can be coordinates in the form chrA:pos1-pos2 or a gene symbol).  As an example, we will visualize the regions summarized in the box plot above \\(chr18:55862653-55862873)\r\n\n\n\r\n\n\nStep #6) The UCSC Genome Browser contains a lot of tracks to compare to your differentially methylated region.  You can add tracks \\(listed below the genome view) by setting the pull-down value to anything except \"hide\" and clicking \"refresh\".  For example, the UCSC CpG Islands track is in the \"Regulation\" section \\(and likely not set to be viewed by default)\r\n\n\n\r\n\n\nStep #7) If you wish to view your genomic region more clearly, right-click on the image and select \"View Image\".  This will open up a new window with a .png image that can be saved.  For example, see a screenshot of the region below \\(also see \"Figure 8\":http://www.nature.com/protocolexchange/system/uploads/2971/original/UCSC_chr18_55862653_55862873.png?1390854865 ):\nThis region was selected because it was falsely identified by all the programs presented in \"Table 2\":http://www.nature.com/protocolexchange/system/uploads/2957/original/Table_2.jpg?1390347459 . As you can see from the figures above \\(and \"Supplemental Figure S7\":http://nar.oxfordjournals.org/content/suppl/2013/03/27/gkt242.DC1/nar-03334-met-n-2012-File006.pdf from the original COHCAP paper), visual inspection would likely confirm this region as a reasonable candidate.  Nevertheless, the are some additional criteria that could be applied that would exclude this region:\r\n\n\n\r\n\n\n**Possible Criteria #1**: Filter based upon genomic region.  This is an intronic CpG island.  If visualization of the CpG island shows no overlap with the gene promoter, this candidate may be less interesting \\(although, strictly speaking, there isn't a technical reason why this region shouldn't validate successfully)\r\n\n\n\r\n\n\n**Possible Criteria #2**: Increase the minimum number of CpG sites per island \\(default = 4).  A more densely covered region may be less likely to show contradictory results due to lack of consistent methylation changes at all possible CpG sites \\(not just the ones included on the 450k array).\r\n\n\n\r\n\n\n**In all cases, it is strongly recommended that you visualize your .wig files to identify the optimal start and stop coordinates for your differentially methylated region.**  The optimal boundaries often do not exactly correspond to the start and stop coordinates for the official CpG island \\(which is how the region is defined in COHCAP, even the CpG shores for a given CpG island)."
+        },
+        {
+            "header": "Timing",
+            "content": "**1)** Process Raw Data: ~2 min\r\n\n\n\r\n\n\n**2)** Annotation and Quality Control: ~5 min\r\n\n\n\r\n\n\n**3)** CpG Site Analysis: ~9 min\r\n\n\n\r\n\n\n**4)** CpG Island Analysis: ~2 min\r\n\n\n\r\n\n\n**All statistics are reported as tested with a Windows 7 desktop with 24.0 GB RAM with the data set and parameters specified in the procedure**  The following factors influence the run-time for analysis:\r\n\n\n\r\n\n\n**A) Data set size**: larger data sets will take longer time to process\r\n\n\n\r\n\n\n**B) Parameter stringency**: CpG island analysis will take longer if there are more differentially methylated CpG sites.  Therefore, use of more liberal parameters may result in a considerably longer run-time\r\n\n\n\r\n\n\n**C) Memory / CPU**: COHCAP may run noticeably quicker on more powerful computers.  In fact, sufficiently large cohorts \\(for example, patient cohorts with over 100 samples) will likely need to be run remotely on a powerful Linux cluster."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "**1) Process Raw Data**\r\n\n\n\r\n\n\n*If you see the following error message, you probably need to install the IlluminaHumanMethylation450kmanifest in order to read the raw .idat files.  Please click \"here\":http://www.bioconductor.org/packages/release/data/annotation/html/IlluminaHumanMethylation450kmanifest.html for detailed installation instrucitons\r\n\n\n\r\n\n\nLoading required package: IlluminaHumanMethylation450kmanifest\r\n\n\nError in getManifest\\(object) : \r\n\n\n  cannot load manifest package IlluminaHumanMethylation450kmanifest\r\n\n\n\r\n\n\n*The minfi package recognizes .idat files based upon the extensions _Grn.idat and _Red.idat.  However, some publicly available data will use slightly different naming systems.\r\n\n\n\r\n\n\nFor example, the data files from  \"E-MTAB-1274\":http://www.ebi.ac.uk/arrayexpress/files/E-MTAB-1274/E-MTAB-1274.raw.1.zip \\(Stricker  et al. 2013<sup>10</sup>)will require the user to  replace _Cy3.idat with _Grn.idat and _Cy5.idat with _Red.idat\r\n\n\n\r\n\n\n**2) Annotation and Quality Control**\r\n\n\n\r\n\n\n**Please note that COHCAP is currently a 'devel' release**  Accordingly, you will need to use R-devel to run COHCAP using the instructions provided on the Bioconductor website.\r\n\n\n\r\n\n\nR-devel for Windows: http://cran.r-project.org/bin/windows/base/rdevel.html\r\n\n\n\r\n\n\n****Alternatively, you can download the source files for COHCAP and COHCAPanno and install them using **R CMD INSTALL** \\(in the stable version of R).  Please see the instructions below on how to use R CMD INSTALL:\r\n\n\n\r\n\n\n \"http://cran.r-project.org/doc/manuals/R-admin.html#Installing-packages\":http://cran.r-project.org/doc/manuals/R-admin.html#Installing-packages\r\n\n\n\r\n\n\n\r\n\n\nLinks for source code:\r\n\n\n\r\n\n\nCOHCAP: \"http://bioconductor.org/packages/devel/bioc/html/COHCAP.html\":http://bioconductor.org/packages/devel/bioc/html/COHCAP.html\r\n\n\nCOHCAPanno: \"http://bioconductor.org/packages/devel/data/experiment/html/COHCAPanno.html\":http://bioconductor.org/packages/devel/data/experiment/html/COHCAPanno.html\r\n\n\n\r\n\n\n****When running COHCAP in R-devel via biocLite\\() installation, you might notice this error when trying to run the COHCAP template using R-devel:\r\n\n\n\r\n\n\nLoading required package: bumphunter\r\n\n\nError in loadNamespace\\(i, c\\(lib.loc, .libPaths\\()), versionCheck = vI\\[\\[i]]) : \r\n\n\n  there is no package called \u2018registry\u2019\r\n\n\nError: package \u2018bumphunter\u2019 could not be loaded\r\n\n\n\r\n\n\nYou can fix this error by running the following command: install.packages\\(\"registry\")\r\n\n\n\r\n\n\n**3) CpG Site Analysis**\r\n\n\n\r\n\n\n\\[no specific suggestions]\r\n\n\n\r\n\n\n**4) CpG Island Analysis**\r\n\n\n\r\n\n\nWhen visualizing the .wig files in IGV, you may also want to view the UCSC CpG Island locations.  You can download a .bed file for this track here:\r\n\n\n\r\n\n\n \"http://sourceforge.net/projects/cohcap/files/COHCAP_BSSEQ_anno.zip/download\":http://sourceforge.net/projects/cohcap/files/COHCAP_BSSEQ_anno.zip/download\r\n\n\n\r\n\n\nThis link is also useful for users that wish to analyze targeted BS-Seq data using the COHCAP Bioconductor package.\r\n\n\n\r\n\n\n**In general, issues running COHCAP can be addressed on the COHCAP Discussion Group**:\r\n\n\n\r\n\n\n \"http://sourceforge.net/p/cohcap/discussion/?source=navbar\":http://sourceforge.net/p/cohcap/discussion\r\n\n\n\r\n\n\nIssues with the Bioconductor package should be listed as \"Bioconductor: \\[issue description]\""
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "COHCAP should produce the following subfolders:\r\n\n\n\r\n\n\n**QC**: quality control metrics \\(histogram, dendrogram, PCA plot, descriptive statistics)\r\n\n\n\r\n\n\n**CpG_Site**: differentially methylated CpG Sites, .wig files for visualization\r\n\n\n\r\n\n\n**CpG_Island**: differentially methylated CpG Islands, box-plots to visualize per-sample methylation\r\n\n\n\r\n\n\n**Raw_Data**: table of annotated beta values for CpG sites \\(all probes), CpG site statistics \\(all probes), CpG island beta values \\(all islands meeting necessary criteria), CpG island statistics \\(all islands meeting necessary criteria)"
+        },
+        {
+            "header": "References",
+            "content": "1. Warden CD, Lee H, Tompkins JD, Li X, Wang C, Riggs AD, Yu H, Jove R, Yuan YC. \\(2013) COHCAP: an integrative genomic pipeline for single-nucleotide resolution DNA methylation analysis. Nucleic Acids Res. 41 \\(11): e117\r\n  \r\n\n\n2. Wang D, Yan L, Hu Q, Sucheston LE, Higgins MJ, Ambrosone CB, Johnson CS, Smiraglia DJ, Liu S. IMA: \\(2012) An R package for high-throughput analysis of Illumina\u2019s 450K Infinium methylation data. Bioinformatics. 28:729-730.\r\n  \r\n\n\n3. Jaffe AE, Murakami P, Lee H, Leek JT, Fallin MD, Feinberg AP, Irizarry RA \\(2012) Bump hunting to identify differentially methylated regions in epigenetic epidemiology studies. Int J Epidemiol. 41\\(1):200-9\r\n  \r\n\n\n4. Aryee MJ, Jaffe AE, Corrada-Bravo H, Ladd-Acosta C, Feinberg AP, Hansen KD, and Irizarry RA. \\(2014) Minfi: A flexible and comprehensive Bioconductor package for the analysis of Infinium DNA Methylation microarrays. Bioinformatics \\[Epub ahead of print]\r\n  \r\n\n\n5. Morris TJ, Butcher LM, Feber A, Teschendorff AE, Chakravarthy AR, Wojdacz TK, Beck S. \\(2014) ChAMP: 450k Chip Analysis Methylation Pipeline. 30 \\(3): 428-430\r\n  \r\n\n\n6. Assenov U, M\u00fcller F, Lutsik P, Walter J, Lengauer T. and Christoph Bock D. \\(2013) Compehensive Analysis of DNA Methylation Data with RnBeads. http://rnbeads.mpi-inf.mpg.de\r\n  \r\n\n\n7. Gentleman RC, Carey VJ, Bates DM, Bolstad B, Dettling M, Dudoit S, Ellis B, Gautier L, Ge Y, Gentry J, Hornik K, Hothorn T, Huber W, Iacus S, Irizarry R, Leisch F, Li C, Maechler M, Rossini AJ, Sawitzki G, Smith C, Smyth G, Tierney L, Yang JY, Zhang J. \\(2004) Bioconductor: open software development for computational biology and bioinformatics. Genome Biol. 5\\(10):R80.\r\n  \r\n\n\n8. Robinson JT, Thorvaldsd\u00f3ttir H, Winckler W, Guttman M, Lander ES, Getz G, Mesirov JP. \\(2011) Integrative genomics viewer. Nat Biotechnol. 29\\(1):24-6\r\n  \r\n\n\n9. Kent WJ, Sugnet CW, Furey TS, Roskin KM, Pringle TH, Zahler AM, Haussler D. \\(2002) The human genome browser at UCSC. Genome Res. 12\\(6):996-1006.\r\n  \r\n\n\n10. Stricker SH, Feber A, Engstr\u00f6m PG, Car\u00e9n H, Kurian KM, Takashima Y, Watts C, Way M, Dirks P, Bertone P, Smith A, Beck S, Pollard SM. \\(2013) Widespread resetting of DNA methylation in glioblastoma-initiating cells suppresses malignant cellular behavior in a lineage-dependent manner. Genes Dev. 27\\(6):654-69"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "The following Biostar discussion group was helpful in determining updated benchmarks and finding an open-source tool to process raw .idat files:\r\n\n\n\r\n\n\n \"http://www.biostars.org/p/19220\":http://www.biostars.org/p/19220"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 12896,
+                "identity": "a026b270-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Charles Warden",
+                "email": "cwarden45@gmail.com",
+                "orcid": "",
+                "institution": "Bioinformatics Core, City of Hope Medical Center",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Charles",
+                "middleName": "",
+                "lastName": "Warden",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2014-01-29 21:35:00",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2014.002",
+        "doiUrl": "https://doi.org/10.1038/protex.2014.002",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2608917,
+                "identity": "507a3907-e8a2-4cfb-9d43-de4378f05b8d",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:34",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 47603,
+                "visible": true,
+                "origin": "",
+                "legend": "Overlapping Differentially Methylated Genes for COHCAP versus ChAMP",
+                "description": "",
+                "filename": "figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-2965/v1/figure_1.jpg"
+            },
+            {
+                "id": 2608920,
+                "identity": "0dc337e0-c6d3-4ddc-a0aa-ba36d01c2564",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:34",
+                "extension": "jpg",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 62097,
+                "visible": true,
+                "origin": "",
+                "legend": "Overlapping Differentially Methylated Genes for COHCAP versus RnBeads",
+                "description": "",
+                "filename": "figure2.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-2965/v1/figure_2.jpg"
+            },
+            {
+                "id": 2608922,
+                "identity": "430f6967-e720-411b-a2fa-64ead6419040",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:34",
+                "extension": "jpg",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 116927,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 2   Predicted Methylation Status for Verified Regions",
+                "description": "",
+                "filename": "figure3.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-2965/v1/figure_3.jpg"
+            },
+            {
+                "id": 2608921,
+                "identity": "9617ed9b-82db-4f75-a43b-0f1d20904ac5",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:34",
+                "extension": "jpg",
+                "order_by": 4,
+                "title": "Figure 4",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 112349,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 1   Size of Differentially Methylated Gene Lists",
+                "description": "",
+                "filename": "figure4.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-2965/v1/figure_4.jpg"
+            },
+            {
+                "id": 2608924,
+                "identity": "ff0f99ca-9a20-4080-85e5-237a39a91be8",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:34",
+                "extension": "jpg",
+                "order_by": 5,
+                "title": "Figure 5",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 160601,
+                "visible": true,
+                "origin": "",
+                "legend": "Figure 3   COHCAP_450k_Protocol_Express_cluster.pdf",
+                "description": "",
+                "filename": "figure5.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-2965/v1/figure_5.jpg"
+            },
+            {
+                "id": 2608925,
+                "identity": "bbc2711c-31a7-42da-982b-605409914fb8",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:34",
+                "extension": "jpg",
+                "order_by": 6,
+                "title": "Figure 6",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 151119,
+                "visible": true,
+                "origin": "",
+                "legend": "Figure 4   COHCAP_450k_Protocol_Express_hist.pdf",
+                "description": "",
+                "filename": "figure6.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-2965/v1/figure_6.jpg"
+            },
+            {
+                "id": 2608926,
+                "identity": "6f69436c-51f6-4c35-9912-c9649039adc0",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:34",
+                "extension": "jpg",
+                "order_by": 7,
+                "title": "Figure 7",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 94916,
+                "visible": true,
+                "origin": "",
+                "legend": "Figure 5   COHCAP_450k_Protocol_Express_pca.pdf",
+                "description": "",
+                "filename": "figure7.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-2965/v1/figure_7.jpg"
+            },
+            {
+                "id": 2608927,
+                "identity": "f9a35e10-8e9f-49f5-8db2-2f6ffbac2b82",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:34",
+                "extension": "jpg",
+                "order_by": 8,
+                "title": "Figure 8",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 84067,
+                "visible": true,
+                "origin": "",
+                "legend": "Figure 6   NEDD4L_chr18_55862653_55862873.pdf",
+                "description": "",
+                "filename": "figure8.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-2965/v1/figure_8.jpg"
+            },
+            {
+                "id": 2608928,
+                "identity": "b4f76639-5a71-414e-9189-aceb660a58f9",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:34",
+                "extension": "png",
+                "order_by": 9,
+                "title": "Figure 9",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 18829,
+                "visible": true,
+                "origin": "",
+                "legend": "Figure 7   chr18:55862653-55862873 visualized in IGV",
+                "description": "",
+                "filename": "figure9.png",
+                "url": "https://assets.researchsquare.com/files/nprot-2965/v1/figure_9.png"
+            },
+            {
+                "id": 2608931,
+                "identity": "a59aaf32-0aa5-4c9c-8058-a286220bb673",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:35",
+                "extension": "png",
+                "order_by": 10,
+                "title": "Figure 10",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 23362,
+                "visible": true,
+                "origin": "",
+                "legend": "Figure 8   chr18:55862653-55862873 visualized in the UCSC Genome Browser",
+                "description": "",
+                "filename": "figure10.png",
+                "url": "https://assets.researchsquare.com/files/nprot-2965/v1/figure_10.png"
+            },
+            {
+                "id": 13464863,
+                "identity": "87bc9117-40c0-456c-9733-23160e1c1a28",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:44:54",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 1022310,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-2965/v1/d8f35814-7aaa-462f-903a-3f4660f432ae.pdf"
+            }
+        ],
+        "financialInterests": "No conflicting financial interests to declare.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "450k array, CpG Islands, COHCAP",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "This protocol provides detailed instructions on how to produce quality control metrics, differentially methylated CpG sites, and differentially methylated CpG islands for Illumina 450k methylation array data using the COHCAP Bioconductor package.  Scripts for comparing tools to identify differentially methylated regions are also provided, with benchmarks described in the introduction to this protocol.",
+        "manuscriptTitle": "COHCAP Analysis of CpG Island Methylation for Illumina 450k Methylation Arrays",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2014-01-30 09:55:00",
+                "doi": "10.1038/protex.2014.002",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 5
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a0265fa5-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "January 30th, 2014",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3104,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 3105,
+                "name": "Genetics"
+            },
+            {
+                "id": 3106,
+                "name": "Biotechnology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2014-01-30 09:55:00",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

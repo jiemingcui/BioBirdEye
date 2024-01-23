@@ -1,0 +1,267 @@
+{
+    "identity": "pex-1207",
+    "title": "<p>Generation of small interfering RNA (siRNA) database from SARS-CoV-2 genome sequences</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>The rapid transformation of coronavirus disease 2019 (COVID-19) into a global pandemic raised a demand for the development of antivirals solutions capable of targeting the SARS-CoV-2 RNA genome, for which RNA interference (RNAi) approaches<sup>1</sup> using small-interference RNAs (siRNAs) were pointed out as possible solutions<sup>2,3</sup>. Past experiences with SARS proved the applicability of siRNAs in this context<sup>4,5</sup>, leading to the publication of diverse patents (for a resumed list of them, refer to Liu <em>et al.</em><sup>3</sup>). Despite that, the fast ending of SARS and MERS epidemics in the past decade slowed down the efforts on continuing the development of methodologies regarding siRNAs discovery and design, which was rewarmed again with the COVID-19 pandemic.</p><p><br></p><p>The development of <em>in silico</em> siRNAs design protocols is essential not only during pandemic epochs but also as a way of preparing for new possible events in the future, such that a framework is ready for application on producing new antiviral solutions. Embedded in this context, we propose a protocol for building a database of siRNAs targets and sequences devoted to the development of antiviral solutions against SARS-CoV-2, with the proper sequences together with a set of features with which is possible to assess their quality and efficiency.</p><p><br></p><p>We are going to employ Human, SARS, and MERS reference genomes, so as the knowledge acquired with SARS-CoV-2 genome sequencing projects in Brazil, China, England, Germany, Italy, Russia, Spain, and the USA, seeking to be capable of assessing issues related to possible cross-reaction of siRNAs with the human genome, so as the capability os siRNAs being able to target with higher specificity SARS-CoV-2 strains from any of the mentioned countries.</p><p><br></p><p>The protocol has two main phases: a first in which sequences are aligned against Human, SARS, and MERS reference genomes, besides Human coding and non-coding transcriptomes; and a second one, in which the features are extracted, regarding base context, thermodynamic information, and efficiency prediction. Codes employed for the extraction of these features are freely available at <a href=\"https://github.com/inaciomdrs/sirna_db_building_protocol\" rel=\"noopener noreferrer\" target=\"_blank\">https://github.com/inaciomdrs/sirna_db_building_protocol</a>. They cover scripts made by authors to build the database, translations of JavaScript codes from OligoCalc<sup>6</sup> to Python programming language, parts of SSD<sup>7</sup> software, and copies of binaries from ThermoComposition21<sup>8</sup> and si_shRNA_selector<sup>9</sup>, to assure that users have the option to use the same software versions that authors use in this protocol.</p><p><br></p><p>Once constructed, the database will have more than 170 features, including thermodynamic information, base context, target genes, and alignment information, all of them calculated from the reference genome of interest virus and the application of alignments against human genome and coding and non-coding transcriptome, and to related viruses genomes.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": ""
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>For the development of this protocol, we used a workstation with 40 cores, 300GB of RAM, and 1TB of disk space, with Linux as Operating System (authors used Red Hat Enterprise Linux distribution). Equipment with lower computational power can also be used. This, however, will strongly impact on protocol execution time.</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "Step 1: Data acquisition\nDownload the following genomic sequence data:\n- SARS-CoV-2 GISAID Brazil, China (Wuhan region only and whole country less Wuhan), England, Germany, Italy, Russia, Spain and USA strains genomes, available at\nhttps://www.gisaid.org/\n. We recommend keeping strains genomes from different countries in different files.\n- The human genome, available at http://igenomes.illumina.com.s3-website-us-east-1.amazonaws.com/Homo_sapiens/Ensembl/GRCh37/Homo_sapiens_Ensembl_GRCh37.tar.gz;\n- Human coding transcriptome, available at ftp://ftp.ensembl.org/pub/release-100/fasta/homo_sapiens/cds/Homo_sapiens.GRCh38.cds.all.fa.gz;\n- Human non-coding transcriptome, available at ftp://ftp.ensembl.org/pub/release-100/fasta/homo_sapiens/ncrna/Homo_sapiens.GRCh38.ncrna.fa.gz\n- SARS-CoV-2, SARS, MERS, and H1N1 genomes, available at https://www.ncbi.nlm.nih.gov/labs/virus/vssi/#/\n- SARS-CoV-2 Wuhan strain from NCBI Assembly (code ASM985889v3), available at https://www.ncbi.nlm.nih.gov/assembly/GCF_009858895.2/\nStep 2: Scripts acquisition\nDownload the scripts that will be used to extract features from siRNAs sequences:\n- Auxiliary scripts and files implemented by authors at https://github.com/inaciomdrs/sirna_db_building_protocol\n- Softwares ThermoComposition21\n8\nand si_shRNA_selector\n9\n, whose copies are available at https://github.com/inaciomdrs/sirna_db_building_protocol/bin\nDisclaimers\n- Scripts files OligoCalc.py, OligoCalcCompare.py, SelfAnnealingSites.py, complementarity3.py, and HairpinCalc.py are Python translations from original JavaScript scripts used in OligoCalc webserver\n6\n, whose codes are open-source;\n- Script file deltacalculator.py is a modified part of SSD\n7\nsoftware destined for siRNA efficiency prediction and features calculation.\nStep 3: Strains cleaning\nTo assess siRNAs\u2019 efficiency against SARS-CoV-2 strains from different countries, the genomes from these strains must be at least 90% complete. Thus, remove from SARS-CoV-2 GISAID strains genomes the ones whose percentage of N-type nucleotides are higher or equal to 10 (not-closed regions). We recommend using ref_clean.pl script for performing this task. An example of how to use this script follows below:\n$ ./ref_clean.pl uk_sars_cov_2_strains.fa > uk_sars_cov_2_clean.fa\nThis step must also be performed on SARS, MERS, and H1N1 genomes.\nStep 4: Genomes indexing\nIndex all the genomes downloaded in Step 1 with Bowtie\n10\nversion 1.1.0. An example of how to make this indexing follows below:\n$ bowtie-build uk_sars_cov_2_clean.fa uk_sars_cov_2_clean\nThis step must be performed for every genome downloaded in Step 1.\nStep 5: Path settings and siRNAs sequences generation\nEdit step_0_seq.pl script file informing, where indicated, the path to the fasta file of SARS-CoV-2 Wuhan strain from NCBI Assembly (code ASM985889v3), downloaded in Step 1. After that, edit aln_commands.pl script file informing, where indicated, the paths of prefixes of indexed genomes in Step 4.\u00a0 Then, run the following commands:\n$ ./step_0_seq.pl 21\u00a0 > input\n$ ./aln_commands.pl input 21 > aln_commands_21.sh\nWhere step_0_seq.pl generates siRNAs of 21 nucleotides length, saving them on input; and aln_commands.pl generates a shell-script file responsible for executing the alignments of generated siRNAs sequences against indexed genomes, producing STS files that report the minimum number of needed mismatches for those siRNAs to have a match with those genomes.\nAfter that, the user has the option of generating sequences between 18 and 21-nt long by changing the 21 in the above commands by the size of interest. Generated aln_commands_21.sh script file can be either run sequentially (one command at a time) or by batches of commands run in parallel. Finally, create a directory called STS and move all generated STS files to it.\nStep 6: Database building\nRun script file run.pl for generating siRNA targets database, using the following command:\n$ ./run.pl 21\nWhere 21 is the length of siRNAs sequences. The user must assure that this number is the same as the used in Step 5, at step_0_seq.pl script. Important note: the user also must ensure that run.pl script, bin directory, STS folder, NC_045512.bed file, and db_olig_seq2.pl script file are in the same folder. All of these files are available at https://github.com/inaciomdrs/sirna_db_building_protocol. run.pl calculates features regarding base context, thermodynamic information, and efficiency prediction, using for these latter two ThermoComposition21\n8\nand si_shRNA_selector\n9\nsoftware and the other downloaded scripts in Step 2 for the whole process of database building. It also organizes information in STS files across the produced table. It\u2019s important to note that run.pl triggers processes that are run in background. Use top program to track the execution of such processes and know when they are finished. When this finally happens, execute the following two commands:\n$ cat *.res > db.txt\n$ rm input.*\nWhere db.txt is the generated siRNAs database for the chosen size."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p>Step 5 is the longest one and requires more computational effort. Based on our experience designing this protocol, it is common that this step fills out either a huge RAM memory volume either a huge disk space. In face of that, aln_commands_21.sh script file is optimized for saving disk space. In the case that the user wants to save RAM memory, he or she needs to replace every line with the following structure:</p><p><br></p><p>bowtie -S -a --pairtries 4 -p 30 -n 3 -e 10 -l 7 genome -f NAT.21 | ./summarize.pl - &gt; NAT.genome.21.sts</p><p><br></p><p>By these two:</p><p><br></p><p>bowtie -S -a --pairtries 4 -p 30 -n 3 -e 10 -l 7 genome -f NAT.21 &gt; NAT.21.genome.sam</p><p><br></p><p>./summarize.pl NAT.21.genome.sam &gt; NAT.genome.21.sts</p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>The alignment step is the longest one and dependent on the computational power of the user\u2019s machine. Aside from that, database building lasts about thirty minutes, considering the described machine at the Equipment section.</p>"
+        },
+        {
+            "header": "",
+            "content": ""
+        },
+        {
+            "header": "References",
+            "content": "<p>1.&nbsp;&nbsp;&nbsp;Qureshi, A., Tantray, V. G., Kirmani, A. R. &amp; Ahangar, A. G. A review on current status of    </p><p>      antiviral siRNA. Reviews in Medical Virology vol. 28 e1976 (2018).</p><p>2.&nbsp;&nbsp;&nbsp;Ghosh, S., Firdous, S. M. &amp; Nath, A. siRNA could be a potential therapy for COVID-19. EXCLI    </p><p>      J. 19, 528\u2013531 (2020).</p><p>3.&nbsp;&nbsp;&nbsp;Liu, C. et al. Research and Development on Therapeutic Agents and Vaccines for COVID-19 </p><p>      and Related Human Coronavirus Diseases. ACS Cent Sci 6, 315\u2013331 (2020).</p><p>4.&nbsp;&nbsp;&nbsp;Shi, Y. et al. Inhibition of genes expression of SARS coronavirus by synthetic small interfering </p><p>      RNAs. Cell Res. 15, 193\u2013200 (2005).</p><p>5.&nbsp;&nbsp;&nbsp;Wang, Z. et al. Inhibition of severe acute respiratory syndrome virus replication by small </p><p>       interfering RNAs in mammalian cells. J. Virol. 78, 7523\u20137527 (2004).</p><p>6.&nbsp;&nbsp;&nbsp;Kibbe, W. A. OligoCalc: an online oligonucleotide properties calculator. Nucleic Acids Res. 35, </p><p>      W43\u20136 (2007).</p><p>7.&nbsp;&nbsp;&nbsp;Carli, G. J. de et al. SSD - a free software for designing multimeric mono-, bi- and trivalent </p><p>      shRNAs. Genet. Mol. Biol. 43, e20190300 (2020).</p><p>8.&nbsp;&nbsp;&nbsp;Shabalina, S. A., Spiridonov, A. N. &amp; Ogurtsov, A. Y. Computational models with thermodynamic </p><p>      and composition features improve siRNA design. BMC Bioinformatics 7, 65 (2006).</p><p>9.&nbsp;&nbsp;&nbsp;Matveeva, O. V. et al. Optimization of duplex stability and terminal asymmetry for shRNA </p><p>      design. PLoS One 5, e10180 (2010).</p><p>10.&nbsp;&nbsp;&nbsp;Langmead, B., Trapnell, C., Pop, M. &amp; Salzberg, S. L. Ultrafast and memory-efficient </p><p>        alignment of short DNA sequences to the human genome. Genome Biol. 10, R25 (2009).</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1101/2020.09.30.321596",
+                "date": "2020-10-02 03:15:15",
+                "title": "A small interfering RNA (siRNA) database for SARS-CoV-2",
+                "authors": [
+                    "In\u00e1cio Gomes Medeiros",
+                    "Andr\u00e9 Salim Khayat",
+                    "Beatriz Stransky",
+                    "Sidney Emanuel Batista dos Santos",
+                    "Paulo Pimentel de Assump\u00e7\u00e3o",
+                    "Jorge Estefano Santana de Souza"
+                ],
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 3314610,
+                "identity": "e2e86a6d-3016-49ad-b7d8-7e4414279fd5",
+                "order_by": 0,
+                "name": "In\u00e1cio Gomes Medeiros",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-3407-218X",
+                "institution": "Bioinformatics Graduate Program, Metr\u00f3pole Digital Institute, Federal University of Rio Grande do Norte, Natal, Rio Grande do Norte, 59078-400, Brazil",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "In\u00e1cio",
+                "middleName": "Gomes",
+                "lastName": "Medeiros",
+                "suffix": ""
+            },
+            {
+                "id": 3314611,
+                "identity": "6126af2a-16ad-4ba9-8438-46dc1ced1e8d",
+                "order_by": 1,
+                "name": "Andr\u00e9 Salim Khayat",
+                "email": "",
+                "orcid": "",
+                "institution": "Instituto de Ci\u00eancias Biol\u00f3gicas, Universidade Federal do Par\u00e1, Bel\u00e9m, Par\u00e1, 66075-110, Brazil",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Andr\u00e9",
+                "middleName": "Salim",
+                "lastName": "Khayat",
+                "suffix": ""
+            },
+            {
+                "id": 3314612,
+                "identity": "a6333ebc-243d-4c6a-b96a-479f10b5d469",
+                "order_by": 2,
+                "name": "Beatriz Stransky",
+                "email": "",
+                "orcid": "",
+                "institution": "Bioinformatics Multidisciplinary Environment (BioME), Metr\u00f3pole Digital Institute, Federal University of Rio Grande do Norte, Natal, Rio Grande do Norte, 59078-400, Brazil",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Beatriz",
+                "middleName": "",
+                "lastName": "Stransky",
+                "suffix": ""
+            },
+            {
+                "id": 3314613,
+                "identity": "90f27db3-c4c1-4577-b3eb-4b1050d7048c",
+                "order_by": 3,
+                "name": "Sidney Emanuel Batista dos Santos",
+                "email": "",
+                "orcid": "",
+                "institution": "Instituto de Ci\u00eancias Biol\u00f3gicas, Universidade Federal do Par\u00e1, Bel\u00e9m, Par\u00e1, 66075-110, Brazil",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Sidney",
+                "middleName": "Emanuel Batista dos",
+                "lastName": "Santos",
+                "suffix": ""
+            },
+            {
+                "id": 3314614,
+                "identity": "e5be1d1f-46dc-47bd-a8d0-2e78e82cf36f",
+                "order_by": 4,
+                "name": "Paulo Pimentel de Assump\u00e7\u00e3o",
+                "email": "",
+                "orcid": "",
+                "institution": "N\u00facleo de Pesquisas em Oncologia, Universidade Federal do Par\u00e1, Bel\u00e9m, Par\u00e1, 66073-110, Brazil",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Paulo",
+                "middleName": "Pimentel",
+                "lastName": "de Assump\u00e7\u00e3o",
+                "suffix": ""
+            },
+            {
+                "id": 3314615,
+                "identity": "bfc17b22-46c2-4080-b1fa-6510287f5d80",
+                "order_by": 5,
+                "name": "Jorge Estefano Santana de Souza",
+                "email": "jorge@imd.ufrn.br",
+                "orcid": "",
+                "institution": "Bioinformatics Multidisciplinary Environment (BioME), Metr\u00f3pole Digital Institute, Federal University of Rio Grande do Norte, Natal, Rio Grande do Norte, 59078-400, Brazil",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Jorge",
+                "middleName": "Estefano Santana",
+                "lastName": "de Souza",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2020-10-10 02:43:13",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1207/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1207/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13604830,
+                "identity": "73eb98ec-3108-49e5-b484-62dbc6fd28f1",
+                "added_by": "auto",
+                "created_at": "2021-09-17 06:01:39",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 220971,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1207/v1/14c68a7e-4845-448c-b7d7-9b38532e8838.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Database, siRNA, SARS-CoV-2",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>This protocol aims to describe the building of a database of SARS-CoV-2 targets for siRNA approaches. Starting from the virus reference genome, we will derive sequences from 18 to 21nt-long and verify their similarity against the human genome and coding and non-coding transcriptome, as well as genomes from related viruses. We will also calculate a set of thermodynamic features for those sequences and will infer their efficiencies using three different predictors. The protocol has two main phases: at first, we align sequences against reference genomes. In the second one, we extract the features. The first phase varies in terms of duration, depending on computational power from the running machine and the number of reference genomes. Despite that, the second phase lasts about thirty minutes of execution, also depending on the number of cores of running machine. The constructed database aims to speed the design process by providing a broad set of possible SARS-CoV-2 sequences targets and siRNA sequences.</p>",
+        "manuscriptTitle": "Generation of small interfering RNA (siRNA) database from SARS-CoV-2 genome sequences",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2020-10-22 06:07:47",
+                "doi": "10.21203/rs.3.pex-1207/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "d3b9827e-63a8-476d-bf1f-109e3691b96b",
+        "owner": [],
+        "postedDate": "October 22nd, 2020",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 744382,
+                "name": "Computational biology and bioinformatics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2020-10-22 06:07:47",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

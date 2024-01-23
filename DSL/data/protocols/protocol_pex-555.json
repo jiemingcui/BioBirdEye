@@ -1,0 +1,422 @@
+{
+    "identity": "pex-555",
+    "title": "<p>ItChIP-simultaneous indexing and tagmentation-based ChIP-seq</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>Profiling epigenetic states largely relies on measurement of chromatin occupancy of covalently modified histones, histone regulators, and transcription factors (TFs)<sup>1-5</sup>. Among them, chromatin immunoprecipitation followed by massively parallel sequencing (ChIP-seq) is the method of choice, allowing the rapid identification of transcriptional regulatory elements genome-wide<sup>6-9</sup>. Standard ChIP-seq requires a million or more cells. Reducing the required input to one to hundreds of cells would open up an array of new applications. For instance, understanding the transcriptional regulatory networks that control lineage specification in developing embryos would be enabled by using ChIP-seq to probe lineage-specific enhancers from low amounts of cells. To define differentiation trajectories and potentials of rare spatiotemporal progenitor cells, single-cell RNA-seq (scRNA-seq) techniques have become widely used to separate subpopulations from transcriptomically heterogeneous cell populations<sup>10-13</sup>. However, a robust single-cell ChIP-seq tool remains lacking to understand epigenetic heterogeneity in complex tissue or cell populations at single cell level.&nbsp;</p><p>In the past decade, epigenomic studies have seen great strides towards reduced input sample size, including nano-ChIP<sup>14</sup>, UNI-NChIP<sup>15</sup>, STAR ChIP<sup>16</sup>, MOWChIP<sup>17</sup>, CUT&amp;RUN<sup>18</sup>and ChIL-seq<sup>19</sup>, but development of a generalizable, low-cost, and robust method effective on single cells or small cell populations lags behind. Microfluidic systems have been used to profile histone marks by ChIP-seq using as few as 100 cells<sup>17</sup>. A study by Rotem et al. demonstrated the proof-of-concept use of microfluidic systems for single-cell ChIP (Drop-ChIP). However, at ~800 reads per cell, the sparse data yield from Drop-ChIP limits its potential applications<sup>20</sup>.&nbsp;</p><p>Through overcoming these limitations, we present simultaneous indexing and tagmentation of opened/relaxed chromatin-based ChIP-seq (itChIP-seq)(Figure 1), which enables genome-wide profiling of histone modifications and non-histone proteins from ultra-low input (as few as 100 cells) and various histone modifications of single-cell samples (Figure 2), enabling processing rare cell populations of less than 100 single cells and abundant samples of thousands of single cells per assay. Furthermore, itChIP eliminates the requirement for specialized microfluidic devices and is generalizable and affordable for most biomedical research laboratories.&nbsp;</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p>Bl21 (DE3)</p><p>Formaldehyde Solution (SIGMA, F8775-500ML)</p><p>Glycine (AMRESCO, 0167-1KG)</p><p>Phosphate Buffered Daline (PBS) (Hyclone, SH30256.01)</p><p>Sodium butyrate (SIGMA, 303410-100G)</p><p>Collagenase Type 2 (Worthington, LS004177)</p><p>H3K4me3 antibody (Millipore, Cat.No: 04-745)</p><p>Trypsin (Gibco, 27250-018)</p><p>Ampicillin Na (AMRESCO, VT0236)</p><p>IPTG (INALCO, 1758-1400)</p><p>HEPES free acid (AMRESCO, 0511-1KG)</p><p>Glycerol (SIGMA, 49767-100ML)</p><p>Triton X-100 (SIGMA, T8787-50ML)</p><p>EDTA-free Protease Inhibitor Cocktail (Roche, 04693132001)</p><p>Phenyl Methane Sulfonyl Fluoride (PMSF) (AMRESCO, 0754-5G)</p><p>Dithiothreitol (DTT) (INALCO, 1758-9030)</p><p>TRIS (AMRESCO, 0497-5KG)</p><p>TAPS (SIGMA, T-5130)</p><p>Magnesium chloride solution (MgCl<sub>2</sub>) (SIGMA, 68475-100ML)</p><p>Potassium chloride (KCl) (XiLong SCIENTIFIC, 7447-40-7)</p><p>Calcium chloride dihydrate (CaCl<sub>2</sub>)</p><p>(XiLong SCIENTIFIC, 10035-04-8)</p><p>Sodium chloride (NaCl) (SIGMA, 303410-100G)</p><p>tRNA (Invitrogen, cat# AM7119)&nbsp;</p><p>N,N-Dimethylformamide (DMF) (SIGMA, D4551-250ML)</p><p>Sodium deoxycholate (SIGMA, D6750)</p><p>SODIUM DODECYL SULFATE (SDS) (AMRESCO, 0227-1KG)</p><p>Proteinase K (AMRESCO, 0706-100MG)</p><p>KAPA HiFi HotStart ReadyMix (BIOSYSTEMS, KM2602)</p><p>AMPure XP (BECKMAN COULTER, A63881)</p><p>Streptavidin M280 beads&nbsp;(Invitrogen, 60210)</p><p>Dynabeads protein A&nbsp;(Invitrogen, 10001D)</p><p>H3K27me3 antibody (Millipore, Cat.No: 07-449)</p><p>H3K27ac antibody (Abcam, Cat.No: ab4729)</p><p>EZH2 antibody (CST, Cat.No: S246S)</p><p>RNA polymerase II CTD antibody (Abcam, Cat.No: ab5408)</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>1.5 ml tube&nbsp;(Axygen, MCT-150-C)</p><p>0.2 ml 8-strip PCR tube&nbsp;(Axygen, PCR-0208-C)</p><p>DynaMag\u2122-PCR Magnet</p><p>Qubit 2.0 Fluorometer&nbsp;(Thermo Fisher Scientific)</p><p>Centrifuge&nbsp;(Eppendorf)</p><p>Thermal cycler&nbsp;(Eppendorf)</p><p>ThermoMixer</p><p>Qsonica, Q800R</p><p>CFX96 Real-Time System</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "Reagents Setup\n\u2022 Hypotonic Buffe\n\ufeff\nr\n20 mM HEPES(PH7.9)\n10 mM KCl\n10% Glycerol\n0.2%NP-40\n0.3% SDS\n\ufeff\n\u2022 5XTMgCl-DMF\n\ufeff\n50 mM TAPS-NaOH(PH8.3)\n25 mM MgCl2\n50% DMF\n\u2022 Releasing Buffer\n0.8% SDS\n1% TX-100\n2 mM EDTA\n20 mM Tris-HCl(PH8.0)\n200 mM NaCl\n\ufeff\n\u2022 Low Salt Buffer\ufeff\n1% TX-100\n2 mM EDTA\n50 mM HEPES(PH7.9)\n150 mM NaCl\n0.1% Sodium Deoxycholate\n\u2022 High Salt Buffer\ufeff\n1% TX-100\n2 mM EDTA\n50 mM HEPES(PH7.9)\n500 mM NaCl\n0.1% Sodium Deoxycholate\n\u2022 ChIP Elution Buffer\ufeff\n50 mM Tris-HCl(PH8.0)\n10 mM EDTA\n1% SDS\n\ufeff\nDetailed Experiment Procedure for Low Input ItChIP\nThe important steps of the procedure for low-input itChIP were optimized as shown in Figure 3.\n\u2022 Cell preparation and chromatin opening.\n1. Sort fixed 100-1,000,000 cells into 5\u00a0\u03bcl Hypotonic Buffer containing 0.3% SDS in 200 \u03bcl tubes.\n2. Open chromatin: incubation the cell at 62\u00b0C for 10 min in an Eppendorf ThermoMixer with agitation at 600 rpm.\n3. Quench SDS: add 1.2\u00a0\u03bcl of 10% Triton X-100 to the samples and incubated at 37\u00b0C for 60 min in a PCR thermal cycler.\n\u2022 Chromatin tagmentation.\n4. Tn5 tagmentation: add 2\u00a0\u03bcl 5XTMgCl-DMF, 3\u00a0\u03bcl 12.5\u00a0\u03bcM Tn5 Transposase and 0.8\u00a0\u03bcl ddH2O to the 6.2\u00a0\u03bcl cell mixture (using 10-fold dilution of Tn5 for the cell number less than 1,000, Table 1). The reaction was performed at 37\u00b0C for 1 h, followed by addition of 2 \u00b5l 250 mM EDTA and incubation at RT for 20 min to stop Tn5 reaction.\n\u2022 Chromatin release.\n5. Collect the sample by centrifugation at 12,000 g for 3 min at 4\u00b0C, get rid of the supernatant and resuspend the nuclear pellet with 20\u00a0\u03bcl Releasing Buffer (0.8% SDS, 2 mM EDTA, 20 mM Tris-HCl pH8.0, 200 mM NaCl) by pipetting ~30 times to disperse the nuclei.\n6. Incubate the nuclear lysis at RT for 30 min, followed by brief sonication at 20% power for 4 cycles (15 s ON and 30 s OFF per cycle; Q800R2, Qsonica) to aid in solubilize chromatin.\n7. Dilute the SDS concentration by adding 100\u00a0\u03bcl ChIP Dilution Buffer to the chromatin mixture before centrifugation at 20,000 for 15 min at 4\u00b0C to collect soluble chromatin for immunoprecipitation.\n\u2022 Antibody-based chromatin immunoprecipitation.\n8. Add 0.1~1.0\u00a0\u03bcg antibody to the tagmentated soluble chromatin mixture and incubated at 4\u00b0C overnight.\n9. Meanwhile, prepare 4\u00a0\u03bcl Dynabeads protein A (Invitrogen, 10001D, 30 mg/ml) beads and block the beads with 150\u00a0\u03bcl 1% BSA/PBS overnight at 4\u00b0C.\n10. Next day, transfer the 4 \u00b5l protein A beads to the chromatin samples and incubate at 4\u00b0C for 2 h with gentle rotation.\n11. Wash beads: the beads were washed thrice with 150\u00a0\u03bcl cold Low Salt Buffer and once with 150\u00a0\u03bcl cold High Salt Buffer.\n12. Transfer the chromatin-antibody-beads complex to new tubes in 150\u00a0\u03bcl cold Low Salt Buffer, and the beads was collected by magnet stand to facilitate removing supernatant.\n13. Suspend the complex with 100\u00a0\u03bcl ChIP Elution Buffer, and reverse-crosslinked at 70\u00b0C for 3 h on a thermal mixer at 1500 rpm.\n14. Add 0.1 mg/ml proteinase K to the DNA mixture and incubate at 55\u00b0C for 3 h.\n15. Purify the DNA with phenol-chloroform. The purified DNA can be directly used for library preparation.\n\u2022 Bio-itChIP.\nContinue from step 7.\n7-8. Add NaCl to the\u00a0tagmentated soluble chromatin to final 350 mM.\n7-9. Add 10 \u00b5l pre-blocked (1% BSA/PBS block the beads at 4\u00b0C for 2 h) streptavidin M280 beads to the tagmentated soluble chromatin\u00a0at 4\u00b0C for 2 h.\n7-10. Wash beads:\u00a0wash\u00a0the beads\u00a0once with 150 \u00b5l 2% SDS/PBS, and thrice with 150 \u00b5l cold High Salt Buffer.\n7-11. Transfer the chromatin-antibody-beads complex to new tubes in 150\u00a0\u03bcl cold High Salt Buffer, and the beads was collected by magnet stand to remove supernatant.\n7-12. Suspend the complex with 100\u00a0\u03bcl ChIP Elution Buffer, and the ChIPed DNA was purified as above.\n\u2022 Nextera library preparation and sequencing of low-input itChIP/bio-itChIP.\n16. Amplify the purified ChIPed DNA by addition of 1\u00a0\u03bcl 25\u00a0\u03bcM i5 index primer (5\u2032- AATGATACGGCGACCACCGAGATCTACAC[i5]TCGTCGGCAGCGTC-3\u2032), 1\u00a0\u03bcl 25\u00a0\u03bcM i7 index primer (5\u2032-CAAGCAGAAGACGGCATACGAGAT[i7]GTCTCGTGGGCTCGG-3\u2032) (Table 2) and 25\u00a0\u03bcl 2X KAPA master mix to the 23\u00a0\u03bcl purified ChIPed DNA and incubation at 72\u00b0C for 5 min, 98\u00b0C for 45 s, 14-19 cycles of (98\u00b0C for 15 s, 63\u00b0C for 30 s, 72\u00b0C for 1 min), and final 72\u00b0C extension for 5 min.\n17. After PCR, purify the library with 1 X AMPure XP beads once. Size selection was carried out by first 0.5X AMPure XP beads to remove >1kb fragments, and second 0.5X AMPure XP beads to the supernatant to obtain 200-1000 bp fragments for sequencing.\n18. Sequence the libraries with paired-end 150-bp reads on Hiseq X-ten or Novaseq 6000 platform (Illumina).\nSingle-cell itChIP\n\u2022 Single cell chromatin opening.\nFollow the procedures descried above: Step 1-3.\n\u2022 Single cell chromatin tagmentation and indexing\ufeff.\n19. Tn5 tagmentation: add 2\u00a0\u03bcl 5XTMgCl-DMF, 2\u00a0\u03bcl 1.25\u00a0\u03bcM\u00a0Tn5-T5 (5\u2032-TCGTCGGCAGCGTCTCCACGC[T5]GCGATCGAGGACGGCAGATGTGTATAAGAGACAG-3\u2032), 2\u00a0\u03bcl 1.25\u00a0\u03bcM Tn5-T7 (5\u2032-GTCTCGTGGGCTCGGCTGTCCCTGTCC[T7]CACCGTCTCCGCCTCAGATGTGTATAAGAGACAG-3\u2032) (Table 3), and ddH\n2\nO with 10 ng yeast tRNA (Invitrogen, cat# AM7119) to 10\u00a0\u03bcl for each well for tagmentation at 55\u00b0C for 30 min.\n20. Stop he reaction by adding 2\u00a0\u03bcl 250 mM EDTA to each well, mix well and incubate at RT for 20 min.\n\u2022 Single cell chromatin release and pooling of indexed single cells\ufeff.\n21. Combine each well of single cell into\u00a01.5 ml Eppendorf tube and the nuclei were collected by centrifugation at 12,000 g for 3 min at 4\u00b0C.\n22. Discard the supernatant and resuspend the nuclear pellet with 20 \u00b5l Releasing Buffer by pipetting ~30 times to disperse the pellets.\n23. Incubate the nuclear lysis at RT for 30 min, followed by brief sonication at 20% power for 4 cycles (15 s ON and 30 s OFF per cycle) to solubilize chromatin.\n24. Dilute the SDS concentration by adding 100\u00a0\u03bcl ChIP Dilution Buffer to the chromatin mixture before centrifugation at 20,000 for 15 min at 4\u00b0C to collect soluble chromatin for immunoprecipitation.\n\u2022 Pooled single cell chromatin immunoprecipitation.\n25. Add\u00a00.1~1.0\u00a0\u03bcg antibody to the indexed soluble chromatin mixture from pooled single cells and incubate at 4\u00b0C overnight, then immunoprecipitation was performed following the low-input itChIP procedure.\n\u2022 Single-cell Nextera library preparation for sequencing using a custom recipe.\n26.\u00a0Amplify the pooled single cell ChIPed DNA by addition of 1\u00a0\u03bcl 25\u00a0\u03bcM i5 index primer (5\u2032- AATGATACGGCGACCACCGAGATCTACAC[i5]TCGTCGGCAGCGTC-3\u2032), 1\u00a0\u03bcl 25\u00a0\u03bcM i7 index primer (5\u2032- CAAGCAGAAGACGGCATACGAGAT[i7]GTCTCGTGGGCTCGG-3\u2032) and 25\u00a0\u03bcl 2X KAPA master mix to the 23\u00a0\u03bcl purified ChIPed DNA and incubation at 72\u00b0C for 5 min, 98 \u00b0C for 45 s, 18-20 cycles of (98\u00b0C for 15 s, 63 \u00b0C for 30 s, 72\u00b0C for 1 min), and final 72\u00b0C for 5 min.\n27. After PCR, purify the library with 1 X AMPure XP beads once. Size selection was carried out by first 0.5X AMPure XP beads to remove >1kb fragments, and second 0.5X AMPure XP beads to the supernatant to obtain 200-1000 bp fragments for sequencing.\n\u2022 Custom sequencing of single-cell Nextera libraries.\n28. Quantify the libraries by qPCR.\n29. Load 10 pM libraries per lane of HiSeq 2500 (Illumina) using custom sequencing primers (Table 3) following read lengths: 69 bp (Read1) + 43 bp (Index1) + 37 bp (Index2) + 69 bp (Read2) (Supplementary Fig. 6). The first 8 bp of Index1 correspond to the T7 barcode and the last 8 bp to the i7 barcode. The first 8 bp of Index2 correspond to the i5 barcode and the last 8 bp of Index2 correspond to the T5 barcode. About 10% PhiX and 15% spike-in library in which we replaced universal connector A/B sequences with 21/27 bp N were pooled with single-cell itChIP libraries for sequencing to balance the constant bases within each detection cycle.\n\u2022 Single-cell Truseq library preparation for sequencing using the Illumina standard workflow.\n30. Prepare the Truseq libraries by 2 rounds of PCR amplification (Fig. 4).\n31. Add 22.3\u00a0\u03bcl PCR Mix 1 (10\u00a0\u03bcl Q5 reaction buffer (NEB), 10\u00a0\u03bcl Q5 high GC enhancer (NEB), 1\u00a0\u03bcl 10 mM dNTP mix, 0.3\u00a0\u03bcl Q5 polymerase, 0.5\u00a0\u03bcl 25\u00a0\u03bcM connector forward primer (5\u2032-ACACTCTTTCCCTACACGACGCTCTTCCGATCTTCGTCGGCAGCGTCTCCACGC-3\u2032), 0.5\u00a0\u03bcl 25\u00a0\u03bcM connector reverse primer (5\u2032-GACTGGAGTTCAGACGTGTGCTCTTCCGATCTGTCTCGTGGGCTCGGCTGTCCCTGT-3\u2032)) to 27.7\u00a0\u03bcl ChIPed DNA and the reaction was set up at 72\u00b0C for 5 min, 95\u00b0C for 30 s, 18 cycles of (98\u00b0C for 10 s, 63\u00b0C for 30 s, 72\u00b0C for 1 min), and final 72\u00b0C extension for 5 min.\n32. After the first round of PCR, remove the excessive connector primers by addition of 0.5 \u03bcl 20 U/\u03bcl ExoI (NEB) and incubation at 37\u00b0C for 30 min and 72\u00b0C for 20 min to inactivate ExoI.\n33. Perform second round of PCR by addition of 9.5\u00a0\u03bcl PCR Mix 2 (2\u00a0\u03bcl Q5 reaction buffer (NEB), 2\u00a0\u03bcl Q5 high GC enhancer (NEB), 0.5\u00a0\u03bcl 10 mM dNTP mix, 0.1\u00a0\u03bcl Q5 polymerase, 1\u00a0\u03bcl 10\u00a0\u03bcM NEB Index primer (5\u2032-CAAGCAGAAGACGGCATACGAGAT[index]GACTGGAGTTCAGACGTGTGCTCTTCCGATCT-3\u2032), 1\u00a0\u03bcl 10\u00a0\u03bcM NEB universal Primer (5\u2032-AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCT-3\u2032, 2.9\u00a0\u03bcl ddH\n2\nO) to 50.5\u00a0\u03bcl of PCR products and incubation at 95\u00b0C for 30 s, 5 cycles of (98\u00b0C for 10 s, 63\u00b0C for 30 s, 72\u00b0C for 1 min, and 72\u00b0C for 5 min.\n34. Purify the library with 1X AMPure XP beads once and size selection was carried out by first 0.5X AMPure XP beads to remove >1 kb fragments, and second 0.5X AMPure XP beads to the supernatant to obtain 200-1000 bp fragments for sequencing.\n35. Sequence the resulting libraries using standard Truseq recipe for paired-end 150-bp reads on Hiseq X-ten or Novaseq 6000 platform (Illumina)."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p><strong><u>1.</u></strong></p><p><strong>Step: </strong>4.</p><p><strong>Problem: </strong>Small amount of soluble chromatin with larger fragment size.</p><p><strong>Possible reason: </strong>Tn5 complex lose its potency.</p><p><strong>Solution: </strong>Increase the amount of Tn5 complex for tagmentation or prepare new Tn5 transpose complex.</p><p><strong><u>2.</u></strong></p><p><strong>Step</strong>: 8.</p><p><strong>Problem:</strong> ChIP-qPCR exhibits lower signal or higher background.</p><p><strong>Possible reason: </strong>The antibody amount is not optimal.</p><p><strong>Solution:</strong> Optimize the antibody concentration for immunoprecipitation.</p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p><strong>Day 1</strong></p><p><u>\u2022 Cell preparation and chromatin opening&nbsp;</u></p><p><u>\u2022 Chromatin tagmentation.</u></p><p><u>\u2022 Chromatin release.</u></p><p><u>\u2022 Antibody-based chromatin immunoprecipitation.&nbsp;</u></p><p><strong>Day 2</strong></p><p><strong>\ufeff</strong><u>\u2022 Wash beads and Purify ChIPed DNA.</u></p><p><u>\u2022 Library preparation for sequencing.</u></p><p><br></p><p><u>\ufeff</u></p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>1. The library exhibits good ChIP-qPCR enrichment before sequence.</p><p>2. Sequence results shows good enrichment of positive signals</p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rivera, C.M. &amp; Ren, B. Mapping human epigenomes.&nbsp;<em>Cell</em><strong>155</strong>, 39-55 (2013).</p><p>2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Roh, T.-y., Ngau, W.C., Cui, K., Landsman, D. &amp; Zhao, K. High-resolution genome-wide mapping of histone modifications.<em>Nat Biotechnol</em><strong>22</strong>, 1013-1016 (2004).</p><p>3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Badeaux, A.I. &amp; Shi, Y. Emerging roles for chromatin as a signal integration and storage platform.&nbsp;<em>Nature Reviews Molecular Cell Biology</em><strong>14</strong>, 211 (2013).</p><p>4.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kharchenko, P.V., Tolstorukov, M.Y. &amp; Park, P.J. Design and analysis of ChIP-seq experiments for DNA-binding proteins.&nbsp;<em>Nat Biotechnol</em><strong>26</strong>, 1351-1359 (2008).</p><p>5.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shankaranarayanan, P.<em>et al.</em>Single-tube linear DNA amplification (LinDA) for robust ChIP-seq.&nbsp;<em>Nat Methods</em><strong>8</strong>, 565-567 (2011).</p><p>6.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Stegle, O., Teichmann, S.A. &amp; Marioni, J.C. Computational and analytical challenges in single-cell transcriptomics.&nbsp;<em>Nat Rev Genet</em><strong>16</strong>, 133-145 (2015).</p><p>7.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adli, M. &amp; Bernstein, B.E. Whole-genome chromatin profiling from limited numbers of cells using nano-ChIP-seq.&nbsp;<em>Nat Protoc</em><strong>6</strong>, 1656-1668 (2011).</p><p>8.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Brind'Amour, J.<em>et al.</em>An ultra-low-input native ChIP-seq protocol for genome-wide profiling of rare cell populations.&nbsp;<em>Nat Commun</em><strong>6</strong>, 6033 (2015).</p><p>9.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Zheng, H.<em>et al.</em>Resetting Epigenetic Memory by Reprogramming of Histone Modifications in Mammals.&nbsp;<em>Mol Cell</em><strong>63</strong>, 1066-1079 (2016).</p><p>10.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cao, Z., Chen, C., He, B., Tan, K. &amp; Lu, C. A microfluidic device for epigenomic profiling using 100 cells.&nbsp;<em>Nat Methods</em><strong>12</strong>, 959-962 (2015).</p><p>11.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Skene, P.J., Henikoff, J.G. &amp; Henikoff, S. Targeted in situ genome-wide profiling with high efficiency for low cell numbers.&nbsp;<em>Nat Protoc</em><strong>13</strong>, 1006-1019 (2018).</p><p>12.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Harada, A.<em>et al.</em>A chromatin integration labelling method enables epigenomic profiling with lower input.&nbsp;<em>Nat Cell Biol</em><strong>21</strong>, 287-296 (2019).</p><p>13.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rotem, A.<em>et al.</em>Single-cell ChIP-seq reveals cell subpopulations defined by chromatin state.&nbsp;<em>Nat Biotechnol</em><strong>33</strong>, 1165-1172 (2015).</p><p>14.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Schmidl, C., Rendeiro, A.F., Sheffield, N.C. &amp; Bock, C. ChIPmentation: fast, robust, low-input ChIP-seq for histones and transcription factors.&nbsp;<em>Nat Methods</em><strong>12</strong>, 963-965 (2015).</p><p>15.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Buenrostro, J.D., Wu, B., Chang, H.Y. &amp; Greenleaf, W.J. ATAC-seq: A Method for Assaying Chromatin Accessibility Genome-Wide.&nbsp;<em>Curr Protoc Mol Biol</em><strong>109</strong>, 21.29.21-29 (2015).</p><p>16.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Buenrostro, J.D.<em>et al.</em>Single-cell chromatin accessibility reveals principles of regulatory variation.&nbsp;<em>Nature</em><strong>523</strong>, 486-490 (2015).</p><p>17.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lake, B.B.<em>et al.</em>Integrative single-cell analysis of transcriptional and epigenetic states in the human adult brain.&nbsp;<em>Nat Biotechnol</em><strong>36</strong>, 70-80 (2018).</p><p>18.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Daley, T. &amp; Smith, A.D. Predicting the molecular complexity of sequencing libraries.&nbsp;<em>Nat Methods</em><strong>10</strong>, 325-327 (2013).</p><p>19.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nord, A.S.<em>et al.</em>Rapid and Pervasive Changes in Genome-wide Enhancer Usage during Mammalian Development.&nbsp;<em>Cell</em><strong>155</strong>, 1521-1531 (2013).</p><p>20.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creyghton, M.P.<em>et al.</em>Histone H3K27ac separates active from poised enhancers and predicts developmental state.&nbsp;<em>Proc Natl Acad Sci U S A</em><strong>107</strong>, 21931-21936 (2010).</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41556-019-0383-5",
+                "date": "2019-09-03 16:07:52",
+                "title": "Profiling chromatin states using single-cell itChIP-seq",
+                "authors": [
+                    "Shanshan Ai",
+                    "Haiqing Xiong",
+                    "Chen C. Li",
+                    "Yingjie Luo",
+                    "Qiang Shi",
+                    "Yaxi Liu",
+                    "Xianhong Yu",
+                    "Cheng Li",
+                    "Aibin He"
+                ],
+                "journal": "Nature Cell Biology",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 111696,
+                "identity": "192a65f4-f212-459d-a308-c16b2dba9f70",
+                "order_by": 1,
+                "name": "Shanshan Ai",
+                "email": "",
+                "orcid": "",
+                "institution": "Institute of Molecular Medicine, Beijing Key Laboratory of Cardiometabolic Molecular Medicine, Peking University, Beijing 100871, China",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Shanshan",
+                "middleName": "",
+                "lastName": "Ai",
+                "suffix": ""
+            },
+            {
+                "id": 111697,
+                "identity": "7818927b-21cd-4ee5-9b3b-b784a1bebd4f",
+                "order_by": 2,
+                "name": "Haiqing Xiong",
+                "email": "",
+                "orcid": "",
+                "institution": "Peking-Tsinghua Center for Life Sciences, Peking University, Beijing 100871, China",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Haiqing",
+                "middleName": "",
+                "lastName": "Xiong",
+                "suffix": ""
+            },
+            {
+                "id": 111698,
+                "identity": "2011d2cd-7ae1-4437-8606-589db1bc6461",
+                "order_by": 3,
+                "name": "Chen C. Li",
+                "email": "",
+                "orcid": "",
+                "institution": "Institute of Molecular Medicine, Beijing Key Laboratory of Cardiometabolic Molecular Medicine, Peking University, Beijing 100871, China",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Chen",
+                "middleName": "C.",
+                "lastName": "Li",
+                "suffix": ""
+            },
+            {
+                "id": 111699,
+                "identity": "d5628d92-f035-47f7-a9c7-ae59a6ed61f6",
+                "order_by": 4,
+                "name": "Yingjie Luo",
+                "email": "",
+                "orcid": "",
+                "institution": "Peking-Tsinghua Center for Life Sciences, Peking University, Beijing 100871, China",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Yingjie",
+                "middleName": "",
+                "lastName": "Luo",
+                "suffix": ""
+            },
+            {
+                "id": 111700,
+                "identity": "481c00e7-0955-47a2-8522-cf55a43c516b",
+                "order_by": 5,
+                "name": "Yaxi Liu",
+                "email": "",
+                "orcid": "",
+                "institution": "Institute of Molecular Medicine, Beijing Key Laboratory of Cardiometabolic Molecular Medicine, Peking University, Beijing 100871, China",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Yaxi",
+                "middleName": "",
+                "lastName": "Liu",
+                "suffix": ""
+            },
+            {
+                "id": 111701,
+                "identity": "2532cacd-beb5-4cec-b0e9-b81764c83087",
+                "order_by": 6,
+                "name": "Xianhong Yu",
+                "email": "",
+                "orcid": "",
+                "institution": "Peking-Tsinghua Center for Life Sciences, Peking University, Beijing 100871, China",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Xianhong",
+                "middleName": "",
+                "lastName": "Yu",
+                "suffix": ""
+            },
+            {
+                "id": 111702,
+                "identity": "5125b4dc-d663-49a4-bf59-7a01a025df00",
+                "order_by": 7,
+                "name": "Aibin He",
+                "email": "ahe@pku.edu.cn",
+                "orcid": "https://orcid.org/0000-0002-3489-2305",
+                "institution": "Institute of Molecular Medicine, Beijing Key Laboratory of Cardiometabolic Molecular Medicine, Peking University, Beijing 100871, China. Peking-Tsinghua Center for Life Sciences, Peking University, Beijing 100871, China",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Aibin",
+                "middleName": "",
+                "lastName": "He",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2019-07-11 13:26:07",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.2.11366/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.2.11366/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2616970,
+                "identity": "bfba02f8-c01d-4da4-b214-fca64a58ff7a",
+                "added_by": "58586f49-be87-4f05-bd22-b2c713abd53c",
+                "created_at": "2020-09-25 20:55:58",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 81181,
+                "visible": true,
+                "origin": "",
+                "legend": "Work flow of itChIP-seq experimental design.",
+                "description": "",
+                "filename": "figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/pex-555/v1/figure_1.jpg"
+            },
+            {
+                "id": 2616972,
+                "identity": "c6133a0d-d6ce-4bea-a37f-663c7905dff4",
+                "added_by": "58586f49-be87-4f05-bd22-b2c713abd53c",
+                "created_at": "2020-09-25 20:55:58",
+                "extension": "jpg",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 168492,
+                "visible": true,
+                "origin": "",
+                "legend": "Work flow of sc-itChIP-seq design.",
+                "description": "",
+                "filename": "figure2.jpg",
+                "url": "https://assets.researchsquare.com/files/pex-555/v1/figure_2.jpg"
+            },
+            {
+                "id": 2616974,
+                "identity": "5e646fa9-552c-426a-8734-df597e737d5b",
+                "added_by": "58586f49-be87-4f05-bd22-b2c713abd53c",
+                "created_at": "2020-09-25 20:55:58",
+                "extension": "jpg",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 696905,
+                "visible": true,
+                "origin": "",
+                "legend": "Optimization of key steps in the itChIP protocol. \na, b. Optimization of the SDS concentration for chromatin opening. 10,000 ESCs after fixation for 7 min were treated with SDS as indicated concentrations at the step of chromatin opening at 62\u00b0C for 10 min, quenched with Triton X-100, tagmentated with Tn5 complex, and briefly sonicated to release chromatin followed by antibody based immunoprecipitation and DNA extraction by phenol-chloroform for both soluble and insoluable chromatin after reverse-crosslinking for size examination on agarose gel. We picked the condition yielding desired DNA fragments of < 1 kb (a), as those > 1 kb were undesired for sequencing, and higher ChIP-qPCR enrichment (b) for itChIP. 0.3% SDS was selected according to this criterion. P\u2009values were calculated by one-way ANOVA followed by Bonferroni's post hoc test for multiple comparisons.\nc, d. Optimization of the required amount of Tn5 complex for efficient tagmentation. The same as in (a), except for the indicated Tn5 amount. We picked the condition yielding DNA fragments of < 1 kb (c) and higher ChIP-qPCR enrichment (d) for itChIP. 3 \u03bcl of 12.5 \u03bcM Tn5 transposase was selected for 10,000 cells according to this criterion. P\u2009values were calculated by one-way ANOVA followed by Bonferroni's post hoc test for multiple comparisons.\ne, f. Optimization of the temperature for chromatin opening. The same as in (a), except for the indicated chromatin opening conditions, 37\u00b0C for 1 h and 62\u00b0C for 10 min. We picked the condition yielding DNA fragments of < 1 kb (e) and higher ChIP-qPCR enrichment (f) for itChIP. In this regard, 37\u00b0C for 1 h and 62\u00b0C for 10 min exhibited no difference. For simplicity, we used 62\u00b0C for 10 min to open chromatin in this study for all the itChIP experiments. P\u2009values were calculated by two-tailed paired t-test.\ng, h. Optimization of tagmentation conditions. The same as in (a), except for the indicated temperature and time for tagmentation. We picked the condition yielding DNA fragments of < 1 kb (g) and higher ChIP-qPCR enrichment (h) for itChIP. In this regard, both 37\u00b0C for 1 h and 55\u00b0C for 30 min can be used for chromatin tagmentation. For simplicity, we used 37\u00b0C for 1 h for chromatin tagmentation in this study for all the itChIP experiments. P\u2009values were calculated by two-tailed paired t-test.\nOptimal conditions were boxed. Dish lines in a, c, e, g indicate the position of 1 kb DNA marker. In b, d, f and h, data represent means \u00b1 s.d. from n=3 biological replicates. Arrowhead indicates free adaptors.",
+                "description": "",
+                "filename": "figure3.jpg",
+                "url": "https://assets.researchsquare.com/files/pex-555/v1/figure_3.jpg"
+            },
+            {
+                "id": 2616975,
+                "identity": "e12c7ccb-6389-47c5-8387-b3642c5a174c",
+                "added_by": "58586f49-be87-4f05-bd22-b2c713abd53c",
+                "created_at": "2020-09-25 20:55:58",
+                "extension": "jpg",
+                "order_by": 4,
+                "title": "Figure 4",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 625893,
+                "visible": true,
+                "origin": "",
+                "legend": "Overview of the design of mosaic Truseq library preparation for sequencing using Illumina\u2019s standard recipe.",
+                "description": "",
+                "filename": "figure4.jpg",
+                "url": "https://assets.researchsquare.com/files/pex-555/v1/figure_4.jpg"
+            },
+            {
+                "id": 13472928,
+                "identity": "eb72b82c-f24b-48ac-82a5-1efde82260f4",
+                "added_by": "auto",
+                "created_at": "2021-09-16 21:17:35",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 606965,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-555/v1/11bbfc77-8815-4b8c-ba1d-132a82e30497.pdf"
+            },
+            {
+                "id": 2616971,
+                "identity": "52e4c26f-7f80-4ab7-971a-6c41f86643b7",
+                "added_by": "14b473b2-969b-4e96-8336-66bf714647be",
+                "created_at": "2020-09-25 20:55:58",
+                "extension": "xlsx",
+                "order_by": 1,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 9858,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "supplement1.xlsx",
+                "url": "https://assets.researchsquare.com/files/pex-555/v1/supplement_1.xlsx"
+            },
+            {
+                "id": 2616973,
+                "identity": "238c016d-5555-4916-beee-7c88747a07f5",
+                "added_by": "14b473b2-969b-4e96-8336-66bf714647be",
+                "created_at": "2020-09-25 20:55:58",
+                "extension": "xlsx",
+                "order_by": 2,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 8999,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "supplement2.xlsx",
+                "url": "https://assets.researchsquare.com/files/pex-555/v1/supplement_2.xlsx"
+            },
+            {
+                "id": 2616976,
+                "identity": "ded6ed44-deff-4dc3-99a9-f9a9418c103e",
+                "added_by": "14b473b2-969b-4e96-8336-66bf714647be",
+                "created_at": "2020-09-25 20:55:58",
+                "extension": "xlsx",
+                "order_by": 3,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 12111,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "supplement3.xlsx",
+                "url": "https://assets.researchsquare.com/files/pex-555/v1/supplement_3.xlsx"
+            }
+        ],
+        "financialInterests": "The authors have submitted patent applications (application no. 2018101211756 and 2018101428753) related to itChIP protocol",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "chromatin, epigenetic heterogeneity, histone modification, transcription factor, single cell ChIP-seq",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>Single-cell measurement of chromatin states, including histone modifications and non-histone protein binding, remains challenging. We present a low-cost, efficient ChIP-seq (simultaneous indexing and tagmentation-based ChIP-seq, itChIP), compatible to both low-input and single cells for profiling chromatin states. This single-cell itChIP approach combines chromatin opening, simultaneous cellular indexing and chromatin tagmentation in a single tube, processing samples with tens of single cells in rarity or with thousands of single cells per assay, and the entire procedure can be finished in two days. The sc-itChIP data acquire ~9,000 unique reads per cell, sufficiently capturing the earliest epigenetic priming along cell fate transition and the basis for cell-type specific enhancer usage. Our results demonstrate that itChIP is a generalizable technology for single-cell chromatin profiling of epigenetically heterogeneous cell populations in many biological processes. This step-by-step protocol is related to the publication \u201cProfiling chromatin state by single-cell itChIP-seq\u201d in Nature Cell Biology.</p>",
+        "manuscriptTitle": "ItChIP-simultaneous indexing and tagmentation-based ChIP-seq",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2019-09-06 17:17:21",
+                "doi": "10.21203/rs.2.11366/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "14b473b2-969b-4e96-8336-66bf714647be",
+        "owner": [],
+        "postedDate": "September 6th, 2019",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 16685,
+                "name": "Genetics"
+            },
+            {
+                "id": 16686,
+                "name": "Cell biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2019-09-06 17:17:21",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

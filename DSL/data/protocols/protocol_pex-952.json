@@ -1,0 +1,269 @@
+{
+    "identity": "pex-952",
+    "title": "<p>Direct-seq: employing programmed gRNA scaffold for streamlined scRNA-seq in CRISPR screen</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>CRISPR-based genome perturbation provides a new avenue to conveniently change DNA sequences, transcription and epigenetic modifications in genetic screens. However, it\u2019s also a big challenge to profile the transcriptome together with genotype at single cell resolution.</p><p>To overcome this challenge, two optimizations are applied to the gRNA scaffold design without negative impact to the genome editing performance. One modification is that an A/G mixed capture sequence (a 30-nt sequence, in which one guanine was incorporated with every seven adenosine except for the first eight leading adenosine, \"AAAAAAAAGAAAAAAAGAAAAAAAGAAAAA\") was introduced into the Tetraloop, Loop2 or Tail of the gRNA scaffold to mimic the poly(A) tail of transcripts from polymerase II (Pol II). Therefore,&nbsp;gRNA transcripts&nbsp;can be captured and barcoded together with the endogenous mRNA via oligo(dT) from 10x GEM beads. The other modification is that a tRNA sequence, which locates at the downstream of the U6 promoter and upstream of the gRNA sequence, was included into the gRNA expression cassette to achieve multiplexed&nbsp;gRNA expression&nbsp;and also provided specific primer binding sites for the nest PCR.</p><p>The following protocol is used to profile the index gRNAs and&nbsp;endogenous mRNAs simultaneously at single cell resolution based on&nbsp;10x 3\u2019&nbsp;single cell&nbsp;RNA-seq platform. Single cell capture and mRNA library are prepared following the Chromium User Guide&nbsp;(10x Genomics, CG000184). The specific enrichment of&nbsp;cDNA from gRNA transcripts and the gRNA library construction are described in details and other&nbsp;alterations are also indicated in this protocol.</p><p>For application of the Octo-seq workflow in other single cell RNA-seq platforms, please refer to the Figure1.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p>Chromium Single Cell 3\u2019&nbsp;Reagent Kits v3 (10x Genomics, PN-1000075)</p><p>Chromium Single Cell B Chip kit (10x Genomics, PN-1000153)</p><p>Chromium i7 Multiplex Kit (10x Genomics, PN-120262)</p><p>Trypan blue stain (0.4%) (Gibco, 15250-061)</p><p>DPBS (Sigma, D8537-500ML)</p><p>Glycerol (Sigma, G5516-1L)</p><p>Tween 20 (Sigma, P7949-500ML)</p><p>UltraPure Distilled Water (Thermo Fisher, 10977-015)</p><p>Buffer EB (Qiagen, 19086)</p><p>Absolute Ethanol (Fisher Scientific, BP2818-4)</p><p>Beckman Coulter Ampure XP 450mL (Fisher Scientific, A63882)</p><p>NEBNext\u00ae&nbsp;Ultra\u2122&nbsp;II Q5\u00ae&nbsp;Master Mix (New England BioLabs, M0544S)</p><p>HS NGS Fragment (1-6000bp) (Agilent Technologies, 5191-6578)</p><p>Qubit dsDNA HS Assay Kit (Thermo Fisher, Q32854)</p><p><br></p><p><strong>gRNA sequence (without spacer):gRNA1-tRNA-gRNA2(8A8G)</strong></p><p>nnnnnnnnnnnnnnnnnnnnGTTTAAGAGCTATGCTGGAAACAGCATAGCAAGTTTAAATAAGGCTAGTCCGTTATCAACTTGAAAAAGTGGCACCGAGTCGGTGC<u>GGTTCCATGGTGTAATGGTTAGCACTCTGGACTCTGAATCCAGCGATCCGAGTTCAAATCTCGGTGGAACC</u>TnnnnnnnnnnnnnnnnnnnnGTTTgAGAGCTAtgctgGAAAcagcaTAGCAAGTTcAAATAAGGCTAGTCCGTTATCAACTTGAAAAAGTGGCACCGAGTCGGTGCTCGG<u>AAAAAAAAGAAAAAAAGAAAAAAAGAAAAA</u>TTTTTTT</p><p><br></p><p><strong>Primers:</strong></p><p><strong>tRNA_Read2 primer:</strong></p><p>5\u2019-&nbsp;GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCTCTCTGGACTCTGAATCCAGCGAT&nbsp;-3\u2019</p><p><strong>P5_read1 primer:</strong></p><p>5\u2019-&nbsp;AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTC&nbsp;-3\u2019</p><p><strong>P7_Read2_Index2 primer:</strong></p><p>5\u2019-&nbsp;CAAGCAGAAGACGGCATACGAGATGGAGCTACGTGACTGGAGTTCAGACGTGT&nbsp;-3\u2019</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>\tCountess II (Invitrogen)</p><p>\tChrominum Controller (10x Genomics, PN-110203)</p><p>\tChrominum Accessory Kit (10x Genomics, PN-110204)</p><p>\tVortex Genie 2 (Scientific Industries, 200-SI-0236)</p><p>\tProflex PCR system (Thermo Fisher, 4484073)</p><p>\tQubit 4 Fluorometer (Thermo Fisher, Q33238)</p><p>\tFragment Analyzer-12 / 96 (Agilent, GENE-QC006)</p><p>\t0.22\u03bcM Filter (Merck Millipore, SLGV033RB)</p><p>\t0.2ml Thin-walled tubes (Thermo Fisher, AB-0620)</p><p>\tMicroAmp optical 8-Tube Strip (Thermo Fisher, A30588)</p><p>\t1.5mL Microcentrifuge Tubes low retention (Thermo Fisher, 3451)</p><p>\tPrecision pipette tips 10\u03bcl (Mettler Toledo, 30389226)&nbsp;</p><p>\tPrecision pipette tips 200\u03bcl (Mettler Toledo, 30389240)</p><p>\tPrecision pipette tips 200\u03bcl wide-O (Mettler Toledo, 30389241)</p><p>\t1250\u03bcl Pipette Tip (Thermo Fisher, TFLR1121000-Q)</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "Day1\n1. Single cell capture and cDNA amplification\nAt the end of CRISPR screening, cells were prepared as single cell suspension and loaded into the Chromium Single Cell B Chip. The cDNA was generated, purified and amplified (the 1\nst\nPCR) following the manual of Chromium Single-Cell 3\u2032\u00a0Reagent Kits v3 User Guide.\n2.cDNA size selection\ncDNA was separated into two parts according to the size.\n(1) Long cDNA fragments, which mostly represented mRNA, were size-selected by 0.6x AMPure XP beads. The cDNA binding to the beads was called\u00a0\u201c\nlong cDNA\n\u201d, and will subject to mRNA library preparation. The \"long cDNA\" was then eluted in nuclease-free H2O following the 10x protocol.\n(2) Short cDNA fragments, which mostly represented the index gRNA, were collected from the supernatant of the 0.6x beads selection, and then followed by a 1.2x size selection. The cDNA binding to the beads was called\u00a0\u201c\nshort cDNA\n\u201d.\u00a0The \"short cDNA\" was then eluted in 25 uL nuclease-free H2O.\nDay2\n3. 3\u2019\u00a0Gene Expression Library construction\nThe\u00a0\u201clong cDNA\u201d\u00a0was used for mRNA library preparation by following the manual of Chromium Single-Cell 3\u2032 Reagent Kits v3 User Guide.\n4. Index gRNA Library construction\nThe\u00a0\u201cshort cDNA\u201d\u00a0was used for the index gRNA library preparation by nested PCR.\n4.1. Index gRNA sequence enrichment\n(1) In total of eight index gRNA enrichment PCR (the 2\nnd\nPCR) reactions were conducted, with each reaction including 3 uL template, 25 uL NEBNext Ultra II Q5 Master Mix (NEB\u00a0#M0544S), 2.5 uL tRNA_Read2 primer (10uM), 2.5 uL P5_read1 primer (10uM) and nuclease free water up to 50 uL.\n(2) The PCR program was set as: (1) 98\u00a0\u00b0C for 30 s, (2) 14 cycles of 98\u00a0\u00b0C for 10 s, 60\u00a0\u00b0C for 10 s, then 72 for 10 s and (3) 72\u00a0\u00b0C for 2 min.\n(3) The PCR products were combined and purified by 0.7\u20131.0\u00d7\u00a0double-sided size selection (collect the supernatant from the 0.7x beads size selection, and followed by 1.0x beads selection, then collect elution from the beads) and eluted in 80\u03bcl of nuclease free water.\n4.2. gRNA library construction\n(1) In total of five library preparation PCR (the 3\nrd PCR) was conducted, with each reaction including 10 uL template, 25 uL NEBNext\u00a0Ultra\u00a0II Q5\u00a0Master Mix, 2.5 uL P7_Read2_Index2 primer (10\u03bcM) and 2.5 uL P5_read1 primer (10\u03bcM).\n(2) The PCR program was set as: (1) 98\u00a0\u00b0C for 30 s, (2) 5 cycles of 98\u00a0\u00b0C for 10 s, then 54\u00a0\u00b0C for 15 s, then 65\u00b0C for 20 s and (3) 72\u00a0\u00b0C for 2 min.\n(3) The PCR product was cleaned up and size selected with 0.7\u20131.0x\u00a0AMPure XP beads.\n(4) All eluted DNA was combined, and quantified. An aliquot was sent for NGS sequencing using the Illumina platform."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p>(1) 2ng of the mRNA library and the index gRNA library were loaded into Fragment Analyzer to check the library quality. The typical library sizes were as below (Blue: mRNA library; Black: index library). (Figure 2)</p><p>(2) During index gRNA enrichment procedure, the cDNA size was shown as Figure 3</p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>About two days. See \"Procedure\".</p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>The mRNA library is constructed in very standard procedure, and the 10x manual should be strictly followed.</p><p>For the index gRNA library, the cDNA from gRNA transcripts were progressively enriched, which can be clearly reflected by the shift of fragment size as shown in the Figure3. The size-shift meets that expectation indicates efficient enrichment of the index gRNA.</p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>Song, Q. et al, Direct-seq: employing programmed gRNA scaffold for streamlined scRNA-seq in CRISPR screen. Genome Biology, 2020. DOI : 10.1186/s13059-020-02044-w</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": ""
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1186/s13059-020-02044-w",
+                "date": "",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 613674,
+                "identity": "8010b0a2-453d-4726-a655-445d09423793",
+                "order_by": 1,
+                "name": "Lixia Wang",
+                "email": "",
+                "orcid": "",
+                "institution": "Westlake University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Lixia",
+                "middleName": "",
+                "lastName": "Wang",
+                "suffix": ""
+            },
+            {
+                "id": 613675,
+                "identity": "9646bb31-4132-4b89-98f4-9850de0462a6",
+                "order_by": 2,
+                "name": "Lijia Ma",
+                "email": "malijia@westlake.edu.cn",
+                "orcid": "https://orcid.org/0000-0001-8592-8139",
+                "institution": "Westlake University",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Lijia",
+                "middleName": "",
+                "lastName": "Ma",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2020-05-23 06:54:01",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-952/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-952/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 1279101,
+                "identity": "b6f81584-2f87-43db-9d7c-b4920aa09404",
+                "added_by": "auto",
+                "created_at": "2020-06-08 16:08:35",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 974341,
+                "visible": true,
+                "origin": "",
+                "legend": "Workflows of the Direct-seq in different single cell RNA-seq platforms. (a) The suggested procedure to use with the 10x 3\u2019 kit; (b) The suggested procedure to use with the 10x 5\u2019 kit.  The standard protocol should be followed until the pre-amplification of cDNA. The supernatant from size-selection contains gRNA sequences and could be specifically enriched by the nested PCR. The 1st step could use a scaffold-specific primer, and 2nd step could add the P5 and P7 sequencing adapters; (c) When work with the SMART-seq protocol, the cell barcode and UMI are suggested to be included in the template switch oligos (TSO) to enable sample pooling and eliminate PCR artifacts. The nested PCR is also suggested to make the gRNA library.",
+                "description": "",
+                "filename": "Figure1.png",
+                "url": "https://assets.researchsquare.com/files/pex-952/v1/Figure1.png"
+            },
+            {
+                "id": 1279102,
+                "identity": "dc3b1074-1693-4e3d-b712-e339f987a9f8",
+                "added_by": "auto",
+                "created_at": "2020-06-08 16:08:35",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 59565,
+                "visible": true,
+                "origin": "",
+                "legend": "2ng of mRNA library and index gRNA library were loaded into Fragment Analyzer to check the library quality. The typical library sizes were as below (Blue: mRNA library; Black: index library).",
+                "description": "",
+                "filename": "Figure2.png",
+                "url": "https://assets.researchsquare.com/files/pex-952/v1/Figure2.png"
+            },
+            {
+                "id": 1279103,
+                "identity": "0b9695e0-91aa-408f-b9d3-a21f3fa1b035",
+                "added_by": "auto",
+                "created_at": "2020-06-08 16:08:35",
+                "extension": "png",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 100063,
+                "visible": true,
+                "origin": "",
+                "legend": "During index gRNA enrichment procedure, cDNA size that amplified from each was shown as below.",
+                "description": "",
+                "filename": "Figure3.png",
+                "url": "https://assets.researchsquare.com/files/pex-952/v1/Figure3.png"
+            },
+            {
+                "id": 13538089,
+                "identity": "7941e79f-9f29-4fce-9ab8-d3eb9b496f03",
+                "added_by": "auto",
+                "created_at": "2021-09-17 01:38:12",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 647292,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-952/v1/a63bd75f-f1a8-496b-84ec-0afe4c4875c0.pdf"
+            }
+        ],
+        "financialInterests": "No",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "programmed gRNA scaffold; CRISPR screening; single cell RNA-seq",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>This protocol aimed to combine the single cell RNA-seq (scRNA-seq) with the CRISPR screening assay based on 10x&nbsp;3\u2019&nbsp;&nbsp;RNA-seq platform to profile the transcriptome together with genotype at single cell resolution. To achieve this goal, an A/G mixed capture sequence and tRNA sequence are incorporated into the Tetraloop, Loop2 and Tail of the&nbsp;gRNA scaffold. Therefore, cDNA derived from the gRNA transcripts can be captured and barcoded by poly(dT) primer together with the endogenous mRNA and enriched by the nest PCR. With this method, the CRISPR perturbation and its transcriptional readouts can be profiled together in a streamlined workflow. <strong>This method, which we named as Direct-seq, enabled the direct genotyping and expression profiling of the CRISPR screening products at single cell resolution on versatile scRNA-seq platforms across different throughput, including 10x 3\u2019&nbsp;and 5\u2019&nbsp;RNA-seq, Fluidigim C1, SMART-seq, BGI DNBelab C4 and others. </strong></p>",
+        "manuscriptTitle": "Direct-seq: employing programmed gRNA scaffold for streamlined scRNA-seq in CRISPR screen",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2020-06-08 16:08:34",
+                "doi": "10.21203/rs.3.pex-952/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9d071204-9322-4f28-8c18-b3047db521ef",
+        "owner": [],
+        "postedDate": "June 8th, 2020",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 107571,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 107572,
+                "name": "Genetics"
+            },
+            {
+                "id": 107573,
+                "name": "Systems biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2020-06-08 16:08:34",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

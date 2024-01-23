@@ -1,0 +1,251 @@
+{
+    "identity": "nprot-5051",
+    "title": "Transcriptome-wide profiling of RNA G-quadruplex structures using rG4-seq",
+    "content": [
+        {
+            "header": "Procedure",
+            "content": "**rG4-seq experimental protocol**\r\n\n\n\r\n\n\n_Human cell culture and total RNA preparation_\r\n\n\n1. Culture authenticated human HeLa cells with no mycoplasma contamination in DMEM media \\(Sigma, D6429) supplemented with 10% fetal bovine serum \\(Sigma, 16140071).\r\n  2. Wash the cells \\(70-80% confluence level) with Phosphate-buffered saline \\(PBS, D8537).\r\n  3. Detach the cells from surface using trypsin-EDTA \\(Gibco, 25200056). \r\n  4. Inactivate Trypsin by DMEM media supplemented with 10% FBS.\r\n  5. Pellet the suspended cells and extract total RNA using Qiagen RNeasy Plus Mini Kit \\(74134). following manufacturer\u2019s protocol. \r\n  6. Remove the genomic DNA during the RNA extraction process by gDNA eliminator columns provided in Qiagen RNeasy Plus Mini Kit.\r\n  \r\n\n\n_rG4-seq library preparation_\r\n\n\n7. Use 300 \u03bcg of total RNA per polyA purist kit reaction \\(Ambion, AM1922), which normally yield ~1.5 \u03bcg after two rounds of polyA selection following manufacturer\u2019s protocol.\r\n  8. Check the polyadenylated-enriched RNA with Agilent 2200 tapestation to look for reduction of rRNA peak as compared to total RNA input.\r\n  9. Perform RNA random fragmentation in 40 mM Tris-HCl pH 8.2, 100 mM LiCl, 30 mM MgCl\n2\nat 95\u00b0C for 90 s to yield average fragment size of ~250 nucleotides.\r\n  10. Use RNA clean and concentrator \\(Zymo research, R1016) according to manufacturer\u2019s protocol to clean and concentrate the fragmented RNA.\r\n  11. Check the RNA with tapestation to determine the size of the fragmented RNA.\r\n  12. Perform 3\u2019 dephosphorylation using 8 \u03bcl sample, 1 \u03bcl 10\u00d7 T4 PNK buffer, 1 \u03bcl T4 PNK enzyme \\(NEB, M0201L) with no ATP added at 37\u00b0C for 30 min.\r\n  13. Conduct 3\u2019adapter ligation by adding 10 \u03bcl sample from above, 1 \u03bcl of 50 \u03bcM 3\u2019rApp adapter \\(5\u2019-/5rApp/AGATCGGAAGAGCACACGTCTG/3SpC3/-3\u2019), 1 \u03bcl 10\u00d7 T4 RNA ligase buffer, 6 \u03bcl PEG8000, and 2 \u03bcl T4 RNA ligase 2 K227Q \\(NEB, M0351L) at 25\u00b0C for an hour.\r\n  14. Use RNA clean and concentrator according to manufacturer\u2019s protocol.\r\n  15. Divide the sample into three parts \\(10 \u03bcl each) for 150 mM Li\n+\n, 150 mM K\n+\n, and 150 mM K\n+\n+ 5 \u03bcM PDS conditions for reverse transcription.\r\n  16. Add 1 \u03bcl of 10 \u03bcM unlabelled reverse primer \\(5\u2019-CAGACGTGTGCTCTTCCGATCT-3\u2019), and 6 \u03bcl of 5\u00d7 reverse transcription reaction buffer \\(final conc. 20 mM Tris, pH 7.5, 4 mM MgCl\n2\n, 1 mM DTT, 0.5 mM dNTPs, 150 mM LiCl or 150 mM KCl).\r\n  17. Heat the mixture at 95\u00b0C for 1.5 min and cool it at 4\u00b0C for 1.5 min, then 37\u00b0C for 15 min for system equilibration.\r\n  18. At the beginning of the 37\u00b0C incubation, add 2 \u03bcl of nuclease-free water or 50 \u03bcM of PDS to the reaction and mix thoroughly.\r\n  19. After the 15 min incubation, add 1 \u03bcl of Superscript III \\(200U/\u03bcL) \\(ThermoFisher Scientific, 18080085) and carry out the reverse transcription at 37\u00b0C for 50 min.\r\n  20. Add 1 \u03bcl of 2M NaOH and degrade RNA at 95\u00b0C for 10 min.\r\n  21. Purify the cDNAs by 10% denaturing TBE gel \\(Novex, EC6875BOX) and collect the size ~35-500nt.\r\n  22. Crush and soak the gel in 1\u00d7TEN250 and incubate it at 80\u00b0C for 30 min\r\n  23. Use RNA clean and concentrator following manufacturer\u2019s protocol.\r\n  24. Add 1 \u03bcl 50 \u03bcM 5\u2019adapter \\(5\u2019/5Phos/AGATCGGAAGAGCGTCGTGTAGCTCTTCCGATCTNNNNNN/3SpC3/3\u2019) to the purified cDNAs \\(8 \u03bcl).\r\n  25. Heat the sample at 95\u00b0C for 3min, and then cool it to room temperature\r\n  26. Add 10 \u03bcl of 2\u00d7 Quick T4 ligase buffer and 1 \u03bcl Quick T4 DNA ligase \\(NEB, M2200L) and incubate at 20\u00b0C overnight.\r\n  27. Purify the ligated cDNAs by 10% denaturing TBE gel and obtain the size 75-500nt, followed by gel extraction step as described in steps 22-23.\r\n  28. Perform PCR reaction \\(25 \u03bcl) using 95\u00b0C: 3 min, 9 cycles:\\(98\u00b0C: 20 s, 65\u00b0C: 15 s, 72\u00b0C: 40 s), 72\u00b0C: 1 min, 1 \u03bcl 10 \u03bcM forward primer \\(5\u2019 AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCT 3\u2019) and 1 \u03bcl 10 \u03bcM reverse primer \\(e.g. index 2) \\(5\u2019 CAAGCAGAAGACGGCATACGAGATACATCGGTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT 3\u2019), 10.5 \u03bcl template and 12.5 \u03bcl 2\u00d7 KAPA HiFi readymix \\(Kapa, KK2602).\r\n  29. Purify the amplified libraries with 1.8% agarose gel, and obtain the size 150-500 bp.\r\n  30. Extract the DNA libraries with Genejet gel extraction kit \\(ThermoFisher Scientific, K0691) following manufacturer\u2019s protocol.\r\n  31. Perform qPCR on the purified libraries with KAPA Universal Quant Kit \\(Kapa, KK4824), and pooled the libraries accordingly.\r\n  32. Submit the pooled libraries for next generation sequencing on NextSeq500 machine \\(Illumina) for 1 \u00d7 150 bp cycle run.\r\n  \r\n\n\n**rG4-seq computational analysis**\r\n\n\n\r\n\n\n_Sequencing pre-processing_\r\n\n\n33. Trim the fastq files generated by sequencing \\(150 bp, single-end) by the trim galore software for removal of Illumina sequencing adapters and low quality tails \\(http://www.bioinformatics.babraham.ac.uk/projects/trim_galore). \r\n  34. Align the trimmed data to the human reference genome version hg19 by using the tophat2 software \\(https://ccb.jhu.edu/software/tophat/index.shtml). Download the human genome sequence and gene annotation files for the alignment from the Illumina iGenomes support website \\(https://support.illumina.com/sequencing/sequencing_software/igenome.html).\r\n  35. Remove the aligned reads with mapping quality below 30 using the samtools  \\(http://samtools.sourceforge.net). Calculate the coverage bedGraph files using the bedtools \\(http://bedtools.readthedocs.org/), use exon features merged by gene as interval file.\r\n  \r\n\n\n\r\n\n\n_Scoring RT stalling events_\r\n\n\n36. Load coverage files for processing in R \\(https://www.r-project.org/) and convolve the coverage signal with a step-like filter of order 10 to highlight drops in signal at each base \\(R function filter, with the convolution option, coefficients \\[1 1 1 1 1 1 1 1 1 1 0 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1]).\r\n  37. Convolve the coverage signal with a different step-like filter of order 10 to normalize for the total coverage upstream of each base  \\(R function filter, with the convolution option, coefficients \\[1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0]).\r\n  38. Calculate the ratio of the two convolved signal for each base, yielding a normalized convolved signal in the interval \\[-1;1], where, at a given base, positive or negative values indicate a drop or an increase in coverage respectively. In particular, 1 indicates a full drop in coverage from n to 0.\r\n  39. Calculate local maxima of the normalized convolved signal, indicating genomic locations where the coverage drop is most pronounced. Assign the signal at those locations a RTS \\(reverse transcriptase stalling) value.\r\n  40. For each replicate and for each local maxima \\(identified as described above), remove bases with single-base coverage below 6 and coverage drop signal \\(RTS) below 0.2 \\(20% of reads stalling) to eliminate low-confidence data points and reduce the number of statistical tests performed in the following step.\r\n  41. Select two conditions, for instance K\n+\nand Li\n+\n, and use the normalized convolved coverage signal for both to fit a linear model \\(function lm in R) and estimate the p-value of the fitting through ANOVA testing.\r\n  42. correct all p-values from the linear models contrasting any two conditions for multiple hypothesis testing by applying FDR correction on all tested local maxima;\r\n  43. Identify significant regions as those having FDR\u22640.1 and refer to as scoring regions, or \u201cRTS sites\u201d, yielding a value in the range 0-1, where 0 no stalling and 1 full stalling. Remove sites with RTS value<0.25 and not overlapping any other sites \\(cases of overlapping G-quadruplex structures or multiple structural isoforms) from the analysis to further remove regions with subtle effects.\r\n  Assignment to transcripts.\r\n\n\n44. Convert the genomic coordinates of RTS regions to transcript coordinates, according to the following steps:\r\n  \u2022 Calculate FPKM \\(Fragments Per Kilobase per Million of mapped reads) for each transcript isoform in the Li\n+\ncondition using the software cufflinks \\(http://cole-trapnell-lab.github.io/cufflinks/) and consider transcripts with FPKM\u22650.5 as expressed, resulting in 17,622 transcript isoforms belonging to 12,300 unique genes;\r\n\n\n\u2022 map genomic scoring regions to exons belonging to the transcript with highest FPKM among the expressed ones for each given gene. If the genomic coordinates would fall in intronic regions, assess the second most expressed transcript and so on;\r\n\n\n\u2022 calculate transcript coordinates and sequence for the mapped scoring regions to account for intron skipping.\r\n\n\n\r\n\n\n_Hierarchical assignment of rG4s_\r\n\n\n45. Extract sequences extending from the RTS stalling site to 50 base pairs upstream in the transcript for each RTS site and assign to different rG4s structural sub-classes, defined as follows \\(regular expressions used for pattern matching shown in brackets):\r\n  \u2022 G3L1-7, canonical rG4s with loop length between 1-7nt \\('\\(G3+N1-7)\\{3,}G3+', with N = A, U, C or G); \r\n\n\n\u2022 Long-loops, rG4s with any loop of length >7nt, up to 12 nt for lateral loops and 21 for the central loop \\(e.g., ''G3+N8-12G3+N1-7G3+N1-7G3+'' or 'G3+N1-7G3+N13-21G3+N1-7G3+'); \r\n\n\n\u2022 Bulges, rG4s with a bulge of 1\u20137nt in one G-tract or multiple 1nt bulges \\(e.g., 'G3+N1-9G3+N1-9\\(GGH1-7G|GH1-7GG)N1-9G3+' or '\\(GGHG|GHGG)N1-9 \\(GGHG|GHGG)N1-9G3+N1-9G3+', with H = A, U or C); \r\n\n\n\u2022 2-quartet, rG4s with 4-tracts of two consecutive Gs \\('\\(G2+N1-9)\\{3,}G2+'); G\u226540%, sequences that contain more than 40% G-content and do not fall into the four previous categories; \r\n\n\n\u2022 Others: not in any previous category.\r\n\n\n46. When matching multiple categories, assign a region to the class with higher predicted stability, i.e. \\(from first to last), canonical rG4s, long loops, bulges, 2-quartet.\r\n  \r\n\n\n_Nucleotide content analysis and delta free energy analysis_\r\n\n\n47. Extract exonic canonical rG4s \\(category G3L1-7) with coverage \u2265 20 in the Li\n+\ncondition; equally extend each rG4 sequence upstream and downstream to enclose a total region of 90 nt including both the rG4 motif and flanking regions. \r\n  48. Count the occurrence of C, CC, CCC, and CCCC motif within each extended region containing detected or undetected rG4s and divide by the region length, yielding a motif density value per sequence. \r\n  49. Similarly, count the occurrence of U, A and G motif. \r\n  50. Compute the average value of detected and undetected G3L1-7 density and calculate the ratio of the average detected to average undetected density. Values < 1 indicate higher presence of a given motif within the undetected versus the detected rG4s, and progressively lower values indicate higher presence in the undetected G3L1-7.\r\n  \r\n\n\n_Delta free energy analysis_\r\n\n\n51. For the same G3L1-7 identified in step 47., equally extend G3L1-7 upstream and downstream to enclose a total regions of 90nt including both the rG4 motif and flanking regions. \r\n  52. Calculate the free energy of ensemble of these sequences using the RNAFold software of the ViennaRNA package \\(http://www.tbi.univie.ac.at/RNA/) and compare the detected and undetected G3L1-7.\r\n  \r\n\n\n\r\n\n\n_mRNA region \\(UTRs and CDS) analysis_\r\n\n\n53. Calculate the overlap of each scoring region \\(RTS site) with 5\u2019UTR, CDS \\(coding sequences) and 3\u2019UTR \\(bedtools intersect). \r\n  54. Assign rG4s partially overlapping multiple regions \\(e.g., 5\u2019UTR and CDS) to both regions and count twice. \r\n  55. Divide the number of overlapping regions to each of the three annotated features by the total region size in base pairs and multiply by 1000, therefore yielding the rG4 density per kilobase \\(density per kb). \r\n  \r\n\n\n_Average mRNA profile_\r\n\n\n56. Normalize each transcript profile to the same length and divide its 5\u2019UTR, CDS and 3\u2019UTR into 5, 40 and 40 bins respectively, roughly reflecting the relative size of 1:8 \\(5\u2019UTR to CDS) and 1:1 \\(3\u2019UTR and CDS) of the three regions for all annotated transcripts in the human transcriptome. \r\n  57. For each RTS site, assess the belonging to a given bin and compute 1/bin_size \\(count normalized by bin size in bp). \r\n  58. Average all normalized counts per bin for scored regions in all transcripts and plot.\r\n  \r\n\n\n_Regulatory sites analysis_\r\n\n\n59. Obtain microRNA target sites and polyadenylation signal \\(PAS) sites from the TargetScan database of predicted miRNA target sites \\(http://targetscan.org) and from the GENCODE project \\(http://www.gencodegenes.org, release 19) respectively. \r\n  60. Transform genomic coordinates of all sites into transcript coordinates in order to calculate distance by skipping introns. \r\n  61. Independently for each regulatory feature class and for each scoring region \\(RTS site), calculate the distance between the region and the closest feature, and assign 0 for overlapping features. \r\n  62. Randomly shuffle the scoring regions by uniform resampling across all the expressed transcripts after merging overlapping exons, in order to avoid over-representation of genes with several alternative isoforms. \r\n  63. Build the cumulative distributions of pairwise feature-region distances for RTS sites and random regions. \r\n  64. Similarly, assess the cumulative distribution of distance separately for rG4s up- and downstream of the respective regulatory sites. \r\n  65. Calculate the fraction of rG4s in proximity \\(i.e. \u2264100 nt) of regulatory sites for all rG4s and for up- and downstream rG4s, and compare to random by using the Chi-squared test for proportions \\(function prop.test in R).\r\n  \r\n\n\n_RNA structure prediction and PPV comparison_\r\n\n\n66. As some scoring regions \\(RTS sites) can be assigned to multiple overlapping genes, extract unique sequences only.\r\n  67. Consider overlapping rG4s identified as single rG4s if the G-quadruplex motif assigned through the hierarchical motif analysis \\(step 45) coincides, to avoid redundant RTS that would lead to the same structural prediction. \r\n  68.  Extend the 50 nt scoring regions by 100nt up- and downstream, resulting in regions of 250 nt. \r\n  69. Use the RNAFold software \\(http://www.tbi.univie.ac.at/RNA/) for the structural prediction of the 250 nt sequences, and repeat the prediction with and without imposing single-strand constraint over the rG4 identified motif. \r\n  70. When more than a motif is identified from the structural characterization analysis, impose the single-strand constraint over the G-quadruplex motif closer to the identified stalling site. \r\n  71. Use the RNAstructure software \\(http://rna.urmc.rochester.edu/RNAstructure.html) to convert dot bracket \\(db) files to connectivity table \\(ct) files.\r\n  72.  Perform structure comparison between constrained and unconstrained structural prediction of each scoring region using the function CircleCompare of the same software.\r\n  73.  Use the PPV \\(positive predictive value) returned by CircleCompare to compare strucutres with and without the rG4 constraint. PPV represents the proportion of positive predictions that are actually true positives, i.e. in the case of structural comparison, it\u2019s the fraction of predicted pairs \\(without the experimental constraint) that occur in the accepted structure \\(with the experimental constraint).\r\n  \r\n\n\n_Cross-species occurrence of rG4s_\r\n\n\n74. Consider all the 68 non-human eukaryotic species with genomes and annotations deposited in the Ensembl genome database, as accessed through BioMart \\(http://www.ensembl.org). \r\n  75. For each rG4, survey the presence of genes in other species that are orthologous to the human genes bearing the corresponding rG4s: for a particular rG4h human \\(h) sequence and a non-human \\(non-h) species, if an ortholog is present for the rG4h-bearing gene, perform a global sequence alignment of the corresponding human and non-human cDNA sequences. \r\n  76. Perform the sequence alignment using the utilities provided in the Biostrings library for R, with the global alignment option, and substitution matrix, gap extension and gap penalty parameters matching the default options of blastn aligner designated for relatively similar sequences \\(2, -3, 5 and 2 for match, mismatch, gap opening and gap extension correspondingly, as defaulted on the popular BLAST server for blastn alignment). \r\n  77. After the alignment, identify the rG4h sequence in the aligned human cDNAh, using the rG4-seq revealed coordinate of the 3\u2019-end of rG4h, along with +10 downstream and -50 upstream sequence range that may well encapsulate most of the quadruplex sequences \\(rG4s are on average around 30 nt long). Correct those coordinates to account for the possible gaps in cDNAh sequence introduced in the cDNAh vs. cDNAnon-h alignment. \r\n  78. Examine the matched segment from the aligned non-human cDNAnon-h sequence, corresponding to the region in human cDNAh that engulfs the particular rG4h sequence: remove the gaps from that segment \\(if introduced during the alignment) and, if a nucleic acid sequence was left, assess the presence of a potential G-quadruplex using the relaxed \\(G2+N1-12)3G2+ sequence pattern. \r\n  79. Identify the G4 sequences that match with the actual experimentally \\(rG4-seq) validated rG4h by their positioning inside the orthologs. Store the outcome of this analysis in a matrix \\(N rG4s \u00d7 69 species), with 1 if there is a rG4, 0 if there is an ortholog found but without a G4 sequence at the locus matching the human rG4, and NA \\(non-assigned) for the cases where even an ortholog is absent. \r\n  80. Use the matrix to cluster the data entries in both rG4 and species dimensions, producing a heatmap where the G4 presence patterns are clustered."
+        },
+        {
+            "header": "Timing",
+            "content": "The rG4-seq experimental protocol takes about 3-4 working days. The rG4-seq computational analysis takes about 2-3 working days."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "Application of rG4-seq to the extracted polyadenylated RNA from human HeLa cells was recently reported \\(Kwok et al, 2016)<sup>1</sup>. Using this rG4-seq protocol, four biological replicates of each condition \\(Li<sup>+</sup>, K<sup>+</sup>, K<sup>+</sup>+PDS) were constructed to cDNA libraries. The cDNA libraries were then sequenced on Illumina Nextseq with single-read, 150 cycles. Analysis of the sequencing data reveals widespread formation of rG4 in the human transcriptome."
+        },
+        {
+            "header": "References",
+            "content": "1. Kwok, CK., Marsico, G., Sahakyan, A., Chambers V.S., Balasubramanian, S. rG4-seq reveals widespread formation of G-quadruplex structures in the human transcriptome. Nat. Methods. \\(2016). doi:10.1038/nmeth.3965"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "This work is supported by an European Research Council Advanced Grant No. 339778 \\(S.B.), a CASE studentship from Biotechnology and Biological Sciences Research Council \\(BBSRC) and Illumina\u00ae BB/I015477/1 \\(V.S.C), a Herchel Smith Fellowship \\(A.B.S.), and some support from Croucher Foundation \\(C.K.K). S.B. is a Senior Investigator of the Wellcome Trust \\(grant no. 099232/z/12/z). C.K.K and G.M contributed equally to this work. We thank members of the Balasubramanian laboratory for comments."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nmeth.3965",
+                "date": "2016-09-20 11:19:35",
+                "title": "rG4-seq reveals widespread formation of G-quadruplex structures in the human transcriptome",
+                "authors": [
+                    "Chun Kit Kwok",
+                    "Giovanni Marsico",
+                    "Aleksandr B Sahakyan",
+                    "Vicki S Chambers",
+                    "and Shankar Balasubramanian"
+                ],
+                "journal": "Nature Methods",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 14046,
+                "identity": "a0c2932d-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Shankar Balasubramanian",
+                "email": "sb10031@cam.ac.uk",
+                "orcid": "",
+                "institution": "Department of Chemistry, University of Cambridge, Cambridge, UK. Cancer Research UK, Cambridge Institute, Cambridge, UK.",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Shankar",
+                "middleName": "",
+                "lastName": "Balasubramanian",
+                "suffix": ""
+            },
+            {
+                "id": 14042,
+                "identity": "a0c2877d-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Chun Kit Kwok",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Chemistry, University of Cambridge, Cambridge, UK. Cancer Research UK, Cambridge Institute, Cambridge, UK.",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Chun",
+                "middleName": "Kit",
+                "lastName": "Kwok",
+                "suffix": ""
+            },
+            {
+                "id": 14043,
+                "identity": "a0c28b97-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Giovanni Marsico",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Chemistry, University of Cambridge, Cambridge, UK. Cancer Research UK, Cambridge Institute, Cambridge, UK.",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Giovanni",
+                "middleName": "",
+                "lastName": "Marsico",
+                "suffix": ""
+            },
+            {
+                "id": 14044,
+                "identity": "a0c28dda-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Aleksandr B. Sahakyan",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Chemistry, University of Cambridge, Cambridge, UK. Cancer Research UK, Cambridge Institute, Cambridge, UK.",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Aleksandr",
+                "middleName": "B.",
+                "lastName": "Sahakyan",
+                "suffix": ""
+            },
+            {
+                "id": 14045,
+                "identity": "a0c29167-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Vicki S. Chambers",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Chemistry, University of Cambridge, Cambridge, UK. Cancer Research UK, Cambridge Institute, Cambridge, UK.",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Vicki",
+                "middleName": "S.",
+                "lastName": "Chambers",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2016-08-11 22:11:54",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2016.060",
+        "doiUrl": "https://doi.org/10.1038/protex.2016.060",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13464853,
+                "identity": "78056c12-7599-4f5e-8901-befe2216dbe7",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:44:52",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 159005,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-5051/v1/a4f25907-d878-4573-8a29-cd216e599c93.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "RNA structure, G-quadruplex, transcriptome, gene regulation, rG4-seq, next-generation sequencing",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "Alternative RNA structures such as RNA G-quadruplexes \\(rG4s) are often important in gene regulation and cellular processes, however, there is no experimental method for transcriptome-wide assessment of rG4 structures. Here, we introduce a novel approach called rG4-seq, which marries rG4-mediated reverse transcriptase stalling with next-generation sequencing to enable in vitro profiling of rG4 structures on a transcriptomic scale at nucleotide resolution. Upon high-throughput sequencing and bioinformatic analysis, the structural features and distribution of rG4s could be determined, as recently reported using extracted polyadenylated-enriched RNA from HeLa cells \\(Kwok et al, 2016). rG4-seq is readily applicable to any transcriptome, allowing global studies of rG4 structures and their potential regulatory roles in biology.",
+        "manuscriptTitle": "Transcriptome-wide profiling of RNA G-quadruplex structures using rG4-seq",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2016-09-20 11:20:43",
+                "doi": "10.1038/protex.2016.060",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a0c229e0-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "September 20th, 2016",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3665,
+                "name": "Biochemistry"
+            },
+            {
+                "id": 3666,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 3667,
+                "name": "Molecular Biology"
+            },
+            {
+                "id": 3668,
+                "name": "Structural biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2016-09-20 11:20:43",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

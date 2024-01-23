@@ -1,0 +1,375 @@
+{
+    "identity": "pex-1666",
+    "title": "<p>Integrated PCR testing and extended window contact tracing system for COVID-19 to improve comprehensiveness and speed</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>This protocol was developed to help control transmission of COVID-19 in a target population of higher education students studying in the city of Leuven, Belgium. It was designed to improve current COVID-19 testing and contact tracing standards and was refined through practical experience over the course of one year. </p><p>&nbsp;</p><p>Case under-ascertainment through inadequate testing coverage and timeliness was tackled by lowering financial, logistical and regulatory barriers for testing and sensitizing the target population to the need for testing, thereby reducing testing delay (i.e. delay between a test indication arising and a test being administered). The reporting delay (i.e. delay between a test being administered and the reporting of a result) was minimized through close collaboration with the diagnostic laboratory. The contact tracing delay (i.e. time between in index case being diagnosed and their contacts being quarantined and tested) and comprehensiveness were improved by closely integrating testing and contact tracing operations from an IT and human process point of view, by engaging the community in the contact tracing process and by extending the contact tracing window to 7 days prior to symptom onset or testing as a practical implementation of bidirectional contact tracing. </p><p>&nbsp;</p><p>We thus propose to provide low barrier rapid turn-around-time PCR testing, to closely integrate the IT infrastructure and the human processes for<strong> </strong>testing and contact tracing, to engage the community and to implement an extended contact tracing window as a practical implementation of bidirectional contact tracing.&nbsp;</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": ""
+        },
+        {
+            "header": "Equipment",
+            "content": ""
+        },
+        {
+            "header": "Procedure",
+            "content": "Provide low barrier rapid turn-around-time PCR testing\nIn a setting with community transmission of COVID-19, index cases are diagnosed either after referral by contact tracers or following screening for other reasons associated with an increased risk of infection\n7\u201310\n. For a Test, Trace, Isolate, Quarantine (TTIQ) cascade to be effective, coverage and timeliness of testing are pivotal since a delayed first step has knock-on effects downstream\n2,3\n. PCR testing on an upper respiratory sample (nasopharyngeal or oropharyngeal swab) is considered the gold standard for diagnosing SARS-CoV-2 infection with regards to sensitivity, specificity and diagnostic accuracy\n11\n. PCR testing can pick up infections earliest, when the viral load has not yet reached its peak, expediting the contact tracing process. They also remain positive longer than rapid antigen tests do, which is of particular importance when implementing bidirectional contact tracing, where the aim is to identify the parent case (the infector of the index case) and sibling cases (infected by the same infector) in addition to child cases (persons infected by the index case).\nBarriers to testing experienced by individuals may relate to confusion and uncertainty regarding testing guidelines and where to go for testing, lack of accessible testing locations, perceptions that the nasal swab method is too painful, and long wait times for testing results\n12\n. We minimized these barriers by conveniently locating our testing centee in a centrally placed University building (\nFigure 1\n). Tests were made free of charge. Appointments could be made online by all students without prior triage. Testing indications were broadened for students to include \u201cself-assessed risk\u201d from February 2021 onward (see\nFigure 2 panel A\n) and communicated widely through email, the University website, national media and a social media campaign, to which student organisations actively contributed (\nFigure 1\n).\nThis approach was successful in increasing the number of tests performed in the target population. Between weeks 5 and 21, a period encompassing a wave of infections in Belgium, a total of 3.92 tests were performed per 1,000 students daily in the University testing center. When adding the tests carried out in students at other testing centers, an estimated 6.8 tests per 1,000 students daily were performed. In contrast, 4.48 tests per 1000 persons were performed daily in a national control group, selected through random sampling stratified by age\n(\nFigure 3 panel C)\n. The much lower test positivity rate (3.64%) in the student testing center as compared to the national control group (8.27%) further underscores the higher intensity of testing in our target population.\nTesting was readily available and fast. When COVID-19 like symptoms were the indication for testing, the mean and median time between symptom onset and test administration were 3.1 and 3 days respectively, highlighting students\u2019 ability to recognize suggestive symptoms and respond accurately by booking a diagnostic test. The mean and median time between booking of the test and its administration was 11.8 and 11.7 hours respectively for this group, highlighting rapid availability of appointments for testing. Turn-around-time between test administration and reporting was a mean of 9.12 hours (median 7.83 hours) for tests finally classified as positive and a mean of 7.79 hours (median 7.48 hours) for tests finally classified as negative, which was the result of close cooperation with the collaborating diagnostic laboratory. Students were informed about their test results through one of several mobile phone apps and government websites, reducing reporting delays.\nIntegrate the IT infrastructure for testing and contact tracing\nIn order to optimise the flow of information and increase the efficiency of testing and contact tracing, we developed a custom server based version of\nGo.Data\n, an outbreak investigation tool developed by the WHO and GOARN (Global Outbreak Alert and Response Network) partners\n14\n. The system was integrated with a custom appointment module and a laboratory information system. (\nFigure 3\n).\nAn appointment module is accessed through a secure University login system. Upon submission of the online appointment form, the scheduled time slot, the student\u2019s contact details, testing indication and current address are loaded into\nGo.Data\n. If the inputted phone number (unique key) is already known, inputs are stored under the existing case file. Otherwise, a new case file is created.\nOn the morning of sample collection, students are invited by email to list their recent activities and the phone numbers of attendants via an online web form. These details are automatically loaded into\nGo.Data\nto create an event based social network linking existing and new case files\n15\n. Between weeks 8 and 21, 30.9% of tested students filled in this form.\nJust prior to sampling, student workers manning the test centre administration desks query the patient about symptom onset, vaccination status, recent exposure to a confirmed COVID-19 case and that case\u2019s identity, recent attendance at high risk events, recent travel and living situation. All the information is entered in a structured format in the\nGo.Data\ncase file.\nOnce available, PCR test results are pushed to\nGo.Data\nby the laboratory information system and matched to existing case files.\nIn case of a positive test result, a contact tracer conducts a thorough phone-based interview of the index case as soon as possible after the result is reported. Information about recent activities and attendants is collected again during this conversation, entered into an online web form, and loaded into the event based social network in\nGo.Data.\nAll close contacts are contacted and referred for testing as soon as possible and 7 days after last exposure. Residents sharing facilities with the index case are quarantined and tested either once or twice depending on results of the first round of tests. Their follow up status is recorded in\nGo.Data\nand an outcome registered after follow-up phone calls.\nIntegrate human processes for testing and contact tracing\nTesting and tracing operations are coordinated on a daily basis by a team of medical doctors, researchers and logistical coordinators. The contact tracing team is physically located adjacent to the testing center and visible to students attending for testing. Workers are assigned to administration desks, sample collection or contact tracing depending on their background, skills and preferences.\nA case or cluster is followed up by one case manager, who can be assisted by one or several contact tracers, allowing for the integration of information from different sources. This approach seems to help with quality of work and worker morale.\nThe administration desks in the testing center function as \u201cflagging stations\u201d for referral of attendants to the contact tracing team for a live interview or follow up by phone in any of the following situations: they report a possible source case or source event which is unknown to the team, they are part of a cluster which is known to the contact tracing team but requires additional assessment or they had a positive antigen test either at home (0.21% of our attendants between February and June 2021) or in the context of a clinical trial at the test center (1.02% of attendants between the 22\nnd\nof February and the 30\nth\nof May).\nEngage the community\nEngaging communities in public health programs has been shown to improve such programs\u2019 overall effectiveness\n16\n. In the context of the COVID-19 response and contact tracing in particular, community engagement is recommended by the World Health Organisation (WHO), the Centers for Disease Control (CDC) and the European Center for Disease Prevention and Control (ECDC)\n17\u201319\n. Engaging the student community has been front and center in our approach\n20\n.\nOur program has been heavily based on student workers functioning as a community workforce from the outset and throughout. Over a period of one year, a total of 698 students (2.12% of the estimated target population) contributed to the University\u2019s testing and contact tracing program as a paid worker. Their engagement with peers fosters trust and familiarity, they are able to assess risks related to particular activities and venues and they function as ambassadors of the program to their social circle.\nThe target population is regularly informed of the latest measures and guidelines through University specific channels (emails, web-page, social media, information sessions,\nFigure 1 panel b\n) and student organisations. A hotline and email address are manned by the testing and tracing team 7 days a week, allowing students to ask for advice or support on any COVID-19 related issue.\nCare provision by students for students is a central theme in all operations and communication. In any interaction, students are empowered to manage the spread of infection in their social circle, by providing relevant medical knowledge in detail and by taking into account their own preferences. Student contact tracers are provided with updated training material on the latest guidelines and trained in communication skills. The training stresses care provision, empathy, active listening and avoidance of appointing blame. They initiate the tracing conversation by explaining the University's mandate for performing contact tracing and the contact tracing process itself and they invite question and answer exchange. Index cases are linked to quarantine support provided by the municipality if required.\nHands on medical supervision of the contact tracing team ensures expertise and continuity. Every index case is phoned by a medical doctor attached to the University health center for tailored health advice.\nSeveral numerical indicators exemplify the high level of community engagement achieved within the KU Leuven test & trace program\n17,20\n. First, of the 729 students with a positive test in the period from February to May 2021, only six could not be contacted by the contact tracing team, demonstrating the team\u2019s ability to reach index cases effectively and the target population\u2019s responsiveness. Second, as previously mentioned, 30.9% of students undergoing a diagnostic test at the testing center from weeks 8 to 21 shared recent activities and contacts with the KU Leuven testing and tracing team regardless of them having a positive result. Third, of the 2691 contacts newly identified during contact tracing, 2403 (89.3%) underwent at least one diagnostic test, showing high compliance with guidance provided. Fourth, of the students booking a test between weeks 8 and 21 of 2021, 54.9% reported having Belgium\u2019s proximity tracing app on their phones since at least one week\n21\n. In contrast, nationwide there had been 2.76 million downloads of CoronAlert by the end of May 2021, which corresponds to 30,4% of the number of smartphones in use in Belgium in the fall of 2020 (data provided by the CoronAlert team).\nImplement an extended contact tracing window\nDespite ubiquitous rollout of contact tracing to counteract the spread of COVID-19, few countries have been spared from widespread community transmission, highlighting the need for more effective tracing strategies\n1,2\n. In the context of the KU Leuven testing and contact tracing program, we have opted to implement bidirectional contact tracing by introducing a combination of an extended contact tracing window and testing of contacts both immediately and 7 days after exposure to an index case. This approach has shown the potential to markedly improve control of community transmission of COVID-19 in modelling studies\n5,15\n.\nBidirectional contact tracing combines forward contact tracing and backward contact tracing. Forward contact tracing of an index case (the person diagnosed with COVID-19 undergoing contact tracing) intends to interrupt onward transmission from child cases (persons infected by the index case)\n15,22\u201324\n. In practice, this means identifying contacts of the index case up to two days before symptom onset or positive test, whichever is earlier\n25,26\n. Backward contact tracing attempts to identify a larger part of the transmission tree, by looking for the parent case (the infector of the index case) and sibling cases (infected by the same infector) in addition\n15,22\u201324\n. However, to our knowledge there is no standardised protocol on how to achieve this.\nIn our experience, the only way to identify source events for most index cases is to systematically test all recent contacts in a period before onset of symptoms (or positive test) which is sufficiently long to include the source event in most instances (\nFigure 4\n)\n27\n. Our extended contact tracing window goes back 7 days before onset of symptoms or positive test. In this period, all the index case\u2019s contacts at risk are identified. Contacts are labelled as a close contact requiring quarantine and testing if they were reported by the index case as having had either direct physical contact, an interaction at less than 1.5 meters without face masks, an interaction at less than 1.5 meters for more than 15 minutes or an interaction without face masks for more than 15 minutes. Also included as close contacts were co-attendants at a \u201chigh risk event\u201d of up to 20 attendees, defined as fitting at least 2 of the following 3 criteria: crowding (at least 5 individuals belonging to at least two households), close contact (<1,5 meters without masks) and closed environment (indoor).\nEach contact thus identified is notified of their risk, and advised to undergo an PCR test as soon as possible. If the test is negative, the contact is asked to quarantine until a second test 7 days after exposure, regardless of immune status. Quarantine is ended if this test is negative. Each contact is also advised to undergo an PCR test as soon as possible if symptoms suggestive of COVID-19 appear. Individuals having recently used the same facilities as the index case in student housing are asked to quarantine until screened. The detection of an additional infection in this group leads to quarantine and a second round of testing 7 days later."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": ""
+        },
+        {
+            "header": "Time Taken",
+            "content": ""
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>We anticipate this test and trace protocol to improve epidemic control while improving cost effectiveness of a testing and contact tracing program through the following pathways: low barrier rapid turn-around-time PCR testing and community engagement improves individuals\u2019 compliance with referral for testing and empowers them to reduce the spread of SARS-CoV-2 in their social circle. Maximum integration of the testing and contact tracing procedures from an IT infrastructure and human process point of view improves speed and comprehensiveness of the overall process, thereby improving case management of index cases and clusters of infections. Community engagement principles generate trust in the program, leading to greater effectiveness overall. Extending the contact tracing window backward until 7 days prior to symptom onset or test is a straightforward implementation of bilateral contact tracing which allows to interrupt a larger fraction of transmission chains.</p><p><br></p><p>In conclusion, these interventions lead to a lower overall incidence of COVID-19 in the target population as compared to an age matched control group at national level.</p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yalaman, A., Basbug, G., Elgin, C. &amp; Galvani, A. P. Cross-country evidence on the association between contact tracing and COVID-19 case fatality rates. <em>Sci. Rep.</em> <strong>11</strong>, (2021).</p><p>2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Davis, E. L. <em>et al.</em> Contact tracing is an imperfect tool for controlling COVID-19 transmission and relies on population adherence. <em>Nat. Commun.</em> <strong>12</strong>, (2021).</p><p>3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kretzschmar, M. E. <em>et al.</em> Impact of delays on effectiveness of contact tracing strategies for COVID-19: a modelling study. <em>Lancet Public Heal.</em> <strong>5</strong>, e452\u2013e459 (2020).</p><p>4.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Scarabel, F., Pellis, L., Ogden, N. H. &amp; Wu, J. A renewal equation model to assess roles and limitations of contact tracing for disease outbreak control. <em>R. Soc. Open Sci.</em> <strong>8</strong>, (2021).</p><p>5.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fyles, M. <em>et al.</em> Using a household-structured branching process to analyse contact tracing in the SARS-CoV-2 pandemic. <em>Philos. Trans. R. Soc. B Biol. Sci.</em> <strong>376</strong>, (2021).</p><p>6.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Smith, L. E. <em>et al.</em> Adherence to the test, trace, and isolate system in the UK: results from 37 nationally representative surveys. <em>BMJ</em> <strong>372</strong>, (2021).</p><p>7.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ge, Y. <em>et al.</em> COVID-19 Transmission Dynamics Among Close Contacts of Index Patients With COVID-19. <em>JAMA Intern. Med.</em> (2021) doi:10.1001/jamainternmed.2021.4686.</p><p>8.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ECDC. Maps in support of the Council Recommendation on a coordinated approach to travel measures in the EU. https://www.ecdc.europa.eu/en/covid-19/situation-updates/weekly-maps-coordinated-restriction-free-movement.</p><p>9.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Treibel, T. A. <em>et al.</em> COVID-19: PCR screening of asymptomatic health-care workers at London hospital. <em>Lancet</em> <strong>395</strong>, 1608\u20131610 (2020).</p><p>10.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lavezzo, E. <em>et al.</em> Suppression of a SARS-CoV-2 outbreak in the Italian municipality of Vo\u2019. <em>Nat. 2020 5847821</em> <strong>584</strong>, 425\u2013429 (2020).</p><p>11.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kevadiya, B. D. <em>et al.</em> Diagnostics for SARS-CoV-2 infections. <em>Nat. Mater. 2021 205</em> <strong>20</strong>, 593\u2013605 (2021).</p><p>12.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;McElfish, P. A., Purvis, R., James, L. P., Willis, D. E. &amp; Andersen, J. A. Perceived Barriers to COVID-19 Testing. <em>Int. J. Environ. Res. Public Health</em> <strong>18</strong>, 1\u20138 (2021).</p><p>13.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sciensano.be | Healthy all life long. https://www.sciensano.be/en.</p><p>14.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;World Health Organization. Go.Data. https://www.who.int/tools/godata (2021).</p><p>15.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bradshaw, W. J., Alley, E. C., Huggins, J. H., Lloyd, A. L. &amp; Esvelt, K. M. Bidirectional contact tracing could dramatically improve COVID-19 control. <em>Nat. Commun.</em> <strong>12</strong>, (2021).</p><p>16.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O\u2019Mara-Eves, A. <em>et al.</em> The effectiveness of community engagement in public health interventions for disadvantaged groups: a meta-analysis. <em>BMC Public Heal. 2015 151</em> <strong>15</strong>, 1\u201323 (2015).</p><p>17.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;World Health Organization. Operational guide for engaging communities in contact tracing. https://www.who.int/publications/i/item/WHO-2019-nCoV-Contact_tracing-Community_engagement-2021.1-eng.</p><p>18.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CDC. Contact Tracing: A Community Engagement Checklist for Health Departments.</p><p>19.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ecdc. Monitoring and evaluation framework for COVID-19 response activities in the EU/EEA and the UK Background Monitoring and evaluation framework for COVID-19 response activities in the EU/EEA and the UK Contents. (2020).</p><p>20.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;World Health Organization. Case study 1: Building trust and ensuring success through student engagement - YouTube. https://www.youtube.com/watch?v=JU9LBor4H0s.</p><p>21.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Coronalert - Stay safe. Protect each other. https://coronalert.be/en/.</p><p>22.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Joren Raymenants, Caspar Geenen, Sarah Gorissen, Klaas Nelissen &amp; Emmanuel Andr\u00e9. Empirical evidence on the efficiency of bidirectional contact tracing in COVID-19. (2021) doi:10.21203/RS.3.RS-952839/V1.</p><p>23.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Endo, A. <em>et al.</em> Implication of backward contact tracing in the presence of overdispersed transmission in COVID-19 outbreaks. <em>Wellcome Open Res.</em> <strong>5</strong>, (2021).</p><p>24.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kojaku, S., H\u00e9bert-Dufresne, L., Mones, E., Lehmann, S. &amp; Ahn, Y.-Y. The effectiveness of backward contact tracing in networks. <em>Nat. Phys.</em> <strong>17</strong>, (2021).</p><p>25.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;European Centre for Disease Prevention and Control. Contact tracing: Public health management of persons, including healthcare workers, having had contact with COVID-19 cases in the European Union-second update. <em>ECDC, Stock.</em> (2020).</p><p>26.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;World Health Organization and others. <em>Contact tracing in the context of COVID-19: interim guidance, 10 May 2020</em>. (2020).</p><p>27.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Alene, M. <em>et al.</em> Serial interval and incubation period of COVID-19: a systematic review and meta-analysis. <em>BMC Infect. Dis.</em> <strong>21</strong>, (2021).</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>We thank everyone involved in the set-up and running of the KU Leuven test and trace program, especially the many student workers who formed the bulk of the team and Prof Dr Jan Verhaegen and Prof Dr Paul De Cock for their many hours volunteering. We also thank the senior supervisory team consisting of Prof Dr Chris Van Geet, Prof Jef Arnout, Mr Bruno Lambrecht, Prof Leen Delang, Dr Rikka De Roy, Dr Anja Vandeputte, Prof Dr Katrien Lagrou and Mr Lieven Put as well as Dr Femke Kerkhofs and Mr Cis Dejonckheere for their work on coordinating the testing centre and contact tracing operations. </p><p>The test centre was funded by both the National Institute for Health and Disability Insurance (RIZIV/INAMI) and the regional Flemish government\u2019s Agentschap voor Zorg &amp; Gezondheid.</p><p>The contact tracing program benefited from the generous contributions of KU Leuven University.</p><p>Joren Raymenants is funded through an FWO strategic basic research fellowship.</p><p>Data on student numbers was provided by Mr Kris Cuppens and Mr Jeroen De Keyser from the KU Leuven and KU Leuven association data cells.</p><p>Sciensano provided data on test results at country level. We thank Mr Ruben Brondeel and Mr Dieter Van Cauteren for their help in retrieving the data.</p><p>Data on the number of CoronAlert downloads was provided by Prof Bart Preneel from KU Leuven.</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": " 10.21203/rs.3.rs-952839/v1",
+                "date": "2021-10-04 21:30:26",
+                "title": "Empirical evidence on the efficiency of bidirectional contact tracing in COVID-19",
+                "authors": [
+                    "Joren Raymenants",
+                    "Caspar Geenen",
+                    " Nelissen",
+                    "Sarah Gorissen",
+                    "Emmanuel Andr\u00e9"
+                ],
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 55934092,
+                "identity": "891c46f0-7bea-466c-b2cf-02b4a76553a0",
+                "order_by": 0,
+                "name": "Joren Raymenants",
+                "email": "joren.raymenants@kuleuven.be",
+                "orcid": "https://orcid.org/0000-0001-6441-1843",
+                "institution": "KU Leuven",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Joren",
+                "middleName": "",
+                "lastName": "Raymenants",
+                "suffix": ""
+            },
+            {
+                "id": 55934093,
+                "identity": "7f4c304f-b281-492d-b332-62dd48aeeb72",
+                "order_by": 1,
+                "name": "Caspar Geenen",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-2778-6344",
+                "institution": "KU Leuven",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Caspar",
+                "middleName": "",
+                "lastName": "Geenen",
+                "suffix": ""
+            },
+            {
+                "id": 55934094,
+                "identity": "ea0e9305-51da-4f98-b4fe-0562dc10535a",
+                "order_by": 2,
+                "name": "Jonathan Thibaut",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0003-2239-5237",
+                "institution": "KU Leuven",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jonathan",
+                "middleName": "",
+                "lastName": "Thibaut",
+                "suffix": ""
+            },
+            {
+                "id": 55934095,
+                "identity": "f55bf351-a2ce-419a-ad43-11f3f3c4e775",
+                "order_by": 3,
+                "name": "Sarah Gorissen",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0001-7318-4523",
+                "institution": "KU Leuven",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Sarah",
+                "middleName": "",
+                "lastName": "Gorissen",
+                "suffix": ""
+            },
+            {
+                "id": 55934096,
+                "identity": "9e30c985-8264-4f81-9907-d75d0f1ee65d",
+                "order_by": 4,
+                "name": "Klaas Nelissen",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0001-7695-5821",
+                "institution": "KU Leuven",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Klaas",
+                "middleName": "",
+                "lastName": "Nelissen",
+                "suffix": ""
+            },
+            {
+                "id": 58937358,
+                "identity": "9a6876ad-d09e-4ff9-91ee-4981033e4b33",
+                "order_by": 5,
+                "name": "Emmanuel Andr\u00e9",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0001-8321-3770",
+                "institution": "KU Leuven",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Emmanuel",
+                "middleName": "",
+                "lastName": "Andr\u00e9",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2021-10-06 16:09:45",
+        "currentVersionCode": 2,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1666/v2",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1666/v2",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 15603426,
+                "identity": "5cc146a9-867e-49e1-af2f-b94338ce4092",
+                "added_by": "auto",
+                "created_at": "2021-11-16 18:22:04",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 95619,
+                "visible": true,
+                "origin": "",
+                "legend": "Figure 1 shows the KU Leuven testing centre (panel a) and communication material (panel b). The testing centre was conveniently located in a centrally placed University building in the Leuven\u2019s centre (panel a). Communication material was developed and spread to the student population urging low barrier testing based on self-assessed risk of COVID-19 (panel b).",
+                "description": "",
+                "filename": "figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/pex-1666/v2/cb9eac5228c81adc4a64b41e.jpg"
+            },
+            {
+                "id": 15603331,
+                "identity": "08d7198e-007d-476e-a752-91080f5f47a4",
+                "added_by": "auto",
+                "created_at": "2021-11-16 18:19:04",
+                "extension": "jpg",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 117092,
+                "visible": true,
+                "origin": "",
+                "legend": "Figure 2 shows the evolution of key epidemiological indicators relevant for testing in the period from February to May 2021. Panel (a) shows the evolution of the number of tests performed by self-reported test indication and the corresponding positivity rates in the period from weeks 8 to 21. Close contact with an index case was the most frequent primary indication for testing overall. The highest positivity rate was observed in individuals with a positive self-administered rapid antigen test, followed by symptoms and close contact with an index-case. Tests with an unknown indication correspond to tests being administered without prior appointment booking and self-reporting of a testing indication. Panel (b) shows the overall 14-day incidence rate of COVID-19 per 100,000 persons in the study period, which is similar in students (552.6/100k/14days) in comparison to the control group (518.8/100k/14 days, data provided by Scienano13). Panel (c) shows the number of tests performed daily averaged over the past 7 days per 1000 persons in the University testing center (orange), the national control group (blue) and in students both at the University testing centre and other sites (computed by summing the number of tests conducted at the University testing center and the number of tests required to diagnose the positive students tested elsewhere and reported to the KU Leuven contact tracing team). Panel (d) shows the evolution of the daily positivity rate averaged over the previous 7 days in both groups. Together, these graphs point at a higher responsiveness of the student-oriented program\u2019s testing approach to a change in viral circulation.",
+                "description": "",
+                "filename": "figure2.jpg",
+                "url": "https://assets.researchsquare.com/files/pex-1666/v2/e1bfa9bc49bf3c2b8ecf777f.jpg"
+            },
+            {
+                "id": 15603332,
+                "identity": "3071ddab-a4c4-4566-9d69-b6858015362e",
+                "added_by": "auto",
+                "created_at": "2021-11-16 18:19:04",
+                "extension": "png",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 146169,
+                "visible": true,
+                "origin": "",
+                "legend": "Figure 3 shows the custom server based version of Go.Data developed by KU Leuven. An existing version of Go.Data is run on University servers and integrated with a password protected University web environment for appointment booking (step 1) and listing of recent contacts and whereabouts (step 2). Laboratory test prescriptions are generated using stand-alone medical software and passed on to the national e-health platform and the laboratory information system (step 3). The latter pushes results of tests performed in students to Go.Data (step 4). Recent activities and whereabouts gathered during the contact tracing interview are again imputed into a University environment webform and pushed to Go.Data to be integrated in the event based social network (step 5). ",
+                "description": "",
+                "filename": "figure3.png",
+                "url": "https://assets.researchsquare.com/files/pex-1666/v2/85194e3f840bdeb180d76119.png"
+            },
+            {
+                "id": 15603427,
+                "identity": "9d7d5e91-b378-4fe5-836a-e28c680e8540",
+                "added_by": "auto",
+                "created_at": "2021-11-16 18:22:04",
+                "extension": "jpg",
+                "order_by": 4,
+                "title": "Figure 4",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 121871,
+                "visible": true,
+                "origin": "",
+                "legend": "Schematic representation of targeted approaches to transmission prevention through testing and contact tracing and the influence of delays. The index case becomes symptomatic on day 0, and immediately self-isolates. After a testing, reporting and tracing delay, close contacts of the index case are quarantined from day 1 onwards. A standard \u201cforward tracing\u201d window identifies a child case only. Our extended contact tracing window also identifies the parent case and a sibling case, through their shared event with the index case on day -5. After a second delay involving testing of the sibling case and subsequent tracing of their contacts, another case is isolated and onward transmission prevented.",
+                "description": "",
+                "filename": "figure4.jpg",
+                "url": "https://assets.researchsquare.com/files/pex-1666/v2/a0695d7538324dd2113d7dec.jpg"
+            },
+            {
+                "id": 15603429,
+                "identity": "8f0e7df9-2b34-4732-ad0e-446ce0732cb2",
+                "added_by": "auto",
+                "created_at": "2021-11-16 18:22:12",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 643249,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1666/v2/f48ae62d-9b32-4041-9ade-262057987c7d.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": true,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "contact tracing, backward contact tracing, bidirectional contact tracing, contact tracing window, source investigation, COVID-19, SARS-CoV-2, coronavirus, PCR, transmission, test, trace",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>Testing and contact tracing are standard tools for controlling the spread of COVID-19<sup>1</sup>. Their effectiveness hinges on a sequence of processes encompassing testing coverage and timeliness, testing quality and speed of reporting, contact tracing speed and comprehensiveness and compliance with advice given<sup>2\u20136</sup>. We optimized this sequence of processes in the context of a public health program targeting around 33,000 higher education students through a combination of low barrier PCR testing with rapid turn-around-time, close integration of testing and tracing teams and IT infrastructure, community engagement and the implementation of bidirectional contact tracing by extending the contact tracing window from 2 to 7 days before symptom onset or test of the index case. We anticipate this combined intervention to help improve epidemic control.&nbsp;</p>",
+        "manuscriptTitle": "Integrated PCR testing and extended window contact tracing system for COVID-19 to improve comprehensiveness and speed",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2021-10-08 09:55:17",
+                "doi": "10.21203/rs.3.pex-1666/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            },
+            {
+                "code": 2,
+                "date": "2021-11-16 18:19:02",
+                "doi": "10.21203/rs.3.pex-1666/v2",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "bb9c3a0f-cbb2-4688-9e76-20a62a2ff690",
+        "owner": [],
+        "postedDate": "November 16th, 2021",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 7726081,
+                "name": "Microbiology"
+            },
+            {
+                "id": 7726082,
+                "name": "Diseases"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2021-11-16 18:19:02",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

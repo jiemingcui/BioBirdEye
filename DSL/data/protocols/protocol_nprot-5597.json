@@ -1,0 +1,501 @@
+{
+    "identity": "nprot-5597",
+    "title": "Breaks Labeling _in situ_ and sequencing \\(BLISS)",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "DNA double-strand breaks \\(DSBs) are major DNA lesions that form in a variety of physiological conditions \u2013 such as transcription \\(1-2), meiosis \\(3), and VDJ recombination \\(4) as well as a consequence of exposure to DNA damaging agents and replication stress \\(5). DSBs can also be induced in a controlled fashion at specific sites in the genome using programmable nucleases, such as the CRISPR \\(clustered regularly interspaced short palindromic repeats)-associated RNA-guided endonucleases, Cas9 and Cpf1, which have greatly advanced genome editing. However, the potentially mutagenic off-target DNA cleavage activity of these nucleases represents an issue of major concern that needs to be thoroughly assessed before these enzymes can be safely used in the clinical setting \\(6). Thus, developing methods that can accurately map the genome-wide location of endogenous as well as exogenous DSBs in different systems and conditions is not only essential to advance our understanding of DSB biology, but is also critical for successful translation of programmable nucleases from research tools into clinical applications. \r\n\n\n In the past few years, several methods based on next-generation sequencing have been developed to assess DSBs at genomic scale, including ChIP-seq \\(7-8), BLESS \\(9-11), GUIDEseq \\(12), Digenome-seq \\(13), IDLV-mediated DNA break capture \\(14), HTGTS \\(15), and more recently End-Seq \\(16) and DSBCapture \\(17). While in general all of these methods represent important complementary tools to detect DSBs genome-wide \\(**Supplementary Table 1**), they also have important drawbacks. For example, ChIP-seq of DSB-sensing or repair proteins such as p53 Binding Protein 1 \\(53BP1) or the phosphorylated variant histone H2A.X \\(\u03b3H2A.X) does not label DSBs directly, and is unable to identify DNA breakpoints with single-nucleotide resolution. GUIDEseq, IDLV-mediated DNA break capture, and HTGTS detect DSBs by quantifying the products of non-homologous end-joining \\(NHEJ) repair, potentially missing DSBs that are repaired through other pathways. Furthermore, _in vivo_ delivery of exogenous oligonucleotides in GUIDEseq or viral cassettes in IDLV-mediated DNA break capture is challenging especially in primary cells and intact tissues. DSBs induced by programmable nucleases, such as CRISPR-associated RNA-guided Cas9 and Cpf1, can be evaluated _in vitro_ using Digenome-seq, but this approach may not be representative of physiologically relevant conditions \u2013 such as chromatin environment and nuclear architecture \u2013 that are likely to influence the frequency of DNA breaking and repair, or of relevant nuclease concentrations. Lastly, BLESS and the related methods End-Seq \\(16) and DSBCapture \\(17), require substantial amounts of input material \\(typically, in the order of millions of cells), they are labor-intensive, and are semi-quantitative due to lack of appropriate controls for PCR amplification biases, limiting their applications and scalability. Here, we describe a method for Breaks Labeling _In Situ_ and Sequencing \\(BLISS)\\(**Figure 1a**) that compared to other DSB mapping methods is more versatile, sensitive, and quantitative."
+        },
+        {
+            "header": "Reagents",
+            "content": "-The list of BLISS adapter used in this protocol is provided in **Supplementary Table 2**\r\n\n\n-Poly-D-Lysine \\(PDL) \\(Merck Millipore, cat. no. A003E) \\(for CRISPR-BLISS)\r\n\n\n-Poly-L-Lysine \\(PLL) solution \\(Sigma, cat. no. P8920-100 ml) \\(for BLISS in cells)\r\n\n\n-Lipofectamine 2000 \\(Life Technologies, cat. no. 11668019) \\(for CRISPR-BLISS)\r\n\n\n-OptiMEM \\(Gibco, cat. no. 31985062) \\(for CRISPR-BLISS)\r\n\n\n-Methanol-free paraformaldehyde \\(PFA) 16% \\(EMS, cat. no. 15710)\r\n\n\n-Nuclease-free Phosphate-Buffered Saline \\(10\u00d7) pH 7.4 \\(Thermo, cat. no. AM9625)\r\n\n\n-Nuclease-free water \\(Thermo, cat. no. 4387936) \\(for in situ reactions and library preparation)\r\n\n\n-Lysis buffer 1 \\(LB1): Tris-HCl 10 mM, NaCl 10 mM, EDTA 1 mM, Triton X-100 0.2%, pH 8 at 4 \u00b0C\r\n\n\n-Lysis buffer 2 \\(LB2): Tris-HCl 10 mM, NaCl 150 mM, EDTA 1 mM, SDS 0.3%, pH 8 at 25 \u00b0C\r\n\n\n-Nucleus Isolation Buffer \\(NIB): NaCl 146 mM, Tris-HCl 10 mM, CaCl2 1 mM, MgCl2 21 mM, Bovine Serum Albumin 0.05%, Nonidet P-40 0.2%, pH 7.8 \\(for tissue-BLISS)\r\n\n\n-Sucrose for molecular biology \\(Sigma, cat. no. 57-50-1) \\(for tissue-BLISS)\r\n\n\n-Tissue-Tek\u00ae O.C.T. Compound, Sakura\u00ae Finetek \\(VWR, cat. no. 25608-930) \\(for tissue-BLISS)\r\n\n\n-CutSmart\u00ae buffer \\(NEB, cat. no. B7204S)\r\n\n\n-Quick Blunting\u2122 Kit \\(NEB, cat. no. E1201L)\r\n\n\n- NEBNext\u00ae dA-Tailing Module \\(NEB, cat. no E6053L) \\(for CRISPR-BLISS)\r\n\n\n-T4 DNA Ligase \\(NEB, cat. no. M0202M)\r\n\n\n-UltraPure\u2122 BSA \\(50 mg/ml) \\(Thermo, cat. no. AM2616)\r\n\n\n-High-salt wash buffer \\(HSW): Tris-HCl 10 mM, NaCl 2M, EDTA 2 mM, Triton X-100 0.5%, pH 8 at 25 \u00b0C\r\n\n\n-DNA extraction buffer: SDS 1%, NaCl 100 mM, EDTA 50 mM, Tris-HCl 10 mM, pH 8\r\n\n\n-Proteinase K, Molecular Biology Grade \\(NEB, cat. no. P8107S)\r\n\n\n-Nuclease-free TE buffer \\(Thermo, cat. no. AM9849)\r\n\n\n-MEGAscript\u00ae T7 Transcription Kit \\(Thermo, cat. no. AM1334)\r\n\n\n-RiboSafe RNase Inhibitor \\(Bioline, cat. no. 65027)\r\n\n\n-DNase I, RNase-free \\(Thermo, cat. no. AM2222)\r\n\n\n-RA3 adaptor and RTP, RP1 and RPI primers \\(custom-synthesized by Integrated DNA Technologies Inc. based on the sequences in TruSeq Small RNA Library Preparation kit, Illumina)\r\n\n\n-RNaseOUT\u2122 Recombinant Ribonuclease Inhibitor \\(Invitrogen, cat. no. 10777-019)\r\n\n\n-T4 RNA ligase 2, truncated \\(NEB, cat. no. M0242L)\r\n\n\n-Deoxynucleotide \\(dNTP) Solution Set \\(NEB, cat. no. N0446S)\r\n\n\n-SuperScript\u00ae III Reverse Transcriptase \\(Thermo, cat. no. 18080044)\r\n\n\n-NEBNext\u00ae High-Fidelity 2X PCR Master Mix \\(NEB, cat. no. M0541L)"
+        },
+        {
+            "header": "Equipment",
+            "content": "-Cell counter \\(Countess II FL Automated Cell Counter, Thermo) \r\n\n\n-Cryostat \\(Leica Biosystems CM3050 S Research Cryostat) \\(for tissue-BLISS)\r\n\n\n-Incubator \\(Binder incubator, Model KB 53)\r\n\n\n-Tabletop centrifuge \\(Eppendorf\u00ae Microcentrifuge 5424) \u00a0\r\n\n\n-Thermoshaker \\(Eppendorf\u00ae\u00a0Thermomixer Compact)\r\n\n\n-PCR cycler \\(T3 Thermocycler, Biometra)\r\n\n\n-Sonication device \\(Bioruptor\u00ae\u00a0Plus, Diagenode, cat. no. B01020001)\r\n\n\n-DynaMag\u2122-2 Magnet \\(Thermo, cat. no. 12321D)\r\n\n\n-Qubit\u00ae 2.0 Fluorometer \\(Thermo, cat. no. Q32866)\r\n\n\n-Bioanalyzer 2100 \\(Agilent, cat. no. G2943CA)\r\n\n\n-SpeedVac \\(Savant\u2122 SPD131DDA SpeedVac\u2122 Concentrator, Thermo, cat. no. SPD131DDA-220)"
+        },
+        {
+            "header": "Procedure",
+            "content": "**Coating of coverslips** \\(for BLISS in cells)\r\n\n\n1. Place the coverslips in a 10 cm dish, cover them with 5 ml PLL solution, and then gently shake the dishes for 15 min \r\n  **Note**: make sure that coverslips stay covered by liquid\r\n\n\n2. Aspirate the solution and transfer it into a 15 ml tube\r\n  **Note**: the solution can be then used up to three times\r\n\n\n3. Wash the coverslips three times with 1\u00d7 PBS at room temperature \\(rt) and once with ethanol \\(EtOH) 70%\r\n  4. Air-dry the coverslips and proceed with cell spotting and fixation\r\n  **Breakpoint**: if not used immediately, coverslips can be stored in EtOH 70% at 4 \u00b0C and air-dried just before use.\r\n\n\n\r\n\n\n**Attachment and fixation of suspension cells** \\(for BLISS in cells)\r\n\n\n1. Place the desired number of PLL-coated coverslips into a 24-well cell culture plate\r\n  2. In each well, dispense a cell suspension freshly prepared in 1\u00d7 PBS\r\n  **Note**: we usually spot up to 3\u00d710\n5\ncells onto a 13 mm coverslip\r\n\n\n3. Let the cells sediment onto the coverslip for 10 min at rt\r\n  4. Slowly add one volume of PFA 8% in 1\u00d7 PBS equal to the volume of cell suspension added before onto the coverslip\r\n  5. Incubate for 10 min at rt\r\n  6. Rinse the coverslips twice with 1\u00d7 PBS at rt\r\n  7. Store the samples in 1\u00d7 PBS at 4 \u00b0C or proceed to permeabilization\r\n  **Breakpoint**: fixed cells can be stored at 4 \u00b0C for several days up to a month. To avoid bacterial contamination, cells should be stored in 1\u00d7 PBS supplemented with NaN\n3\n0.05%.\r\n\n\n\r\n\n\n**Transfection and fixation of HEK cells in multi-well plates** \\(for CRISPR-BLISS)\r\n\n\n1. Coat a 24-well cell culture plate with PDL following the same procedure used for coating coverslips with PLL\r\n  2. Seed ~1.25\u00d710\n5\nHEK 293T cells per well\r\n  3. Grow cells for 16-18 h until they reach 60\u201370% confluence\r\n  4. Transfect cells according to your favorite protocol\r\n  **Note**: for Cas9-BLISS, we typically use 2 \u03bcl of Lipofectamine 2000 and 500 ng of Cas9 plasmid in 100 \u03bcl total of OptiMEM per well\r\n\n\n5. After transfection, aspirate the medium and wash the cells in 1\u00d7 PBS at rt \r\n  6. To each well, add 0.5 ml of PFA 4% in 1\u00d7 PBS at rt\r\n  7. Incubate for 10 min at rt\r\n  8. Rinse the plate twice with 1\u00d7 PBS at rt\r\n  9. Store the plate in 1\u00d7 PBS at 4 \u00b0C or proceed to permeabilization\r\n  \r\n\n\n**Liver cryopreservation and sectioning** \\(for tissue-BLISS)\r\n\n\n1. Cut the biopsy into small pieces and transfer them into a 15 ml tube containing PFA 4% in 1\u00d7 PBS\r\n  2. Incubate for 1 h at rt while rotating\r\n  3. Add a volume of glycine 2 M to obtain a 125 mM final concentration\r\n  4. Mix well by pipetting up and down\r\n  5. Wash the tissue fragments twice with 1\u00d7 PBS at rt\r\n  6. Immerse the tissue fragments in sucrose 15% on a rotator overnight at 4 \u00b0C \r\n  7. Immerse the tissue fragments in sucrose 30% on a rotator at 4 \u00b0C until they sink at the bottom of the tube\r\n  8. Embed the tissue fragments in OCT and quickly freeze them at \u201320 \u00b0C before cryosectioning\r\n  9. Section the block into 30 \u03bcm slices, mounting them onto microscope slides\r\n  10. Air-dry the sections for 60 min at rt \r\n  11. Store the sections at 4 \u00b0C or proceed to permeabilization\r\n  \r\n\n\n**Preparation of nuclei suspension from liver biopsies** \\(for tissue-BLISS)\r\n\n\n1. Cut the biopsy into small pieces and transfer them into a 2 ml tube containing 1-1.5 ml of NIB buffer\r\n  2. Incubate for 15-40 min at, pipetting the suspension up and down every 5 min, until the tissue fragments become transparent\r\n  3. Centrifuge at 500 g for 5 min at rt\r\n  4. Discard the supernatant\r\n  5. Resuspend the nuclei in 200-500 \u03bcl of 1\u00d7 PBS at rt\r\n  6. Dispense 100-200 \u03bcl of the nuclei suspension onto a 13 mm PLL-coated coverslip\r\n  7. Incubate for 10 min at rt \r\n  8. Slowly add one volume of PFA 8% in 1\u00d7 PBS equal to the volume of nuclei suspension added before onto the coverslip\r\n  9. Incubate for 10 min at rt \r\n  10. Rinse the coverslips twice with 1\u00d7 PBS at rt\r\n  11. Store the samples in 1\u00d7 PBS at 4 \u00b0C or proceed to permeabilization\r\n  \r\n\n\n**DAY 1**\r\n\n\n**Cells and tissue lysis**\r\n\n\n1. Briefly rinse the sample in 1\u00d7 PBS at rt\r\n  **Note**: for samples on 13 mm coverslips, this is conveniently done in a 12- or 24-well plate. For tissue-BLISS, the tissue section is covered with a Secure-Seal\u2122 Hybridization Chamber. All the steps until post _in situ_ ligation are done by pipetting 100 \u03bcl volumes in and out of the chamber.\r\n\n\n2. Incubate the sample in LB1 for 1h at 4 \u00b0C\r\n  3. Briefly rinse the sample in 1\u00d7 PBS at rt\r\n  4. Exchange to LB2 and incubate for 1 h at 37 \u00b0C\r\n  5. Wash the samples and proceed to _in situ_ blunting\r\n  6. Exchange to 1\u00d7 PBS at rt\r\n  7. Incubate for 1\u20132 min at rt\r\n  8. Repeat wash in 1\u00d7 PBS at rt\r\n  \r\n\n\n**In situ DSBs blunting** \r\n\n\n1. Exchange to 1\u00d7 CutSmart\u00ae buffer at rt\r\n  2. Incubate for 2 min at rt\r\n  3. Repeat twice the equilibration in CutSmart\u00ae buffer\r\n  4. Dispense 50 \u03bcl of the following blunting mix on piece of Parafilm M\u00ae placed in a Petri dish containing a piece of tissue presoaked in distilled water wrapped all around its edge:\r\n  \u2022 Nuclease-free water                37.5 \u03bcl\r\n\n\n\u2022 Blunting buffer 10\u00d7*                       5 \u03bcl\r\n\n\n\u2022 BSA 10 mg/ml* 0.5 \u03bcl \r\n\n\n\u2022 dNTPs 1 mM*    5 \u03bcl\r\n\n\n\u2022 Blunting enzyme mix*    2 \u03bcl\r\n\n\n*Components included in Quick Blunting\u2122 Kit\r\n\n\n5. Place the coverslip on top of the blunting mix solution with cells facing downwards\r\n  6. Seal the dish with Parafilm M\u00ae\r\n  **Note**: the volumes and format are for a 13 mm coverslip. For different sample types, the volumes must be adjusted proportionally. For cells in 24-well plates or tissue sections covered by Secure-Seal\u2122 Hybridization Chamber the blunting mix is added directly into the well or pipetted into the chamber.\r\n\n\n7. Incubate for 1 h at rt\r\n  \r\n\n\n**In situ A-tailing** \\(for CRISPR-BLISS)\r\n\n\n1. Exchange to 1\u00d7 CutSmart\u00ae buffer at rt\r\n  2. Incubate for 2 min at rt\r\n  3. Repeat twice the equilibration in CutSmart\u00ae buffer\r\n  4. Dispense 50 \u03bcl of the following A-tailing mix using the NEBNext dA-Tailing Module on piece of Parafilm M\u00ae placed in a Petri dish containing a piece of tissue presoaked in distilled water wrapped all around its edge:\r\n  \u25cf  Nuclease-free water     42 \u00b5l\r\n\n\n\u25cf  NEBNext dA-Tailing Buffer \\(10X)*  5 \u00b5l\r\n\n\n\u25cf  Klenow Fragment \\(3\u00b4\u2192 5\u00b4 exo\u2013)*                3 \u00b5l\r\n\n\n*Components included in NEBNext\u00ae dA-Tailing kit\r\n\n\n5. Place the coverslip on top of the A-tailing mix solution with cells facing downwards\r\n  6. Seal the dish with Parafilm M\u00ae\r\n  **Note**: the volumes and format are for a 13 mm coverslip. For different sample types, the volumes must be adjusted proportionally. For cells in 24-well plates or tissue sections covered by Secure-Seal\u2122 Hybridization Chamber the A-tailing mix is added directly into the well or pipetted into the chamber.\r\n\n\n7. Incubate the samples for 30 min at 37 \u00b0C\r\n  \r\n\n\n**In situ DSBs ligation**\r\n\n\n1. Remove the blunting/A-tailing mix and add 1\u00d7 CutSmart\u00ae buffer at rt\r\n  **Note**: for samples on coverslips, this is done by transferring the coverslips from Parafilm M\u00ae into a 12- or 24-well plate \r\n\n\n2. Incubate for 2 min at rt\r\n  3. Repeat twice the wash in 1\u00d7 CutSmart\u00ae buffer\r\n  4. Exchange to 1\u00d7 T4 Ligase buffer \r\n  5. Incubate for 5 min at rt\r\n  6. Dispense 50 \u03bcl of the following ligation mix on piece of Parafilm M\u00ae placed in a Petri dish containing a piece of tissue presoaked in distilled water and wrapped all around its edge:\r\n  \u25cf Nuclease-free water 37.5 \u03bcl\r\n\n\n\u25cf T4 ligase buffer 10\u00d7 5 \u03bcl\r\n\n\n\u25cf ATP 10 mM 4 \u03bcl\r\n\n\n\u25cf BSA 50 mg/ml 1 \u03bcl\r\n\n\n\u25cf BLISS adapter 10 \u03bcM 2 \u03bcl\r\n\n\n\u25cf T4 ligase 0.5 \u03bcl\r\n\n\n7. Place the coverslips on top of the ligation mix solution with cells facing downwards\r\n  8. Seal the dish with Parafilm M\u00ae\r\n  **Note**: the above volumes and format are intended for 13 mm coverslips. For different sample types, the volumes must be adjusted proportionally. For cells in 24-well plates or tissue sections covered by Secure-Seal\u2122 Hybridization Chamber the ligation mix is added directly into the well or pipetted into the chamber\r\n\n\n9. Incubate for 16\u201318 h at 16 \u00b0C\r\n  \r\n\n\n**DAY 2**\r\n\n\n**Removal of unligated adapters** \r\n\n\n1. Remove the ligation mix and add HSW buffer at rt\r\n  **Note**: for samples on coverslips, this is done by transferring the coverslips from Parafilm M\u00ae into a 12- or 24-well plate \r\n\n\n2. Incubate 1 h at 37 \u00b0C, shaking\r\n  3. Repeat the exchange to fresh HSW buffer and incubation at 37 \u00b0C 3\u20135 times\r\n  4. Exchange to 1\u00d7 PBS at rt\r\n  5. Incubate for 1\u20132 min at rt\r\n  6. Exchange to nuclease-free water\r\n  7. Incubate for 1\u20132 min at rt\r\n  **Note**: at this point, samples on coverslips can be air-dried onto a piece of Parafilm M\u00ae. For tissue samples, the Secure-Seal\u2122 chamber can be removed from the slide, and the tissue air-dried. For samples in 24-well plates, it is not necessary to dry the cells, as the Proteinase K digestion mix \\(see below) can be dispensed directly into the well\r\n\n\n\r\n\n\n**Extraction of genomic DNA**\r\n\n\n1. Dispense 100 \u03bcl of the following DNA extraction mix onto the sample:\r\n  \u25cf DNA extraction buffer 95 \u03bcl\r\n\n\n\u25cf Proteinase K 20 mg/ml 5 \u03bcl\r\n\n\n2. Scrape the cells off the coverslips using a sterile cell scraper\r\n  **Note**: the above volumes and format are intended for 13 mm coverslips. For tissue sections, the same approach may be used by adjusting the volume depending on the size of the tissue section. Alternatively, the Pinpoint Slide DNA Isolation System\u2122 may be used to capture a portion of the tissue. For cells in 24-well plates, the DNA extraction mix can be dispensed directly into the well after adjusting the volume proportionally \r\n\n\n3. Transfer the solution into a 1.5 ml Eppendorf\u00ae\u00a0RNA/DNA LoBind\r\n  4. Incubate 16\u201318 h in a thermo-shaker at 55 \u00b0C, shaking at 800 rpm \r\n  \r\n\n\n**DAY 3**\r\n\n\n**DNA clean-up**\r\n\n\n1. Purify the extracted DNA either using silica-based columns or standard phenol-chloroform and isopropanol precipitation protocols\r\n  2. Elute DNA in nuclease-free TE buffer \r\n  3. Measure DNA concentration and then dilute DNA in TE buffer to the concentration recommended for the sonication instrument used \\(see below)\r\n  \r\n\n\n**DNA fragmentation by sonication**\r\n\n\n1. Sonicate DNA aiming to achieve a mean fragment size of 300\u2013500 bp. Examples of instruments and settings that we have successfully used are summarized below:\r\n  \u2022 Bioruptor\u00ae Plus, for cells with the setting; 30 s ON, 90 s OFF, high mode, 20 cycles in 100 \u03bcl TE\r\n\n\n\u2022 Bioruptor\u00ae Plus, for tissue samples with the setting; 30 s ON, 90 s OFF, high mode, 40 cycles in 100 \u03bcl TE\r\n\n\n\u2022 Covaris S-series, for cells and tissue samples with the setting; duty 10%, intensity 4, time 30 s, cycle/burst 200, 4 cycles in 50 \u03bcl TE/H2O\r\n\n\n\r\n\n\n**DNA concentrating using AMPure beads \\(option 1)**\r\n\n\n1. Pre-warm AMPure XP beads for 30 min at rt\r\n  2. Add a 0.8\u00d7 ratio of AMPure XP bead suspension to the extracted DNA\r\n  3. Mix thoroughly by pipetting up-down 5-6 times\r\n  4. Incubate for 5 min at rt\r\n  5. Place the sample on a magnetic stand\r\n  6. Incubate for 5 min until all the beads have attached to the magnet\r\n  7. Aspirate and discard the supernatant\r\n  8. With the sample on the magnetic stand, add 200 \u03bcl ice-cold EtOH 80%\r\n  9. Aspirate the supernatant\r\n  10. Repeat once the wash in ice-cold EtOH 80%\r\n  11. Air-dry the beads for 5 min at rt\r\n  12. Remove the sample from the magnetic stand\r\n  13. Resuspend the beads in 10 \u03bcl of nuclease-free water\r\n  14. Incubate for 5 min at rt\r\n  15. Place the sample on the magnetic stand\r\n  16. Incubate for 5 min until all the beads have attached to the magnet\r\n  17. Transfer 8 \u03bcl of the cleared solution into a 0.5 ml Eppendorf\u00ae\u00a0RNA/DNA LoBind tube\r\n  18. Measure DNA concentration using the Qubit\u00ae dsDNA HS Assay Kit \r\n  **Breakpoint**: at this point, samples can be stored at \u201320 \u00b0C until _in vitro_ transcription \r\n\n\n\r\n\n\n**DNA concentrating using SpeedVac \\(option 2)**\r\n\n\n1. Place the extracted DNA samples in the speedVac instrument with the heat temperature set on medium \r\n  2. Centrifuge for 20 min\r\n  3. Keep 8.5 \u03bcl of concentrated DNA \r\n  4. Measure DNA concentration using the Qubit\u00ae dsDNA HS Assay Kit\r\n  **Breakpoint**: at this point, samples can be stored at \u201320 \u00b0C until _in vitro_ transcription \r\n\n\n\r\n\n\n**In vitro transcription \\(IVT)**\r\n\n\n1. In a 0.5 ml Eppendorf\u00ae\u00a0RNA/DNA LoBind tube prepare the following mix:\r\n  \u25cf Sonicated genomic DNA 7.5 \u03bcl \r\n\n\n\u25cf rNTPs mix*^    8 \u03bcl\r\n\n\n\u25cf T7 polymerase buffer 10\u00d7*    2 \u03bcl\r\n\n\n\u25cf T7 polymerase*    2 \u03bcl\r\n\n\n\u25cf RiboSafe RNase Inhibitor 0.5 \u03bcl\r\n\n\n*Components included in the MEGAscript\u00ae kit\r\n\n\n^Prepared by mixing equal volumes of each rNTP solution provided with MEGAscript\u00ae kit\r\n\n\n2. Incubate for 14 h at 37 \u00b0C in a thermocycler with lid set at 70 \u00b0C\r\n  \r\n\n\n**DAY 4**\r\n\n\n**Removal of genomic DNA**\r\n\n\n1. Add 1 \u03bcl of DNase I, RNase-free to the IVT product \r\n  2. Incubate 15 min at 37 \u00b0C\r\n  \r\n\n\n**RNA cleanup** \r\n\n\n1. Pre-warm Agencourt RNAClean XP beads for 30 min at rt\r\n  2. Transfer the IVT product into a 1.5 ml Eppendorf\u00ae\u00a0RNA/DNA LoBind tube\r\n  3. Bring the volume up to 30 \u03bcl with nuclease-free water\r\n  4. Add a 1.8\u00d7 ratio of RNAClean XP beads suspension to the IVT product\r\n  5. Incubate for 10 min at rt\r\n  6. Place the sample on a magnetic stand\r\n  7. Incubate for 5 min until all the beads have attached to the magnet\r\n  8. Aspirate and discard the supernatant\r\n  9. With the sample on the magnetic stand, add 200 \u03bcl of freshly prepared EtOH 80%\r\n  10. Incubate at least 1\u20132 min at rt\r\n  11. Aspirate the supernatant\r\n  12. Repeat twice the wash with EtOH 80%\r\n  13. Air-dry the beads for 10 min at rt\r\n  14. Remove the sample from the magnetic stand\r\n  15. Resuspend the beads in 6 \u03bcl of nuclease-free water\r\n  16. Incubate for 5 min at rt\r\n  17. Place the sample on the magnetic stand\r\n  18. Incubate for 5 min until all the beads have attached to the magnet\r\n  19. Transfer 6 \u03bcl of the cleared solution into a 0.5 ml Eppendorf\u00ae\u00a0RNA/DNA LoBind tube\r\n  **Checkpoint**: 1 \u03bcl of purified IVT product can be checked on Bioanalyzer 2100 using a RNA 6000 Pico Kit\r\n\n\n\r\n\n\n**RA3 Illumina adapter ligation**\r\n\n\n**Note**: all the subsequent steps are done on ice, unless otherwise specified\r\n\n\n1. Dilute the RA3 adapter in nuclease-free water 1:5 vol./vol.\r\n  2. Add 1 \u03bcl of the diluted RA3 adapter to the sample\r\n  3. In a thermo-cycler, incubate for 2 min at 70 \u00b0C with the lid set at 70 \u00b0C\r\n  4. Immediately place the sample on ice \r\n  5. Add 4 \u03bcl of the following mix:\r\n  \u25cf T4 RNA Ligase buffer 10\u00d7 2 \u03bcl\r\n\n\n\u25cf T4 RNA Ligase 2, truncated 1 \u03bcl\r\n\n\n\u25cf RNaseOUT\u2122 1 \u03bcl\r\n\n\n6. Incubate the sample for 1 h at 28 \u00b0C in a thermocycler with the lid set at 30 \u00b0C\r\n  7. Transfer the sample on ice\r\n  8. Add 3.5 \u03bcl of nuclease-free water\r\n  \r\n\n\n**Reverse transcription**\r\n\n\n**Note**: all the subsequent steps are done on ice, unless otherwise specified\r\n\n\n1. Prepare a dNTPs mix at 12.5 mM in nuclease-free water\r\n  2. Add 1 \u03bcl of RTP primer to the sample\r\n  3. Incubate the sample for 2 min at 70 \u00b0C in a thermocycler with the lid set at 70 \u00b0C\r\n  4. Immediately place the sample on ice\r\n  5. Add 5.5 \u03bcl of the following reverse transcription mix:\r\n  \u25cf 1\nst\nstrand buffer*  2 \u03bcl\r\n\n\n\u25cf dNTPs mix 12.5 mM 0.5 \u03bcl\r\n\n\n\u25cf DTT 100 mM* 1 \u03bcl\r\n\n\n\u25cf SuperScript\u00ae III* 1 \u03bcl\r\n\n\n\u25cf RNaseOUT\u2122 1 \u03bcl\r\n\n\n*Components included in the SuperScript\u00ae III Reverse Transcriptase kit\r\n\n\n6. Incubate the sample for 1 h at 50 \u00b0C in a thermocycler with the lid set at 70 \u00b0C\r\n  \r\n\n\n**Library indexing and amplification**\r\n\n\n1. Transfer the sample into a 200 \u03bcl PCR tube\r\n  2. Add 2 \u03bcl of the desired RPI primer to the sample\r\n  3. Add 35.5 \u03bcl of the following PCR mix:\r\n  \u25cf Nuclease-free water 8.5 \u03bcl\r\n\n\n\u25cf RP1 primer   2 \u03bcl\r\n\n\n\u25cf NEBNext\u00ae 2X PCR Mix 25 \u03bcl\r\n\n\n4. Perform the following cycles in a thermocycler with the lid set at 105 \u00b0C:\r\n  A. 98 \u00b0C, 30 sec\r\n\n\nB. 98 \u00b0C, 10 sec\r\n\n\nC. 60 \u00b0C, 30 sec\r\n\n\nD. 72 \u00b0C, 30 sec\r\n\n\nE. Go to B and repeat for 10\u201316 cycles\r\n\n\nF. 72 \u00b0C, 10 min\r\n\n\nG. 4 \u00b0C, hold\r\n\n\n**Note**: the number of PCR cycles should be adjusted empirically based on the amount of genomic DNA used in the IVT reaction. For example, for a 13 mm coverslip fully covered with human diploid cells, we typically use 12\u201314 cycles\r\n\n\n\r\n\n\n**Library clean-up** \r\n\n\n1. Pre-warm AMPure XP beads for 30 min at rt\r\n  2. Transfer the PCR product into a 1.5 ml Eppendorf\u00ae\u00a0RNA/DNA LoBind tube\r\n  3. Add a 0.8\u00d7 ratio of AMPure XP bead suspension to the extracted DNA\r\n  4. Mix thoroughly by pipetting up-down 5-6 times\r\n  5. Incubate for 5 min at rt\r\n  6. Place the sample on a magnetic stand\r\n  7. Incubate for 5 min until all the beads have attached to the magnet\r\n  8. Aspirate and discard the supernatant\r\n  9. With the sample on the magnetic stand, add 200 \u03bcl ice-cold EtOH 80%\r\n  10. Aspirate the supernatant\r\n  11. Repeat once the wash in ice-cold EtOH 80%\r\n  12. Air-dry the beads for 5 min at rt\r\n  13. Remove the sample from the magnetic stand\r\n  14. Resuspend the beads in 20 \u03bcl of nuclease-free water\r\n  15. Incubate for 5 min at rt\r\n  16. Place the sample on the magnetic stand\r\n  17. Incubate for 5 min until all the beads have attached to the magnet\r\n  18. Transfer 17\u201318 \u03bcl of the cleared solution into a 1.5 ml Eppendorf\u00ae\u00a0RNA/DNA LoBind tube\r\n  19. Measure DNA concentration using the Qubit\u00ae dsDNA HS Assay Kit \r\n  20. Store the library at \u201320 \u00b0C\r\n  **Checkpoint**: 1 \u03bcl of library can be checked on Bioanalyzer 2100 using a High Sensitivity DNA Kit"
+        },
+        {
+            "header": "Timing",
+            "content": "From the time that samples are ready to be processed, BLISS takes four days."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "Proper fragmentation of extracted genomic DNA is crucial for obtaining high quality libraries. Sheared DNA must be checked on the gel or Bioanalyzer 2100 \\(Agilent Technologies) before proceeding to IVT."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "Tagged DSBs by BLISS will generate high quality sequencing libraries with fragment size of 300-500 bp, that can be checked on Bioanalyzer 2100 \\(Agilent Technologies)."
+        },
+        {
+            "header": "References",
+            "content": "1. Madabhushi, R. et al. Activity-Induced DNA Breaks Govern the Expression of Neuronal Early-Response Genes. Cell 161, 1592\u20131605 \\(2015).\r\n  2. Schwer, B. et al. Transcription-associated processes cause DNA double-strand breaks and translocations in neural stem/progenitor cells. Proc. Natl. Acad. Sci. U. S. A. 113, 2258\u20132263 \\(2016).\r\n  3. Baudat, F., Imai, Y. & de Massy, B. Meiotic recombination in mammals: localization and regulation. Nat. Rev. Genet. 14, 794\u2013806 \\(2013).\r\n  4. Schatz, D. G. & Swanson, P. C. V\\(D)J Recombination: Mechanisms of Initiation. Annu. Rev. Genet. 45, 167\u2013202 \\(2011).\r\n  5. Negrini, S., Gorgoulis, V. G. & Halazonetis, T. D. Genomic instability--an evolving hallmark of cancer. Nat. Rev. Mol. Cell Biol. 11, 220\u2013228 \\(2010).\r\n  6. Hsu, P. D., Lander, E. S. & Zhang, F. Development and applications of CRISPR-Cas9 for genome engineering. Cell 157, 1262\u20131278 \\(2014).\r\n  7. Szilard, R. K. et al. Systematic identification of fragile sites via genome-wide location analysis of gamma-H2AX. Nat. Struct. Mol. Biol. 17, 299\u2013305 \\(2010).\r\n  8. Iacovoni, J. S. et al. High-resolution profiling of gammaH2AX around DNA double strand breaks in the mammalian genome. EMBO J. 29, 1446\u20131457 \\(2010).\r\n  9. Crosetto, N. et al. Nucleotide-resolution DNA double-strand break mapping by next-generation sequencing. Nat. Methods 10, 361\u2013365 \\(2013).\r\n  10. Ran, F. A. et al. In vivo genome editing using Staphylococcus aureus Cas9. Nature 520, 186\u2013191 \\(2015).\r\n  11. Slaymaker, I. M. et al. Rationally engineered Cas9 nucleases with improved specificity. Science 351, 84\u201388 \\(2016).\r\n  12. Tsai, S. Q. et al. GUIDE-seq enables genome-wide profiling of off-target cleavage by CRISPR-Cas nucleases. Nat. Biotechnol. 33, 187\u2013197 \\(2015).\r\n  13. Kim, D. et al. Digenome-seq: genome-wide profiling of CRISPR-Cas9 off-target effects in human cells. Nat. Methods 12, 237\u201343, 1 p following 243 \\(2015).\r\n  14. Wang, X. et al. Unbiased detection of off-target cleavage by CRISPR-Cas9 and TALENs using integrase-defective lentiviral vectors. Nat. Biotechnol. 33, 175\u2013178 \\(2015).\r\n  15. Frock, R. L. et al. Genome-wide detection of DNA double-stranded breaks induced by engineered nucleases. Nat. Biotechnol. 33, 179\u2013186 \\(2015).\r\n  16. Canela, A. et al. DNA Breaks and End Resection Measured Genome-wide by End Sequencing. Mol. Cell 63, 898\u2013911 \\(2016).\r\n  17. Lensing, S. V. et al. DSBCapture: in situ capture and sequencing of DNA breaks. Nat. Methods 13, 855\u2013857 \\(2016)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "We would like to thank R. Belliveau for overall research support; R. Macrae for critical reading of the manuscript; and the entire Zhang laboratory for support and advice. We would also like to thank T. Helleday group at Karolinska Institutet for providing reagents and support. W.X.Y. is supported by T32GM007753 from the National Institute of General Medical Sciences and a Paul and Daisy Soros Fellowship. E.W. is a recipient of a Swedish Society for Medical Research \\(SSMF) Postdoctoral Fellowship. F.Z. is supported by the NIH through NIMH \\(5DP1-MH100706 and 1R01-MH110049); NSF; the New York Stem Cell Foundation; the Howard Hughes Medical Institute; the Simons, Paul G. Allen Family, and Vallee Foundations; the Skoltech-MIT Next Generation Program; James and Patricia Poitras; Robert Metcalfe; and David Cheng. F.Z. is a New York Stem Cell Foundation-Robertson Investigator. \u00a0M.B. is supported by the Science for Life Laboratory, the Swedish Research Council \\(621-2014-5503), and the Ragnar S\u00f6derberg Foundation. N.C. is supported by the Karolinska Institutet, the Swedish Research Council \\(521-2014-2866), the Swedish Cancer Research Foundation \\(CAN 2015/585), and the Ragnar S\u00f6derberg Foundation."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/ncomms15058",
+                "date": "2017-05-23 10:49:55",
+                "title": "BLISS is a versatile and quantitative method for genome-wide profiling of DNA double-strand breaks",
+                "authors": [
+                    "Winston X. Yan",
+                    "Reza Mirzazadeh",
+                    "Silvano Garnerone",
+                    "David Scott",
+                    "Martin W. Schneider",
+                    "Tomasz Kallas",
+                    "Joaquin Custodio",
+                    "Erik Wernersson",
+                    "Yinqing Li",
+                    "Linyi Gao",
+                    "Yana Federova",
+                    "Bernd Zetsche",
+                    "Feng Zhang",
+                    "Magda Bienko",
+                    "and Nicola Crosetto"
+                ],
+                "journal": "Nature Communications",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 19870,
+                "identity": "1160a2fa-06a0-4e35-9d94-1e160683e33b",
+                "order_by": 1,
+                "name": "Winston X. Yan",
+                "email": "",
+                "orcid": "",
+                "institution": "Broad Institute of MIT and Harvard",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Winston",
+                "middleName": "X.",
+                "lastName": "Yan",
+                "suffix": ""
+            },
+            {
+                "id": 19871,
+                "identity": "f8a3c716-6c50-4e3d-9a05-cf41d6e8a758",
+                "order_by": 2,
+                "name": "Reza Mirzazadeh",
+                "email": "",
+                "orcid": "",
+                "institution": "Karolinska Institutet",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Reza",
+                "middleName": "",
+                "lastName": "Mirzazadeh",
+                "suffix": ""
+            },
+            {
+                "id": 19872,
+                "identity": "5a4f5696-4b3c-42f2-86e2-28e9439f1247",
+                "order_by": 3,
+                "name": "Silvano Garnerone",
+                "email": "",
+                "orcid": "",
+                "institution": "Karolinska Institutet",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Silvano",
+                "middleName": "",
+                "lastName": "Garnerone",
+                "suffix": ""
+            },
+            {
+                "id": 19873,
+                "identity": "6caaa0f0-0871-4116-9084-19dd76511c03",
+                "order_by": 4,
+                "name": "David Scott",
+                "email": "",
+                "orcid": "",
+                "institution": "Broad Institute of MIT and Harvard",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "David",
+                "middleName": "",
+                "lastName": "Scott",
+                "suffix": ""
+            },
+            {
+                "id": 19874,
+                "identity": "3c045957-5cb3-4e7e-b099-f58726b386ee",
+                "order_by": 5,
+                "name": "Martin W. Schneider",
+                "email": "",
+                "orcid": "",
+                "institution": "Broad Institute of MIT and Harvard",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Martin",
+                "middleName": "W.",
+                "lastName": "Schneider",
+                "suffix": ""
+            },
+            {
+                "id": 19875,
+                "identity": "0375bc26-4b96-4025-9662-1a1580f911f1",
+                "order_by": 6,
+                "name": "Tomasz Kallas",
+                "email": "",
+                "orcid": "",
+                "institution": "Karolinska Institutet",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Tomasz",
+                "middleName": "",
+                "lastName": "Kallas",
+                "suffix": ""
+            },
+            {
+                "id": 19876,
+                "identity": "9ca7930a-f65d-457d-9424-036a271301c2",
+                "order_by": 7,
+                "name": "Joaquin Custodio",
+                "email": "",
+                "orcid": "",
+                "institution": "Karolinska Institutet",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Joaquin",
+                "middleName": "",
+                "lastName": "Custodio",
+                "suffix": ""
+            },
+            {
+                "id": 19878,
+                "identity": "02e03f4d-4936-4747-8ff1-03ac925d5c6c",
+                "order_by": 8,
+                "name": "Yinqing Li",
+                "email": "",
+                "orcid": "",
+                "institution": "Broad Institute of MIT and Harvard",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Yinqing",
+                "middleName": "",
+                "lastName": "Li",
+                "suffix": ""
+            },
+            {
+                "id": 19879,
+                "identity": "c78c2e86-59e9-4c54-917d-985c6292d2e0",
+                "order_by": 9,
+                "name": "Linyi Gao",
+                "email": "",
+                "orcid": "",
+                "institution": "Broad Institute of MIT and Harvard",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Linyi",
+                "middleName": "",
+                "lastName": "Gao",
+                "suffix": ""
+            },
+            {
+                "id": 19880,
+                "identity": "fcb621bc-56b9-409f-8ce0-91e2c8a15761",
+                "order_by": 10,
+                "name": "Yana Federova",
+                "email": "",
+                "orcid": "",
+                "institution": "Broad Institute of MIT and Harvard",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Yana",
+                "middleName": "",
+                "lastName": "Federova",
+                "suffix": ""
+            },
+            {
+                "id": 19877,
+                "identity": "4fb8e78f-40d8-4405-a9b0-82a2e56f3cd5",
+                "order_by": 11,
+                "name": "Erik Wernersson",
+                "email": "",
+                "orcid": "",
+                "institution": "Karolinska Institutet",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Erik",
+                "middleName": "",
+                "lastName": "Wernersson",
+                "suffix": ""
+            },
+            {
+                "id": 19881,
+                "identity": "bd12e552-9a14-4f79-88ef-13eca105e40f",
+                "order_by": 12,
+                "name": "Bernd Zetsche",
+                "email": "",
+                "orcid": "",
+                "institution": "Broad Institute of MIT and Harvard",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Bernd",
+                "middleName": "",
+                "lastName": "Zetsche",
+                "suffix": ""
+            },
+            {
+                "id": 19867,
+                "identity": "8f50784f-ac4c-4b03-b8ff-5b145798c53a",
+                "order_by": 13,
+                "name": "Feng Zhang",
+                "email": "zhang@broadinstitute.org ",
+                "orcid": "",
+                "institution": "Broad Institute of MIT and Harvard",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Feng",
+                "middleName": "",
+                "lastName": "Zhang",
+                "suffix": ""
+            },
+            {
+                "id": 19868,
+                "identity": "42ac1226-834d-4915-b08c-97b7e6bfbe3a",
+                "order_by": 14,
+                "name": "Magda Bienko",
+                "email": "magda.bienko@scilifelab.se ",
+                "orcid": "",
+                "institution": "Karolinska Institutet",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Magda",
+                "middleName": "",
+                "lastName": "Bienko",
+                "suffix": ""
+            },
+            {
+                "id": 19869,
+                "identity": "35efb7eb-5d96-4003-ab57-15a2b8591a7a",
+                "order_by": 15,
+                "name": "Nicola Crosetto",
+                "email": "nicola.crosetto@scilifelab.se ",
+                "orcid": "",
+                "institution": "Karolinska Institutet",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Nicola",
+                "middleName": "",
+                "lastName": "Crosetto",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2017-02-09 11:32:55",
+        "currentVersionCode": 2,
+        "declarations": "",
+        "doi": "10.21203/rs.2.1448/v2",
+        "doiUrl": "https://doi.org/10.21203/rs.2.1448/v2",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 159390,
+                "identity": "413b175d-39a0-4828-ac94-6e096a87dafa",
+                "added_by": "auto",
+                "created_at": "2019-11-13 11:51:16",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 36558,
+                "visible": true,
+                "origin": "",
+                "legend": "BLISS scheme   The workflow starts by either fixing cells onto a microscope slide or in a multi-well plate, or by immobilizing already fixed tissue sections onto a slide. DSB ends are then in situ blunted and tagged with dsDNA adapters containing components described in the boxed legend and in Supplementary Table 2. Tagged DSB ends are linearly amplified using in vitro transcription, and the resulting RNA is used for Illumina library preparation and sequencing.",
+                "description": "",
+                "filename": "Figure1a.png",
+                "url": "https://assets.researchsquare.com/files/nprot-5597/v2/Figure_1a.png"
+            },
+            {
+                "id": 13478810,
+                "identity": "30cb11eb-b1df-43d9-8c8b-314666a041f7",
+                "added_by": "auto",
+                "created_at": "2021-09-16 21:36:52",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 378469,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-5597/v2/17ba35a1-4de4-4f0a-8953-6004ecad1900.pdf"
+            },
+            {
+                "id": 159388,
+                "identity": "dc831f0c-7af8-45b0-bfcd-11550b329b09",
+                "added_by": "auto",
+                "created_at": "2019-11-13 11:51:15",
+                "extension": "xlsx",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 41397,
+                "visible": true,
+                "origin": "",
+                "legend": "Supplementary Table 2   List of oligo adapters used throughout the paper",
+                "description": "",
+                "filename": "SupplementaryTable2.xlsx",
+                "url": "https://assets.researchsquare.com/files/nprot-5597/v2/Supplementary_Table_2.xlsx"
+            },
+            {
+                "id": 159389,
+                "identity": "7c8907b8-c6b5-4b7f-a5d4-507ca8dbdfff",
+                "added_by": "auto",
+                "created_at": "2019-11-13 11:51:15",
+                "extension": "docx",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 132379,
+                "visible": true,
+                "origin": "",
+                "legend": "Supplementary Table 1   Comparison of BLISS with other methods for genome-wide DSB detection",
+                "description": "",
+                "filename": "SupplementaryTable1.docx",
+                "url": "https://assets.researchsquare.com/files/nprot-5597/v2/Supplementary_Table_1.docx"
+            }
+        ],
+        "financialInterests": "A patent application has been filed including work described in this publication. F.Z. is a cofounder of Editas Medicine and a scientific advisor for Editas Medicine and Horizon Discovery.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "DNA double-strand breaks, BLISS, CRISPR, _In vitro_ transcription",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "Precisely measuring the location and frequency of DNA double-strand breaks \\(DSBs) along the genome is instrumental to understanding genomic fragility, but current methods are limited in versatility, sensitivity, or practicality. Here, we present Breaks Labeling _In Situ_ and Sequencing \\(BLISS), featuring: 1) direct labeling of DSBs in fixed cells or tissue sections on a solid surface; 2) low-input requirement by linear amplification of tagged DSBs by _in vitro_ transcription; 3) quantification of DSBs through unique molecular identifiers; and 4) easy scalability and multiplexing. We apply BLISS to profile endogenous and exogenous DSBs in low-input samples of cancer cells, embryonic stem cells, and liver tissue. We demonstrate the sensitivity of BLISS by assessing the genome-wide off-target activity of two CRISPR-associated RNA-guided endonucleases, Cas9 and Cpf1, observing that Cpf1 has higher specificity than Cas9. Our results establish BLISS as a versatile, sensitive, and efficient method for genome-wide DSB mapping in many applications.\r\n\n\n\r\n\n\nW.Yan and R.Mirzazadeh equally contributed to this work.",
+        "manuscriptTitle": "Breaks Labeling in situ and sequencing (BLISS)",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2017-05-23 10:53:01",
+                "doi": "10.1038/protex.2017.018",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            },
+            {
+                "code": 2,
+                "date": "2019-11-13 11:51:15",
+                "doi": "10.21203/rs.2.1448/v2",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a0ed4909-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "November 13th, 2019",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 7235,
+                "name": "Molecular Biology"
+            },
+            {
+                "id": 7236,
+                "name": "Biotechnology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2019-11-13 11:51:15",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

@@ -1,0 +1,210 @@
+{
+    "identity": "nprot-6761",
+    "title": "Creation of a comprehensive repeat library for a newly sequenced parasitic worm genome",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "It is useful to mask repeat elements within the assembly of a newly sequenced genome for tasks such as gene-finding, but also for the purpose of understanding evolution of repetitive elements. To do this, one must first construct a library of the repeat elements in the genome. We present a protocol for creating a comprehensive repeat library for the genome of a newly sequenced parasitic worm, based on merging repeat libraries made by RepeatModeler, TransposonPSI and LTRharvest.\r\n\n\n\r\n\n\nRepeatModeler uses results from three other programs, RECON \\(Bao & Eddy 2002), RepeatScout \\(Price _et al._ 2005), and Tandem Repeats Finder \\(TRF; Benson, 1999) to build a repeat library for an assembly. RepeatScout is good for finding highly conserved repetitive elements, while RECON can find less highly conserved elements. \r\n\n\n\r\n\n\nTransposonPSI is a program for finding repeats in genomes, by using PSI-BLAST \\(Altschul _et al._ 1997) to search for sequence matches at the DNA or protein level to proteins encoded by transposable elements. It can be useful for finding transposable elements that are very degenerate, and so may not be found by other repeat-finding software. The types of transposable elements found by TransposonPSI include LTR retroelements \\(e.g. gypsy and copia), non-LTR retroelements \\(e.g. LINE retrotransposon ORFs), DNA transposons \\(e.g. cryptons and other families), and helitrons. \r\n\n\n\r\n\n\nThe LTRharvest software can be used to find LTR retrotransposons in a genome assembly. \r\n\n\n\r\n\n\nWhile many analyses of genomes use a single repeat-finding approach to produce a repeat library, we believe that by making a non-redundant library based on a combination of three different software packages \\(LTRharvest, TransposonPSI, RepeatModeler), our protocol produces a more complete repeat library."
+        },
+        {
+            "header": "Reagents",
+            "content": "<a href=\"https://pfam.xfam.org/\">Pfam database website</a>\r\n\n\n\r\n\n\n<a href=\"http://gydb.org\">GyDB database wbsite</a>\r\n\n\n\r\n\n\n<a href=\"https://www.wormbase.org\">WormBase database website</a>\r\n\n\n\r\n\n\n<a href=\"http://www.genedb.org\">GeneDB database website</a>"
+        },
+        {
+            "header": "Equipment",
+            "content": "Computer cluster."
+        },
+        {
+            "header": "Procedure",
+            "content": "1. Build a repeat library for the newly sequenced genome using \r\n  RepeatModeler \\(\nRepeatModeler\n). \r\n\n\n\r\n\n\n2. Build a second repeat library for the newly sequenced genome using TransposonPSI \\(\nTransposonPSI\n). TransposonPSI uses PSI-BLAST to search for sequence matches at the DNA or protein level to proteins encoded by transposable elements. Remove sequences of <50 bp from the TransposonPSI repeat library.\r\n  \r\n\n\n3. Build a third repeat library for the newly sequenced genome, by using LTRharvest \\(Ellinghaus _et al._ 2008) to identify long terminal repeat \\(LTR) retrotransposons. To remove likely false positives, and make a library of full-length \\(or mostly full-length) LTR retrotransposon sequences, run LTRdigest on the LTRharvest results, with protein HMMs from Pfam \\(Finn _et al._ 2016) \\(those Pfam domains listed in tables B1 and B2 of Steinbiss _et al._ 2009) and GyDB \\(Llorens _et al._ 2011). To further remove likely false positives, remove any LTR retrotransposon candidates without domain hits. \r\n  \r\n\n\n4. For each of the three repeat libraries from \\(1), \\(2), \\(3), classify the repeats using RepeatClassifier \\(part of the RepeatModeler software).\r\n  \r\n\n\n5. Merge the repeat libraries from RepeatModeler, TransposonPSI and LTRharvest by using USEARCH v7 \\(Edgar 2010) to cluster the candidate sequences with \u226580% identity, and remove all but one sequence for each cluster. The resultant repeat library should be non-redundant. \r\n  \r\n\n\n6. To try to remove protein-coding genes from non-transposable element genes \\(e.g. collagen repeats), then filter the non-redundant library by removing repeats that were classified as \u2018unknown\u2019 \\(by RepeatClassifier) and that have BLASTN \\(Altschul _et al._ 1997) hits of E\u22640.001 against known protein-coding genes and ncRNA genes from nematodes and platyhelminths \\(DNA sequences for _C. elegans_ protein-coding and ncRNA transcripts from WormBase WS235 \\(Howe _et al._ 2016), and for _S. mansoni_ and _E. multilocularis_ protein-coding transcripts from GeneDB \\(Logan-Klumpler _et al._ 2012)). \r\n  \r\n\n\n7. If it is required to repeat-mask the genome of interest, the non-redundant library from \\(6)  above can be used to mask repeats in the genome using RepeatMasker \\(\nwww.repeatmasker.org\n), with the \u2013s \\(sensitive) option. This will mask low complexity DNA and simple repeats as well as transposable elements."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "**RepeatModeler**\r\n\n\n\r\n\n\nWhen running RepeatModeler, it may be necessary to rename the sequences in assembly to have simple names eg. C1, C2, C3, etc. as RepeatModeler gets confused by unusual characters or sequence names. \r\n\n\n\r\n\n\nIf your assembly has lots of smallish scaffolds \\(eg. average scaffold size 10kb), then it might be a good idea to cut down run-time by running RepeatModeller on just the subset of scaffolds that are quite long \\(eg. >=100 kb).\r\n\n\n\r\n\n\nWe find RepeatModeler can take several days or even a week or two to run on a large genome. For a 65-Mbase genome, it ran overnight  and we reserved 3000 Mbyte of memory \\(RAM) for it. If RepeatModeler crashes for no obvious reason, it may have ran out of memory, so it may be worth trying re-running it with lots \\(e.g. 20,000 Mbyte) of memory.\r\n\n\n\r\n\n\nRepeatModeler uses RepeatScout, and RepeatScout will often find tandem repeats and low complexity sequences, which may be present in the RepeatModeler output file, and you might want to remove them. \r\n\n\n\r\n\n\n**TransposonPSI** \r\n\n\n\r\n\n\nWe find TransposonPSI takes a long time \\(e.g. 1 week) for some assemblies with lots of scaffolds \\(e.g. ~100,000 scaffolds). To get around this, we glue together short scaffolds into long scaffolds, with 1000 'N's between each pair of short scaffolds. \r\n\n\n\r\n\n\n**RepeatClassifier**\r\n\n\n\r\n\n\nRunning RepeatClassifier seems to require a lot of memory \\(RAM), e.g. if a repeat library is <sub>0.5 Mbase, it needs </sub>100 Mbyte RAM and takes <sub>1 day; if </sub>5-10 Mbase then 5000 Mbyte and 2 days; if 20-50 Mbase then 5000 Mbyte and >2 days. Sometimes RepeatClassifier takes a long time and produces a lot of large temporary output files; in this case the repeat library can be split up into smaller files of 500 sequences each, and RepeatClassifier run on each separately.\r\n\n\n\r\n\n\n**Merged repeat library**\r\n\n\n\r\n\n\nWe find that for very fragmented genome assemblies, there appear to be quite a lot of low complexity sequences in the merged repeat library, which you may wish to identify \\(e.g. using Tandem Repeats Finder; Benson 1999) and remove.\r\n\n\n\r\n\n\n**RepeatMasker**\r\n\n\n\r\n\n\nWhen running RepeatMasker, it may be necessary to rename the repeats in the repeat library if the sequence names are too long to use for RepeatMasker \\(does not accept names of >80 characters)."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "The output is a repeat library. This is a fasta file of repeats for the genome of interest, each repeat classified by type \\(by RepeatClassifier).\r\n\n\n\r\n\n\nIf RepeatMasker is used to mask the genome with the repeat library, it produces a masked version of the genome, as well as a table showing the positions of repeats in the genome assembly."
+        },
+        {
+            "header": "References",
+            "content": "Altschul, S. F. _et al._ Gapped BLAST and PSI-BLAST: a new generation of protein database search programs. _Nucleic acids res._ **25**, 3389-402 \\(1997).\r\n\n\n\r\n\n\nBao, Z. & Eddy S. R. Automated _de novo_ identification of repeat sequence families in sequenced genomes. _Genome res._ **12**, 1269-76 \\(2002).\r\n\n\n\r\n\n\nBenson, G. Tandem repeats finder: a program to analyze DNA sequences. _Nucleic acids res._ **27**, 573-80 \\(1999).\r\n\n\n\r\n\n\nEdgar, R. C. Search and clustering orders of magnitude faster than BLAST. _Bioinformatics_ **26**, 2460-2461 \\(2010).\r\n\n\n\r\n\n\nEllinghaus, D. _et al._ LTRharvest, an efficient and flexible software for de novo detection of LTR retrotransposons. _BMC bioinformatics_ **9**, 18 \\(2008).\r\n\n\n\r\n\n\nFinn, R. D. _et al._ The Pfam protein families database: towards a more sustainable future. _Nucleic acids res._ **44**, D279-285 \\(2016).\r\n\n\n\r\n\n\nHowe, K. L. _et al._ WormBase 2016: expanding to enable helminth genomic research. _Nucleic acids res._ **44**, D774-780 \\(2016).\r\n\n\n\r\n\n\nLlorens, C. _et al._ The Gypsy Database \\(GyDB) of mobile genetic elements: release 2.0. _Nucleic acids res._ **39**, D70-74 \\(2011).\r\n\n\n\r\n\n\nLogan-Klumpler, F. J. _et al._ GeneDB--an annotation database for pathogens. _Nucleic acids res._ **40**, D98-108 \\(2012).\r\n\n\n\r\n\n\nPrice, A. L. _et al._ _De novo_ identification of repeat families in large genomes. _Bioinformatics_ **Suppl 1**, i351-8 \\(2005).\r\n\n\n\r\n\n\nSteinbiss, S. _et al._ Fine-grained annotation and classification of de novo predicted LTR retrotransposons. _Nucleic acids res._ **37**, 7002-7013 \\(2009)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "We thank James Cotton and Diogo Ribeiro for advice on running RepeatModeler, and to Sascha Steinbiss for advice on LTRharvest and LTRdigest."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 15662,
+                "identity": "a16c4f9c-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Matthew Berriman",
+                "email": "mb4@sanger.ac.uk",
+                "orcid": "",
+                "institution": "Berriman Lab Group, Sanger Institute",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Matthew",
+                "middleName": "",
+                "lastName": "Berriman",
+                "suffix": ""
+            },
+            {
+                "id": 15660,
+                "identity": "a16c4b34-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Avril Coghlan",
+                "email": "",
+                "orcid": "",
+                "institution": "Berriman Lab Group, Sanger Institute",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Avril",
+                "middleName": "",
+                "lastName": "Coghlan",
+                "suffix": ""
+            },
+            {
+                "id": 15661,
+                "identity": "a16c4de9-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Isheng Jason Tsai",
+                "email": "",
+                "orcid": "",
+                "institution": "Berriman Lab Group, Sanger Institute",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Isheng",
+                "middleName": "Jason",
+                "lastName": "Tsai",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2018-04-14 13:58:59",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2018.054",
+        "doiUrl": "https://doi.org/10.1038/protex.2018.054",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13465722,
+                "identity": "7a37cf1d-0150-4532-925d-e835e98dd17b",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:47:56",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 145542,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-6761/v1/973692a0-8f0b-4ddb-8509-8c03a7a4c8a9.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "repeat-finding, repeat library, repeat libraries, RepeatMasker, RepeatModeler, Transposon PSI, LTRharvest, LTRdigest, transposons, transposable elements, repetitive elements, repetitive DNA, repeats, parasites,  genomes, assemblies, parasitic worms, helminths, nematodes, flatworms, platyhelminths, Nematoda, Platyhelminthes",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "It is useful to mask repeat elements within the assembly of a newly sequenced genome for tasks such as gene-finding, but also for the purpose of understanding evolution of repetitive elements. To do this, one must first construct a library of the repeat elements in the genome. We present a protocol for creating a comprehensive repeat library for the genome of a newly sequenced parasitic worm, based on merging repeat libraries made by RepeatModeler, TransposonPSI and LTRharvest.",
+        "manuscriptTitle": "Creation of a comprehensive repeat library for a newly sequenced parasitic worm genome",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2018-05-15 02:57:14",
+                "doi": "10.1038/protex.2018.054",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a15cc705-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "May 15th, 2018",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 4255,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 4256,
+                "name": "Biotechnology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2018-05-15 02:57:14",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

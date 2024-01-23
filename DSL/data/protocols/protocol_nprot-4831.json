@@ -1,0 +1,410 @@
+{
+    "identity": "nprot-4831",
+    "title": "An optimized protocol for high-throughput amplicon-based microbiome profiling",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Next-generation sequencing \\(NGS) technologies have enabled a revolution in the ability to analyze and quantify the microbiome. Two prominent experimental approaches are typically used to assess microbial diversity; marker gene surveys, where a portion of a highly conserved gene such as the 16S ribosomal RNA \\(rRNA) gene is amplified and sequenced to identify the organisms that make up a microbial community, and shotgun metagenomics, where whole genome sequencing is performed on material isolated from a mixed microbial community. \r\n\n\n\r\n\n\n     Amplicon-based approaches have the advantage of being less expensive \\(both in terms of library preparation costs and sequencing costs), allowing much deeper and more sensitive profiling of a microbial community at a given cost. In addition, for samples such as biopsies, where there is a low abundance of microbial DNA compared to host DNA, the ability to dramatically enrich for microbial sequences using PCR make marker gene surveys much more attractive. Finally, shotgun approaches are heavily reliant on reference databases, so for eukaryotes/fungi or uncharacterized bacterial species, amplicon-based approaches allow for a broader range of detection. However, it has been widely recognized that amplicon-based marker gene surveys are prone to error and bias at many steps<sup>1\u20135</sup>. For this reason, methods for preparing microbiome amplicon libraries for NGS have proliferated. \r\n\n\n\r\n\n\n     We have systematically compared a number of these methods and dissected the parameter space of the amplification process, providing insights into the mechanistic basis of several sources of error and bias<sup>6</sup>. Through these experiments, we have compiled a list of best practices for amplicon-based marker gene surveys, which improve accuracy, reduce PCR artifacts such as chimeras, and minimize drop-out of taxa due to mismatches between the amplification or sequencing primers and the marker gene template sequence: These recommendations are as follows:\r\n\n\n1) Use a proofreading polymerase.\r\n\n\n2) Use a highly processive polymerase.\r\n\n\n3) Do not use sequencing primers that overlap with the amplification primers.\r\n\n\n4) Optimize template concentration.\r\n\n\n5) Minimize PCR cycle number.\r\n\n\n\r\n\n\n     Here we present a protocol that incorporates these best practices. This protocol uses a two-step PCR process, where the marker gene of interest is amplified with a pair of adapter-tailed primers in a primary PCR reaction, and sample-specific dual indices and flow cell adapters are added in a subsequent indexing reaction \\(Figure 1)<sup>7</sup>. We describe primer sets that have been used to prepare NGS libraries for variable regions V1-V3, V3-V4, V3-V5, V4, V4-V6, and V5-V6 of the 16S ribosomal RNA \\(rRNA) gene, as well as for variable region V9 of the 18S rRNA gene and the ITS1 and ITS2 regions, as well as a set of dual indexing primers that is compatible with all of the marker gene primer sets. The modularity of this design makes it easy to survey new regions of interest, since only a single pair of adapter-tailed locus-targeting primers needs to be synthesized. This protocol incorporates automation using liquid-handling robots for sample template optimization and normalization. This automation is not required to carry out this protocol, but enables this protocol to be carried out at very high throughput."
+        },
+        {
+            "header": "Reagents",
+            "content": "1) 384-well plate. \\(Deepwell or regular; dilution plate) \\(Eppendorf/Thermo Scientific)\r\n\n\n2) 384-well Barcoded plate. \\(Thermo Scientific)\r\n\n\n4) 96-well plates. \\(BioRad)\r\n\n\n5) Nuclease-free water. \\(Fisher Scientific)\r\n\n\n6) Microseal F \\(foil) seals. \\(BioRad)\r\n\n\n7) Optical Seals \\(qPCR). \\(Applied BioSystems)\r\n\n\n8) KAPA HiFi HotStart PCR Kit with dNTPs. \\(KAPA)\r\n\n\n9) Primer set for primary PCR \\(marker gene variable region). \\(IDT)\r\n\n\n10) Indexing primer set for indexing PCR. \\(IDT)\r\n\n\n11) DMSO. \\(Fisher Scientific)\r\n\n\n12) ROX. \\(Life Technologies)\r\n\n\n13) SYBR. \\(Life Technologies)\r\n\n\n14) White Matrix troughs. \\(Thermo Scientific)\r\n\n\n15) Microseal B PCR Film. \\(BioRad)\r\n\n\n16) Indexing oligo plate. \\(IDT)\r\n\n\n17) 1.5mL microfuge tubes. \\(Ambion)\r\n\n\n18) AmPure XP Beads. \\(Beckman Coulter)\r\n\n\n19) Magnetic Plate. \\(Life Technologies)\r\n\n\n20) Ethanol, 200 proof.\r\n\n\n21) 50mL Conical tubes. \\(Corning)\r\n\n\n22) PicoGreen reagents. \\(Life Technologies)\r\n\n\n23) Agilent DNA HS chips. \\(Agilent)\r\n\n\n24) Caliper LabChip XT DNA 750 chips. \\(Caliper)\r\n\n\n25) MiSeq sequencing reagents. \\(Illumina)"
+        },
+        {
+            "header": "Equipment",
+            "content": "1) Multichannel and single channel pipettes.\r\n\n\n2) Rainin Liquidator 96 pipette with p20/p200 tips. \\(Rainin)\r\n\n\n3) Rainin single/multichannel pipettes with p20/p200/p1000 tips. \\(Rainin)\r\n\n\n4) BioRad Tetrad thermocycler, or equivalent. \\(BioRad)\r\n\n\n5) Agilent Bioanalyzer. \\(Agilent)\r\n\n\n6) MiSeq. \\(Illumina)\r\n\n\n7) Platform shaker.\r\n\n\n8) Centrifuges \\(for plates and tubes). \r\n\n\n9) Plate reader \\(for PicoGreen). - Optional\r\n\n\n10) Thermo Matrix Pipette with 30 \u03bcl tips. \\(Thermo Scientific) - Optional\r\n\n\n11) ABI 7900. \\(Applied BioSystems) - Optional\r\n\n\n12) EpMotion 5075 Robot with 50 and 300 \u03bcl tips. \\(Eppendorf) - Optional\r\n\n\n13) Caliper XT. \\(Caliper) - Optional"
+        },
+        {
+            "header": "Procedure",
+            "content": "**1) Primary PCR amplification**\r\n\n\nThe first step of this protocol can be carried out using option A or B, depending on whether the user wishes to perform the template concentration optimization step \\(A -recommended for new sample types or unknown samples) or not \\(B - recommended for samples with known and consistent template concentrations).\r\n\n\n**CRITICAL STEP:** In order to minimize the potential for cross-contamination of samples, for all sample transfer steps, ensure that the liquid in the plate has been completely spun down and remove the seals slowly to avoid aerosolization. Likewise, for all sample mixing steps, make sure each individual well of the plate is well sealed.\r\n\n\n\r\n\n\n**1A.I) Creating sample dilution plate**\r\n\n\n**CRITICAL STEP:** For low abundance samples, sample dilution may result in population bottlenecking. Optimal results are achieved by minimizing PCR cycles and selecting the most concentrated samples possible. Potential bottlenecking can be assessed by sequencing multiple dilutions.\r\n\n\ni) Vortex samples to mix at 1900RPM for 15 seconds and spin-down on centrifuge.\r\n\n\nii) Using the Liquidator or a multichannel pipet, dispense 10 \u03bcl of undiluted sample into quadrant 1 \\(A01) of a 384-well deep-well plate that already has 18 \u03bcl water dispensed into quadrants 2 \\(A02), 3 \\(B01), and 4 \\(B02). Label plate appropriately.\r\n\n\niii) Make a 10 fold dilution series using one set of 20 \u03bcl Liquidator tips, or using a multichannel pipet. Transfer 2 \u03bcl of each sample from quadrant 1 \\(A01) to quadrant 2 \\(A02). Mix by pipetting up and down 10x.\r\n\n\n**CRITICAL STEP:** Do not go to the second stop on the Liquidator trigger, as this will introduce bubbles.\r\n\n\niv) Using the same tips, transfer 2 \u03bcl of well-mixed sample from quadrant 2 \\(A02) to quadrant 3 \\(B01). Mix samples in quadrant 3 by pipetting up and down 10x.\r\n\n\nv) Finally, transfer well-mixed samples from quadrant 3 \\(B01) to quadrant 4 \\(B02) to complete the dilution series.\r\n\n\nvi) Using the same set of tips, change the volume on the Liquidator to 3 \u03bcl, and transfer 3 \u03bcl of each dilution to a barcoded 384-well PCR plate, starting with the most dilute sample in quadrant 4 \\(B02) and ending with the most concentrated sample in quadrant 1 \\(A01). Label plate appropriately.\r\n\n\nvii) Cover plate with foil seal, vortex to mix and spin-down on centrifuge.\r\n\n\n**PAUSE POINT:** Store plates at -20\u00b0C or continue on to primary PCR.\r\n\n\n\r\n\n\n**1A.II) Primary PCR**\r\n\n\ni) Thaw the KAPA HiFi PCR kit reagents as well as the sample dilution 384-well plate if it has been stored in the freezer. Remember to vortex and centrifuge the plate\\(s) and reagents \\(when thawed) before using them.\r\n\n\nii) Make a 2x KAPA HiFi qPCR master mix using the following recipe \\(see Table 1 for list of marker-gene primer sequences):\r\n\n\n1.2 \u00b5l 5x KAPA HiFi buffer\r\n\n\n0.18 \u00b5l 10 mM dNTPs\r\n\n\n0.3 \u00b5l DMSO\r\n\n\n0.12 \u00b5l ROX \\(25 \u00b5M)\r\n\n\n0.003 \u00b5l 1000x SYBR Green\r\n\n\n0.12 \u00b5l KAPA HiFi Polymerase\r\n\n\n0.3 \u00b5l forward primer \\(10 \u00b5M)\r\n\n\n0.3 \u00b5l reverse primer \\(10 \u00b5M).\r\n\n\n0.48 \u00b5l Nuclease-free water\r\n\n\n**TROUBLESHOOTING:** This recipe uses the KAPA HiFi Polymerase enzyme at 1x the manufacturer\u2019s recommendation. For samples with low template abundance, a lower enzyme concentration such as 0.5x may be desirable, as we have shown that decreasing the enzyme concentration can improve sample balance and reduce adapter dimer contamination.\r\n\n\niii) Using a Matrix or multichannel pipette, dispense 3 \u03bcl of 2x KAPA HiFi qPCR master mix in each reaction well on the 384-well plate containing sample for a final reaction volume of 6 \u03bcl.\r\n\n\niv) Seal the plate with an optical seal, vortex at 1900 rpm for 15 seconds to mix, and spin-down in centrifuge.\r\n\n\nv) Run the following qPCR protocol on the ABI 7900. Typically, this should be run for 20 cycles and stopped at the end of the final extension phase.\r\n\n\nCycling Conditions:\r\n\n\n95\u00b0C \u2013 5 minutes\r\n\n\n15-30 cycles of:\r\n\n\n98\u00b0C \u2013 20 seconds\r\n\n\n55\u00b0C \u2013 15 seconds\r\n\n\n72\u00b0C \u2013 1 minute\r\n\n\nHold at 4\u00b0C\r\n\n\n**TROUBLESHOOTING:** Samples that amplify poorly can be amplified with increased cycle numbers. It is recommended that a water blank be run to allow assessment of potential contamination in reagents.\r\n\n\n**PAUSE POINT:** Store plate at -20\u00b0C or continue on to analysis and cherry-picking and primary PCR dilution.\r\n\n\n\r\n\n\n**1A.III) Analysis and cherry-picking and primary PCR dilution**\r\n\n\nThis analysis and cherry-picking protocol has been protocolized on an EpMotion 5075 Robot. Cherry-picking of optimally amplified samples could also be done using other systems or even manually, though using a robot is strongly recommended to avoid error.\r\n\n\ni) Export the \u201cClipped data\u201d .txt file from the ABI 7900, open it with Microsoft Excel, and paste the contents of this file into the \u201cpaste clipped data\u201d tab of the DI_qPCR_Analysis.xlsx template \\(see Supplemental Files).\r\n\n\nii) Examine the amplification curves for each sample in the \u201c96-well summary\u201d tab of the DI_qPCR_Analysis.xlsx spreadsheet. If the samples have amplified consistently, enter the number of amplification cycles and a target Rn value in the \u201cSet thresholds\u201d tab. This target Rn value should be the Rn at which most or all samples have at least one dilution that is in the mid-to-late exponential phase of the PCR at the final amplification cycle. Try to minimize the number of plateaued \\(i.e. overamplified) samples that you are selecting. Such samples can be excluded automatically by entering \u201cTRUE\u201d in the \u201cExclude overamplified samples?\u201d box on the \u201cSet thresholds\u201d tab.\r\n\n\n**CRITICAL STEP:** Double-check the cherry-picking choices in the \u201cCalculations\u201d tab \\(to make sure that the sub-optimal choices are not being made, for instance, choosing a non-amplified samples when all of the amplified samples have plateaued). If necessary, cherry-picking choices can be manually edited by changing the entry in column \u201cAA\u201d in the \u201cCalculations\u201d tab to select the desired dilution.\r\n\n\niii) Open the \u201cEpMotion program\u201d tab and save the data in this tab as a .csv file.\r\n\n\niv) Centrifuge the 384-well qPCR plate to collect sample and remove the optical seal from the plate.\r\n\n\nv) Using the EpMotion, transfer 2 \u03bcl of sample of the appropriate dilution from the 384-well qPCR plate to a 96-well plate containing 18 \u03bcl of water, making a 1:10 dilution of the initial PCR. Label this plate appropriately.\r\n\n\nvi) Cover 1:10 dilution plate with foil seal, vortex at 1900 RPM for 30 seconds and spin down in centrifuge.\r\n\n\nvii) Transfer 5 \u03bcl of the sample to a 96-well plate containing 45 \u03bcl of water to make a 1:100 dilution. Label this plate appropriately.\r\n\n\n**PAUSE POINT:** Store plates at -20\u00b0C or continue on to Indexing PCR.\r\n\n\n\r\n\n\n**1.B.I) Creating sample plate**\r\n\n\ni) If desired, normalize samples to a consistent concentration in a 96-well plate. Label plate appropriately.\r\n\n\nii) Transfer 3 ul of sample from each well to a 96-well run plate. Seal the plate with a foil seal. Label plate appropriately.\r\n\n\niii) Vortex samples to mix at 1900RPM for 15 seconds and spin-down in a centrifuge.\r\n\n\n**PAUSE POINT:** Store plates at -20\u00b0C or continue on to primary PCR.\r\n\n\n\r\n\n\n**1.B.II) Primary PCR**\r\n\n\ni) Thaw the KAPA HiFi PCR kit reagents as well as 96-well plate if it has been stored in the freezer. Remember to vortex and centrifuge the plate\\(s) and reagents \\(when thawed) before using them.\r\n\n\nii) Make a 2x KAPA HiFi PCR master mix using the following recipe \\(see Table 1 for list of marker-gene primer sequences):\r\n\n\n1.2 \u00b5l 5x KAPA HiFi buffer\r\n\n\n0.18 \u00b5l 10 mM dNTPs\r\n\n\n0.3 \u00b5l DMSO\r\n\n\n0.12 \u00b5l KAPA HiFi Polymerase\r\n\n\n0.3 \u00b5l forward primer \\(10 \u00b5M)\r\n\n\n0.3 \u00b5l reverse primer \\(10 \u00b5M).\r\n\n\n0.6 \u00b5l Nuclease-free water\r\n\n\n**TROUBLESHOOTING:** This recipe uses the KAPA HiFi Polymerase enzyme at 1x the manufacturer\u2019s recommendation. For samples with low template abundance, a lower enzyme concentration such as 0.5x may be desirable, as we have shown that decreasing the enzyme concentration can improve sample balance and reduce adapter dimer contamination.\r\n\n\niii) Using a Matrix or multichannel pipette, dispense 3 \u03bcl of 2x KAPA HiFi PCR master mix in each reaction well on the 96-well plate\\(s) containing sample for a final reaction volume of 6 \u03bcl.\r\n\n\niv) Seal the plate\\(s) with Microseal PCR film, vortex at 1900 rpm for 15 seconds to mix, and spin-down in centrifuge.\r\n\n\nv) Run the following PCR protocol on the BioRad Tetrad \\(or equivalent PCR machine). Typically, this should be run for 20 cycles and stopped at the end of the final extension phase.\r\n\n\nCycling Conditions:\r\n\n\n95\u00b0C \u2013 5 minutes\r\n\n\n15-30 cycles of:\r\n\n\n98\u00b0C \u2013 20 seconds\r\n\n\n55\u00b0C \u2013 15 seconds\r\n\n\n72\u00b0C \u2013 1 minute\r\n\n\nHold at 4\u00b0C\r\n\n\n**TROUBLESHOOTING:** Samples that amplify poorly can be amplified with increased cycle numbers. It is recommended that a water blank be run to allow assessment of potential contamination in reagents.\r\n\n\n**PAUSE POINT:** Store plate at -20\u00b0C or continue on to Primary PCR dilution.\r\n\n\n\r\n\n\n**1.B.III) Primary PCR dilution**\r\n\n\ni) Transfer 2 \u03bcl of sample of each well of the 96-well Primary PCR plate to a 96-well plate containing 18 \u03bcl of water, making a 1:10 dilution of the initial PCR. Label this plate appropriately.\r\n\n\nii) Cover 1:10 dilution plate with foil seal, vortex at 1900 RPM for 30 seconds and spin down in centrifuge.\r\n\n\niii) Transfer 5 \u03bcl of the sample to a 96-well plate containing 45 \u03bcl of water to make a 1:100 dilution. Label this plate appropriately.\r\n\n\n**PAUSE POINT:** Store plates at -20\u00b0C or continue on to Indexing PCR.\r\n\n\n\r\n\n\n**2.I) Indexing PCR: Picking an indexing scheme**\r\n\n\ni) Determine an i5 and i7 dual-indexing scheme, ensuring no index overlap between samples to be pooled for sequencing \\(see Appendix 1 on making indexing primer plates). The final scheme used will be dependent on how many samples are to be pooled together for sequencing. For low numbers of samples, follow the Illumina\u2019s guidelines for low-plex sample pooling \\(http://www.illumina.com/documents/products/technotes/technote_nextera_low_plex_pooling_guidelines.pdf)\r\n\n\nSee Table 2 and attached MiSeq setup sheets for index primer sequences.\r\n\n\n**CRITICAL STEP:** Be absolutely certain that no two samples have the same index combination.\r\n\n\nii) Copy and paste the sample names, sample plate number, into the appropriate MiSeq setup template \\(see Supplemental Files \u2013 MiSeq setup templates). Save this file as a .csv file.\r\n\n\n\r\n\n\n**2.II) Indexing PCR**\r\n\n\ni) Thaw the KAPA HiFi PCR kit reagents as well as the Primary PCR 1:100 dilution plate if it has been stored in the freezer. Remember to vortex and centrifuge the plate\\(s) and reagents \\(when thawed) before using them.\r\n\n\nii) Make sure there is a corresponding 5 \u03bcM oligo plate for each index scheme being used \\(see Appendix 1).\r\n\n\niii) Make a 3.33x KAPA HiFi Indexing PCR master mix using the following recipe:\r\n\n\n2 \u00b5l 5x KAPA HiFi buffer\r\n\n\n0.3 \u00b5l 10 mM dNTPs\r\n\n\n0.5 \u00b5l DMSO\r\n\n\n0.2 \u00b5l KAPA HiFi Polymerase\r\n\n\niv) With a multichannel pipette, dispense 3ul of mix into each well of a 96-well PCR plate. Label this plate appropriately.\r\n\n\nv) Using the Liquidator, or a multichannel pipet, pull 5 \u03bcl from the Primary PCR 1:100 dilution plate and dispense into the corresponding 96-well PCR plate that already contains 3 \u03bcl of the Indexing PCR master mix.\r\n\n\nvi) Using the Liquidator, or a multichannel pipet, pull 2 \u03bcl from the appropriate 5 \u03bcM indexing scheme plate and dispense into the corresponding 96-well PCR plate that contains the indexing PCR master mix and sample.\r\n\n\nvii) Optional \u2013 If you are preparing more than 96 samples, with the tips still submerged in the sample, change the Liquidator volume knob to 10\r\n\n\n\u03bcl and draw up the 10 \u03bcl reaction dispense \\(starting in quadrant 1, A01) into a 384-well plate. Label this plate appropriately.\r\n\n\nviii) Repeat steps iii-vii using a new set of Liquidator tips if there is more than one plate to set up.\r\n\n\nix) Cover the PCR plate\\(s) with Microseal PCR film, vortex at 1900 RPM\r\n\n\nfor 30 seconds and spin down in a centrifuge.\r\n\n\nx) Amplify PCR plate\\(s) for 10 cycles on the BioRad Tetrad \\(or comparable PCR machine) using the following cycling conditions:\r\n\n\n95\u00b0C \u2013 5 minutes\r\n\n\n10 cycles of:\r\n\n\n98\u00b0C \u2013 20 seconds\r\n\n\n55\u00b0C \u2013 15 seconds\r\n\n\n72\u00b0C \u2013 1 minute\r\n\n\nHold at 4\u00b0C\r\n\n\nxi) After the PCR program is complete, centrifuge the plate to collect the sample.\r\n\n\n**PAUSE POINT:** Store plates at -20\u00b0C or continue on to Normalization and Pooling.\r\n\n\n\r\n\n\n**3) Normalization and pooling**\r\n\n\nThe normalization and pooling step of this protocol can be carried out using option A or B, depending on availability of equipment and reagents, whether or not size selection is required, and scale \\(A - PicoGreen-based normalization - recommended for smaller-scale projects or when doing size selection; B - SequalPrep\u2013based normalization - recommended for larger-scale projects).\r\n\n\n**TROUBLESHOOTING:** Note that the presence of adapter dimers can throw off mass-based normalization calculations and may lead to sample pool imbalance if different samples have different amounts of adapter dimer contamination \\(particularly if libraries are size selected).\r\n\n\n\r\n\n\n**3.A.I) PicoGreen quantification of indexed samples**\r\n\n\ni) Determine the individual sample concentrations by PicoGreen \\(following manufacturer\u2019s protocol).\r\n\n\n\r\n\n\n**3.A.II) Normalization calculations**\r\n\n\ni) Determine a desired concentration for normalization. This concentration can be adjusted depending on how concentrated or dilute the samples are.\r\n\n\nii) For each sample, calculate the amount of water that needs to be added to a fixed volume of indexing PCR sample \\(typically 2 \u03bcl, 4 \u03bcl, or 6 \u03bcl) in order to get the desired concentration.\r\n\n\n\r\n\n\n**3.A.III) Sample Normalization**\r\n\n\ni) Use the EpMotion to transfer the appropriate amount of water to each well of a new 96-well plate. Label this plate appropriately.\r\n\n\nii) Use the Liquidator or a multichannel pipette to add the previously determined fixed amount of indexing PCR sample to each well on the normalization plate.\r\n\n\niii) Cover plate with foil, vortex to mix and spin-down in the centrifuge.\r\n\n\n**TROUBLESHOOTING:** We have observed some systematic differences in the efficiency of amplification and ultimate sample balance associated with specific indexing primers. At this point it is unknown whether this is due to intrinsic sequence-specific properties of the indexing primers or due to the specific synthesis. However, whatever the cause, we have found that sample balance can be improved by adding empirically determined index-specific correction factors to the normalization calculations.\r\n\n\n**PAUSE POINT:** Store plates at -20\u00b0C or continue on to Pooling and clean-up.\r\n\n\n\r\n\n\n**3.A.IV) Pooling and clean-up**\r\n\n\ni) Dispense an equal volume of each sample to be pooled into a trough. Mix well and transfer from the trough to a 1.5 ml microfuge tube.\r\n\n\n**CRITICAL STEP:** If doing the optional size selection step, make sure not to pool more than 1 \u03bcg \\(Which is the maximum input for the Caliper cut). The amount of each sample to pool depends on the number of samples and the normalized sample concentration.\r\n\n\nii) Use the Speedvac to concentrate the sample pool down to 20-100 \u03bcl and purify the sample pool using 1X AmPureXP beads \\(Appendix 2). If you will be size selecting the material on the Caliper XT, elute in 12.5 \u03bcl of nuclease-free water. If the sample will not be size selected, or if you have pooled >1.5 \u03bcg of sample, elute in 25 \u03bcl of nuclease-free water or EB \\(10 mM Tris-Cl, 1 mM EDTA, pH 8.0).\r\n\n\n**PAUSE POINT:** Store samples at -20\u00b0C or continue to Library QC or optionally size selection using the Caliper XT.\r\n\n\n\r\n\n\n**3.B.I) SequalPrep plate-based normalization**\r\n\n\ni) Purify the 10 \u03bcl indexing PCR reactions using a SequalPrep normalization plate, following the manufacturer\u2019s instructions.\r\n\n\n**CRITICAL STEP:** For new sample types, make sure that there is sufficient input material post-indexing PCR to use the SequalPrep plates. This can be assessed using the PicoGreen assay. If samples are expected to be consistently amplified, it may suffice to spot-check several samples.\r\n\n\n\r\n\n\n**3.B.II) Pooling and clean-up**\r\n\n\ni) Dispense 10 \u03bcl of each sample to be pooled into a trough. Mix well and transfer from the trough to a 1.5 ml microfuge tube. For projects with large numbers of samples, the volume of pooled material can be adjusted downward.\r\n\n\n**TROUBLESHOOTING:** We have typically observed yields that are ~5-10 fold lower than those listed in the SequalPrep manual. Keep this in mind when pooling to ensure that you have enough material in the final library to sequence. The eluted material, which is typically in the range of 0.1-0.2 ng/ul, will need to be concentrated 5-10x in order to get the library into the 1-2 nM range required for Illumina sequencing.\r\n\n\nii) Use the Speedvac to concentrate the sample pool down to 20-100 \u03bcl and purify the sample pool using 1X AmPureXP beads \\(Appendix 2). Elute in 25 \u03bcl of nuclease-free water or EB \\(10 mM Tris-Cl, 1 mM EDTA, pH 8.0).\r\n\n\n**PAUSE POINT:** Store samples at -20\u00b0C or continue to Library QC.\r\n\n\n\r\n\n\n**OPTIONAL: Size selection using the Caliper XT**\r\n\n\ni) Remove the Caliper LabChip XT DNA 750 kit reagents from the 4\u00b0C and the AmPureXP beads and let them come to room temperature. The Caliper reagents are light sensitive- so keep them in the dark.\r\n\n\nii) Load 10 \u03bcl of the concentrated pool on a single Caliper LabChip DNA 750 chip lane and cut depending on the region being amplified, following the manufacturer\u2019s protocol. The sizes used for size selecting different variable regions are as follows:\r\n\n\n16S V1-V3 = 662 bp +/- 20%\r\n\n\n16S V3-V4 = 550 bp +/- 20%\r\n\n\n16S V3-V5 = 722 bp +/- 20%\r\n\n\n16S V4 = 427 bp +/- 20%\r\n\n\n16S V4-V6 = 685 bp +/- 20%\r\n\n\n16S V5-V6 = 416 bp +/- 20%\r\n\n\n18S V9 = 260 +/- 20%\r\n\n\nITS1, ITS2: Size selection is not recommended for these regions, as they have highly variable size distributions\r\n\n\n**CRITICAL STEP:** Do not overload the chip \\(> 1 \u03bcg), as this can affect migration of the DNA and the accuracy of sizing.\r\n\n\nii) Purify sample with 1.8X AmPureXP Beads and elute in 20 \u03bcl of water.\r\n\n\n**PAUSE POINT:** Store samples at -20\u00b0C or continue to library QC.\r\n\n\n\r\n\n\n**4) Library QC**\r\n\n\ni) Perform library QC by running pooled library on an Agilent DNA HS chip, following the manufacturer\u2019s protocol and verifying that the size distribution is in the expected range \\(see Anticipated Results section for examples and troubleshooting information).\r\n\n\nii) Determine the concentration of the pooled library by PicoGreen \\(following manufacturer\u2019s protocol).\r\n\n\niii) Dilute the pooled library to 2 nM in EB using the concentration determined by the PicoGreen assay, and the expected size for the amplicon in the case of the 16S or 18S rRNA genes \\(see above), or the average size determined by the Agilent DNA HS chip in the case of ITS1 and ITS2.\r\n\n\n\r\n\n\n**5) Sequencing**\r\n\n\ni) Thaw MiSeq reagent kit \\(typically either a 500 cycle v2 or 600 cycle v3 kit).\r\n\n\nii) Generate a MiSeq sample sheet using the Illumina Experiment Manager program and paste in the sample and barcode information. Load the sample sheet on the MiSeq.\r\n\n\niii) Follow Illumina\u2019s protocol for preparing the instrument and flow cell.\r\n\n\niv) In a 1.5 ml microfuge tube, denature 10 \u03bcl of 2 nM library by incubating with freshly diluted 0.2 N NaOH for 5 minutes at room temperature.\r\n\n\nv) Add 980 \u03bcl of Illumina\u2019s HT1 buffer to bring the sample to 20 pM.\r\n\n\nvi) Dilute to 8 pM by mixing 400 \u03bcl of 20 pM library and 600 \u03bcl of Illumina\u2019s HT1 buffer in a clean 1.5 ml microfuge tube.\r\n\n\nvii) Prepare 8 pM PhiX.\r\n\n\nviii) Remove 150 \u03bcl of the 8 pM library and discard. Add 150 \u03bcl of 8 pM PhiX to the remaining 850 \u03bcl of 8 pM library \\(15% PhiX spike).\r\n\n\nix) Add 600 \u03bcl of the 8 pM \\(15% PhiX) library to the sample well of the MiSeq cartridge and initiate sequencing. Libraries generated with this protocol are sequenced using standard Illumina sequencing primers \\(which are already present in the MiSeq reagent cartridge).\r\n\n\n**TROUBLESHOOTING:** Sequence quality will be dramatically affected by cluster density and amount of PhiX spike. Accurate clustering will depend on the accuracy of library quantification. The amount of library clustered and may need to be varied to account for differences in library quantification methodology or technique between groups. In addition, for longer amplicons such as V1-V3, V3-V5, and V4-V6, it is desirable to spike in 25% PhiX, rather than 15% \\(see Anticipated Results section).\r\n\n\n\r\n\n\n\u2003\r\n\n\n**APPENDIX 1 \u2013 Making 5 \u03bcM indexing scheme primer plates**\r\n\n\n\r\n\n\n**CRITICAL STEP:** In order to avoid potential contamination, we recommend making up batches of indexing scheme plates designed to be used a small number of times \\(\u22645).\r\n\n\n\r\n\n\n**1) Making a 5 \u03bcM master plate**\r\n\n\ni) Starting with the 100 \u03bcM stock plates \\(see Table 2 for primer sequences and plate layouts), first make 10 \u03bcM daughter plates containing the desired forward and reverse indexing schemes. Note: forward indexing primers are arrayed in columns \\(and given numerical prefixes as names) and reverse indexing primers are arrayed in rows \\(and given letter prefixes as names).\r\n\n\nii) In a deep-well 96-well plate, for the forward indexing scheme, add 270 \u03bcl of nuclease-free water to each well of the column\\(s) corresponding to the indices that you will be using in the 100 \u03bcM stock plate. Next transfer 30 \u03bcl of each forward index to the column\\(s) containing water.\r\n\n\niii) In a deep-well 96-well plate, for the reverse indexing scheme, add 180 \u03bcl of nuclease-free water to each well of the row\\(s) corresponding to the indices that you will be using in the 100 \u03bcM stock plate. Next transfer 20 \u03bcl of each forward index to the row\\(s) containing water.\r\n\n\niv) Using a multichannel pipet, add 20 ul of the 10 \u03bcM forward primers column-wise to a new 96-well plate. Label the plate appropriately \\(i.e. Indexing scheme 1B \\(5 \u03bcM)).\r\n\n\nv) Using a multichannel pipet, add 20 ul of the 10 \u03bcM reverse primers row-wise to the 96-well plate made in step ii.\r\n\n\nvi) Using a multichannel pipet or the liquidator, Add 40 \u03bcl of water to each well create a 5 \u03bcM master plate containing 80 \u03bcl of indexing primer mix.\r\n\n\nvii) Seal the plate with a foil seal, vortex at 1900 rpm for 15 seconds to mix, and spin-down in centrifuge.\r\n\n\nviii) Repeat for additional indexing schemes if desired\r\n\n\n**PAUSE POINT:** Store master plates at -20\u00b0C or continue to Aliquoting limited use indexing plates.\r\n\n\n\r\n\n\n**2) Aliquoting limited use indexing plates**\r\n\n\ni) Thaw the indexing scheme master plate\\(s) if it has been stored in the freezer. Remember to vortex and centrifuge the plate\\(s) \\(when thawed) before using them.\r\n\n\nii) Carefully remove the foil seal from the indexing scheme master plate and use the liquidator or a multichannel pipet to dispense 12 \u03bcl of primer mix from each well into each of 6 96-well plates. Each plate will have enough primer mix for 5 indexing reactions, thus each batch makes enough material for 5 x 6 x 96 = 2880 samples per indexing scheme.\r\n\n\niii) Store indexing scheme plates at -20\u00b0C.\r\n\n\n\r\n\n\n\r\n\n\n**APPENDIX 2 \u2013 AmPure XP bead purification**\r\n\n\n\r\n\n\ni) Vortex AmPure XP beads until they are well mixed. Calculate the amount of beads needed to clean-up the samples \\(typically a ratio of 1.8x beads:sample is used, though 1x or even 0.8x beads:sample ratios can be used in cases where it is desirable to remove material that is <200 bp, such as adapter dimers).\r\n\n\nii) Add appropriate volume of well-mixed AmPure XP beads using a multichannel pipette to each well \\(if using a plate-based magnet) or tube \\(if using a tube-based magnet). Allow the sample and beads to incubate for 5 minutes at room temperature.\r\n\n\niii) Place the plate \\(or tubes) on the magnetic stand at room temperature for 2 minutes, until the liquid appears clear. Remove and discard the supernatant, being careful to not disturb the magnetic bead pellet.\r\n\n\niv) With the magnetic plate still on the stand, wash the bead pellet 2X for 30 seconds with 200-500 \u03bcl of fresh 80% ethanol, also while not disturbing the pellet. Make sure that 80% ethanol completely covers the beads during the wash.\r\n\n\nv) Remove all traces of the 80% ethanol and let the plate/tubes dry at room temperature for 10 minutes.\r\n\n\nvi) Resuspend the beads in designated amount of nuclease free water and pipette gently to mix. Allow beads/sample to incubate at room temperature for 2 minutes.\r\n\n\nvii) Place the plate/tubes back on the magnetic stand at room temperature for 2 minutes, until the liquid appears clear.\r\n\n\nviii) Transfer supernatant \\(containing the eluted DNA) to a new tube or plate."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "**1) Primary PCR**\r\n\n\nAnticipated results for the primary PCR \\(using the template optimization qPCR protocol) are shown in Figure 2. Example traces for three samples amplified with the 16S rRNA V4 primers are shown in Figure 2A-C. The trace for the water blank that was run in parallel is shown in Figure 2D. The samples that were selected for subsequent cherry-picking and indexing are shown in Figure 2E-H).\r\n\n\n\r\n\n\n**2) Indexing PCR**\r\n\n\nAt this stage, we do not routinely check individual samples unless the qPCR data suggested a problem. If desired, indexed amplicons can be checked to see if they are the correct size or if there is adapter dimer contamination by running on an agarose gel or Agilent Bioanalyzer.\r\n\n\n\r\n\n\n**3) Normalization and pooling**\r\n\n\nIf doing PicoGreen-based normalization, you should see PicoGreen values that are clearly above those of the water blanks. The values will depend on starting template concentration and the amount of amplification. Most typically we see values between 2 ng/\u03bcl and 20 ng/\u03bcl.\r\n\n\n\r\n\n\n**4) Library QC**\r\n\n\nFor the 16S rRNA amplicons, a high quality library will have a single clear peak of the expected size \\(Figure 3A). For ITS1 and ITS2, size distributions are typically more variable and a high quality library will typically have several peaks. Possible problems with library preparation include adapter dimer contamination \\(Figure 3B) and \\(rarely) off-target amplification of host DNA \\(Figure 3C). Both of these problems are typically seen for marginal samples that have very low microbial template abundance. For bacterial samples, these undesired products can be removed by size selection of the library, though this may affect pool balance \\(see Normalization and pooling section above). If a large amount of adapter dimer contamination is seen, it may be desirable to optimize the PCR reaction by adjusting the concentration of the KAPA HiFi polymerase \\(see Primary PCR section above).\r\n\n\n\r\n\n\n**5) Sequencing**\r\n\n\nDue to the imaging-based nature of Illumina sequencing, the low cycle-to-cycle sequence diversity of amplicon libraries presents special challenges for sequencing<sup>8,9</sup>. Failure to cluster the flow cell at an appropriate cluster density can lead to lower sequence quality or run failure. In addition, spiking in a more diverse library \\(typically a PhiX control) improves sequence quality. Ultimately, there is a trade-off between yield \\(number of reads) and quality \\(Figure 4). We have also found that there is a strong correlation between 16S rRNA variable region and sequence quality. Longer amplicons such as V1-V3 and V4-V6 are systematically associated with lower sequence quality across a range of clustering concentrations and PhiX spike-in concentrations than shorter amplicons such as V4 and V5-V6 \\(Figure 4). Note that in order to avoid confounding effects of instrument-to-instrument variation \\(which we have observed), all the data shown here was acquired using the same MiSeq instrument."
+        },
+        {
+            "header": "References",
+            "content": "1. Salter, S. J. et al. Reagent and laboratory contamination can critically impact sequence-based microbiome analyses. BMC Biol. 12, 87 \\(2014).\r\n  2. Weiss, S. et al. Tracking down the sources of experimental contamination in microbiome studies. Genome Biol. 15, 564 \\(2014).\r\n  3. Brooks, J. P. et al. The truth about metagenomics: quantifying and counteracting bias in 16S rRNA studies. BMC Microbiol. 15, 66 \\(2015).\r\n  4. Pinto, A. J. & Raskin, L. PCR biases distort bacterial and archaeal community structure in pyrosequencing datasets. PLoS One 7, e43093 \\(2012).\r\n  5. Sinha, R., Abnet, C. C., White, O., Knight, R. & Huttenhower, C. The microbiome quality control project: baseline study design and future directions. Genome Biol. 16, 276 \\(2015).\r\n  6. Gohl, D. M., Vangay, P., Garbe, J., MacLean, A., Hauge, A., Becker, A., Gould, T. J., Clayton, J. B., Johnson, T. J., Hunter, R., Knights, D., Beckman, K. B. Systematic improvement of amplicon marker gene methods for increased accuracy in microbiome studies. Nat. Biotechnol. \\(2016).\r\n  7. 16S Metagenomic Sequencing Library Preparation. Illumina Tech. Note 15044223 Rev. A\r\n  8. Schirmer, M. et al. Insight into biases and sequencing errors for amplicon sequencing with the Illumina MiSeq platform. Nucleic Acids Res. 43, e37\u2013 \\(2015).\r\n  9. D\u2019Amore, R. et al. A comprehensive benchmarking study of protocols and sequencing platforms for 16S rRNA community profiling. BMC Genomics 17, 55 \\(2016)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "We thank the staff of the University of Minnesota Genomics Center for helpful discussions and technical support. This work was supported by a grant from the Minnesota Partnership for Biotechnology and Medical Genomics \\(MNP IF #14.09)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nbt.3601",
+                "date": "2016-04-28 16:25:18",
+                "title": "Systematic improvement of amplicon marker gene methods for increased accuracy in microbiome studies",
+                "authors": [
+                    "Daryl M. Gohl",
+                    "Pajau Vangay",
+                    "John Garbe",
+                    "Allison MacLean",
+                    "Adam Hauge",
+                    "Aaron Becker",
+                    "Trevor J. Gould",
+                    "Jonathan B. Clayton",
+                    "Timothy J. Johnson",
+                    "Ryan Hunter",
+                    "Dan Knights",
+                    "Kenneth B. Beckman"
+                ],
+                "journal": "Nature Biotechnology",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 13945,
+                "identity": "a0b84751-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Daryl M. Gohl",
+                "email": "dmgohl@umn.edu",
+                "orcid": "",
+                "institution": "University of Minnesota Genomics Center, Minneapolis, MN, USA",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Daryl",
+                "middleName": "M.",
+                "lastName": "Gohl",
+                "suffix": ""
+            },
+            {
+                "id": 13946,
+                "identity": "a0b849cb-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Allison MacLean",
+                "email": "",
+                "orcid": "",
+                "institution": "University of Minnesota Genomics Center, Minneapolis, MN, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Allison",
+                "middleName": "",
+                "lastName": "MacLean",
+                "suffix": ""
+            },
+            {
+                "id": 13947,
+                "identity": "a0b84b6c-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Adam Hauge",
+                "email": "",
+                "orcid": "",
+                "institution": "University of Minnesota Genomics Center, Minneapolis, MN, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Adam",
+                "middleName": "",
+                "lastName": "Hauge",
+                "suffix": ""
+            },
+            {
+                "id": 13948,
+                "identity": "a0b84d86-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Aaron Becker",
+                "email": "",
+                "orcid": "",
+                "institution": "University of Minnesota Genomics Center, Minneapolis, MN, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Aaron",
+                "middleName": "",
+                "lastName": "Becker",
+                "suffix": ""
+            },
+            {
+                "id": 13949,
+                "identity": "a0b8564b-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Dinesha Walek",
+                "email": "",
+                "orcid": "",
+                "institution": "University of Minnesota Genomics Center, Minneapolis, MN, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Dinesha",
+                "middleName": "",
+                "lastName": "Walek",
+                "suffix": ""
+            },
+            {
+                "id": 13950,
+                "identity": "a0b85808-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Kenneth B. Beckman",
+                "email": "",
+                "orcid": "",
+                "institution": "University of Minnesota Genomics Center, Minneapolis, MN, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Kenneth",
+                "middleName": "B.",
+                "lastName": "Beckman",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2016-04-28 20:00:30",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2016.030",
+        "doiUrl": "https://doi.org/10.1038/protex.2016.030",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2609442,
+                "identity": "b198bbeb-7003-4acc-817e-cb7ef139c9fe",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:55",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 124587,
+                "visible": true,
+                "origin": "",
+                "legend": "Outline of Dual-Indexing Method   A) Dual-indexing protocol, in which the variable region of a marker gene is first amplified with primers containing common adapter sequences. Then, the Illumina flow cell adapters and dual-indices are added in a secondary amplification.\r\nB) Flow chart showing the discrete steps of the procedure and branch points where there are multiple options.\r\n",
+                "description": "",
+                "filename": "figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-4831/v1/figure_1.jpg"
+            },
+            {
+                "id": 2609444,
+                "identity": "f7757149-5419-44f8-bdaa-95efe12108e4",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:55",
+                "extension": "jpg",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 121197,
+                "visible": true,
+                "origin": "",
+                "legend": "Examples of qPCR amplification traces   For all panels, blue trace is the most concentrated sample, red trace is 1:10 dilution, green trace is 1:100 dilution, purple trace is 1:1000 dilution.\r\nA-D) Example 16S rRNA V4 qPCR traces for 3 microbial community DNA extracts (A-C) and a water blank control (D).\r\nE-F) Samples selected for cherry-picking and indexing PCR from the qPCR traces shown in A-D based on a targeted Rn of 6.3.\r\nI) Example qPCR traces for 16S rRNA V5-V6.\r\nJ) Example qPCR traces for 16S rRNA V4-V6.\r\nK) Example qPCR traces for 16S rRNA V1-V3.\r\nL) Example qPCR trace for a 16S rRNA V5-V6 sample with evidence of PCR inhibitors. In this case, amplification is only seen in the most dilute sample.\r\n",
+                "description": "",
+                "filename": "figure2.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-4831/v1/figure_2.jpg"
+            },
+            {
+                "id": 2609446,
+                "identity": "598ce1d6-2b83-4060-ad6e-6d973a85064a",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:56",
+                "extension": "jpg",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 350229,
+                "visible": true,
+                "origin": "",
+                "legend": " Example Agilent Bioanalyzer profiles of high quality and aberrant libraries   A) Example high quality 16S rRNA V4 library. A single clear peak of the expected size (427 bp) is seen.\r\nB) Example 16S rRNA V4 library with significant adapter dimer contamination. In this case, further optimization of the PCR, or a gel cut or Caliper XT cut would be recommended.\r\nC) Example 16S rRNA V4 library from a sample with an extremely low bacterial DNA and high abundance of host DNA. In addition to the expected peak at 427 bp, additional off-target amplification is observed.\r\n",
+                "description": "",
+                "filename": "figure3.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-4831/v1/figure_3.jpg"
+            },
+            {
+                "id": 2609445,
+                "identity": "d95b7ef4-7eed-4889-8125-3aa9251b7d89",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:56",
+                "extension": "jpg",
+                "order_by": 4,
+                "title": "Figure 4",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 103290,
+                "visible": true,
+                "origin": "",
+                "legend": "The effect of 16S variable region, cluster density, and PhiX spike-in on sequence quality   Data in this figure was generated on the same MiSeq instrument using 600 cycle v3 sequencing reagents.\r\nA) Comparison of cluster density and quality score of read 1 for 4 different 16S rRNA variable region amplicon library types.\r\nB) Comparison of percent PhiX and quality score of read 1 for 4 different 16S rRNA variable region amplicon library types.\r\nC) Comparison of cluster density and quality score of read 2 for 4 different 16S rRNA variable region amplicon library types.\r\nD) Comparison of percent PhiX and quality score of read 2 for 4 different 16S rRNA variable region amplicon library types.\r\n",
+                "description": "",
+                "filename": "figure4.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-4831/v1/figure_4.jpg"
+            },
+            {
+                "id": 13465390,
+                "identity": "8e92de9a-a1dc-4718-a355-de282400904c",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:46:36",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 423913,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-4831/v1/8574c397-cc50-4508-bed6-5e7a6d793153.pdf"
+            },
+            {
+                "id": 2609447,
+                "identity": "d86d9d6f-e880-4cfe-b32f-9758cfac0a6c",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:56",
+                "extension": "xlsx",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 48631,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 2   Dual-indexing primers   The sequence and suggested ordering layout of the indexing primer set (16 forward and 24 reverse primers, which allow multiplexing of up to 384 samples per lane) is shown, along with the indexing scheme (corresponding to the MiSeq setup templates), the index name, and the index sequence as it should appear in the sample sheet.",
+                "description": "",
+                "filename": "supplement0.xlsx",
+                "url": "https://assets.researchsquare.com/files/nprot-4831/v1/supplement_0.xlsx"
+            },
+            {
+                "id": 2609450,
+                "identity": "32193385-e876-4838-b91e-0d49d09fd233",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:56",
+                "extension": "zip",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 230460,
+                "visible": true,
+                "origin": "",
+                "legend": "Protocol Supplemental Files   Supplemental Files",
+                "description": "",
+                "filename": "supplement0.zip",
+                "url": "https://assets.researchsquare.com/files/nprot-4831/v1/supplement_0.zip"
+            },
+            {
+                "id": 2609443,
+                "identity": "2c20007a-4879-42e2-bf69-aafb2402c61a",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:55",
+                "extension": "xlsx",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 50166,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 1   Marker gene primer sequences with dual-indexing adapters   The marker gene targeted portion of the primer is highlighted in bold. * indicates a phosphorothiol bond, which prevents excessive adapter dimer formation with the ITS1 primer set.",
+                "description": "",
+                "filename": "supplement0.xlsx",
+                "url": "https://assets.researchsquare.com/files/nprot-4831/v1/supplement_0.xlsx"
+            }
+        ],
+        "financialInterests": "D.M.G. and K.B.B. are inventors on a patent application that incorporates aspects of the findings described here.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Microbiome, Next-generation sequencing, PCR, amplicon",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "Here we describe an optimized protocol for amplicon-based microbiome profiling by next-generation sequencing \\(NGS). The protocol uses a modular, two-step PCR process that provides versatility as a common set of indexing primers can be paired with many sets of marker gene specific primers. We describe primer sets that have been used to prepare libraries for variable regions V1-V3, V3-V4 V3-V5, V4, V4-V6, and V5-V6 of the 16S ribosomal RNA \\(rRNA) gene, as well as for variable region V9 of the 18S rRNA gene and the ITS1 and ITS2 regions. This protocol is designed for high-throughput and incorporates the best practices for amplicon-based NGS library preparation that we have previously described. We have demonstrated that these best practices substantially increase accuracy compared to existing methods and also, importantly, minimize the dropout of taxa that have mismatches to the amplification primers.",
+        "manuscriptTitle": "An optimized protocol for high-throughput amplicon-based microbiome profiling",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2016-07-25 16:02:57",
+                "doi": "10.1038/protex.2016.030",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 2
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a0b7fa08-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "July 25th, 2016",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3621,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 3622,
+                "name": "Microbiology"
+            },
+            {
+                "id": 3623,
+                "name": "Molecular Biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2016-07-25 16:02:57",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

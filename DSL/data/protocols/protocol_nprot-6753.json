@@ -1,0 +1,229 @@
+{
+    "identity": "nprot-6753",
+    "title": "A MAKER pipeline for prediction of protein-coding genes in parasitic worm genomes",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Once a genome has been sequenced, a challenging task is to predict protein-coding genes in the genome assembly. If several genomes of related species have been sequenced, it is desirable that the pipeline is scalable to multiple species, and will give consistent results across species. Here we describe a consistent, scalable and automated computational pipeline, based on the MAKER software, for prediction of protein-coding genes in parasitic worm \\(nematode and platyhelminth) genome assemblies. \r\n\n\n\r\n\n\nIn our pipeline, gene predictions are generated using a pipeline that uses MAKER version 2.2.28 \r\n\n\n\\(Holt _et al_ 2011). Our MAKER annotation pipeline consists of four steps, taking into account evidence from multiple sources \\(Figure 1). First, repetitive elements in the genome are identified and masked using RepeatMasker \\(<a href=\"http://www.repeatmasker.org\">www.repeatmasker.org</a>) by scanning scaffolds for matches to repeats from a repeat library generated using RepeatModeler \\(<a href=\"http://www.repeatmasker.org/RepeatModeler.html\">www.repeatmasker.org/RepeatModeler.html</a>). Second, _ab initio_ gene models to be used as evidence within MAKER are generated using Augustus 2.5.5 \\(Stanke _et al_ 2006), GeneMark-ES 2.3a \\(self-trained) \\(Ter-Hovhannisyan _et al_ 2008), and SNAP 2013-02-16 \\(Korf 2004). Further gene models to use as MAKER input are generated using comparative algorithms genBlastG \\(She _et al_ 2011) \\(using comparisons to _C. elegans_ gene models from WormBase; Yook _et al_ 2012) and RATT \\(Otto _et al_ 2011; transferring gene models from the taxonomically nearest published \u2018reference\u2019 genome from the list: _Haemonchus contortus_ for clade V parasites; _Ascaris suum_ for Ascaridomorpha; _Brugia malayi_ \\(and _Onchocerca volvulus_) for Spiruromorpha; _Trichuris muris_ for clade I; _Strongyloides ratti_ for clade IV; _Hymenolepis microstoma_ for cestodes except _Echinococcus multilocularis_ for _Taenia_ species; _Schistosoma mansoni_ for trematodes). Third, species-specific ESTs and cDNAs from INSDC \\(Cochrane _et al_ 2016), and proteins from related species \\(see below), are aligned against the genome using BLASTN and BLASTX \\(Altschul _et al_ 1997), respectively, and these alignments are further refined with respect to splice sites using exonerate \\(Slater & Birney 2005). Last, the EST and protein homology alignments, comparative gene models, and _ab initio_ gene predictions are integrated and filtered by MAKER to produce a gene set for the species, with just one transcript for each gene.\r\n\n\n\r\n\n\n<a href=\"https://www.nature.com/protocolexchange/system/uploads/6581/original/Figure1.gif?1523688872\"><img src=\"https://www.nature.com/protocolexchange/system/uploads/6581/original/Figure1.gif?1523688872\"></a>\r\n\n\n\r\n\n\nThe four-step MAKER pipeline is run three consecutive times \\(Figure 1). The first run is performed using the est2genome option with species-specific ESTs and cDNAs and the protein2genome for nematode protein sequences from UniProt\u2019s UniRef 90 clusters for nematodes \\(UniProt Consortium, 2015). For this first MAKER run, Augustus and SNAP are trained using CEGMA \\(Parra _et al_ 2007) gene models for KOGs, as well as \u2018nematode orthologous groups\u2019 \\(NOGs) \\(Martin & Mitreva 2018), \u2018trematode orthologous groups\u2019 \\(TROGs), or \u2018cestode orthologous groups\u2019 \\(CEOGs) as appropriate. \r\n\n\n\r\n\n\nGene models obtained from the first MAKER run are used to train SNAP, and MAKER is run a second time, using the same nematode proteins as in the first run. Gene models from the second run are then used to train Augustus. Using the trained versions of SNAP and Augustus, MAKER is run a third time, using a taxonomically broader protein set that includes proteins from metazoans with complete proteomes from UniProt and proteins from helminths from GeneDB \\(Logan-Klumpler _et al_ 2012). The resulting MAKER gene set is then filtered to remove less reliable gene models.\r\n\n\n\r\n\n\nThis protocol can be used to generate a relatively accurate and complete gene set, for a broad range of nematode and platyhelminth species. Unlike gene-finding approaches that require extensive use of RNAseq data \\(for example, use of Augustus in the _Strongyloides_ project; Hunt _et al_ 2016), this protocol does not require RNAseq data, so is suitable when RNAseq data is not available. Furthermore, unlike many gene-finding approaches, it does not require training using a curated set of genes of known structure \\(e.g. confirmed using cDNAs or RNAseq), as it uses conserved genes from KOGs/NOGs/TROGs/CEOGs for an initial round of training, and then its own gene MAKER models for later rounds of training."
+        },
+        {
+            "header": "Reagents",
+            "content": "WormBase database \\(<a href=\"https://www.wormbase.org\">www.wormbase.org</a>)\r\n\n\n\r\n\n\nINSDC database \\(<a href=\"http://www.insdc.org\">www.insdc.org</a>)\r\n\n\n\r\n\n\nUniProt database \\(<a href=\"http://www.uniprot.org\">www.uniprot.org</a>)\r\n\n\n\r\n\n\nGeneDB database \\(<a href=\"http://www.genedb.org\">www.genedb.org</a>)"
+        },
+        {
+            "header": "Equipment",
+            "content": "Computer cluster."
+        },
+        {
+            "header": "Procedure",
+            "content": "Gene predictions are generated using MAKER version 2.2.28 \\(Holt _et al_ 2011). The MAKER annotation pipeline consists of four steps, taking into account evidence from multiple sources. The four-step MAKER pipeline is run three consecutive times \\('round 1', 'round 2', 'round 3' in Figure 1). \r\n\n\n\r\n\n\n**Step 1**\r\n\n\n\r\n\n\n1. Generate a repeat library for the genome of interest using RepeatModeler  \\(\nwww.repeatmasker.org/RepeatModeler.html\n). \r\n  \r\n\n\n2. Identity and mask repetitive elements in the genome using RepeatMasker \\(\nwww.repeatmasker.org\n) by scanning scaffolds for matches to the repeats in the repeat library.\r\n  \r\n\n\n**Step 2**\r\n\n\n\r\n\n\n1. For the first MAKER run \\('round 1' in Figure 1),  train SNAP 2013-02-16 \\(Korf 2004) and Augustus  2.5.5 \\(Stanke _et al_ 2006) using CEGMA \\(Parra _et al_ 2007) gene models for KOGs, as well as \u2018nematode orthologous groups\u2019 \\(NOGs) \\(Martin & Mitreva 2018), \u2018trematode orthologous groups\u2019 \\(TROGs), or \u2018cestode orthologous groups\u2019 \\(CEOGs) as appropriate. \r\n  \r\n\n\nFor the second MAKER run \\('round 2'), first train SNAP using the MAKER gene models obtained from the first MAKER run \\('round 1'). For the third MAKER run \\('round 3'), first train Augustus using the MAKER gene models obtained from the second MAKER run \\('round 2').\r\n\n\n\r\n\n\n2. Generate _ab initio_ gene models to be used as evidence within MAKER, using Augustus, GeneMark-ES 2.3a \\(self-trained) \\(Ter-Hovhannisyan _et al_ 2008), and SNAP. \r\n  \r\n\n\n3. Generate further gene models to use as MAKER input, using comparative algorithms genBlastG \\(She _et al_ 2011) \\(using comparisons to _C. elegans_ gene models from WormBase; Yook _et al_ 2012) and RATT \\(Otto _et al_ 2011; transferring gene models from the taxonomically nearest published \u2018reference\u2019 genome from the list: _Haemonchus contortus_ for clade V parasites; _Ascaris suum_ for Ascaridomorpha; _Brugia malayi_ \\(and _Onchocerca volvulus_) for Spiruromorpha; _Trichuris muris_ for clade I; _Strongyloides ratti_ for clade IV; _Hymenolepis microstoma_ for cestodes except _Echinococcus multilocularis_ for _Taenia_ species; _Schistosoma mansoni_ for trematodes).\r\n  \r\n\n\n**Step 3**\r\n\n\n\r\n\n\n1. Align species-specific ESTs and cDNAs from INSDC \\(Cochrane _et al_ 2016), and proteins from related species \\(see below), against the genomes using BLASTN and BLASTX \\(Altschul _et al_ 1997), respectively.\r\n  \r\n\n\nThe first and second MAKER runs \\('round 1' and 'round 2' in Figure 1) are performed using the est2genome option with species-specific ESTs and cDNAs, and the protein2genome for nematode protein sequences from UniProt\u2019s UniRef 90 clusters for nematodes \\(UniProt Consortium, 2015). The third MAKER run \\('round 3') is performed using species-specific ESTs and cDNAs, and a taxonomically broader protein set that includes proteins from metazoans with complete proteomes from UniProt and proteins from helminths from GeneDB  \\(Logan-Klumpler _et al_ 2012).\r\n\n\n\r\n\n\n2. Refine these alignments further with respect to splice sites using exonerate \\(Slater & Birney 2005). \r\n  \r\n\n\n**Step 4**\r\n\n\n\r\n\n\n1. The EST and protein homology alignments, comparative gene models, and _ab initio_ gene predictions are integrated and filtered by MAKER to produce a gene set for the species, with just one transcript for each gene.\r\n  \r\n\n\n**Step 5**\r\n\n\n\r\n\n\nAfter running the MAKER pipeline above \\(Steps 1-4) three times \\(rounds 1-3), filter the resulting MAKER gene set to remove less reliable gene models, as follows:\r\n\n\n\r\n\n\n1. Discard any MAKER gene models that were based on exonerate or BLASTX alignments, and do not overlap any Augustus, genBlastG or RATT gene model \\(as they were probably due to spurious alignments). \r\n  \r\n\n\n2. Discard MAKER gene models that encode proteins of shorter than 30 amino acids. \r\n  \r\n\n\n3. If two different MAKER gene models overlap in their coding sequence, discard the gene model with the worst MAKER score \\(i.e. AED score)."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "It is likely that in a highly fragmented genome assembly, many genes will be split into multiple partial gene predictions. To correct for the effect of assembly fragmentation on the gene count, the gene count in your assembly can be normalised, by dividing the total proteome length by the mean protein length for _C. elegans_ \\(409.82 amino acids). This should give a more accurate estimate of the true gene count in your species."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "The output from the protocol is a set of protein-coding gene predictions for one or more genome assemblies of interest."
+        },
+        {
+            "header": "References",
+            "content": "Altschul, S. F. _et al._ Gapped BLAST and PSI-BLAST: a new generation of protein database search programs. _Nucleic acids research_ **25**, 3389-3402 \\(1997).\r\n\n\n\r\n\n\nCochrane, G. _et al._ The International Nucleotide Sequence Database Collaboration. _Nucleic acids research_ **44**, D48-50 \\(2016).\r\n\n\n\r\n\n\nHolt, C. & Yandell, M. MAKER2: an annotation pipeline and genome-database management tool for second-generation genome projects. _BMC bioinformatics_ **12**, 491 \\(2011).\r\n\n\n\r\n\n\nHunt, V. L. _et al._ The genomic basis of parasitism in the _Strongyloides_ clade of nematodes. _Nat Genet._ **48**, 299-307 \\(2016).\r\n\n\n\r\n\n\nKorf, I. Gene finding in novel genomes. _BMC bioinformatics_ **5**, 59 \\(2004).\r\n\n\n\r\n\n\nLogan-Klumpler, F. J. _et al._ GeneDB--an annotation database for pathogens. _Nucleic acids research_ **40**, D98-108 \\(2012).\r\n\n\n\r\n\n\nMartin, J.  & Mitreva, M. Finding set of \"core genes\" for Nematoda, Trematoda and Cestoda. _Protocol Exchange_ \\(2018).\r\n\n\n\r\n\n\nOtto, T. D., _et al._ RATT: Rapid Annotation Transfer Tool. _Nucleic acids research_ **39**, e57 \\(2011).\r\n\n\n\r\n\n\nParra, G. _et al._ CEGMA: a pipeline to accurately annotate core genes in eukaryotic genomes. _Bioinformatics_ **23**, 1061-1067 \\(2007).\r\n\n\n\r\n\n\nShe, R. _et al._ genBlastG: using BLAST searches to build homologous gene models. _Bioinformatics_ **27**, 2141-2143 \\(2011).\r\n\n\n\r\n\n\nSlater, G. S. & Birney, E. Automated generation of heuristics for biological sequence comparison. _BMC bioinformatics_ **6**, 31 \\(2005).\r\n\n\n\r\n\n\nStanke, M. _et al._ AUGUSTUS: _ab initio_ prediction of alternative transcripts. _Nucleic acids research_ **34**, W435-439 \\(2006).\r\n\n\n\r\n\n\nTer-Hovhannisyan, V. _et al._ Gene prediction in novel fungal genomes using an ab initio algorithm with unsupervised training. _Genome Res._ **18**, 1979-1990 \\(2008).\r\n\n\n\r\n\n\nUniProt Consortium. UniProt: a hub for protein information. _Nucleic acids research_ **43**, D204-212 \\(2015).\r\n\n\n\r\n\n\nYook, K. _et al._ WormBase 2012: more genomes, more data, new website. _Nucleic acids research_ **40**, D735-741 \\(2012)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "We would like to thank the WSI Pathogen Informatics team, especially Jacqueline Keane and Andrew Page."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 15649,
+                "identity": "a16899d5-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Matthew Berriman",
+                "email": "mb4@sanger.ac.uk",
+                "orcid": "",
+                "institution": "Berriman Lab Group, Sanger Institute",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Matthew",
+                "middleName": "",
+                "lastName": "Berriman",
+                "suffix": ""
+            },
+            {
+                "id": 15647,
+                "identity": "a16892c8-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Eleanor Stanley",
+                "email": "",
+                "orcid": "",
+                "institution": "Berriman Lab Group, Sanger Institute",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Eleanor",
+                "middleName": "",
+                "lastName": "Stanley",
+                "suffix": ""
+            },
+            {
+                "id": 15648,
+                "identity": "a1689719-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Avril Coghlan",
+                "email": "",
+                "orcid": "",
+                "institution": "Berriman Lab Group, Sanger Institute",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Avril",
+                "middleName": "",
+                "lastName": "Coghlan",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2018-04-14 08:01:18",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2018.056",
+        "doiUrl": "https://doi.org/10.1038/protex.2018.056",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2610109,
+                "identity": "fd36c644-4dbb-49e2-b78a-04b8852664e0",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:25",
+                "extension": "gif",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 54702,
+                "visible": true,
+                "origin": "",
+                "legend": "Flowchart of protocol   Four-step MAKER pipeline.",
+                "description": "",
+                "filename": "figure1.gif",
+                "url": "https://assets.researchsquare.com/files/nprot-6753/v1/figure_1.gif"
+            },
+            {
+                "id": 13465725,
+                "identity": "462e727d-48cb-4ee9-abcd-d562c9279829",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:47:56",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 210984,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-6753/v1/cfc7dfb6-a683-4b70-b76d-7a16cc84b0cc.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "MAKER, Augustus, GeneMark, SNAP, RATT, genBlastG, gene-finding, annotation, gene prediction, gene models, gene set, parasites,  genomes, assemblies, parasitic worms, helminths, nematodes, flatworms, platyhelminths, Nematoda, Platyhelminthes",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "Once a genome has been sequenced, a challenging task is to predict protein-coding genes in the genome assembly. If several genomes of related species have been sequenced, it is desirable that the pipeline is scalable to multiple species, and will give consistent results across species. Here we describe a consistent, scalable and automated computational pipeline, based on the MAKER software, for prediction of protein-coding genes in parasitic worm \\(nematode and platyhelminth) genome assemblies. This protocol can be used to generate a relatively accurate and complete gene set, for a broad range of nematode and platyhelminth species.  Furthermore, it does not require RNAseq data and does not require training using a curated set of genes of known structure.",
+        "manuscriptTitle": "A MAKER pipeline for prediction of protein-coding genes in parasitic worm genomes",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2018-05-15 02:45:37",
+                "doi": "10.1038/protex.2018.056",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a15cc705-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "May 15th, 2018",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 4246,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 4247,
+                "name": "Biotechnology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2018-05-15 02:45:37",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

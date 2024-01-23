@@ -1,0 +1,237 @@
+{
+    "identity": "nprot-75",
+    "title": "AFPredictor: a computational screening protocol for antifreeze/ice-structuring proteins",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Antifreeze/ice-structuring proteins \\(AFPs, ISPs) have evolved independently in a wide range of organisms including bacteria, plants and fish. Despite their independent origins and diverse folds, AFPs bind to a common substrate \\(ice) albeit on different surfaces and in different orientations \\[1]. In theory, AFPs should possess common structural characteristics responsible for ice-binding activity, independent of protein fold. This motivated the development of a surface-based pattern detection algorithm, AFPredictor, to analyze and rank structural characteristics of AFPs \\[2].\r\n\n\nUsing AFPredictor, it was demonstrated that &#x2018;ordered surface carbons&#x2019; \\(OSCs) are a distinguishing feature of AFPs and, more specifically, their ice-binding surfaces \\[2]. AFPredictor identified AFPs from within a large set of structures with greater than 99% specificity. Furthermore, it was used to identify a novel ice-binding protein by screening a library of homology modeled structures based on cDNA sequences obtained from cold-acclimated winter rye \\(Secale cereale). \r\n\n\nAFPredictor is freely available on request from the authors. The parameters \\(residue types, cutoff values, etc.) are fully modifiable. The following protocol describes how to use AFPredictor to detect AFPs and their ice-binding residues, and score results against a background non-redundant dataset."
+        },
+        {
+            "header": "Equipment",
+            "content": "1. A personal computer \\(Macintosh, Unix/Linux or Windows operating system) \r\n  2. Input structures in PDB file format, from experimental data or structural models \r\n  3. Local installation of the Perl programming language \\(available from http://www.perl.org)\r\n  4. AFPredictor program and Vsurface program module \\[3]."
+        },
+        {
+            "header": "Procedure",
+            "content": "Applying the algorithm to a set of input structures \r\n\n\n\r\n\n\n1. If not already installed, download and install the Perl programming language \\(http://www.perl.org). \r\n  \r\n\n\n2. Prepare a set of input structures in Brookhaven PDB file format. Structures may be downloaded from the Protein Data Bank \\(http://www.rcsb.org). X-ray structures are preferred over NMR structures due to increased accuracy of sidechain positions.  If starting with a library of sequences, generate a set of 3D homology-models using comparative-modeling software, such as SWISS-MODEL \\(http://swissmodel.expasy.org/SWISS-MODEL.html, Modeller \\(http://www.salilab.org/modeller/), etc. NOTE: The performance of the algorithm is partly dependent on the resolution of the input structures, and better results will be obtained using high quality structural data or homology models. Homology models should be constructed with high quality templates \\(e.g. X-ray structures) and checked for errors using software such as WHATCHECK \\[4].\r\n  \r\n\n\n3. Run AFPredictor on the input structures. Unless specified otherwise, the program will use default values for the parameters. The usage for AFPredictor is shown in Fig. 1. If the option \u2013d is specified, the # OSCs, FASA and TASA scores \\(see \\[2] for a description) will be printed as the program runs and output in the file \\(output.txt). If the option \u2013f is specified, additional information will be output including the residues and atoms corresponding to predicted OSCs as well as their solvent-accessibility as calculated by Vsurface \\[3]. Option \u2013o will highlight predicted OSCs in an output PDB file. Atoms are highlighted in the B-factor column of the PDB file and can be viewed using molecular visualization software. For example, in Deep View \\(Swiss-PDB viewer) \\(http://www.expasy.org/spdbv/), the AFP output PDB file can be loaded, a molecular surface calculated, and the molecular surface layer colored by B-factor. Using the default Swiss-PDB color scheme, OSCs will appear red and all other atoms will appear blue \\(Fig. 2). Command-line use of AFPredictor is shown below:\r\n  \r\n\n\nperl AFPredictor.pl \\[-Options] \\{-f <PDB file> or \u2013d <directory>}\r\n\n\n\r\n\n\n\r\n\n\nApplying the algorithm to a background dataset \\(optional)\r\n\n\n\r\n\n\nAt this point, the user might wish to rank the scored test structures from step 3 against a background dataset such as a non-redundant set of PDB files. If default parameters have been used, the user may compare with the previous results compiled in the file 2006results.txt. In this case, steps 4-7 may be omitted. However, if any parameters used in step 3 have been changed from the default values or the user wishes to use a different data set for comparison, proceed to step 4.\r\n\n\n\r\n\n\n4. Create a list of non-redundant protein sequences for comparison. This may be done using the PISCES server \\[5] accessible at http://dunbrack.fccc.edu/PISCES.php. It is important that redundant sequences/structures be removed from the background dataset because multiple instances of the same structure may statistically skew the final results. Ensure that incomplete \\(e.g. alpha-carbon only) PDB files are removed in the culling procedure.\r\n   \r\n\n\n5. Retrieve the corresponding structures from the PDB and place all files in the same directory \\(e.g. /nonredundantPDB/). All files should be in PDB format and have the extension .pdb. A PDB web download utility is available at http://www.rcsb.org/pdb/static.do?p=download/web_download/download.jsp.\r\n  \r\n\n\nNOTE: If the PDB was culled \u2018by chain\u2019 instead of \u2018by entry\u2019 in step 4, retrieve only the specified chain for each PDB file. If this approach is used, the algorithm may analyze surfaces that are internal in the native structure. If this is unwanted, cull the PDB \u2018by entry\u2019 \\(in step 4), obtain and use a monomeric structure database, or process PDB files through the PQS server \\(http://pqs.ebi.ac.uk/).\r\n\n\n\r\n\n\n6. \\(Optional) Remove hydrogen atoms from all PDB files. Doing so will improve the overall runtime of the algorithm, especially if the structural database is large \\(>500 structures).\r\n  \r\n\n\n7. Run the algorithm on the non-redundant PDB directory \\(specify the parameter \u2013d). An example command \\(using default parameters) is shown below.\r\n  \r\n\n\nperl AFPredictor.pl -d /nonredundantPDB/\r\n\n\n\r\n\n\n8. Sort the results from step 3 and step 7 by FASA or TASA. This results in a final FASA or TASA ranking. A percentile score for each structure can be calculated as: 1- ranking / # structures. This should not be interpreted as the strength of ice-binding activity or likelihood that a structure is an ice-binding protein, but as a relative measure of the surface area occupied by predicted OSCs."
+        },
+        {
+            "header": "Critical Steps",
+            "content": "Step 3: In choosing parameter values, it is important to consider the resolution of input structures.  The value for VTHRESH \\(option -v) controls the stringency of vector-matching and should be relaxed \\(increased) for lower quality input structures. Note that this will increase the rate of false positive identifications as well. The choices for parameter values might also depend on the particular scenario in which AFPredictor is being used. For example, a simple use of AFPredictor is to predict the putative ice-binding surface of a protein already known to have ice-binding activity. In this case, the user might run the program on the protein structure with relaxed parameters to increase the probability of detecting all contributing OSCs, at the expense of an increased false positive rate. Subsequent iterations could increase the stringency for more precise predictions. For screening a large structural database for potentially highly active ice-binding proteins, the parameters can be set to a high stringency to reduce the number of false positives \\(though some true positives may also be filtered out in the process)."
+        },
+        {
+            "header": "References",
+            "content": "1. Jia, Z. &amp; Davies, P.L. Antifreeze proteins: an unusual receptor-ligand interaction. _Trends Biochem. Sci._ **27**, 101-106 \\(2002).\r\n  2. Doxey, A.C., Yaish, M.W., Griffith, M. &amp; McConkey, B.J. Ordered surface carbons distinguish antifreeze proteins and their ice-binding regions. _Nat. Biotechnol._ **24**, 852-855 \\(2006). \r\n  3. McConkey, B.J., Sobolev, V. &amp; Edelman, M. Quantification of protein surfaces, volumes and atom-atom contacts using a constrained Voronoi procedure. _Bioinformatics_ **18**, 1365-1373 \\(2002).\r\n  4. Hooft, R.W., Vriend, G., Sander, C. &amp; Abola, E.E. Errors in protein structures. _Nature_ **381**, 272 \\(1996).\r\n  5. Wang, G. &amp; Dunbrack, R.L., Jr. PISCES: a protein sequence culling server. _Bioinformatics_ **19**, 1589-1591 \\(2003)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "This work was supported by grants from the National Science and Engineering Research Council \\(NSERC) to B.J.M., and an NSERC Canada Graduate Scholarship held by A.C.D."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nbt1224",
+                "date": "2006-08-14 15:37:08",
+                "title": "Ordered surface carbons distinguish antifreeze proteins and their ice-binding regions",
+                "authors": [
+                    "Doxey",
+                    "A.C. et al."
+                ],
+                "journal": "Nature Biotechnology",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 9858,
+                "identity": "9e9df3c0-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Andrew C. Doxey",
+                "email": "",
+                "orcid": "",
+                "institution": "University of Waterloo",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Andrew",
+                "middleName": "C.",
+                "lastName": "Doxey",
+                "suffix": ""
+            },
+            {
+                "id": 9859,
+                "identity": "9e9df83e-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Brendan J. McConkey",
+                "email": "",
+                "orcid": "",
+                "institution": "University of Waterloo",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Brendan",
+                "middleName": "J.",
+                "lastName": "McConkey",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2013-05-29 15:36:10",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/nprot.2006.213",
+        "doiUrl": "https://doi.org/10.1038/nprot.2006.213",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2607612,
+                "identity": "0cc1c1e4-a5e7-4f7b-9ea2-705a3d900838",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:41",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 109511,
+                "visible": true,
+                "origin": "",
+                "legend": "Usage of AFPredictor with description of options and default parameters.",
+                "description": "",
+                "filename": "figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-75/v1/figure_1.jpg"
+            },
+            {
+                "id": 2607613,
+                "identity": "25ecc29b-1535-45d3-8dba-0b625271eec0",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:41",
+                "extension": "jpg",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 95136,
+                "visible": true,
+                "origin": "",
+                "legend": "Sample AFPredictor PDB output file showing ordered surface carbons, visualized using DeepView spdbv 3.7. The structure shown is a beta-helical antifreeze protein from spruce budworm, PDB ID 1LOS.",
+                "description": "",
+                "filename": "figure2.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-75/v1/figure_2.jpg"
+            },
+            {
+                "id": 13464291,
+                "identity": "868b31cd-58eb-4bbd-8804-876d8160340d",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:42:47",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 189860,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-75/v1/3d69782c-6fd8-424b-b121-dc903571645b.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "antifreeze protein, ice-structuring protein, ice-binding surface, algorithm, surface feature recognition, structural bioinformatics",
+        "license": {
+            "name": "None",
+            "url": ""
+        },
+        "manuscriptAbstract": "",
+        "manuscriptTitle": "AFPredictor: a computational screening protocol for antifreeze/ice-structuring proteins",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2006-08-17 07:53:06",
+                "doi": "10.1038/nprot.2006.213",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 4
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9e9d96b1-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "August 17th, 2006",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 1343,
+                "name": "Biochemistry"
+            },
+            {
+                "id": 1345,
+                "name": "Computational biology and bioinformatics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2006-08-17 07:53:06",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

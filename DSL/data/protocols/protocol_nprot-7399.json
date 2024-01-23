@@ -1,0 +1,302 @@
+{
+    "identity": "nprot-7399",
+    "title": "Antibody-guided Chromatin Tagmentation \\(ACT-seq)",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>Modern next-generation sequencing-based methods have empowered researchers to assay the epigenetic states of individual cells. Existing techniques for profiling epigenetic marks in single cells often require the use and optimization of time-intensive procedures such as drop fluidics, chromatin fragmentation, and end repair. We have developed ACT-seq to improve the ease with which researchers can profile epigenetic marks in small numbers of or single cells. ACT-seq utilizes Tn5 transposase, which is commonly used to map chromatin accessibility and structure. We fused the N terminus of Tn5 transposase to Protein A (PA) to form a novel fusion protein that is guided to an epigenetic mark or chromatin-bound protein of interest by an associated antibody. After washing away unbound complex, the transposition reaction is initiated by addition of an MgCl2-containing buffer, which results in insertion of sequence tags at sites of bound PA-Tnp. The reaction is terminated by incubation with EDTA and proteinase. The labeled fragments are directly amplified using PCR and sequenced using Illumina HiSeq technology. The entire preparation time from cells to library takes only 5 to 6 hours, which is very quick compared to many existing techniques. The standard, native ACT-seq method is suitable for detecting epigenetic marks associated with active or open chromatin, including some transcription factors like Brd4. Formaldehyde crosslinking can be used with ACT-seq (XACT-seq) to enhance signal for many other chromatin-associated proteins like Brg1 and CTCF as well as transcriptionally repressive epigenetic marks such as H3K27me3. Both methods are described in parallel below. We suggest trying native ACT-seq first and using XACT-seq if your antibody does not produce visible bands or smears in the resulting agarose gel compared to a suitable positive control antibody (H3K4me3, H3K27ac, etc.).</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p><strong>Recombinant PA-Tnp Protein</strong></p><p>Expression vector is available from addgene under accession number 121137. See attached Appendices document for expression instructions.</p><p><strong>Oligonucleotide Sequence Barcodes</strong></p><p>Annealed sequence barcodes used in generating the PA-Tnp-antibody complex. See the attached Appendices document for details.</p><p><strong>Library Preparation Barcodes </strong></p><p>Oligonucleotide index tags to be used when generating the libraries for sequencing. These were designed using the Illumina Adapter Sequences Document, and the sequences can be found in the Appendices document.</p><p><strong>2X Complex Formation Buffer (CB)</strong></p><p>0.1 M Tris pH 8.0; 0.3 M NaCl; 0.1% Triton X-100; 25% Glycerol</p><p><strong>Wash Buffer</strong></p><p>50 mM Tris pH 8.0; 150 mM NaCl; 0.05% Triton X-100</p><p><strong>RIPA Buffer </strong>(crosslinking procedure only)</p><p>Prepare in 1X TE pH 7.5. 150 mM NaCl; 0.2% SDS; 0.1% Sodium deoxycholate; 1% Triton X-100</p><p><strong>Phusion HF PCR Master Mix </strong>(NEB cat # M0531S)</p><p><strong>ChIP DNA Clean and Concentrator Kit </strong>(Zymo cat # D5205, or equivalent)</p><p><strong>MinElute Gel Extraction Kit </strong>(Qiagen cat # 28604, or equivalent</p><p>Plus other standard molecular biology reagents.</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p><strong>Tabletop (micro)centrifuges</strong></p><p><strong>Thermal cycler</strong></p><p><strong>Microcentrifuge tube shaker/incubator</strong></p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "Antibody-PA-Tnp Complex Formation\n(1 hour)\n1. Mix the following in a microcentrifuge tube and incubate at room temp. for 10 min: 4.8 uL of H2O; 9 uL of 2X CB; 0.6 uL of 50 uM annealed 5' complex barcode; 0.6 uL of 50 uM annealed 3' complex barcode; 3 uL of 1 mg/mL recombinant PA-Tnp enzyme\n2. Label a fresh 1.5 mL microcentrifuge tube for each antibody to be used. To each tube, add 1 uL of prepared PA-Tnp solution, 0.8 uL of 1X CB, and 0.8 uL of the desired antibody. (Multiply volumes by the number of replicates, if applicable.) Mix and incubate at room temperature for 30 min. Continue to the steps in the following section during this incubation time.\nCell Permeabilization\n(30 min to 1.5 hours)\nNotes: two sets of instructions are provided for this section. One is for native ACT-seq and the other is for crosslinking ACT-seq (XACT-seq).\nUnfixed permeabilized cells are fragile. For native ACT-seq, the centrifugation speed for your cell type needs to be determined before the protocol is run for the first time. It is recommended to permeabilize the cells in 1X CB, test various spin speeds, observe whether the cells pellet efficiently, and use the minimum effective speed for cell-spinning steps in the protocol after permeabilization. A swinging-bucket rotor is recommended to avoid cell loss during supernatant removal. 200 *g can be used as a starting point for optimization.\nNative ACT-seq\n3. Harvest and transfer 1 million cells to a clean 1.5 mL tube. Wash cells with PBS to remove residual growth medium and/or trypsin solution. Pellet the cells.\n4. Remove the supernatant and suspend the pellet in 1 mL of 1X CB. Incubate the tube on ice for 10 min to permeabilize the cells.\n5. Spin down the cells (see the note on centrifugation above) and carefully remove the supernatant, leaving ~50 uL at the bottom of the tube to avoid cell loss.\n6. Continue from step 12 below.\nXACT-seq\n3. Harvest ~1 to 5 million cells in a 15 mL conical vial. Pellet the cells and aspirate the supernatant completely.\n4. Suspend the pellet in 10 mL of room-temp. culture medium supplemented immediately prior to use with fresh 1% methanol-free formaldehyde. Rotate the tube for 10 min at room T.\n5. Add 1/20 V of 2.5 M glycine. Rotate the tube for an additional 5 min at room T. Centrifuge at ~500 *g for 3 min at 4 \u00b0C.\n6. Aspirate the supernatant and suspend the cells in 10 mL of cold PBS. Repeat centrifugation.\n7. Repeat step 6. Suspend the cells in 1 mL of PBS and obtain a cell count.\n8. Transfer 1 million cells to a clean 1.5 mL tube and centrifuge for 1 min at ~500 *g. (A swinging-bucket rotor is preferred for steps involving cell pellets in 1.5 mL tubes.)\n9. Remove the supernatant and suspend the pellet in 1 mL of RIPA Buffer. Incubate the tube at room T for 10 min to lyse the cells and decondense the chromatin.\n10. Spin down the cells at ~850 *g for 1 min. Carefully remove the supernatant, leaving ~50 uL at the bottom.\n11. Suspend cells in 1 mL of 1X CB. Repeat the centrifugation and carefully remove the supernatant down to\u00a0~50 uL.\n12. Suspend the cells in 1 mL of 1X CB. Aliquot 50 uL (~50 thousand cells) into new 1.5 mL tubes to accommodate the desired number of antibodies and replicates.\nComplex Binding and Tagmentation\n(2.5 hours)\n13. To each tube of cells, add 2.5 uL of the appropriate PA-Tnp-antibody complex and mix by pipetting gently. Incubate at room temperature for 60 min.\n14. Add 500 uL of Wash Buffer to each tube and mix by inverting. Spin the cells and remove the supernatant as was done in step 5 (native ACT-seq) or step 8 (XACT-seq) above, leaving ~50 uL at the bottom to avoid loss of cells.\n15. Add 500 uL of Wash Buffer. Rotate tubes for 5 min at room temperature. Spin and carefully remove supernatant as above.\n16. Repeat step 15.\n17. Dilute the samples to 100 uL with Wash Buffer and gently suspend the cells. Add 1\u00a0uL of 1 M MgCl\n2\nto each tube of cells and mix by pipetting. Incubate at 37\u00b0C for 60 min.\nNote: increasing this incubation time is not recommended as it may increase the background signal due to nonspecific Tn5 activity.\nLibrary Preparation\n(2 hours)\nNote: library index barcodes are different from the complex barcodes used above. See the Appendices document.\n18. Stop the reaction by adding 4 uL of 0.5 M EDTA, 2 uL of 10% SDS and 1 uL of 20 mg/mL Proteinase K. Incubate at 55 \u00b0C for 60 min.\n19. Purify the DNA using a Zymo ChIP Clean and Concentrator kit (or equivalent) and an elution volume of 10 uL.\n20. To each sample, add 0.5 uL of library index barcode #1, 0.5 uL of library index barcode #2, and 10 uL of 2X NEB Phusion HF Master Mix (add last and mix). Amplify using the following program: 72 \u00b0C for 5 min; [98 \u00b0C for 10 s; 65 \u00b0C for 30 s; 72 \u00b0C for 15 s] (18 cycles for bracketed steps); and a final 72 \u00b0C for 5 min\n21. Visualize the PCR products using gel electrophoresis. Excise gel fragments between about 200 to 800 bp and purify the DNA using a MinElute Gel Purification Kit (or equivalent). Libraries are ready for quantification and sequencing."
+        },
+        {
+            "header": "Timing",
+            "content": "Approximately six hours."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p>If no bands or smears are obvious at ~200 to 600 bp relative to a positive control antibody, consider trying the crosslinking XACT-seq steps described above. Other points of optimization include adjusting the amount of complex added to the cells in step 13 (can be increased up to 4-fold if necessary) and adjusting the number of cells in each reaction. Be sure to include a matching negative control such as IgG for each condition to measure the background signal.</p><p>In our hands, recombinant PA-Tn5 loses activity over time when stored at 20 degrees C or warmer. If poor results are obtained using an aliquot that has been stored under these conditions for an extended time, it would be best to try again using a freshly thawed aliquot from the -80 degree C stock.</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1101/571208",
+                "date": "2019-03-09 19:29:26",
+                "title": "Mapping Histone Modifications in Low Cell Number and Single Cells Using Antibody-guided Chromatin Tagmentation (ACT-seq)",
+                "authors": [
+                    "Benjamin Carter",
+                    "Wai Lim Ku",
+                    "Qingsong Tang",
+                    "Jee Youn Kang",
+                    "Keji Zhao"
+                ],
+                "journal": "",
+                "logo": ""
+            },
+            {
+                "doi": "10.1038/s41467-019-11559-1",
+                "date": "2019-08-20 10:02:54",
+                "title": "Mapping histone modifications in low cell number and single cells using antibody-guided chromatin tagmentation (ACT-seq)",
+                "authors": [
+                    "Benjamin Carter",
+                    "Wai Lim Ku",
+                    "Jee Youn Kang",
+                    "Gangqing Hu",
+                    "Jonathan Perrie",
+                    "Qingsong Tang",
+                    "Keji Zhao"
+                ],
+                "journal": "Nature Communications",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 108432,
+                "identity": "0b4887fb-def5-4238-aa4b-b22c4200e692",
+                "order_by": 0,
+                "name": "Benjamin Carter",
+                "email": "benjamin.carter@nih.gov",
+                "orcid": "",
+                "institution": "Keji Zhao Lab",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Benjamin",
+                "middleName": "",
+                "lastName": "Carter",
+                "suffix": ""
+            },
+            {
+                "id": 108433,
+                "identity": "65d05761-305c-427a-8b49-b14c0795edfa",
+                "order_by": 0,
+                "name": "Keji Zhao",
+                "email": "zhaok@nhlbi.nih.gov",
+                "orcid": "",
+                "institution": "Keji Zhao Lab, NHLBI, NIH",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Keji",
+                "middleName": "",
+                "lastName": "Zhao",
+                "suffix": ""
+            },
+            {
+                "id": 108434,
+                "identity": "b9c7798d-43af-4201-897f-de968c75e7ba",
+                "order_by": 1,
+                "name": "Wai Lim Ku",
+                "email": "",
+                "orcid": "",
+                "institution": "Keji Zhao Lab, NHLBI, NIH",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Wai",
+                "middleName": "Lim",
+                "lastName": "Ku",
+                "suffix": ""
+            },
+            {
+                "id": 108435,
+                "identity": "19f57f8e-455b-418f-85ab-b8e85b2bb32f",
+                "order_by": 1,
+                "name": "Jee Youn Kang",
+                "email": "",
+                "orcid": "",
+                "institution": "Keji Zhao Lab, NHLBI, NIH",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jee",
+                "middleName": "Youn",
+                "lastName": "Kang",
+                "suffix": ""
+            },
+            {
+                "id": 108436,
+                "identity": "8b6721e1-b99d-49c5-a1bc-1e07f595f56c",
+                "order_by": 1,
+                "name": "Qingsong Tang",
+                "email": "",
+                "orcid": "",
+                "institution": "Keji Zhao Lab, NHLBI, NIH",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Qingsong",
+                "middleName": "",
+                "lastName": "Tang",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2019-03-09 19:43:24",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.2.1708/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.2.1708/v1",
+        "draftVersion": [],
+        "editorialEvents": [
+            {
+                "content": "https://doi.org/10.1038/protex.2019.026",
+                "type": "published",
+                "date": "2019-01-01T20:57:24+00:00"
+            }
+        ],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13471366,
+                "identity": "dc285a65-7aba-4011-9401-90128e1f2e89",
+                "added_by": "auto",
+                "created_at": "2021-09-16 21:08:55",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 238045,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-7399/v1/5fb6b144-53ea-4458-8711-1cd578914a60.pdf"
+            },
+            {
+                "id": 2617954,
+                "identity": "4f805641-8860-45a1-97e0-1fa85fcfa4c0",
+                "added_by": "a1b5aae0-516f-11e9-9e20-12b504df345a",
+                "created_at": "2020-09-25 20:56:37",
+                "extension": "docx",
+                "order_by": 1,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 23788,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "supplement1.docx",
+                "url": "https://assets.researchsquare.com/files/nprot-7399/v1/supplement_1.docx"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": false,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "ACT-seq, NGS, histone modifications, ChIP-seq, tagmentation, transposase",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>ACT-seq is a streamlined method for mapping genome-wide distributions of histone tail modifications, histone variants, and chromatin-binding proteins in a small number of or single cells. ACT-seq utilizes a fusion of Tn5 transposase to Protein A that is targeted to chromatin by a specific antibody, allowing chromatin fragmentation and sequence tag insertion specifically at genomic sites presenting the relevant antigen. The Tn5 transposase enables the use of an index multiplexing strategy (iACT-seq), which enables construction of thousands of single-cell libraries in one day by a single researcher without the need for drop-based fluidics or visual sorting. The protocol described here is intended for use with bulk-cell samples. The single-cell iACT-seq protocol is separate.</p>",
+        "manuscriptTitle": "Antibody-guided Chromatin Tagmentation (ACT-seq)",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2019-08-27 13:14:05",
+                "doi": "10.21203/rs.2.1708/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "protocol.exchange@nature.com",
+                    "identity": "protocol-exchange",
+                    "isNatureJournal": false,
+                    "hasQc": false,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+                    "title": "Protocol Exchange",
+                    "twitterHandle": ""
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a1b5aae0-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "August 27th, 2019",
+        "published": true,
+        "revision": "",
+        "status": "published-in-journal",
+        "subjectAreas": [
+            {
+                "id": 15954,
+                "name": "Biochemistry"
+            },
+            {
+                "id": 15955,
+                "name": "Genetics"
+            },
+            {
+                "id": 15956,
+                "name": "Molecular Biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": {
+            "articleIdentity": "nprot-7399",
+            "link": "https://doi.org/10.1038/protex.2019.026",
+            "journal": {
+                "identity": "protocol-exchange",
+                "isVorOnly": false,
+                "title": "Protocol Exchange"
+            },
+            "publishedOn": "2019-01-01 20:57:24",
+            "publishedOnDateReadable": "January 1st, 2019"
+        },
+        "versionCreatedAt": "2019-08-27 13:14:05",
+        "video": "",
+        "vorDoi": "10.1038/protex.2019.026",
+        "vorDoiUrl": "https://doi.org/10.1038/protex.2019.026",
+        "workflowStages": []
+    }
+}

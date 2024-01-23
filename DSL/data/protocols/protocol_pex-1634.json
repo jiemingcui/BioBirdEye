@@ -1,0 +1,250 @@
+{
+    "identity": "pex-1634",
+    "title": "<p>Systematic human learning by literature and data mining for feature selection in machine learning</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>Insurance-based healthcare has been widely implemented worldwide, which urges more preventive intervention to improve patient outcome and reduce healthcare utility. Clinical prediction models are needed to achieve such purpose. Although several machine learning algorithms have been shown satisfying predictive performances for health outcomes,<sup>1-3</sup> these were exposed to optimistic bias due to no independent test set, no data partition, or high dimensionality relatively compared to sample size.<sup>4</sup> Clinical prediction also should be actionable. Identifying causal effects on a predicted health outcome enables targeted interventions to that condition. However, machine learning cannot infer causality yet.</p><p>\tThe best practices established in medicine are developed using hypothetico-deductive reasoning. Any prior knowledge is collected by human learning through literature to generate a hypothesis. Subsequently, statistical methods are used to verify the assumption using available data. In traditional approach, randomized controlled trial (RCT) design have been used to collect data in a causal inference study because of its robustness to remove effects from common causes or confounding factors. However, this is limited due to some considerations (e.g. ethical issues). Even if RCT is possible, a preliminary study of a causal effect using observational data is still warranted to reduce resource waste and potential harm in human research. To conduct such study, a causal diagram is constructed based on prior knowledge as a central assumption.<sup>5</sup> Available data (e.g. electronic health records) may be used to verify this assumption. Solely using statistical analysis on available data without contextual knowledge can introduce data-driven bias.<sup>6</sup> Meanwhile, although human learning can use contextual knowledge to prevent such bias, we still need machines to deal with big data. </p><p>\tTo solve data-driven bias using contextual knowledge, we proposed a learning algorithm for human to systematically construct a causal diagram by literature mining. Then, one of the generalized (G) methods, i.e., inverse probability weighting (IPW), is used to verify each causal factor using available data.<sup>7,8</sup> This method was designed for time-varying exposures which are typically available data from electronic health records.<sup>9,10</sup> Eventually, all causal factors are included in a prediction model to describe the explainability. The use of causal factors in a model is not necessarily be the highly predictive. Better performances of prediction model are normally achieved by exploiting confounding factors.<sup>5</sup> However, by differentiating causal and non-causal predictors, this can warn a human user when conducting a critical appraisal a machine learning model. If a causal effect is large, this also provides a pathway for a preventive intervention. In addition, compared to systematic review and meta-analysis, our learning algorithm is relatively quick and low-intensive labor, which follows human intuition on learning through literatures.</p><p>\tWe applied this protocol to several studies which were parts of a project that applied our human-machine learning algorithm to a variety of predicted outcomes. Human learning by this protocol was one of the comparators beside those applying standard machine learning prediction by PROBAST guidelines.<sup>11</sup> Ethical clearance was waived by the Taipei Medical University Joint Institutional Review Board (TMU-JIRB number: N202106025). This protocol aimed to propose a protocol for feature selection in statistical machine learning by an algorithm for human to systematically construct a causal diagram by literature mining, and to verify the causal assumptions from prior knowledge by statistical modeling, including but not limited to those using real-world, time-varying data from electronic health records.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p><br></p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>We used R 4.0.2 programming language (R Foundation, Vienna, Austria) to conduct data analysis. The integrated development environment software was RStudio 1.3.959 (RStudio PBC, Boston, MA, USA). To ensure reproducibility, we used Bioconductor 3.11;<sup>12</sup> thus, versions of the included R packages were all in sync according to versions in this Bioconductor version. For statistical machine learning, we used an R package of caret 6.0.86 that wraps R packages for a modeling algorithm, which was glmnet 4.1. We created R packages for many steps in the data analysis, which are medhist 0.1.0 and gmethods 0.1.0. All of these packages are available for download from this repository <a href=\"https://github.com/herdiantrisufriyana\" rel=\"noopener noreferrer\" target=\"_blank\">https://github.com/herdiantrisufriyana</a>. Details on other R package versions and all of the source codes (vignette) for the data analysis are available in <a href=\"https://github.com/herdiantrisufriyana/shl\" rel=\"noopener noreferrer\" target=\"_blank\">https://github.com/herdiantrisufriyana/shl</a>.</p><p>\tTo reproduce our work, a set of hardware requirements may be needed. We used a single machine. It was equipped by 8 logical processors for the 3.40 GHz central processing unit (CPU) (Core(TM) i7-4770, Intel\u00ae, Santa Clara, CA, USA), and 16 GB RAM. But, one can use a machine with only 4 logical processors and 4 GB RAM, if the sample size is smaller than that of dataset we used in this protocol.</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "1. Choose one or more literature databases\nA systematic human learning was conducted by literature mining in a particular period. This drew on our assumption of causality. For simplicity and to avoid redundant records, we only used PubMed because it is the most frequently updated (daily), has the longest period coverage (1950 to the present), and is a life science-focused literature database.\n13\nThis database also allows use of specific terms in the Medical Subject Headings (MeSH) vocabulary thesaurus from the National Library of Medicine, National Institutes of Health (Bethesda, MD, USA).\n2. Look for a document from an authoritative institution\nWe adopted snowball sampling method by starting with convenience sampling,\n14,15\nwhich was a document from an authoritative institution, to obtain a similar sense with human intuition when learning through the literature. We used the keywords \u2018\"Fetal Membranes, Premature Rupture\"[Mesh]\u2019 to find the document for an outcome of prelabor rupture of membranes (PROM) in the literature database, as a convenience sampling step. This led to\nPractice Bulletin No. 172\nfrom the American College of Obstetrics and Gynecology (ACOG).\n16\nWe only considered pregnant women as the population of which those studies investigated. The initial document was denoted\nd\n0\n(Algorithm 1).\nAlgorithm 1.\nSnowball sampling modified by starting from convenience sampling to obtain an initial document (\nd\n0\n)\nRequire:\nd\n0\n01:\nA = \u00d8\n02:\nL = \u00d8\n03:\nk\n0\n=\nr\nead(d\n0\n)\n04:\nwhile\nks\n\u2206\nA\n\u2260\n\u00d8\nthen\n05: ........\na\ns\n\u2190 k\ns\n06: ........\nd\ns\n= search(k\ns\n)\n07: ........\nif\nds\n\u2260\n\u00d8\nthen\n08: ................\nk\ns+1\n= read(d\ns\n)\n09: ................\nif\ncausal(k\ns+1\n)\nthen\n10: ........................\npass\n11: ................\nelse\n12: ........................\nl\ns\n\u2190 k\ns+1\n13: ........................\nend while\n14: ........\nelse\n15: ................\nend while\n3. Learn causal factors from the initial document\nWe denoted causal factors of PROM as\nA\n, while the confounders were denoted\nL\n. Confounders are causal factors of a causal factor of PROM. This means\nL\nrepresents the same factors that cause both\nA\nand PROM. Initially, there was no\nA\nor\nL\n. By reading an article/document\nd\n0\n, we identified\na\n\u2208\nA\nto determine\nk\n0\nkeywords that refer to\na\nat the\ns=0\nstage. The next steps were iterative until no\nk\ns\nkeywords referred to any\na\n\u2208\nA\n.\n4. Search for causal factors for each causal factor of the outcome from either the initial document or the subsequent documents\nWe assigned\nk\ns\nto\na\ns\nand searched for the document\nd\ns\nusing\nk\ns\nfor causal factors of\na\ns\n. If a document was found, then we continued; otherwise, the iteration ended. We continued by reading\nd\ns\nto determine\nk\ns+1\nkeywords. This refers to a causal factor of\na\n\u2208\nA\nthat is referred to by the previous\nk\ns\nkeywords.\n5. Identify whether the causal factors from previous step are also causal factors of the outcome\nDocuments were searched and read to check if the\nk\ns+1\nkeyword also refers to causal factors of PROM. If yes, then the\nk\ns+1\nkeyword was passed to the\ns+1\nstage; otherwise, we assigned\nk\ns+1\nto\nl\ns\nand the iteration ended.\n6. Construct a causal diagram for each proposed causal factor of the outcome\nFactors of\nA\nand\nL\nare called first- or second-level factors of PROM, while only first-level ones are causal factors. This determined the position of factors within a circular network depicting a causal diagram which we used for causal inferences. Since first-level factors may come from second-level factors in the process, we could also find inter-causal factor relationships. We included these relationships as edges in the network, because these are needed to construct causal inference formulas. For each causal factor with the common causes that have available data, a node and an edge to this node were drawn from the node of each variable consisting either a causal factor or the common causes. This node represented measured variables. Another node and an edge from this node were drawn to the represented node. This node represented unmeasured variables that can affect measurement error of the measured variables. Please kindly find out more explanation about constructing a causal diagram in this reference.\n5\nThe source codes (vignette) for this step are available in\nhttps://github.com/herdiantrisufriyana/shl\n.\n7. Split a dataset randomly for a discovery and validation set and define variables in the dataset that can represent each causal factor and the common causes\nOnly this set was used for causal inferences. Later, we also used it for training set of a prediction model. We represented demographics and medical histories as candidate causal factors if applicable. These were respectively binarized into 0 and 1 for negative and positive factors. Details of the ICD-10 codes and demographic variables we assigned to each causal factor are available in the source codes. We provided an R package medhist 0.1.0 consisting functions to extract, preprocess, and transform data into each causal factor from a nationwide health insurance claim data.\n8. Define causal inference formula for each proposed causal factor of the outcome based on the causal diagram and available data\nOnly first-level factors were included in the formulas. For example, both asthma and influenza are first-level factors of PROM, while varicella is a second-level factor of PROM via asthma. To determine the formula for the causal inference of asthma, we included only asthma and influenza. We used only asthma\u2019s significance to determine if asthma was a causal factor of PROM. Only the causal factor of interest and confounding factors or common causes were included in the causal formula. We avoided including common effects to prevent collider-stratification bias, or unnecessary inclusion of second-level factors.\n5\n9. Conduct causal inference modeling by a generalized (G) method\nTo verify our assumptions of PROM causality, we applied one of the generalized (G) methods, i.e., IPW, for each causal factor.\n7,8\nThis method was designed for time-varying exposures.\n9,10\nHowever, we also conducted outcome regressions for causal inferences, since this is one of the more commonly methods although it does not work in general.\n5,17\nAnother common method is propensity-score matching with various versions, but we did not apply this method for simplicity. While adjusting all confounding factors is difficult, if not impossible, we disclosed open backdoors (confounding factors that were not blocked) because of limitations of providing data for each causal factor. This will help in interpreting the results of the study with caution.\n18,19\nAn R package is provided for the causal inference modeling using G-methods, which is gmethods 0.1.0.\n10. Develop and validate a prediction model to describe the explainability\nAfter verifying causal factors, we only included those in a prediction model that applied a logistic regression with a shrinkage method, as recommended by PROBAST, instead of using a stepwise selection method.\n11\nWe chose an RR, which applies L\n2\n-norm or beta regularization, because this method retains all causal factors within the model after weights are updated by training.\n20\nThe model was evaluated by the area under receiver operating characteristics to find the predictive performance using all confirmed causal factors."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p><strong>A. Step 1</strong></p><p><em><u>Problem</u></em></p><p>No exact MeSH term for the outcome</p><p><em><u>Possible reason</u></em></p><p>The outcome term may be one of entry terms.</p><p><em><u>Solution</u></em></p><p>Choose either the main or entry term. Browse all MeSH categories within the page of the most similar term to find an alternative term.</p><p><br></p><p><strong>B. Step 2</strong></p><p><em><u>Problem</u></em></p><p>No document from an authoritative institution</p><p><em><u>Possible reason</u></em></p><p>The outcome may be either a novel condition or a multidisciplinary problem.</p><p><em><u>Solution</u></em></p><p>Search for a narrative, scoping, or systematic review. If not available, search for an original article and explore the introduction and discussion section.</p><p><br></p><p><strong>C. Step 3 to 5</strong></p><p><em><u>Problem C.1</u></em></p><p>No causal factor of either each causal factor or outcome</p><p><em><u>Possible reason C.1</u></em></p><p>Either the causal factor or the outcome may be either a novel or an idiopathic condition.</p><p><em><u>Solution C.1</u></em></p><p>Loosen your criteria of causal factors of either each causal factor or outcome to any associated factor.</p><p><br></p><p><em><u>Problem C.2</u></em></p><p>Causal factor as a child term of another factor</p><p><em><u>Possible reason C.2</u></em></p><p>A causal factor has several subtypes.</p><p><em><u>Solution C.2</u></em></p><p>Assign a child term as a mediator of the parent term on another factor or an outcome without removing the direct relationship.</p><p><br></p><p><em><u>Problem C.3</u></em></p><p>Several distinguished terms of outcome</p><p><em><u>Possible reason C.3</u></em></p><p>An outcome has several subtypes.</p><p><em><u>Solution C.3</u></em></p><p>Assign a subtype as a mediator of the causal factor on an outcome without removing direct relationship between the causal factor on the unspecified outcome.</p><p><br></p><p><em><u>Problem C.4</u></em></p><p>Unclear causal or non-causal association</p><p><em><u>Possible reason C.4</u></em></p><p>Statistical analysis is insufficiently described.</p><p><em><u>Solution C.4</u></em></p><p>There is no need to confirm the causal effect. These steps aim to identify existing assumptions from previous researchers about potential causes of an outcome.</p><p><br></p><p><strong>D. Step 6 to 9</strong></p><p><em><u>Problem D.1</u></em></p><p>No available data for any causal factor</p><p><br></p><p><em><u>Possible reason D.1.1</u></em></p><p>A causal factor have no specific diagnosis or procedure code.</p><p><em><u>Solution D.1.1</u></em></p><p>Consider other codes that may represent a causal factor.</p><p><br></p><p><em><u>Possible reason D.1.2</u></em></p><p>There is no relevant variable in a dataset.</p><p><em><u>Solution D.1.2</u></em></p><p>Consider to get another secondary dataset or collect primary data.</p><p><br></p><p><strong>E. Step 10</strong></p><p><em><u>Problem E.1</u></em></p><p>No confirmed causal factors for a prediction model</p><p><br></p><p><em><u>Possible reason E.1.1</u></em></p><p>Diagnosis or procedure codes may not represent a causal factor.</p><p><em><u>Solution E.1.1</u></em></p><p>Consider other codes that may represent a causal factor.</p><p><br></p><p><em><u>Possible reason E.1.2</u></em></p><p>There is no relevant variable in a dataset.</p><p><em><u>Solution E.1.2</u></em></p><p>Consider to get another secondary dataset or collect primary data.</p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p><strong>All steps</strong></p><p>Approximate time: 4 to 11 days</p><p><br></p><p><strong>Step 1 to 5</strong></p><p>Approximate time: 6 to 8 hours a day for 3 to 10 days</p><p><br></p><p><strong>Step 6&nbsp;to 8</strong></p><p>Approximate time: 20 minutes to 2 hours per causal factor</p><p><br></p><p><strong>Step 9</strong></p><p>Approximate time: 1 to 20 minutes per causal factor</p><p><br></p><p><strong>Step 10</strong></p><p>Approximate time: 1 to 20 minutes per causal factor</p><p>  </p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>Several causal diagrams are expected to be constructed for an outcome, beginning from outcome-related guidelines by an authoritative institution. A study may indicate &gt;1 relationships between causal factors and either another causal factor or an outcome. Some covariates in a causal diagram may not have available data, but, the diagram is shown to disclose potential backdoors or confounding factors that are not controlled. The outcome regression may show larger effects compared to those by IPW. Since the latter method, which is a G-method, is possible to estimate a causal effect although the causal model is mistakenly specified,<sup>17</sup> the confounding effects are well-removed thus demonstrating smaller effect of a causal factor.</p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>1. Fleuren, L.M., et al. Machine learning for the prediction of sepsis: a systematic review and meta-analysis of diagnostic test accuracy. Intensive Care Med 46, 383-400 (2020).</p><p><br></p><p>2. Lee, Y., et al. Applications of machine learning algorithms to predict therapeutic outcomes in depression: A meta-analysis and systematic review. J Affect Disord 241, 519-532 (2018).</p><p><br></p><p>3. Gonem, S., Janssens, W., Das, N. &amp; Topalovic, M. Applications of artificial intelligence and machine learning in respiratory medicine. Thorax 75, 695-701 (2020).</p><p><br></p><p>4. Sufriyana, H., et al. Comparison of Multivariable Logistic Regression and Other Machine Learning Algorithms for Prognostic Prediction Studies in Pregnancy Care: Systematic Review and Meta-Analysis. JMIR Med Inform 8, e16503 (2020).</p><p><br></p><p>5.&nbsp;Hern\u00e1n, M.A. &amp; Robins, J.M. Causal Inference: What If. , (Chapman &amp; Hall/CRC, Boca Raton, 2020).</p><p>6.&nbsp;Wilkinson, J., et al. Time to reality check the promises of machine learning-powered precision medicine. Lancet Digit Health 2, e677-e680 (2020).</p><p><br></p><p>7.&nbsp;Hern\u00e1n, M.A. How to estimate the effect of treatment duration on survival outcomes using observational data. Bmj 360, k182 (2018).</p><p><br></p><p>8.&nbsp;Chatton, A., et al. G-computation, propensity score-based methods, and targeted maximum likelihood estimator for causal inference with different covariates sets: a comparative simulation study. Sci Rep 10, 9219 (2020).</p><p><br></p><p>9.&nbsp;Naimi, A.I., Cole, S.R. &amp; Kennedy, E.H. An introduction to g methods. Int J Epidemiol 46, 756-762 (2017).</p><p><br></p><p>10. Doosti-Irani, A., Mansournia, M.A. &amp; Collins, G. Use of G-methods for handling time-varying confounding in observational research. Lancet Glob Health 7, e35 (2019).</p><p><br></p><p>11.&nbsp;Moons, K.G.M., et al. PROBAST: A Tool to Assess Risk of Bias and Applicability of Prediction Model Studies: Explanation and Elaboration. Ann Intern Med 170, W1-w33 (2019).</p><p><br></p><p>12.&nbsp;Huber, W., et al. Orchestrating high-throughput genomic analysis with Bioconductor. Nat Methods 12, 115-121 (2015).</p><p><br></p><p>13.&nbsp;Falagas, M.E., Pitsouni, E.I., Malietzis, G.A. &amp; Pappas, G. Comparison of PubMed, Scopus, Web of Science, and Google Scholar: strengths and weaknesses. Faseb j 22, 338-342 (2008).</p><p><br></p><p>14.&nbsp;Goodman, L.A. Snowball Sampling. The Annals of Mathematical Statistics 32, 148-170, 123 (1961).</p><p><br></p><p>15.&nbsp;Lee, J. &amp; Spratling, R. Recruiting Mothers of Children With Developmental Disabilities: Adaptations of the Snowball Sampling Technique Using Social Media. J Pediatr Health Care 33, 107-110 (2019).</p><p>16.&nbsp;ACOG. Practice Bulletin No. 172: Premature Rupture of Membranes. Obstet Gynecol 128, e165-177 (2016).</p><p><br></p><p>17.&nbsp;Dukes, O. &amp; Vansteelandt, S. A Note on G-Estimation of Causal Risk Ratios. Am J Epidemiol 187, 1079-1084 (2018).</p><p><br></p><p>18.&nbsp;Hern\u00e1n, M.A. The C-Word: Scientific Euphemisms Do Not Improve Causal Inference From Observational Data. Am J Public Health 108, 616-619 (2018).</p><p><br></p><p>19.&nbsp;Hern\u00e1n, M. The C-Word: The More We Discuss It, the Less Dirty It Sounds. Am J Public Health 108, 625-626 (2018).</p><p><br></p><p>20.&nbsp;Van Calster, B., van Smeden, M., De Cock, B. &amp; Steyerberg, E.W. Regression shrinkage methods for clinical prediction models do not guarantee improved performance: Simulation study. Stat Methods Med Res 29, 3166-3178 (2020).</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>The social security administrator for health or <em>badan penyelenggara jaminan sosial (BPJS) kesehatan</em> in Indonesia gave permission to access the sample dataset in this protocol (dataset request approval number: 5064/I.2/0421). This protocol was funded by the Ministry of Science and Technology (MOST) in Taiwan (grant number MOST109-2221-E-038-018 and MOST110-2628-E-038-001) and the Higher Education Sprout Project from the Ministry of Education (MOE) in Taiwan (grant number DP2-110-21121-01-A-13) to Emily Chia-Yu Su.</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1101/2021.06.16.21258884",
+                "date": "2021-06-22 23:00:30",
+                "title": "Prognostication for prelabor rupture of membranes and the time of delivery in nationwide insured women: development, validation, and deployment",
+                "authors": [
+                    "Herdiantri Sufriyana",
+                    "Yu-Wei Wu",
+                    "Emily Chia-Yu Su"
+                ],
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 49761810,
+                "identity": "135abbd6-5449-486d-b4ef-997c68be5e32",
+                "order_by": 0,
+                "name": "Herdiantri Sufriyana",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0001-9178-0222",
+                "institution": "(1) Graduate Institute of Biomedical Informatics, College of Medical Science and Technology, Taipei Medical University, 250 Wu-Xing Street, Taipei 11031, Taiwan. (2) Department of Medical Physiology, Faculty of Medicine, Universitas Nahdlatul Ulama Surabaya, 57 Raya Jemursari Road, Surabaya 60237, Indonesia.",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Herdiantri",
+                "middleName": "",
+                "lastName": "Sufriyana",
+                "suffix": ""
+            },
+            {
+                "id": 49761811,
+                "identity": "ff95abb2-d42b-464e-9179-7b4f83305f8b",
+                "order_by": 1,
+                "name": "Yu Wei Wu",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-5603-1194",
+                "institution": "(1) Graduate Institute of Biomedical Informatics, College of Medical Science and Technology, Taipei Medical University, 250 Wu-Xing Street, Taipei 11031, Taiwan. (2) Clinical Big Data Research Center, Taipei Medical University Hospital, 250 Wu-Xing Street, Taipei 11031, Taiwan.",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Yu",
+                "middleName": "Wei",
+                "lastName": "Wu",
+                "suffix": ""
+            },
+            {
+                "id": 49761812,
+                "identity": "fc22e25b-5a5a-4e29-aca1-cb19dc916662",
+                "order_by": 2,
+                "name": "Emily Chia-Yu Su",
+                "email": "emilysu@tmu.edu.tw",
+                "orcid": "https://orcid.org/0000-0003-4801-5159",
+                "institution": "(1) Graduate Institute of Biomedical Informatics, College of Medical Science and Technology, Taipei Medical University, 250 Wu-Xing Street, Taipei 11031, Taiwan. (2) Clinical Big Data Research Center, Taipei Medical University Hospital, 250 Wu-Xing Street, Taipei 11031, Taiwan. (3) Research Center for Artificial Intelligence in Medicine, Taipei Medical University, 250 Wu-Xing Street, Taipei 11031, Taiwan.",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Emily",
+                "middleName": "Chia-Yu",
+                "lastName": "Su",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2021-09-03 02:42:27",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1634/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1634/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 14477633,
+                "identity": "7196db81-a0a1-4f89-b799-8c44c1439acc",
+                "added_by": "auto",
+                "created_at": "2021-10-13 08:42:20",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 397221,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1634/v1/62723dce-3362-44c3-9c02-9649e794a2b9.pdf"
+            },
+            {
+                "id": 14477632,
+                "identity": "b4b0be96-65f3-49d7-a386-191594553946",
+                "added_by": "auto",
+                "created_at": "2021-10-13 08:42:13",
+                "extension": "pdf",
+                "order_by": 1,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 126729,
+                "visible": true,
+                "origin": "",
+                "legend": "Supplementary information for source code description",
+                "description": "",
+                "filename": "suppprotocolshl.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1634/v1/83df448f6d1945e23cbd7dd0.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "causal diagram, feature selection, machine learning, medical history, electronic health record",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>We proposed a learning algorithm for human to conduct literature and data mining for causal factor discovery.&nbsp;The applicability is to select features for a machine learning prediction model, including but not limited to that using real-world, time-varying data from electronic health records. This protocol is relatively quick to find potentially actionable predictors for a clinical prediction while dealing with high dimensionality in big data. However, this protocol might not find a potentially novel cause, since this only exhaustively examines the existing evidences in a single study. The key stages consisted of systematic human learning, causal diagram construction, data preprocessing, causal inference modeling, and development and validation of a prediction model to describe the explainability.</p>",
+        "manuscriptTitle": "Systematic human learning by literature and data mining for feature selection in machine learning",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2021-10-13 08:42:12",
+                "doi": "10.21203/rs.3.pex-1634/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "0c701e94-2fd4-4b1a-8893-957eeabc4181",
+        "owner": [],
+        "postedDate": "October 13th, 2021",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 6927209,
+                "name": "Information theory and computation"
+            },
+            {
+                "id": 6927210,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 6927211,
+                "name": "Risk factors"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2021-10-13 08:42:12",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

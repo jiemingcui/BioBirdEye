@@ -1,0 +1,287 @@
+{
+    "identity": "nprot-5203",
+    "title": "Genome-wide DMS-MaPseq for _in_ _vivo_ RNA structure determination",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "This protocol is used for the _in_ _vivo_ DMS-based chemical probing of RNA structure genome-wide from _S. cerevisiae_ or human cells in culture, providing quantitative RNA structure data encoded as mismatches. In the first step, cells/tissues are treated with DMS, followed by total RNA extraction, and fragmentation. After ligation to a 3\u2019 adaptor and rRNA depletion, the RNA is reverse transcribed using the thermostable group II intron reverse transcriptase \\(TGIRT), which encodes structure-specific DMS modifications as mismatches in the cDNA. The cDNA is then circularized and subject to a limited number of PCR cycles before sequencing on an Illumina platform. The data produced has a high signal-to-noise ratio which compares favorably to the existing sequencing-based RNA structure probing techniques currently available<sup>1,2</sup>."
+        },
+        {
+            "header": "Reagents",
+            "content": "With the exception of standard laboratory reagents \\(such as RNase-free or molecular-biology grade water, ethanol, buffers, salts, etc.), the following items are used this protocol:\r\n\n\n\r\n\n\nDimethyl sulfate \\(D186309-5ML, Sigma Aldrich)\r\n\n\nBeta-mercaptoethanol \\(M3148, Sigma Aldrich)\r\n\n\nIsoamyl alcohol \\(W205710, Sigma Aldrich)\r\n\n\nAcid phenol or Trizol \\(AM9720 or 15596026, Ambion)\r\n\n\nChloroform \\(BP1145-1 Fisher Scientific)\r\n\n\nRNA Fragmentation Reagent \\(AM8740, Ambion)\r\n\n\nCostar Spin-X columns \\(8162, Corning)\r\n\n\nGlycoBlue Coprecipitant \\(AM9516, Ambion)\r\n\n\nrSAP / Shrimp Alkaline Phosphatase \\(M0371S, New England Biolabs)\r\n\n\nSUPERase Inhibitor \\(AM2696, Ambion)\r\n\n\nCutSmart Buffer \\(B7204S, New England Biolabs)\r\n\n\nT4 RNA ligase 2, truncated \\(M0242S, New England Biolabs)\r\n\n\nPoly\\(ethylene glycol) m.w. 8000 \\(i.e. PEG; P5413, Sigma Aldrich)\r\n\n\nRec J Exonuclease \\(RJ411250, Epicentre)\r\n\n\n5\u2019 Deadenylase \\(DA11101K, Epicentre)\r\n\n\nRibo-Zero Gold rRNA Removal Kit \\(species-specific product numbers, Epicentre) or Hybridase Thermostable RNaseH \\(H39100, Epicentre)\r\n\n\nTGIRT-III \\(Ingex)\r\n\n\n0.1 M Dithiothreitol i.e. DTT \\(D9163, Sigma Aldrich), prepared the day of reverse transcription\r\n\n\nCircLigase ssDNA Ligase \\(CL4115K, Epicentre)\r\n\n\nNovex TBE-Urea Sample Buffer, 2X \\(LC6876, Invitrogen)\r\n\n\nNovex TBE-Urea Gels, 6%, 12 well \\(EC68652BOX, Invitrogen)\r\n\n\nNovex TBE Gels, 8%, 12 well \\(EC62152BOX, Invitrogen)\r\n\n\nSYBR Gold Nucleic Acid Gel Stain \\(S11494, Invitrogen)\r\n\n\nPhusion High Fidelity DNA polymerase \\(M0530S, New England Biolabs)\r\n\n\nHiSeq 2500 v2 kit or HiSeq 3000/4000 kit \\(varying options, Illumina)"
+        },
+        {
+            "header": "Equipment",
+            "content": "With the exception of standard laboratory equipment \\(such as centrifuges, thermocyclers, incubators, water baths, etc.), the following items are used this protocol:\r\n\n\n\r\n\n\nEppendorf Thermomixer, for use with 1.5 ml tubes\r\n\n\nBlue light \\(ex. Invitrogen)\r\n\n\nMagnetic rack for 1.5 ml tubes \\(ex. DynaMag-2, 12321D, Thermo Fisher Scientific)\r\n\n\nBioanalyzer \\(Agilent) or Fragment Analyzer \\(Advanced Analytical Technologies)\r\n\n\nHiSeq 2500, HiSeq 4000, or MiSeq sequencer \\(Illumina)"
+        },
+        {
+            "header": "Procedure",
+            "content": "**1. In vivo dimethyl sulfate \\(DMS) modification**\r\n\n\n\r\n\n\n**Cautions before working with DMS:**\r\n\n\nDMS is highly toxic and should only be used in a well-ventilated fume hood. We recommend using multiple layers of nitrile gloves such that the exterior layer can be removed and replaced after handling DMS directly. DMS should have a faint yellow color, that will grow darker due to oxidation over time. Open a fresh bottle of DMS every six months to ensure freshness and optimal reactivity. DMS will be quenched during the following procedure by BME and resulting liquid waste should be disposed of per your local hazardous waste regulations. With the exception of the centrifugation steps and final steps of total RNA extraction, all steps should be done in a fume hood.\r\n\n\n\r\n\n\na. _S. cerevisiae_\r\n\n\n\r\n\n\n\u2022 Dilute saturated overnight yeast cultures to OD600 of ~0.09, and grow at 30\u00b0C to a final log phase OD600 of 0.5-0.7 at the time of DMS treatment.\r\n\n\n\u2022 Pre-chill a 30 ml stop solution on ice for > 1 hour before DMS treatment. Stop solution contains 15 ml 100% isoamyl alcohol, 9 ml BME, and 6 ml ddH2O. Also prepare and pre-chill a 10 ml wash solution containing 3 ml BME and 7 ml ddH2O. \\(Solutions will phase separate, invert to mix directly before using.)\r\n\n\n\u2022 Move 15 ml of log-phase yeast culture into a 50 ml conical and place in a rack submerged in a 30\u00b0C water bath, such that the entire 15 ml culture is just submerged.\r\n\n\n\u2022 Pipet 750 \u00b5l of DMS \\(5% v/v) into the yeast culture, stirring immediately stirring with a serological pipet. Treat the yeast for 4 min, with consistent stirring or swirling of the culture. Culture should remain submerged in the water bath during this time.\r\n\n\n\u2022 Pour ice cold 30 ml stop solution into yeast culture with DMS, cap, invert to mix, and place on ice. The DMS will be fully hydrolyzed by the BME at this point.\r\n\n\n\u2022 Centrifuge 50 ml conical for 4 min at 3,500 x g at 4\u00b0C. Optional: parafilm the lids to minimize the smell of DMS if centrifuge is located outside of a fume hood.\r\n\n\n\u2022 Decant supernatant into DMS/BME waste, will have a small pellet of yeast at the bottom. Pour in ice-cold wash solution, and shake/pipet to resuspend yeast pellet.\r\n\n\n\u2022 Parafilm lid \\(optional) and spin again for 4 min at 3,500 x g at 4\u00b0C.\r\n\n\n\u2022 Decant supernatant into waste. Residual wash solution remaining in tube is fine, and traces of remaining BME in tube will quench any remaining DMS released upon cell lysis.\r\n\n\n\u2022 Add 0.6 ml total RNA lysis buffer \\(6 mM EDTA, 45 mM NaOac pH 5.5) to tube and resuspend yeast pellet by pipet. Move sample to 1.5 ml Eppendorf tube that contains 40 \u00b5l 20% SDS. \r\n\n\n\u2022 Prewarm 0.65 ml of acid phenol in thermomixer at 65\u00b0C. \r\n\n\n\u2022 Move tube with yeast/SDS mixture to 65\u00b0C thermomixer and shake at 1,400 rpm for 30 sec to ensure mixing of SDS.\r\n\n\n\u2022 Add yeast sample to tube with hot acid phenol. Incubate in thermomixer at 65\u00b0C, shaking for 2 min at 1,400 rpm. Note, that DMS-treated RNA can be brittle and high temperature or vortexing steps should be minimized to prevent fragmentation.\r\n\n\n\u2022 Immediately move samples into a dry ice / EtOH bath \\(\n1:1 composition) until frozen,\n3 min.\r\n\n\n\u2022 Spin tubes 3 min at 20,000 x g at room temp and immediately remove top aqueous phase into new 1.5 ml tube, avoiding material at the phase interface.\r\n\n\n\u2022 Add 0.65 ml acid phenol \\(room temperature) to aqueous phase. Incubate at room temperature in thermomixer for 2-3 min, shaking at 1400 rpm.\r\n\n\n\u2022 Spin tubes 3 min at 20,000 x g at room temp and immediately remove top aqueous phase into new 1.5 ml tube, avoiding material at the phase interface.\r\n\n\n\u2022 Add 0.65 ml RNase-free chloroform and vortex at room temperature in thermomixer for 30 sec. Spin tubes 2 min at 20,000 x g at room temp and immediately remove top aqueous phase into new 1.5 ml tube, avoiding material at the phase interface.\r\n\n\n\u2022 Add >1 volume isopropanol \\(ex. 700 \u00b5l) to final aqueous phase. Invert to mix well and chill >30min at -30\u00b0C.\r\n\n\n\u2022 Spin >45 min at 20,000 x g at 4\u00b0C to pellet nucleic acids.\r\n\n\n\u2022 Remove supernatant and wash pellet in 0.75 ml 70-80% EtOH.\r\n\n\n\u2022 Pulse spin tube to collect residual EtOH at the bottom, and remove all liquid with small pipet tip.\r\n\n\n\u2022 Air-dry 5 min and resuspend in 50 \u00b5l 10 mM Tris pH 7.0. May need to add additional volume if the pellet is large.\r\n\n\n\u2022 Nanodrop a 1:10 or 1:100 dilution of RNA sample. Procedure should yield >50-100 ug RNA.\r\n\n\n\r\n\n\nb. Adherent human cells\r\n\n\n\r\n\n\n\u2022 Begin with a 15 cm2 plate of fully adherent HEK 293T cells in 15 ml media \\(other adherent cell lines will work with the procedure too). \r\n\n\n\u2022 Working a fume hood, remove 10 ml media from the plate into a 50 ml conical and add 200-300 \u00b5l DMS. Shake vigorously to ensure mixing.\r\n\n\n\u2022 Slowly pipette the DMS/media mixture back on the plate by tilting the plate and pipetting into a corner. Note that this step has to be done very carefully to avoid lifting cells from the plate. \r\n\n\n\u2022 Parafilm the plate, and move it to a 37\u00b0C incubator / hybridization oven for 5 min, keeping the plate in a fume hood if possible and swirling occasionally. Some cells may become detached during treatment.\r\n\n\n\u2022 Slowly pipet out the DMS/media into waste.\r\n\n\n\u2022 Add 10 ml of 30% v/v BME \\(diluted in 1 x PBS) and collect the cells into a 15 ml conical using a scraper to scrape the cells from the plate.  \r\n\n\n\u2022 Centrifuge cells at 1000 x g at 4\u00b0C for 3 min; decant the BME solution. \r\n\n\n\u2022 Wash the cells by adding 10 ml of 1 x PBS and repeating the centrifugation step. Decant the PBS. \r\n\n\n\u2022 Add 1 ml Trizol to plate, lysing cells, and extracting total RNA according to the Trizol protocol \\(Optional: if using higher amounts of DMS you may add 10 \u00b5l 100% BME to the Trizol).\r\n\n\n\r\n\n\n**2. Fragmentation**\r\n\n\n\r\n\n\n\u2022  Start with 10 \u00b5g of RNA in 9 \u00b5l 10 mM Tris pH 7.0 in a 0.2 ml PCR tube for a 10 \u00b5l final reaction volume.\r\n\n\n\u2022 Move tube to thermocycler for 2 min at 95\u00b0C to denature the RNA.\r\n\n\n\u2022 Move tube directly to ice. Add 1 \u00b5l Ambion Fragmentation Reagent, immediately pipetting up and down to mix well.\r\n\n\n\u2022 Move tube back to 95\u00b0C thermocycler for 1 min 40 sec. Move to ice.\r\n\n\n\u2022 Add 1 \u00b5l of Ambion Fragmentation Reagent Stop Solution, which contains EDTA to quench the Zn2+ in the fragmentation reagent. As before, pipet up and down to mix well.\r\n\n\n\u2022 Add 10 \u00b5l of 2x TBE-Urea Sample Buffer, mix by flicking.\r\n\n\n\u2022 Load all of sample/dye mix into well of a 6% TBE-Urea gel.\r\n\n\n\u2022 Run gel 45 min at 150 V.\r\n\n\n\u2022 Stain gel in 1x SYBR Gold, image on a blue light, and cut RNA fragments of 100-170 nucleotides in size, which removes small RNA contaminants of <100 nucleotides \\(e.g. tRNAs).\r\n\n\n\u2022 To extract RNA from gel slice, nest a 0.5 ml Eppendorf tube in a 1.5 ml Eppendorf tube with two holes poked in to the bottom of the smaller tube using a 20-gauge needle. Place the cut gel piece into the small 0.5 ml tube, and spin the nested tubes at room temperature for 3 min at 20,000 x g.\r\n\n\n\u2022 Move any remaining gel pieces into the bottom of the 1.5 ml tube, and discard the 0.5 ml tube.\r\n\n\n\u2022 Add 300 \u00b5l 0.3 mM NaCl and shake in a thermomixer at 70\u00b0C for 10 min with vigorous shaking \\(1,400 rpm). Gel slurry can also be left rotating overnight at 4\u00b0C.\r\n\n\n\u2022 Transfer the gel slurry to a Costar Spin-X column, using a 1 mL pipet tip with the end trimmed using a sterile razorblade. Spin Costar column 3 min at 20,000 x g.\r\n\n\n\u2022 Transfer eluate into fresh 1.5 ml Eppendorf tube.\r\n\n\n\u2022 Add 800 \u00b5l 100% IsOH and 2 \u00b5l GlycoBlue.\r\n\n\n\u2022 Precipitate nucleic acids by placing tube at -30\u00b0C for 30 min or more. \r\n\n\n\u2022 Spin 45 min, 4\u00b0C at max speed \\(20,000 x g).\r\n\n\n\u2022 Remove supernatant. Wash pellet gently with 500 \u00b5l 70-80% EtOH and allow pellet to air dry 5 min. \r\n\n\n\u2022 Resuspend pellet in 7 \u00b5l 10 mM Tris pH 7.0.\r\n\n\n\r\n\n\n**3. 3\u2019 end resolution and Ligation**\r\n\n\n\r\n\n\na. rSAP Treatment\r\n\n\n\r\n\n\n\u2022 To fragmented RNA solution, add 1 \u00b5l 10x CutSmart Buffer and 1 \u00b5l SUPERase Inhibitor, mix. Add 1.5 \u00b5l rSAP enzyme. Mix.\r\n\n\n\u2022 Incubate 1 hour at 37\u00b0C.\r\n\n\n\u2022 Heat inactivate at 65\u00b0C for 5 min. Move to ice.\r\n\n\n\r\n\n\nb. Ligation to linker-2\r\n\n\n\r\n\n\n\u2022 Pre-mix 6.5 \u00b5l 50% PEG 8000, 0.5 \u00b5l 50 M linker-2, 1 \u00b5l 0.1M DTT, 1 \u00b5l 10x T4 RNA ligase buffer, and 2 \u00b5l T4 RNA ligase, and add the solution to heat-inactivated rSAP reaction. Mix well.\r\n\n\n\u2022 Incubate 2 hours at 25\u00b0C.\r\n\n\n\u2022 Add 154 \u00b5l 10 mM Tris pH 7.0, 700 \u00b5l 100% EtOH, 18 \u00b5l 3M NaOAc pH 5.5, and 1.5 \u00b5l GlycoBlue. Mix well.\r\n\n\n\u2022 Chill for >30 min at -30\u00b0C to precipitate nucleic acids. Spin >45 min at 4\u00b0C at max speed \\(>20,000 x g). Wash pellet with 70-80% EtOH and air-dry.\r\n\n\n\u2022 Resuspend pellet in 15 \u00b5l 10 mM Tris 7.0.\r\n\n\n\r\n\n\nc. Linker degradation with Rec J\r\n\n\n\r\n\n\n\u2022 To 15 \u00b5l of RNA/Tris from above, add 2 \u00b5l 10x RecJ buffer and 1 \u00b5l SUPERase Inhibitor. Mix.\r\n\n\n\u2022 Add 1 \u00b5l 5\u2019 deadenylase and 1 \u00b5l Rec J. Mix.\r\n\n\n\u2022 Incubate at 30\u00b0C for 30 min \u2013 1 hour.\r\n\n\n\u2022 Add 154 \u00b5l 10 mM Tris pH 7.0, 700 \u00b5l 100% EtOH, 18 \u00b5l 3M NaOAc pH 5.5, and 1 \u00b5l GlycoBlue. Mix well.\r\n\n\n\u2022 Chill for >30 min at -30\u00b0C to precipitate nucleic acids. Spin >45 min at 4\u00b0C at max speed \\(>20,000 x g). Wash pellet with 70-80% EtOH and air-dry.\r\n\n\n\u2022 Resuspend pellet in 26 \u00b5l RNase-free water and proceed to Ribo-Zero.\r\n\n\n\r\n\n\n\r\n\n\n**4. Ribo-Zero, rRNA depletion**\r\n\n\n\r\n\n\nNote: this protocol deviates slightly from the manufacturer protocol with a final incubation step at 40\u00b0C instead of 50\u00b0C. Because the RNA is fragmented, the temperature is lowered to ensure there is no excess denaturation of rRNA bound to the bait oligos.\r\n\n\n\r\n\n\n\u2022 Prepare and wash Ribo-Zero magnetic beads according to manufacturer instructions.\r\n\n\n\u2022 To 26 \u00b5l RNA/water solution, add 4 \u00b5l 10x Ribo-Zero Reaction Buffer. Mix.\r\n\n\n\u2022 Add 10 \u00b5l Ribo-Zero removal solution. Mix gently.\r\n\n\n\u2022 Incubate solution 68\u00b0C for 10 min.\r\n\n\n\u2022 Incubate at room temp for 5 min.\r\n\n\n\u2022 Add the 40 \u00b5l RNA/removal mix to 65 \u00b5l prewashed beads. Immediately pipet up and down 10x and then vortex at medium speed for 10 sec.\r\n\n\n\u2022 Incubate 5 min at RT.\r\n\n\n\u2022 Vortex sample again, 10 sec at medium speed.\r\n\n\n\u2022 Incubate 40\u00b0C for 5min.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\r\n\n\n\u2022 May need to do VERY light pop spin to get any liquid out of cap before placing on magnet. Resuspend beads by lightly flicking if necessary, after spin.\r\n\n\n\u2022 Put tube on magnet, ~1 min or until supernatant is clear.\r\n\n\n\u2022 Move supernatant to fresh RNase-free tube.\r\n\n\n\u2022 Add 800 \u00b5l 100% EtOH, 11 \u00b5l 3 M NaOAc pH 5.5, 2 \u00b5l GlycoBlue.\r\n\n\n\u2022 Precipitate.\r\n\n\n\u2022 After precipitation, wash pellet well to remove all salts before reverse transcription. Ex. wash pellet 3-4x with 70-80% EtOH, vortexing the pellet and spinning 5 min, 20, 000 x g, 4\u00b0C to recover pellet in between washes.\r\n\n\n\u2022 Resuspend pellet in 5 \u00b5l 10 mM Tris 7.0 and move to 0.2 ml PCR tube.\r\n\n\n\r\n\n\n**5. Reverse Transcription**\r\n\n\n\r\n\n\n\u2022 To 5 \u00b5l of RNA from above, add 2 \u00b5l 5x First Strand Synthesis buffer \\(final reaction concentration of 50 mM Tris-HCl pH 8.3, 75 mM KCl, 3 mM MgCl2) and 0.5 \u00b5l 2 M oCJ200-link2 primer \\(PAGE purified).\r\n\n\n\u2022 Denature the RNA at 80\u00b0C for 2 min, then move tube to benchtop, allowing templates to pre-anneal for 5 min at room temperature.\r\n\n\n\u2022 Add 0.5 \u00b5l SUPERase Inhibitor, 0.5 \u00b5l 0.1M DTT, 0.5 \u00b5l TGIRT-III enzyme. Mix.\r\n\n\n*The 0.1M DTT stock is prepared freshly from powder the day of reverse transcription. Additionally, fresh aliquots of all RT components, including the primer and buffer from above, should be used when possible.\r\n\n\n\u2022 Incubate reaction at 57\u00b0C for 1.5 hours in a thermocycler with a heated lid.\r\n\n\n\u2022 Add 1 \u00b5l 5M NaOH, pipetting up-and-down to mix, and incubate at 95\u00b0C for 3 min.\r\n\n\n\u2022 Add 154 \u00b5l 10 mM Tris pH 7.0, 800 \u00b5l 100% EtOH, 16 \u00b5l 3M NaOAc pH 5.5, and 1 \u00b5l GlycoBlue. Mix well.\r\n\n\n\u2022 Chill for >30 min at -30\u00b0C to precipitate nucleic acids. Spin >45 min at 4\u00b0C at max speed \\(>20,000 x g). Wash pellet with 70-80% EtOH and air-dry.\r\n\n\n\u2022 Resuspend pellet in 8 \u00b5l 10 mM Tris 7.0.\r\n\n\n\u2022 Add 8 \u00b5l 2x TBE-Urea Sample Buffer to sample.\r\n\n\n\u2022 Denature cDNA/dye solution 80\u00b0C for 2 min. Keep sample on ice before loading gel.\r\n\n\n\u2022 Load entire sample volume onto 6% TBE-Urea gel, run 45 min at 150 V.\r\n\n\n\u2022 Stain gel in 1x SYBR Gold, and cut RNA fragments of 170-240 nucleotides in size, which removes residual RT oligo which runs at ~80 nucleotides.\r\n\n\n\u2022 Extract cDNA from gel slice as described in fragmentation section, using 300 \u00b5l 0.3 M NaCl, Costar columns, and EtOH precipitation.\r\n\n\n\u2022 Resuspend pellet in 15 \u00b5l 10 mM Tris 8.0.\r\n\n\n\r\n\n\n**6. Circ Ligation**\r\n\n\n\r\n\n\n\u2022 Make Circ mastermix, with 2 \u00b5l of 10 x CircLigase buffer, 1 \u00b5l 1 mM ATP, and 1 \u00b5l 50 mM MnCl2 for each reaction, which will have a 20 \u00b5l final reaction volume.\r\n\n\n\u2022 Add 4 \u00b5l Circ mastermix to 15 \u00b5l cDNA/Tris 8 sample from above. Mix well.\r\n\n\n\u2022 Add 1 \u00b5l CircLigase ssDNA Ligase. Mix.\r\n\n\n\u2022 Incubate 60\u00b0C for 2 hours.\r\n\n\n\u2022 Incubate 80\u00b0C for 10 min to heat inactivate enzyme. Keep on ice and proceed to PCR or store at -20\u00b0C.\r\n\n\n\r\n\n\n**7. PCR**\r\n\n\n\r\n\n\n\u2022 Mix 3.4 \u00b5l 5x Phusion High Fidelity buffer, 0.4 \u00b5l 10 mM dNTPs, 0.2 \u00b5l Phusion, 11.9 \u00b5l RNase-free H2O, 0.2 \u00b5l 100 M oNTI231, 1 \u00b5l 10 M indexing oligo, and 1 \u00b5l of circ ligation product \\(1/20th of reaction) for an 18 \u00b5l final reaction volume. \r\n\n\n\r\n\n\nPCR Program\r\n\n\nInitial denaturation: 98\u00b0C, 30 sec\r\n\n\n\r\n\n\n8-13 cycles with the following settings:\r\n\n\nDenaturation: 94\u00b0C, 15 sec\r\n\n\nAnnealing: 55\u00b0C, 5 sec\r\n\n\nExtension: 65\u00b0C, 10 sec\r\n\n\n\r\n\n\n\u2022 Add 3 \u00b5l 6x DNA Loading dye, load entire sample on 8% TBE gel, run 50 min at 180 V to remove empty vectors from fragment-containing inserts.\r\n\n\n\u2022 Stain gel with SYBR Gold and image on blue light as previously described. \r\n\n\n\u2022 Cut gel slice from ~200-300 nucleotides, and extract dsDNA from gel slice as described in fragmentation section, using 300 \u00b5l 0.3 M NaCl, Costar columns, and EtOH precipitation.\r\n\n\n\u2022 Resuspend pellet in 10 \u00b5l 10 mM Tris pH 8.0 and quantify by bioanalysis before sequencing. \r\n\n\n*Libraries were constructed for use with the custom Read1 sequencing primer oNTI202."
+        },
+        {
+            "header": "Timing",
+            "content": "6 days."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "This protocol is optimized for the production of fragments suitable for 50 bp single read sequencing. Generating libraries with larger fragment inserts is possible, but may require a scaling of input material given high loss during protocol steps, such as inefficiencies in gel extraction for larger fragment sizes. Generally, it may be preferable to use T4 PNK for 3\u2019 end healing instead of rSAP to also resolve cyclic phosphates after fragmentation. The preferred T4 PNK conditions would be 30 min at 37\u00b0C in reaction conditions: 100 mM Tris/acetate pH 6.0, 3 mM MgCl2, and 2 mM DTT."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "This protocol will produce libraries ready for sequencing on an Illumina platform, with a final library size of ~225 nucleotides and a final molarity of 2-4nM, depending on the number of PCR cycles used in the final step."
+        },
+        {
+            "header": "References",
+            "content": "1. Kwok, C. K., Tang, Y., Assmann, S. M. & Bevilacqua, P. C. The RNA structurome: transcriptome-wide structure probing with next-generation sequencing. Trends Biochem. Sci. 40, 221\u2013232 \\(2015).\r\n  2. Strobel, E. J., Watters, K. E., Loughrey, D. & Lucks, J. B. RNA systems biology: uniting functional discoveries and structural tools to understand global roles of RNAs. Curr. Opin. Biotechnol. 39, 182\u2013191 \\(2016)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nmeth.4057",
+                "date": "2016-11-07 17:04:52",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 14144,
+                "identity": "a0cdfd03-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Jonathan S. Weissman",
+                "email": "jonathan.weissman@ucsf.edu",
+                "orcid": "",
+                "institution": "UCSF and Howard Hughes Medical Institute",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Jonathan",
+                "middleName": "S.",
+                "lastName": "Weissman",
+                "suffix": ""
+            },
+            {
+                "id": 14145,
+                "identity": "a0cdff40-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Silvi Rouskin",
+                "email": "srouskin@wi.mit.edu",
+                "orcid": "",
+                "institution": "Whitehead Institute and MIT",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Silvi",
+                "middleName": "",
+                "lastName": "Rouskin",
+                "suffix": ""
+            },
+            {
+                "id": 14140,
+                "identity": "a0cdef8a-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Meghan Zubradt",
+                "email": "",
+                "orcid": "",
+                "institution": "Weissman Lab",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Meghan",
+                "middleName": "",
+                "lastName": "Zubradt",
+                "suffix": ""
+            },
+            {
+                "id": 14141,
+                "identity": "a0cdf439-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Paromita Gupta",
+                "email": "",
+                "orcid": "",
+                "institution": "Rouskin Lab",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Paromita",
+                "middleName": "",
+                "lastName": "Gupta",
+                "suffix": ""
+            },
+            {
+                "id": 14142,
+                "identity": "a0cdf837-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Sitara Persad",
+                "email": "",
+                "orcid": "",
+                "institution": "Rouskin Lab",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Sitara",
+                "middleName": "",
+                "lastName": "Persad",
+                "suffix": ""
+            },
+            {
+                "id": 14143,
+                "identity": "a0cdfaaa-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Alan M. Lambowitz",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Alan",
+                "middleName": "M.",
+                "lastName": "Lambowitz",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2016-09-19 23:05:58",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2016.068",
+        "doiUrl": "https://doi.org/10.1038/protex.2016.068",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2609551,
+                "identity": "70daeee6-10b5-4665-a44d-f1b437c26caa",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:00",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 125072,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 1   Oligonucleotides used in protocol",
+                "description": "",
+                "filename": "figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-5203/v1/figure_1.jpg"
+            },
+            {
+                "id": 13465096,
+                "identity": "f6bc5cf2-7dd6-413a-990d-31f5c35f87ea",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:45:39",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 232100,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-5203/v1/3a1ab64a-adbd-4a41-8c72-db5a4a3f8051.pdf"
+            }
+        ],
+        "financialInterests": "Thermostable group II intron reverse transcriptase \\(TGIRT) enzymes and methods for their use are the subject of patents and patent applications that have been licensed by the University of Texas and East Tennessee State University to InGex, LLC. A.M.L. and the University of Texas are minority equity holders in InGex, LLC and receive royalty payments from the sale of TGIRT enzymes and the licensing of intellectual property. The other authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "RNA structure, RNA folding",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "Genome-wide dimethyl sulfate mutational profiling with sequencing \\(DMS-MaPseq) is a method suitable for the _in_ _vivo_ investigation of RNA folding on a genome-wide scale. Based on the RNA structure-specific _in_ _vivo_ chemical modification by DMS and the encoding of resultant modifications as mismatches during reverse transcription, DMS-MaPseq produces ratiometric RNA structure data that does not require base-by-base correction to control samples. Due to its high signal-to-noise ratio, DMS-MaPseq is the preeminent choice amongst mutational profiling techniques. Here we describe the genome-wide DMS-MaPseq protocol, which produces libraries suitable for Illumina sequencing and can be applied across many model systems.",
+        "manuscriptTitle": "Genome-wide DMS-MaPseq for in vivo RNA structure determination",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2016-11-07 17:06:58",
+                "doi": "10.1038/protex.2016.068",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a0cd7e77-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "November 7th, 2016",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3702,
+                "name": "Cell biology"
+            },
+            {
+                "id": 3703,
+                "name": "Biochemistry"
+            },
+            {
+                "id": 3704,
+                "name": "Molecular Biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2016-11-07 17:06:58",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

@@ -1,0 +1,260 @@
+{
+    "identity": "nprot-7367",
+    "title": "High-Throughput Kinase Activity Mapping \\(HT-KAM) system: biochemical assay",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "An assay capable of specifically identifying, measuring, and differentiating between kinases\u2019 phospho-catalytic activities in cell or tissue extracts would be valuable to life sciences and medicine. Among many valuable applications, such biotechnological advance could help improve our ability to explore signaling pathways, discover mechanism of disease, identify drug targets, assess drug responses, help drug repositioning, tailor drug combinations, develop diagnostic signatures, or guide therapeutic decisions. \r\n\n\n\r\n\n\nSo far, the proteomic detection systems used to study extracts from biological samples rely on phosphorylatable regions of proteins to measure the phosphorylation state of proteins to then infer the functional state of kinases, without directly measuring the enzymatic activity of kinases. The two main methods are antibody-based assays1-4 and mass spectrometry techniques5-16, which allow to detect and measure \\(phospho-)protein levels. Importantly, these indirect approaches are also further restricted owing \\(i) antibodies \\(un)availability and their variable levels of specificity/sensitivity, and \\(ii) mass spectrometry cost, equipment, protocol, and complex operational or analytical requirements, which many laboratories can not achieve or sustain, or can be highly limiting for very large scale projects or not possible for clinical applications. \r\n\n\n\r\n\n\nAlternatively, the phospho-catalytic activity of kinase enzymes can be directly measured with biochemical assays using generic amino-acid sequences that serve as individual assay-probes. This includes radioactive-labeling assays, microfluidic electrophoresis systems, ATP-consumption tests, hybrid peptide/phospho-antibody platforms, or SPR and FRET techniques17-24. Besides the challenging scalability and clinical translatability of these biochemical assays, their main drawback is that virtually every peptide they rely on are broad-spectrum, consensus, multi-kinase sensors that are originally designed for one-probe-to-many-kinases detection methods. As an analogy, this is somewhat the technical equivalent of trying to measure gene expression with only one cDNA probe per gene, or even try to use a degenerate common primer/sequence shared between multiple genes and then attempt to identify which one of these various genes is more or less expressed: this is definitively and demonstrably not how gene expression arrays work, and this is likely not how a kinase enzyme activity profiling assay should be designed in order to identify, measure, and differentiate between individual kinases\u2019 phospho-catalytic activities in cell or tissue extracts. Thus, as much as these biochemical approaches are powerful tools that are very well adapted to the requirements of pharmacological drug screens that use purified recombinant kinases to test extensive drug-compound libraries, these approaches and their readouts are by design not intended to specifically identify or differentiate between kinases\u2019 activities in complex biological extracts. \r\n\n\n\r\n\n\nConsidering both the unique advantages and limitations of currently available phospho-proteomic and kinase-activity profiling tools, we devised a new biotechnological platform to distinguish, identify, and measure the phospho-catalytic activity of many kinases in parallel. Our strategy relies on collections of peptide probes that are derived from the biological target sites of kinases 25,26, and are physically/biochemically used as distinct combinatorial sets of sensors to monitor the activity of kinases in samples. The technology is modular by design: users can adapt probe libraries and assay conditions to their needs. \r\n\n\n\r\n\n\nIn the below protocol, which is related to the Nature Cell Biology manuscript NCB-C36710 titled: \"Mapping phospho-catalytic dependencies of therapy-resistant tumors reveals actionable vulnerabilities\", we focus on describing the step-by-step biochemical assay. Owing the complexity \\(and user-dependent adaptability) of our strategy, the step-by-step analysis of the phospho-catalytic profiles is provided in a separate protocol."
+        },
+        {
+            "header": "Reagents",
+            "content": "Kinase assay reagents \r\n\n\n\u2022 kinase assay buffer: Cell Signaling cat.# 9802 \r\n\n\n\u2022 ATP solution: Cell Signaling cat.# 9804 \r\n\n\n\u2022 Kinase-Glo revealing reagent: Promega; cat.# V3772 \r\n\n\n\u2022 384 well-plates: solid white flat bottom plates, Corning cat.# 3570 \r\n\n\n\u2022 micro-centrifuge tubes: Costar; cat.# 3621 \r\n\n\n\u2022 clear 96-well PCR-plates: VWR; cat.# 83007-374 \r\n\n\n\u2022 ddH2O\r\n\n\n\r\n\n\nPeptides \\(which serve as surrogate sensors of kinases\u2019 phospho-catalytic enzymatic activity) \r\n\n\n\u2022 Mass-scale chemical synthesis \\(either in-house or outsourced) of 11-mer amino acid sequences at >95% purity.\r\n\n\n\u2022 Biological peptides, defined as an amino acid sequence corresponding to a known phosphorylatable protein region for a biological peptide27, can be available from curated kinase \u2013 substrate \u2013 phospho-target site relationship databases, especially PhosphoAtlas27 \\(http://cancer.ucsf.edu/phosphoatlas; DOI: 10.1158/0008-5472.CAN-15-2325-T), or other resources \\(e.g. Phospho Site Plus26). \r\n\n\n\u2022 Generic positive control peptides, defined as commercially available amino acid sequence advertised as a kinase probe/sensor for a CON+ peptide, can be available from any manufacturer \\(e.g. SignalChem: Abltide, cat.# A02-58; or Poly \\(4:1 Glu, Tyr) peptide, cat# P61-58). \r\n\n\n\u2022 Reference peptides, defined as \\(i) modified biological or generic positive control peptides either mutating Tyrosine \\(Y) / Serine \\(S) / Threonine \\(T) sites replaced with a Glycine \\(G), and/or pre-phosphorylated Y / S / T sites replaced with pY / pS / pT), and \\(ii) random peptide sequences \\(e.g. amino acid-repeated  sequence). \r\n\n\n\r\n\n\nRecombinant kinases and kinase inhibitors\r\n\n\n\u2022 If needed, recombinant kinases and kinase inhibitors can either be internally produced/purified by a laboratory or a facility, or purchased from providers \\(e.g. SignalChem, Selleck Chemicals, Invitrogen, Tocris, Sigma-Aldrich, EMD-CalBiochem, etc).\r\n\n\n\r\n\n\nReagents to generate protein extracts from biological samples \\(cultured cells or tissues)\r\n\n\n\u2022 Cell Lysis Buffer \\(i.e. non-denaturing lysis buffer): Cell Signaling, cat.# 9803\r\n\n\n\u2022 Halt Protease & Phosphatase: ThermoScientific, cat.# 1861281"
+        },
+        {
+            "header": "Equipment",
+            "content": "\u2022 Biomek\u00ae FX Laboratory Automation Workstation from Beckman Coulter \r\n\n\n\u2022 Cold blocks, VWR/BioCision, COOLRACK XT PCR96 cat.# 89239-498 and COOLSINK XT 96F cat.# 89239-504 \r\n\n\n\u2022 Incubator and cold room/chamber \\(to keep all reagents/plates at <5degC, or at =30degC)\r\n\n\n\u2022 BioTek Synergy 2 Multi-Mode Microplate Reader, or related platforms \\(e.g. Molecular Devices Analyst AD Microplate Reader from McKinley Scientific)\r\n\n\n\u2022 Multi-sample bio-pulverizer \\(with 12 chambres and pestles, and a hammer): BioSpec, cat.# 59012MS \\(meant to be used to crush/pulverize flash-frozen tissue biospecimens)"
+        },
+        {
+            "header": "Procedure",
+            "content": "Prepare protein extracts from cultured cells: \r\n\n\n1. place 10cm petri dish \\(where cells are cultured) on ice\r\n  2. wash profusely 3 times with cold PBS \\(keep cell culture dishes on ice), vacuum-suck the extra volume of PBS at last wash\r\n  3. add between 750uL and 1.5mL of freshly prepared, cold Cell Lysis Buffer \\(dilute 10x cell lysis buffer from Cell Signaling with ddH2O, and complement with ThermoScientific \"Halt Protease & Phosphatase \\(100x)\")\r\n  4. scrape cells with regular flat tip scraper \\(keep on ice)\r\n  5. tilt petri dish and leave for 5min cell suspension in lysis buffer/inhibitor cocktail \\(keep on ice)\r\n  6. collect the cell lysates in eppendorf centrifuge tubes\r\n  7. spin for 15min at 14,000rpm at 4degC\r\n  8. transfer the supernatant in new tube \\(do not collect any pelleted debris), aliquot 50 to 100uL \\(or larger volumes) per eppendorf, and freeze at -80deg\r\n  \r\n\n\nPrepare protein extracts from tissue biospecimens. \r\n\n\n1. flash-freeze resected tissue and store at -80degC\r\n  2. on the day of protein extraction, pulverize tissues and collect in tubes \\(keep on ice at all time).\r\n  3. add between 750uL and 1.5mL of freshly prepared cold Cell Lysis Buffer, and follow the protocol detailed for the cultured cells \\(above)\r\n  \r\n\n\nKinase enzyme activity assay. \r\n\n\nSTEP 1: automated liquid dispensing of kinase assay reagents and incubation\r\n\n\n1. Use/program a liquid dispensing instrument to aliquot: peptide + sample + ATP + buffer solutions in 384-well plates, where each well contains one peptide, and an individual 384-well plate simultaneously assesses the phosphorylation activity profile of one sample. \r\n  2. Keep all reagents on ice \\(or on cold blocks) until enzymatic reactions are started.\r\n  3. Automate the dispensing of a final 8uL reaction mixture per well in 384-well plates, where each well contains the following reagents: \r\n  - kinase assay buffer \\(KaB1x): prepared daily and diluted in ddH2O from KaB10x stock solution Cell Signaling cat.# 9802.\r\n\n\n- 250nM ATP: prepared and diluted daily from ATP stock solution \\(Cell Signaling cat.# 9804) in KaB1x.\r\n\n\n- 200ug/mL 11-mer peptide: lyophilized stocks originally prepared as 1mg/mL in KaB1x, 5% DMSO)\r\n\n\n- samples: typically made of either 5ng/uL recombinant kinase enzyme protein or 10ug/mL protein extract from cell or tissue lysates kept on ice and diluted in KaB1x <30min before experimental testing \\(protein extracts from biological samples prepared\r\n\n\nCRITICAL STEP: while dispensing steps occur, keep all 384-well plates on cold blocks at all time\r\n\n\n4. Once dispensing of reaction mixtures is completed, incubate 384-well plates for 30min at 30degC.\r\n  5. After enzymatic reactions are completed, dispense Kinase-Glo revealing reagent \\(Promega; cat.# V3772) using automated liquid dispensing instrument\r\n  \r\n\n\nSTEP 2: generate luminescence profiles\r\n\n\n1. Measure luminescence using Synergy 2 Multi-Mode Microplate Reader from BioTek"
+        },
+        {
+            "header": "Timing",
+            "content": "To run 32x 384-well plates, it takes 1 day:\r\n\n\n\u2022 STEP1: 8h \r\n\n\n\u2022 STEP2: 4h"
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "\u2022 Ensure the automated liquid dispensing instrument accurately dispenses volumes in all wells.\r\n\n\n\u2022 To best analyze experiments, include the following control wells in every 384-well plate: \r\n\n\no Control ATP standard\r\n\n\no Control wells without any ATP\r\n\n\no Control wells without any sample \r\n\n\no Control wells without any peptide \\(sparsely located across the 384-well plate)\r\n\n\no Include internal repeats of wells containing the same set of reagents; e.g. duplicate readouts for a same peptide, and include that for multiple different peptides; same with peptide-free wells or sample-free wells\r\n\n\n\u2022 Systematically check that all samples\u2019 ATP profiles fit within the limits of the range of ATP standard, and concurrently check that no evidence for ATPase or phosphatase contamination are present, in order to allow for activity profiles to be interpreted with confidence and for ATP consumptions measured in presence of peptides to be peptide-dependent. \r\n\n\n\u2022 Systematically check that no dispensing errors occur \\(and if so, remove the technical errors)\r\n\n\n\u2022 Kinase assay buffer can be adapted by users to best fit their needs.\r\n\n\n\u2022 Peptide libraries can be adapted by users to best fit their needs."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "ATP-consumption measured by luminescence:\r\n\n\n\u2022 Control ATP standard should display consistent levels and fold variations matching dilutions\r\n\n\n\u2022 Control wells without any ATP should display background/minimal luminescence\r\n\n\n\u2022 Control wells without any peptide should display baseline levels of luminescence and should be consistent between repeats \r\n\n\n\u2022 Experimental wells should display a wide range of luminescence readouts \\(which correspond to the activity signature of the sample being tested)\r\n\n\nWe provide more details on the kind of results one may generate using computational and statistical tools in a separate Protocol Exchange chapter that focuses on the step-by-step analysis of phospho-catalytic profiles \\(which is also related to the Nature Cell Biology manuscript NCB-C36710 titled: \"Mapping phospho-catalytic dependencies of therapy-resistant tumors reveals actionable vulnerabilities\")."
+        },
+        {
+            "header": "References",
+            "content": "1. Akbani, R., et al. A pan-cancer proteomic perspective on The Cancer Genome Atlas. Nature communications 5, 3887 \\(2014).\r\n  2. Chandarlapaty, S., et al. AKT inhibition relieves feedback suppression of receptor tyrosine kinase expression and activity. Cancer cell 19, 58-71 \\(2011).\r\n  3. Petricoin, E.F., Zoon, K.C., Kohn, E.C., Barrett, J.C. & Liotta, L.A. Clinical proteomics: translating benchside promise into bedside reality. Nature reviews. Drug discovery 1, 683-695 \\(2002).\r\n  4. Coppe, J.P., et al. Senescence-associated secretory phenotypes reveal cell-nonautonomous functions of oncogenic RAS and the p53 tumor suppressor. PLoS Biol 6, 2853-2868 \\(2008).\r\n  5. Huttlin, E.L., et al. The BioPlex Network: A Systematic Exploration of the Human Interactome. Cell 162, 425-440 \\(2015).\r\n  6. Rikova, K., et al. Global survey of phosphotyrosine signaling identifies oncogenic kinases in lung cancer. Cell 131, 1190-1203 \\(2007).\r\n  7. Zhang, B., et al. Proteogenomic characterization of human colon and rectal cancer. Nature 513, 382-387 \\(2014).\r\n  8. Uhlen, M., et al. Proteomics. Tissue-based map of the human proteome. Science 347, 1260419 \\(2015).\r\n  9. Drake, J.M., et al. Phosphoproteome Integration Reveals Patient-Specific Networks in Prostate Cancer. Cell 166, 1041-1054 \\(2016).\r\n  10. Sharma, K., et al. Ultradeep human phosphoproteome reveals a distinct regulatory nature of Tyr and Ser/Thr-based signaling. Cell reports 8, 1583-1594 \\(2014).\r\n  11. Duncan, J.S., et al. Dynamic reprogramming of the kinome in response to targeted MEK inhibition in triple-negative breast cancer. Cell 149, 307-321 \\(2012).\r\n  12. Sos, M.L., et al. Oncogene mimicry as a mechanism of primary resistance to BRAF inhibitors. Cell reports 8, 1037-1048 \\(2014).\r\n  13. Bantscheff, M., et al. Quantitative chemical proteomics reveals mechanisms of action of clinical ABL kinase inhibitors. Nature biotechnology 25, 1035-1044 \\(2007).\r\n  14. Daub, H., et al. Kinase-selective enrichment enables quantitative phosphoproteomics of the kinome across the cell cycle. Molecular cell 31, 438-448 \\(2008).\r\n  15. Kubota, K., et al. Sensitive multiplexed analysis of kinase activities and activity-based kinase identification. Nature biotechnology 27, 933-940 \\(2009).\r\n  16. Nomura, D.K., Dix, M.M. & Cravatt, B.F. Activity-based protein profiling for biochemical pathway discovery in cancer. Nature reviews. Cancer 10, 630-638 \\(2010).\r\n  17. Ren, W., Damayanti, N.P., Wang, X. & Irudayaraj, J.M. Kinase phosphorylation monitoring with i-motif DNA cross-linked SERS probes. Chem Commun \\(Camb) 52, 410-413 \\(2016).\r\n  18. Anastassiadis, T., Deacon, S.W., Devarajan, K., Ma, H. & Peterson, J.R. Comprehensive assay of kinase catalytic activity reveals features of kinase inhibitor selectivity. Nature biotechnology 29, 1039-1045 \\(2011).\r\n  19. Houseman, B.T., Huh, J.H., Kron, S.J. & Mrksich, M. Peptide chips for the quantitative evaluation of protein kinase activity. Nature biotechnology 20, 270-274 \\(2002).\r\n  20. Karaman, M.W., et al. A quantitative analysis of kinase inhibitor selectivity. Nature biotechnology 26, 127-132 \\(2008).\r\n  21. Fang, C., et al. Integrated microfluidic and imaging platform for a kinase activity radioassay to analyze minute patient cancer samples. Cancer research 70, 8299-8308 \\(2010).\r\n  22. Li, X., et al. The reverse in-gel kinase assay to profile physiological kinase substrates. Nature methods 4, 957-962 \\(2007).\r\n  23. Wu, J., Barbero, R., Vajjhala, S. & O'Connor, S.D. Real-time analysis of enzyme kinetics via micro parallel liquid chromatography. Assay Drug Dev Technol 4, 653-660 \\(2006).\r\n  24. Sanz, A., et al. Analysis of Jak2 catalytic function by peptide microarrays: the role of the JH2 domain and V617F mutation. PloS one 6, e18522 \\(2011).\r\n  25. Olow, A., et al. An Atlas of the Human Kinome Reveals the Mutational Landscape Underlying Dysregulated Phosphorylation Cascades in Cancer. Cancer Res 76, 1733-1745 \\(2016).\r\n  26. Hornbeck, P.V., et al. PhosphoSitePlus, 2014: mutations, PTMs and recalibrations. Nucleic acids research 43, D512-520 \\(2015)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "We would like to thank Eric Chow at the Center for Advanced Technologies at UCSF for technical support setting up liquid assay automation."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41556-019-0328-z",
+                "date": "2019-06-03 16:19:05",
+                "title": "Mapping phospho-catalytic dependencies of therapy-resistant tumours reveals actionable vulnerabilities",
+                "authors": [
+                    "Jean-Philippe Copp\u00e9",
+                    "Miki Mori",
+                    "Bo Pan",
+                    "Christina Yau",
+                    "Denise M. Wolf",
+                    "Ana Ruiz-Saenz",
+                    "Diede Brunen",
+                    "Anirudh Prahallad",
+                    "Paulien Cornelissen-Steijger",
+                    "Kristel Kemper",
+                    "Christian Posch",
+                    "Changjun Wang",
+                    "Courtney A. Dreyer",
+                    "Oscar Krijgsman",
+                    "Pei Rong Evelyn Lee",
+                    "Zhongzhong Chen",
+                    "Daniel S. Peeper",
+                    "Mark M. Moasser",
+                    "Ren\u00e9 Bernards",
+                    "Laura J. van \u2018t Veer"
+                ],
+                "journal": "Nature Cell Biology",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 92446,
+                "identity": "8ea2436a-94be-49c1-b4af-c4df63b91fb2",
+                "order_by": 0,
+                "name": "Jean-Philippe  Copp\u00e9",
+                "email": "Jean-Philippe.Coppe@ucsf.edu",
+                "orcid": "",
+                "institution": "Kinome Activity Mapping",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Jean-Philippe",
+                "middleName": "",
+                "lastName": "Copp\u00e9",
+                "suffix": ""
+            },
+            {
+                "id": 92447,
+                "identity": "0d4f73d2-7228-45c6-a0c1-9e96d9dfffab",
+                "order_by": 1,
+                "name": "Miki Mori",
+                "email": "",
+                "orcid": "",
+                "institution": "Kinome Activity Mapping",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Miki",
+                "middleName": "",
+                "lastName": "Mori",
+                "suffix": ""
+            },
+            {
+                "id": 92448,
+                "identity": "a3c15246-8ad0-458c-b1e4-999a3dc44d22",
+                "order_by": 1,
+                "name": "Bo Pan",
+                "email": "",
+                "orcid": "",
+                "institution": "Kinome Activity Mapping",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Bo",
+                "middleName": "",
+                "lastName": "Pan",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2019-03-13 19:05:35",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2019.029",
+        "doiUrl": "https://doi.org/10.1038/protex.2019.029",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13467301,
+                "identity": "8b3753c3-7adf-492f-8f45-0a249c06979a",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:54:50",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 156549,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-7367/v1/ce7fb9fb-efff-47d2-ba3c-090d5582b0de.pdf"
+            }
+        ],
+        "financialInterests": "none",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "kinase enzymes, phospho-catalytic activity screening, peptide sensors, combinatorial profiling, cell extracts, tissue biospecimen extracts, functional proteomics, signaling networks",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "Mapping the phospho-catalytic profile of kinase enzymes in cells or tissues remains a challenge. Here, we introduce a practical biochemical assay to measure the enzymatic activity of kinases using peptides as surrogate sensors to identify kinases in tumor biopsies and cell lines. The platform relies on collections of peptide probes that are derived from biological target sites of kinases, and that operate as distinct combinatorial peptide sets to simultaneously distinguish and measure the phospho-catalytic activity of many kinase enzymes. The assay is modular by design: users can adapt probe libraries and assay conditions to their needs. We named this functional proteomic platform 'High-Throughput Kinase Activity Mapping \\(HT-KAM) system'. The procedure described in this Protocol Exchange chapter focuses on detailing the biochemical assay, and is related to the Nature Cell Biology manuscript NCB-C36710 titled: \"Mapping phospho-catalytic dependencies of therapy-resistant tumors reveals actionable vulnerabilities\".",
+        "manuscriptTitle": "High-Throughput Kinase Activity Mapping (HT-KAM) system: biochemical assay",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2019-06-12 09:22:27",
+                "doi": "10.1038/protex.2019.029",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a1b162e5-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "June 12th, 2019",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 13374,
+                "name": "Cell biology"
+            },
+            {
+                "id": 13375,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 13377,
+                "name": "Mathematics and computing"
+            },
+            {
+                "id": 13378,
+                "name": "Chemical biology"
+            },
+            {
+                "id": 13379,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 13380,
+                "name": "Biochemistry"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2019-06-12 09:22:27",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

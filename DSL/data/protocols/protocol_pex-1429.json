@@ -1,0 +1,312 @@
+{
+    "identity": "pex-1429",
+    "title": "<p>Development of Machine Learning Model for Diagnostic Disease Prediction Based on Laboratory Tests</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>Deep learning (DL) is a subset of ML that differs from other ML processes in many ways. Most ML models perform well due to their custom-designed representation and input features. Using the input data generated through that process, ML learns algorithms, optimizes the weights of each feature, and optimizes the final prediction. DL attempts to learn multiple levels of representation using a hierarchy of multiple layers. The deep neural network (DNN) is a type of DL that uses multiple hidden layers and is renowned for analysis of high-dimensional data.&nbsp;In practice, the symptoms described by patients, physical examinations performed by physicians, laboratory test results, and imaging studies such as X-ray and computed tomography (CT) are generally needed to evaluate a patient\u2019s status and diagnose a specific disease. However, little research has been conducted into the predictive power and accuracy that can be achieved using laboratory data alone for the diagnosis of specific diseases.&nbsp;Therefore, the purpose of this study was to develop predictive models that can be used by physicians to make decisions in the hospital setting based on DL and ML using laboratory data alone, and then to validate our model through comparison of its predictions with the diagnoses of physicians. In addition, we generated an ensemble of DL and ML models to improve performance. The Shapley additive explanation (SHAP) method, which was recently developed, was used to determine the features that are important to each disease and to identify predictive relationships between diseases and features.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p>No reagents are required for this protocol. We used python library.&nbsp;These datasets were used to construct light gradient boosting machine (LightGBM) and extreme gradient boosting (XGBoost) ML models and a DNN model using TensorFlow and Keras.&nbsp;</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>A PC (CPU must have 8 logical processors, memory must be greater than 8 G) can be used to build a Machine Learning Model for Diagnostic Disease Prediction Based on Laboratory Tests.</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "The main purpose of this study is to develop disease prediction models to quickly and\naccurately turn data into diagnosis. Therefore, this study developed machine learning, deep learning,\nand ensemble models for 39 diseases classification (Supplement Table S9) of patients visiting the\nemergency room using 88 laboratory test parameters including blood and urine tests (Supplement Table\nS1).\u00a0The overall workflow of disease prediction model based on laboratory tests (DPMLT) is schematically demonstrated in Figure 1.\u00a0This protocol is largely composed of 5 parts, and the third part explains the machine learning model and the deep learning model.\n1.0 Data collection and preprocessing\nWe collected anonymized laboratory test datasets, including blood and urine test results, along with each patient\u2019s final diagnosis on discharge.\u00a0We curated the datasets and selected 86 attributes (different laboratory tests) based on value counts, clinical importance-related features, and missing values. For Deep learning (DL), missing values were replaced with the median value for each disease.\n2.0 Feature extraction\nFeature extraction plays a major role in the creation of machine learning (ML)\u00a0models.\n3.0 Model selection and training\n3.1 DL selection\nThe research in this study was conducted using a deep neural network (DNN)\u00a0for structured data.\n3.2 MLP (multi-layer perceptron)\nAll features used in this study are numeric data except for the \u2018sex\u2019 feature. MLP recognizes only numerical data, so we transformed the categorical feature of \u2018sex\u2019 into a number using LabelEncoder of the scikit-learn library. MLP does not allow for null values, so we replaced null values with the median value of each feature.\n3.3 Feature normalization\nEach feature had a different range.\u00a0We applied a standard scale to normalize the mean and standard deviation of each feature to (0, 1) by subtracting the mean value of the feature and dividing by its standard deviation value.\n3.4 Hidden layer composition\nIn our study, the hidden layer was comprised of two layers. We employed the Relu (rectified linear unit) activation function for each layer. We applied the dropout technique to each hidden layer, which is a simple method to prevent overfitting in neural networks.\n3.5 XGBoost\nXGBoost is an algorithm that overcomes the shortcomings of GBM (gradient boosting machine). The disadvantages of GBM include long learning times and overfitting problems. The most common ways to solve these problems are through parallelization and regularization. Our dataset contained null values, which MLP replaced with the corresponding median values, but XGBoost has a procedure to process null values, so utilized that procedure.\u00a0The max_depth argument in XGBoost is one factor determining the depth of the decision tree. Setting max_depth to a large number increases complexity and can lead to overfitting. This study found that max_depth was optimally set to 2.\n3.6 LightGBM\nThe difference between LightGBM and XGBoost is the method by which the tree grows. XGBoost creates a deeper level within the leaf (level-wise/depth-wise), and LightGBM generates a leaf at the same level (leaf-wise).\u00a0LightGBM uses a leaf-centered tree-splitting method to split leaf nodes with the maximum loss value, creating an asymmetric tree.\u00a0To avoid overfitting in LightGBM, an experiment was conducted by adjusting num_leaves and min_child_samples.\n3.7 Ensemble model results (DNN, ML)\nWe developed a new ensemble model by combining our DL model with our two ML models to improve AI performance. We used the validation loss for model optimization.\n4.0 K-Fold Cross-validation\nIn our study, we divided a total of 5145 datasets at a ratio of 8:2 to create the training set and test set. We set the validation data ratio to 0.2 for the training set, which was evaluated using validation loss for model optimization based on the training data.\u00a0If the number of validation data is increased, the number of training data decreases, leading to a problem of high bias. We used k-fold cross validation to prevent data loss of the training set.\n5.0 SHAP (Shapley Adaptive Explanations)\nSHAP is an acronym for Shapley Adaptive Explanations. Relating to the Shapley value, as the name suggests.\u00a0In our experiment of MLP, we can calculate SHAP value using DeepLIFT."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p>Regarding the overfitting issue, we separated about 1029 cases (independent data) from the total cases using python library \u201ctrain test split\u201d. Because our data set is imbalance data, we randomly and evenly selected each specific disease from the data set using stratify option.&nbsp;</p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>The full development of disease prediction model based on laboratory tests (DPMLT)&nbsp;work, including design, data collection, preprocessing, and all stages, was undertaken over a period of approximately 12-15 months (2019-20).</p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>We investigated a total of 39 specific diseases based on the International Classification of Diseases, 10th revision (ICD-10) codes.&nbsp;We aimed to build a new optimized ensemble model by blending a DNN (deep neural network) model with two ML models for disease prediction using laboratory test results.&nbsp;This study will be useful in the prediction and diagnosis of diseases.</p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>1. Kwon, K., Kim, D. &amp; Park, H. A parallel MR imaging method using multilayer perceptron. <em>Med Phys</em> 44, 6209-6224 (2017).</p><p>2. Shrikumar, A., Greenside, P. &amp; Kundaje, A. Learning important features through propagating activation differences. in <em>Proceedings of the 34th International Conference on Machine Learning - Volume 70</em> 3145\u20133153 (JMLR.org, Sydney, NSW, Australia, 2017).</p><p>3. Poernomo, A. &amp; Kang, D.K. Biased Dropout and Crossmap Dropout: Learning towards effective Dropout regularization in convolutional neural network. <em>Neural Netw</em> 104, 60-67 (2018).</p><p>4. Deng, L.<em>, et al.</em> PDRLGB: precise DNA-binding residue prediction using a light gradient boosting machine. <em>BMC bioinformatics</em> 19, 522 (2018).</p><p>5. Khan, S.H., Hayat, M. &amp; Porikli, F. Regularization of deep neural networks with spectral dropout. <em>Neural Netw</em> 110, 82-90 (2019). </p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>This work was supported by the Korean Society of Medical Informatics.&nbsp;</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 20319078,
+                "identity": "a6c551c0-2e7f-4729-9655-5d9f731b20a1",
+                "order_by": 0,
+                "name": "Dong Jin Park",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-2412-5292",
+                "institution": "Department of Laboratory Medicine, College of Medicine, Ewha Womans University of Korea",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Dong",
+                "middleName": "Jin",
+                "lastName": "Park",
+                "suffix": ""
+            },
+            {
+                "id": 20319079,
+                "identity": "4f0d1cbf-4a0a-465d-abaf-86fd596d6e96",
+                "order_by": 1,
+                "name": "Min Woo Park",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-3751-7519",
+                "institution": "Department of Laboratory Medicine, St.Vincent\u2019s Hospital, The Catholic University of Korea",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Min",
+                "middleName": "Woo",
+                "lastName": "Park",
+                "suffix": ""
+            },
+            {
+                "id": 20319080,
+                "identity": "a662f123-10b0-4736-91b4-44114c6f9d8a",
+                "order_by": 2,
+                "name": "Homin Lee",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0001-9970-8073",
+                "institution": "Future.lab of Korea",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Homin",
+                "middleName": "",
+                "lastName": "Lee",
+                "suffix": ""
+            },
+            {
+                "id": 20319082,
+                "identity": "c3c6bbcd-b61d-4358-98ce-370c85bff78e",
+                "order_by": 3,
+                "name": "Young-Jin Kim",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-7859-5521",
+                "institution": "Finance.Fishery.Manufacture Industrial Mathematics Center on Big Data, Pusan National University ",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Young-Jin",
+                "middleName": "",
+                "lastName": "Kim",
+                "suffix": ""
+            },
+            {
+                "id": 20319083,
+                "identity": "9a58e58d-517f-4aef-8ea1-cc93a5c7d39e",
+                "order_by": 4,
+                "name": "Yeongsic Kim",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0001-5815-5185",
+                "institution": "Department of Laboratory Medicine, College of Medicine, The Catholic University of Korea",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Yeongsic",
+                "middleName": "",
+                "lastName": "Kim",
+                "suffix": ""
+            },
+            {
+                "id": 20319085,
+                "identity": "985178e6-f855-4b30-ba1c-e6fb42a42d91",
+                "order_by": 5,
+                "name": "Young Hoon Park",
+                "email": "carrox2yh@gmail.com",
+                "orcid": "https://orcid.org/0000-0003-4516-7990",
+                "institution": "Division of Hematology, Department of Internal Medicine, College of Medicine, The Catholic University of Korea",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Young",
+                "middleName": "Hoon",
+                "lastName": "Park",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2021-03-25 04:18:27",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1429/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1429/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 8096793,
+                "identity": "a29330ec-94b9-4caa-8148-0a0f6f82126e",
+                "added_by": "auto",
+                "created_at": "2021-04-16 16:23:06",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 875988,
+                "visible": true,
+                "origin": "",
+                "legend": "Overall framework of DPMLT. The development of DPMLT methodology involved for three major steps. (1) Data collection and preprocessing (2) Model selection, training and ensemble modeling (3) Performance evaluation ",
+                "description": "",
+                "filename": "Fig.1.jpg",
+                "url": "https://assets.researchsquare.com/files/pex-1429/v1/c182c19aa37c041e02a248bc.jpg"
+            },
+            {
+                "id": 13686912,
+                "identity": "ce22d668-7b4e-4728-8140-43008c3ce64b",
+                "added_by": "auto",
+                "created_at": "2021-09-17 12:18:06",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 285271,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1429/v1/9b17fade-bfb0-48da-aa9b-26e5065c2b25.pdf"
+            },
+            {
+                "id": 8096794,
+                "identity": "8a226986-323a-4421-ad96-940a6fcf2119",
+                "added_by": "auto",
+                "created_at": "2021-04-16 16:23:06",
+                "extension": "docx",
+                "order_by": 1,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 16613,
+                "visible": true,
+                "origin": "",
+                "legend": "Supplementary Table S9. Modified ICD 10 CODE and disease classification",
+                "description": "",
+                "filename": "SupplementaryTable9label.docx",
+                "url": "https://assets.researchsquare.com/files/pex-1429/v1/2c3c0781e0aa32deb51b3373.docx"
+            },
+            {
+                "id": 8096538,
+                "identity": "ab455e30-7efc-4f32-96d9-3108637e3131",
+                "added_by": "auto",
+                "created_at": "2021-04-16 16:20:06",
+                "extension": "docx",
+                "order_by": 2,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 16972,
+                "visible": true,
+                "origin": "",
+                "legend": "Supplementary Table S1. 88 parameters and abbreviation in this study.",
+                "description": "",
+                "filename": "SupplementaryTable1label.docx",
+                "url": "https://assets.researchsquare.com/files/pex-1429/v1/b9442974f65259f0c48bf5bb.docx"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Machine learning, Deep neural network, Disease prediction, Laboratory test",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>Artificial intelligence is a concept that includes machine learning and deep learning. The deep learning model used in this study corresponds to DNN (deep neural network) by utilizing two or more hidden layers. In this study, MLP (multi-layer perceptron) and machine learning models (XGBoost, LGBM) were used.&nbsp;An MLP consists of at least three layers: an input layer, a hidden layer, and an output layer.&nbsp;In general, tree models or linear models using machine learning are widely used for classification. We analyzed our data by applying deep learning (MLP) to improve the performance, which showed good results. The deep learning and ML models showed differences in predictive power and disease classification patterns. We used a confusion matrix and analyzed feature importance using the SHAP value method. Here, we present a protocol to confirm that the use of deep learning can show good performance in disease classification using hospital numerical structured data (laboratory test).</p>",
+        "manuscriptTitle": "Development of Machine Learning Model for Diagnostic Disease Prediction Based on Laboratory Tests",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2021-04-16 16:20:04",
+                "doi": "10.21203/rs.3.pex-1429/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "6bb06cad-523e-4507-acac-f48740cb9d4d",
+        "owner": [],
+        "postedDate": "April 16th, 2021",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3480354,
+                "name": "Computational biology and bioinformatics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2021-04-16 16:20:04",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

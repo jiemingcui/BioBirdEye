@@ -1,0 +1,261 @@
+{
+    "identity": "nprot-5461",
+    "title": "Constraint-driven docking: a logistic docking approach for deriving protein-protein complex structure",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Atomistic insight of protein-protein association obtained from docking calculation provides the basis for diverse functional attributes of proteins. Protein docking can be distinguished into 2 different tasks: filtering and scoring of predicted models \\(Krippahl and Barahona, 2015). Filtering, wherein a large number of protein-protein configurations is scanned and only a small fraction is retained. Scoring, wherein each of the retained candidate models is analysed in more detail and ranked according to the energy scoring function. The output is refinement of the correct or near to correct complex structure. In addition, knowledge of interface residues constrain the initial search space of docking software, which is believed to considerably improve the accuracy of protein-protein docking \\(Shih and Hwang, 2013). In this connection it is to mention that HADDOCK is a protein-protein docking approach driven by experimental knowledge, where information about the interface region between the molecular components is included as restraints \\(de Vries et al., 2010). Now this information can be gained either from site-directed mutagenesis, mass spectrometry data, NMR experiments \\(chemical shift perturbation), residual dipolar couplings \\(RDCs), hydrogen/deuterium exchange, or classical NMR distance restraints \\(de Vries et al., 2010). In our study, a constraint-driven strategy was undertaken where a single amino acid information for one of the interacting proteins is considered during calculation. For delineating the robustness of the docking approach used, crystal structure of the complex p53DBD:BP2 \\(PDB Code: 1YCS) \\(Gorina and Pavletich, 1996) is reproduced with varied docking software; e.g. ZDOCK version 3.0.2, PIPER, and ClusPro 2.0. This is frequently referred to as benchmarking a known complex crystal structure so as to validate the potential of the docking algorithm in predicting true protein-protein associations. ZDOCK employs Fast Fourier transform \\(FFT) correlation-based method, which performs a systematic search in the three-dimensional space created by 3 rotational and 3 translational degrees of freedom \\(Chen et al., 2003a). It has consistently been among the best-performing algorithms in the CAPRI \\(Chen et al., 2003b; Lensink and Wodak, 2010). The scoring function implemented in ZDOCK is a linear weighted sum of van der Waals attractive and repulsive energies, short- and long-range attractive and repulsive electrostatic energies, and desolvation. ZDOCK has been reported to successfully reproduce protein-protein docking benchmark of 176 test cases \\(http://zdock.umassmed.edu/help.html). PIPER has also been found to determine the top scoring entries in the most recent CAPRI blind assessment of protein-protein docking. PIPER uses FFT approach along with accurate pairwise potentials that greatly reduces the number of false positive poses \\(Kozakov et al., 2006). The scoring function in PIPER is given as the sum of terms representing shape complementarity, electrostatic and desolvation contributions. ClusPro is another fully automated docking algorithm which ranks the poses according to their clustering properties \\(Comeau et al., 2004).  Knowledge of interface residue is included in docking calculation to increase the likelihood of specified interaction. Here our observation is that the crystal structure is reproduced as the top-ranking models irrespective of the amino acid constraints used \\(p53Arg248/Ser241/Met243/Asn247/Ser183/His178/Arg181/His179) \\(Figure-1). This information of constraints is derived from the analysis of 1YCS. According to the energy-scoring function, these reproduced structures attain top ranking positions \\(among top 5 models) and display minimum RMSD values \\(<1.5\u00c5) as compared to 1YCS \\(Table-1). It is to mention that RMSD is frequently used to measure the quality of reproduction of a crystallographic binding pose by a computational method, such as docking \\(Zhao et al., 2012). Following the same docking protocol, a constraint-based docked model of p53:G-actin complex has been derived with the informational input from the mutational studies \\(p53Arg249) \\(Figure-2). Since the constraint-based docking approach was proved to be successful for reproducing a known crystal structure 1YCS, with the help of different docking algorithms, our assumption is that the theoretically-derived p53:G-actin complex is most likely the probable structure of the real association."
+        },
+        {
+            "header": "Equipment",
+            "content": "Crystal structures of the complementary pair of proteins; crystal structure of an equivalent protein-protein complex for benchmark calculation; protein-protein docking servers \\(e.g. ZDOCK 3.0, PIPER, Cluspro 2.0); amino acid information for constraint-driven docking \\(from site-directed mutagenesis or other experiments), Molecular dynamics simulation programs for implicit solvent calculations, PyMOL for visualization of all atoms/backbone fluctuations between structures, image preparation, and RMSD calculation."
+        },
+        {
+            "header": "Procedure",
+            "content": "**Part-I \\(Benchmarking known crystal structure 1YCS)**\r\n\n\n1. First, separate the guest \\(BP2) and host \\(p53DBD) molecules in the complex crystal structure \\(PDB code: 1YCS) and save as .pdb files.\r\n  2. Select amino-acid constraints from analysis of the crystal structure \\(for known protein-protein pair)/ mutational studies or similar experiments \\(for unknown protein-protein pair).\r\n  3. Dock the guest structure back into the host structure by different protein-protein docking algorithms, e.g. ZDOCK version 3.0.2   \\(http://zdock.umassmed.edu/), PIPER \\(https://www.schrodinger.com/piper) and ClusPro 2.0 \\(https://cluspro.bu.edu/login.php); and constraint-driven docking is carried out. \r\n  4. Of many predicted guest-host complexes, only the top 5 models with strongest interaction energies \\(according to the energy scoring function) are compared to the corresponding crystal structure of the complex.\r\n  5. All atoms Root-mean square deviation \\(RMSD) values are calculated for each of the poses with respect to the crystal structure \\(command: fit 1YCS, complex.1).\r\n  6. If the RMSD values are found to be <2.0\u00c5 or 1\u00c5, the crystal structure is said to be reproduced or accurately reproduced \\(Hevener et al., 2009). Number of successful structures reproduced are counted.\r\n   \r\n\n\n**Part-II \\(Derivation of p53:G-actin complex)**\r\n\n\n7. Crystal structures \\(PDB Code: 4MZR for p53, fragment: 94-356 and 3HBT for G-actin) are selected for p53:G-actin protein-protein docking calculation. \r\n  8. Considering the mutational data, Arg249 \\(p53) has been specified as amino-acid constraint for p53:G-actin docking calculation \\(similar to p53Arg248/Ser241/Met243/Asn247/Ser183/His178/Arg181/His179 constraint in p53:BP2 docking study). \r\n  9. By the ranking of the model and the fact whether it appears multiple times among the top 5 models with varied docking algorithms, model-1 \\(ZDOCK) is selected.\r\n  10. Model-1 is undergone All atoms molecular dynamics simulation in implicit solvent for 50ns in AMBER14 and the crucial amino acid contacts are analysed.\r\n  11. Using the similar parameters, docking calculations are done for both 1YCS and p53:G-actin complex in PIPER and ClusPro 2.0."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "1. In case of predicting unknown protein-protein complex, add multiple amino acid   constraints at a time \\(if possible) during the docking calculation, or use them in different combinations.\r\n         2. Following the docking calculation, consider the top 5 models, compare the output     models and find which structure consistently appears among the top entries in all the prediction sets irrespective of the constraints."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "In case of constraint-driven docking, inclusion of amino acid constraint information is believed to fetch more accurate results since a set of parameters is kept constant among all the sets. For cases, where no reference structure is available to compare the quality of the derived model/models; emphasis needs to be given on the fact whether a particular structure appears many a times irrespective of the amino acid constraints. In case of both blind \\(no constraint) and constraint-driven docking that model should consistently appear among top 5/ 10 predictions. Benchmark studies with a known crystal structure, equivalent to the unknown protein-protein pair, further strengthen the accuracy of the docking protocol in predicting near to real protein-protein association. Super-imposition of top 5 predicted models represents a better degree of structural similarity between poses derived from constraint-driven docking over the blind docking method."
+        },
+        {
+            "header": "References",
+            "content": "Chen, R., Li, L. and Weng, Z., 2003a. ZDOCK: an initial-stage protein-docking algorithm, Proteins. 52, 80-7.\r\n\n\nChen, R., Tong, W., Mintseris, J., Li, L. and Weng, Z., 2003b. ZDOCK predictions for the CAPRI challenge, Proteins. 52, 68-73.\r\n\n\nComeau, S.R., Gatchell, D.W., Vajda, S. and Camacho, C.J., 2004. ClusPro: a fully automated algorithm for protein-protein docking, Nucleic Acids Res. 32, W96-9.\r\n\n\nde Vries, S.J., van Dijk, M. and Bonvin, A.M., 2010. The HADDOCK web server for data-driven biomolecular docking, Nat Protoc. 5, 883-97.\r\n\n\nGorina, S. and Pavletich, N.P., 1996. Structure of the p53 tumor suppressor bound to the ankyrin and SH3 domains of 53BP2, Science. 274, 1001-5.\r\n\n\nHevener, K.E., Zhao, W., Ball, D.M., Babaoglu, K., Qi, J., White, S.W. and Lee, R.E., 2009. Validation of molecular docking programs for virtual screening against dihydropteroate synthase, J Chem Inf Model. 49, 444-60.\r\n\n\nKozakov, D., Brenke, R., Comeau, S.R. and Vajda, S., 2006. PIPER: an FFT-based protein docking program with pairwise potentials, Proteins. 65, 392-406.\r\n\n\nKrippahl, L. and Barahona, P., 2015. Protein docking with predicted constraints, Algorithms Mol Biol. 10, 9.\r\n\n\nLensink, M.F. and Wodak, S.J., 2010. Docking and scoring protein interactions: CAPRI 2009, Proteins. 78, 3073-84.\r\n\n\nShih, E.S. and Hwang, M.J., 2013. A critical assessment of information-guided protein-protein docking predictions, Mol Cell Proteomics. 12, 679-86.\r\n\n\nZhao, Z., Worthylake, D., LeCour, L., Maresh, G.A. and Pincus, S.H., 2012. Crystal structure and computational modeling of the fab fragment from a protective anti-ricin monoclonal antibody, PLoS One. 7, e52613."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "This work was supported by research grant from the Department of Science and Technology, Government of India."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/srep32626",
+                "date": "2016-12-27 08:53:29",
+                "title": "G-actin guides p53 nuclear transport: potential contribution of monomeric actin in altered localization of mutant p53",
+                "authors": [
+                    "Taniya Saha",
+                    "Deblina Guha",
+                    "Argha Manna",
+                    "Abir Kumar Panda",
+                    "Jyotsna Bhat",
+                    "Subhrangsu Chatterjee",
+                    "and Gaurisankar Sa"
+                ],
+                "journal": "Scientific Reports",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 14294,
+                "identity": "a0dcc9c8-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Gaurisankar Sa",
+                "email": "gauri@jcbose.ac.in",
+                "orcid": "",
+                "institution": "Bose Institute",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Gaurisankar",
+                "middleName": "",
+                "lastName": "Sa",
+                "suffix": ""
+            },
+            {
+                "id": 14293,
+                "identity": "a0dcc4db-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Taniya Saha",
+                "email": "",
+                "orcid": "",
+                "institution": "Bose Institute",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Taniya",
+                "middleName": "",
+                "lastName": "Saha",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2016-12-27 10:20:51",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2017.011",
+        "doiUrl": "https://doi.org/10.1038/protex.2017.011",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2609603,
+                "identity": "849a8fa5-f930-4b7d-9db3-1afb1e29281d",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:03",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 8882414,
+                "visible": true,
+                "origin": "",
+                "legend": "Docking benchmark studies using crystal structure 1YCS with varied protein-protein docking algorithms.   Docking benchmark studies in ZDOCK using known crystal structure of p53DBD and BP2 complex (PDB code: 1YCS). Reproduced structures with docking constraints p53Arg248/Ser241/Met243/Asn247/Ser183/His178/Arg181/His179 are shown. All atoms RMSD values with respect to 1YCS are included for each set of docking calculations. Super-imposition of top 5 models from ZDOCK predictions for constraint-driven (p53Arg248) docking of p53DBD and BP2 (Fourth panel, left). Reproduced structures with constraints (p53Arg248/Met243) in PIPER (Fourth panel, middle) and ClusPro 2.0.  (Fourth panel, right). ",
+                "description": "",
+                "filename": "figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-5461/v1/figure_1.jpg"
+            },
+            {
+                "id": 2609604,
+                "identity": "33e49898-f430-4bfa-8d97-4115ece39e83",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:03",
+                "extension": "jpg",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 4691478,
+                "visible": true,
+                "origin": "",
+                "legend": "Derived structure of p53:G-actin complex.   Derived structure of p53:G-actin complex with docking constraint (p53Arg249) with ZDOCK, PIPER, and ClusPro 2.0. For ZDOCK results, RMSD values with respect to Model 1 are mentioned.",
+                "description": "",
+                "filename": "figure2.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-5461/v1/figure_2.jpg"
+            },
+            {
+                "id": 2609605,
+                "identity": "d6a8e798-1074-427f-93b3-a6e2bf941451",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:03",
+                "extension": "jpg",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 866235,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 1   RMSD values of top 5 models from ZDOCK   RMSD values of top 5 models from ZDOCK for each set of constraints (p53Arg248/Ser241/Met243/Asn247/Ser183/His178/Arg181/His179). RMSD values of reproduced structures are highlighted in Red.",
+                "description": "",
+                "filename": "figure3.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-5461/v1/figure_3.jpg"
+            },
+            {
+                "id": 13465331,
+                "identity": "5e017afc-54fd-4d9b-9073-f02cab184ce2",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:46:19",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 757635,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-5461/v1/c39ff0e3-b09e-481e-9f9f-081c9caf98bc.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Crystal structure, protein-protein docking, benchmark, constraint-driven docking, RMSD.",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "Classical structural methods, such as nuclear magnetic resonance \\(NMR) and X-ray crystallography often encounter technical difficulties in solving the complex structures. In cases, where structure determination of protein-protein complex with the classical approach seems to be challenging, predictive models can be built based on both experimental input in conjunction with docking studies. Computational docking refers to the modelling or prediction of the three-dimensional structure of a bio-molecular complex, which takes into account the individual protein molecules in their free/unbound form. Constraint-driven docking has been proven to be an efficient approach for docking calculation of unknown protein pairs. Popular protein-protein docking platforms, e.g. HADDOCK \\(High ambiguity driven biomolecular docking), require the input of atleast one pair of interacting amino acid residues between two complementary proteins in a complex. Among all the docking methods participating in the Critical Assessment of Prediction of Interactions \\(CAPRI) challenge, HADDOCK is the only true data-driven strategy. Experimental data including site-directed mutagenesis, NMR and mass spectrometry data suggest critical point of protein-protein interaction. These amino acid information, pertaining to anyone/either of the protein/s in a complex, can be incorporated during the docking experiments so as to restrain the docking interface between a pair of proteins. Here we propose that considering known crystal structure \\(PDB Code: 1YCS), even with a single amino-acid constraint for one of the interacting proteins \\(p53DBD), constraint-driven docking has been consistently found to be successful. Using varied protein-protein docking algorithms this observation is unfailingly replicated. This validates the constraint-based docking approach in predicting true protein-protein associations and further establishes itself as a robust data-driven docking strategy compared to contemporary structural/docking approaches.",
+        "manuscriptTitle": "Constraint-driven docking: a logistic docking approach for deriving protein-protein complex structure",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2017-01-31 12:13:44",
+                "doi": "10.1038/protex.2017.011",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a0dc5b31-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "January 31st, 2017",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3760,
+                "name": "Structural biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2017-01-31 12:13:44",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

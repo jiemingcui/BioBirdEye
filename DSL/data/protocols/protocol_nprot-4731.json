@@ -1,0 +1,224 @@
+{
+    "identity": "nprot-4731",
+    "title": "Analysis of flow-cytometry microbial biofilm datasets with viSNE and Matlab",
+    "content": [
+        {
+            "header": "Equipment",
+            "content": "PC with installed: Matlab \\(R2012-R2014), with cyt \\(download from: http://www.c2b2.columbia.edu/danapeerlab/html/cyt.html)."
+        },
+        {
+            "header": "Procedure",
+            "content": "Data Import and Transformation\r\n\n\n1. Run cyt in Matlab \\(select cyt directory as working directory and type run_cyt into Matlab prompt) and choose add data \\(plus sign) in the GUI. Cyt enables import in the .fcs \\(default, standard flow-cytometry format) as well as .csv format. To import from the .csv format, change file filter to *.csv. The .csv file needs to be formatted with the columns representing the measured parameters and each row representing a different measured particle/cell. \r\n  2. Transform the data using hyperbolic arcsin transformation, with cofactor of 150. \r\n  3. Merge or subsample the datasets. \r\n  \r\n\n\nRunning viSNE and post-processing in cyt\r\n\n\n4. Select the samples and measurements that you want analyzed by choosing the appropriate Gates and Channels in cyt. Right-click on the selected ones and run viSNE \\(bh-SNE). Once the algorithm is finished, new channels, named bh-SNE1 and bh-SNE2, appear. These are the SNE coordinates used for visualization of the data.\r\n  5. Visualize viSNE maps as scatter plots \\(select bh-SNE1 and bh-SNE2 channels and click scatterplot), and play with the visualization options. \r\n  6. Categorize visual clusters into subpopulations, based on expert knowledge and optical and autofluorescent properties. For example, by comparing the optical scatter and fluorescence intensities at different wavelengths it is possible to assign a category \\(e.g. cells with low forward scatter and high 660 nm intensity is likely to consist of cyanobacteria).  \r\n  7. For quantification, the identified subpopulations need to be delineated, using the polygonal region selection tool in cyt. Counting the number of particles/cells in each delineated region is done automatically by cyt. \r\n  \r\n\n\nPost-processing in Matlab\r\n\n\n8. The analysis can be exported from cyt into Matlab by saving the session in cyt and then loading the session .mat file into Matlab prompt. \r\n  9. To calculate the similarity between different viSNE maps, you can use maximum mean discrepancy as described in the file mmd_visne.m \\(https://github.com/anzezupanic/FC_analysis ). The compared maps should be of equal number of cells, and obtained from the analysis of the same parameters obtained from the same instrument. \r\n  10. To see where particles/cells NOT used during viSNE would be projected onto a viSNE map, use the script in overlay_visne.m \\(https://github.com/anzezupanic/FC_analysis )."
+        },
+        {
+            "header": "Timing",
+            "content": "\\(Per step)\r\n\n\n1. ~ few minutes\r\n  2. ~ few minutes\r\n  3. ~ 10 minutes \\(depends on complexity of data)\r\n  4. ~ 60 minutes \\(150000 cells, on a desktop PC)\r\n  5. ~ 60 minutes \\(depends on experience)\r\n  6. ~ 60 minutes \\(depends on experience)\r\n  7. ~ 5 minutes\r\n  8. ~ 1 minute\r\n  9. ~ 1 minute \\(to calculate similarity of two viSNE maps)\r\n  10. ~ 15 minutes \\(depends on number of cells you want to project)"
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "Step 2: After transformation, there is very little variability left in my data.\r\n\n\nThe cofactor should be chosen carefully, according to the properties of the datasets. We suggest that several different cofactors are tested, as well as different cofactors for different measured flow cytometry parameters, and that the analysis is repeated until an optimal cofactor is found. For stain-free flow cytometry data presented in our study, a cofactor of 150 was chosen. For mass cytometry datasets, a cofactor of 5 is usually used. \r\n\n\nStep 3: My viSNE maps look crowded. \r\n\n\nCrowding becomes an issues at ca. 150000 cells analyzed. Optimal visual results are usually achieved between 50000 and 150000 cells. \r\n\n\nStep 6: I don't see any clusters. \r\n\n\nCheck your transformation and crowding. \r\n\n\nStep: 10. I have many cells, but see only a few on the viSNE map. \r\n\n\nIt is possible that the cells whose properties you are projecting are very different from the cells in the viSNE map. In that case, many different cells would be projected onto the same parts of the viSNE and create the illusion that only a few have been projected. If this is the case, the projection should not be trusted."
+        },
+        {
+            "header": "References",
+            "content": "Amir E-aD, et al. viSNE enables visualization of high dimensional single-cell data and reveals phenotypic heterogeneity of leukemia. Nat Biotech 31, 545-552 \\(2013)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/ncomms11587",
+                "date": "2016-06-20 21:34:34",
+                "title": "Flow cytometry combined with viSNE for the analysis of microbial biofilms and detection of microplastics",
+                "authors": [
+                    "Linn Sgier",
+                    "Remo Freimann",
+                    "Anze Zupanic",
+                    "and Alexandra Kroll"
+                ],
+                "journal": "Nature Communications",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 13920,
+                "identity": "a0b3b488-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Anze Zupanic",
+                "email": "anze.zupanic@eawag.ch",
+                "orcid": "",
+                "institution": "Department of Environmental Toxicology, Eawag",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Anze",
+                "middleName": "",
+                "lastName": "Zupanic",
+                "suffix": ""
+            },
+            {
+                "id": 13921,
+                "identity": "a0b3b707-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Linn Sgier",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Environmental Toxicology, Eawag",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Linn",
+                "middleName": "",
+                "lastName": "Sgier",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2016-03-23 15:35:15",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2016.039",
+        "doiUrl": "https://doi.org/10.1038/protex.2016.039",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2609431,
+                "identity": "8471bcad-24de-4c57-a736-b6e2de7b08ba",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:55",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 15111,
+                "visible": true,
+                "origin": "",
+                "legend": "viSNE map   viSNE map",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-4731/v1/figure_1.png"
+            },
+            {
+                "id": 13464737,
+                "identity": "ea8492fb-e70d-4f03-bdd4-afdf5e510460",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:44:32",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 131336,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-4731/v1/ca83a8a8-7644-4233-ae77-f73ddc6ffa60.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "flow-cytometry, stochastic network embedding",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "In the present protocol, we explain how microbial biofilm stain-free flow-cytometry datasets can be analyzed using visual stochastic network embedding. This makes visual interpretation of the microbial community structure possible and allows detection of shifts in microbial biofilms after perturbations.",
+        "manuscriptTitle": "Analysis of flow-cytometry microbial biofilm datasets with viSNE and Matlab",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2016-06-20 21:35:26",
+                "doi": "10.1038/protex.2016.039",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a0b36a79-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "June 20th, 2016",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3601,
+                "name": "Cell biology"
+            },
+            {
+                "id": 3602,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 3603,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 3604,
+                "name": "Microbiology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2016-06-20 21:35:26",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

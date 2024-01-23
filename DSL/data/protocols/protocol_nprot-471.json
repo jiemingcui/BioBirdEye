@@ -1,0 +1,307 @@
+{
+    "identity": "nprot-471",
+    "title": "Multiple-target tracing \\(MTT) algorithm probes molecular dynamics at cell surface",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Single fluorescence molecule microscopy provides a privileged approach achieving a spatial resolution close to the molecular scale<sup>1-5</sup>. The position of an isolated fluorescent molecule is accurately determined by the center of the signal. The counterpart is a necessity for imaging sparse fluorescent molecules. Consequently, single particle tracking \\(SPT) is only amenable when handling a very limited number of targets at the same time.\r\n\n\nThis major drawback has been partly circumvented by the development of super-resolution optical imaging techniques<sup>6</sup>. Among them, photoactivation localization microscopy \\(PALM<sup>7</sup>, FPALM<sup>8</sup>) or stochastic optical reconstruction microscopy \\(STORM<sup>9</sup>) permit the localization of thousands of single fluorophores per acquisition. This is experimentally performed by sequentially turning on a fraction of the fluorescently-labeled molecules. The combination of PALM with live-cell SPT \\(sptPALM<sup>10</sup>) allows to simultaneously track a large number of molecules. This approach provides significant insight into molecular dynamics and interactions taking place at the cell membrane. \r\n\n\nHere, we detail a tracking approach, namely multiple-target tracing \\(MTT), optimized for large numbers of targets, allowing highly resolved spatiotemporal investigations on molecular dynamics at the cell surface. Use of dedicated signal detection tools<sup>11,12</sup> allows efficiently detecting and estimating particles, then reconnecting trajectories over time, with a controlled and optimized accuracy."
+        },
+        {
+            "header": "Reagents",
+            "content": "**Cell culture and sample preparation**\r\n\n\nCOS-7 cells \\(ATCC) were grown in DMEM supplemented with 10% calf serum, 1% glutamine, 1% pyruvate sodium, 1% Hepes buffer, without phenol red. Cells were plated on 18 mm round glass coverslips of 0.17 mm thickness \\(VWR) at subconfluent density. Typically, 160,000 cells were split into 12-well plates \\(Falcon) containing sterilized coverslips, to achieve 5% confluence 24 h before experiment. Coverslips were mounted in an observation chamber \\(Life Imaging Services). Image acquisitions were performed in HBSS with 1% Hepes buffer \\(all products from Gibco).\r\n\n\n\r\n\n\n**Labeling**\r\n\n\nFor experimental proof of concept, biotinylated anti-EGFR Ab-3 antibody \\(Lab Vision) was mixed with streptavidine-Qdot605 \\(Invitrogen) in the presence of 100 &#xD7; excess of biotin \\(Calbiochem) in order to achieve at best a single mAb binding per Qdot. Complexes were incubated on COS-7 cells which express ==<sub>== 50,000 endogenous EGF \\( ==</sub>== 20 EGFR/&#xB5;m<sup>2</sup>)<sup>13</sup>. For regular experimental conditions, using 10 nM antibody-Qdots led to a range of typically 400 labeled EGFR per cell. In order to delineate the highest density resolved by MTT, up to 1,200 receptors were tracked simultaneously."
+        },
+        {
+            "header": "Equipment",
+            "content": "**Microscope setup**\r\n\n\nSingle-molecule images were acquired using a wide-field epifluorescence setup based on an Axiovert 200M microscope \\(Zeiss) equipped with a FluoArc HBO 100 W lamp, an &#x3B1; Plan-Fluar 100&#xD7; 1.45 NA oil objective and FF01-457/50 excitation, FF495-Di02 dichroic, and FF01-617/73 emission filters \\(Semrock), a thermostated box \\(Life Imaging Services) and a 16-bit EM CCD Cascade 512 BFT camera \\(Roper Scientific). The camera was driven by the software Metamorph \\(Molecular Devices), generating image stacks in STK file format. \r\n\n\n\r\n\n\n**Software**\r\n\n\nCustom algorithms were written with Octave \\(version 2.1.73, GNU, GPL) and Matlab \\(version 7.4, R2007a, MathWorks). The source code of MTT software is available at http://www.ciml.univ-mrs.fr/Lab/He-Marguet.htm; academic and nonprofit use is free of charge."
+        },
+        {
+            "header": "Procedure",
+            "content": "**I. Labeling cell surface molecules with Qdots**\r\n\n\n1. Plate subconfluent cells on sterilized 18 mm round coverslips and allow for spreading in the incubator overnight.\r\n  2. Dilute the biotinylated antibody in culture medium, supplemented with 100\u00d7 biotin. Mix with equimolar amount of streptavidin-Qdots \\(typically 10 nM each), to avoid presence of several antibodies per Qdot. Final volume should be adapted to the minimal volume allowed with the chamber \\(typically 500 \u00b5l).\r\n  3. Incubate the antibody-Qdot mix for 15 min at 37\u00b0C.\r\n  4. Mount coverslips from the culture well, one at a time in the observation chamber.\r\n  5. Incubate cells for 15 min at 37\u00b0C in antibody-Qdot mix. Using culture medium supplemented with serum prevents unspecific binding of Qdots to the coverslip.\r\n  6. Wash thoroughly three times with HBSS to remove unbound Qdots.\r\n  7. Image up to 30 min in 500 \u00b5l HBSS-Hepes, on the microscope stage at 37\u00b0C.\r\n  \r\n\n\n**II. Image acquisition**\r\n\n\n8. Warm the microscope stage at 37\u00b0C and the fluorescence lamp at least 1 h prior to measurements.\r\n  9. Select isolated and properly spread cells. Visual quality check should be performed both with transmitted and fluorescence illumination.\r\n  10. First acquire a DIC image of the cell before recording stacks and save it as TIFF, with the same name as the corresponding subsequent stack\\(s), in a local subfolder named **dic**. Carefully following these conventions for naming files is required for the algorithm batch analysis.\r\n  11. Record stacks of single-molecule images using a dedicated fluorescence microscopy setup \\(see **Equipment**). Each stack typically consists of 300 images, taken using frame transfer at 36 ms time-lag, in full frame \\(512 \u00d7 512 pixels).\r\n  12. At the end of the stack acquisition, record another DIC image to check for the absence of noticeable photodamage.\r\n  \r\n\n\n**III. Analysis of single-molecule data with MTT**\r\n\n\n13. Launch either Octave or Matlab; before the first run, the folders containing the MTT codes, **detect_part_v2**, **utils_MTT** and **carto**, must be added to the Octave/Matlab path.\r\n  14. Navigate to your data directory.\r\n  15. If necessary, tracing parameters such as D\nmax\n\\(maximum expected diffusion for unconstrained motion) can be adjusted by editing the **MTT_param.m** script \\(**Fig. 1**). This parameter is the only one being directly related to the biological problem.\r\n  16. Execute the **detect_reconnex_22.m** script to start a fully automatic analysis \\(**Fig. 2**).\r\n  17. Output data \\(parameters, means and variances) can be read using scripts such as **fread_data_spt.m** for further analyses, such as:\r\n  A. Statistical analyses \\(i.e. distribution of parameters such as displacements or intensities, plot of mean square displacement, etc\u2026)\r\n\n\nB. Generating dynamic maps of confinement levels\n14-17\nusing **carto_moviev3.m** \\(**Fig. 3**). Movies can be built from individual images using the ImageJ freeware \\(NIH)."
+        },
+        {
+            "header": "Timing",
+            "content": "Cell plating should be done at least one day before acquisition.\r\n\n\nCell labeling takes less than 1 h \\(mix, incubations and washings).\r\n\n\nData acquisition takes 10 s per image stack. Total time must include visual scanning of the sample. Also consider enough data acquisition for each condition tested, for cell to cell reproducibility considerations. This may result in a total of half a day per experimental condition.\r\n\n\nFor data analysis, using a PC equipped with a 3.2 GHz processor and 2 Go RAM, treating one stack of 300 frames with a typical labeling density \\(400 molecules per frame) takes about 20 min."
+        },
+        {
+            "header": "Critical Steps",
+            "content": "**Step 1: Cell morphology considerations** &#x2013; At first, working with adherent cell lines such as fibroblasts allows easy recording on planar lamellipodia. This avoids having to consider 3D geometries. In practice, this can be best achieved with subconfluent, highly spread cells. Moreover, having either too spare or almost confluent cells, due to inadequate initial density and time between spreading and experiment, may impact on cell physiology \\(i.e. adhesion, metabolism) and experimental reproducibility.\r\n\n\nMTT analysis is however not restricted to fibroblast cells.\r\n\n\n\r\n\n\n**Step 2: Qdot valence issue** &#x2013; In the absence of uncoupled biotin, commercially available Qdots, which are bound to 4-10 tetravalent streptavidins, can putatively bind up to tens of antibodies \\(i.e. theoretically between 16 and 40 binding sites per Qdot). These complexes can potentially induce an aggregation of membrane receptors, resulting in possible physiological bias such as artefactual stimulation induced by receptor capping<sup>18</sup>. Adding a 100&#xD7; molar excess of biotin minimizes this multivalence and ensures that most of the Qdots are coupled to only one antibody \\(or none, but uncoupled Qdots will be ultimately washed out).\r\n\n\nImportantly, the biotinylated antibody and biotin should be first mixed together, prior to mixing with streptavidin-Qdots, in order to avoid preferential binding of one of the two species to streptavidin.\r\n\n\nNota: in our study of EGFR, we used a biotinylated anti-EGFR \\(Ab-3, Lab Vision). Although being bivalent, this antibody is non-activating \\(not shown). However, one should consider, when it is possible, monovalent labeling strategies such as employing F\\(ab) fragments or monovalent streptavidin against directly targeted biotin<sup>19</sup>. In our case, we observed that labeling EGFR with Qdots coupled to F\\(ab) together with an excess of biotin, lead to fully comparable results.\r\n\n\nQdot and antibody concentrations will directly determine the final labeling density. For the MTT approach, this density must be sufficient to spatially sample the cellular dynamic properties.\r\n\n\n\r\n\n\n**Step 9: Acquisition parameters** &#x2013; For single-molecule measurements, all acquisition parameters should be optimized, notably the light intensity, filter sets and other optics transmission efficiency, as well as the camera settings. In our experimental conditions, the amplification gain was set at 3850 to avoid saturation. \r\n\n\nMoreover, the magnification should ensure that the resulting pixel size verifies the Shannon-Nyquist sampling theorem: the fluorescence peak diameter \\(according to the Rayleigh criterion and including motion blurring) should be at least twice the pixel size to warrant proper localization.\r\n\n\n\r\n\n\n**Step 11: SNR versus acquisition frequency** &#x2013; Signal-to-noise ratio and acquisition speed are critical issues in SPT. Since they are intimately related, an affordable tradeoff must be carefully determined when choosing the time-lag.\r\n\n\nMore precisely, the time-lag used for recording will directly affect the dynamic range and sensibility. It should be both low enough to ensure a good dynamic \\(allowing access to fast motions) and high enough to provide a sufficient signal to noise ratio. Noticeably, working with the 512 BFT Cascade camera allowed us to successfully investigate EGFR dynamics at frequencies up to 200 frames/s \\(5 ms time-lag). New cameras, such as the 128 BFT Cascade, even allow measurements at 1,000 frames/s \\(1 ms time-lag), with still an acceptable SNR.\r\n\n\n\r\n\n\n**Step 15: Input parameters for reconnecting trajectories** &#x2013; D<sub>max</sub> provides an upper limit for reconnecting trajectories which has to be converted in pixels<sup>2</sup>/lag. This cutoff results from a tradeoff allowing efficient reconnection of fast movements without leading to erroneous reconnections of neighboring blinking molecules for instance. If this input value cannot be straightforwardly estimated, a range of values can be tested using a representative dataset to generate a plot of output versus input diffusion values. Too small input values should generate aborted, short range trajectories, while too high input values should generate artefactual, long range connections, resulting in under or overestimate of diffusion, respectively. MTT should run with an intermediate value, corresponding to an intermediate stable regime, for which the estimated output diffusion is no longer affected by small variations of D<sub>max</sub>.\r\n\n\n\r\n\n\n**Step 17B: Input parameters for cartography** &#x2013; The detection index relies on three parameters, L<sub>min</sub>, t<sub>min</sub> and w<sub>conf</sub>, stored in **proba_conf_params_varM.dat**, in the **carto** folder. Each parameter may need to be optimized for a given problem. See Serg&#xE9; et al, Nat. Methods 2008 \\(DOI 10.1038/nmeth.1233) and refs 14-17 for further information."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "**Step 9** &#x2013; Problem A: Signal is corrupted by a strong autofluorescence background.\r\n\n\nPossible reason: The two fluorescence signals are spectrally overlapping too much. \r\n\n\nSolution: Probes should be separated from cellular autofluorescence either by their intensity and spectral properties or both \\(which is optimal). This was properly ensured by using Qdots emitting at 605 nm to label COS-7 cells in combination with appropriate filter set.\r\n\n\n\r\n\n\n**Step 9** &#x2013; Problem B: Presence of strong signal originating from intracellular aggregates.\r\n\n\nPossible reason: Labeled molecules have presumably been endocyted.\r\n\n\nSolution: The use of monovalent probes should minimize induced endocytosis. Moreover, total acquisition time after labeling should be kept minimal \\(i.e. less than 30 min for the EGFR on COS-7 cells).\r\n\n\n\r\n\n\n**Step 16** &#x2013; Problem: Fit ends prematurely.\r\n\n\nPossible reason: The cause should be stated by the error message displayed by Octave/Matlab.\r\n\n\nSolution: One major known issue is memory limitation. Although MTT is handling data frame by frame to limit memory issues, analyses should nevertheless be run on a computer with sufficient RAM \\(i.e. at least 1 Go).\r\n\n\nStorage should also be considered with care, as raw stack quickly generate large amounts of data. Solutions such as tera storage should be envisaged. In this respect, the stack length may also be reconsidered, in order to assess the minimal required time/number of frames, according to the question addressed."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "The core MTT analysis provides parameters \\(position, intensity, radius, offset and blink status), as well as means and variances updated within a sliding temporal window. Relevance and accuracy can be adequately evaluated using Monte Carlo simulations of Brownian random walks, providing known inputs which can be compared to outputs.\r\n\n\nThe cartography module provides dynamic maps of the transient confinement events which are expected to occur within stochastic motions of membrane molecules \\(**Fig. 3**)."
+        },
+        {
+            "header": "References",
+            "content": "1. Schmidt, T., Schutz, G.J., Baumgartner, W., Gruber, H.J., and Schindler, H., Imaging of single molecule diffusion. Proc. Natl. Acad. Sci. USA 93, 2926-2929 \\(1996).\r\n  2. Lommerse, P.H., Spaink, H.P., and Schmidt, T., In vivo plasma membrane organization: results of biophysical approaches. Biochim. Biophys. Acta 1664, 119-131 \\(2004).\r\n  3. Marguet, D., Lenne, P.F., Rigneault, H., and He, H.T., Dynamics in the plasma membrane: how to combine fluidity and order. EMBO J. 25, 3446-3457 \\(2006).\r\n  4. Saxton, M.J. and Jacobson, K., Single-particle tracking: applications to membrane dynamics. Annu. Rev. Biophys. Biomol. Struct. 26, 373-399 \\(1997).\r\n  5. Meijering, E., Smal, I., and Danuser, G., Tracking in molecular bioimaging. IEEE Signal Processing Magazine 23, 46-53 \\(2006).\r\n  6. Moerner, W.E., Single-molecule mountains yield nanoscale cell images. Nat. Methods 3, 781-782 \\(2006).\r\n  7. Betzig, E., Patterson, G.H., Sougrat, R., Lindwasser, O.W., Olenych, S., Bonifacino, J.S. et al., Imaging intracellular fluorescent proteins at nanometer resolution. Science 313, 1642-1645 \\(2006).\r\n  8. Hess, S.T., Girirajan, T.P., and Mason, M.D., Ultra-high resolution imaging by fluorescence photoactivation localization microscopy. Biophys. J. 91, 4258-4272 \\(2006).\r\n  9. Rust, M.J., Bates, M., and Zhuang, X., Sub-diffraction-limit imaging by stochastic optical reconstruction microscopy \\(STORM). Nat. Methods 3, 793-795 \\(2006).\r\n  10. Manley, S., Gillette, J.M., Patterson, G.H., Shroff, H., Hess, H.F., Betzig, E. et al., High-density mapping of single-molecule trajectories with photoactivated localization microscopy. Nat. Methods 5, 155-157 \\(2008).\r\n  11. Papoulis, A., in Probability, Random Variables and Stochastic Process \\(McGraw Hill, 2001), pp. 277.\r\n  12. Van Trees, H.L., Detection, Estimation, and Modulation Theory. \\(Wiley Inter-Science, 1968).\r\n  13. Livneh, E., Benveniste, M., Prywes, R., Felder, S., Kam, Z., and Schlessinger, J., Large deletions in the cytoplasmic kinase domain of the epidermal growth factor receptor do not affect its laternal mobility. J. Cell Biol. 103, 327-331 \\(1986).\r\n  14. Meilhac, N., Le Guyader, L., Salome, L., and Destainville, N., Detection of confinement and jumps in single-molecule membrane trajectories. Phys. Rev. E Stat. Nonlin. Soft Matter Phys. 73, 011915 \\(2006).\r\n  15. Saxton, M.J., Single-particle tracking: effects of corrals. Biophys. J. 69, 389-398 \\(1995).\r\n  16. Serge, A., Fourgeaud, L., Hemar, A., and Choquet, D., Receptor activation and homer differentially control the lateral mobility of metabotropic glutamate receptor 5 in the neuronal membrane. J. Neurosci. 22, 3910-3920 \\(2002).\r\n  17. Simson, R., Sheets, E.D., and Jacobson, K., Detection of temporary lateral confinement of membrane proteins using single-particle tracking analysis. Biophys. J. 69, 989-993. \\(1995).\r\n  18. Mohammadi, M., Honegger, A., Sorokin, A., Ullrich, A., Schlessinger, J., and Hurwitz, D.R., Aggregation-induced activation of the epidermal growth factor receptor protein tyrosine kinase. Biochemistry 32, 8742-8748 \\(1993).\r\n  19. Howarth, M., Liu, W., Puthenveetil, S., Zheng, Y., Marshall, L.F., Schmidt, M.M. et al., Monovalent, reduced-size quantum dots for imaging receptors on living cells. Nat. Methods 5, 397-399 \\(2008)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "This project was supported by grants from Institut National de la Sant&#xE9; et de la Recherche M&#xE9;dicale, Centre National de la Recherche Scientifique, Agence Nationale de la Recherche and European regional development fund."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nmeth.1233",
+                "date": "2008-07-04 04:06:28",
+                "title": "Dynamic multiple-target tracing to probe spatiotemporal cartography of cell membranes",
+                "authors": [
+                    "Arnauld Serg\u00e9",
+                    "Nicolas Bertaux",
+                    "Herv\u00e9 Rigneault & Didier Marguet"
+                ],
+                "journal": "Nature Methods",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 10982,
+                "identity": "9f39e17d-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Serg\u00e9 Arnauld",
+                "email": "",
+                "orcid": "",
+                "institution": "Centre d\u2019Immunologie de Marseille-Luminy, Universit\u00e9 de la M\u00e9diterran\u00e9e, Institut National de la Sant\u00e9 et de la Recherche M\u00e9dicale and Centre National de la Recherche Scientifique",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Serg\u00e9",
+                "middleName": "",
+                "lastName": "Arnauld",
+                "suffix": ""
+            },
+            {
+                "id": 10983,
+                "identity": "9f39e541-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Bertaux Nicolas",
+                "email": "",
+                "orcid": "",
+                "institution": "Institut Fresnel, Universit\u00e9 Paul C\u00e9zanne, Centre National de la Recherche Scientifique and \u00c9cole Centrale Marseille",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Bertaux",
+                "middleName": "",
+                "lastName": "Nicolas",
+                "suffix": ""
+            },
+            {
+                "id": 10984,
+                "identity": "9f39e746-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Rigneault Herv\u00e9",
+                "email": "",
+                "orcid": "",
+                "institution": "Institut Fresnel, Universit\u00e9 Paul C\u00e9zanne and Centre National de la Recherche Scientifique",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Rigneault",
+                "middleName": "",
+                "lastName": "Herv\u00e9",
+                "suffix": ""
+            },
+            {
+                "id": 10985,
+                "identity": "9f39e9ac-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Marguet Didier",
+                "email": "",
+                "orcid": "",
+                "institution": "Centre d\u2019Immunologie de Marseille-Luminy, Universit\u00e9 de la M\u00e9diterran\u00e9e, Institut National de la Sant\u00e9 et de la Recherche M\u00e9dicale and Centre National de la Recherche Scientifique",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Marguet",
+                "middleName": "",
+                "lastName": "Didier",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2010-08-26 10:05:14",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/nprot.2008.128",
+        "doiUrl": "https://doi.org/10.1038/nprot.2008.128",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2607940,
+                "identity": "efeed19c-d087-4d33-9a61-cb8bb0dd647b",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:52",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 102853,
+                "visible": true,
+                "origin": "",
+                "legend": "Screenshot of a Matlab session   Editing the *MTT_param.m* file allows adjusting parameters such as stack filename for instance (highlighted in yellow). Running *detect_reconnex_22.m* from the command window starts a batch analysis for the data files stored in the current directory.",
+                "description": "",
+                "filename": "figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-471/v1/figure_1.jpg"
+            },
+            {
+                "id": 2607945,
+                "identity": "4071eb1c-e14c-439c-8924-af0335cf0a5c",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:52",
+                "extension": "jpg",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 77086,
+                "visible": true,
+                "origin": "",
+                "legend": "Overview of the MTT algorithm   The first frame is used to initiate trajectories which are connected by the loop over the following frames.\r\n \r\n",
+                "description": "",
+                "filename": "figure2.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-471/v1/figure_2.jpg"
+            },
+            {
+                "id": 2607941,
+                "identity": "720724e5-0b5f-47f5-9ca8-4e5a75b3a58a",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:52",
+                "extension": "jpg",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 140100,
+                "visible": true,
+                "origin": "",
+                "legend": "Mapping membrane dynamics   One key parameter involved in plasma membrane dynamics and organization is the local and transient confinement of membrane molecules and complexes. Starting from a stack of 300 frames length (10 s), all trajectories were projected onto a DIC image of the cells (top, scale bar 10 &#xB5;m). A confinement index, computed for each step, allows detecting confined events (orange) within free-like diffusing walks (bordeaux) by using an adequate threshold. Conversely, plotting a 3D surface interpolated through the discrete confinement values (L~conf~, bottom) provides a visual rendering of the underlying diversity which can be further investigated using movies and/or statistical tools.",
+                "description": "",
+                "filename": "figure3.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-471/v1/figure_3.jpg"
+            },
+            {
+                "id": 13465264,
+                "identity": "56ffc6ff-52a6-4e13-be08-db0010bcccfe",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:46:13",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 348199,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-471/v1/25e5b3e4-50b6-4fdf-ba85-eae6b2896123.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "single-particle tracking, single-molecule fluorescence microscopy, image analysis, tracking algorithm, high-resolution diffusion map, plasma membrane lateral organization\r\n\r\n",
+        "license": {
+            "name": "None",
+            "url": ""
+        },
+        "manuscriptAbstract": "",
+        "manuscriptTitle": "Multiple-target tracing (MTT) algorithm probes molecular dynamics at cell surface",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2008-07-10 06:07:44",
+                "doi": "10.1038/nprot.2008.128",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9f39864f-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "July 10th, 2008",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 2135,
+                "name": "Cell biology"
+            },
+            {
+                "id": 2136,
+                "name": "Developmental biology"
+            },
+            {
+                "id": 2137,
+                "name": "Biological techniques"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2008-07-10 06:07:44",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

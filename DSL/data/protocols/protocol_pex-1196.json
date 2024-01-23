@@ -1,0 +1,281 @@
+{
+    "identity": "pex-1196",
+    "title": "<p>QMAP-Seq: Quantitative and Multiplexed Analysis of Phenotype by Sequencing</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": ""
+        },
+        {
+            "header": "Reagents",
+            "content": "<p>RPMI-1640 (Gibco, #11875119)</p><p>Tet System Approved Fetal Bovine Serum (Clontech, #631106)</p><p>Penicillin/Streptomycin (Gibco, #15140122)</p><p>Doxycycline (Clontech, # 631311)</p><p>PBS (Fisher Scientific, #20-012-050)</p><p>Accumax (Innovative Cell Technologies, #AM105)</p><p>10 cm tissue culture plates</p><p>15 cm tissue culture plates</p><p>96-well tissue culture plates</p><p>10x Taq DNA Polymerase Buffer (Invitrogen, #18067017)</p><p>IGEPAL CA-630 (Sigma-Aldrich, #I8896)</p><p>TWEEN 20 (Sigma-Aldrich, P9416)</p><p>Proteinase K (Qiagen, #19133)</p><p>Nuclease-free water (Qiagen, #129115)</p><p>Foil adhesive</p><p>5 mL syringe</p><p>21G x 1\" needle</p><p>27G x 1/2\" needle</p><p>96-well PCR plates</p><p>Clear adhesive (Applied Biosystems, #4311971)</p><p>10 mM dNTP Mix (Invitrogen, #10297-018)</p><p>50 mM MgCl<sub>2</sub></p><p>DMSO (Sigma-Aldrich, #D8418)</p><p>P5 Primer Mix</p><p>P7 Primer</p><p>Platinum Taq DNA Polymerase (Invitrogen, #10966034)</p><p>E-Gel 96 2% Agarose gels (Invitrogen, #G700802)</p><p>Quick-Load 100 bp DNA Ladder (NEB, #N0467S)</p><p>Qubit dsDNA HS Assay Kit (Invitrogen, #Q32854)</p><p>QIAquick PCR Purification Kit (Qiagen, #28106)</p><p>Purification Module with Magnetic Beads (Lexogen, #022.96)</p><p>PhiX (Illumina, #FC-110-3001)</p><p>10 mM Tris, pH 8</p><p>NovaSeq 6000 S1 Reagent Kit, 200 Cycles, 1.3B Reads (Illumina, #20012864) or similar</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>EL406 Microplate Washer Dispenser (BioTek Instruments) or similar</p><p>Multichannel pipets</p><p>Oven or water bath</p><p>Thermocycler</p><p>NovaSeq 6000 (Illumina) or another next-generation sequencing instrument</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "Induction, Seeding, and Compound Treatment\n1.\u00a0\u00a0\u00a0\u00a0Thaw pooled cell lines (comprised of desired mix of barcoded doxycycline-inducible Cas9 cell lines with desired genetic perturbations) in media containing 100 ng/mL doxycycline.\n2.\u00a0\u00a0\u00a0\u00a0Three days later, expand cells and refresh doxycycline.\n3.\u00a0\u00a0\u00a0\u00a0Three more days later, seed 5,000 pooled cells in a volume of 100 mL in 96-well plates, while maintaining doxycycline induction.\n4.\u00a0\u00a0\u00a0\u00a0The next day, add compounds over a four-point concentration range in duplicate.\n5.\u00a0\u00a0\u00a0\u00a0Treat cells with compounds for 72 hours.\nLysis of Cell Spike-In Standards\n1.\u00a0\u00a0\u00a0\u00a0Thaw cell spike-in standards (comprised of five cell lines each possessing a different sgNT sequence representing a three-fold dilution cell concentration range) at room temperature for 5 minutes.\n2.\u00a0\u00a0\u00a0\u00a0Resuspend cell spike-in standards in Lysis Buffer (10% 10x Taq DNA Polymerase Buffer (Invitrogen, #18067017), 0.45% IGEPAL CA-630 (Sigma-Aldrich, #I8896), 0.45% TWEEN 20 (Sigma-Aldrich, P9416), 10% Proteinase K (Qiagen, #19133), 79.1% Nuclease-Free Water (Qiagen, #129115)) to achieve desired concentration of total cell spike-in standards/mL. Customize spike-in cell numbers for each experiment to cover the expected range of cell numbers for any individual perturbation at the time of cell lysis.\n3.\u00a0\u00a0\u00a0\u00a0Homogenize cells using a 5 mL syringe and a 21G x 1\u201d needle three times followed by a 27G x \u00bd\u201d needle three times.\n4.\u00a0\u00a0\u00a0\u00a0Incubate cells in 60\u00b0C water bath for 1 hour, pipetting up and down every 20 minutes.\nLysis of Compound-Treated Cells\n1.\u00a0\u00a0\u00a0\u00a0After 72 hours of compound treatment, wash compound-treated cells with 100 mL PBS.\n2.\u00a0\u00a0\u00a0\u00a0Add 50 mL Lysis Buffer containing desired concentration of total cell spike-in standards/mL using multichannel pipet.\n3.\u00a0\u00a0\u00a0\u00a0Cover plates with foil adhesive.\n4.\u00a0\u00a0\u00a0\u00a0Incubate plates in 60\u00b0C oven for 1 hour.\n5.\u00a0\u00a0\u00a0\u00a0Transfer cell lysates to PCR plates using multichannel pipet.\n6.\u00a0\u00a0\u00a0\u00a0Inactivate Proteinase K from Lysis Buffer at 95\u00baC for 15 minutes using thermocycler.\nSequencing Library Preparation\n1.\u00a0\u00a0\u00a0\u00a0Set up PCRs to amplify a 359-367 bp fragment (depending on length of stagger) containing the sgRNA and cell line barcode with a unique set of P5 and P7 primers for each well:\n6 \u03bcL 10x Taq DNA Polymerase Buffer\n1.2 \u03bcL 10 mM dNTP Mix\n1.8 \u03bcL 50 mM MgCl\n2\n0.6 \u03bcL DMSO (Sigma-Aldrich, #D8418)\n6 \u03bcL P5 5001-5016 Primer Mix (mix of 0-8nt staggered primers) (1 \u03bcM)\n6 \u03bcL P7 7001-7096 Primer (1 \u03bcM)\n8 \u03bcL Lysate (Proteinase K inactivated again)\n30.16 \u03bcL Water\n0.24 \u03bcL Platinum Taq DNA Polymerase (Invitrogen, #10966034)\n2.\u00a0\u00a0\u00a0\u00a0To reduce the likelihood of PCR jackpot effects, transfer half of the PCR volume from each reaction to a second set of PCR plates.\n3.\u00a0\u00a0\u00a0\u00a0Run PCRs in thermocycler:\n94\u00baC for 4 minutes\n94\u00baC for 30 seconds, 60\u00baC for 30 seconds, 72\u00baC for 30 seconds (29 cycles total)\n72\u00baC for 15 minutes\n4\u00baC hold\n4.\u00a0\u00a0\u00a0\u00a0Recombine technical duplicates.\n5.\u00a0\u00a0\u00a0\u00a0Verify library size by running 5 mL of PCR products on E-Gel 96 2% Agarose gels (Invitrogen, #G7008-02).\n6.\u00a0\u00a0\u00a0\u00a0Pool an equal volume (6 mL) of each PCR product together.\n7.\u00a0\u00a0\u00a0\u00a0Measure the concentration of the pooled PCR products using the Qubit dsDNA HS Assay Kit (Invitrogen, #Q32854).\n8.\u00a0\u00a0\u00a0\u00a0Purify pooled PCR products using the QIAquick PCR Purification Kit (Qiagen, #28106) with sufficient PCR purification columns to avoid exceeding the maximum binding capacity of each column.\n9.\u00a0\u00a0\u00a0\u00a0Measure the concentration of the purified sample using the Qubit dsDNA HS Assay Kit (Invitrogen, #Q32854).\n10.\u00a0Purify the purified sample a second time using the Purification Module with Magnetic Beads (Lexogen, #022.96).\n11.\u00a0Measure the final library concentration using the Qubit dsDNA HS Assay Kit (Invitrogen, #Q32854).\nNext-Generation Sequencing\n1.\u00a0\u00a0\u00a0\u00a0Dilute the sequencing library to 2.5 nM.\n2.\u00a0\u00a0\u00a0\u00a0To increase nucleotide diversity, combine the sequencing library with PhiX to achieve 25% PhiX.\n3.\u00a0\u00a0\u00a0\u00a0Denature the sequencing library, according to Illumina specifications.\n4.\u00a0\u00a0\u00a0\u00a0Load the sequencing library on a NovaSeq 6000 (Illumina) using a NovaSeq 6000 S1 Reagent Kit, 200 Cycles, 1.3B Reads (Illumina, #20012864).\n5.\u00a0\u00a0\u00a0\u00a0Perform single-end sequencing using the following run parameters:\nIllumina Read 1 Primer: 164 bp read\nIllumina Index 1 Primer: 6 bp read\nIllumina Index 2 Primer: 6 bp read\nSequencing Data Processing/Data Analysis/Bioinformatics\n1.\u00a0\u00a0\u00a0\u00a0Demultiplex individual samples based on i5 and i7 index sequences by running bcl2fastq Conversion Software (Illumina).\n2.\u00a0\u00a0\u00a0\u00a0Use QMAP-Seq bioinformatic analysis pipeline (https://codeocean.com/capsule/3022355/tree/v1 or https://github.com/mendillolab/QMAP-Seq) to extract sgRNA and cell line barcode sequences from Read 1 sequences, count the number of reads for each cell line-sgRNA pair, interpolate cell number from sequencing reads using sample-specific standard curves, and normalize the number of cells for a compound-treated sample to the median number of cells for the DMSO-treated samples."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 3299333,
+                "identity": "a6e87752-cc66-441e-80e0-dd45d0b46c76",
+                "order_by": 0,
+                "name": "Sonia Brockway",
+                "email": "SoniaOlikara2011@u.northwestern.edu",
+                "orcid": "https://orcid.org/0000-0002-6817-3237",
+                "institution": "Northwestern University",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Sonia",
+                "middleName": "",
+                "lastName": "Brockway",
+                "suffix": ""
+            },
+            {
+                "id": 3299334,
+                "identity": "471afb89-0c65-4a0a-a352-d8629576f3c2",
+                "order_by": 1,
+                "name": "Geng Wang",
+                "email": "",
+                "orcid": "",
+                "institution": "Northwestern University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Geng",
+                "middleName": "",
+                "lastName": "Wang",
+                "suffix": ""
+            },
+            {
+                "id": 3299335,
+                "identity": "56f543c6-03c6-4b32-9c81-c6f95c0b7f68",
+                "order_by": 2,
+                "name": "Jasen M. Jackson",
+                "email": "",
+                "orcid": "",
+                "institution": "Northwestern University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jasen",
+                "middleName": "M.",
+                "lastName": "Jackson",
+                "suffix": ""
+            },
+            {
+                "id": 3299336,
+                "identity": "b1861213-f7de-4f7b-bad4-f3ecd7a1e5bd",
+                "order_by": 3,
+                "name": "David R. Amici",
+                "email": "",
+                "orcid": "",
+                "institution": "Northwestern University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "David",
+                "middleName": "R.",
+                "lastName": "Amici",
+                "suffix": ""
+            },
+            {
+                "id": 3299337,
+                "identity": "58f8b279-bb82-490b-b5fa-a1023974724f",
+                "order_by": 4,
+                "name": "Seesha R. Takagishi",
+                "email": "",
+                "orcid": "",
+                "institution": "Northwestern University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Seesha",
+                "middleName": "R.",
+                "lastName": "Takagishi",
+                "suffix": ""
+            },
+            {
+                "id": 3299338,
+                "identity": "b15ce2a1-82de-422f-bf74-cf9bd1adecfb",
+                "order_by": 5,
+                "name": "Matthew R. Clutter",
+                "email": "",
+                "orcid": "",
+                "institution": "Northwestern University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Matthew",
+                "middleName": "R.",
+                "lastName": "Clutter",
+                "suffix": ""
+            },
+            {
+                "id": 3299339,
+                "identity": "4f18dc65-35d2-4d1c-a9b0-c0eb06cc67cc",
+                "order_by": 6,
+                "name": "Elizabeth T. Bartom",
+                "email": "",
+                "orcid": "",
+                "institution": "Northwestern University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Elizabeth",
+                "middleName": "T.",
+                "lastName": "Bartom",
+                "suffix": ""
+            },
+            {
+                "id": 3299340,
+                "identity": "e9291961-62f9-43d7-9289-be5658d08a22",
+                "order_by": 7,
+                "name": "Marc L. Mendillo",
+                "email": "",
+                "orcid": "",
+                "institution": "Northwestern University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Marc",
+                "middleName": "L.",
+                "lastName": "Mendillo",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2020-10-05 19:27:33",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1196/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1196/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13616788,
+                "identity": "7db00abd-a0ba-458a-b6da-785e79574b57",
+                "added_by": "auto",
+                "created_at": "2021-09-17 06:51:04",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 203537,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1196/v1/3c699bb7-a10d-4e3f-88de-a0e7c9a7b682.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "chemical-genetic profiling, pooled screening, next-generation sequencing",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>Chemical-genetic interaction profiling in model organisms has proven powerful in providing insights into compound mechanism of action and gene function. However, identifying chemical-genetic interactions in mammalian systems has been limited to low-throughput or computational methods. Here, we develop Quantitative and Multiplexed Analysis of Phenotype by Sequencing (QMAP-Seq), which leverages next-generation sequencing for pooled high-throughput chemical-genetic profiling. We apply QMAP-Seq to investigate how cellular stress response factors affect therapeutic response in cancer. Using minimal automation, we treat pools of 60 cell types\u2014comprising 12 genetic perturbations in five cell lines\u2014with 1,440 compound-dose combinations, generating 86,400 chemical-genetic measurements. QMAP-Seq produces precise and accurate quantitative measures of acute drug response comparable to gold standard assays, but with increased throughput at lower cost. Moreover, QMAP-Seq reveals clinically actionable drug vulnerabilities and functional relationships involving these stress response factors, many of which are activated in cancer. Thus, QMAP-Seq provides a broadly accessible and scalable strategy for chemical-genetic profiling in mammalian cells.</p>",
+        "manuscriptTitle": "QMAP-Seq: Quantitative and Multiplexed Analysis of Phenotype by Sequencing",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2020-11-19 17:39:39",
+                "doi": "10.21203/rs.3.pex-1196/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "f1435f47-3f46-45b1-90a6-f0e9b5943186",
+        "owner": [],
+        "postedDate": "November 19th, 2020",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 740335,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 740336,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 740337,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 740338,
+                "name": "Drug discovery"
+            },
+            {
+                "id": 740339,
+                "name": "Systems biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2020-11-19 17:39:39",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

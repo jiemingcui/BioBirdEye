@@ -1,0 +1,243 @@
+{
+    "identity": "nprot-458",
+    "title": "A protocol to adopt the mixture model by Zhu _et al._ for the analysis of population stratification on the data with missing allele calls",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "There are two kinds of applications of principal component analysis \\(PCA) to analyze population substructures of genetic polymorphism data. One application is for an individual covariance matrix, and the other application is for a marker covariance matrix. The former method is already implemented in EIGENSTRAT \\[1]; the latter method, however, is not common because it cannot be applied, if data include missing typing data \\(allele call). Here, we describe some modification of a Mixture Model \\[2] \\(MM), so that it can handle data with missing allele calls \\(we call it a compensated mixture model \\(CMM) protocol). MM applies PCA to a marker covariance matrix before applying the normal-distribution mixture model."
+        },
+        {
+            "header": "Equipment",
+            "content": "1. Genotype data file on markers \\(e.g. SNPs in our GWAS on gastric cancer), which were selected so that the marker loci would be independent each other \\(an example of such selection criteria is given below for the analysis shown in Table 1 and Figure 1).\r\n  2. CMM program module \\(please contact us if you want to use our in-house software which is written by C++)"
+        },
+        {
+            "header": "Procedure",
+            "content": "The calculation procedures for CMM are as follows:\r\n\n\n1. Calculate allele frequencies for each locus.\r\n  2. Sample genotype randomly based on the allele frequencies at the missing-data loci for each of the subjects showing missing allele calls of the loci.\r\n  3. Calculate M times M marker covariance matrix \\(M is the number of marker loci).\r\n  4. Calculate eigenvectors up to the 3rd or 4th largest eigenvalues of the covariance matrix.\r\n  5. Calculate Bayesian information criterions \\(BICs) of the principle components, assuming K normal-distributions mixture models \\(K corresponds to the number of subpopulations).\r\n  6. Count the inferred subpopulation number K based on minimum BIC.\r\n  7. Iterate the above steps from 2 to 6 \\(we iterated this procedure 200 times in our paper). \r\n  \r\n\n\nThe result on the 5,197 SNP typing data on the Chinese and Japanese population of the HapMap project \\(SNPs were selected by the following criteria: physical distances among the SNPs are more than 500kbp, minor allele frequency more than 3%, and missing genotype call rate less than 5%) are shown in Table 1 and Figure 1."
+        },
+        {
+            "header": "References",
+            "content": "\\[1] Price, A.L., Patterson, N.J., Plenge, R.M., Weinblatt, M.E., Shadick, N.A. &amp; Reich, D. Principal components analysis corrects for stratification in genome-wide association studies, _Nature Genetics_ **38**, 904-909 \\(2006).\r\n\n\n\\[2] Zhu, X., Zhang, S., Zhao, H. &amp; Cooper, R.S. Association mapping, using a mixture model for complex traits. _Genet. Epidemiol._ **23**, 181-196 \\(2002)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "This work was supported in Japan by the program for promotion of Fundamental Studies in Health Sciences of the National Institute of Biomedical Innovation \\(NiBio)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/ng.152",
+                "date": "2008-04-09 19:09:49",
+                "title": "Genetic variation in PSCA is associated with susceptibility to diffuse-type gastric cancer",
+                "authors": [
+                    "The Study Group of Millennium Genome Project for Cancer"
+                ],
+                "journal": "Nature Genetics",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 10944,
+                "identity": "9f34f9cf-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Suenori Chiku",
+                "email": "",
+                "orcid": "",
+                "institution": "Mizuho Information & Research Institute, Inc.",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Suenori",
+                "middleName": "",
+                "lastName": "Chiku",
+                "suffix": ""
+            },
+            {
+                "id": 10945,
+                "identity": "9f34fd06-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Kimio Yoshimura",
+                "email": "",
+                "orcid": "",
+                "institution": "Keio University School of Medicine",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Kimio",
+                "middleName": "",
+                "lastName": "Yoshimura",
+                "suffix": ""
+            },
+            {
+                "id": 10946,
+                "identity": "9f35003d-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Teruhiko Yoshida",
+                "email": "",
+                "orcid": "",
+                "institution": "National Cancer Center Research Institute",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Teruhiko",
+                "middleName": "",
+                "lastName": "Yoshida",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2010-08-26 10:13:42",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/nprot.2008.129",
+        "doiUrl": "https://doi.org/10.1038/nprot.2008.129",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2607932,
+                "identity": "7b785238-89da-42b1-ab36-c740d2df54c9",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:51",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 10956,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 1   The number of counts of the inferred subpopulation number based on Bayesian information criterion for the HapMap Chinese and Japanese data on the 5,197 SNPs.",
+                "description": "",
+                "filename": "figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-458/v1/figure_1.jpg"
+            },
+            {
+                "id": 2607931,
+                "identity": "3919cf4a-10be-4c34-8fe4-d37568e1e824",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:51",
+                "extension": "jpg",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 56095,
+                "visible": true,
+                "origin": "",
+                "legend": "Figure 1   Bayesian information criterion values of the 5,197 SNPs of the HapMap Chinese and Japanese data. A result of 200 iterations of CMM is shown.",
+                "description": "",
+                "filename": "figure2.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-458/v1/figure_2.jpg"
+            },
+            {
+                "id": 13465240,
+                "identity": "8e7434b3-f5f4-41a3-9865-72abd45ed093",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:46:06",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 167841,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-458/v1/2a11dc03-9145-4dda-b2d9-dc3c428e35de.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "population stratification, genome wide association study, principal component analysis, expectation-maximization algorithm\r\n\r\n",
+        "license": {
+            "name": "None",
+            "url": ""
+        },
+        "manuscriptAbstract": "",
+        "manuscriptTitle": "A protocol to adopt the mixture model by Zhu et al. for the analysis of population stratification on the data with missing allele calls",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2008-07-10 09:24:04",
+                "doi": "10.1038/nprot.2008.129",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9f347df5-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "July 10th, 2008",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 2111,
+                "name": "Genetics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2008-07-10 09:24:04",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

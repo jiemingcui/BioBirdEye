@@ -1,0 +1,337 @@
+{
+    "identity": "nprot-6281",
+    "title": "CRISPR-UMI Step by Step: A protocol for robust CRISPR screening",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Pooled CRISPR screens are a powerful tool to assess gene function. However, conventional analysis suffers from cellular heterogeneity that is either a consequence of Cas9 editing or cell culture intrinsic. Here we present CRISPR-UMI \\(Unique Molecular Identifier), a single cell tracing approach, providing a robust screening method that can detect, and thus overcome, cellular heterogeneity and clonal outliers. For details see attached File: Main document 1 CRISPR-UMI Step-by-Step. To be found in the tab \"Figures\""
+        },
+        {
+            "header": "Reagents",
+            "content": "- XbaI \\(NEB)\r\n\n\n- MfeI \\(NEB)\r\n\n\n- EcoRI \\(NEB)\r\n\n\n- rSAP \\(NEB)\r\n\n\n- Gel Extraction Kit \\(QIAGEN)\r\n\n\n- PCR Purification Kit \\(QIAGEN)\r\n\n\n- Phusion\u00ae Polymerase \\(NEB)\r\n\n\n- T4 Ligase \\(NEB M0202)\r\n\n\n- XL-1 Blue Electrocompetent cells \\(Agilent)\r\n\n\n- SOB 20g/L Bacto Tryptone BD, 5g/L Yeast Extract BD, 10mM NaCl Merck, 2.5mM KCl Sigma Aldrich \r\n\n\n- NucleoBond\u00ae Xtra Maxi \\(Macherey-Nagel) \r\n\n\n- BbsI \\(NEB)\r\n\n\n- Phenol:Chloroform:Isoamylalcohol = 25:24:1 \\(Carl Roth)\r\n\n\n- Chloroform \\(Sigma Aldrich)\r\n\n\n- Platinum-E cells \\(Cell Biolabs RV-101)\r\n\n\n- RV-helper plasmid: pCMV-Eco Envelope Vector \\(Cell Biolabs RV-112)\r\n\n\n- HBS Buffer \\(280mM NaCl, 50mM HEPES, 1.5mM Na2HPO4, adjust pH to 7.00 with 0.5M NaOH)\r\n\n\n- Polybrene \\(Sigma-Aldrich)\r\n\n\n- G418 \\(Gibco)\r\n\n\n- Cell line: dox inducible Cas9 mouse embryonic stem cells AN3-12. 9\r\n\n\n- Embryonic stem cell medium \\(450 ml DMEM \\(Sigma D1152); 75 ml FCS \\(Invitrogen); 5.5 ml P/S \\(Sigma P0781); 5.5 ml NEAA \\(Sigma M7145); 5.5 ml LGlu \\(Sigma G7513); 5.5 ml NaPyr \\(Sigma S8636); 0.55 ml \uf062ME \\(Merck 805740; dilute 10ul bME in 2.85 ml PBS for a 1000x stock), 7.5ul LIF \\(Sigma; 2mg/ml)).\r\n\n\n- Doxycycline \\(Sigma-Aldrich)\r\n\n\n- 2X SDS Lysis Buffer: \\(10mM Tris-HCl pH 8.0, 5mM EDTA, 100mM NaCl, 2% SDS, add fresh directly before use:  Proteinase K from a 10X stock 10mg/ml Proteinase K stored in 50% Glycerol at -20\u00b0C. To a final concentration of 1mg/ml)\r\n\n\n- RNaseA \\(100mg/ml) \\(Qiagen)\r\n\n\n- Phenol:Chloroform:Isoamylacohol = 25:24:1 \\(Roth)\r\n\n\n- Chloroform \\(Sigma)\r\n\n\n- 5M NaCl solution \\(Sigma)\r\n\n\n- RNase A \\(QIAGEN)\r\n\n\n- TE, Tris-EDTA solution: \\(10mM Tris-HCl pH 8.0, 5mM EDTA)\r\n\n\n- SpeedBeads\u2122 magnetic carboxylate modified particles \\(GE45152105050250 Sigma Aldrich)\r\n\n\n- PHUSION\u00ae polymerase \\(NEB)\r\n\n\n- Klentaq polymerase \\(DNA Polymerase Technology)\r\n\n\n- Binding Buffer \\(20% PEG8000 \\(FLUKA) 2.5M NaCl)\r\n\n\n- Eppi-Magnet \\(for large quantities 15mL Falcon Magnet)\r\n\n\n- PCR Purification Kit \\(QIAGEN)"
+        },
+        {
+            "header": "Equipment",
+            "content": "Electroporation: Gene Pulser II \\(Biorad)\r\n\n\nNGS Sequencing: HiSeq2500 \\(Illumina)\r\n\n\nTissue cell culture standard lab equipment\r\n\n\nMolecular biology standard lab equipment"
+        },
+        {
+            "header": "Procedure",
+            "content": "Chapter1: Library cloning\r\n\n\n\r\n\n\nStep 1: Vector design\r\n\n\nThe Vector backbone contains ampicillin resistance for amplification in bacteria, viral packaging sequence Psi and long terminal repeats \\(LTRs) for generation of retrovirus. However, a lentiviral backbone can be equally used. The sgRNA cassette contains a U6 promotor and cloning site for CRISPR-guides \\(Step 4), improved CRISPR-Scaffold as described 2 and PGK NeoR for selection. Cloning of P5 and P7 Illumina adaptor sequences into the vector backbone allows direct Sequencing of the viral cassette.\r\n\n\nThe essential modification for CRISPR-UMI is the integration of random sequences termed barcodes \\(barcodes in combination with sgRNA make the UMIs Unique molecular identifiers) and the illumina i7 \\(\u2018index\u2019) primer binding site for barcode-sequencing. A PCR product reaching from illumina P5 Adaptor to illumina P7 adaptor can be used directly for next generation sequencing on an Illumina HiSeq2500 sequencer using dual indexing. Illumina\u2019s \u201cread 1\u201d is read with a custom primer \\(see Table 1 Primer_oligos.xls) and gives the CRISPR-guide sequence, \u201cindex1-read\u201d gives the barcode sequence, and \u201cindex2-read\u201d the experimental index to differentiate between samples \\(e.g. treated vs control, or replicas). \r\n\n\nA further modification is flanking the PCR-Amplicon with Pac-I restriction sites which enable enrichment of the integrated cassette from genomic DNA by performing size selective precipitation on magnetic beads. \r\n\n\nLibrary cloning is a two-step cloning process. First, random nucleotides \\(10nt) at a complexity of about 1 million later referred to as barcodes \\(BCs) are cloned in to the vector backbone \\(here referred to as step 2), then CRISPR-guides are cloned into that barcode-library \\(here referred to as step 3) reaching library complexities of 100 million due to combining barcodes and guides.\r\n\n\nComment: The illumina i7 binding site is usually used for reading out the experimental index to differentiate between samples, we make use of illumina\u2019s dual-indexing approach were a second \\(in the case of CRISPR-UMI the only) experimental index can be read adjacent to the P5 adaptor.\r\n\n\nFor details see attached Main Document 1\r\n\n\n\r\n\n\nStep 2: Barcode-library cloning\r\n\n\nThis library cloning step introduces random nucleotides of a length of 10bp downstream of Illuminas i7 primer binding site together with the P7 Adaptor into the vector backbone. While the theoretical complexity of a 10bp random sequence is limited to about 106 variations. Cloning complexity should be at least 1 million but higher complexities are desirable.\r\n\n\nFor details see attached Main Document 1\r\n\n\n\r\n\n\nStep 3: Guide selection\r\n\n\nsgRNAs targeting mouse nuclear genes as well as drugged orthologues and a set of hand selected genes with 4 sgRNAs per gene \\(5 sgRNAs per gene for the subset drugged genes) were selected by a bioinformatics pipeline. We aimed to design a guide selection algorithm taking both guide efficiency as well as biological effect due to gene structure into account. The basis of the guide selection is the activity score as described by Doench et al.3. Additionally, we identified properties of each guide and exon under consideration and penalized the Doench score accordingly. We identified all exonic PAM sites in the mouse genome mm10 4. We excluded sgRNAs that are incompatible with our cloning strategy \\(contain: GAAGAC, GTCTCC, CTCGAG, CGTCTC or GAGACG, start with: AAGAC or end with: CTCGA). We then calculated Doench-scores for all potential sgRNAs. We penalized the Doench-scores based on heuristic rules that aim to select sgRNAs which most likely lead to LOF phenotypes. Those rules include exon properties such as presence or absence of protein domains annotated in Pfam database 5, exon size, and whether or not exon length is a multiple of 3bp. Then we created penalties for exon distribution, to spread sgRNAs over many exons where only the sgRNA with the best Doench score per exon does not get penalized. We also avoided sgRNAs that are less than 4nt away from another better scoring sgRNA. Furthermore, we penalized sgRNAs that cut DNA upstream of a possible alternative ATG start codon and sgRNAs that cut in exons that are not common to all annotated transcripts from that locus. We avoided sgRNAs that contain a stretch of 4 or more T in a row which would act as a Pol-III Terminator. We calculated a distance-penalty based on the distance from the sgRNA to the transcriptional start ranging from 1 to 0.5. Then we calculated a simple off-target prediction \\(see associated publication) against all exonic sequences containing a PAM site. The off-target prediction scores weight mismatches by position in the sgRNA sequence 6,7. We re-ranked the penalized Doench score including the off-target analysis and picked the top 4 sgRNAs per gene \\(the top 5 sgRNAs for Druggable genes) for chip oligo synthesis \\(CustomArray Inc.). For negative control guides we used a published list of human control guides 8 and removed all guides which had a perfect match against the mouse genome. We included a total of 112 control guides into our mouse library targeting 6560 genes.\r\n\n\nFor details see attached Main Document 1\r\n\n\n\r\n\n\nStep 4: sgRNA cloning\r\n\n\nFor CRISPR-UMI library cloning a complex insert \\(e.g. 26500 sgRNAs PCR amplified from chip-oligo synthesis) is cloned into a complex vector backbone \\(containing up to 1 million different UMIs). In every possible combination, this would allow a theoretical complexity of 26.5 billion \\(when using 26500 guides) unique CRISPR-UMI pairs. Cloning efficiency should be at least 1000X per guide \\(i.e. 30million for 30.000 guides) to generate a library complex enough for CRISPR-UMI. We aimed to generate Libraries of a complexity of about 85 million for 26500 guides. \r\n\n\nFor details see attached Main Document 1\r\n\n\n\r\n\n\nChapter 2: Screening\r\n\n\n\r\n\n\nStep 1: Generation of virus in Plat-E cells\r\n\n\nWe use Plat-E cells for packaging virus. Since the CRISPR-UMI plasmid library is of very high complexity \\(e.g. 85 million) and we want to keep complexity and even representation of individual guide-barcode pairs. We recommend to infect at least six 150mm dishes \\(about 250million cells) for a 26500 sgRNA library to retain the necessary complexity. \r\n\n\nFor details see attached Main Document 1\r\n\n\n\r\n\n\nStep2: Execution of the screen \r\n\n\nA basic principle to keep in mind are cell numbers that need to be \\(or can be) carried through the experiment. For example, if running the screen with 30.000 guides per gene we aim to always keep at least 30million cells in the experiment \\(1000x representation). We grow cells from 30million to 300million and split every 2nd day at a ratio of 1:10 \\(keep at least 30 million cells and discard the rest). CRISPR-UMI offers 2 variations: with or without limiting dilution - clonal expansion.\r\n\n\nWith limiting dilution - clonal expansion:\r\n\n\nIn this protocol CRISPR-UMI introduces an artificial bottleneck after CRISPR-gene editing has occurred. Depending on the screen setting introducing a strong bottleneck means discarding 95-99 % of all cells and then expanding the remaining 1-5% of cells. By doing so we reach cell numbers much lower than the complexity of the CRISPR-UMI library and most cells in the experiment will carry a unique guide-barcode pair \\(UMI). Therefore, after expansion every UMI will carry a clonally selected uniquely repaired CRISPR cutting site. This contrasts with conventional CRISPR screens were cells carrying the same guide are heterogeneous in the way the CRISPR-cut was repaired. We recommend a limiting dilution and expansion for negative selection screens when comparing two conditions, because you can make use of multiple isogenic clones that you can compare in two settings. The cost of a limiting dilution is that the extra time required for expansion can cause shifts in representation and that under-represented guides can be lost completely from the experiment. Note that some experiments \\(like in-vivo screens with bottlenecks such as engraftment of cells or differentiation screens with moderate efficiency) introduce this \u201climiting dilution\u201d step inherently.\r\n\n\nComment: Why a limiting dilution generates isogenic clones: Assume a single cell is infected with a single virus carrying a unique UMI. Before and during gene-editing this will give rise to a handful of daughter cells which all carry the same guide but generate different mutations due to random mistakes in error-prone repair mechanisms. As a consequence daughter cells are heterogeneous like in a conventional CRISPR screen. By introducing a strong enough dilution step after CRISPR mutations are set, only one daughter cell will remain in the experiment, after expanding the population again the UMI will now be unique to all \u201cgrand-daughters\u201d and in contrast to a conventional CRISPR screen, all grand-daughters will carry the same CRISPR-mutation. Note that during the dilution-expansion step most UMIs will be completely lost with not a single daughter cell remaining in the experiment. \r\n\n\nWithout liming dilution \u2013 clonal expansion:\r\n\n\nNot introducing a strong limiting dilution but still using CRISPR-UMI is also an option. While the benefit of isogenic clones is lost, you can still use UMIs as conceptual replicates and detect and exclude artefacts or outliers from data analysis. Also in positive selection where selection events are considered rare occasions, you can use UMIs to differentiate between incidence of an event \\(were the number of independent UMIs indicates the frequency of an event) and abundance \\(indicated by the counts per UMI which give information about the extent of the positive selection event). \r\n\n\nFor details see attached Main Document 1\r\n\n\n\r\n\n\nStep 3: Genomic DNA isolation, PCR amplification and next generation sequencing\r\n\n\nIf cell numbers arebot limiting, we recommend to harvest 3 fold more cells that the number of reads to be retrieved from NGS Sequencing. For 1 lane on a HiSeq2500 that gives about 250million reads we recommend to harvest 750million cells. More cells may be harvested as backups or frozen as live stocks. All quantities given in the protocol are for processing 750million cells. Realistically those 750million cells will be subdivided into different experimental conditions, but for the purpose of this protocol total quantities for processing 750million cells are given.\r\n\n\nFor details see attached Main Document 1\r\n\n\n\r\n\n\nChapter 3: Data analysis\r\n\n\n\r\n\n\nStep 1: Assignment and counting of sequencing reads\r\n\n\nWe use samtools, fastx-toolkit and bowtie to assign guides and experiments to sequencing reads and then count sequencing reads of UMIs. This section describes how we convert the bamfile from Illumina sequencing to a tab separated text file with the columns:\r\n\n\nGuidename\r\n\n\nSamplename \\(e.g. ctrl_1, treated_1)\r\n\n\nBarcode Sequence\r\n\n\nRead count\r\n\n\nIn the later sections of this protocol this tab separated text file will be the input and starting point of more specialized analysis scripts.\r\n\n\nFor details see attached Main Document 1\r\n\n\n\r\n\n\nStep2: Negative selection, CRISPR-UMI pipeline \r\n\n\nThe main purpose of this section of data analysis is to document and describe the scripts and calculations that were used to evaluate hits in a negative depletion setting. The key script in the analysis pipeline is CRISPR_UMI.py. It prepares input files for MAGeCK 10 for both conventional CRISPR analysis \\(ignoring BCs) and CRISPR-UMI analysis in parallel. By running and algorithm called POPTOP\\(x) prior to analysis it also allows to remove a certain number of clones \\(x) per guide, always removing the clones with the highest read support \\(ctrl and treated condition taken together), prior to analysis. This analysis allowed us to show that some of the clones with highest read support are responsible for false positive signals in conventional CRISPR-screening and that CRISPR-UMI screening is robust towards those outliers. For CRISPR-UMI individual clones are evaluated using MAGeCK to give a depletion score for guides and CRISPR-UMI.py gives median depletion \\(reads treated/reads ctrl) for every guide. Combining those two values for every guide allows to robustly score the effect of each guide.\r\n\n\nThe analysis starts from a tab separated text file with the columns:\r\n\n\nGuidename\r\n\n\nSamplename \\(e.g. ctrl_1, treated_1)\r\n\n\nBarcode Sequence\r\n\n\nRead count\r\n\n\nThe analysis compares 2 experiments against each other using A) a conventional approach ignoring the clonal information provided by barcodes or B) using CRISPR-UMI analysis. For the conventional approach A) the sequence read counts for the same guide and the same sample but different BC Sequences are all added together and a file with 4 columns \\(Guidename, Genename, ctr \\(reads), exp \\(reads)) is generated. This file serves as an input file for MAGeCK 10. For CRISPR-UMI analysis. B) the script calculates depletion by RPM\\(ctrl)/RPM\\(treated) and determines the median depletion of clones for each guide. It generates a file with the median depletion for all guides. It also generates a file for MAGeCK analysis but with the 4 columns \\(UMI-name, Guidename, ctr\\(reads), exp\\(reads)). Run MAGeCK on that file and the result will be a list of all guides ranked by MAGeCKs robust ranking algorithm. Combine the median depletion of every guide with the MAGeCK neg score \\(the score by which MAGeCK typically ranks genes). To rank genes we rank guides by median depletion and calculate rank/\\(total number of guides), we then rank all guides by MAGeCK neg score and calculate rank/\\(total number of guides). Multiplying those two values gives a score for every guide. We combine scores for every guide using fisher\u2019s method to generate a depletion score for each gene.\r\n\n\nFor details see attached Main Document 1\r\n\n\n\r\n\n\nStep 3: Positive Selection; Incidence vs abundance analysis\r\n\n\n\r\n\n\nFor positive selection screens CRISPR-UMI can be used to differentiate between Abundance \\(that is total read number of a guide) and Incidence \\(number of independent barcodes sequenced) as we demonstrated for a screen for roadblocks of reprogramming.\r\n\n\nFor details see attached Main Document 1\r\n\n\n\r\n\n\nStep 4: Clonal size estimation in reprogramming screen\r\n\n\n\r\n\n\nThis Section describes scripts used for estimating colony size in a positive selection screen of reprogramming. Mouse embryonic fibroblasts were infected with CRISPR-UMI library and reprogrammed to induced pluripotent stem cells. In the example data set samples are labelled C1-C4 for controls \\(biological replica, MEFs from 4 mice) and E1-E4 for experiment \\(reprogramming of MEFs from those 4 mice), E1A and E1B, are technical replicas. In this section of the Step-by-step protocol the term UMI is used to solely describe the 10nt barcode and not the combination of a guide-barcode, this is not coherent with the rest of the Step-to-Step protocol or the aossicated publication. The colony size is reflected in reads per UMI and colony number in the number of different UMI per guide. The Analysis described here is an estimation of average colony size depending on the gene knocked out with CRISPR-UMI.\r\n\n\nFor details see attached Main Document 1\r\n\n\n\r\n\n\nStep 5: Comparisons of CRISPR-UMI vs conventional CRISPR screening\r\n\n\n\r\n\n\nWe use two approaches to evaluate and quantify screen-quality. Both quality checks are carried out on guide level. One is signal to noise ratio, where we plot all guides in a volcano plot and define signal as distance from the origin and noise as the standard deviation among non-targeting ctrl guides. The other method ranks all guides and calculates for how many guides per gene are found among the top 5,10,20,30, and so on guides.\r\n\n\nFor details see attached Main Document 1"
+        },
+        {
+            "header": "Timing",
+            "content": "Library cloning: 1 week\r\n\n\nScreen procedure: 3 weeks\r\n\n\nDNA preparation and Sequencing: 1-2 weeks\r\n\n\nData Analysis: 1 week"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "CRISPR-UMI offers\r\n\n\nimproved signal to noise ratios in negative selection over conventional CRISPR screens and allows removal of single-cell derived outlier clones that generated putative false positiv hits in a conventional CRISPR screen.\r\n\n\n\\(See associated publication)."
+        },
+        {
+            "header": "References",
+            "content": "1. Michlits, G. et al. CRISPR-UMI: Single cell lineage tracing of pooled CRISPR/Cas9 screens. Nature Methods doi:10.1038/nmeth.4466 \\(2017).\r\n  2. Chen, B. et al. Dynamic imaging of genomic loci in living human cells by an optimized CRISPR/Cas system. Cell 155, 1479\u20131491 \\(2013).\r\n  3. Doench, J. G. et al. Rational design of highly active sgRNAs for CRISPR-Cas9-mediated gene inactivation. Nature Biotechnology 32, 1262\u20131267 \\(2014).\r\n  4. Rosenbloom, K. R. et al. The UCSC Genome Browser database: 2015 update. Nucleic Acids Res. 43, D670\u201381 \\(2015).\r\n  5. Finn, R. D. et al. The Pfam protein families database: towards a more sustainable future. Nucleic Acids Res. 44, D279\u201385 \\(2016).\r\n  6. Kuscu, C., Arslan, S., Singh, R., Thorpe, J. & Adli, M. Genome-wide analysis reveals characteristics of off-target sites bound by the Cas9 endonuclease. Nature Biotechnology 32, 677\u2013683 \\(2014).\r\n  7. SQ, T. et al. GUIDE-seq enables genome-wide profiling of off-target cleavage by CRISPR-Cas nucleases. Nature Biotechnology 33, 187\u2013197 \\(2014).\r\n  8. Wang, T., Wei, J. J., Sabatini, D. M. & Lander, E. S. Genetic Screens in Human Cells Using the CRISPR-Cas9 System. Science 343, 80\u201384 \\(2014).\r\n  9. Elling, U. et al. Forward and reverse genetics through derivation of haploid mouse embryonic stem cells. Cell Stem Cell 9, 563\u2013574 \\(2011).\r\n  10. Li, W. et al. MAGeCK enables robust identification of essential genes from genome-scale CRISPR/Cas9 knockout screens. Genome Biol. 15, 554 \\(2014)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nmeth.4466",
+                "date": "2017-09-27 09:33:54",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 15094,
+                "identity": "a12d2b6d-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Ulrich Elling",
+                "email": "Ulrich.elling@imba.ac.at",
+                "orcid": "",
+                "institution": "Institute of Molecular Biotechnology of the Austrian Academy of Science (IMBA), Vienna Biocenter (VBC), Dr. Bohr Gasse 3, 1030 Vienna, Austria.",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Ulrich",
+                "middleName": "",
+                "lastName": "Elling",
+                "suffix": ""
+            },
+            {
+                "id": 15091,
+                "identity": "a12d244d-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Georg Michlits",
+                "email": "",
+                "orcid": "",
+                "institution": "Institute of Molecular Biotechnology of the Austrian Academy of Science (IMBA), Vienna Biocenter (VBC), Dr. Bohr Gasse 3, 1030 Vienna, Austria.",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Georg",
+                "middleName": "",
+                "lastName": "Michlits",
+                "suffix": ""
+            },
+            {
+                "id": 15092,
+                "identity": "a12d2728-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Thomas R Burkard",
+                "email": "",
+                "orcid": "",
+                "institution": "Research Institute of Molecular Pathology (IMP), Vienna Biocenter (VBC), Campus Vienna Biocenter 1, 1030 Vienna, Austria",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Thomas",
+                "middleName": "R",
+                "lastName": "Burkard",
+                "suffix": ""
+            },
+            {
+                "id": 15093,
+                "identity": "a12d28f3-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Maria Novatchkova",
+                "email": "",
+                "orcid": "",
+                "institution": "Research Institute of Molecular Pathology (IMP), Vienna Biocenter (VBC), Campus Vienna Biocenter 1, 1030 Vienna, Austria",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Maria",
+                "middleName": "",
+                "lastName": "Novatchkova",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2017-09-27 11:44:09",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2017.111",
+        "doiUrl": "https://doi.org/10.1038/protex.2017.111",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13465222,
+                "identity": "463d0db3-404c-494d-b541-b2f581d060d9",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:46:00",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 158649,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-6281/v1/2ed214d3-60ac-43f2-a484-3bb282304123.pdf"
+            },
+            {
+                "id": 2609911,
+                "identity": "0a47b010-b2b9-4048-984f-d560061011f7",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:17",
+                "extension": "docx",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 203667,
+                "visible": true,
+                "origin": "",
+                "legend": "Main document 1   CRISPR-UMI Step by Step Main Document   This is the main document for the CRISPR-UMI Step by Step protocol.",
+                "description": "",
+                "filename": "supplement0.docx",
+                "url": "https://assets.researchsquare.com/files/nprot-6281/v1/supplement_0.docx"
+            },
+            {
+                "id": 2609913,
+                "identity": "060fcbeb-db95-45cf-a464-883726a55f22",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:17",
+                "extension": "zip",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 30963,
+                "visible": true,
+                "origin": "",
+                "legend": "Zip_archive 2   Scripts 1-23   A zip archive. contains all Scripts (perl, python, R, sh) mentioned in the Step by Step protocol.",
+                "description": "",
+                "filename": "supplement0.zip",
+                "url": "https://assets.researchsquare.com/files/nprot-6281/v1/supplement_0.zip"
+            },
+            {
+                "id": 2609914,
+                "identity": "5f5c89c1-e167-4f62-aa0c-04d738a1f9e3",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:17",
+                "extension": "xlsx",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 32724,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 1   Primers_oligos table   Excel file contains short Sequences Primers and oligo mentioned in the Step by Step protocol",
+                "description": "",
+                "filename": "supplement0.xlsx",
+                "url": "https://assets.researchsquare.com/files/nprot-6281/v1/supplement_0.xlsx"
+            },
+            {
+                "id": 2609915,
+                "identity": "6f015e8d-4ea3-4220-a6b8-a8f3c9241792",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:17",
+                "extension": "zip",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 14670,
+                "visible": true,
+                "origin": "",
+                "legend": "Zip_arichive 3   Sequences 1-4   Vector maps and Sequence files in gbk format. mentioned in the Step by Step protocol.",
+                "description": "",
+                "filename": "supplement0.zip",
+                "url": "https://assets.researchsquare.com/files/nprot-6281/v1/supplement_0.zip"
+            },
+            {
+                "id": 2609918,
+                "identity": "9784e872-90c5-4818-a266-1f0822afe026",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:17",
+                "extension": "zip",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 9988469,
+                "visible": true,
+                "origin": "",
+                "legend": "Zip_archive 1   Files 1-20   A zip archive. contains all Files (Data Files, Intermediate Files and results) mentioned in the Step by Step protocols",
+                "description": "",
+                "filename": "supplement0.zip",
+                "url": "https://assets.researchsquare.com/files/nprot-6281/v1/supplement_0.zip"
+            }
+        ],
+        "financialInterests": "The authors declare no conflicting financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "CRISPR, Screen, Etoposide, iPS, reprogramming, UMI",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "CRISPR-UMI extends the existing repertoire of CRSIPR-screening methods. It circumvents cell heterogeneity, a consequence of Cas9 genome editing, by scoring single cell derived clones individually. The strength of this new CRISPR screening method is its robustness towards clonal heterogeneity and clonal outliers and is therefore expected to be most useful in challenging biological screens with strong bottlenecks and clonal effects such as organoid or in-vivo screens.\r\n\n\n \r\n\n\nThis step-by-step protocol is an addition to the publication CRISPR-UMI: Single cell lineage tracing of pooled CRISPR/Cas9 screens doi: 10.1038/nmeth.4466. It contains a detailed description for pooled CRISPR screening using CRISPR-UMI. It especially highlights the steps which are critical and unique to the use of CRISPR-UMI. Those critical steps are library preparation at very high complexity of up to 100million unique plasmids, and data analysis were unique guide-UMI pairs are evaluated separately.",
+        "manuscriptTitle": "CRISPR-UMI Step by Step: A protocol for robust CRISPR screening",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2017-10-17 15:59:23",
+                "doi": "10.1038/protex.2017.111",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a12cb797-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "October 17th, 2017",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 4054,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 4055,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 4057,
+                "name": "Genetics"
+            },
+            {
+                "id": 4058,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 4059,
+                "name": "Molecular Biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2017-10-17 15:59:23",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

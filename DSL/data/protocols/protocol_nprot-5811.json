@@ -1,0 +1,400 @@
+{
+    "identity": "nprot-5811",
+    "title": "Timing recovery of ecosystems in sequential remotely sensed and simulated data",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Changes in environmental conditions can have important ramifications for the resilience of ecosystems and understanding how they respond to subsequent perturbations is an urgent need in the context of global change<sup>1</sup>. Theoretical studies have proposed that the time needed to recover from a small perturbation can be used as an indicator for resilience and can signal an upcoming collapse of the ecosystem state<sup>2,3</sup>. This phenomenon \\(Fig. 1) of an increasing recovery time _T<sub>r</sub>_ with decreasing resilience \\(i.e. increasing stress) is referred to as \u201ccritical slowing down\u201d \\(CSD). Although the idea is simple, straightforward implementations of the concept in real biological systems remain scarce. Proof of principle has been provided by controlled laboratory experiments with cultures of algae<sup>4</sup> and yeast<sup>5</sup>. Yet, direct observations of CSD in real ecosystems are to our knowledge absent from the literature. This might be related to the fact that the methods to test the concept of CSD in \\(spatial) datasets of real ecosystems need further development<sup>6</sup>. Hence, in this protocol we propose a methodology for measuring recovery times in sequential spatial data that can e.g. be applied to remotely sensed data sets. Therefore, this method can provide a powerful way to synoptically asses ecosystem resilience and test for CSD. \r\n\n\n\r\n\n\n_**The approach**_\r\n\n\nHere a methodology is proposed to use changes in presence and absence of the key habitat-forming species \\(e.g. tidal marshes vegetation, as in the associated ref. \\[7]) in sequential spatial data as a natural disturbance-recovery experiment. Disturbance of e.g. vegetation can be observed if its presence changes into absence on the subsequent snapshot \\(Fig. 2). The time needed for a grid cell \\(i.e. pixel) to recover once disturbed, can be measured as the recovery time _T<sub>r</sub>_. Pixels that do not recover within the sequence are flagged as censored observations to prevent biases when estimating the recovery rate _\u03bb_ from the recovery time  _T<sub>r</sub>_ \\(e.g. pixel 4 in Fig. 2). Pixels that are not disturbed are considered stable and not used in the analysis, even if it was not present from the first snapshot \\(e.g. pixel 5 in Fig. 2). Although this methodology uses discrete data \\(presence/absence) instead of continuous data, it is analogous to the proposed procedure for measuring the recovery time \\(Fig. 1). Finally, this approach results in mapping the recovery time in space on a pixel-by-pixel basis.\r\n\n\n\r\n\n\nNext, the recovery rate _\u03bb_ can be reliably estimated from the observed recovery times  _T<sub>r</sub>_. When assuming an exponential trajectory towards the predisturbed state, the recovery rate _\u03bb_ can be estimated as _1/T<sub>r</sub>_.\r\n\n\n\r\n\n\n_**The algorithm**_\r\n\n\nThe algorithm \\(Fig. 3) computes the recovery time on a pixel-by-pixel basis, i.e. disturbance and subsequent recovery in each grid cell is tracked separately. Its code is provided as a function implemented in Matlab \\(fTimeRecov.m), which can be found in Supplementary File 1 \\(see the _Source code_ section in **Equipment** for more information). As input, the algorithm needs a stacked grid _g_ of _L_ layers. The layers are ordered sequentially and hold a snapshot of the ecosystem containing information about the presence and absence \\(i.e. binary data \\[0, 1]) of the key habitat forming species at a particular time step. In order to calculate the time between disturbance and recovery _T<sub>r</sub>_, an additional vector _t_  with the timestamps of the snapshots in each layer is required. Although a sequence of snapshots taken at regular time intervals is prefered, the algorithm can also handle sequences taken at irregular time intervals.\r\n\n\n\r\n\n\nStarting from the oldest snapshot, the algorithm compares a snapshot with the subsequent snapshot to find the disturbances. Next, the remaining snapshots are scanned in ascending order for recovery to occur. If no recovery occurs within the sequence the grid cell is flagged as censored. This procedure is repeated for the next successive pair of snapshots until all \\(_L-1_) pairs in the sequence have been visited.\r\n\n\n\r\n\n\nAfter running the algorithm, all observed recovery times \\(_T<sub>r</sub>_), censored recovery grid cells \\(_Cens_) and all disturbances \\(_Dist_) are outputted as a stacked grid with _L-1_ layers. To calculate recovery rates the _T<sub>r</sub>_ and _Cens_ outputs are needed. Additionally, the average recovery time is outputted as a single grid, which enable easy visualization of the results.\r\n\n\n\r\n\n\nThe protocol is developed specifically for disturbance-recovery processes in tidal marshes where vegetation is classified on the basis of Normalized Difference Vegetation Index \\(NDVI) and inundation by seawater is the main stressor. However, this methodology can be applied to any vegetated or non-vegetated ecosystem in which the key habitat-forming species can be identified. It can, furthermore, be applied to compute recovery times in the sequential output of spatial models."
+        },
+        {
+            "header": "Equipment",
+            "content": "_Sequential spatial data:_\r\n\n\nSequential spatial data is needed in which disturbances and recovery can be observed. The algorithm requires a stacked grid as input, in which each layer is a snapshot in time containing information on the presence or absence of key habitat forming species \\(e.g. vegetation) of the ecosystem of interest. This can be simulated \\(e.g. the output of a spatial model) or empirical data \\(e.g. a sequence of remotely sensed images).\r\n\n\n\r\n\n\n_Source code:_\r\n\n\nThe algorithm \\(Fig. 3) is provided as function \\(fTimeRecov.m) implemented in Matlab. The function is provided in the ZIP package that can be found as Supplementary File 1. The ZIP file contains, next to the function, two worked-out examples to illustrate the use of the functions and the workflow. The first example \\(Example1.m) shows how the five pixels in the 7-by-7 grids in Fig. 2 are traced and analyzed. In the second example \\(Example2.m) the full workflow, as described in **Procedure** from 1.4 onward including calculating the recovery rates along a stress gradient, is illustrated \\(see also Fig. 4). This example \\(Fig. 4) is based on a sequence of simulated spatial data \\(t0.grid to t39.grid) along a gradient \\(gradient.grid)."
+        },
+        {
+            "header": "Procedure",
+            "content": "The procedure needs a sequence of binary \\(i.e. presence-absence) grids to compute disturbance and recovery. The algorithm can be applied both on empirical, e.g. remotely sensed data, as on simulated data. Step _1.1-1.3_ explain steps to take in the data acquisition and pre-processing in case empirical data is used. When starting from a sequence of grids as the result of simulation the procedure can start from step _1.4_.\r\n\n\n\r\n\n\n_**1) Data and pre-processing:**_\r\n\n\n_1.1) Collect sequential spatial data:_\r\n\n\nFirst, a sequence of spatial data needs to be acquired. For instance, a time series of false color aerial images \\(i.e. false color composite \\(FCC), usually uses near infrared \\(NIR), red \\(R) and green \\(G) as color bands) work well for monitoring the development of vegetation. However, dependent on the ecosystem of interest and the contrast between ecosystem components, colour images collected with off the shelf \\(digital) camera\u2019s \\(having red \\(R), green \\(G), and blue \\(B) color bands) can also be used. If collected analog, images need to be digitized. The sequence of snapshots should be sufficiently long containing sufficient disturbance and recovery events \\(see **Troubleshooting** for guidelines)\r\n\n\n\r\n\n\n_1.2) Georectify grids:_\r\n\n\nIf the data is not yet a grid, rasterize the data. The snapshots need to be georectified to make sure that each pixel \\(i.e. grid cells) corresponds with the same pixel in the subsequent snapshot.\r\n\n\n\r\n\n\n_1.3) Classify grid cells:_\r\n\n\nThe function requires binary data \\(i.e. absence = 0 and presence = 1). If the data is continuous, e.g. biomass values, the data can be classified based on a threshold. In case the data sequence consists of images, they need to be converted to a biomass proxy first before the pixels can be classified. Dependent on the image type used converting the information in the images to a proxy for biomass can be computed, among others, based on e.g.:\u201cNormalized Difference Vegetation Index\u201d \\(NDVI) for FCC or follow ref. \\[8] \u201cGreen excess Index\u201d \\(2G-RBi).\r\n\n\n\r\n\n\n_For FCC images_\r\n\n\nAs a proxy of the vegetation biomass the Normalized Difference Vegetation Index is calculated as:\r\n\n\n\r\n\n\nNDVI = \\(NIR - R) / \\(NIR + R)\r\n\n\n\r\n\n\nHere NIR, R, and G are the digital numbers \\(DN) of a 3 channels false color image, containing respectively the near infrared, red and green information.\r\n\n\n\r\n\n\n_For RGB images_\r\n\n\nThe Green Excess Index can be used as proxy for biomass in RGB images and is calculated as\n8\n:\r\n\n\n\r\n\n\n2G-RBi = 2*G - R - B\r\n\n\n\r\n\n\nHere R, G, and B are the digital numbers \\(DN) of the 3 channels \\(red, green and blue respectively) in a color image. \r\n\n\n\r\n\n\nOnce the data is a continuous biomass \\(proxy) value presence/absence is determined on a threshold. Above a biomass threshold biomass the ecosystem component is present, otherwise it is absent.\r\n\n\n\r\n\n\n_1.4) Stack grids:_\r\n\n\nThe grid of each classified snapshot needs to be stacked into one input file \\(Seq). The layers should be stacked in sequential order. The first layer in the stacked grid needs to contain the oldest snapshot. The stacking and the correct order of the stack is essential for the function to work.\r\n\n\n\r\n\n\n_1.5) Mapping environmental stressor:_\r\n\n\nFinally, a separate grid is needed in which information is present on the environmental stressor\\(s) that is/are likely to drive a critical slowing down response of the ecosystem. This grid is required as input for the analysis in step 3 \\(_**Recovery rates along a stress gradient**_). The grid should have the same dimensions as a single snapshot grid.\r\n\n\n\r\n\n\n_**2) Timing recovery in sequential spatial data:**_\r\n\n\nTo compute recovery time after a disturbance the algorithm \\(see Fig. 2 and Fig. 3 implemented as the Matlab function fTimeRecov.m) is applied to the sequential spatial data \\(i.e. the stacked grid). The Matlab function provides four output files. For the final step \\(3) only the stacked grids \u2018Tr_all\u2019 and \u2018Cens_all\u2019 are required.\r\n\n\n\r\n\n\n_**3) Recovery rates along a stress gradient:**_\r\n\n\n_3.1) Binning recovery times:_\r\n\n\nAfter the recovery times have been computed at a pixel-by-pixel basis the data can be used to test if recovery rates decline with increasing stress, that is if critical slowing down occurs in the ecosystem along a stress gradient. To test this hypothesis the observed recovery times need to be grouped \\(i.e. binned) in categories of stress levels. Therefore, the gradient is categorized in equally sized bins. As a rule of thumb at least five categories containing observations of recovery time should be defined. Based on the categories, the recovery times and censoring flags \\(i.e. the output variables \u2018Tr_all\u2019 and \u2018Cens_all\u2019) are binned.\r\n\n\n\r\n\n\n_3.2) Estimating recovery rate for each bin:_\r\n\n\nFor each category the recovery rate is estimated based on the binned recovery times. Recovery rates are estimated using the maximum likelihood estimator for the exponential model. To avoid overestimation of the recovery rates, the censored recovery times should be taken into account when using the maximum likelihood estimator.\r\n\n\n\r\n\n\n_3.3) Relating recovery rates to stress gradient:_\r\n\n\nFinally, the relation between the estimated recovery rates and the stress gradient is investigated, e.g. by plotting the relation \\(Fig. 4). Moreover, the correlation between the stressor \\(i.e. bin centres of the categories) and associated recovery rate is calculated and tested for significance.\r\n\n\n\r\n\n\nNote: An example of the full workflow \\(Example2.m) is provided in the ZIP package that can be found as Supplementary File 1. In the example it is assumed a data sequence of snapshots is already prepared \\(steps 1.1 to 1.3) and the **Procedure** is followed from 1.4 onward, including calculating the recovery rates along a stress gradient \\(step 3). This example, of which the results are shown in Fig. 4, is based on simulated spatial data \\(t0.grid to t39.grid) along a gradient \\(gradient.grid)."
+        },
+        {
+            "header": "Timing",
+            "content": "Most time is taken by the collection and preprocessing of the dataset itself \\(step 1). Once all data is collected data analysis can be performed using the algorithm. The time it takes the algorithm to run depends on the specifications of the computer used and the size of the dataset."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "For the algorithm to work properly it is important to have sufficient disturbance-recovery events occurring in the sequential data set. Therefore, the ecosystem should be dynamic with disturbances occurring regularly and the sequence of snapshots should be long enough to allow for recovery to befall after a disturbance event. To guide if the sequence is sufficiently long or additional snapshots are needed in the sequence, the fraction of censored recovery times can be used as an indication. If the sequence is not long enough too much recovery times will be censored \\(i.e. within the sequence no recovery is observed after a disturbance). However, as the fraction of censored recovery times increases by progressing through the sequence \\(i.e. shorter remaining sequence), especially the fraction of censored recovery times in the oldest snapshots are relevant. To warrant reliable results, this fraction should not be too high \\(e.g. <50%). \r\n\n\n\r\n\n\nIf too little data is available and expanding the sequence is not possible, other methods which infer resilience indirectly from statistical properties in time or space, such as spatial variance and correlation between neighboring grid cells \\(i.e. spatial autocorrelation), might be considered \\(see e.g. ref. \\[1, 6]). However, these indirect methods might not work for all datasets \\(see ref. \\[7]).\r\n\n\n\r\n\n\nSome of the observed disturbance-recovery events can be the result of the acquisition and processing of the data. Variations in the way the data is acquired \\(i.e. different instruments, illumination conditions due to weather and sun angle, etc.) and rectified can result in variations in the biomass indices \\(e.g. NDVI, 2G-RBi). Even though the data can be calibrated, some variations are unavoidable and will result in classification errors. This can, in part, be solved by removing unrealistically short recovery times from the dataset. However, if enough real disturbance-recovery events are observed the estimation of the recovery rate should still be reliable. This can be judged based on the confidence intervals of the estimate.\r\n\n\n\r\n\n\nIt is possible that no clear relation between the recovery time _T<sub>r</sub>_ or recovery rate _\u03bb_ and the stress gradient is found. Again, it is important that sufficient temporal data is used to be able to pick up a CSD signal. Check if sufficient \\(e.g. n > 50) disturbance-recovery events \\(i.e. recovery time _T<sub>r</sub>_) have taken place within the stress category \\(i.e. bin). Increase the size of the category or the sequence of snapshots to obtain more observations, if required. The absence of a CSD signal might also be related to the use of an incorrect stress gradient and another stress is more important in driving the CSD response. But, ultimately the absence of CSD in the ecosystem can also point out that the hypothesis should be rejected and CSD is not a relevant signal of resilience in that particular ecosystem."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "Overall, it is expected that the recovery rates decline with increasing stress<sup>1-4</sup> \\(Fig. 4). In the case of tidal marshes, the expected trend is that vegetation recovery rates decrease with increasing inundation time \\(i.e. lower intertidal elevation)."
+        },
+        {
+            "header": "References",
+            "content": "1. Scheffer, M. et al. Early-warning signals for critical transitions. Nature 461, 53-59 \\(2009)\r\n  2. Wissel, C. A universal law of the characteristic return time near thresholds. Oecologia 65, 101-107 \\(1984)\r\n  3. Van Nes, E. H. & Scheffer, M. Slow recovery from perturbations as a generic indicator of nearby catastrophic shift. Am. Nat. 169, 738-747 \\(2007).\r\n  4. Veraart, A. J. et al. Recovery rates reflect distance to a tipping point in a living system. Nature 481, 357-359 \\(2012)\r\n  5. Dai, L., Vorselen, D., Korolev, K. S. & Gore, J. Generic indicators for loss of resilience before a tipping point leading to population collapse. Science 336, 1175\u20131177 \\(2012).\r\n  6. Dakos, V., K\u00e9fi, S., Rietkerk, M., van Nes, E. H., & Scheffer, M. Slowing down in spatially patterned ecosystems at the brink of collapse. Am. Nat. 177, E153-E166 \\(2011)\r\n  7. van Belzen, J., van de Koppel,, J., Kirwan, M.L., van der Wal, D., Herman, P.M.J., Dakos, V., K\u00e9fi, S., Scheffer, M., Guntenspergen, G.R., Bouma, T.J. \\(2017). Vegetation recovery in tidal marshes reveals critical slowing down under increased inundation. Nature Communications, xxx\r\n  8. Richardson, A.D, Braswell, B.H, Hollinger, D.Y, Jenkins, J.P, Ollinger, S.V. Near-surface remote sensing of spatial and temporal variation in canopy phenology. Ecological Applications, 19\\(6), 1477-1428 \\(2009)"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "We thank VFA. de Witte for useful comments on earlier versions of the protocol. The work of JvB and TJB is funded by the European Commission through FP7 ENV2009-1, Contract 244104-THESEUS. JvB was further supported by the VNSC project \"Vegetation modelling HPP\" \\(contract 3109 1805) and the Schure-Beijerinck-Popping fund of the Royal Dutch Academy of Science to visit SK and VD. TJB was further supported by the NWO funded BE-SAFE project grant 850.13.011."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/ncomms15811",
+                "date": "2017-06-12 09:46:03",
+                "title": "Vegetation recovery in tidal marshes reveals critical slowing down under increased inundation",
+                "authors": [
+                    "Jim van Belzen",
+                    "Johan van de Koppel",
+                    "Matthew L. Kirwan",
+                    "Daphne van der Wal",
+                    "Peter M. J. Herman",
+                    "Vasilis Dakos",
+                    "Sonia K?fi",
+                    "Marten Scheffer",
+                    "Glenn R. Guntenspergen",
+                    "and Tjeerd J. Bouma"
+                ],
+                "journal": "Nature Communications",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 14606,
+                "identity": "a0fe4827-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Jim van Belzen",
+                "email": "jim.van.belzen@nioz.nl",
+                "orcid": "",
+                "institution": "van Belzen Lab; Department of Estuarine and Delta Systems, Royal Netherlands Institute for Sea Research (NIOZ) and Utrecht University",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Jim",
+                "middleName": "van",
+                "lastName": "Belzen",
+                "suffix": ""
+            },
+            {
+                "id": 14607,
+                "identity": "a0fe4dc5-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Johan van de Koppel",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Estuarine and Delta Systems, Royal Netherlands Institute for Sea Research (NIOZ) and Utrecht University; Groningen Institute for Evolutionary Life Sciences, University of Groningen",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Johan",
+                "middleName": "van",
+                "lastName": "de Koppel",
+                "suffix": ""
+            },
+            {
+                "id": 14608,
+                "identity": "a0fe5113-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Daphne van der Wal",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Estuarine and Delta Systems, Royal Netherlands Institute for Sea Research (NIOZ) and Utrecht University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Daphne",
+                "middleName": "van der",
+                "lastName": "Wal",
+                "suffix": ""
+            },
+            {
+                "id": 14609,
+                "identity": "a0fe53aa-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Peter M.J. Herman",
+                "email": "",
+                "orcid": "",
+                "institution": "Marine and Coastal Systems, Deltares",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Peter",
+                "middleName": "M.J.",
+                "lastName": "Herman",
+                "suffix": ""
+            },
+            {
+                "id": 14610,
+                "identity": "a0fe576b-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Vasilis Dakos",
+                "email": "",
+                "orcid": "",
+                "institution": "Centre for Adaptation to a Changing Environment (ACE), Department of Environmental Sciences, Institute of Integrative Biology, ETH Zurich; Institut des Sciences de l\u2019Evolution, Universit\u00e9 de Montpellier",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Vasilis",
+                "middleName": "",
+                "lastName": "Dakos",
+                "suffix": ""
+            },
+            {
+                "id": 14611,
+                "identity": "a0fe5a99-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Sonia K\u00e9fi",
+                "email": "",
+                "orcid": "",
+                "institution": "Institut des Sciences de l\u2019Evolution, Universit\u00e9 de Montpellier",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Sonia",
+                "middleName": "",
+                "lastName": "K\u00e9fi",
+                "suffix": ""
+            },
+            {
+                "id": 14612,
+                "identity": "a0fe5ccc-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Marten Scheffer",
+                "email": "",
+                "orcid": "",
+                "institution": "Aquatic Ecology and Water Quality Management Group, Environmental Science Department, Wageningen University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Marten",
+                "middleName": "",
+                "lastName": "Scheffer",
+                "suffix": ""
+            },
+            {
+                "id": 14613,
+                "identity": "a0fe6041-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Tjeerd J. Bouma",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Estuarine and Delta Systems, Royal Netherlands Institute for Sea Research (NIOZ) and Utrecht University; Groningen Institute for Evolutionary Life Sciences, University of Groningen",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Tjeerd",
+                "middleName": "J.",
+                "lastName": "Bouma",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2017-03-31 08:18:30",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2017.038",
+        "doiUrl": "https://doi.org/10.1038/protex.2017.038",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2609717,
+                "identity": "cf4be5c5-ad3d-4fdd-93fa-ff9703fa368a",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:08",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 166200,
+                "visible": true,
+                "origin": "",
+                "legend": "Recovery rate as indicator of resilience   Resilience can be intuitively understood as a ball rolling in a landscape towards the valley, which is the most stable location. The steepness of the hill slopes surrounding the valley determines how quick the ball returns to the most stable point. The steeper/gentler the slopes the more/less resilient the ecosystems and the shorter/longer the recovery time, _T~r~_, to the predisturbed biomass state is. Adapted after ref. [3].",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-5811/v1/figure_1.png"
+            },
+            {
+                "id": 2609718,
+                "identity": "2c3c4444-41ed-467d-a6e5-fe3c5e53b3cb",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:08",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 155009,
+                "visible": true,
+                "origin": "",
+                "legend": "Timing recovery on pixel-by-pixel basis in sequential spatial data sets   To explain the approach, the temporal dynamics of a (simulated) ecosystem is shown where the dataset contains 8 snapshots (i.e. time steps _t~0~-t~7~_) of the ecosystem. The development of 5 dynamic pixels are traced. Pixel 1 and 2 are occupied (e.g. vegetated) at _t~0~_, but lost at _t~2~_ and _t~3~_ respectively, which are then defined as the disturbance (lightning bolt symbol). The recovery time _T~r~_ is the time needed to recovery (sun symbol), which is defined as the first time step at which the pixel is occupied again. It is possible that more than one disturbance occurs and multiple recovery times _T~r~_ are measured per pixel, like in pixel 3. Pixel 4 gets disturbed, but no recovery is observed within the data set and is therefore flagged as censored data point (c) in the analysis. In case of pixel 5, not all time steps are occupied, but because no disturbance is observed the pixel is discarded from the analysis.",
+                "description": "",
+                "filename": "figure2.png",
+                "url": "https://assets.researchsquare.com/files/nprot-5811/v1/figure_2.png"
+            },
+            {
+                "id": 2609719,
+                "identity": "95d1c52e-76d9-46ff-b0ca-b613241f656e",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:08",
+                "extension": "png",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 181268,
+                "visible": true,
+                "origin": "",
+                "legend": "Algorithm for timing recovery in sequential spatial data sets   The flowchart depicts the steps in the algorithm (fTimeRecov) to time the recovery after a disturbance. The algorithm is applied to the stacked grid _g_ of _L_ layers, and needs a time vector _t_  with the timestamps of the snapshots in each layer as additional input in order to be able to calculate the time between disturbance and recovery _T~r~_. Next to the process boxes (rectangles) the Boolean algebraic functions are found to explain how the recovery times _T~r~_ and associated outputs are computed. After running the algorithm the average recovery time is outputted as a single grid. Moreover, all observed recovery times (_T~r~_), censored recovery grid cells (_Cens_) and all disturbances (_Dist_) are outputted as a stacked grid with _L-1_ layers. The output _T~r~_ and _Cens_ are needed to calculate the recovery rates.",
+                "description": "",
+                "filename": "figure3.png",
+                "url": "https://assets.researchsquare.com/files/nprot-5811/v1/figure_3.png"
+            },
+            {
+                "id": 2609722,
+                "identity": "2d2d5e89-8b66-46a4-819b-240dfecc5688",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:08",
+                "extension": "png",
+                "order_by": 4,
+                "title": "Figure 4",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 488945,
+                "visible": true,
+                "origin": "",
+                "legend": "Timing of recovery along a stress gradient (example 2)   Example is based on results of a spatial model (cellular automaton) mimicking disturbance-recovery dynamics of vegetation along a stress gradient. *a)* Selection of final vegetation distribution along stress gradient. Occupied area is depicted in green and bare area in white. *b)* Vegetation coverage (in %) averaged per stress category. *c)* Spatial distribution of recovery time _T~r~_ along the gradient. *d)* Recovery time _T~r~_ averaged per stress category increases towards higher stress levels. *e)* Unbiased recovery rate _\u03bb_ (i.e. accounting for censored recovery time observations) per stress category reveals critical slowing down towards higher stress levels. The red line indicates the threshold (i.e. tipping point) beyond which no vegetation.",
+                "description": "",
+                "filename": "figure4.png",
+                "url": "https://assets.researchsquare.com/files/nprot-5811/v1/figure_4.png"
+            },
+            {
+                "id": 13465346,
+                "identity": "188e0fd5-6392-446d-a264-2e844ffb354a",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:46:24",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 1007588,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-5811/v1/7e984447-e54d-4690-b11c-d6d35948c70e.pdf"
+            },
+            {
+                "id": 2609720,
+                "identity": "e1f6a713-0bef-4ecb-ab5f-f7cd8641f86d",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:08",
+                "extension": "zip",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 984413,
+                "visible": true,
+                "origin": "",
+                "legend": "Supplementary File 1   Matlab source code   Matlab sources code for the timing of recovery in sequential spatial data. The ZIP file contains the sources code as Matlab functions and two worked-out examples of the workflow to illustrate the use of the functions and the workflow (linked to Fig. 2 and 4).",
+                "description": "",
+                "filename": "supplement0.zip",
+                "url": "https://assets.researchsquare.com/files/nprot-5811/v1/supplement_0.zip"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "disturbance, ecosystem dynamics, recovery, resilience, stability, tipping points",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "The time needed for ecosystems to recover from a disturbance has been proposed as a generic indicator of ecosystem resilience. The lengthening of the recovery time with increasing stress is referred to as \u201cCritical Slowing Down\u201d and has been proposed as an early warning of a nearing tipping point. Hence, methodologies for measuring recovery rates and critical slowing down in remotely sensed data might provide a powerful way to synoptically asses ecosystem resilience. Here, we present a protocol using an algorithm to measure the recovery time after a disturbance from sequential spatial data. The algorithm can be applied to both empirical, e.g. remotely sensed, and simulated spatial data.",
+        "manuscriptTitle": "Timing recovery of ecosystems in sequential remotely sensed and simulated data",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2017-06-12 09:54:17",
+                "doi": "10.1038/protex.2017.038",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a0f95751-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "June 12th, 2017",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3870,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 3871,
+                "name": "Mathematics and computing"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2017-06-12 09:54:17",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

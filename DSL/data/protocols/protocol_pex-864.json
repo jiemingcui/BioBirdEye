@@ -1,0 +1,299 @@
+{
+    "identity": "pex-864",
+    "title": "<p>A protocol for Targeted Perturb (TAP)-seq and targeted single-cell RNA-seq</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>Single-cell RNA-sequencing (scRNA-seq) is revolutionizing basic and applied biomedical research. Among diverse applications, scRNA-seq readouts of pooled CRISPR genetic screens, also referred to as CROP-seq or Perturb-seq, enabled to identify the consequences of defined genetic perturbations on gene expression and cellular differentiation (Adamson et al. 2016, Dixit et al. 2016, Jaitin et al. 2016, Datliner et al. 2017). Although this concept has captured widespread attention, its broad applicability has been prohibited due to (1) high sequencing costs, (2) bottlenecks in data analysis, and (3) a lack of sensitivity of scRNA-seq methods.</p><p>Here we overcome these limitations by introducing a protocol for targeted Perturb-seq (TAP-seq) (Figure 1). The method has been established primarily as a readout for pooled CRISPR screens. However, TAP-seq is applicable to diverse single-cell applications in mammalian cell lines and primary mammalian cells, with or without CRISPR perturbations.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p>10X Genomics Single-cell 3\u2019 RNA-seq kit v2</p><p>80 % ethanol, freshly prepared</p><p>Agilent High Sensitivity DNA Kit</p><p>Cell collection buffer (PBS + 2 % BSA)</p><p>Elution buffer (10 mM Tris-HCl pH 8.5)</p><p>FACS buffer (PBS + 2 % FBS + 2 mM EDTA)</p><p>KAPA Biosystems HiFi HotStart ReadyMix</p><p>Live-dead stain for flow cytometry, e.g. Biostatus DRAQ7 Drop &amp; Go</p><p>Low TE buffer (10 mM Tris-HCl pH 8.0 + 0.1 mM EDTA)</p><p>Nuclease free ddH2O non DEPC-treated</p><p>PBS without Mg without Ca</p><p>Qubit dsDNA HS Assay Kit (Thermo Fisher)</p><p>SPRI beads, e.g. Beckman Coulter AMPureXP&nbsp;</p><p>Thermo Fisher Superscript IV reverse transcriptase 200 U/\u00b5l (Cat. No. 18090050)</p><p>Trypan-blue viability stain</p><p><br></p><p>Oligonucleotides:</p><p>PartialRead1 <em>5'-CTACACGACGCTCTTCCGATCT</em></p><p>ISPCR <em>5'-AAGCAGTGGTATCAACGCAGAGT</em></p><p>Outer primer <em>5'-[gene specific]</em></p><p>Inner primer <em>5'-GTCTCGTGGGCTCGGAGATGTGTATAAGAGACAG[gene specific]</em></p><p>CROPouter <em>5'-AATGGACTATCATATGCTTACCGT</em></p><p>CROPinner <em>5'-GTCTCGTGGGCTCGGAGATGTGTATAAGAGACAGTGTGGAAAGGACGAAACACC</em></p><p>Targeted10X <em>5'-AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTC*C*G</em></p><p>New-P5 smart PCR hybrid oligo <em>5'-AATGATACGGCGACCACCGAGATCTACACGCCTGTCCGCGGAAGCAGTGGTATCAACGCAGAGT*A*C</em></p><p>Illumina reverse primer (N7XX) <em>5'-CAAGCAGAAGACGGCATACGAGAT[X]8GTCTCGTGGGCTCGG</em></p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>1.5 ml low retention tubes</p><p>10X Genomics Chromium</p><p>5 ml flow cytometry collection tubes</p><p>Agilent 2100 Bioanalyzer</p><p>Cell counter, e.g. Thermo Fisher Countess II FL Automated Cell Counter</p><p>Centrifuges</p><p>DNA quantification, e.g. Thermo Fisher Qubit Fluorometer</p><p>Emulsion safe PCR 8-tube strips, e.g. Eppendorf Cat. No. 0030 124.359</p><p>FACS tubes, e.g. Corning Falcon Test Tube 5 ml with 35 \u00b5m Cell Strainer Snap Cap</p><p>Flow Cytometer, e.g. BD FACSAria Fusion</p><p>Magnetic separator, e.g. 10X Magnetic Separator with High and Low position</p><p>PCR cycler</p><p><br></p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "Preparation of K562 cells for single-cell RNA sequencing (60 min)\nComment: We describe here a workflow for preparation of K562 cells for 10X Genomics. In general, cells for TAP-seq with 10X Genomics are prepared in the same way as cells for classical 10X Genomics.\n1.\u00a0\u00a0\u00a0\u00a0\u00a0Count live cells using cell counter and trypan blue live dead stain\n2.\u00a0\u00a0\u00a0\u00a0\u00a0Collect cells by centrifugation (200 g, 5 min, room temperature)\n3.\u00a0\u00a0\u00a0\u00a0\u00a0Discard supernatant\n4.\u00a0\u00a0\u00a0\u00a0\u00a0Resuspend in FACS buffer to achieve a cell concentration of 5-10 million cells per ml\n5.\u00a0\u00a0\u00a0\u00a0\u00a0Filter through cell strainer\n6.\u00a0\u00a0\u00a0\u00a0\u00a0Add viability dye, e.g. DRAQ7\n7.\u00a0\u00a0\u00a0\u00a0\u00a0Sort viable cells by flow cytometry into collection tube containing cell collection buffer (Figure 2).\u00a0All cell sorting can be performed at room temperature. Collected cells are stored on ice until use.\nComment: Flow buffer and cell collection buffer are compatible with 10X Genomics and other single-cell platforms. Same is true for DRAQ7 and other viability stains (validated for DAPI and PI).\nOptional: Cells expressing Cas9 as a fusion protein with a fluorescent tag (e.g. dCas9-BFP-KRAB) can be enriched for BFP-expression. We generally enriched for cells expressing intermediate to high Cas9 expression level (see\u00a0Figure 2).\na.\u00a0\u00a0\u00a0\u00a0\u00a0If high numbers of cells are available: Sort 0.1-1 million cells into 5 ml FACS tubes containing 300 \u00b5l cell collection buffer. Collect cells by centrifugation (300 g, 7 min, room temperature) and discard supernatant. Resuspend pellet in PBS by pipetting several times and dilute to achieve a cell concentration compatible with 10X Genomics, e.g. 1 million cells per ml. Double-check cell numbers and absence of multiplets by cell counting.\nb.\u00a0\u00a0\u00a0\u00a0\u00a0If low numbers of cells are available: Sort cells directly into 20 \u00b5l cell collection buffer provided in a 1.5 ml tube. Cell numbers are deduced from flow cytometry counts, and by adding a correction factor of ~ 1.5x to 2x (has to be adapted, start with 1.5x). Cells are not counted again.\nExample: The correction factor considers cell loss during handling of cells after sorting, and the dilution factor during 10X Genomics single-cell Master Mix preparation and Chromium run. If 250 cells should be sequenced (and a correction factor 1.5x), sort 250 x 1.5 = 375 cells into 20 \u00b5l cell collection buffer. Approximately 3.5 nl (100 \u00b5m nozzle) or 7 nl (130 \u00b5m nozzle) liquid will be added on top per sorted cell. After sort is finished, vortex quickly to collect cells from tube wall, spin cells shortly, and measure volume. Then fill up with collection buffer to 33.8 \u00b5l, which is the volume added into the 10X Genomics single-cell master mix.\n10X Genomics Chromium run (90 min)\n8.\u00a0\u00a0\u00a0\u00a0\u00a0Prepare single cell master mix on ice according to the 10X Genomics Chromium single-cell 3\u2019 RNA-seq v2 protocol. Mix by pipetting and place on ice. 10X Genomics RT Enzyme Mix can be replaced by Superscript IV RT or not. 10X RT primer (template switch oligo) is replaced by low TE buffer (or H2O).\nRT Reagent Mix\n50 \u00b5l\nlow TE buffer\n3.8 \u00b5l\nAdditive A\n2.4 \u00b5l\nSuperscript IV RT\n10 \u00b5l\nComment: The protocol should be adaptable to Chromium single-cell RNAseq v3, and the more recent NextGEM protocol, since the PCR handle sequence on the 10X bead oligo is identical between all three 10X versions (target sequence of Partial Read 1 primer). Further, the steps until cDNA amplification are largely identical. We here follow the 10X v2 protocol until cDNA amplification.\n9.\u00a0\u00a0\u00a0\u00a0\u00a0Fill unused wells of a single cell A Chip with 50 % Glycerol, as described in the 10X Genomics Chromium single-cell 3\u2019 RNA-seq v2 protocol.\n10.\u00a0\u00a0Add H2O and cells to single cell master mix (see 10X Genomics Chromium single-cell 3\u2019 RNA-seq v2 protocol cell dilution table), mix by pipetting, and transfer 90 \u00b5l of cell suspension to 10X Chip A well \u201c1\u201d.\n11.\u00a0\u00a0Prepare 10X Genomics beads by vortexing for 30 sec, and slowly dispense 27 to 40 \u00b5l of the bead suspension into 10X Chip A well \u201c2\u201d. 40 \u00b5l loading volume are suggested by 10X Genomics, but volume can be reduced to 27 \u00b5l, since beads are not used up completely during the run.\n12.\u00a0\u00a0Fill 10X Chip A well \u201c3\u201d with 230 \u00b5l partitioning oil, attach 10X gasket, and start run on the Chromium Controller.\n13.\u00a0\u00a0After run, check volume in GEM collection outlet and transfer 110 \u00b5l of GEM emulsion\u00a0into emulsion safe PCR 8-tube strip.\nComment: 10X protocol transfers 100 \u00b5l of the GEM emulsion only, but we generally observe a higher volume of GEMs in the collection outlet, allowing a 10% increase in cell recovery.\n14.\u00a0\u00a0GEM-RT incubation in a thermal cycler [45 min 53\u00a0\u00b0C \u2013 5 min 85\u00a0\u00b0C \u2013 hold 4\u00a0\u00b0C]. Tubes can\u00a0be stored at 4\u00a0\u00b0C for up to 72 h or at -20\u00a0\u00b0C for up to a week.\n15.\u00a0\u00a0Purify GEM-RT as described in 10X Genomics Chromium single-cell 3\u2019 RNA-seq v2 protocol.\nTAP-seq protocol (4h)\n16.\u00a0\u00a0Prepare PCR1 on ice, mix by vortexing and collect by short centrifugation.\nComment: We generally use 2.5 \u00b5l of outer primer mix for a panel size < 500 different primers, but amount can be increased to 4 \u00b5l per reaction in case more primers are present in panel.\nComment: For 10X v2, v3 and NextGEM, no adaption for PCR1 and PCR2 is necessary, since the Partial Read 1 primer can be used for all three protocols.\nComment: The CROP-seq vector primer (CROPouter, CROPinner) can be omitted in case no CROP-seq vector is present, or replaced if sgRNA/barcode is expressed by a vector system other than CROP-seq.\nOptional: 5 \u00b5l of the 10X Genomics cDNA from step 15 can be put on side for separate CROP-seq vector amplification. Follow the protocol as described from here on, but omitting the outer and inner primer mix.\nGEM-RT cleanup\n35 \u00b5l\n10 \u00b5M Partial Read 1\n4 \u00b5l\n100 \u00b5M outer primer mix\n2.5 \u00b5l\n12 \u00b5M CROPouter\n10 \u00b5l\nKAPA HiFi\n50 \u00b5l\nH2O\nad. 100 \u00b5l\n17.\u00a0\u00a0Run PCR1 with the following cycling protocol: 95\u00a0\u00b0C 3 min - [98\u00a0\u00b0C 20 sec, 67\u00a0\u00b0C 60 sec, 72\u00a0\u00b0C 60 sec] x12 - 72\u00a0\u00b0C 5 min - 4\u00a0\u00b0C hold\nComment: Exact cycle number has to be determined, but we achieved good results with 11 to 14 cycles. The cycle number depends on the number of cells, the amount of input cDNA, the number of amplified genes, and the expression levels of these genes. As a start, we suggest 12 cycles, which should result in\u00a0\u00b3\u00a010 ng of PCR product. Too high cycle numbers of PCR1-3 might result in a high MW product after PCR3 peaking around 1,000 to 1,500 bp; we generally do not observe any issues from this high MW product after Illumina sequencing and data analysis (product might not cluster efficiently during Illumina run preparation).\n18.\u00a0\u00a0After PCR is finished, collect liquid by short centrifugation and place at room temperature. Add 150 \u00b5l AmpureXP reagent (1.5x) to sample in tube strip and pipette mix 10 times. Incubate 5 min at room temperature with lid open.\n19.\u00a0\u00a0Place tube in 10X magnetic separator in the High position until solution is clear (approx. 1-2 min). Remove and discard supernatant.\n20.\u00a0\u00a0Wash once with 300 \u00b5l 80 % EtOH without releasing tubes from magnet while incubating for 30 sec with EtOH.\n21.\u00a0\u00a0Wash twice with 200 \u00b5l 80 % EtOH. After last wash, discard supernatant, spin down, and place back in magnet at low position. Discard remaining liquid with 10 \u00b5l pipet and air-dry pellet for 2 min with lid open.\n22.\u00a0\u00a0Elute by adding 30 \u00b5l elution buffer to tube released from magnet, and mix either by 10 sec vortexing or pipetting for 15 times. Spin tube shortly to collect bead suspension from tube walls, and incubate 2 min at room temperature.\n23.\u00a0\u00a0Place tube back in magnet in low position and wait until solution is clear. Transfer supernatant into a new 8-strip tube and store on ice. Measure concentration from 1 \u00b5l eluate using Qubit dsDNA HS.\nComment: Typical yields are in the ng range from 10 to 250 ng.\n24.\u00a0\u00a0Samples can be stored at 4\u00a0\u00b0C for 12 h or o/n before proceeding to PCR2.\n25.\u00a0\u00a0Prepare PCR2 on ice, mix by vortexing and collect by short centrifugation.\nComment: Use same amount of inner primer mix as above for PCR1 outer primer mix. The input amount of 10 ng can be used as a starting point, but can be lowered down to 5 ng. Lower input amounts might also work, but were not tested for library representation yet.\nPCR1 cleanup\n10 ng\n10 \u00b5M Partial Read 1\n4 \u00b5l\n100 \u00b5M inner primer mix\n2.5 \u00b5l\n12 \u00b5M CROPinner\n10 \u00b5l\nKAPA HiFi\n50 \u00b5l\nH2O\nad. 100 \u00b5l\n26.\u00a0\u00a0Run PCR2 with the following cycling protocol: 95\u00a0\u00b0C 3 min - [98\u00a0\u00b0C 20 sec, 67\u00a0\u00b0C 60 sec, 72\u00a0\u00b0C 60 sec] x8 - 72\u00a0\u00b0C\n5 min - 4\u00a0\u00b0C hold\n27.\u00a0\u00a0After PCR is done, collect liquid by short centrifugation and place at room temperature. Add 150 \u00b5l AmpureXP reagent (1.5x) to sample in tube strip and pipette mix 10 times. Incubate 5 min at room temperature with lid open.\n28.\u00a0\u00a0Place tube in 10X magnetic separator in the High position until solution is clear (approx. 1-2 min). Remove and discard supernatant.\n29.\u00a0\u00a0Wash once with 300 \u00b5l 80 % EtOH without releasing tubes from magnet while incubating for 30 sec with EtOH.\n30.\u00a0\u00a0Wash twice with 200 \u00b5l 80 % EtOH. After last wash, discard supernatant, spin down, and place back in magnet at low position. Discard remaining liquid with 10 \u00b5l pipet and air-dry pellet for 2 min with lid open.\n31.\u00a0\u00a0Elute by adding 30 \u00b5l elution buffer to tube released from magnet, and mix either by 10 sec vortexing or pipetting for 15 times. Spin tube shortly to collect bead suspension from tube walls, and incubate 2 min at room temperature.\n32.\u00a0\u00a0Place tube back in magnet in low position and wait until solution is clear. Transfer supernatant into a new 8-strip tube and store on ice. Measure concentration from 1 \u00b5l eluate using Qubit dsDNA HS and proceed to PCR3.\nComment: Typical yields are in the ng range from 10 to 100 ng.\n33.\u00a0\u00a0Prepare PCR3 on ice, mix by vortexing and collect by short centrifugation.\nComment:\u00a0PCR3 adds Illumina adapters to generate a sequencing-ready library.\nPCR2 cleanup\n10 ng\n10 \u00b5M Targeted10X\n4 \u00b5l\n10 \u00b5M N7XX\n2.5 \u00b5l\nKAPA HiFi\n50 \u00b5l\nH2O\nad. 100 \u00b5l\n34.\u00a0\u00a0Run PCR3 with the following cycling protocol: 95\u00a0\u00b0C 3 min - [98\u00a0\u00b0C 20 sec, 60\u00a0\u00b0C 15 sec, 72\u00a0\u00b0C 45 sec] x8 - 72\u00a0\u00b0C 5 min - 4\u00a0\u00b0C hold\n35.\u00a0\u00a0After PCR is done, collect liquid by short centrifugation and place at room temperature. Add 150 \u00b5l AmpureXP reagent (1.5x) to sample in tube strip and pipette mix 10 times. Incubate 5 min at room temperature with lid open.\n36.\u00a0\u00a0Place tube in 10X magnetic separator in the High position until solution is clear (approx. 1-2 min). Remove and discard supernatant.\n37.\u00a0\u00a0Wash once with 300 \u00b5l 80 % EtOH without releasing tubes from magnet while incubating for 30 sec with EtOH.\n38.\u00a0\u00a0Wash twice with 200 \u00b5l 80 % EtOH. After last wash, discard supernatant, spin down, and place back in magnet at low position. Discard remaining liquid with 10 \u00b5l pipet and air-dry pellet for 2 min with lid open.\n39.\u00a0\u00a0Elute by adding 30 \u00b5l elution buffer to tube released from magnet, and mix either by 10 sec vortexing or pipetting for 15 times. Spin tube shortly to collect bead suspension from tube walls, and incubate 2 min at room temperature.\n40.\u00a0\u00a0Place tube back in magnet in low position and wait until solution is clear. Transfer supernatant into a new 8-strip tube and store on ice. Measure concentration from 1 \u00b5l eluate using Qubit dsDNA HS and perform QC using Agilent Bioanalyzer with a 1 ng eluate.\nComment: Typical yields from PCR3 in the 100 ng range.\n41.\u00a0\u00a0The protocol\u00a0generates libraries identical to 10X Genomics single-cell 3\u2019 libraries using standard Illumina Read 1 and Read 2 primers. The cell barcode and UMI is encoded in Read 1 (26 cycles), Read 2 contains the cDNA fragment (~58 cycles). Sample index sequences are sequenced as i7 index read (8 cycles).\n42. A snakemake workflow template for data processing for TAP-seq experiments can be found under:\nhttps://github.com/argschwind/TAPseq_workflow"
+        },
+        {
+            "header": "Troubleshooting",
+            "content": ""
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>Preparation of cells for single-cell RNA sequencing: <strong>60 min</strong></p><p>10X Genomics Chromium run: <strong>30 min</strong></p><p>GEM transfer and GEM-RT incubation: <strong>60 min</strong></p><p>post GEM-RT purification:&nbsp;<strong>60 min</strong></p><p>PCR1 setup and run: <strong>60 min</strong></p><p>SPRI purification and product quantification: <strong>20 min</strong></p><p>PCR2 setup and run: <strong>50 min</strong></p><p>SPRI purification and product quantification: <strong>20 min</strong></p><p>PCR3 setup and run: <strong>40 min</strong></p><p>SPRI purification and product quantification: <strong>20 min</strong></p><p>DNA HS Bioanalyzer run: <strong>40 min</strong></p><p>Total (all steps): <strong>8 h</strong></p><p>Total (TAP-seq): <strong>4 h</strong></p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>\ufeffTypical Bioanalyzer traces for TAP-seq are shown in Figure 3.</p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>Adamson, B.&nbsp;<em>et al.</em>&nbsp;A Multiplexed Single-Cell CRISPR Screening Platform Enables Systematic Dissection of the Unfolded Protein Response.&nbsp;<em>Cell</em>&nbsp;167, 1867-1882.e21 (2016).</p><p>Dixit, A.&nbsp;<em>et al.</em>&nbsp;Perturb-Seq: Dissecting Molecular Circuits with Scalable Single-Cell RNA Profiling of Pooled Genetic Screens.&nbsp;<em>Cell</em>&nbsp;<strong>167</strong>, 1853-1866.e17 (2016).</p><p>Jaitin, D. A.&nbsp;<em>et al.</em>&nbsp;Dissecting Immune Circuits by Linking CRISPR-Pooled Screens with Single-Cell RNA-Seq.&nbsp;<em>Cell</em>&nbsp;<strong>167</strong>, 1883-1896.e15 (2016).</p><p>Datlinger, P.&nbsp;<em>et al.</em>&nbsp;Pooled CRISPR screening with single-cell transcriptome readout.&nbsp;<em>Nat. Methods</em>&nbsp;<strong>14</strong>, 297\u2013301 (2017).</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>This work was supported by grants from the European Research Council Advanced Investigator Grant (AdG-294542 and AdG-742804 to L.M.S.). D.S. was supported by a fellowship from the EMBL Interdisciplinary Postdoc (EIPOD) program under Marie Sklodowska-Curie Actions COFUND (grant agreement number 664726). A.R.G. was supported by an Early Postdoc.Mobility fellowship (project number P2LAP3_171806) from the Swiss National Science Foundation (SNSF).&nbsp;</p><p><br></p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41592-020-0837-5",
+                "date": "",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 447118,
+                "identity": "16a1c890-460c-4abe-a305-0a999924e7ec",
+                "order_by": 1,
+                "name": "Daniel Schraivogel",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-5734-6980",
+                "institution": "European Molecular Biology Laboratory (EMBL), Genome Biology Unit, 69117 Heidelberg, Germany",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Daniel",
+                "middleName": "",
+                "lastName": "Schraivogel",
+                "suffix": ""
+            },
+            {
+                "id": 447119,
+                "identity": "c96bba8c-b811-4fbc-90de-b2a0e181b69d",
+                "order_by": 2,
+                "name": "Lars Velten",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-1233-5874",
+                "institution": "Center for Genomic Regulation, The Barcelona Institute of Science and Technology, Barcelona, Spain",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Lars",
+                "middleName": "",
+                "lastName": "Velten",
+                "suffix": ""
+            },
+            {
+                "id": 447120,
+                "identity": "1b8e619e-0397-4de9-8295-de84e2337dd8",
+                "order_by": 3,
+                "name": "Andreas R. Gschwind",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-0769-6907",
+                "institution": "Department of Genetics, Stanford University School of Medicine, Stanford, California 94305, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Andreas",
+                "middleName": "R.",
+                "lastName": "Gschwind",
+                "suffix": ""
+            },
+            {
+                "id": 447121,
+                "identity": "44b7e4e4-2da6-40d2-977d-10881d71ebee",
+                "order_by": 4,
+                "name": "Lars M. Steinmetz",
+                "email": "larsms@embl.de",
+                "orcid": "https://orcid.org/0000-0002-3962-2865",
+                "institution": "European Molecular Biology Laboratory (EMBL), Genome Biology Unit, 69117 Heidelberg, Germany; Department of Genetics, Stanford University School of Medicine, Stanford, California 94305, USA; Stanford Genome Technology Center, Palo Alto, California 94304, USA",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Lars",
+                "middleName": "M.",
+                "lastName": "Steinmetz",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2020-03-18 18:57:15",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-864/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-864/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 1231880,
+                "identity": "148d23fb-a197-4036-971f-cded829bb9b2",
+                "added_by": "auto",
+                "created_at": "2020-06-02 17:04:26",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 58044,
+                "visible": true,
+                "origin": "",
+                "legend": "Figure 1: Schematic outline of TAP-seq. In short, the cDNA product from single cells is amplified in a nested multiplex PCR reaction, targeting genes of interest, followed by Illumina adapter addition and sequencing. UMI, unique molecular barcode; Cell BC, cell barcode.",
+                "description": "",
+                "filename": "Figure1.png",
+                "url": "https://assets.researchsquare.com/files/pex-864/v1/Figure1.png"
+            },
+            {
+                "id": 1231881,
+                "identity": "6cba21fb-7687-4205-89d9-b026aa8ad01b",
+                "added_by": "auto",
+                "created_at": "2020-06-02 17:04:27",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 148063,
+                "visible": true,
+                "origin": "",
+                "legend": "Figure 2: Sorting scheme. Viable cells are sorted out using a viable cell exclusion dye like DRAQ7. Optionally, intermediate to high dCas9-BFP-KRAB expressing cells can be enriched by sorting for intermediate to high BFP expression. Here, K562 cells, stably expressing dCas9-BFP-KRAB, and the CROP-seq vector (after 12 d of Puromycin selection) were used.",
+                "description": "",
+                "filename": "Figure2.png",
+                "url": "https://assets.researchsquare.com/files/pex-864/v1/Figure2.png"
+            },
+            {
+                "id": 1231882,
+                "identity": "ef40d701-919f-4950-8596-f2f6604eb525",
+                "added_by": "auto",
+                "created_at": "2020-06-02 17:04:27",
+                "extension": "png",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 72235,
+                "visible": true,
+                "origin": "",
+                "legend": "Figure 3: Example bioanalyzer traces. Shown are bioanalyzer traces for a 10X Genomics whole transcriptome library (left panel) and TAP-seq library (right panel). In both cases, K562 cells were used. TAP-seq was performed using 'panel 1' (chr. 11) from the linked publication Schraivogel et al. Nature Methods 2020. Adapted from Schraivogel et al. Nature Methods 2020 Extended Data Figure 1a,b.",
+                "description": "",
+                "filename": "Figure3.png",
+                "url": "https://assets.researchsquare.com/files/pex-864/v1/Figure3.png"
+            },
+            {
+                "id": 13535085,
+                "identity": "3eef4824-abdc-4ab8-9bb8-61909257d542",
+                "added_by": "auto",
+                "created_at": "2021-09-17 01:27:10",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 609436,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-864/v1/40d7a431-fb29-4df5-bc52-8fe538b9e71a.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "single-cell, CRISPR, Cas9, CRISPRi, functional genomics, genetic screens, RNA sequencing",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>Here we provide a step-by-step protocol for targeted single-cell RNA-seq and targeted Perturb-seq, as reported in the linked publication&nbsp;Schraivogel et al. Nat Meth 2020. The protocol describes cell preparation using flow cytometry, single-cell droplet formation with 10X Genomics, and targeted 3\u2019 single-cell RNA-seq library preparation for Illumina sequencing.</p>",
+        "manuscriptTitle": "A protocol for Targeted Perturb (TAP)-seq and targeted single-cell RNA-seq",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2020-06-02 17:04:26",
+                "doi": "10.21203/rs.3.pex-864/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 1
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "6881f89c-1a18-4a19-bd69-837e678ca53c",
+        "owner": [],
+        "postedDate": "June 2nd, 2020",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 75573,
+                "name": "Cancer"
+            },
+            {
+                "id": 75574,
+                "name": "Genetics"
+            },
+            {
+                "id": 75575,
+                "name": "Systems biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2020-06-02 17:04:26",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

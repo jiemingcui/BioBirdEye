@@ -1,0 +1,272 @@
+{
+    "identity": "pex-1019",
+    "title": "<p>Massively parallel and time-resolved RNA sequencing in single cells with scNT-Seq</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>Recent advances in single-cell RNA sequencing (scRNA-Seq) technologies are leading to a more complete understanding of heterogeneity in cell types and states. However, standard scRNA-Seq methods capture a mixture of&nbsp;newly-transcribed&nbsp;(\u201cnew\u201d) and pre-existing (\u201cold\u201d) RNAs without being able to temporally resolve RNA dynamics. To overcome this challenge, we developed scNT-seq, a high-throughput and UMI-based scRNA-Seq method that&nbsp;jointly profiles both new and old transcriptomes from the same cell. In scNT-Seq, integration of metabolic RNA labeling, droplet microfluidics, and chemically induced recoding of 4sU to cytosine analog permits highly scalable and time-resolved single-cell analysis of cellular RNA dynamics (<strong>Figure 1</strong>). We demonstrate that the method is easy to set up and substantially improves the time and cost. We show scNT-Seq enables temporally resolved analysis of gene regulatory networks and RNA trajectories in different cell cultures, including K562 cells, mouse embryonic stem cells (mESCs), and primary mouse cortical neurons (Qiu et al, 2019).</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p><strong>Items, Vendor, Catalog number</strong></p><p>Barcoded Bead SeqB, ChemGenes, MACOSKO-2011</p><p>Bovine Serum Albumin, Sigma-Aldrich, A8806-5G</p><p>UltraPure\u2122 1 M Tris-HCI Buffer, pH 7.5, Life Technologies, 15567027</p><p>UltraPure\u2122 1M Tris-HCI, pH 8.0, Life Technologies, 15568025</p><p>GE Healthcare Ficoll PM400, Fisher Scientific, 45-001-745</p><p>N-Lauroylsarcosine sodium salt solution, Sigma-Aldrich, L7414-50ML</p><p>QX200\u2122 Droplet Generation Oil for EvaGreen, Bio-Rad, 186-4006</p><p>UltraPure SSC, 20X, Life Technologies, 15557044</p><p>1H,1H,2H,2H-Perfluoro-1-octanol (PFO), Sigma-Aldrich, 370533-25G</p><p>Advantage\u00ae UltraPure PCR Deoxynucleotide Mix (10 mM each dNTP), Clotech, 639125</p><p>Exonuclease I, NEB, M0293L</p><p>NxGen\u00ae RNAse Inhibitor, Lucigen, 30281-2</p><p>Maxima H Minus Reverse Transcriptase&nbsp;(200 U/\u00b5L), Life Technologies, EP0752</p><p>SPRIselect reagent (beads), Beckman Coulter, B23317</p><p>Nextera\u00ae XT DNA Sample Preparation Kit&nbsp;(24 Samples), Illumina, FC-131-1024</p><p>Nextera\u00ae XT Index Kit (24 indexes, 96 samples), Illumina, FC-131-1001</p><p>KAPA Hifi HotStart ReadyMix, KAPA BioSystems, KK2602</p><p>Agilent High Sensitivity DNA Kit, Agilent Technologies, 5067-4626</p><p>NextSeq 500/550 High Output v2 Kit (75 cycles), Illumina, FC-404-2005</p><p>4-Thiouridine (4sU), Alfa Aesar, J60679</p><p>Uridine, Sigma-Aldrich, U6381</p><p>2,2,2-Trifluoroethylamine (TFEA), Sigma-Aldrich, 269042-1G</p><p>Sodium periodate (NaIO<sub>4</sub>), Acros Organics, AC419610050</p><p>Klenow (3\u2019\u21925\u2019 exo-), Enzymatics, P7010-HC-L</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>Drop-seq microfluidics device (uFluidix)</p><p>KDS Legato 100 Single Syringe Infusion Pump (Analytical West Inc., 788100)</p><p>Magnetic mixing system (VP Scientific, 710D2)</p><p>3 mL BD disposable syringe with BD Luer-Lok\u2122 tip (Fisher Scientific)</p><p>10 mL BD disposable syringe with BD Luer-Lok\u2122 tip (Fisher Scientific)</p><p>Luer lock 26-gage needles (Fisher Scientific, 14-826-15)</p><p>POLYETHYLENE TUBING (Scientific Commodities Inc, BB31695-PE/2)</p><p>Countess II&nbsp;FL automated cell counter&nbsp;(Life technologies,&nbsp;AMQAF1000)</p><p>Falcon\u00ae Cell Strainers, 40 um (Fisher Scientific, 14-823-435)</p><p>Falcon\u00ae Cell Strainers, 100 um (Fisher Scientific, 14-823-2A)</p><p>Benchtop centrifuge (Eppendorf)</p><p>PCR system (Thermo Fisher, 4484073)</p><p>Realtime PCR system (Life technologies)</p><p>Qubit 3.0 Fluorometer (Thermo Fisher, Q33216)</p><p>Agilent 2100&nbsp;BioAnalyzer system (Agilent, G2939BA)</p><p>PCR&nbsp;&nbsp;8-Tube Strip (Thomas Scientific, 1159N19)</p><p>1.5 mL DNA/RNA LoBind Tubes (Eppendorf, 022431021)</p><p>TipOne 10 \u03bcL ultra micro filter tip (USA Scientific, 1121-3880)</p><p>TipOne 200 \u03bcL graduated filter tip (USA Scientific, 1120-8880)</p><p>TipOne 1000 \u03bcL XL natural, graduated filter tip (USA Scientific, 1122-1850)</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "Metabolic labeling\n1. Culture K562 cells at 37\u00b0C to approximately 50% confluence in RPMI media supplemented with 10% FBS and 1% P/S\u00a0(e.g., 5 mL of 5x10\n5\ncells/mL in 6 well tissue culture plates).\n2. Make 1 M 4-thiouridine (4sU) stock by dissolving the powder in DMSO. For metabolic RNA labeling, the medium was replaced with fresh medium supplemented with non-toxic concentrations of 4sU (e.g. 200 \u03bcM for mESCs).\nNote:\nThe 4sU stock is stable for a few months at -20\u00b0C, and protect the 4sU stock solution from light.If the labeling time is longer than 4 hours, regular exchange of fresh 4sU-containing media (i.e. every three hours) can enhance 4sU incorporation (Herzog et al. 2017).\n3.\u00a0Remove media at the time-points of interest, prepare cell suspension or cryo-preserve (methanol fixation and rehydration) cells as described below.\n4. Methanol-fixation (Optional):\nNote:\nMethanol-fixation and rehydration were adapted from Alles\u00a0et al (2017).\na. Fixation the cells (0.5~1.5 million in 200\u00a0\u03bcL\u00a0DPBS) by adding 800\u00a0\u03bcL\u00a0methanol\u00a0drop-wise\u00a0(with P1000 pipette), while gently stirring the cell suspension with the tip. [final concentration of methanol is 80%]\nb. Gently invert the tubes ~5 times to mix, then put the tubes on ice for >30 min.\nc. Store at -80\u00b0C\u00a0for up to one month.\nDroplet microfluidics\n5. Rehydration\u00a0(Optional):\na. Spin down the cells at 800x g for 5 min at 4\u00b0C.\nb. Remove the methanol-PBS solution without disturbing the pellet.\nc. Resuspend the cells with 1 ml of DPBS-0.01% BSA (with 0.5% RNase-inhibitor).\nd. Count the cells with Countess II.\ne. Dilute the cells with either DPBS-0.01% BSA or SSC cocktail to 100 cells/\u03bcL.\n6. Proceed to standard Drop-Seq protocol to capture new and old RNAs on barcoded beads (Macosko et al, 2015).\nChemical conversion of 4sU in mRNAs captured on barcoded beads\n7. After droplet breakage, the barcoded beads are treated with TimeLapse-Seq chemistry (Schofield\u00a0et al, 2018) to convert 4sU to cytidine-analog on new RNAs.\na. Briefly, 50,000-100,000 beads were washed once with 450 \u03bcL washing buffer (1 mM EDTA, 100 mM sodium acetate (pH 5.2)).\nb. The beads were resuspended with a mixture of TFEA (600 mM), EDTA (1 mM) and sodium acetate (pH 5.2, 100 mM) in water.\nc. A solution of 192 mM NaIO\n4\nwas then added (final concentration: 10 mM) and incubated at 45\u00b0C for 1 hour with rotation.\nd. The beads were washed once with 1 mL TE, then incubated in 0.5 mL 1 X Reducing Buffer (10 mM DTT, 100 mM NaCl, 10 mM Tris pH 7.4, 1 mM EDTA) at 37\u00b0C for 30 min with rotation, , followed by washing once with 0.3 mL 2X RT-buffer.\nscNT-Seq library preparation and sequencing\n8. Reverse transcription and downstream library preparation steps were performed as previously described in Drop-Seq (Macosko et al, 2015).\n9. After determine the optimal number of PCR cycles with an aliquot of 6,000 beads, we prepared PCR reactions with rest of barcoded beads collected for each scNT-Seq run, adding 6,000 beads per PCR tube, and ran the TSO-PCR program to enrich the cDNA. We then tagmented cDNA using the Nextera XT DNA sample preparation kit (Illumina), starting with 550-1,000 pg of cDNA pooled from all PCR reactions for a given run. Following cDNA tagmentation, we further amplified the library with 12 enrichment cycles using the Illumina Nextera XT i7 primers along with the P5-TSO hybrid primer (AATGATACGGCGACCACCGAGATCTACACGCCTGTCCGCGGA AGCAGTGGTATCAACGCAGAGT*A*C).\n10. After quality control analysis using a Bioanalyzer (Agilent), libraries were sequenced on an Illumina NextSeq 500 instrument using the 75-cycle High Output v2 or v2.5 Kit (Illumina). We loaded the library at 2.0 pM and added Custom Read1 Primer (GCCTGTCCGCGGAAGCAGTGGTATCAACGCAGAGTAC) at 0.3 \u03bcM to position 7 of the reagent cartridge. Paired-end sequencing was performed on Illumina NextSeq 500 sequencer as described previously (Hu et al 2017). The sequencing configuration was 20 bp (Read1), 8 bp (Index1), and 60 bp (Read2)."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p>1.&nbsp;Average size of TSO-PCR product below 500 bp.</p><p>The TimeLapse reaction will lead to decrease in cDNA size (probably due to inhibition of reverse transcription), but the average size of&nbsp;TSO-PCR product is usually &gt;500 bp. Both higher temperature (&gt;45\u00b0C) and old reagent may lead to this problem.&nbsp;The&nbsp;NaIO<sub>4</sub>solution (192 mM) may be stored at -20\u00b0C for a few weeks, but the fresh-made solution is highly-recommended.</p><p>2. The concentration of TSO-PCR product is too low (&lt;0.1 ng/\u03bcL) or too high (&gt;5 ng/\u03bcL).</p><p>It\u2019s important to run 1st round of TSO-PCR to determine the optimal number of PCR amplification.&nbsp;</p><p>3.&nbsp;The size of final library is too small (&lt;400 bp) or too large (&gt;720 bp).</p><p>We usually use 600 ng cDNA (purified TSO-PCR product) for Tagmentation. Using Nextera\u00ae XT DNA Sample Preparation kit, the average size of final library usually ranges from 450 bp to 700 bp. However, we did observe variations in fragment size of final library, probably due to different size of TSO-PCR product or batch effect of Tn5 enzyme. In that case, you may adjust the amount of input DNA (500-1,000 ng) for optimal tagmentation.</p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>scNT-Seq can be performed over four days:</p><p>Day 1</p><p>4sU metabolic labeling: time dependent on cell types and application, typically 1-4 h.</p><p>sample processing (methanol fixation): 0.5 h</p><p>Day 2</p><p>sample preparation, droplet microfluidics, reverse transcription: time dependent on number of cells harvested for the experiment, typically 4-6 h.</p><p>Day 3</p><p>Exonuclease I treatment, cDNA amplification: typically 4 h.</p><p>Day 4</p><p>Tagmentation and indexing PCR, and QC analysis (Qubit and Bioanalyzer): typically 4 h.</p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>One typical run of scNT-seq (collect ~1.5 mL barcode beads) usually captures 1,000-4,000 single-cell transcriptomes. After cDNA amplification, we usually get 50-200 ng TSO-PCR products (purified twice with 0.6 volume SPRI-select beads). The concentration and size distribution of final library is quite similar to standard Drop-seq library (<strong>Figure 2</strong>). QC of sequencing data: After integration of reads from all cells, you should observe much higher T-to-C mutation than other types of mutation (e.g., 1%-5% after 4 hours labeling). However, the mutation rate could be affected by cell-types and labeling time.</p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>Alles, J. et al. Cell fixation and preservation for droplet-based single-cell transcriptomics.&nbsp;<em>BMC biology&nbsp;</em>15, 44 (2017).</p><p>Herzog, V.A. et al. Thiol-linked alkylation of RNA to assess expression dynamics.&nbsp;<em>Nature methods&nbsp;</em>14, 1198-1204 (2017).</p><p>Hu, P. et al. Dissecting Cell-Type Composition and Activity-Dependent Transcriptional State in Mammalian Brains by Massively Parallel Single-Nucleus RNA-Seq.&nbsp;<em>Molecular cell&nbsp;</em>68, 1006-1015 e1007 (2017).</p><p>Macosko, E.Z. et al. Highly Parallel Genome-wide Expression Profiling of Individual Cells Using Nanoliter Droplets.&nbsp;<em>Cell&nbsp;</em>161, 1202-1214 (2015).</p><p>Qiu, Q., Hu, P., Govek, K.W., Camara, P.G., and Wu, H. Massively parallel, time-resolved single-cell RNA sequencing with scNT-Seq. bioRxiv. https://doi.org/10.1101/2019.12.19.882050 (2019).</p><p>Schofield, J.A., Duffy, E.E., Kiefer, L., Sullivan, M.C. &amp; Simon, M.D. TimeLapse-seq: adding a temporal dimension to RNA sequencing through nucleoside recoding. Nature methods 15, 221-225 (2018).</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>This work was supported by the Penn Epigenetics Institute, the National Human Genome Research Institute (NHGRI) grants R00-HG007982 and R01-HG010646, National Heart Lung and Blood Institute (NHLBI) grant DP2-HL142044, and National Cancer Institute (NCI) grant U2C-CA233285 (to H.W.).</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41592-020-0935-4",
+                "date": "2020-08-31 16:04:06",
+                "title": "Massively parallel and time-resolved RNA sequencing in single cells with scNT-seq",
+                "authors": [
+                    "Qi Qiu",
+                    "Peng Hu",
+                    "Xiaojie Qiu",
+                    "Kiya W. Govek",
+                    "Pablo G. C\u00e1mara",
+                    "Hao Wu"
+                ],
+                "journal": "Nature Methods",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 754437,
+                "identity": "a533834e-69f7-4735-9d90-2f93c4726c5c",
+                "order_by": 0,
+                "name": "Qi Qiu",
+                "email": "",
+                "orcid": "",
+                "institution": "University of Pennsylvania",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Qi",
+                "middleName": "",
+                "lastName": "Qiu",
+                "suffix": ""
+            },
+            {
+                "id": 754438,
+                "identity": "2dac6a03-0e2b-466f-b475-a41020b64312",
+                "order_by": 1,
+                "name": "Peng Hu",
+                "email": "",
+                "orcid": "",
+                "institution": "University of Pennsylvania",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Peng",
+                "middleName": "",
+                "lastName": "Hu",
+                "suffix": ""
+            },
+            {
+                "id": 754439,
+                "identity": "4329e674-a915-4bd0-a358-9a9024d4e0c5",
+                "order_by": 2,
+                "name": "Hao Wu",
+                "email": "haowu2@pennmedicine.upenn.edu",
+                "orcid": "https://orcid.org/0000-0003-4395-6929",
+                "institution": "University of Pennsylvania",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Hao",
+                "middleName": "",
+                "lastName": "Wu",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2020-07-02 02:42:30",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1019/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1019/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 8373337,
+                "identity": "32f956b4-45a3-40e3-9035-f35ea7692a78",
+                "added_by": "auto",
+                "created_at": "2021-04-23 14:39:44",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 204096,
+                "visible": true,
+                "origin": "",
+                "legend": "Overview of single-cell metabolically labeled new RNA tagging sequencing (scNT-Seq).",
+                "description": "",
+                "filename": "Figure1.png",
+                "url": "https://assets.researchsquare.com/files/pex-1019/v1/1e1f8ae3fd9547a247524e3d.png"
+            },
+            {
+                "id": 8373268,
+                "identity": "7a7588a2-478e-4011-b923-6887ee4cecb8",
+                "added_by": "auto",
+                "created_at": "2021-04-23 14:36:44",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 162421,
+                "visible": true,
+                "origin": "",
+                "legend": "Representative size distribution of final scNT-Seq libraries measured by Agilent BioAnalyzer.",
+                "description": "",
+                "filename": "Figure2.png",
+                "url": "https://assets.researchsquare.com/files/pex-1019/v1/593598a758c912028903f942.png"
+            },
+            {
+                "id": 13688104,
+                "identity": "a9f8e7c6-1482-461d-bec9-19c7e6dbb455",
+                "added_by": "auto",
+                "created_at": "2021-09-17 12:23:35",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 485382,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1019/v1/a6bd6f9c-2500-4f9c-8e74-46cad13f988a.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "RNA dynamics, single-cell RNA sequencing, droplet microfluidics, metabolic RNA labeling, 4-thiouridine (4sU)",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>Single-cell RNA sequencing offers snapshots of whole transcriptomes but obscures the temporal dynamics of RNA biogenesis and decay. Here we present single-cell metabolically labeled new RNA tagging sequencing (scNT-Seq), a method for massively parallel analysis of newly-transcribed and pre-existing RNAs from the same cell. This droplet microfluidics-based method enables high-throughput chemical conversion on barcoded beads, efficiently marking newly-transcribed RNAs with T-to-C substitutions.&nbsp;The steps of the protocol are (1) metabolically labeling of cells with 4sU, (2) co-encapsulating individual cell with a barcoded oligo-dT primer coated bead in a nanoliter-scale droplet, (3) performing&nbsp;one-pot&nbsp;4sU chemical conversion on pooled barcoded beads, and (4) reverse transcription, cDNA amplification, tagmentation, indexing PCR, and sequencing. scNT-Seq provides a broadly applicable strategy to investigate dynamic biological systems at single-cell resolution.</p>",
+        "manuscriptTitle": "Massively parallel and time-resolved RNA sequencing in single cells with scNT-Seq",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2021-04-23 14:36:42",
+                "doi": "10.21203/rs.3.pex-1019/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "74727043-83cb-40f8-ac68-58d5d30ffc0a",
+        "owner": [],
+        "postedDate": "April 23rd, 2021",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 185511,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 185512,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 185513,
+                "name": "Molecular biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2021-04-23 14:36:42",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

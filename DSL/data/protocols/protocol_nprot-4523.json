@@ -1,0 +1,375 @@
+{
+    "identity": "nprot-4523",
+    "title": "SBCapSeq Protocol: a method for selective cloning of _Sleeping Beauty_ transposon insertions using liquid capture hybridization and Ion Torrent semiconductor sequencing",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "_Sleeping Beauty_ \\(SB) transposons are an important insertional mutagenesis tool for cancer gene discovery by performing forward genetic screens in mice<sup>1\u20133</sup>. To broaden the capabilities and impact of SB-driven cancer gene discovery models, we set out to develop a new methodology that would allow rapid and reproducible identification of SB transposon insertion sites from bulk tumor tissue down to the single-cell level. We devised an approach that relies on random shearing of genomic DNA to discrete 200 bp fragments that are enriched for transposon sequences using liquid-capture hybridization with probes directed to the inverted repeats of the SB transposon ends. SBCapSeq is both an experimental sequencing approach and bioinformatic workflow optimized for Ion Torrent semiconductor sequencing. SBCapSeq permits the selective, semi-quantitative, and scalable deep sequencing of _Sleeping Beauty_ Transposon insertion sites from adaptor-ligated, bar-coded DNA libraries from both bulk tumor specimens and single tumor cell genomes."
+        },
+        {
+            "header": "Reagents",
+            "content": "Agencourt AMPure XP DNA Purification Kit \\(Beckman Coulter, Cat. No. A63881)\r\n\n\nAbsolute Ethanol \\(Fisher Scientific, Cat. No. BP2818-500)\r\n\n\n2% Agarose, dye-free, w/ int stds, Pippin Prep 100-600 bp Marker L \\(Sage Science, Cat. No. CDF2010)\r\n\n\nAxygen\u2122 8-Strip PCR Tubes \\(Axygen Scientific, Cat. No. PCR0208CPC)\r\n\n\nDigital electrophoresis chips  \\(Agilent High Sensitivity DNA Kit, Cat. No. 5067-4626)\r\n\n\nDNA LoBind, 1.5 mL tubes \\(Eppendorf, Cat. No. 22431005)\r\n\n\nDynabeads<sup>\u00ae</sup> M-270 Streptavidin \\(Life Technologies, Cat. No. 65305)\r\n\n\nEthanol \\(Fisher Scientific, Cat. No. BP2818-500)\r\n\n\nGentra Puregene Tissue Kit \\(Qiagen, Cat. No. 158667)\r\n\n\nIon library TaqMan Quantitation Kit \\(Life Technologies, Cat. No. 4468802)\r\n\n\nIon Plus Fragment Library Kit \\(Life Technologies, Cat. No. 4471252)\r\n\n\nIon PI\u2122 Hi\u2011Q\u2122 Chef Kit Thermo Fisher Scientific, Cat. No. A27198)\r\n\n\nIon PI\u2122 Chip Kit v3 \\(Thermo Fisher Scientific, Cat. No. A26771)\r\n\n\nIon Xpress\u2122 Plus Fragment Library Kit \\(Thermo Fisher Scientific, Cat. No. 4471269)\r\n\n\nIon Xpress\u2122 Barcode Adapters 1-16 Kit \\(Thermo Fisher Scientific, Cat. No. 4471250)\r\n\n\nKAPA HiFi HotStart Readymix DNA polymerase \\(Kapa Biosystems, Cat. No. KK2601)                 \r\n\n\nMouse Cot-1 DNA<sup>\u00ae</sup> \\(Life Technologies, Cat. No. 18440-016)\r\n\n\nQubit<sup>\u00ae</sup> dsDNA HS Assay Kit \\(Life Technologies, Cat. No. Q32851)\r\n\n\nQubit<sup>\u00ae</sup> Assay Tubes \\(Life Technologies, Cat. No. Q32856)   \r\n\n\nSeqCap<sup>\u00ae</sup> EZ Hybridization and Wash Kits \\(Roche NimbleGen, Cat. No. 05634253001)\r\n\n\nTE<sup>-1</sup> pH 8.0 Buffer \\(Tris-HCl 10mM, EDTA 0.1mM)\\(Teknova, Cat. No. T0227)\r\n\n\nxGen Universal Blocking Oligo IT-A \\(Integrated DNA Technology, Cat. No. 118124656)\r\n\n\nxGen Universal Blocking Oligo IT-P1 \\(Integrated DNA Technology, Cat. No. 118124657)\r\n\n\nCustom oligonucleotides supplied by Integrated DNA Technologies, Inc. as 4 nmole Ultramer DNA Oligos with Standard Desalting:\r\n\n\n\r\n\n\n1. IRDRR Capture probe \u2014 5'Target_r1_1: /5Biosg/TACAGTTGAAGTCGGAAGTTTACATACACTTAAGTTGGAGTCATTAAAACTCGTTTTTCAACTACTCCACAAATTTCTTGTTAACAAACAATAGTTTTGGCAAGTCAGTTAGGACATCTA\r\n  \r\n\n\n2. IRDRL Capture probe \u2014 3'Target_r1_1: /5Biosg/TGGTGATCCTAACTGACCTAAGACAGGGAATTTTTACTAGGATTAAATGTCAGGAATTGTGAAAAAGTGAGTTTAAATGTATTTGGCTAAGGTGTATGTAAACTTCCGACTTCAACTGTA\r\n  \r\n\n\n3. IRDRL Blocking probe 1 \u2014 UpstreamBlockers_r1_1: /5Biosg/CCATTCGCCATTCAGGCTGCGCAACTGTTGGGAAGGGCGATCGGTGCGGGCCTCTTCGCTATTACGCCAGCTGGCGAAAGGGGGATGTGCTGCAAGGCGATTAAGTTGGGTAACGCCAGG/3SpC3/\r\n  \r\n\n\n4. IRDRL Blocking probe 2 \u2014 UpstreamBlockers_r1_2: /5Biosg/GCTGCAAGGCGATTAAGTTGGGTAACGCCAGGGTTTTCCCAGTCACGACGTTGTAAAACGACGGCCAGTGAGCGCGCGTAATACGACTCACTATAGGGCGAATTGGAGCTCGGATCCCTA/3SpC3/\r\n  \r\n\n\n5. IRDRR Blocking probe 1 \u2014 DownstreamBlockers_r1_1: /5Biosg/TAGGGATCCTCTAGCTAGAGTCGACCTCGAGGGGGGGCCCGGTACCCAGCTTTTGTTCCCTTTAGTGAGGGTTAATTTCGAGCTTGGCGTAATCATGGTCATAGCTGTTTCCTGTGTGAA/3SpC3/\r\n  \r\n\n\n6. IRDRR Blocking probe 2 \u2014 DownstreamBlockers_r1_2: /5Biosg/ATTGTTATCCGCTCACAATTCCACACAACATACGAGCCGGAAGCATAAAGTGTAAAGCCTGGGGTGCCTAATGAGTGAGCTAACTCACATTAATTGCGTTGCGCTCACTGCCCGCTTTCC/3SpC3/\r\n  \r\n\n\n7. IRDRR Blocking probe 3 \u2014 DownstreamBlockers_r1_3: /5Biosg/AGTCGGGAAACCTGTCGTGCCAGCTGCATTAATGAATCGGCCAACGCGCGGGGAGAGGCGGTTTGCGTATTGGGCGCTCTTCCGCTTCCTCGCTCACTGACTCGCTGCGCTCGGTCGTTC/3SpC3/"
+        },
+        {
+            "header": "Equipment",
+            "content": "AB Library Builder\u2122 System \\(Applied Biosystems by Thermo Fisher Scientific, Cat. No. 4463794)\r\n\n\nAgilent 2100 Bioanalyzer \\(Agilent, Cat. No. G2939AA)\r\n\n\nThermal cycler for PCR  \\(General laboratory supplier)\r\n\n\nComputer with 64-bit architecture, 8 GB RAM, 20 GB disk space, Intel Core i5 processor with MacOS 10.9+, Xcode 5+, and bash 3.2+\r\n\n\nCovaris S220 Focused-ultrasonicator \\(Covaris, Inc., Cat. No. S220)\r\n\n\nCovaris microTube AFA Fiber Pre-Slit Snap-Cap 6x16mm \\(Covaris Inc., Cat. No. 520045)\r\n\n\nCovaris microTube Holder \\(Covaris, Inc., Cat. No. 500114)\r\n\n\nDynaMag\u2122-2 magnet \\(Thermo Fisher Scientific, Cat. No. 12321D)\r\n\n\nDynaMag\u2122-PCR magnet \\(Thermo Fisher Scientific, Cat. No. 49-2025)\r\n\n\nEppendorf ThermoMixer Temperature Control Device \\(Thermo Fisher Scientific, Cat. No. 05412503)\r\n\n\nIon Chef Instrument \\(Thermo Fisher Scientific, Cat No. 4484177)\r\n\n\nIon Proton System and Torrent Suite\u2122 Software \\(Thermo Fisher Scientific, Cat No. 4476610)\r\n\n\nMicrocentrifuge \\(General laboratory supplier)\r\n\n\nNanoDrop\u2122 Lite Spectrophotometer \\(Thermo Fisher Scientific, Cat No. ND-NDL-PR)\r\n\n\nPippin Prep DNA Size Selection System \\(Sage Science, Cat. No. PIP0001)\r\n\n\nPipettors, 0.1\u20132 \u03bcL, 0.5\u201310 \u03bcL, 1\u201320 \u03bcL, 20\u2013200 \u03bcL, 100\u20131,000 \u03bcL \\(General laboratory supplier)\r\n\n\nQubit<sup>\u00ae</sup> 3.0 Fluorometer \\(Thermo Fisher Scientific, Cat. No. Q33216)\r\n\n\nVacuum concentrator \\(General laboratory supplier)\r\n\n\nViiA\u2122 7 Real-Time PCR System \\(Applied Biosystems, Cat. No. 4453534)\r\n\n\nVortex mixer \\(General laboratory supplier)"
+        },
+        {
+            "header": "Procedure",
+            "content": "An overview of the SBCapSeq experimental workflow is shown in \"Figure 1\":http://www.nature.com/protocolexchange/system/uploads/4239/original/Figure_1.jpg?1454608223.\r\n\n\n\r\n\n\nDetailed protocol steps follow:\r\n\n\n\r\n\n\n**A. Genomic DNA extraction \\(Timing overnight, 2 hours hands-on)**\r\n\n\n\r\n\n\n1. Choose one source of genomic DNA below.\r\n     a. Isolate genomic DNA from flash frozen specimens \u2014 Perform DNA extraction from frozen tissue according to the Gentra Puregene Handbook protocol for DNA purification from tissue frozen in liquid nitrogen. Using a razor blade or scalpel, shave off fine sections of frozen tissue equaling 10 mg, working on ice at all times, and add directly to Cell Lysis Solution. Follow the protocol exactly, including a 55 \u00b0C overnight incubation step in Proteinase K for maximum yields. In the final steps of isolation, re-suspend DNA pellet in 100 \u03bcL of DNA Hydration Solution. Quantify once DNA is completely dissolved \u2014this step can be enhanced by overnight incubation at room temperature or 4 \u00b0C.\r\n\n\n   b. Isolate genomic DNA from whole genome amplified single cells \u2014 Single cells can be isolated by fluorescence-activated cell sorting followed by whole genome amplification according to methods outlined in Leung _et al_.\n4\nand Wang, Y. _et al_.\n5\n. Genomic DNA obtained from these methods provides high-quality DNA in amounts amendable to the library preparation and sequencing methods described below.\n2. Quantify genomic DNA extraction by either NanoDrop\u2122 Lite Spectrophotometer or Qubit\n\u00ae\n3.0 Fluorometer \\(using Qubit dsDNA BR Assay Kit per manufacturer\u2019s recommended instructions) to ensure sufficient yield to proceed with barcode library preparation. Repeat A.1 as needed to obtain \u2265500 ng of genomic DNA for library preparation.\n**B. Library preparation \\(Timing 4.5 hrs total, 75 mins hands-on)**\r\n\n\n\r\n\n\nSB capture hybridization sequencing libraries are constructed from 500 ng genomic DNA. Sheared genomic DNA of approximately 200 bp is achieved using one method of DNA fragmentation below.\r\n\n\n\r\n\n\n1. Fragment genomic DNA by enzymatic shearing:\r\n  a. Follow the Ion Xpress\u2122 Plus and Ion Plus Library Preparation for the AB Library Builder\u2122 System User Guide for barcoded libraries.\r\n\n\nb. Dilute 5 \u03bcL of Ion Xpress\u2122 P1 Adapter and 5 \u03bcL of Ion Xpress\u2122 Barcode Adapter in 40 \u03bcL E1 Buffer.\r\n\n\nc. When starting the run, choose Auto SizeSelection and Auto Shearing to 200 bp target shear-size. \r\n\n\nd. After the run, samples may contain small amounts of Agencourt AMPure XP Reagent. Remove by placing samples in a DynaMag\u2122-2 magnet for two minutes and transferring the supernatant to a new tube.\r\n\n\n\r\n\n\n2. Fragment genomic DNA by acoustic shearing:\r\n  a. Reference the Covaris S220 System S220 Series User Manual for appropriate setup and maintenance of the Covaris System.\r\n\n\nb. Use protocols for fragmentation in 130 \u03bcL volume to produce more consistent results.\r\n\n\nc. Use a buffer of at least 0.1X TE for shearing to produce more consistent results.\r\n\n\nd. Use screw cap microtubes with double rods to decrease sample splattering during a run. \r\n\n\ne. Carefully pipette genomic DNA into the microTUBE AFA Fiber Pre-Slit Snap-Cap, ensuring that no air bubbles remain within the DNA and buffer.\r\n\n\nf. Run the Covaris DNA Shearing protocol for 200 Target BP Peak found in the User Manual using the following settings: Peak Incident Power \\(W): 140, Duty Factor: 10%, Cycles per Burst: 200, Treatment Time \\(s): 180, Temperature \\(\u00b0C): 7, Water Level: 13.\r\n\n\ng. Collect the fragmented genomic DNA by pipetting through the microTUBE cap slit.\r\n\n\nh. Continue with library preparation according to the Ion Plus Library Preparation for the AB Library Builder\u2122 System User Guide for barcoded libraries. Reference the specific protocol for library preparation from pre-sheared genomic DNA. Elute DNA libraries in water and carefully transfer all supernatant to a new 1.5 mL tube.\r\n\n\n\r\n\n\n_Optional protocol pause point: barcoded DNA libraries can be stored at 4 \u00b0C overnight or at -20 \u00b0C for up to 1 week._\r\n\n\n\r\n\n\n**C. Quality control check and purification of bar-coded DNA library \\(Timing 40 min)**\r\n\n\n\r\n\n\n1. Use 1 \u03bcL of eluate from step B.1.d or B.2.h above to check the bar-coded DNA library integrity with an Agilent High Sensitivity DNA nanochip designed for use in the Bioanalyzer 2100 to measure the average fragment length of the sheared DNA libraries. Follow the Agilent High Sensitivity DNA Kit Quick Start Guide and select DNA, High Sensitivity in the Bioanalyzer software. An example sample trace at this step is provided in \"Figure 2a\":http://www.nature.com/protocolexchange/system/uploads/4241/original/Figure_2.jpg?1454608225.\r\n  \r\n\n\n2. Purify bar-coded DNA library fragments using Agencourt\n\u00ae\nAMPure XP beads:\r\n  a. Add 1.5X volume \\(45 \u03bcL) of Agencourt\n\u00ae\nAMPure XP beads to the bar-coded DNA library eluate.\r\n\n\nb. Follow the bind and wash steps in the Agencourt\n\u00ae\nAMPure protocol, except use 80% ethanol for the washes.\r\n\n\nc. Elute in 32 \u03bcL of TE\n-1\n, pH8.0. Save 1 \u03bcL for analysis using Bioanalyzer 2100.\r\n\n\nd. Transfer 30 \u03bcL of eluted product to a fresh 1.7 mL low-bind tube, ensuring no beads are carried over.\r\n\n\n\r\n\n\n_Optional protocol pause point: bar-coded DNA libraries may be stored at 4\u00b0C overnight or at -20\u00b0C for up to 1 week._\r\n\n\n\r\n\n\n**D. DNA library size selection \\(Timing 2 hrs)**\r\n\n\n\r\n\n\n1. Combine 30 \u03bcL of the eluate from step C.2.d with 10 \u03bcL of the Pippin Prep loading dye with Marker L. Mix well with micropipette and briefly spin to collect in bottom of tube.\r\n  \r\n\n\n2. Load 40 \u03bcL onto one lane of a 2% agarose gel for size selection of DNA libraries using Pippin Prep according to the manufacturer\u2019s protocol.\r\n  \r\n\n\n3. Set the following parameters to ensure the majority of fragments are within the recommended length for Ion Torrent DNA sequencing libraries: Target = 315 bp, Start = 290 bp, End = 340 bp.\r\n  \r\n\n\n4. After run is complete, collect the eluted sample \\(~40 \u03bcL) containing the size-selected DNA library fragments.\r\n  \r\n\n\n5. Purify size-selected DNA library fragments using Agencourt\n\u00ae\nAMPure XP beads:\r\n  a. Add 1.5X volume \\(60 \u03bcL) of Agencourt\n\u00ae\nAMPure XP beads to the bar-coded DNA library eluate.\r\n\n\nb. Follow the bind and wash steps in the Agencourt\n\u00ae\nAMPure protocol, except use 80% ethanol for the washes.\r\n\n\nc. Elute in 25 \u03bcL of TE\n-1\n, pH8.0 and transfer all of eluted product into a fresh 1.7 mL low-bind tube, ensuring no beads are carried over.\r\n\n\nd. An example sample trace at this step is provided in \"Figure 2b\":http://www.nature.com/protocolexchange/system/uploads/4241/original/Figure_2.jpg?1454608225.\r\n\n\n\r\n\n\n_Optional protocol pause point: Purified Pippin Prep size-selected DNA library fragments may be stored at -20 \u00b0C for up to 1 week._\r\n\n\n\r\n\n\n\r\n\n\n**E. PCR enrichment of DNA libraries after size selection \\(Timing 2.5 hrs)**\r\n\n\n\r\n\n\nSize selected DNA libraries are enriched using Platinum PCR mix, and Library Amplification Primer Mix from the Ion Plus Fragmented Library Kit.\r\n\n\n\r\n\n\n1. Mix the following components in a PCR tube:\r\n  a. Size selected DNA library \\(from step D.5.c): 25 \u03bcL\r\n\n\nb. Platinum PCR High Fidelity mix: 100 \u03bcL\r\n\n\nc. Library Amplification Primer mix: 5 \u03bcL\r\n\n\nd. Total volume: 130 \u03bcL \r\n\n\ne. Split the 130 \u03bcL in two PCR tubes, 65 \u03bcL per tube.\r\n\n\n\r\n\n\n2. Place the tubes in Thermocycler and run the following program:\r\n  95 \u00b0C for 5 min\r\n\n\n95 \u00b0C for 15 sec, 58 \u00b0C for 15 sec, 70 \u00b0C for 60 sec \\(8\u201312 cycles)\r\n\n\n70 \u00b0C for 2 min \r\n\n\nHold at 4 \u00b0C \\(do not leave samples at the hold temperature for more than 10 mins, proceed to clean up step immediately)\r\n\n\n\r\n\n\n3. Clean up the PCR reaction with AMPure XP beads:\r\n  a. Add 1.8X volume of beads \\(234 \u03bcL) to the reaction and follow the cleanup protocol.\r\n\n\nb. At final step, elute DNA in 52 \u03bcL TE-1 pH 8.0 buffer and carefully transfer supernatant to a new 1.5 mL tube.\r\n\n\nc. Use 1 \u03bcL to measure the concentration of DNA with a Qubit dsDNA HS Assay Kit using manufacturer\u2019s recommended instructions. Using Qubit readings, determine the concentration of each DNA library before proceeding to Capture Hybridization.\r\n\n\nd. An example sample trace at this step is provided in \"Figure 2c\":http://www.nature.com/protocolexchange/system/uploads/4241/original/Figure_2.jpg?1454608225.\r\n\n\n\r\n\n\n_Optional protocol pause point: Purified Pippin Prep size-selected DNA library fragments may be stored at -20\u00b0C for up to 1 week._\r\n\n\n\r\n\n\n**F. Liquid capture hybridization \\(Timing 2 days)**\r\n\n\n\r\n\n\nCapture Hybridization is prepared according to the Integrated DNA Technologies protocol \u201cHybridization capture of DNA libraries using xGen\n\u00ae\nLockdown\n\u00ae\nProbes and Reagents.\u201d  Lockdown probes are designed to recognize the sequences located at the end of the transposon, and blocking oligos are designed to prevent capture of unmobilized transposons remaining at the transposon concatamer donor site. Two biotinylated lockdown capture probes and five biotinylated blocking oligos are designed for the capture hybridization.\r\n\n\n\r\n\n\n1. Prepare capture probes and blocking oligos.\r\n  a. Prepare transposon Lockdown\n\u00ae\nProbes \u2028to 1.5 pmol/\u03bcL in IDTE pH 8.0 \u2028and unmobilized transposon xGen\n\u00ae\nBlocking Oligos \u2028 pool.\r\n\n\nb. Resuspend the dry capture probes and blocking oligos in 10mM Tris-HCl, 0.1mM EDTA, pH 8.0 \\(TE\n-1\n) to a final pool concentration of 0.75 pmol/\u03bcL:\r\n\n\ni. 5'Target_r1_1\r\n\n\nii. 3'Target_r1_1\r\n\n\niii. UpstreamBlockers_r1_1\r\n\n\niv. UpstreamBlockers_r1_2\r\n\n\nv. DownstreamBlockers_r1_1\r\n\n\nvi. DownstreamBlockers_r1_2\r\n\n\nvii.DownstreamBlockers_r1_3\r\n\n\nc. Mix thoroughly and briefly spin down to collect contents at the bottom of tube. \r\n\n\n\r\n\n\n2. Prepare xGen Universal Blocking Oligos IT-P1 and IT-A by suspending in TE\n-1\npH 8.0 to a final concentration of 1 \u03bcL/library \\(1X final concentration).\r\n  \r\n\n\n3. Combine universal blocking oligos, mouse Cot-1 DNA and the genomic DNA library and lyophylize.\r\n  a. Mix the following in a low-bind 1.5 mL PCR tube:\r\n\n\nBarcoded library: 60 ng\r\n\n\nMouse Cot-1 DNA: 5 \u03bcg\r\n\n\nxGen\n\u00ae\nUniversal Blocking Oligo \\(IT-A): 1 \u03bcL \r\n\n\nxGen\n\u00ae\nUniversal Blocking Oligo \\(IT-P1): 1 \u03bcL \r\n\n\nb. Dry the contents of the tube using a vacuum concentrator set at 65 \u00b0C or lower.\r\n\n\n\r\n\n\n_Optional protocol pause point: After lyophilization, tubes can be stored overnight at 4 \u00b0C._\r\n\n\n\r\n\n\n4. Hybridize DNA capture probes with the library:\r\n  a. Add the following to the tube from Step F.3.b, and incubate at room temperature for 5\u201310 min: \r\n\n\n8.5 \u03bcL SeqCap 2X Hybridization Buffer  \r\n\n\n3.4 \u03bcL SeqCap Hybridization Component A \r\n\n\n1.1 \u03bcL Nuclease-Free Water\r\n\n\nb. Pipette up and down to mix, and transfer to a low-bind 0.2 mL PCR tube.\r\n\n\nc. Incubate in a thermal cycler at 95\u00b0C for 10 min.\r\n\n\nd. Remove samples from thermal cycler and immediately add 4 \u03bcL of the pool of 2 lockdown probes and 5 blocking oligos.\r\n\n\n**Note**: Final volume will be 17 \u03bcL. \r\n\n\ne. Vortex and briefly spin down.\r\n\n\nf. Incubate samples in a thermal cycler at 65\u00b0C \\(with the heated lid at 75\u00b0C) for 4 hr. \r\n\n\n\r\n\n\n5. Prepare wash buffers:\r\n  a. For each capture, dilute the following SeqCap\n\u00ae\nEZ Hybridization and Wash Kit buffers to create 1X working solutions as follows: \r\n\n\ni. Prepare 2.5X Bead Wash Buffer by adding 200 \u03bcL of concentrated buffer plus 300 \u03bcL of Nuclease-free water \r\n\n\nii. Prepare 1X Wash Buffer I by adding 30 \u03bcL of concentrated buffer plus 270 \u03bcL of Nuclease-free water \r\n\n\niii. Prepare 1X Wash Buffer II by adding 20 \u03bcL of concentrated buffer plus 180 \u03bcL of Nuclease-free water\r\n\n\niv. Prepare 1X Wash Buffer III by adding 20 \u03bcL of concentrated buffer plus 180 \u03bcL of Nuclease-free water\r\n\n\nv. Prepare 1X Stringent Wash Buffer by adding 40 \u03bcL of concentrated buffer plus 360 \u03bcL of Nuclease-free water \r\n\n\nvi. Note: 1X working solutions can be stored at room temperature for up to 2 weeks.\r\n\n\nb. For 1X Wash Buffer I and 1X Stringent Wash Buffer, create 2 aliquots per reaction and store at the temperature specified as following:\r\n\n\ni. 1X Wash Buffer I: 100 \u03bcL at 65\u00b0C and 200 \u03bcL at Room temp \\(15\u201325\u00b0C)\r\n\n\nii. 1X Stringent Wash Buffer: Two aliquots of 200 \u03bcL at 65\u00b0C\r\n\n\niii. Important: Preheat buffers in a 65\u00b0C water bath for at least 2 hours before use in Step 8. \r\n\n\nc. Keep the remaining 1X buffers at room temperature.\r\n\n\n\r\n\n\n6. Prepare the streptavidin beads:\r\n  a. Important: Beads should be prepared immediately before use. Do not allow beads to dry out.\r\n\n\nb. Equilibrate Dynabeads\n\u00ae\nM-270 Streptavidin beads at room temperature for approximately 30 min before use. \r\n\n\n**Note**: Use only Dynabeads\n\u00ae\nM-270 Streptavidin magnetic beads per IDFT protocol.\r\n\n\nc. Mix the beads thoroughly by vortexing for 15 sec.\r\n\n\nd. Aliquot 100 \u03bcL of beads per capture into a single 1.7 mL low-bind tube \\(e.g. for 1 capture reaction, use 100 \u03bcL of beads and for 2 capture reactions, use 200 \u03bcL of beads. For more than 6 capture reactions, more than one tube will be required).\r\n\n\ne. Place the tube in a magnetic separation rack, allowing beads to fully separate from the supernatant.\r\n\n\nf. Remove and discard the clear supernatant, ensuring that the beads remain in the tube.\r\n\n\ng. Perform the following wash: \r\n\n\ni. Add 200 \u03bcL of 1X Bead Wash Buffer per capture, and vortex for 10 sec. \r\n\n\nii. Place the tube in the magnetic rack, allowing beads to fully separate from the supernatant. \r\n\n\niii. Carefully remove and discard the clear supernatant.\r\n\n\nh. Perform a second wash by repeating Step F.6.g.\r\n\n\ni. Add 100 \u03bcL of 1X Bead Wash Buffer per capture \\(refer to Step F.6.d) and vortex.\r\n\n\nj. Transfer 100 \u03bcL of the resuspended beads into a new 0.2 mL low-bind tube for each capture reaction.\r\n\n\nk. Place the tube in a magnetic rack, allowing beads to fully separate from the supernatant.\r\n\n\nl. Carefully remove and discard the clear supernatant.\r\n\n\nm. Note: Small amounts of residual Bead Wash Buffer will not interfere with downstream binding of the DNA to the beads.\r\n\n\n\r\n\n\n7. Bind hybridized target to the streptavidin beads:\r\n  a. Transfer the hybridization samples \\(from Step F.4.f) to the tube containing prepared beads \\(from Step F.6.l).\r\n\n\nb. Mix thoroughly by pipetting up and down 10 times.\r\n\n\nc. Bind the DNA to the beads by placing the tube into a thermal cycler set to 65\u00b0C \\(with the heated lid at 75\u00b0C) for 45 min.\r\n\n\nd. Every 15 min during the 65 \u00b0C incubation, carefully open the PCR tube lid and pipet up and down 8 times to ensure that the beads remain in suspension.\r\n\n\n\r\n\n\n8. Wash streptavidin beads to remove unbound DNA:\r\n  a. Note: Use the 1X wash buffers from Step F.5.\r\n\n\nb.  65\u00b0C washes. Important: Work quickly to ensure the temperature remains close to 65 \u00b0C. \r\n\n\ni. Add 100 \u03bcL preheated 1X Wash Buffer I to the tube from Step F.7.d. \r\n\n\nii. Important: Vortex for 10 sec. \r\n\n\niii. Transfer the mixture to a new low-bind 1.5 mL tube. \r\n\n\niv. Important: Vortex briefly. \r\n\n\nv. Place the tube in the magnetic rack, allowing beads to fully separate from the supernatant. \r\n\n\nvi. Pipet and discard the supernatant, which contains unbound DNA. \r\n\n\nvii. To wash, add 200 \u03bcL of preheated 1X Stringent Wash Buffer, and slowly pipet up and down 10 times. \r\n\n\nviii. Important: Do not create bubbles during pipetting. \r\n\n\nix. Incubate in a water bath at 65\u00b0C for 5 min. \r\n\n\nx. Place the tube in the magnetic rack, allowing beads to fully separate from the supernatant. \r\n\n\nxi. Pipet and discard the supernatant, which contains unbound DNA. \r\n\n\nxii. Repeat wash with Stringent Wash Buffer \\(Step F.8.b.vii\u2013xi).\r\n\n\nc.  Room temperature washes \r\n\n\ni. Add 200 \u03bcL of room temperature 1X Wash Buffer I and vortex for 2 min. \r\n\n\nii. Place the tube in the magnetic rack, allowing beads to fully separate from the supernatant. \r\n\n\niii. Pipet and discard the supernatant. \r\n\n\niv. Add 200 \u03bcL of room temperature 1X Wash Buffer II and vortex for 1 min. \r\n\n\nv. Place the tube in the magnetic rack, allowing beads to fully separate from the supernatant. \r\n\n\nvi. Pipet and discard the supernatant. \r\n\n\nvii. Add 200 \u03bcL of room temperature 1X Wash Buffer III and vortex for 30 sec. \r\n\n\nviii. Place the tube in the magnetic rack, allowing beads to fully separate from the supernatant. \r\n\n\nix. Pipet and discard the supernatant.\r\n\n\nd.  Bead resuspension \\(not elution) \r\n\n\ni. Remove the tube from the magnetic rack and add 23 \u03bcL of Nuclease-Free Water to the beads. \r\n\n\nii. Pipet up and down 10 times and ensure any beads stuck to the side of the tube have been resuspended.\r\n\n\niii. Important: Use the entire 23 \u03bcL of resuspended beads with captured DNA in Step G. Do not place the tube on the magnetic rack again.\r\n\n\ne. An example sample trace at this step is provided in \"Figure 2d\":http://www.nature.com/protocolexchange/system/uploads/4241/original/Figure_2.jpg?1454608225.\r\n\n\n\r\n\n\n\r\n\n\n**G. Post-capture PCR enrichment \\(Timing 2.5 hrs)**\r\n\n\n\r\n\n\n1. Prepare the PCR mix in 0.2 mL low-bind PCR tubes as follows:\r\n  a. 2x KAPA HiFi Hot Start Ready mix DNA Polymerase: 25 \u03bcL\r\n\n\nb. Library Amplification Primer mix \\(from the Ion Plus Fragmented Library Kit): 2 \u03bcL\r\n\n\nc. Beads with captured DNA \\(from Step F.8.d.iii): 23 \u03bcL\r\n\n\nd. Total volume: 50 \u03bcL\r\n\n\n\r\n\n\n2. Briefly vortex and spin the PCR mix, but ensure that the beads remain in solution.\r\n  \r\n\n\n3. Place the PCR tube in the thermal cycler, and run the following program with the heated lid set at 105\u00b0C:\r\n  98 \u00b0C for 45 sec\r\n\n\n98 \u00b0C for 15 sec, 65 \u00b0C for 30 sec, 72 \u00b0C for 30 sec \\(11\u201314 cycles)\r\n\n\n72 \u00b0C for 1 min\r\n\n\nHold at 4 \u00b0C\r\n\n\n\r\n\n\n_Optional protocol pause point: After post-capture PCR enrichment, tubes may be stored at 4\u00b0C overnight._\r\n\n\n\r\n\n\n**H. Post-capture PCR fragment clean-up \\(Timing 0.5 hrs)**\r\n\n\n\r\n\n\n1. Add 1.5X volume \\(75 \u03bcL) of Agencourt\n\u00ae\nAMPure XP beads to the PCR-enriched capture.\r\n  \r\n\n\n2. Follow the bind and wash steps in the Agencourt\n\u00ae\nAMPure protocol, except use 80% ethanol for the washes.\r\n  \r\n\n\n3. Elute in 35 \u03bcL of TE\n-1\npH 8.0\r\n  \r\n\n\n4. Transfer 35 \u03bcL of eluted product to a fresh 1.7 mL low-bind tube, ensuring no beads are carried over.\r\n  \r\n\n\n_Optional protocol pause point: Purified PCR fragments may be stored at 4 \u00b0C overnight or at -20 \u00b0C for up to 1 week._\r\n\n\n\r\n\n\n**I. Validate and quantify library \\(Timing 4.5 hrs total, 3.5 hrs hands-on)**\r\n\n\n\r\n\n\n1. Using 1 \u03bcL of eluate from step H.4, measure the average fragment length of the captured library on an Agilent 2100 Bioanalyzer using a high sensitivity DNA nanochip.\r\n  \r\n\n\n2. Using 2 \u03bcL of eluate from step H.4, quantify libraries using ViiA\u2122 7 Real-Time PCR System and the Ion library TaqMan Quantitation Kit, as directed by the manufacturer.\r\n  \r\n\n\n3. Determine the concentration of the ~30 \u03bcL of eluate from step H.4 for sequencing.\r\n  \r\n\n\n**J. Sequencing of SBCapSeq libraries \\(2-3 days)**\r\n\n\n\r\n\n\n1. Dilute sequencing libraries for Ion Torrent sequencing according to experimental design:\r\n  a. For sequencing a single SB Capture Hybridization library per PI\u2122 chip, prepare a diluted stock of eluted library from step H.4 to 50 pmol.\r\n\n\nb. For multi-plex sequencing of 2\u201316 individual SB Capture Hybridization libraries per PI\u2122 chip, prepare a diluted stock of consisting of a pool of 2\u201316 eluted libraries from step H.4 to 50 pmol.\r\n\n\n\r\n\n\n2. Set up Ion Chef for Ion PI\u2122 Hi-Q\u2122 Chef Kit according to the manufacturer\u2019s instructions using the sequencing library/pooled-libraries mixture from step J.1. Ion Chef chip loading runs overnight.\r\n  \r\n\n\n3. The next morning, prepare Ion Torrent Proton for sequencing and load PI\u2122 chip using the manufacturer\u2019s instructions. A 500-flow sequencing run will complete in approximately 4 hours.\r\n  \r\n\n\n4. After a sequencing run is complete, Torrent Suite\u2122 Software will align reads to a Reference Genome and generate a chip run report. Typically this analysis runs overnight.\r\n  \r\n\n\n5. It is important to note that the portion of the PI\u2122 chip run report pertaining to the metrics for sequence data after aligning sequenced reads to a reference genome \\(for mouse the default is mm10) is expected to look similar to \"Figure 3\":http://www.nature.com/protocolexchange/system/uploads/4243/original/Figure_3.jpg?1454608227. Specifically, the range of expected Reference Coverage is between 1.1X to 2.9X and Unaligned bases is between 40% to 70% when successful sequencing of SBCapSeq libraries is achieved \\(see Figure 3). The variation in values differs depending upon the number of pooled libraries per chip and the complexity \\(e.g. transposon copy number, etc.) of SB insertions in a given tumor, or pooled set of tumors. This occurs because of SB Capture Hybridization enrichment of non-Reference Genome reads belonging to the SB transposon are not able to map well to the Reference genome.\r\n  \r\n\n\n6. Once the sequencing run and genome alignment is complete,  download and archive the Ion Torrent Suite generated sequencing data files.\r\n  \r\n\n\n**K. SBCapSeq data analysis \\(~1 day)**\r\n\n\n\r\n\n\nNote that elements below contained in square brackets \\(\n\\[text]\n) are variables that the user must set; before running the code replace\n\\[text]\nwith your non-bracketed text. Refer to the README.md file at \"https://github.com/jynewberg/sbcapseq\":https://github.com/jynewberg/sbcapseq for detailed instructions and a demonstration of this workflow on a toy data set.\r\n\n\n\r\n\n\n1. Prepare computer workstation for data analysis by downloading the required installer and python scripts from \"https://github.com/jynewberg/sbcapseq\":https://github.com/jynewberg/sbcapseq. If you download the master archive \\( \"https://github.com/jynewberg/sbcapseq/archive/master.zip\":https://github.com/jynewberg/sbcapseq/archive/master.zip ), make sure to unzip the contents. Once you do this, you should see an installer script \\(\n'install.sh'\n), a python directory, and some documentation and license files.\r\n  \r\n\n\n2. Install the toolbox and reference indexes by executing the installer script \\(\n'install.sh'\n). Using Terminal.app \\(or similar terminal emulator), navigate to the directory containing the installer, then run the following command:\nbash install.sh\n3. Add the sbcapseq toolbox scripts to your system paths by running the following command:\nexport PATH=$HOME/nnlab/sbcapseq/bin:$PATH\n4. Convert the Ion Torrent Suite sequencing data to FASTQ format, if it is not already in this format. This can be done using samtools\n6\nand the\nsam2fastq.py\nscript:\r\n  \r\n\n\na. Converting from SAM format to FASTQ format:\nsamtools view -S \\[reads.sam] | sam2fastq.py - > \\[reads.fastq]\nb. Converting from BAM format to FASTQ format:\nsamtools view \\[reads.sam] | sam2fastq.py - > \\[reads.fastq]\n5. Map the FASTQ reads to mouse TA sites using the\nfastq2tas.py\nscript:\nfastq2tas.py $HOME/nnlab/sbcapseq/srv \\[reads.fastq]\nThis will generate a folder containing a file detailing the TA sites \\(\ninsertions.txt\n) and a log file giving a breakdown of reads that made mapped to TA sites \\(\nlog.json\n).\r\n\n\n\r\n\n\n6. Convert the TA sites to\nBED\nformat, and mask potential hotspots, using the following command:\ntas2bed.py -f \\[insertions.txt] | maskbed.py $HOME/nnlab/sbcapseq/srv/protonMaskSites.bed - > \\[insertions.bed]\n7. The\nBED\nfile format is suitable for several types of analysis \\(e.g. common insertion site statistical analysis) and may be used to visualize SB insertions in a genomics browser \\(e.g. UCSC Genome Browser, Integrative Genomics Viewer, or Integrated Genome Browser)."
+        },
+        {
+            "header": "Timing",
+            "content": "The entire procedure can be completed in as few as seven days."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "Manufacturer troubleshooting guidelines are published in product documentation supplied with reagents and equipment."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "SBCapSeq in our lab has been successfully used on the following Ion Torrent sequencing system configurations \\(chip loading method/sequencing platform/chip version): Chef/Proton/PI\u2122 v3, Chef\u2122/PGM\u2122/318\u2122 v2 BC, OneTouch\u2122 2/Proton\u2122/PI\u2122 v2, and OneTouch\u2122 2/PGM\u2122/318\u2122. For Step J \u2014 Sequencing of SBCapSeq libraries, select an appropriate Ion Torrent sequencing system configuration and follow the manufacturer\u2019s instructions.\r\n\n\n\r\n\n\nThe authors have successfully used the SBCapSeq method and bioinformatic workflow to generate SB insertion site data from over 200 DNA libraries from a diverse set of SB induced tumor genomes, including Myeloid Leukemia \\(ML) and several solid tumors, for sequencing on the Ion Torrent semiconductor sequencing platforms. DNA libraries have been successfully created from various tumor and non-tumor specimens and from populations of bulk tumor cells and matched single tumor cells. Using the semi-quantitative feature of this method, we were able to unambiguously identify genes mutated by SB that drive tumorigenesis and characterize tumor heterogeneity at an unprecedented level. We applied this methodology to analyze a completely penetrant SB-driven model of myeloid leukemia that recapitulates many of the molecular attributes of human ML \\(see Associated Publications reference for Mann _et al_., 2016). Our results show that the unbiased, semi-quantitative, and genome-wide capability for sequencing disease causing SB insertions in our mouse model of AML using the SBCapSeq method offers the most comprehensive view of single cell tumor heterogeneity to date.\r\n\n\n\r\n\n\nRepresentative Bioanalyzer traces of a representative library from an SB-driven mouse model of acute myeloid leukemia carried through the various step in the protocol is shown in \"Figure 2\":http://www.nature.com/protocolexchange/system/uploads/4241/original/Figure_2.jpg?1454608225.\r\n\n\n\r\n\n\nA representative PI\u2122 chip run report pertaining to the metrics for sequence data after aligning sequenced reads to a reference genome \\(for mouse the default is mm10) is presented in \"Figure 3\":http://www.nature.com/protocolexchange/system/uploads/4243/original/Figure_3.jpg?1454608227."
+        },
+        {
+            "header": "References",
+            "content": "1. Copeland, NG. & Jenkins, NA. Harnessing transposons for cancer gene discovery. _Nat. Rev. Cancer._ 10, 696-706 \\(2010).\r\n  \r\n\n\n2. Mann, KM. _et al_. _Sleeping Beauty_ mutagenesis reveals cooperating mutations and pathways in pancreatic adenocarcinoma. _Proc. Natl. Acad. Sci. USA_ 109, 5934-5941 \\(2012).\r\n  \r\n\n\n3.  Mann, MB. _et al_. _Sleeping Beauty_ mutagenesis: exploiting forward genetic screens for cancer gene discovery. _Curr. Opin. Genet. Dev._ 24, 16-22 \\(2014).\r\n  \r\n\n\n4. Leung ML. _et al_. SNES: single nucleus exome sequencing. _Genome Biol_. 25, 16:55 \\(2015).\r\n  \r\n\n\n5. Wang Y. _et al_. Clonal evolution in breast cancer revealed by single nucleus genome sequencing. _Nature_. 512, 155-60 \\(2014).\r\n  \r\n\n\n6. Li, H. et al. The Sequence Alignment/Map format and SAMtools. _Bioinformatics_. 25, 2078-2079 \\(2009)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "The authors wish to thank Rami Zahr \\(Integrated DNA Technologies, Inc.) for assistance with capture and blocking probe design and Michael Black \\(Otago) and Cristin Print \\(Auckland) for valuable discussions. This work was supported by the Cancer Prevention Research Institute of Texas \\(N.G.C. and N.A.J.). N.G.C. and N.A.J. are CPRIT Scholars in Cancer Research."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nbt.3637",
+                "date": "2016-08-03 09:20:17",
+                "title": "Analyzing tumor heterogeneity and driver genes in single myeloid leukemia cells with SBCapSeq",
+                "authors": [
+                    "Karen M Mann",
+                    "Justin Y Newberg",
+                    "Michael A Black",
+                    "Devin J Jones",
+                    "Felipe Amaya-Manzanares",
+                    "Liliana Guzman-Rojas",
+                    "Takahiro Kodama",
+                    "Jerrold M Ward",
+                    "Alistair G Rust",
+                    "Louise van der Weyden",
+                    "Christopher Chin Kuan Yew",
+                    "Jill L Waters",
+                    "Marco L Leung",
+                    "Keith Rogers",
+                    ""
+                ],
+                "journal": "Nature Biotechnology",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 13729,
+                "identity": "a0a59af7-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Karen M. Mann",
+                "email": "kmmann@HoustonMethodist.org",
+                "orcid": "",
+                "institution": "Cancer Research Program, Houston Methodist Research Institute",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Karen",
+                "middleName": "M.",
+                "lastName": "Mann",
+                "suffix": ""
+            },
+            {
+                "id": 13736,
+                "identity": "a0a5a749-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Michael B. Mann",
+                "email": "mbmann@HoustonMethodist.org",
+                "orcid": "",
+                "institution": "Cancer Research Program, Houston Methodist Research Institute",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Michael",
+                "middleName": "B.",
+                "lastName": "Mann",
+                "suffix": ""
+            },
+            {
+                "id": 13730,
+                "identity": "a0a59d95-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Liliana Guzman-Rojas",
+                "email": "",
+                "orcid": "",
+                "institution": "Cancer Research Program, Houston Methodist Research Institute",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Liliana",
+                "middleName": "",
+                "lastName": "Guzman-Rojas",
+                "suffix": ""
+            },
+            {
+                "id": 13731,
+                "identity": "a0a59f37-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Felipe Amaya-Manzanares",
+                "email": "",
+                "orcid": "",
+                "institution": "Cancer Research Program, Houston Methodist Research Institute",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Felipe",
+                "middleName": "",
+                "lastName": "Amaya-Manzanares",
+                "suffix": ""
+            },
+            {
+                "id": 13732,
+                "identity": "a0a5a0a8-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Devin J. Jones",
+                "email": "",
+                "orcid": "",
+                "institution": "Cancer Research Program, Houston Methodist Research Institute",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Devin",
+                "middleName": "J.",
+                "lastName": "Jones",
+                "suffix": ""
+            },
+            {
+                "id": 13733,
+                "identity": "a0a5a304-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Justin Y. Newberg",
+                "email": "",
+                "orcid": "",
+                "institution": "Cancer Research Program, Houston Methodist Research Institute",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Justin",
+                "middleName": "Y.",
+                "lastName": "Newberg",
+                "suffix": ""
+            },
+            {
+                "id": 13734,
+                "identity": "a0a5a47b-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Nancy A. Jenkins",
+                "email": "",
+                "orcid": "",
+                "institution": "Cancer Research Program, Houston Methodist Research Institute",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Nancy",
+                "middleName": "A.",
+                "lastName": "Jenkins",
+                "suffix": ""
+            },
+            {
+                "id": 13735,
+                "identity": "a0a5a5cb-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Neal G. Copeland",
+                "email": "",
+                "orcid": "",
+                "institution": "Cancer Research Program, Houston Methodist Research Institute",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Neal",
+                "middleName": "G.",
+                "lastName": "Copeland",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2016-05-26 20:53:35",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2016.053",
+        "doiUrl": "https://doi.org/10.1038/protex.2016.053",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2609362,
+                "identity": "cdc8763c-d633-4732-8ca2-0de444a6a1ed",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:52",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 96314,
+                "visible": true,
+                "origin": "",
+                "legend": "Overview of SBCapSeq experimental workflow.   See main text for detailed protocol.",
+                "description": "",
+                "filename": "figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-4523/v1/figure_1.jpg"
+            },
+            {
+                "id": 2609367,
+                "identity": "78e3ddb1-c1ed-45f2-b41e-5689d3f658f9",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:52",
+                "extension": "jpg",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 88172,
+                "visible": true,
+                "origin": "",
+                "legend": "Analysis of DNA library fragment sizes at various steps in SBCapSeq Protocol.   Agilent 2100 Bioanalyzer traces of DNA libraries at (a) Step C.1, (b) Step D.5.d, (c) Step E.2.e, and (d) Step F.8.e.",
+                "description": "",
+                "filename": "figure2.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-4523/v1/figure_2.jpg"
+            },
+            {
+                "id": 2609366,
+                "identity": "d5b5bcf8-5e23-4094-be02-2be5a7d63e2c",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:52",
+                "extension": "jpg",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 37308,
+                "visible": true,
+                "origin": "",
+                "legend": "Accumulation of non-reference genome sequencing reads from a representative SBCapSeq experiment.   Torrent Suite\u2122 Software run report for PI\u2122 chip pertaining to the metrics for sequence data after aligning sequenced reads to mouse mm10 reference genome at Step J.5.",
+                "description": "",
+                "filename": "figure3.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-4523/v1/figure_3.jpg"
+            },
+            {
+                "id": 13465142,
+                "identity": "13fe932c-190f-4a5b-99f8-5c4d96c6ac5e",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:45:51",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 432061,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-4523/v1/52dc4a80-7f6e-428a-a4cd-1b2f5792c1f9.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Sleeping Beauty transposon mutagenesis, insertional mutagenesis, DNA transposable elements, cancer genomics, genetic cancer models, genomic sequencing",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "SBCapSeq is a transposon-based liquid-phase capture experimental and bioinformatic workflow optimized for Ion Torrent sequencing. SBCaptureSeq permits selective, semi-quantitative, and scalable deep sequencing of _Sleeping Beauty_ transposon insertion sites from adaptor-ligated, barcoded Ion Torrent libraries created from populations of cells \\(bulk specimens) and single cells from both tumor and non-tumor genomes. This protocol includes detailed procedures for genomic DNA isolation, library preparation, capture hybridization, target sequence enrichment, sequencing, and data analysis. The SBCapSeq method, which takes about 7\u201310 days to perform, permits semi-quantitative sequencing and has been specifically optimized for Sleeping Beauty transposon mutagenesis genetic studies.",
+        "manuscriptTitle": "SBCapSeq Protocol: a method for selective cloning of Sleeping Beauty transposon insertions using liquid capture hybridization and Ion Torrent semiconductor sequencing",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2016-08-03 09:18:57",
+                "doi": "10.1038/protex.2016.053",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a0a50f8e-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "August 3rd, 2016",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3535,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 3536,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 3537,
+                "name": "Molecular Biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2016-08-03 09:18:57",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

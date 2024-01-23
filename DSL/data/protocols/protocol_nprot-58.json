@@ -1,0 +1,298 @@
+{
+    "identity": "nprot-58",
+    "title": "Mechanical tracing of protein function in the <em>Drosophila</em> ear",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "The mechanical senses of _Drosophila_ have proved powerful systems to identify proteins involved in the sensation of touch and sound \\[1-4]. How these proteins contribute to the processes of mechanosensation and hearing, however, largely remains unclear \\[3-5]. Here we describe a non-invasive method to trace the function of mechanosensory proteins in the fly&#x2019;s antennal ear. The method relies on the examination of the ear&#x2019;s mechanics, which is actively modulated by the motility of auditory neurons and reflects the function of mechanosensory proteins these cells comprise \\[5-7]. Mechanical signatures arising from the motility of the neurons are assayed by measuring the vibrations of the antennal sound receiver in the presence and absence of sound. If combined with genetic manipulations, such measurements can provide insights into the functional roles of specific gene products in hearing \\[5]. We describe how acoustic stimuli and mechanical responses can be monitored, and how information about protein function can be extracted from such data. We note that the approach is versatile in that it can be applied to other mechanosensory systems as well."
+        },
+        {
+            "header": "Reagents",
+            "content": "&gt; Bees wax for mounting the flies\r\n\n\n&gt; CO\\[<sub>2</sub>] for anesthetizing the flies"
+        },
+        {
+            "header": "Equipment",
+            "content": "**Animal preparation**\r\n\n\n&gt; Forceps \\(Dumont #5, Fine Science Tools, type 11252-20)\r\n\n\n&gt; Soldering iron, temperature regulated. Coil wires of different diameter around the tip of the soldering iron to obtain additional fine tips. \r\n\n\n&gt; Teflon rod \\(5mm in diameter, ca. 10cm in height)\r\n\n\n\r\n\n\n**Acoustic stimulation** \r\n\n\n&gt; Function generator, audio amplifier, loudspeaker \\(required frequency range ca. 100 to 1500 Hz) \r\n\n\n&gt; Step attenuator \\(we use a custom-made attenuator; commercial attenuators such as the Hewlett Packard 350D or the Anritsu MN510D2 can be used as well).\r\n\n\n&gt; Reference microphone. The fly&#x2019;s ear mechanically responds to the particle velocity component of sound, so a particle velocity sensitive referencee microphone is required. We use the Emkay NR 3158 miniature pressure-gradient microphone \\(distributed by Knowles Electronics Inc., Itasca, Illinois, USA) in combination with an integrating amplifier \\(for a detailed description, see Ref. 8). This microphone displays linear intensity characteristics within the relevant intensity range and a flat \\(within ca. &#xB1; 0.5 dB) frequency response for frequencies between ca. 100 and 3100 Hz.  \r\n\n\n&gt; Omni-directional precision pressure microphone \\(Br&#xFC;el &amp; Kjaer, type 4138 with conditioning amplifier, type 2804) to cross-calibrate the reference microphone.\r\n\n\n&gt; Acoustic calibrator \\(Br&#xFC;el &amp; Kjaer, type 4231) for the pressure microphone. \r\n\n\n\r\n\n\n**Mechanical measurements** \r\n\n\n&gt; Vibration isolation table \\(we use the Linus Photonics series 63 table, Art.-No. 436356401 \\(dimensions 900 x 1200 x 100 mm; http://www.linos-photonics.com).\r\n\n\n&gt; Laser Doppler vibrometer \\(we use a Polytec PSV-400H scanning laser Doppler vibrometer with a close-up unit and an OFV-CL-80 front lense \\(80 mm focal length) that allows for computer controlled positioning of the laser beam). For an alternative method that allows for sensitive vibration measurements, see Ref. 8.\r\n\n\n&gt; 2 micromanipulators \\(MM33 with magnetic stand, distributed by Science Products \\(http://www.science-products.com) for mounting of the fly and the reference microphone, respectively)."
+        },
+        {
+            "header": "Procedure",
+            "content": "**Microphone calibration**\r\n\n\n\r\n\n\n1. Calibrate the Br\u00fcel & Kjaer pressure microphone with the acoustic calibrator, which generates a 1 kHz tone of 94 dB SPL \\(SPL = sound pressure level). Sample the output voltage signal of the microphone and cut the time trace into _N_ time windows of length _T_. To obtain a frequency spectrum with a resolution, _\u0394f_, of 1 Hz, the length of each time window, _T = 1/\u0394f_, should be set to 1 s and the sampling frequency, _f\\[\nS\n]  = N\\[\nS\n]/T_, should be 4096 or 8192 Hz, corresponding to a number of samples, _N\\[\nS\n]_, of 212 and 213, respectively. Choosing _N\\[\nS\n]_ to be a power of two makes it possible to apply Fast Fourier transformation \\(FFT analysis is implemented in many software packages, including the analysis software that comes with the PSV laser Doppler vibrometer). Determine the Fourier amplitude of the voltage signal at the stimulus frequency \\(1kHz). \r\n  \r\n\n\n2. Place the pressure microphone and the reference microphone side by side in the acoustic far field of a loudspeaker for cross-calibration \\(acoustic far-field conditions are met if the distance from the loudspeaker is \u2265 2 lamda, where lambda is the wavelength of sound; when calibrated with a 1 kHz tone, the microphones should be placed \u2265 ca. 0.64 m from the loudspeaker). Make sure that the diaphragm of the reference microphone faces the loudspeaker. \r\n  \r\n\n\n3. Generate a continuous 1 kHz signal with the function generator, pass it through the step attenuator and the audio amplifier, and broadcast it via the loudspeaker. Sample the output signals of both microphones and subject them to Fast Fourier transforms \\(see step 1). Determine the respective Fourier amplitudes at 1 kHz. Assume that the amplitude obtained for the pressure microphone is 50 mV, and that the calibration at 94 dB SPL \\(step 1) yielded an amplitude of 100 mV. The sound pressure corresponding to the 50 mV output is then calculated as 94 dB SPL + 20 log \\(50/100) = 88 dB SPL. Acoustic power per unit area is the product of the pressure, _p_, and the particle velocity, _u_, in the sound wave \\(under far field conditions), whereby a power of 0 dB \\(= 10\n\u201312\nW m\n\u20132\n) is equivalent to _p_ = 2 x 10\n\u20135\nN m\n-2\nand _u_ = 5 x 10\n-8\nm s\n-1\n. In the far field, the pressure _p_ is proportional to the particle velocity _u_, so a pressure of 88 dB SPL corresponds to a particle velocity of 5 x 10\n-8\nm s\n\u20131\nx 10\n88/20\n\u2248 1.3 mm s\n\u20131\n, providing a calibration factor for converting the voltage output of the reference microphone into particle velocities. The calibration should be performed for different stimulus intensities and frequencies to assay the intensity and the frequency characteristics of the reference microphone. \r\n  \r\n\n\n\r\n\n\n**Animal preparation**\r\n\n\n1. Heat the soldering iron to ca. 220\u00baC.\r\n  2. Briefly anesthetize the fly with CO\n2\n.\r\n  3. Melt a drop of wax to the tip of the Teflon rod. Use tweezers to grab the fly by its wings and wax it to the rod with its legs. \r\n  3. Use the additional, fine tips of the soldering iron to carefully wax the fly\u2019s coxae to the rod so that the thorax is fixed and that the arista is oriented ca. perpendicular to the longitudinal axis of the rod \\(Fig. 1). Be careful not to touch the antenna with the wire since to avoid damaging the ear. \r\n  4. Wax the postero-lateral side of the head to the thorax and stabilize the halteres, wing-hinges, and proboscis with small drops of wax to minimize movements \\(Fig. 1b).\r\n  5. Blow on the antenna to test whether it still can move. This rough check helps uncovering eventual damage caused by the preparation. \r\n  \r\n\n\n**Mechanical measurements**\r\n\n\nThe setup is arranged on the vibration isolation table, with the laser Doppler vibrometer \\(LDV) being positioned in the centre \\(Fig. 1c). Mount the rod holding the fly on a micromanipulator and position the manipulator so that the fly is at focal distance from the LDV. Turn the rod so that the arista of one antenna is oriented perpendicular to the optical axis of the laser \\(the positioning can be controlled visually via the coaxial video capture system of the LDV; Fig. 1b). Focus the laser on the tip of the arista of one antenna, and slightly change the position via the scanning unit of the LDV until a maximum level of backscattered laser light is obtained. The arista and the third antennal segment together form the sound receiver of the fly \\(Fig. 1a). Because these antennal parts move as a unit, analyzing the vibrations of the arista-tip is sufficient to explore the mechanical intensity and frequency characteristics of the antennal receiver. The loudspeaker for broadcasting acoustic stimuli is placed at a distance of ca. 10 cm behind the fly, with its diaphragm facing both the LDV and the fly \\(Fig. 1c). The second micromanipulator is used to bring the reference microphone close \\(distance ca. 5mm) to the measured antenna. Make sure that the measured arista and the microphone are equidistant to the loudspeaker and that the microphone membrane is perpendicular to the direction of sound propagation. \r\n\n\n\r\n\n\n**Receiver vibrations in the absence of sound**\r\n\n\nThe procedures for measuring the fluctuations of the fly's antennal receiver in the absence of external stimulation are described in Box 1 \\(see also figure 1d).\r\n\n\n\r\n\n\n**Receiver vibrations in response to sound**\r\n\n\nThe procedures for measuring the vibrations of the fly's antennal receiver in response to pure tone stimuli are described in Box 2 \\(see also figure 1e)."
+        },
+        {
+            "header": "Timing",
+            "content": "Microphone calibration ca. 30 minutes, animal preparation ca. 2 minutes, measurement of fluctuations in the absence of sound ca. 2 minutes, measurement of sound-evoked responses ca. 10 minutes \\(depending on the number of stimulus intensities tested)."
+        },
+        {
+            "header": "Critical Steps",
+            "content": "For this assay, it is important to minimize body movements of the experimental animal without compromising its physiological condition. Use only the additional fine tips of the soldering iron to affix the fly with its legs to the holder. Try to touch the animal with the soldering iron as short as possible to avoid overheating the fly. Once the fly is mounted on the holder, check the receiver&#x2019;s fluctuations.  Then stabilize its body parts and repeat the measurements &#x2013; the receiver&#x2019;s fluctuations should remain unchanged. Use wild-type flies to train the preparation before extending the measurements to mutants."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "In some cases, the vibrations measurements are noisy and no clear power spectra can be obtained. Check whether the fly is still moving. If so, minimize these movements by stabilizing the respective body parts with wax. Also make sure that the level of backscattered laser light is as large as possible. Low levels of backscattered light will preclude sensitive vibration measurements."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "_Drosophila_ auditory neurons, like vertebrate hair cells \\[10], are motile and generate the forces to boost the minute, sound-induced vibrations, which they transduce. This amplificatory feedback is nonlinear, specifically improving the ear&#x2019;s mechanical sensitivity to faint sound. Excess in this feedback leads to self-sustained feedback oscillations that occur spontaneously, i.e. in the absence of acoustic stimulation \\[5-7]. The methods described in this protocol allow to assay the strength of this amplificatory feedback and have been used to trace the roles and functional placements of mechanosensory proteins in the auditory pathway \\[5]. Loss of amplification, normal amplification, and excess amplification in the fly&#x2019;s auditory system are identified as follows \\(see figure 1f):\r\n\n\n\r\n\n\nLoss of amplification. In dead flies and live mutants with immotile neurons, the receiver&#x2019;s mechanics is linear and passive. When measured in the absence of external stimulation, the receiver displays irregular, low amplitude fluctuations that represent thermal noise. Power spectra of these thermal fluctuations reveal a moderately damped \\(_Q_ &#x2248; 1) resonance at frequencies around 700 to 800 Hz \\(post mortem, the resonance will shift up in frequency, reflecting an increase in stiffness due to rigor mortis). When stimulated with pure tones at resonance, the displacement of the receiver scales linearly with the stimulus particle velocity, yielding a sensitivity gain of &#x2248; 1. \r\n\n\n\r\n\n\nNormal amplification. In live flies with intact neurons, the receiver&#x2019;s passive mechanics is nonlinearly modulated by the motility of the neurons. The receiver&#x2019;s fluctuations are increased in amplitude and their tuning is altered: _Q_-values are around 1.5 and the resonance frequency is around 150 to 350 Hz. When the receiver is actuated with pure tones near its best frequency, nonlinear amplification is observed: the receiver&#x2019;s displacement nonlinearly scales with the particle velocity for intermediate stimulus amplitudes, leading to an increased sensitivity for low intensity sounds. The nonlinearity is said to be compressive as it condenses a wide range of stimulus amplitudes into a narrow range of response amplitudes. The gain in sensitivity is &#x2248; 10.\r\n\n\n\r\n\n\nExcess amplification. In _Drosophila_, excess amplification can be induced pharmacologically and can result from genetic defects. The receiver oscillates continuously in the absence of sound, displaying sinusoidal movements. Power spectra of these self-sustained oscillations yield a sharply tuned \\(_Q_-values up to 50) resonance at frequencies between ca. 100 and 200 Hz. The compressive nonlinearity revealed by pure tone stimulation at frequencies around resonance is pronounced, with a sensitivity gain as large as 100."
+        },
+        {
+            "header": "References",
+            "content": "1. Kernan, M., Cowan, D. &amp; Zuker, C. Genetic dissection of mechanosensory transduction: mechanoreception-defective mutations of Drosophila. _Neuron_ **12**, 1195-1206 \\(1994).\r\n  2.  Eberl, D. F., Duyk, G. M. &amp; Perrimon, N. A genetic screen for mutations that disrupt an auditory response in Drosophila melanogaster. _Proc. Natl. Acad. Sci. USA_ **94**, 14837-14842 \\(1997).\r\n  3.  Gillespie, P. G. &amp; Walker, R. G.  Molecular basis of mechanosensory transduction. _Nature_ **413**, 194-202 \\(2001)\r\n  4.  Caldwell, J. C. &amp; Eberl, D. F. Towards a molecular understanding of Drosophila hearing. _J. Neurobiol._ **53**, 172-189 \\(2002).\r\n  5.  G&#xF6;pfert, M. C., Albert, J. T., Nadrowski, B. &amp; Kamikouchi, A.  Specification of auditory sensitivity by Drosophila TRP channels. _Nat. Neurosci._ **9**, 999-1000 \\(2006).\r\n  6.  G&#xF6;pfert M. C. &amp; Robert, D. Motion generation by Drosophila  mechanosensory neurons. _Proc. Natl. Acad. Sci. USA_ **100**, 5514-5519 \\(2003). \r\n  7. G&#xF6;pfert M. C., Humphris, A. D., Albert, J. T., Robert, D. &amp; Hendrich, O.  Power gain exhibited by motile mechanosensory neurons in Drosophila ears. _Proc. Natl. Acad. Sci. USA_ **102**, 325-330 \\(2005).\r\n  8.  Art, J. J., Crawford, A. C. &amp; Fettiplace, R. A method for measuring cellular movements less than the wavelength of light. _J. Physiol. \\(Lond.)_ **371**:18P. \\(1986)\r\n  9.  Bennet-Clark, H. C. A particle velocity microphone for the song of small insects and other acoustic measurements. _J. Exp. Biol._ **108**, 459&#x2013;463 \\(1984).\r\n  10. Fettiplace, R. &amp; Hackney, C. M. The sensory and motor roles of auditory hair cells. _Nat. Rev. Neurosci._ **7**, 19-29 \\(2006)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "Supported by the Volkswagen Foundation. A.K. is a research fellow of the Humboldt Foundation."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nn1735",
+                "date": "2006-06-28 08:51:42",
+                "title": "Specification of auditory sensitivity by Drosophila TRP channels",
+                "authors": [
+                    "G\u00f6pfert",
+                    "M.C. et al."
+                ],
+                "journal": "Nature Neuroscience",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 9816,
+                "identity": "9e972483-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "J\u00f6rg T. Albert",
+                "email": "joerg.albert@uni-koeln.de",
+                "orcid": "",
+                "institution": "Volkswagen Foundation Research Group, Institute of Zoology, University of Cologne, Weyertal 119, 50923 Cologne, German",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "J\u00f6rg",
+                "middleName": "T.",
+                "lastName": "Albert",
+                "suffix": ""
+            },
+            {
+                "id": 9817,
+                "identity": "9e972897-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Bj\u00f6rn Nadrowski",
+                "email": "",
+                "orcid": "",
+                "institution": "Volkswagen Foundation Research Group, Institute of Zoology, University of Cologne, Weyertal 119, 50923 Cologne, German",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Bj\u00f6rn",
+                "middleName": "",
+                "lastName": "Nadrowski",
+                "suffix": ""
+            },
+            {
+                "id": 9818,
+                "identity": "9e972b49-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Azusa Kamikouchi ",
+                "email": "",
+                "orcid": "",
+                "institution": "Volkswagen Foundation Research Group, Institute of Zoology, University of Cologne, Weyertal 119, 50923 Cologne, German",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Azusa",
+                "middleName": "",
+                "lastName": "Kamikouchi",
+                "suffix": ""
+            },
+            {
+                "id": 9819,
+                "identity": "9e972db8-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Martin C.  Gopfert",
+                "email": "",
+                "orcid": "",
+                "institution": "Volkswagen Foundation Research Group, Institute of Zoology, University of Cologne, Weyertal 119, 50923 Cologne, German",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Martin",
+                "middleName": "C.",
+                "lastName": "Gopfert",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2010-11-15 09:28:26",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/nprot.2006.364",
+        "doiUrl": "https://doi.org/10.1038/nprot.2006.364",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2607596,
+                "identity": "1103f13a-5558-407a-9ad2-39308be74e7a",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:41",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 43647,
+                "visible": true,
+                "origin": "",
+                "legend": "Tracing protein function in the _Drosophila_ ear.   (a-c) _Drosophila_ antenna and experimental setup. (a) Sketch of the antenna depicting the 2nd and 3rd segments and the measurement site at the tip of the arista (asterisk). The 3rd segment together with its arista vibrates in response to acoustic stimuli and forms the sound receiver. (b) Capture of the video image provided by the laser Doppler vibrometer illustrating the viewing angle of the experimental animal during mechanical measurements. Arrow: tip of the right arista. Inset: same animal with the laser beam being focused on the arista tip. (c) Sketch of the experimental setup depicting the relative placements of the laser Doppler vibrometer (LDV, red arrow: laser beam), the experimental animal, the reference microphone, and the loudspeaker. (d-e) Data analysis. (d) Receiver fluctuation in the absence of sound. The measured time trace of the receiver&#x2019;s vibration velocity (laser signal) is cut into 1s time windows that are subjected to FFT analysis. Based on the averaged amplitude component, power spectra of the vibration velocity (left graph, lin-log) and displacement (right graph, log-log) are shown. The natural frequency, _f[~0~]_, and the quality factor, _Q_, of the receiver are determined by fitting a harmonic oscillator model (blue line) to the spectra (in this example, the fit yields _f[~0~]_ = 210 Hz and _Q_ = 1.6). (e) Receiver response to pure tones. The time traces of both the laser and the microphone signals are cut into time windows and subjected to FFT analysis. After averaging the FFTs, the amplitudes of the receiver&#x2019;s displacement and the particle velocity are determined at the frequency of stimulation. Fits to the high intensity and low intensity regimes (blue lines) in the intensity response plot (log-log) reveal the sensitivity gain (red arrow) due to the nonlinearity of the system. (f) Signatures of the mechanical amplification provided mechanosensory cells and proteins, as observed in the receiver&#x2019;s mechanics. Three conditions are shown: loss of amplification (blue), normal amplification (green), and excess amplification (red). Time signal: amplification gives rise to irregular twitches (normal amplification) or self-sustained oscillations (excess amplification) of the receiver in the absence of sound. These twitches and oscillations are abolished if amplification is lost. Power spectrum: amplification shifts the receiver&#x2019;s resonance in from ca. 700 - 800 Hz (no amplification / loss of amplification) to 150-300 Hz (normal amplification) or 100-200 Hz (excess amplification) and increases the quality factor _Q_ from ca. 1 (no amplification) to ca. 1.5 (normal amplification) or up to 50 (excess amplification). Intensity characteristics: amplification nonlinearly modulates the receiver&#x2019;s response, increasing its mechanical sensitivity by a factor of ca. 10 (normal amplification, green arrow) or up to 100 (excess amplification, red arrow). Loss of amplification linearizes the receiver&#x2019;s response, leading to a sensitivity gain of 1 (=no amplification).",
+                "description": "",
+                "filename": "figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-58/v1/figure_1.jpg"
+            },
+            {
+                "id": 2607598,
+                "identity": "17254ef1-68c5-4015-8834-aa68200a9037",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:41",
+                "extension": "jpg",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 76946,
+                "visible": true,
+                "origin": "",
+                "legend": "Box 1          ",
+                "description": "",
+                "filename": "figure2.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-58/v1/figure_2.jpg"
+            },
+            {
+                "id": 2607597,
+                "identity": "85d0738d-58f3-4a64-b2af-36b272c7ac31",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:41",
+                "extension": "jpg",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 53038,
+                "visible": true,
+                "origin": "",
+                "legend": "Box 2   ....   ...",
+                "description": "",
+                "filename": "figure3.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-58/v1/figure_3.jpg"
+            },
+            {
+                "id": 15665553,
+                "identity": "827423b5-f42c-4d11-88bf-d029377360d8",
+                "added_by": "auto",
+                "created_at": "2021-11-18 13:32:14",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 315154,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-58/v1/dd448adf-1f00-4100-8ac9-c3f3180d7dbf.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "auditory mechanics, deafness, hearing, mechanosensory transduction, systems biology\r\n",
+        "license": {
+            "name": "None",
+            "url": ""
+        },
+        "manuscriptAbstract": "",
+        "manuscriptTitle": "Mechanical tracing of protein function in the Drosophila ear",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2006-06-26 23:00:00",
+                "doi": "10.1038/nprot.2006.364",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9e96c8fa-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "June 26th, 2006",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 1315,
+                "name": "Biological techniques"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2006-06-26 23:00:00",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

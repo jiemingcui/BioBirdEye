@@ -1,0 +1,238 @@
+{
+    "identity": "pex-923",
+    "title": "<p>Immunoinformatic design of a COVID-19 subunit vaccine using entire structural immunogenic epitopes of SARS-CoV-2</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p><br></p>"
+        },
+        {
+            "header": "Reagents",
+            "content": ""
+        },
+        {
+            "header": "Equipment",
+            "content": ""
+        },
+        {
+            "header": "Procedure",
+            "content": "1. SARS-CoV-2 structural protein sequences.\nThe amino acid sequences of SARS-CoV-2 structural proteins, including the spike glycoprotein (S), envelope protein (E), membrane protein (M), and nucleocapsid phosphoprotein (N), were retrieved using the NCBI reference genome of the virus (accession number NC_045512.2).\n2. Identifying cytotoxic T lymphocyte (CTL) epitopes.\nPredicting peptides that are capable of inducing CTL responses is a crucial step in the design of epitope-based vaccine. The MHC-\u0406\u00a0binding tool of Immune Epitope Database and Analysis Resource (IEDB;\nhttp://tools.iedb.org/mhci\n) was used to predict the CD8\n+\nT-cell epitopes borne in S, E, M and N proteins\n1-3\n. In this step, the ANN 4.0 method was set as the prediction method. The human was selected as the source species. The maximum IC\n50\nvalue was set to 50 nM, and percentile rank < 1 was considered since lower score indicates high affinity\n4\n,\n5\n.\n3. Identifying helper T lymphocyte (HTL) epitopes.\nIEDB (\nhttp://www.iedb.org\n) was used to predict MHC-II binding of 15-mer epitopes for viral structural proteins against human HLAs such as HLA-DRB1*15:01, HLA-DRB4*01:01, HLA-DRB3*01:01, HLA-DRB5*01:01, HLA-DRB1*03:01, HLA-DRB3*02:02 and HLA-DRB1*07:01 (Supplementary Table S8 online), using NN-align 2.3 method\n6-9\n. Epitopes with the IC\n50\nvalues < 50 nM have high affinity. The maximum value of 500 nM and 5000 nM indicate intermediate and low affinity of epitopes, respectively\n10\n. The 15-mer epitopes with IC\n50\nvalues < 50 nM were considered for next analysis\n10-12\n.\n4. B-cell epitopes prediction.\nThe ABCpreds server was used to predict 16-mer linear B-lymphocyte (LBL) epitopes with a threshold of 0.51\n13\n. In addition, the ElliPro tool of IEBD was utilized to predict conformational and linear B-cell epitopes of the vaccine polypeptide.\n5. Assessment of identified epitopes for antigenicity, allergenicity, and toxicity.\nThe antigenic potential of each of the T and B cells epitopes was predicted by VaxiJen v2.0 with a threshold of 0.4\n14\n. The predicted T and B cells epitopes were then further evaluated to check their toxicity and allergenicity, with ToxinPred and AllergenFP v1.0 server, respectively\n15\n,\n16\n. Then, the ability of each of the HTL and B cell epitopes (CD4\n+\n) to induce the secretion of cytokines, such as interferon-gamma (IFN-\u03b3), interleukin-4 (IL-4) and interleukin-10 (IL-10), to overcome the inflammatory response and prevent tissue damage was predicted by IFNepitope, IL4pred and IL10pred server tools, respectively\n17-19\n. The IL4pred and IL10pred operations were carried out based on SVM method and hybrid method respectively, with other parameters kept as default\n1\n,\n8\n.\n6. Designing the multi-epitope vaccine polypeptide construct.\nTo develop a multi-epitope vaccine, we selected those predicted epitopes with high antigenic potential, which were not identified as allergic or toxic, and had good solubility when highly expressed. To construct the vaccine polypeptide, the selected CTL, HTL and LBL epitopes were fused together using appropriate linkers\n20\n,\n21\n. An adjuvant was also considered to increase the immunogenic capacity of the multi-epitope vaccine\n1\n,\n10\n. Accordingly, a 45-amino acid sequence prepared from \u03b2-defensin-2 protein was added to the N terminus of the vaccine sequence using the EAAAK linker\n21\n.\n7. Immunogenic, allergenic and physiochemical evaluation of vaccine construct.\nThe antigenicity of the multi-epitope vaccine polypeptide was predicted utilizing the VaxiJen v2.0 tool, with the threshold value 0.4\n14\n. The allergenicity of the vaccine was analysed using AllerTOP v.2.0 and AllergenFP v.1.0 servers\n15\n,\n22\n. The ProtParam server was employed to evaluate the physical chemistry properties of the vaccine construct, such as amino acid composition, molecular weight, theoretical isoelectric point (pI), grand average of hydropathicity (GRAVY), aliphatic and instability index, and\nin vitro\nand\nin vivo\nhalf-life\n23\n.\n8. Vaccine polypeptide structure modelling, refinement and validation.\nThe SOPMA server was applied for analysing the secondary structural properties of the multi-epitope vaccine polypeptide\n24\n. The GalaxyWEB server was employed for modelling and refinement of the 3D structure model\n25\n. The server relaxes the model structure using repacking and molecular dynamics (MD) simulation. Next, RAMPAGE server and ProSA-web were used to validate the refined 3D model\n26\n,\n27\n. All of these tools give us the overall quality of the 3D structure of the peptide vaccine.\n9. Molecular docking of the vaccine polypeptide to TLR-3.\nThe binding of antigenic agents with the target immune cell protein is crucial for the creation of a suitable immune system response. For analysing the binding pattern of the multi-epitope vaccine polypeptide with TLR-3 (PDB ID: 2A0Z)\n28\n, molecular docking analysis was performed by Hdock, Zdock, Cluspro and Hawkdock\n29-32\n. Among the molecular species docked by each of these applications, the best outputs were extracted, followed by the four docked molecules uploaded into the Hawkdock program, and the free energy of binding of each complex calculated. Based on this screening, it was determined that the model selected from the Cluspro output had the best binding free energy. Therefore, this molecular species was chosen as the primary structure for initiating the molecular dynamics (MD) simulation.\n10. MD simulation of the vaccine-receptor complex.\nTo determine the structural stability and to study the molecular details of the interactions between TLR-3 and the multi-epitope vaccine polypeptide in the docked conformation, MD simulation was performed. Briefly, the system including vaccine polypeptide-TLR-3 was simulated by the Gromacs-2020 package applying OPLS-AA force field\n33\n. The complex system was solvated using TIP3P water model. Then, the genion module was utilized to neutralize the whole system. Next, the conjugate gradient algorithm was applied to minimize the energy of the system. In the NVT ensemble, the temperature of the system gradually increased from 0 to 310 K during 400 ps. Subsequently, in the NPT ensemble, 500 ps simulation was carried out at a pressure of 1 atm and a temperature of 310 K. Production simulation for 24000 ps was then implemented. The particle-mesh Ewald (PME) and the LINCS algorithms were applied to assess all electrostatic connections and to restrain all bond lengths in the protein, respectively. Moreover, periodic boundary condition was utilized during the simulation. The final coordinates obtained for the complex system were analysed with classic MD analyses, plus the MMPBSA method for calculating the free energy of intermolecular interactions\n34\n. The results were visualized by Pymol (Schrodinger L.L.C.)."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": ""
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>SARS-CoV-2 structural protein sequences. &nbsp;&nbsp;1 days</strong></p><p>Identifying cytotoxic T lymphocyte (CTL) epitopes.&nbsp;&nbsp;2 days</strong></p><p>Identifying helper T lymphocyte (HTL) epitopes. &nbsp;&nbsp;2 days</strong></p><p>B-cell epitopes prediction. &nbsp;&nbsp;2 days</strong></p><p>Assessment of identified epitopes for antigenicity, allergenicity, and toxicity. &nbsp;&nbsp;2 days</strong></p><p>Designing the multi-epitope vaccine polypeptide construct. &nbsp;&nbsp;1 days</strong></p><p>Immunogenic, allergenic and physiochemical evaluation of vaccine construct. &nbsp;3 days</strong></p><p>Vaccine polypeptide structure modelling, refinement and validation.</strong> &nbsp;&nbsp;5 days</p><p>Molecular docking of the vaccine polypeptide to TLR-3. &nbsp;&nbsp;5 days</strong></p><p>MD simulation of the vaccine-receptor complex. &nbsp;20 days</strong></p><p><br></p><p>Whole procedure: 43 days </p><p><br></p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": ""
+        },
+        {
+            "header": "References",
+            "content": "<p>1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Abdulla, F., Adhikari, U. K. &amp; Uddin, M. K. Exploring T &amp; B-cell epitopes and designing multi-epitope subunit vaccine targeting integration step of HIV-1 lifecycle using immunoinformatics approach. <em>Microb Pathog</em> <strong>137</strong>, 103791, doi:10.1016/j.micpath.2019.103791 (2019).</p><p>2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Larsen, M. V.<em> et al.</em> Large-scale validation of methods for cytotoxic T-lymphocyte epitope prediction. <em>BMC bioinformatics</em> <strong>8</strong>, 424, doi:10.1186/1471-2105-8-424 (2007).</p><p>3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yadav, G., Rao, R., Raj, U. &amp; Varadwaj, P. K. Computational modeling and analysis of prominent T-cell epitopes for assisting in designing vaccine of ZIKA virus. <em>Journal of Applied Pharmaceutical Science</em> <strong>7</strong>, 116-122, doi:10.7324/japs.2017.70816 (2017).</p><p>4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Andreatta, M. &amp; Nielsen, M. Gapped sequence alignment using artificial neural networks: application to the MHC class I system. <em>Bioinformatics</em> <strong>32</strong>, 511-517, doi:10.1093/bioinformatics/btv639 (2016).</p><p>5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nielsen, M. &amp; Lund, O. NN-align. An artificial neural network-based alignment algorithm for MHC class II peptide binding prediction. <em>BMC bioinformatics</em> <strong>10</strong>, 296, doi:10.1186/1471-2105-10-296 (2009).</p><p>6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Greenbaum, J.<em> et al.</em> Functional classification of class II human leukocyte antigen (HLA) molecules reveals seven different supertypes and a surprising degree of repertoire sharing across supertypes. <em>Immunogenetics</em> <strong>63</strong>, 325-335, doi:10.1007/s00251-011-0513-0 (2011).</p><p>7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Weiskopf, D.<em> et al.</em> Comprehensive analysis of dengue virus-specific responses supports an HLA-linked protective role for CD8+ T cells. <em>Proceedings of the National Academy of Sciences of the United States of America</em> <strong>110</strong>, E2046-2053, doi:10.1073/pnas.1305227110 (2013).</p><p>8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Khatoon, N., Pandey, R. K. &amp; Prajapati, V. K. Exploring Leishmania secretory proteins to design B and T cell multi-epitope subunit vaccine using immunoinformatics approach. <em>Sci Rep</em> <strong>7</strong>, 8285, doi:10.1038/s41598-017-08842-w (2017).</p><p>9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Narula, A., Pandey, R. K., Khatoon, N., Mishra, A. &amp; Prajapati, V. K. Excavating chikungunya genome to design B and T cell multi-epitope subunit vaccine using comprehensive immunoinformatics approach to control chikungunya infection. <em>Infection, genetics and evolution : journal of molecular epidemiology and evolutionary genetics in infectious diseases</em> <strong>61</strong>, 4-15, doi:10.1016/j.meegid.2018.03.007 (2018).</p><p>10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Duvvuri, V. R.<em> et al.</em> Preexisting CD4+ T-cell immunity in human population to avian influenza H7N9 virus: whole proteome-wide immunoinformatics analyses. <em>PloS one</em> <strong>9</strong>, e91273, doi:10.1371/journal.pone.0091273 (2014).</p><p>11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shey, R. A.<em> et al.</em> In-silico design of a multi-epitope vaccine candidate against onchocerciasis and related filarial diseases. <em>Sci Rep</em> <strong>9</strong>, 4409, doi:10.1038/s41598-019-40833-x (2019).</p><p>12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Zhou, W. Y.<em> et al.</em> Therapeutic efficacy of a multi-epitope vaccine against Helicobacter pylori infection in BALB/c mice model. <em>Vaccine</em> <strong>27</strong>, 5013-5019, doi:10.1016/j.vaccine.2009.05.009 (2009).</p><p>13&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Saha, S. &amp; Raghava, G. P. Prediction of continuous B-cell epitopes in an antigen using recurrent neural network. <em>Proteins</em> <strong>65</strong>, 40-48, doi:10.1002/prot.21078 (2006).</p><p>14&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Doytchinova, I. A. &amp; Flower, D. R. VaxiJen: a server for prediction of protective antigens, tumour antigens and subunit vaccines. <em>BMC bioinformatics</em> <strong>8</strong>, 4, doi:10.1186/1471-2105-8-4 (2007).</p><p>15&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dimitrov, I., Naneva, L., Doytchinova, I. &amp; Bangov, I. AllergenFP: allergenicity prediction by descriptor fingerprints. <em>Bioinformatics</em> <strong>30</strong>, 846-851, doi:10.1093/bioinformatics/btt619 (2014).</p><p>16&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gupta, S.<em> et al.</em> In silico approach for predicting toxicity of peptides and proteins. <em>PloS one</em> <strong>8</strong>, e73957, doi:10.1371/journal.pone.0073957 (2013).</p><p>17&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dhanda, S. K., Gupta, S., Vir, P. &amp; Raghava, G. P. Prediction of IL4 inducing peptides. <em>Clinical &amp; developmental immunology</em> <strong>2013</strong>, 263952, doi:10.1155/2013/263952 (2013).</p><p>18&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dhanda, S. K., Vir, P. &amp; Raghava, G. P. Designing of interferon-gamma inducing MHC class-II binders. <em>Biol Direct</em> <strong>8</strong>, 30, doi:10.1186/1745-6150-8-30 (2013).</p><p>19&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nagpal, G.<em> et al.</em> Computer-aided designing of immunosuppressive peptides based on IL-10 inducing potential. <em>Sci Rep</em> <strong>7</strong>, 42851, doi:10.1038/srep42851 (2017).</p><p>20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chen, X., Zaro, J. L. &amp; Shen, W. C. Fusion protein linkers: property, design and functionality. <em>Adv Drug Deliv Rev</em> <strong>65</strong>, 1357-1369, doi:10.1016/j.addr.2012.09.039 (2013).</p><p>21&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mohan, T., Sharma, C., Bhat, A. A. &amp; Rao, D. N. Modulation of HIV peptide antigen specific cellular immune response by synthetic alpha- and beta-defensin peptides. <em>Vaccine</em> <strong>31</strong>, 1707-1716, doi:10.1016/j.vaccine.2013.01.041 (2013).</p><p>22&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dimitrov, I., Bangov, I., Flower, D. R. &amp; Doytchinova, I. AllerTOP v.2--a server for in silico prediction of allergens. <em>J Mol Model</em> <strong>20</strong>, 2278, doi:10.1007/s00894-014-2278-5 (2014).</p><p>23&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gasteiger, E.<em> et al.</em> in <em>The Proteomics Protocols Handbook</em>&nbsp;<em>Springer Protocols Handbooks</em> (ed J.M.&nbsp;Walker)&nbsp;571-607 (Humana Press, 2005).</p><p>24&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Geourjon, C. &amp; Deleage, G. SOPMA: significant improvements in protein secondary structure prediction by consensus prediction from multiple alignments. <em>Computer applications in the biosciences : CABIOS</em> <strong>11</strong>, 681-684, doi:10.1093/bioinformatics/11.6.681 (1995).</p><p>25&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ko, J., Park, H., Heo, L. &amp; Seok, C. GalaxyWEB server for protein structure prediction and refinement. <em>Nucleic acids research</em> <strong>40</strong>, W294-297, doi:10.1093/nar/gks493 (2012).</p><p>26&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wang, W.<em> et al.</em> Data set for phylogenetic tree and RAMPAGE Ramachandran plot analysis of SODs in Gossypium raimondii and G. arboreum. <em>Data in brief</em> <strong>9</strong>, 345-348, doi:10.1016/j.dib.2016.05.025 (2016).</p><p>27&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wiederstein, M. &amp; Sippl, M. J. ProSA-web: interactive web service for the recognition of errors in three-dimensional structures of proteins. <em>Nucleic acids research</em> <strong>35</strong>, W407-410, doi:10.1093/nar/gkm290 (2007).</p><p>28&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bell, J. K.<em> et al.</em> The molecular structure of the Toll-like receptor 3 ligand-binding domain. <em>Proceedings of the National Academy of Sciences of the United States of America</em> <strong>102</strong>, 10976-10980, doi:10.1073/pnas.0505077102 (2005).</p><p>29&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kozakov, D.<em> et al.</em> The ClusPro web server for protein-protein docking. <em>Nature protocols</em> <strong>12</strong>, 255-278, doi:10.1038/nprot.2016.169 (2017).</p><p>30&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pierce, B. G., Hourai, Y. &amp; Weng, Z. Accelerating protein docking in ZDOCK using an advanced 3D convolution library. <em>PloS one</em> <strong>6</strong>, e24657, doi:10.1371/journal.pone.0024657 (2011).</p><p>31&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Weng, G.<em> et al.</em> HawkDock: a web server to predict and analyze the protein-protein complex based on computational docking and MM/GBSA. <em>Nucleic acids research</em> <strong>47</strong>, W322-W330, doi:10.1093/nar/gkz397 (2019).</p><p>32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yan, Y., Zhang, D., Zhou, P., Li, B. &amp; Huang, S. Y. HDOCK: a web server for protein-protein and protein-DNA/RNA docking based on a hybrid strategy. <em>Nucleic acids research</em> <strong>45</strong>, W365-W373, doi:10.1093/nar/gkx407 (2017).</p><p>33&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Van Der Spoel, D.<em> et al.</em> GROMACS: fast, flexible, and free. <em>J Comput Chem</em> <strong>26</strong>, 1701-1718, doi:10.1002/jcc.20291 (2005).</p><p>34&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kumari, R., Kumar, R. &amp; Lynn, A. g_mmpbsa--a GROMACS tool for high-throughput MM-PBSA calculations. <em>Journal of chemical information and modeling</em> <strong>54</strong>, 1951-1962, doi:10.1021/ci500020m (2014).</p><p><br></p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": ""
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41598-020-77547-4",
+                "date": "",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 549650,
+                "identity": "92ccc7ce-3a08-4e8a-ac59-c0ff0079ab3b",
+                "order_by": 1,
+                "name": "Esmaeil Behmard",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Esmaeil",
+                "middleName": "",
+                "lastName": "Behmard",
+                "suffix": ""
+            },
+            {
+                "id": 549651,
+                "identity": "19c6c654-8749-49a8-8217-9ce3d7c58606",
+                "order_by": 2,
+                "name": "Bijan Soleymani",
+                "email": "bijansolimani@gmail.com",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Bijan",
+                "middleName": "",
+                "lastName": "Soleymani",
+                "suffix": ""
+            },
+            {
+                "id": 549652,
+                "identity": "fa2b1f66-2edd-4a6e-bca1-0cc2f165c967",
+                "order_by": 3,
+                "name": "Ali Najafi",
+                "email": "najafi74@bmsu.ac.ir",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Ali",
+                "middleName": "",
+                "lastName": "Najafi",
+                "suffix": ""
+            },
+            {
+                "id": 549653,
+                "identity": "2e54fff4-23a1-44d4-aece-b3c5b71f66da",
+                "order_by": 4,
+                "name": "Ebrahim Barzegari ",
+                "email": "e.barzegari@kums.ac.ir",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Ebrahim",
+                "middleName": "",
+                "lastName": "Barzegari",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2020-05-06 14:47:58",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-923/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-923/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13621214,
+                "identity": "049334a4-df8b-4c4d-8882-0007b618841c",
+                "added_by": "auto",
+                "created_at": "2021-09-17 07:09:35",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 332561,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-923/v1/1ce51254-0650-490c-a1a8-66d3ade9a167.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests. ",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "SARS-CoV-2, Multi-epitope Vaccine, Molecular Dynamics Simulations, Toll-like Receptor 3, Immunoinformatics ",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>One of the strategies against the lack of data and short onset time of the ongoing COVID-19 disease is the use of computational methods in the field of drug and vaccine design. Though demanding experimental validations, these methods can greatly reduce the time and cost of the immunogenic development projects. In this protocol, we describe the use of various immunoinformatics tools to design a multi-epitope vaccine polypeptide with the highest potential for activating the human immune system against SARS-CoV-2. The initial epitope set was extracted from the whole set of viral structural proteins. Their potential non-toxic and non-allergenic T-cell and B-cell binding and cytokine inducing epitopes were then identified through a priori immunoinformatic prediction. Selected epitopes were bonded to each other with appropriate links. A suitable adjuvant was added to the N-terminus of the vaccine polypeptide sequence to increase its immunogenicity. Molecular modelling of the 3D structure of the vaccine polypeptide, docking, molecular dynamics simulations and free energy calculations were used to confirm stability and receptor affinity. Time taken to complete: 43 days. </p>",
+        "manuscriptTitle": "Immunoinformatic design of a COVID-19 subunit vaccine using entire structural immunogenic epitopes of SARS-CoV-2",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2020-12-02 17:21:45",
+                "doi": "10.21203/rs.3.pex-923/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 1
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "f5c9f0da-4f10-40fb-8f13-baa656b86cdb",
+        "owner": [],
+        "postedDate": "December 2nd, 2020",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 95272,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 95273,
+                "name": "Immunology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2020-12-02 17:21:45",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

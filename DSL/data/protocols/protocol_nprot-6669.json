@@ -1,0 +1,229 @@
+{
+    "identity": "nprot-6669",
+    "title": "Contamination screening of parasitic worm genome assemblies",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "A major problem in whole genome sequencing of parasitic worm \\(nematode and flatworm) species is that sequencing reads can be contaminated with those of other species, either arising from DNA of the host species \\(e.g. vertebrates, plants, etc.), other species that are commensal in the host \\(e.g. bacteria), or from laboratory contamination. Here we describe a computational protocol to identify and remove likely contaminant DNA from the initial genome assembly for a parasitic worm.\r\n\n\n\r\n\n\n<a href=\"#figures\" data-url=\"https://www.nature.com/protocolexchange/system/uploads/6511/original/Figure1.png?1521465499\">See figure in Figures section.</a>\r\n\n\n\r\n\n\nTo remove contaminant scaffolds from the initial genome assembly for a parasitic worm \\(nematode or flatworm), a multi-step approach is taken \\(Figure 1). In Step A, we take each scaffold \\(or 50 kb chunks of longer scaffolds) and run BLASTX \\(Altschul et al 1997) against databases of invertebrate and non-invertebrate protein sequences. If a scaffold has far stronger BLASTX hits to non-invertebrate proteins \\(e.g. vertebrates, bacteria) than to invertebrate proteins, it is considered to be a likely contaminant scaffold and removed.\r\n\n\n\r\n\n\nThe second step, Step B, requires a gene set for the assembly, and runs BLASTP between the predicted proteins for this gene set and the same databases searched in Step A. As in Step A, scaffolds with far stronger BLASTP hits to non-invertebrate proteins are considered to be likely contaminants and are removed. Step B often detects additional contaminant scaffolds missed by Step A. \r\n\n\n\r\n\n\nStep C is designed to detect contamination of the parasitic worm\u2019s assembly by other invertebrates \\(e.g. flatworm contamination in a nematode species\u2019 assembly). It is similar to Step B, but carries out additional BLASTP searches of a database of nematode or flatworm protein sequences. If a scaffold has far stronger BLASTP hits to non-invertebrate proteins from another phylum \\(e.g. to flatworms, if the assembly being de-contaminated is from a nematode), then it is considered a likely contaminant and removed.\r\n\n\n\r\n\n\nHelminth genomes can be very large \\(e.g. Fasciola hepatica ~1.3 Gb; Cwiklinski _et al_, 2015), so this approach is designed to be easy-to-run and scalable in terms of run-time to a large number of large parasitic worm genomes, with little or no manual analysis required. Our approach is designed to have few false positives \\(non-contaminant scaffolds misclassified as contaminant).  \r\n\n\n\r\n\n\nOur contamination scan protocol is designed particularly for parasitic worm genome assemblies, and relies on a series of BLASTX and BLASTP searches against invertebrate and non-invertebrate sequence databases. In contrast, some other approaches for contamination scanning can be used across a larger taxonomic breadth, and use additional data as well as BLAST searches. For example, Blobology \\(Kumar _et al_ 2013), although designed with nematode genomes as a test case, can be used for any eukaryotic genome assembly, and analyses top BLAST hits but also the proportion of GC bases and read coverage to identify likely contaminant scaffolds. \r\n\n\n\r\n\n\nDifferent contamination scan approaches likely disagree with respect to their verdict on some scaffolds. However, this may not matter much to the user in the case of very small scaffolds that lack any predicted genes. In contrast, missing a true contaminant scaffold that contains many protein-coding genes can have a large effect on downstream analyses \\(e.g. of orthology), so we suggest that users may like to try both our protocol and others \\(e.g. Blobology) to check if any additional large putative contaminant scaffolds are identified by one approach but not another. Such putative contaminants can then be subjected to manual scrutiny before deciding whether to discard them from a genome assembly."
+        },
+        {
+            "header": "Reagents",
+            "content": "<a href=\"http://www.ncbi.nlm.nih.gov/genbank\" >GenBank database</a>"
+        },
+        {
+            "header": "Equipment",
+            "content": "Computer cluster."
+        },
+        {
+            "header": "Procedure",
+            "content": "**Step A: removing non-invertebrate contamination based on BLASTX hits**\r\n\n\n\r\n\n\nThe input to Step A is an initial genome assembly for a parasitic worm. \r\n\n\n\r\n\n\n1. Each scaffold of the initial genome assembly is split into 50 kb chunks. \r\n  \r\n\n\n2. For each 50 kb chunk, BLASTX is run against two in-house sequence databases consisting of \\(i) all invertebrate proteins from GenBank, and \\(ii) all proteins in the full proteomes of representative species from major non-invertebrate taxa \\(bacteria, vertebrates, fungi, plants, etc.), respectively. Only representative species are included here to reduce run-time. The \u2013dbsize BLAST option is used to ensure that the E values from searching databases of different sizes are comparable.\r\n  \r\n\n\n3. For a particular chunk, if the e-value for its top non-invertebrate hit is 1E+10 fold lower than the e-value of its top invertebrate hit \\(e.g. E-60 versus E-50), the chunk is considered to be contaminant. \r\n  \r\n\n\n4. If more than half of the chunks of a scaffold are classified as contaminant, the whole scaffold is considered contaminant and is removed from the assembly. \r\n  \r\n\n\nThe output from Step A is a genome assembly from which likely contaminant scaffolds have been removed.\r\n\n\n\r\n\n\n**Step B: removing non-invertebrate contamination based on BLASTP hits**\r\n\n\n\r\n\n\nThe input to Step B is the de-contaminated genome assembly from Step A above, and a set of protein-coding gene predictions for this assembly \\(e.g. from a gene-finding software such as Augustus \\(Hoff & Stanke 2013)), along with their predicted protein sequences. \r\n\n\n\r\n\n\n1. BLASTP searches \\(using the \u2013dbsize option) of predicted proteins from genes on scaffolds remaining after Step A are run against the search databases listed in Step A above. \r\n  \r\n\n\n2. For each protein, if its top BLASTP hit is to a non-invertebrate protein, and has an e-value that is 1E+50 times lower than that of the best invertebrate hit, then the gene is considered a putative contaminant gene. \r\n  \r\n\n\n3. Conversely, if the top hit is to an invertebrate protein, and its e-value is 1E+50 times lower than that of the best non-invertebrate hit, the gene is classified as non-contaminant. \r\n  \r\n\n\n4. If more than half of the classified genes on a scaffold are considered contaminant, then the scaffold is classified as contaminant and removed from the assembly.\r\n  \r\n\n\nThe output from Step B is a genome assembly from which any additional likely contaminant scaffolds have been removed.\r\n\n\n\r\n\n\n**Step C: removing contamination from other invertebrates, based on BLASTP hits**\r\n\n\n\r\n\n\nStep C is a more stringent version of Step B, designed to remove contamination originating from other invertebrates \\(for example, flatworm contamination in a nematode assembly), as well as any residual contamination from non-invertebrates \\(e.g. bacteria) not removed by Steps A or B.\r\n\n\n\r\n\n\nThe input to Step C is the de-contaminated genome assembly from Step B above, and a set of protein-coding gene predictions for this assembly. \r\n\n\n\r\n\n\n1. For the non-contaminant scaffolds that remain after step B, predicted protein sequences for genes on these scaffolds are BLASTP-searched \\(with the \u2013dbsize option) against the database of non-invertebrate proteins used in steps A and B, plus either nematode or flatworm protein sequences from GenBank. \r\n  \r\n\n\n2. For each query gene on a scaffold from a flatworm species\u2019 assembly, the top ten BLASTP hits in nematodes/non-invertebrates and in the flatworm database are recorded. \r\n  \r\n\n\n3. If the top five of these ten BLAST hits are to nematodes/non-invertebrates, and the e-value of the worst nematode/non-invertebrate hit is at least 5 orders of magnitude lower than the e-value of the best flatworm hit, the query gene is considered to be a contaminant gene. \r\n  \r\n\n\n4. Conversely, if the top five of the ten hits are to flatworm, and the e-value of the worst flatworm hit is 5 orders of magnitude lower than that of the best nematode/non-invertebrate hit, the query gene is considered a non-contaminant gene. \r\n  \r\n\n\n5. If a scaffold has one or more contaminant genes, and no non-contaminant genes, it is considered to be a contaminant scaffold and removed.\r\n  \r\n\n\nThe output from Step C is a genome assembly from which any additional likely contaminant scaffolds have been removed."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "Based on manual analysis of the results for some species of interest, we find this approach successfully removes most large contaminant scaffolds from a parasitic worm genome assembly. The protocol has been designed to have a low rate of false positives \\(i.e. it should classify few non-contaminant scaffolds as contaminants). In support of this, we find that it classifies few or no scaffolds as contaminant in genome assemblies that have undergone extensive manual improvement \\(e.g. _Strongyloides ratti_; Hunt _et al_ 2017).  \r\n\n\n\r\n\n\nHowever, the low rate of false positives is at the expense of some false negatives: after de-contamination, an assembly may still contain some small \\(often <10 kb) contaminant scaffolds that are hard to detect. In particular, our approach is largely based on finding contaminant genes, so may miss contaminant scaffolds that lack coding sequences. Furthermore, since Step B uses a database of proteomes from certain representative non-invertebrate species \\(e.g. _Escherichia coli_ K12 rather than every _E. coli_ strain), it is possible \\(although probably relatively rare) that it will miss a contaminant scaffold originating from a different _E. coli_ strain that contains mostly genes missing from _E. coli_ K12.\r\n\n\n\r\n\n\nIt is likely that our approach has few false positives, as long as the query assembly is from a parasitic worm clade for which many species have previously been sequenced \\(e.g., nematode clade V). However, Step C may give rise to some false positives if the query assembly is from a clade that is poorly represented in the NCBI database. For example, if the query assembly is for a clade I nematode species, it is possible that some diverged clade I genes may have slightly stronger BLAST hits to flatworms than to other previously sequenced nematodes, and so may be misclassified as contaminants by Step C. If the user is concerned about the possibility of false positives from Step C \\(e.g. if their query genome is from a parasitic clade for which few species have been sequenced before), we suggest that contaminant scaffolds identified by Step C should be manually examined, and added back to the assembly if doubt remains after manual analysis."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "The output from the protocol is a genome assembly from which any likely contaminant scaffolds have been removed."
+        },
+        {
+            "header": "References",
+            "content": "Altschul, S.F. _et al._ Gapped BLAST and PSI-BLAST: a new generation of protein database search programs. _Nucleic Acids Res._ **25**, 3389-3402 \\(1997).\r\n\n\n\r\n\n\nCwiklinski, K. _et al._ The _Fasciola hepatica_ genome: gene duplication and polymorphism reveals adaptation to the host environment and the capacity for rapid evolution. _Genome Biol._ **16**, 71 \\(2015).\r\n\n\n\r\n\n\nHoff, K.J. & Stanke, M. WebAUGUSTUS--a web service for training AUGUSTUS and predicting genes in eukaryotes. _Nucleic Acids Res._ **41**, W123-128 \\(2013).\r\n\n\n\r\n\n\nHunt, V.L. _et al._ The genomic basis of parasitism in the _Strongyloides_ clade of nematodes. _Nat Genet._ **48**, 299-307 \\(2016).\r\n\n\n\r\n\n\nKumar, S. _et al._ Blobology: exploring raw genome data for contaminants, symbionts and parasites using taxon-annotated GC-coverage plots. _Front Genet._ **4**, 237 \\(2013)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "We would like to thank the WTSI Pathogen Informatics team, especially Jacqueline Keane and Andrew Page."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 15510,
+                "identity": "a15d5120-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Matthew Berriman",
+                "email": "mb4@sanger.ac.uk",
+                "orcid": "",
+                "institution": "Berriman Lab Group, Sanger Institute",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Matthew",
+                "middleName": "",
+                "lastName": "Berriman",
+                "suffix": ""
+            },
+            {
+                "id": 15508,
+                "identity": "a15d48b4-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Avril Coghlan",
+                "email": "",
+                "orcid": "",
+                "institution": "Berriman Lab Group, Sanger Institute",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Avril",
+                "middleName": "",
+                "lastName": "Coghlan",
+                "suffix": ""
+            },
+            {
+                "id": 15509,
+                "identity": "a15d4dad-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Daria Gordon",
+                "email": "",
+                "orcid": "",
+                "institution": "Berriman Lab Group, Sanger Institute",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Daria",
+                "middleName": "",
+                "lastName": "Gordon",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2018-03-16 15:47:15",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2018.038",
+        "doiUrl": "https://doi.org/10.1038/protex.2018.038",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2610088,
+                "identity": "b9be3e76-824d-4b99-bca9-c5af30be42f3",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:24",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 113757,
+                "visible": true,
+                "origin": "",
+                "legend": "Flowchart of protocol",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-6669/v1/figure_1.png"
+            },
+            {
+                "id": 13465701,
+                "identity": "5bad43de-15bd-462c-953f-7b523d47da62",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:47:51",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 230030,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-6669/v1/3498f33f-c34e-409f-acff-65cf298de734.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Genome sequencing, assembly, parasites, contamination, contaminants, genomes, assemblies, parasitic worms, helminths, nematodes, flatworms, platyhelminths, Nematoda, Platyhelminthes",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "A major problem in whole genome sequencing of parasitic worm \\(nematode and flatworm) species is that sequencing reads can be contaminated with those of other species, either arising from DNA of the host species, other species that are commensal in the host, or from laboratory contamination. Here we describe a computational protocol to identify and remove likely contaminant scaffolds from the initial genome assembly for a parasitic worm. This protocol successfully identifies large contaminant scaffolds that contain many protein-coding genes.",
+        "manuscriptTitle": "Contamination screening of parasitic worm genome assemblies",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2018-04-11 15:23:31",
+                "doi": "10.1038/protex.2018.038",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a15cc705-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "April 11th, 2018",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 4212,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 4213,
+                "name": "Biotechnology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2018-04-11 15:23:31",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

@@ -1,0 +1,311 @@
+{
+    "identity": "nprot-2184",
+    "title": "Cynomolgus and Chinese rhesus macaque genome assembly and analysis",
+    "content": [
+        {
+            "header": "Procedure",
+            "content": "**1. SOAP denovo assembly**\r\n\n\nSOAPdenovo employs the de Bruijn graph algorithm in order both to simplify the task of assembly and to reduce computational complexity. Low quality reads were filtered and potential sequencing errors were removed by k-mer frequency-based error correction. We filtered the following type of reads:\r\n\n\n1. Reads having an \u2018N\u2019 over 10% of its length. \r\n  2. Reads from short insert-size libraries having more than 65% of bases with quality \u22647, and reads from large insert-size libraries that contained more than 80% of bases with a quality \u2264 7.\r\n  3. Reads with more than 10 bp from the adapter sequence \\(allowing \u22642 bp mismatches).\r\n  4. Small insert size paired-end reads that overlapped \u226510 bp between two ends. \r\n  5. Read1 and read2 of two paired-end reads that were completely identical \\(and were hence considered to be the products of PCR duplication).\r\n  6. Reads having a k-mer frequency <4 \\(to minimize the influence of sequencing errors).\r\n  SOAPdenovo first constructs the _de Bruijn_ graph by splitting the reads from short insert size libraries \\(200-500bp) into 31-mers and then merging the 31-mers \\( 30bp overlaps with 1 bp overhangs); contigs were then collected which exhibited unambiguous connections in _de Bruijn_ graphs. Reads from mate-paired libraries \\(insert size >2k) were aligned onto the contigs for scaffold building using the paired-end information. This paired-end information was subsequently used to link contigs into scaffolds, step by step, from short insert sizes to long insert sizes.\r\n\n\n\r\n\n\n**2.  RNA-seq sequencing**\r\n\n\n1| Homogenise frozen tissues in Trizol reagent in a bead mill with 5mm stainless steel beads. \r\n\n\n2| Follow the Trizol procedure, including two alcohol precipitations and suspension of the final RNA pellet in RNAse-free water.\r\n\n\n3| Construct RNA sequencing libraries using an Illumina standard mRNA-Seq Prep Kit. Briefly: Use oligo\\(dT) magnetic beads to purify the poly-A containing mRNA molecules. Further fragment the mRNA into short lengths by controlled temperature, and then randomly primed during first strand synthesis by reverse transcription. Follow this with second-strand synthesis with DNA polymerase I to create double-stranded cDNA fragments. Subject double stranded cDNA  to end repair by Klenow and T4 DNA polymerases and A-tailed by Klenow lacking exonuclease activity. \r\n\n\n4|  Ligation to Illumina Paired-End Sequencing adapters, size selection by gel electrophoresis and then PCR amplification complete the library preparation. Sequence the paired-end libraries sequenced on a Illumina Genome Analyzer for 100 bp at each end.\r\n\n\n\r\n\n\n**3. Gene prediction**\r\n\n\nuse BLAT to map genes of IR \\(MMUL_0_1) and human \\(Ensembl release-56) onto two macaca genome, Orthologous regions were then determined by best-BLAT hit and synteny-based analysis, followed by the application of \"Exonerate\":http://www.ebi.ac.uk/~guy/exonerate/ and \"GENEWISE\":http://www.ebi.ac.uk/Tools/Wise2/index.html to refine gene model at each locus.\r\n\n\n\r\n\n\n**4. Assembly quality validation in neutral mode**\r\n\n\nNeutral InDel model1 can be used to validate the quality of our genome assemblies.When aligning two closely related genome sequences, the frequencies of lengths of successive alignment blocks \\(which were split by gaps during the alignment), termed Inter-gap Segments \\(IGS), may be expected to follow a geometric frequency distribution under a standard neutral model.Within the neutral evolving regions, incorrect InDels introduced during the assembly process would result in the observed IGS length distribution departing from the geometric distribution. The introduced InDels would generate an excess of short IGS over the number predicted by the neutral InDel model. By quantifying this excess, several parameters viz. the proportion \\(\u025b), average density \\(D), and number \\(Ng) of the clustered erroneous gaps in the genome alignments can be estimated."
+        },
+        {
+            "header": "References",
+            "content": "1 Meader, S., Hillier, L. W., Locke, D., Ponting, C. P. & Lunter, G. Genome assembly quality: assessment and improvement using the neutral indel model. Genome Res 20, 675-684."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nbt.1992",
+                "date": "2011-11-04 10:38:07",
+                "title": "Genome sequencing and comparison of two nonhuman primate animal models, the cynomolgus and Chinese rhesus macaques",
+                "authors": [
+                    "Guangmei Yan",
+                    "Guojie Zhang",
+                    "Xiaodong Fang",
+                    "Yanfeng Zhang",
+                    "Cai Li",
+                    "Fei Ling",
+                    "David N Cooper",
+                    "Qiye Li",
+                    "Yan Li",
+                    "Alain J van Gool",
+                    "Hongli Du",
+                    "Jiesi Chen",
+                    "Ronghua Chen",
+                    "Pei Zhang",
+                    "Zhiyong Huang",
+                    "John R Thompson",
+                    "Yuhuan Meng",
+                    "Yinqi Bai",
+                    "Jufang Wang",
+                    "Min Zhuo",
+                    "T"
+                ],
+                "journal": "Nature Biotechnology",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 11843,
+                "identity": "9fae717b-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Guangmei Yan",
+                "email": "ygm@mail.sysu.edu.cn",
+                "orcid": "",
+                "institution": "The South China Center for Innovative Pharmaceuticals, Guangzhou 510663, China",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Guangmei",
+                "middleName": "",
+                "lastName": "Yan",
+                "suffix": ""
+            },
+            {
+                "id": 11844,
+                "identity": "9fae734d-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Jun Wang",
+                "email": "wangj@genomics.org.cn",
+                "orcid": "",
+                "institution": "Beijing Genomics Institute, Shenzhen",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Jun",
+                "middleName": "",
+                "lastName": "Wang",
+                "suffix": ""
+            },
+            {
+                "id": 11845,
+                "identity": "9fae74d8-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Xiaoning Wang",
+                "email": "xnwang@scut.edu.cn",
+                "orcid": "",
+                "institution": "The South China Center for Innovative Pharmaceuticals, Guangzhou 510663, China",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Xiaoning",
+                "middleName": "",
+                "lastName": "Wang",
+                "suffix": ""
+            },
+            {
+                "id": 11846,
+                "identity": "9fae770b-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Jian   Wang ",
+                "email": "wangjian@genomics.org.cn",
+                "orcid": "",
+                "institution": "Beijing Genomics Institute, Shenzhen",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Jian",
+                "middleName": "",
+                "lastName": "Wang",
+                "suffix": ""
+            },
+            {
+                "id": 11842,
+                "identity": "9fae6e1b-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Zhiyong Huang",
+                "email": "",
+                "orcid": "",
+                "institution": "Beijing Genomics Institute, Shenzhen",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Zhiyong",
+                "middleName": "",
+                "lastName": "Huang",
+                "suffix": ""
+            },
+            {
+                "id": 11847,
+                "identity": "9fae78a7-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Guojie Zhang",
+                "email": "",
+                "orcid": "",
+                "institution": "Beijing Genomics Institute, Shenzhen",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Guojie",
+                "middleName": "",
+                "lastName": "Zhang",
+                "suffix": ""
+            },
+            {
+                "id": 11848,
+                "identity": "9fae7a0e-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": " Xiaodong Fang",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Xiaodong",
+                "middleName": "",
+                "lastName": "Fang",
+                "suffix": ""
+            },
+            {
+                "id": 11849,
+                "identity": "9fae7b74-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Cai Li",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Cai",
+                "middleName": "",
+                "lastName": "Li",
+                "suffix": ""
+            },
+            {
+                "id": 11850,
+                "identity": "9fae7cd3-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Fei  Ling",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Fei",
+                "middleName": "",
+                "lastName": "Ling",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2011-09-02 08:54:40",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2011.264",
+        "doiUrl": "https://doi.org/10.1038/protex.2011.264",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13464739,
+                "identity": "baa20db0-d7a7-4ddd-85db-28fc6dad9f8a",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:44:33",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 147072,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-2184/v1/aa808358-0a4d-448d-a29e-e5c8f7bf16ae.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "cynomolgus,Chinese rhesus macaque,macaca,assembly,analyse",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "cynomolgus and Chinese rhesus macaque sequencing, assembly and analyse",
+        "manuscriptTitle": "Cynomolgus and Chinese rhesus macaque genome assembly and analysis",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2011-11-04 10:42:06",
+                "doi": "10.1038/protex.2011.264",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9fae01df-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "November 4th, 2011",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 2629,
+                "name": "Biochemistry"
+            },
+            {
+                "id": 2630,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 2631,
+                "name": "Genetics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2011-11-04 10:42:06",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

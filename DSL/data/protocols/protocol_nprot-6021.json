@@ -1,0 +1,360 @@
+{
+    "identity": "nprot-6021",
+    "title": "Protocol for rapidly inducible Cas9 and DSB-ddPCR",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "In vivo, Cas9-mediated cleavage of DNA target sites is generally measured indirectly, by quantifying indels. To directly and quantitatively measure DSBs at a target site, we developed a droplet digital PCR assay, DSB-ddPCR. DSB-ddPCR uses a primer pair that spans the sgRNA target site and another proximal pair that does not. Amplification is detected using primer pair-specific probes \\(FAM-labeled probe: uncleaved target present; VIC-labeled probe: template present). Droplets containing an uncleaved or repaired template yield products for both primer pairs \\(target+, template+). Droplets containing a template that has been cleaved by ciCas9 but not yet repaired are negative for the target amplicon \\(target-, template+).\r\n\n\n\r\n\n\n<img src=\"http://www.nature.com/protocolexchange/system/uploads/5651/original/DSB-ddPCR_schematic.jpg?1498212435\" width=\"600\" height=\"220\">"
+        },
+        {
+            "header": "Reagents",
+            "content": "DNeasy Columns, Qiagen.\r\n\n\nDual-quenched probes, Integrated DNA Technologies.\r\n\n\nDroplet generating oil for probes, DG8 cartridges, DG8 Gaskets and ddPCR Supermix for, Bio-Rad.\r\n\n\nRestriction Enzymes, New England Biolabs."
+        },
+        {
+            "header": "Equipment",
+            "content": "C1000 Thermal cycler, Bio-Rad. \r\n\n\nQX200\u2122 Droplet digital PCR system, Bio-Rad.\r\n\n\n\r\n\n\n<a href=\"http://www.nature.com/protocolexchange/system/uploads/5649/display/stdcurves.png?1498212399\">\r\n\n\n<img src=\"http://www.nature.com/protocolexchange/system/uploads/5649/glance/stdcurves.png?1498212399\">\r\n\n\n</a>"
+        },
+        {
+            "header": "Procedure",
+            "content": "**A. Design ddPCR amplicons**\r\n\n\n1. Design specific primers flanking the Cas9\u2022sgRNA cutsite \\(target amplicon). Design specific primers for a region near but not overlapping the target amplicon \\(template amplicon). Amplicons should be approximately 125-225 bp in length. We placed template amplicons between 41 bases and 407 bases away from the target amplicon. Each fluorogenic hydrolysis probe should be designed to anneal within its cognate amplicon but distal to the Cas9\u2022sgRNA cutsite, such that indels resulting from repair of DSBs will not interfere with probe binding. \r\n  1.1. General guidelines for designing primers and probes can be found \"here\":http://www.bio-rad.com/en-us/applications-technologies/planning-droplet-digital-pcr-experiments\r\n\n\n1.2. The web-based \"PrimerQuest tool\":https://www.idtdna.com/Primerquest/Home/Index can be used to design primers and double-quenched probes.\r\n\n\n1.3. We have successfully used both TaqMan probes \\(ThermoFisher) and double-quenched qPCR probes \\(Integrated DNA Technologies).\r\n\n\n2. Identify restriction enzyme\\(s) that cut distal to both amplicons, ideally creating a fragment no more than approximately 3 kb in length.  It is critical that the enzyme\\(s) chosen does not cut within or between the target and template amplicons. Digesting with such an enzyme can improve amplification efficiency, but is not required in most cases. \r\n  \r\n\n\n**B. Purify Genomic DNA using Qiagen DNeasy kit**\r\n\n\n1. Resuspend and transfer confluent cells from a 12-well plate to a 1.7 uL microcentrifuge tube. \r\n  2. Centrifuge cells for 5 min at 300 x g, discard supernatant.\r\n  3. Resuspend cells in 200 uL PBS.\r\n  4. Add 20 uL Proteinase K\r\n  5. Add 200 uL buffer AL, mix by vortexing. **Incubate at 56 \u00b0C for 1 hour**\r\n  6. Add 200 uL ethanol \\(96-100%)\r\n  6. Pipet mixture into a DNeasy Mini spin column and collection tube. Centrifuge at >6,000 x g for 1 min. Discard flow through and collection tube.\r\n  7. Place the column in a new collection tube. Add 500 uL Buffer AW1. Centrifuge at >6,000 x g for 1 min. Discard flow through and collection tube.\r\n  8. Place the column in a new collection tube. Add 500 uL Buffer AW2. Centrifuge at 20,000 x g for 1 min. Discard flow through and collection tube.\r\n  9. Transfer the column to a new 1.7 or 2 mL microcentrifuge tube. Elute the DNA by adding 150 uL nuclease free water or Elution Buffer lacking EDTA. Incubate for 1 min at room temperature. Centrifuge at >6,000 x g for 1 min. \r\n  Expected concentration ranges from 50 - 150 ng/uL. \r\n\n\n\r\n\n\n**C. Digest DNA for Control Dilution Series**\r\n\n\n1. Identify a restriction enzyme that cuts within the target amplicon but not within the template amplicon. \r\n  2. Digest and inactivate uncut control DNA according to the restriction enzyme protocol. Uncut control DNA should be treated exactly the same, except that the restriction enzyme should be omitted. \r\n  3. Make ratiometric mixes of cut to uncut DNA for a standard curve \\(e.g. 1:1, 1:2, 1:4, 1:10 and 1:100).\r\n  \r\n\n\n**D. Master mix for ddPCR**\r\n\n\n1. 1x reaction:\r\n  10 uL 2x ddPCR Supermix for Probes\r\n\n\n0.125 uL Restriction enzyme 1  for fragmentation \\(optional)\r\n\n\n0.125 uL Restriction enzyme 2  for fragmentation \\(optional)\r\n\n\n1.8 uL 10 um primer mix \\(forward and reverse primers for both target and template amplicons)\r\n\n\n50 -150 ng DNA \\(acceptable range)\r\n\n\n1 uL 5um probe mix \\(target and template probes)\r\n\n\nBring to a final volume of 20 uL with nuclease free water. \r\n\n\n\r\n\n\n**E. Creating Droplets**\r\n\n\n1. Place disposable DGB cartridge into proprietary holder and close.\r\n  2. Pipet 70uL of oil for probes into the eight designated wells. \r\n  3. Pipet your samples into the eight designated wells, ensuring that there are no air bubbles at the bottom of the wells. If you have less than eight samples, fill remaining wells with water. \r\n  4. Place proprietary gasket on top of cartridge and holder. \r\n  5. Place cartridge and holder into the Q200 droplet generator. Close lid to begin generation\r\n  6. Pipet droplets from cartridge to 96 well thermal PCR plate and seal using adhesive aluminum  or heat sealer.\r\n  \r\n\n\n**F. Cycling conditions**\r\n\n\nEnzyme activation: 10 min at 95 \u00b0C\r\n\n\n40 cycles of:\r\n\n\n     Denaturation: 30 sec at 94 \u00b0C\r\n\n\n     Annealing/extension: 60 sec at  60 \u00b0C\r\n\n\nEnzyme inactivation: 10 min at 98 \u00b0C\r\n\n\nHold \\(optional): indefinitely at 4 \u00b0C\r\n\n\n\r\n\n\n**G. Loading QX200 Droplet reader**\r\n\n\n1. After thermal cycling, droplets may be stored at 4\u00b0C for up to 24 hours before analysis.\r\n  2. Place the sealed 96-well plate in the QX100 or QX200 Droplet reader, secured with a metal plate holder.\r\n  3. Open QuantaSoftTM Software and initialize a new experiment by first creating a new plate layout template. See the QuantaSoft Instruction manual for detailed setup procedures to designate sample name, experiment type, master mix used, target name\\(s), and fluorescent channels used \\(e.g. Ch1 for FAM and Ch2 for VIC-labeled TaqManTM probes). \r\n  4. After the layout is complete, click \u2018Run\u2019 to start the droplet reading process and then select the dye sets and run options desired. \r\n  5. After droplet reading, plates are analyzed using the QuantaSoft software. Concentrations reported are copies/\u00b5L of the final 1x ddPCR reaction and should be adjusted according to the template volume that was present in the reaction mixture. \r\n  6. Positive droplet calls are automatically determined by the QuantaSoft software, in wells with good separation between positive and negative droplets. Thresholds for positive droplets can be imposed or altered using by the user, which may be useful in some instances to adjust gating for droplets of low intensity or to better accommodate results when using multiplexed probes. \r\n  \r\n\n\n**H. Data analysis**\r\n\n\n1. After droplet reading, plates are analyzed using the QuantaSoft software. Concentrations reported are copies/\u00b5L of the final 1x ddPCR reaction and should be adjusted according to the template volume that was present in the reaction mixture. \r\n  2. Positive droplet calls are automatically determined by the QuantaSoft software, in wells with good separation between positive and negative droplets. Thresholds for positive droplets can be imposed or altered using by the user, which may be useful in some instances to adjust gating for low intensity droplets or to better accommodate results when using multiplexed probes.\r\n  3. Raw DSB frequency can be calculated as follows: \\(\\[target-,template+])/\\(\\[target-,template+]  + \\[target+,template+])  \r\n  4. To generate standard curves, raw DSB frequencies for ratiometric standard samples are calculated as in \\(3) and a linear regression is performed.\r\n  5. Absolute DSB frequencies for experimental samples can be calculated by fitting the corresponding raw DSB frequencies to the standard curve linear regression determined in \\(4)."
+        },
+        {
+            "header": "Timing",
+            "content": "Total Time: ~2-3days\r\n\n\n - gDNA Preparation: ~2-3 hours\r\n\n\n - Control DNA Digestion and mixing: ~2 hours\r\n\n\n - ddPCR: ~3-5 hours\r\n\n\n - Data acquisition and analysis: ~1-8 hours"
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "A) \r\n\n\n**Issue:**\r\n\n\nOverlapping target and template populations\r\n\n\n**Potential Cause:** \r\n\n\nDNA Concentration too high\r\n\n\n**Solution/Tips:** \r\n\n\n-Decrease sample DNA concentration, aiming for no more than 15% positive droplet occupancy \\(e.g. 3000 positive droplets, 17000 negative droplets in a single well).\r\n\n\n - Include no template control wells to establish baseline \u2018negative\u2019 droplet fluorescence. \r\n\n\n\r\n\n\n\r\n\n\n**Potential Cause:** \r\n\n\nNon-specific primer binding or weak priming site. \r\n\n\n**Solution/Tips:** \r\n\n\n-Redesign primers; assure that primers are specific for the desired amplicon by running nucleotide-BLAST or other suitable program for detecting possible sites of off-target amplification\r\n\n\n-During probe design, verify absence of significant hetero- or homo-dimer formations between primers and probes using IDT Oligoanalyzer or other similar programs for primer analysis\r\n\n\n- Perform an annealing gradient from 50\u00b0C to 60\u00b0C, and verify distinct populations of \u2018positive\u2019 and \u2018negative\u2019 droplets when visualizing results using the QuantaSoft program\r\n\n\n- Increase the extension time, from 1 minute to up to 6 minutes\r\n\n\n\r\n\n\n\r\n\n\n**Potential Cause:** \r\n\n\nInsufficient template DNA accessibility\r\n\n\n**Solution/Tips:** \r\n\n\n-Fragment sample DNA using restriction enzymes\\(s) not present in the amplicon region, sites near the target region are ideal\r\n\n\n\r\n\n\n\r\n\n\nB) \r\n\n\n**Issue:**\r\n\n\nControl mixtures not fitting expected standard curve\r\n\n\n**Potential Cause:** \r\n\n\nPoor restriction endonuclease activity leading to partially digested control DNA\r\n\n\n**Solution/Tips:** \r\n\n\n- Increase digestion times\r\n\n\n- Increase enzyme concentration\r\n\n\n- Select a different restriction enzyme"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "**A. Control DNA data**\r\n\n\nexample: \r\n\n\n<img src=\"http://www.nature.com/protocolexchange/system/uploads/5653/original/bubbleplot.jpg?1498212471\" width=\"600\" height=\"220\">\r\n\n\n\r\n\n\n\r\n\n\n\r\n\n\n**B. Control DNA standard curve**\r\n\n\nexamples:\r\n\n\n<img src=\"http://www.nature.com/protocolexchange/system/uploads/5649/original/stdcurves.jpg?1498212399\" width=\"600\" height=\"220\">"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nmeth.4368",
+                "date": "2017-09-12 11:16:51",
+                "title": "Rapidly inducible Cas9 and DSB-ddPCR to probe editing kinetics",
+                "authors": [
+                    "John C Rose",
+                    "Jason J Stephany",
+                    "William J Valente",
+                    "Bridget M Trevillian",
+                    "Ha V Dang",
+                    "Jason H Bielas",
+                    "Dustin J Maly",
+                    "and Douglas M Fowler"
+                ],
+                "journal": "Nature Methods",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 14857,
+                "identity": "a1171b5c-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Dustin J. Maly",
+                "email": "djmaly@uw.edu ",
+                "orcid": "",
+                "institution": "Maly Lab, University of Washington - Department of Chemistry ",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Dustin",
+                "middleName": "J.",
+                "lastName": "Maly",
+                "suffix": ""
+            },
+            {
+                "id": 14858,
+                "identity": "a1171e18-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Douglas M. Fowler",
+                "email": "dfowler@uw.edu ",
+                "orcid": "",
+                "institution": "Fowler Lab, University of Washington - Department of Genome Sciences",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Douglas",
+                "middleName": "M.",
+                "lastName": "Fowler",
+                "suffix": ""
+            },
+            {
+                "id": 14851,
+                "identity": "a1170d44-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "John C. Rose",
+                "email": "",
+                "orcid": "",
+                "institution": "Maly Lab, University of Washington - Department of Chemistry ",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "John",
+                "middleName": "C.",
+                "lastName": "Rose",
+                "suffix": ""
+            },
+            {
+                "id": 14852,
+                "identity": "a117111e-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Jason J. Stephany",
+                "email": "",
+                "orcid": "",
+                "institution": "Fowler Lab, University of Washington - Department of Genome Sciences",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jason",
+                "middleName": "J.",
+                "lastName": "Stephany",
+                "suffix": ""
+            },
+            {
+                "id": 14853,
+                "identity": "a1171413-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "William J. Valente",
+                "email": "",
+                "orcid": "",
+                "institution": "Bielas Lab, Fred Hutch Cancer Research Center - Division of Public Health Sciences",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "William",
+                "middleName": "J.",
+                "lastName": "Valente",
+                "suffix": ""
+            },
+            {
+                "id": 14854,
+                "identity": "a11715dc-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Bridget M. Trevillian",
+                "email": "",
+                "orcid": "",
+                "institution": "Maly Lab, University of Washington - Department of Chemistry ",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Bridget",
+                "middleName": "M.",
+                "lastName": "Trevillian",
+                "suffix": ""
+            },
+            {
+                "id": 14855,
+                "identity": "a117184c-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Ha V. Dang",
+                "email": "",
+                "orcid": "",
+                "institution": "University of Washington  - Department of Chemistry ",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Ha",
+                "middleName": "V.",
+                "lastName": "Dang",
+                "suffix": ""
+            },
+            {
+                "id": 14856,
+                "identity": "a11719ef-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Jason H. Bielas",
+                "email": "",
+                "orcid": "",
+                "institution": "Bielas Lab, Fred Hutch Cancer Research Center - Division of Public Health Sciences",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jason",
+                "middleName": "H.",
+                "lastName": "Bielas",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2017-06-22 17:29:06",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2017.066",
+        "doiUrl": "https://doi.org/10.1038/protex.2017.066",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2609816,
+                "identity": "2d93ead0-77f7-466b-bf05-70ad75794ea4",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:12",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 105179,
+                "visible": true,
+                "origin": "",
+                "legend": "Standard Curves   Examples",
+                "description": "",
+                "filename": "figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-6021/v1/figure_1.jpg"
+            },
+            {
+                "id": 2609818,
+                "identity": "db73ef65-c69a-43f1-9c4d-ce3baa50b40f",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:12",
+                "extension": "jpg",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 109415,
+                "visible": true,
+                "origin": "",
+                "legend": "DSB-ddPCR   Schematic",
+                "description": "",
+                "filename": "figure2.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-6021/v1/figure_2.jpg"
+            },
+            {
+                "id": 2609819,
+                "identity": "0588c905-7c09-44a8-8f17-1c0385b801d1",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:12",
+                "extension": "jpg",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 136311,
+                "visible": true,
+                "origin": "",
+                "legend": "Control DNA   Example",
+                "description": "",
+                "filename": "figure3.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-6021/v1/figure_3.jpg"
+            },
+            {
+                "id": 13465085,
+                "identity": "76e21040-d7b8-4d5f-8d1b-5e2e60063e6e",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:45:35",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 353111,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-6021/v1/660c1e0e-5a35-4167-86cd-8145b2c91aa0.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Double stranded break, digital droplet polymerase chain reaction",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "DSB-ddPCR is a droplet digital PCR-based assay for double strand breaks. DSB-ddPCR measures DSBs in a time-resolved, highly quantitative and targeted manner.",
+        "manuscriptTitle": "Protocol for rapidly inducible Cas9 and DSB-ddPCR",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2017-09-12 11:18:00",
+                "doi": "10.1038/protex.2017.066",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a1169c96-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "September 12th, 2017",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3962,
+                "name": "Cell biology"
+            },
+            {
+                "id": 3963,
+                "name": "Genetics"
+            },
+            {
+                "id": 3964,
+                "name": "Molecular Biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2017-09-12 11:18:00",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

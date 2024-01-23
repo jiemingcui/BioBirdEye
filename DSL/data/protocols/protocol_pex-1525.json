@@ -1,0 +1,350 @@
+{
+    "identity": "pex-1525",
+    "title": "<p>Development and validation of patient-level prediction models for symptoms, hospitalization and treatment initiation amongst prostate cancer patients on watchful waiting</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p><strong>Introduction</strong></p><p>Prostate cancer (PCa) is the second leading cause of cancer death in men worldwide (1). Despite high incidence rates, outcomes and survival rates for PCa have improved significantly over the years, partly due to widespread availability of prostate\u2010specific antigen (PSA) testing (2). PSA based screening leads to earlier detection of PCa often at a stage it is amenable to treatment but years before it would have presented clinically (lead time bias) (3). However, it also leads to a significant increase in the number of men found to harbour prostate cancer the majority of whom would not have gone on to develop clinical disease (4). Historically, early detection leads to treatment much of which was unnecessary. This overtreatment, result in dysfunction of the urogenital tract including incontinence, infertility and impotence or secondary malignancies affecting patient's quality of life (5).</p><p>These two issues (overtreatment and lead time bias) have led to the development of two separate conservative approaches, active surveillance (AS) and watchful waiting (WW) for patients with PCa by the European Association of Urology (EAU) (<a href=\"https://uroweb.org/guideline/prostate-cancer/\" rel=\"noopener noreferrer\" target=\"_blank\">https://uroweb.org/guideline/prostate-cancer/</a>) and American Association of Urology (AUA) (<a href=\"https://www.auanet.org/guidelines/prostate-cancer-clinically-localized-guideline\" rel=\"noopener noreferrer\" target=\"_blank\">https://www.auanet.org/guidelines/prostate-cancer-clinically-localized-guideline</a>) guidelines. AS is an internationally accepted management strategy for men with low- and intermediate-risk PCa with a low risk of disease progression. These patients keep the option to convert to curative treatment at the time of progression (6). It attempts to reduce overtreatment by only treating those patients who are shown to progress.</p><p>Asymptomatic patients with localized disease and a life expectancy less than 10 years at time of diagnosis are not likely to benefit from radical treatment because of the lead-time bias associated with PSA testing. Instead, these patients are offered WW (i.e., symptom-guided treatment) and they may receive palliative treatment in case of progression to maintain quality of life.</p><p>Knowledge on potential risk factors for outcomes of men following WW is limited as is the natural history. The current evidence for WW mainly emerged from clinical studies which might limit the identification of potential risk factors.<strong> </strong>A European network of excellence for big data in PCa, PIONEER (<a href=\"https://prostate-pioneer.eu/\" rel=\"noopener noreferrer\" target=\"_blank\">https://prostate-pioneer.eu</a>), partner in the Innovative Medicine Initiative\u2019s (IMI\u2019s) \u201cBig Data for Better Outcomes\u201d program,<strong> </strong>aims to improve PCa care across Europe through the application of big data analytics (7). Within the context of PIONEER, the objective of the current study is to apply data driven strategies to identify predictors for symptomatic progression, hospitalization, ER visit, treatment initiation and death in order to support clinical decisions making for the management of WW.</p><p><br></p><p><strong>Objective</strong></p><p>The objective is to develop and validate patient-level prediction models for symptomatic progression, hospitalization and palliative treatment initiation amongst prostate cancer patients on&nbsp;watchful&nbsp;waiting. In detail, we predict the 1-, 2-, and 5-year risk of developing symptomatic progression, hospitalization, ER visit, treatment initiation, and any death based on age, clinical measurements and clinical conditions to guide expectancy management for both the clinician and the patient, see Figure 1. For the model to be used in clinical practice (i.e., the clinical model), we develop a model based on expert clinical input. Discrimination will be used to compare the full \u201cbig data\u201d model and the clinical model. </p>"
+        },
+        {
+            "header": "Reagents",
+            "content": ""
+        },
+        {
+            "header": "Equipment",
+            "content": ""
+        },
+        {
+            "header": "Procedure",
+            "content": "This study will follow a retrospective, observational, patient-level prediction design (\nhttps://ohdsi.github.io/TheBookOfOhdsi/PatientLevelPrediction.html\n). We defined the 'patient-level prediction' as a modeling process wherein an outcome is predicted within a time at risk relative to the target cohort start and/or end date. Prediction will be performed using a set of covariates derived using data prior to the start of the target cohort.\nFigure 2 (from (\nhttps://ohdsi.github.io/TheBookOfOhdsi/PatientLevelPrediction.html\n) illustrates the prediction problem we will address. Among a population at risk, we aim to predict which patients at a defined moment in time (t = 0) will experience some outcome during a time-at-risk. Prediction is done using only information about the patients in an observation window prior to that moment in time.\nWe follow the PROGRESS best practice recommendations for model development and the TRIPOD guidance for transparent reporting of the model results. (8, 9). For all data sources, we refer to the appendices.\nIn all models we estimated the risk after 1, 2, and 5 years after diagnosis. Our population setting comprises patients with a time-at-risk window between 0 and 365 days, 0 and 730 days, and 0 and 1826 days. In all settings, the minimum lookback period applied to the target cohort is 365 days, without removing patients without time at risk or removing patients with an outcome prior to diagnosis. We included only the first exposure per patient.\nStatistical Analysis Method(s)\nAlgorithms\nLasso logistic regression belongs to the family of generalized linear models, where a linear combination of the variables is learned and finally a logistic function maps the linear combination to a value between 0 and 1. The lasso regularization adds a cost based on model complexity to the objective function when training the model (10). This cost is the sum of the absolute values of the linear combination of the coefficients. The model automatically performs feature selection by minimizing this cost. We use the Cyclic coordinate descent for logistic, Poisson and survival analysis (Cyclops) package to perform large-scale regularized logistic regression: https://github.com/OHDSI/Cyclops\nModel Evaluation\nModel evaluation will be based on the calibration plot and the discrimination of the internal and external validation.\nQuality Control\nThe PatientLevelPrediction package itself, as well as other OHDSI packages on which PatientLevelPrediction depends, use unit tests for validation.\nTools\nThis study will be designed using OHDSI tools and run with R.\nDiagnostics\nReviewing the incidence rates of the outcomes in the target population prior to performing the analysis will allow us to assess its feasibility. The full Shiny app can be observed here:\nPIONEER watchful waiting\n.\nData Analysis Plan\nAlgorithm Settings\nFor the time at risk analyses we use lasso regression, we use a fixed set seed and a starting lambda value of 0.01.\nCovariate Settings\nA covariate included in the model needs to contain at least 0.001 times. In all models we specified medium term as 180 days and long term as 365 days.\nFirst model\nIn the second model, we included the predictors age and all concept based clinical measurements 6 months before diagnosis defined in the OMOP Common data model.\nSecond model\nIn the final model, we extended the second model by including all concept based clinical condition one year before diagnosis and the Charlson comorbidity index.\nThird model\nClinical model development\nA total of six clinicians made a selection of their top 10 covariates. Consensus was reached after discussion. The included variables are:\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Grade group (levels: 1, 2, 3, 4, 5)\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0PSA (levels: <10, 10-20, >20)\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Total cardiovascular disease event\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Age group (per 5 year)\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Charlson comorbidity index (levels: 0, 1, \u22652)\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0cT-stage (levels: T1, T2, \u2265T3)\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Family history of PCa\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Stroke (1 year before diagnosis)\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Type 2 diabetes\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Metastatic disease extent\nModel Development & Evaluation\nIn the model development we will split the data in a train set (75%) and a test set (25%) for internal validation. The optimal lambda for the lasso regression will be assessed by 3-fold cross validation on the train set. Discriminative ability between models will be assessed by the area under the receiver operating characteristic curve (AUC). The discrimination of the clinical model will be compared against the concept-based model.\nStrengths & Limitations\nA strength of the study is the inclusion of multiple data sources such as clinical data and claims data, all adapted with OMOP standards, allowing more generalized results. The analysis of big data may identify predictors that are currently not used in daily clinical practice. This provides a limitation but also a chance for the study. Newly identified significant predictors might not be included in clinical procedures, and therefore this study can be irrelevant for clinical questions. On the other hand, it may provide the chance to adapt current PCa treatment for the future.\nA clear limitation of this study is, that in claims data the occurrence of death is not accurately presented and might be biased.\nProtection of Human Subjects\nLocal analyses were run to take into account the sensitive nature of the data. Confidentiality of patient records will be maintained always. All study reports will contain aggregate data only and will not identify individual patients or physicians. At no time during the study will the sponsor receive patient identifying information except when it is required by regulations in case of reporting adverse events.\nTables & Figures\nFor the incidence rate and characterization, we refer to\nPIONEER watchful waiting\n."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": ""
+        },
+        {
+            "header": "Time Taken",
+            "content": ""
+        },
+        {
+            "header": "Anticipated Results",
+            "content": ""
+        },
+        {
+            "header": "References",
+            "content": "<p>1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rawla P. Epidemiology of Prostate Cancer. World J Oncol. 2019;10(2):63-89.</p><p>2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;De Angelis R, Sant M, Coleman MP, Francisci S, Baili P, Pierannunzio D, et al. Cancer survival in Europe 1999-2007 by country and age: results of EUROCARE--5-a population-based study. Lancet Oncol. 2014;15(1):23-34.</p><p>3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Schr\u00f6der FH, Hugosson J, Carlsson S, Tammela T, M\u00e4\u00e4tt\u00e4nen L, Auvinen A, et al. Screening for prostate cancer decreases the risk of developing metastatic disease: findings from the European Randomized Study of Screening for Prostate Cancer (ERSPC). Eur Urol. 2012;62(5):745-52.</p><p>4.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wever EM, Heijnsdijk EA, Draisma G, Bangma CH, Roobol MJ, Schr\u00f6der FH, et al. Treatment of local-regional prostate cancer detected by PSA screening: benefits and harms according to prognostic factors. Br J Cancer. 2013;108(10):1971-7.</p><p>5.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thompson IM. Overdiagnosis and overtreatment of prostate cancer. Am Soc Clin Oncol Educ Book. 2012:e35-9.</p><p>6.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lam TBL, MacLennan S, Willemse PM, Mason MD, Plass K, Shepherd R, et al. EAU-EANM-ESTRO-ESUR-SIOG Prostate Cancer Guideline Panel Consensus Statements for Deferred Treatment with Curative Intent for Localised Prostate Cancer from an International Collaborative Study (DETECTIVE Study). Eur Urol. 2019;76(6):790-813.</p><p>7.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Omar MI, Roobol MJ, Ribal MJ, Abbott T, Agapow P-M, Araujo S, et al. Introducing PIONEER: a project to harness big data in prostate cancer research. Nature Reviews Urology. 2020;17(6):351-62.</p><p>8.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Steyerberg EW, Moons KGM, van der Windt DA, Hayden JA, Perel P, Schroter S, et al. Prognosis Research Strategy (PROGRESS) 3: prognostic model research. PLoS Med. 2013;10(2):e1001381-e.</p><p>9.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Collins GS, Reitsma JB, Altman DG, Moons KGM. Transparent reporting of a multivariable prediction model for individual prognosis or diagnosis (TRIPOD): the TRIPOD Statement. BMC Medicine. 2015;13(1):1.</p><p>10.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tibshirani R. Regression Shrinkage and Selection via the Lasso. Journal of the Royal Statistical Society Series B (Methodological). 1996;58(1):267-88.</p><p><br></p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>Ron Herrera&nbsp;</p><p>Flavio&nbsp;Camarrone </p><p>Vasileos&nbsp;Sakalis </p><p>Maria Escala Garcia </p><p>Christos&nbsp;Chatzichristos </p><p>Billy Franks </p><p>Anke Schulz </p><p>Alex Asiimwe </p><p>Asieh Golozar</p><p>&nbsp;</p><p>Principal investigators: Ron Hererra, Nazanin Kermani, Sebastiaan Remmers&nbsp;</p><p>The study is supported by the IMI2 initiative (PIONEER project). &nbsp;</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 26490645,
+                "identity": "d671042c-7cf9-48ee-953f-4caefe846bbb",
+                "order_by": 0,
+                "name": "Sebastiaan Remmers",
+                "email": "s.remmers@erasmusmc.nl",
+                "orcid": "https://orcid.org/0000-0001-9530-6448",
+                "institution": "Erasmus University Medical Center Rotterdam",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Sebastiaan",
+                "middleName": "",
+                "lastName": "Remmers",
+                "suffix": ""
+            },
+            {
+                "id": 26490646,
+                "identity": "aaf85d31-4896-4985-8bf5-08a05b9a0975",
+                "order_by": 1,
+                "name": "Lana Lai Yin Hui",
+                "email": "",
+                "orcid": "",
+                "institution": "University of Manchester",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Lana",
+                "middleName": "Lai Yin",
+                "lastName": "Hui",
+                "suffix": ""
+            },
+            {
+                "id": 26490647,
+                "identity": "3bec704e-364d-484d-884e-8a3c89545a50",
+                "order_by": 2,
+                "name": "Carolin Schimmelpfennig",
+                "email": "",
+                "orcid": "",
+                "institution": "Fraunhofer IZI",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Carolin",
+                "middleName": "",
+                "lastName": "Schimmelpfennig",
+                "suffix": ""
+            },
+            {
+                "id": 26490648,
+                "identity": "022ae0b8-94a6-4d0d-a937-9c571dc72885",
+                "order_by": 3,
+                "name": "Peter-Paul Willemsen",
+                "email": "",
+                "orcid": "",
+                "institution": "University Medical Center Utrecht",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Peter-Paul",
+                "middleName": "",
+                "lastName": "Willemsen",
+                "suffix": ""
+            },
+            {
+                "id": 26490649,
+                "identity": "537a6ef6-9ec4-4d50-835a-f52e97587606",
+                "order_by": 4,
+                "name": "Markus Kreuz",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-0520-8391",
+                "institution": "Fraunhofer IZI",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Markus",
+                "middleName": "",
+                "lastName": "Kreuz",
+                "suffix": ""
+            },
+            {
+                "id": 26490650,
+                "identity": "d73fb6c2-cd43-4c4d-b36e-907783726689",
+                "order_by": 5,
+                "name": "Philip Cornford",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-7146-9258",
+                "institution": "Royal Liverpool and Broadgreen University Hospitals",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Philip",
+                "middleName": "",
+                "lastName": "Cornford",
+                "suffix": ""
+            },
+            {
+                "id": 26490651,
+                "identity": "cf8c5643-33fe-4649-8e30-060d801d7584",
+                "order_by": 6,
+                "name": "Nicolas Mottet",
+                "email": "",
+                "orcid": "",
+                "institution": "University Hospital of Saint-Etienne",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Nicolas",
+                "middleName": "",
+                "lastName": "Mottet",
+                "suffix": ""
+            },
+            {
+                "id": 26490652,
+                "identity": "eac82005-b4c0-41a3-91cb-e263b73552be",
+                "order_by": 7,
+                "name": "Nazanin Zounemat-Kermani",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0003-2479-3861",
+                "institution": "Imperial College London",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Nazanin",
+                "middleName": "",
+                "lastName": "Zounemat-Kermani",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2021-05-12 06:06:37",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1525/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1525/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 10056302,
+                "identity": "c1865601-28d5-47d5-9121-7d8a378dce00",
+                "added_by": "auto",
+                "created_at": "2021-06-07 08:51:51",
+                "extension": "tif",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 45943,
+                "visible": true,
+                "origin": "",
+                "legend": "Overview of current study",
+                "description": "",
+                "filename": "Flowchart.tif",
+                "url": "https://assets.researchsquare.com/files/pex-1525/v1/d787e86a6aede8480c5e00af.tif"
+            },
+            {
+                "id": 10056327,
+                "identity": "05702a5f-75c9-4bb1-94e5-606a5d8faaa6",
+                "added_by": "auto",
+                "created_at": "2021-06-07 08:57:51",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 131728,
+                "visible": true,
+                "origin": "",
+                "legend": "The prediction problem",
+                "description": "",
+                "filename": "Figure2.png",
+                "url": "https://assets.researchsquare.com/files/pex-1525/v1/bd69b76b94f16b1ce2557872.png"
+            },
+            {
+                "id": 13697024,
+                "identity": "1a9bee09-2ba6-46c0-9d5e-acbcd1dfd172",
+                "added_by": "auto",
+                "created_at": "2021-09-17 13:07:06",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 369974,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1525/v1/8cf211be-2986-460f-85e8-9843c649f0d7.pdf"
+            },
+            {
+                "id": 10056321,
+                "identity": "62dc7f8a-8e02-4ac9-847f-130c2a12fb27",
+                "added_by": "auto",
+                "created_at": "2021-06-07 08:54:51",
+                "extension": "docx",
+                "order_by": 1,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 348098,
+                "visible": true,
+                "origin": "",
+                "legend": "Full protocol including tables and apendices",
+                "description": "",
+                "filename": "FinalprotocolPackagePLPv2.docx",
+                "url": "https://assets.researchsquare.com/files/pex-1525/v1/a15472c91a967ffc5292be48.docx"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "big data, prostatic neoplasm, prediction",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>The objective of this study is to develop and validate patient-level prediction models for patients&nbsp;on watchful waiting (WW) estimating the risk of developing symptomatic progression,&nbsp;hospitalization, ER visit, initiation of curative or palliative treatment, and survival. Estimation for all clinical models will be done based on 1) age and clinical measurements (e.g., PSA) 6 months before diagnosis, 2) age, clinical measurements 6 months before diagnosis, and clinical conditions one year before diagnosis. Finally, a clinically usable model will be developed based on expert clinical input. All prediction models will be implemented using Lasso logistic regression for the time at risk analyses.</p>",
+        "manuscriptTitle": "Development and validation of patient-level prediction models for symptoms, hospitalization and treatment initiation amongst prostate cancer patients on watchful waiting",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2021-06-07 08:51:50",
+                "doi": "10.21203/rs.3.pex-1525/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "3a28f5fe-a581-41dc-9003-53bb88b21786",
+        "owner": [],
+        "postedDate": "June 7th, 2021",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 4260328,
+                "name": "Cancer"
+            },
+            {
+                "id": 4260329,
+                "name": "Oncology"
+            },
+            {
+                "id": 4260330,
+                "name": "Urology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2021-06-07 08:51:50",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

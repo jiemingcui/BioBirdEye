@@ -1,0 +1,188 @@
+{
+    "identity": "nprot-6597",
+    "title": "Bacterial proteomic workflow",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "The workflow begins with growing the bacterial strains, isolating the bacterial proteins, processing the samples for submission to LCMS \\(protein quantitation, digestion, clean up, desalting). Then, once the samples are being processed on LCMS, the data analysis requires high performance computers."
+        },
+        {
+            "header": "Reagents",
+            "content": "PBS, 50mM ammonium bicarbonate, Trypsin Gold, AII, DTT, acetonitrile, bacterial media."
+        },
+        {
+            "header": "Equipment",
+            "content": "Tissue lyser, stainless steel beads, SCIEX5600, ESI, softwares: protein pilot, peakview, markerview."
+        },
+        {
+            "header": "Procedure",
+            "content": "The isolates were cultured on Luria Bertani agar overnight. Subsequently, a single colony from each isolate was cultured in Mueller-Hinton broth. An optimization step to establish optimum bacterial growth condition to obtain the highest number of identifiable proteins was also performed. The number of identified proteins from an overnight bacterial culture and from bacteria harvested at 0.5 of OD600 were compared. In the overnight culture, outer membrane proteins were abundant, reducing the  number of other identified proteins. A bacterial culture harvested at OD600 ~0.5 thus provided  a better sample for protein analysis \\(data not shown). Therefore, the culture of E. coli in Mueller-Hinton broth without or with appropriate antibiotics for 4 hours with shaking at 250 rpm at 37oC to reach the exponential growth phase at OD600 of 0.5 was used. \r\n\n\n----\r\n\n\nProtein quantitation:\r\n\n\nProteins were quantified in triplicates using the BCA assay \\(Sigma-Aldrich) and bovine serum albumin \\(BSA) as standard. After incubation at 37oC for 30 min, a microplate reader \\(BMG Labtech, Ortenberg/Germany) was used to determine the protein concentration at 562 nm.\r\n\n\n----\r\n\n\nReduction and alkylation:\r\n\n\nAliquots of 1 \u03bcg protein/\u03bcL were mixed with ammonium bicarbonate \\(100 \u03bcl of 50 mM) for 10 s. Ten microliters of 20 mM DTT/bicarbonate were added to each sample and incubated for 1 h at 60oC. Iodoacetamide \\(10 \u03bcl of 1 M in 100 mM bicarbonate) was added to each tube and incubated for another hour at 37oC, protected from light. \r\n\n\n----\r\n\n\nTrypsin digestion and desalting:\r\n\n\nSamples were digested with Trypsin Gold \\(Promega, USA) to cleave proteins into peptides on the carboxyl side of amino acid residues lysine and arginine. Following digestion, 0.1% formic acid \\(100 \u03bcL) was added and samples were centrifuged \\(15,000 rpm for 15 min) using a 10 kDa size exclusion membrane \\(PALL, Nanosep Cheltenham Vic, Australia). The flow-through was retained for a desalting step using a 3 mm piece of an Empore C18 \\(Octadecyl) SPE Extraction Disk. The disk was excised and placed in a gel loader tip and 5 \u03bcL of a POROS R3 slurry were added to form a micro-column. This column was washed with trifluoroacetic acid \\(20 \u03bcL, 0.1% in water). Peptides were eluted from the micro-column by three washes of acetonitrile \\(20 \u03bcL, 0.1% formic acid). Elutes were pooled and samples were dried at room temperature in a vacuum evaporator for 45 min. Subsequently, the samples were reconstituted with 100 \u00b5l of 0.1% formic acid in H2O and centrifuged for 2 min at 10,000g to remove particulates.  \r\n\n\n----\r\n\n\nSample analysis by LC-MS/MS\r\n\n\nLC-MS/MS analysis of digested E. coli lysates was performed on a Tandem Quadrupole Time-of-Flight mass spectrometer Sciex TripleTOF 5600 \\(Sciex) coupled to an Eksigent 1D+ Nano LC system and a nanoFlex cHiPLC system \\(Eksigent) with a Nanospray III Ion Source \\(Sciex). Peptides were separated using a linear gradient \\(60 min for 5 to 80% B at 500 nL/min) of 0.1% formic acid in water and 0.1% formic acid in acetonitrile, and were delivered by a nanospray III electrospray interface \\(105 mm stainless steel emitter, Thermo Fisher THIES528).\r\n\n\n\r\n\n\nData acquisition of peptide separation using LC-MS/MS was performed using two different methods: the information-dependent acquisition \\(IDA) method and the data-independent \\(SWATH) acquisition method. Technical duplicates were performed for the IDA method. \r\n\n\n\r\n\n\nFollowing the LC-MS/MS analysis, the mass spectral data generated from the IDA method were processed through two different search algorithms, Mascot \\(Matrix Science, v. 2.4.0) and Paragon \\(ABSciex, ProteinPilot Software v. 4.5.0.0, 1654). To generate an ion library, LC-MS/MS mass spectral data were firstly analysed using Mascot and the Eubacteria database from SwissProt for a qualitative analysis to identify and detect the presence or absence of the proteins of interest. Secondly, the analysis using Paragon involved a search against a suitable FASTA-formatted E. coli protein database from UniProt for the identification of peptides from the mass spectral data54. The data from Paragon were loaded onto PeakView \\(Sciex, v.1.2.0.3) to interrogate the SWATH data bank using the ion library generated in ProteinPilot. PeakView performs targeted and non-targeted data processing and generates extracted ion chromatograms \\(XIC). The data were then transferred to Markerview \\(Sciex, v. 1.2.1.1) for result interpretation and quantitative analysis. Markerview allows for a rapid review of the data to determine up and down-regulation of protein expression26. The data were processed using principal component analysis \\(PCA), which is an unbiased multivariate statistical analysis method that compares data across multiple samples, revealing groupings among data sets and graphically present the groupings in a Scores plot.\r\n\n\n----\r\n\n\nSWATH Analysis:\r\n\n\nSpecific to analyse the data from the SWATH method, three different software programs were used. Firstly, Paragon was used to streamline protein identification and quantitation by identifying hundreds of peptide modifications and non-tryptic cleavages simultaneously to build an ion library. Then, using PeakView \\(Sciex, v. 1.2.0.3), the SWATH data were interrogated against the ion library. PeakView allows mass spectral data to be explored and interpreted for processing accurate mass data, structural interpretation and batch analysis. MarkerView was then used to review the data to determine the up or down regulation of protein expression in the bacterial samples through the use of Principle Components Analysis \\(PCA), a statistical tool that produces a visual representation of patterns in a dataset. The mass spectrometry proteomics data have been deposited to the ProteomeXchange Consortium via the PRIDE55 partner repository with the dataset identifier PXD008019."
+        },
+        {
+            "header": "Timing",
+            "content": "All together from culturing the bacteria until the completion of the data analysis is approximately 2-4 weeks, depending the availability of the LC-MS to run the samples."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "We had performed optimisation of sample lysis method to obtain good protein yield."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "PCA analysis of the detected proteins which indicate the upregulation or down regulation of certain proteins."
+        },
+        {
+            "header": "References",
+            "content": "Liu, Y. et al. Quantitative measurements of N-linked glycoproteins in human plasma by SWATH-MS. Proteomics 13, 1247-1256, doi:10.1002/pmic.201200417 \\(2013).\r\n\n\nGillet, L. C. et al. Targeted data extraction of the MS/MS spectra generated by data-independent acquisition: a new concept for consistent and accurate proteome analysis. Mol Cell Proteomics 11, O111 016717, doi:10.1074/mcp.O111.016717 \\(2012).\r\n\n\nCollins, BC, ... Aebersold, R. 2017. Multi-laboratory assessment of reproducibility, qualitative and quantitative performance of SWATH-mass spectrometry. Nat Com, 8\\(1):291."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "Jolene Gien and Amanda Bordin."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 15400,
+                "identity": "a1545330-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Hanna Sidjabat",
+                "email": "h.sidjabat@uq.edu.au",
+                "orcid": "",
+                "institution": "Hanna Sidjabat Group",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Hanna",
+                "middleName": "",
+                "lastName": "Sidjabat",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2018-02-11 20:00:23",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2018.021",
+        "doiUrl": "https://doi.org/10.1038/protex.2018.021",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13465807,
+                "identity": "35736d41-675b-4625-90ae-6df6262d9dc3",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:48:16",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 126459,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-6597/v1/717c5ee6-33dc-478b-bd2e-85ca04ac6b97.pdf"
+            }
+        ],
+        "financialInterests": "N/A",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Proteome, bacteria, protein expression, probiotics, pathogens",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "This protocol desribes the bacterial proteomic workflow used in the article: \"The use of SWATH to analyse the dynamic changes of bacterial proteome of carbapenemase-producing Escherichia coli under antibiotic pressure\" published in Scientific Reports.\r\n\n\n\r\n\n\nThe workflow begins with growing the bacterial strains, isolating the bacterial proteins, processing the samples for submission to LCMS \\(protein quantitation, digestion, clean up, desalting). Then, once the samples are being processed on LCMS, the data analysis requires high performance computers.",
+        "manuscriptTitle": "Bacterial proteomic workflow",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2018-06-12 11:49:20",
+                "doi": "10.1038/protex.2018.021",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a153d5ea-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "June 12th, 2018",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 4191,
+                "name": "Microbiology"
+            },
+            {
+                "id": 4192,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 4193,
+                "name": "Biochemistry"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2018-06-12 11:49:20",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

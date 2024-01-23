@@ -1,0 +1,324 @@
+{
+    "identity": "nprot-655",
+    "title": "A bioinformatics protocol for the identification of spatial clusters and the calculation of higher order residue interactions in protein structures",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "**Sundaramurthy Pandurangan, Shameer Khader and Raashi Sreenivasan contributed equally to this work.**\r\n\n\n\r\n\n\nFolding of a protein from its sequence to its three-dimensional structure is controlled by an ensemble of local and global interactions. Pairwise, triplet and quadruplet residue interactions play a vital role in attaining the stable conformation of the protein structure. As higher order interactions make significant contribution to the potential energy landscape of folded proteins, it is important to identify them to estimate their contributions to the overall stability of a protein structure. In the current era of high-throughput sequencing, due to huge lacunae in the sequence to structure ratio, computational approaches are playing a significant role in understanding the design principles of protein structures. Web servers are currently used as a stable platform for the analysis of protein structures. We have developed a web server   \"**HORI : Higher Order Residue Interactions**\":http://caps.ncbs.res.in/hori in proteins for the calculation of global and local higher order interaction patterns in protein structures. In this article, we report a detailed bioinformatics protocol to access the HORI Server and to employ this server for the identification of spatial clusters and the calculation of higher order residue interactions in protein structures. HORI Server can be accessed from the URL:  \"http://caps.ncbs.res.in/hori\":http://caps.ncbs.res.in/hori"
+        },
+        {
+            "header": "Reagents",
+            "content": "**Background**\r\n\n\nStructural bioinformatics<sup>1</sup> is a mature sub-domain of bioinformatics due to the support of community efforts to deposit and share macromolecule structural data and tools for analysis. As PDB<sup>2, 3</sup> remains to be the cynosure of the structure-related data storage and retrieval, several useful structure analysis servers play major roles in analysing structures from experimental and modelling approaches. As current web server technology is a convenient medium for analysis of individual protein structures, they influence and accelerate structural bioinformatics research to a great extent. A typical web server requires limited computational resource in the client side to perform computationally intensive tasks to perform through the internet. Web servers are relevant in the analysis of macromolecule structures: for example, in the latest release of Bioinformatics Links Directory<sup>4</sup>, 856 resources are available under the category of proteins that explains the importance and availability of web-based tools for protein sequence and structure analysis.  In this report, we are introducing a bioinformatics protocol to recognise spatial clusters and higher order residue interaction calculations using a new web server that we developed called HORI \\(Higher Order Residue Interactions in proteins)<sup>5</sup>. HORI server can be employed for the calculation of higher order residue interactions in proteins using PDB file as input and can be accessed from the URL:  \"http://caps.ncbs.res.in/hori\":http://caps.ncbs.res.in/hori . \r\n\n\n\r\n\n\nInterpretation of the crucial principles behind the three-dimensional structure and folding of a protein from its sequence still remains as the major challenge in structural bioinformatics. Derivation of a three-dimensional structure of a protein from its primary sequence is controlled by a complex and largely unknown set of principles called as folding code. Folding of a protein into its three-dimensional structure is controlled by both local and global interactions within a protein<sup>6-13</sup>. Extracting such interactions from protein structures are of paramount importance due to its potential applications in protein structure prediction, modelling, protein engineering experiments and to correlate structural and functional aspects of structures. HORI server has been designed as an interactive, multiple module server for the computation of all possible higher order residue interactions in protein structures of single chain and higher oligomer structures with two chains. HORI offers enormous possibilities to understand details about higher order residue interaction within protein structures in atomic level. The basic algorithm of HORI utilises the classical concept of four-body nearest-neighbour propensities of amino-acid residues. It has been proved that higher order residue interactions up to the level of quadruple interactions will play a major role in the three dimensional structure of proteins. According to the earlier studies<sup>14</sup>, if we approximate each residue as a sphere centred on its location, it is possible for a maximum of four closely packed spheres to make mutual contact, thus giving rise to pairwise, triplet and quadruple interactions. Just as no more than four same-sized spheres can be in mutual contact in 3D space, higher order interaction beyond quadruple interactions are generally not  considered. Graphical representation about the approach used for the calculation of pairwise, triplet and quadruple interactions are explained in Figure 1."
+        },
+        {
+            "header": "Equipment",
+            "content": "1. A computer with access to the internet and a web browser. HORI Server can be accessed using different browsers, but we recommend : Mozilla Firefox \\(Windows/Linux) and Apple Safari \\(Mac OS)\r\n  \r\n\n\n**Equipment setup**\r\n\n\n**Data**\r\n\n\nHORI server requires protein structure data in a standard PDB file format for the successful computation of higher order interactions. Several parameters are available as optional input for specific sub modules within the HORI server. The input parameters required for a successful HORI run is provided in the Procedure section. \r\n\n\n\r\n\n\n**Programs**\r\n\n\nHORI is a web server to compute higher order residue interactions in protein structures. HORI \\(Higher Order Residue Interactions in proteins) server offers **21 programs classified into three modules as HORI \"Global, HORI\" Lite and HORI \u2013 Cluster to calculate pairwise, triplet and quadruple interactions** within the protein structures. The three modules are as follows:\r\n\n\n1. **HORI-Global :** complete structure level computation of different higher order residue interactions \r\n  2. **HORI-Lite :** specific higher order residue interaction computation based on residue numbers in input PDB files \r\n  3. **HORI-Cluster :** higher order residue interaction computation based on residue types in input PDB files \r\n  HORI-Global offers two programs for computationally intensive calculation of Pairwise, Triplet and Quadruplet interactions in the protein structures. HORI-Lite and HORI-Clusters offers a set of 9 programs for comparatively quick calculations of specific/generic interactions within protein structures. HORI-Global, HORI-Lite and HORI-Cluster computations can be performed using C<sup>alpha</sup> or C<sup>beta</sup> based distance calculation methods. Easy-to-use web interfaces are available for all programs in HORI server to calculate using single chain and multi-chain proteins \\(two chains at a time).\r\n\n\n\r\n\n\n\r\n\n\nIn HORI-Global, it is possible to: \r\n\n\n- Compute Higher Order Residue Interactions for single chain and multi-chain Proteins \\(Complete structure based calculation - pairwise, triplet and quadruple Interactions)\r\n\n\n- Compute Higher Order Residue Interactions for Single Chain and multi-chain Proteins \\(Residue range based - pairwise, triplet and quadruple Interactions)\r\n\n\n\r\n\n\nIn HORI-Lite &amp; HORI-Cluster, it is possible to: \r\n\n\n- Compute Pairwise Distance for any 2 residues in PDB file \\(pairwise interactions)\r\n\n\n- Compute Pairwise Distance around any 1 residues in PDB file \\(pairwise interactions)\r\n\n\n- Compute Triplet Distances between any 3 residues in a PDB file \\(triplet interactions) \r\n\n\n- Compute Triplet Distances around any 2 residues in a PDB file \\(triplet interactions) \r\n\n\n- Compute Triplet Distances around 1 residue \\(triplet interactions)\r\n\n\n- Compute Quadruple Distances between any 4 residues in a PDB file \\(quadruple interactions) \r\n\n\n- Compute Quadruple Distances around any 3 residues in a PDB file \\(quadruple interactions) \r\n\n\n- Compute Quadruple Distances around 2 residues in a PDB file \\(quadruple Interactions) \r\n\n\n- Compute Quadruple Distances around 1 residue in a PDB file \\(quadruple Interactions) \r\n\n\n\r\n\n\n**NB:** HORI-Lite and HORI-Cluster offers similar set of programs for the computations, but the input options are different. Interaction types are available for each program as it is given in brackets."
+        },
+        {
+            "header": "Procedure",
+            "content": "1. If you would like to identify higher order residue interactions in a PDB file \\(for example PDB ID: 1CRN), go to HORI server page \\[  \"URL\":http://caps.ncbs.res.in/hori/hori.html ]. As 1CRN is a single chain protein, you can select the link HORI - Global for Single Chain Proteins \\[ \"URL\":http://caps.ncbs.res.in/hori/hori_global_single_chain.html ]. If your protein of interest is a multi chain protein, you can opt the HORI - Global for Multi Chain Proteins \\[ \"URL\":http://caps.ncbs.res.in/hori/hori_global_multi_chain.html ]. HORI-Global calculation can also be performed for a range of residues using options available for range-based calculations. HORI server separate web interfaces for programs in three different modules \\(HORI-Global, HORI-Lite and HORI-Cluster) single chain and multi-chain proteins. Availability of individual programs in different modules and computation of different types of interactions possible with individual programs are explained in programs section. Screenshots of web-interfaces of HORI-Global, HORI-Lite and HORI-Cluster is provided in Figure 2. \r\n  \r\n\n\n2. **Enter your valid E-mail ID:** HORI-Global is a computationally intensive module that requires considerable amount of time for computation of complete structure level higher order interactions. Hence we designed this particular module as email based server, where user should provide a valid email ID for the submission and process. Please enter your valid email ID \\(preferably academic email ID) to receive HORI-Global results. Check your email address for any 'typos' before submitting the HORI process to the server. \r\n  \r\n\n\n3. **Upload PDB File:**  HORI server requires a PDB file as its input for the computation of higher order residue interactions. HORI Server provides separate interface for single chain and multi chain proteins. If you would like to submit an NMR structure, please submit Chain IDs of two chains at a time in multi-chain based programs. Due to computational intense nature of HORI calculations, currently the server will accept only two chains for calculation. Users may remove HETATM / ANISOU records from the PDB Files. HORI Server can perform computations on experimentally \\(X-ray, NMR) solved structures as well as modelled structures using software like MODELLER\n15\n, SWISSMODEL\n16, 17\n, SCWRL\n18\nin standard PDB file format. Submit either single chain from an NMR based PDB file as input in Single-chain based programs or enter the chain IDs of any two chains in multi-chain based programs. Please remove HETATM/ANISOU records in the input file, HORI server will not consider these records during calculations, only records tagged as ATOM will consider for computation. In HORI-Lite, Please specify the residue numbers present in the given input PDB file for various computations. In HORI-Cluster, Please specify the residue types that are present in the given input PDB file for various computations. In this example, input file \"1CRN.pdb\" is uploaded. 1CRN indicates the PDB code of a hydrophobic plant seed protein, Crambin  at atomic resolution\n19\n. \r\n  \r\n\n\n4. **Select Atom type for Distance Calculations \\(C\nalpha\nor C\nbeta\n):** HORI Server offers wide array of programs for the computation of higher order residue interactions. All computations in HORI server can be performed using two distance parameters C\nalpha\nor C\nbeta\natom type. Atom type for distance calculation is available as an option, so that user can decide the atom type for distance calculation. In this example, Atom type for Distance Calculation is selected as C\nbeta\n. \r\n  \r\n\n\n5. **Select Interaction Type:** HORI-Global offers different options to compute higher order residues interactions in protein structure. Users can select any of the four options provided in the HORI-Global. The Interaction type options are Pairwise, Triplet, Quadruplet and All. Here 'All' indicates computation using all three interaction types available in HORI-Global. In this example, interaction type is selected as \"ALL\". \r\n  \r\n\n\n6. **Enter Distance Cut-off:** HORI calculations are distance dependent, users can specify the distance cut-off for the calculations. Users can enter any number between 0-14, it is highly recommended to perform HORI computations within a reliable distance of 7 Angstroms. For example Lower Limit: 0 and Upper Limit: 7. Distance cut-off is one of the major parameters in HORI server to identify residues interacting in higher orders like pairwise, triplet and quadruple. In this example, Distance Cut-off is selected in the range of 1\u00c5 to 7\u00c5. \r\n  \r\n\n\n7. **Enter Chain ID:** HORI offers all different computations in single chain and multi-chain options. Multi-chain option will be useful for the users interested to perform the HORI computations on higher oligomers. Due to limitation of computation, current version of HORI multi-chain programs performs computation using only two chains at a time. Users uploading multi-chain \\(PDB files with 2 or more chains) should enter their chain ids for the successful HORI computation.\r\n  \r\n\n\n8. Click on the \"HORI\"\u009d button to submit the input details once you fill up the required information. If you need to modify filled up information you can reset the page by clicking on \"Reset\" button.\r\n  \r\n\n\n9. Check for any messages. Depending on the success or failure of input data, different warning messages will be displayed. If you have not given required information, an error message will be displayed, you need to recheck and fill the required information for successful submission. If all required input data is submitted to the HORI Server, you can see the message. Your job has been successfully uploaded. Following, you can also see the parameters which you have selected for HORI run.\r\n  \r\n\n\n10. Once your submission is successful, the input details will be processed by server and the results will be sent to the email address which you have provided. Time required for processing of your query highly depends on the number of residues in the PDB file and the parameters you have chosen \\(please see the section on Time Taken to obtain an indication).\r\n  \r\n\n\n11. Once the input structure is processed with the parameters provided by the user, the results are generated by the server and an automated email with the results URL will be send to the email provided by the user in the submission form. Subject of messages from HORI server begins with the following \"HORI Server Results for Query: PDB-ID\". In the HORI server results email, a link will be provided that can be used to access the results. \r\n  \r\n\n\n12. Click on the URL in the email for to access results from HORI server. For the sample file 1CRN.pdb with the parameters explained above a typical HORI output consists of 3 links for browsing and 3 links for file download. An example output file is available at this URL with the parameters explained above from this  \"URL\":http://caps.ncbs.res.in/hori/hori_results/er_hori_SatDec13185917IST2008.html. Details of the input file and parameters used for the HORI submission are presented in the beginning of the result page. A typical HORI-Global output page follows that is divided in to three sections as HORI - Pairwise Interactions, HORI - Triplet Interactions and HORI - Quadruple Interactions. Each of these sections provides links for browsing the results and visualizes the individual higher order interactions using RasMol or Jmol. The second link can be used to download higher order interaction data in a text format for parsing or further distance calculations and analysis. In the given example link, if user click on the \"Show Pairwise - Interactions\" link, the section will expand and results will be displayed in a tabular format. At the same time \"Show Pairwise - Interactions\" link will replaced with the \"Hide Pairwise - Interactions\" link. This link can be used to hide this list. If you click on the \"Show Pairwise - Interactions\" it shows a detailed table with No., Residue No., Interacting Residues, Distance, and links to download a copy of RasMol script file for visualization of individual interactions in client machine and visualization in client browser using Jmol. Here the first \"No\" column indicates the serial number of interaction. This can be used as a parameter when user wanted to compare total number of different interactions across different members from same protein family. This is followed by \"Residue No\" column which provides number of residues involved in a particular interaction. Third column is giving details about the \"Interacting Residues\" in terms of three-letter amino acid code. Fourth column provides \"Distance\" in terms of Angstroms. Fifth column provides an image of RasMol logo that provides link to download the RasMol script file. For visualization using RasMol\n20, 21\n, user should install RasMol. A RasMol script file can be visualized using command line interface of RasMol. The coordinates of query protein highlighted by HORI can be downloaded and conveniently displayed with standard macromolecule structural visualization software such as RasMol.  In order to view a HORI RasMol script file,  Please follow the steps: \r\n  \r\n\n\n_a. Click the link \"Rasmol view\"_\r\n\n\n_b. Save the text file. In this example, the file name will be \"hori_rasmol_doublet.cgi\"_ \r\n\n\n_c. Use \"rasmol -script hori_rasmol_doublet.cgi\" command_\r\n\n\n\r\n\n\nSixth column consists of an image of Jmol logo provides a link to access the dynamic Jmol interface to visualize the interactions in the browser. If user would like to visualize a particular interaction within the browser, based on Java compatibility of the browser, user can visualize a particular interaction within the browser using Jmol\n22\n. The number of the three columns \"Residue No.\", \"Interacting Residues\" and \"Distance\" in the result page varies between different higher order interactions. For example in pairwise interactions, there is one set of these 3 columns, but in case of triplet interactions these columns are repeated three times to describe a pairwise interaction and for quadruple interaction this columns are repeated 6 times to describe the details of residues involved in a particular quadruple interactions. A screen shot collage with details about different sections of output is provided in Figure 3."
+        },
+        {
+            "header": "Timing",
+            "content": "Time taken varies between different programs in HORI modules and the parameters used to perform the run. Time varies also depend up on the size of the protein structures and load on the server."
+        },
+        {
+            "header": "Critical Steps",
+            "content": "Please refer to Procedure and Troubleshooting sections. Various steps explained in the Procedure & Troubleshooting sections are critical for the successful analysis of protein structures using HORI server."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "1. For a successful HORI submission, user must submit all the input details for specific operation.\r\n  \r\n\n\n2. If users are interested to understand role of specific residues in active site or other sites of interest, users can perform calculations using programs in HORI-Lite module. \r\n  \r\n\n\n3. If users are interested in performing full-structure level calculations, users can perform such calculations using programs in HORI-Global modules. Depending on the size of protein and the interaction type, the content of the output from HORI server varies and this may cause loading problem in some browsers. In such situations, user can either perform a HORI-Global calculation using \"Residue range based programs\" or they can download the interactions file or RasMol file  and visualize then on local machines."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "A detailed explanation of results obtained using  \"1CRN.pdb\":http://www.pdb.org/pdb/explore.do?structureId=1CRN as input file in HORI server is explained in Section - 12 of PROCEDURE. HORI server can be utilized to understand interesting higher-order interactions from protein structures. Detailed analysis of different higher order interactions and residues that mediate such interactions using set of protein structures of interest will be providing better insights to understand structural features. \r\n\n\n\r\n\n\n**Application of HORI server in protein structure analysis:**\r\n\n\nUsers can utilize the different programs for calculating higher order residue interactions in protein structures in different contexts. For example the higher order interactions can be utilized in the identification of alternate binding sites based on higher order residue interactions, interaction patterns for mutational studies and protein engineering, analysis of higher order residue interactions of active site residues, to distinguish protein folds through map of higher order interactions. As a general protein structure analysis web server that can perform computation of higher order residue interactions from a single residue level to whole structure.  In order to illustrate the usefulness of higher order interactions and to demonstrate where triplet and quadruplet interactions might be crucial, we take the example of four different proteins belong to different superfamily from SCOP database <sup>23, 24</sup>.\r\n\n\n\r\n\n\n**Example 1: PDB ID: 1NNQ**\r\n\n\n3D Domain swapping is a structural phenomenon observed in proteins with diverse sequence, structure and function<sup>25-27</sup>. Ruberythrin from _Pyrococcus furiosus_ is reported to be involved in 3D domain swapping<sup>28</sup>. We have used the structure \\(PDB ID:  \"1NNQ\":http://www.pdb.org/pdb/explore.do?structureId=1NNQ) and performed a HORI-Global based computation and retrieved all pair wise interactions. HORI server reported a total of 580 pair wise interactions with in the cut-off of 1\u00c5 to 7\u00c5. Out of these pairwise interactions, 13% of interactions are mediated by the residues between the two chains. Such detailed analysis on proteins with peculiar structural features will give a better understanding of the role higher order interactions in orchestrating the structural integrity. \r\n\n\n\r\n\n\n**Example 2: PDB ID: 1BF2**\r\n\n\nIsoamylase from _Pseudomonas amyloderamosa_ \\(PDB ID:  \"1BF2\":http://www.pdb.org/pdb/explore.do?structureId=1BF2) <sup>29</sup> is a hydrolase reported with active site residues ASP, GLU, ASP. We have used these active site residues reported in Catalytic Site Atlas<sup>30</sup> database and calculated the triplet interactions mediated by this active site residues. The link to access the results is provided in Table 1.\r\n\n\n\r\n\n\n**Example 3: PDB ID: 1QJ4**\r\n\n\nHydroxynitrile lyase is a lyase from _Hevea brasiliensis_ \\(PDB ID:  \"1QJ4\":http://www.pdb.org/pdb/explore.do?structureId=1QJ4) with the classical Ser, His, Asp triad. The active sites are reported in Catalytic Site Atlas based on PSI-BLAST alignment to the PDB ID: 1C4X. We performed the option to compute quadruple distances around any 3 residues. List of quadruple interactions mediated by active site is obtained. This kind of analysis will be useful to identify potential alternate active site and residues suitable for mutational experiments. Results can be accessed from the link provided in Table 1. \r\n\n\n\r\n\n\n**Example 4: PDB ID: 1AQ0**\r\n\n\nThe functionally important residues, including at the active site, may not be strictly conserved for protein domains at the level of superfamily<sup>31</sup>. HORI server can be used to search for alternate active site residues based on specific higher order residue interactions. Barley 1,3-1,4-beta-glucanase<sup>32</sup> from Hordeum vulgare belong to the TIM barrel glycosyl hydrolases superfamily. This PDB entry \\(PDB ID:  \"1AQ0\":http://www.pdb.org/pdb/explore.do?structureId=1AQ0) belongs to the Glycosyl hydrolases family 17 \\(Pfam ID:  \"PF00332\":http://pfam.sanger.ac.uk/family/PF00332) in Pfam database<sup>33, 34</sup>. We have used three of the four  active site residues reported in Catalytic Site Atlas<sup>30</sup> in the option to compute quadruple distances around any three residues in a PDB file and successfully identified the fourth active site residues in a quadruple interaction flexibly. \r\n\n\n\r\n\n\nLinks to access HORI-Global results or automated example pages to run the computation of higher order residues interactions mentioned in this protocol is provided in Table 1. \r\n\n\n\r\n\n\n**Future work**\r\n\n\nCurrently the higher order residue interaction calculation is only possible through the web interface available from the URL:  \"http://caps.ncbs.res.in/hori/hori.html\":http://caps.ncbs.res.in/hori/hori.html. We will be extending this platform for the programmatic access through a web service implementation of the programs using  \"REST\":http://en.wikipedia.org/wiki/Representational_State_Transfer and  \"SOAP\":http://en.wikipedia.org/wiki/SOAP based technologies. \r\n\n\n\r\n\n\n**Scope of protocol based on HORI Server:**\r\n\n\nHigher order interactions calculated using set of computationally intensive algorithms available in HORI server will be useful in protein structure prediction,  protein modelling, protein-protein interaction, active site identification and  to understand higher order interaction characteristics of active site residues within specified distance shells. Knowledge about the higher order interaction will be of great importance in the structural biology domain due to its wide range of applications in fold recognition, structural analysis, protein engineering and to understand mechanism of action of enzymes."
+        },
+        {
+            "header": "References",
+            "content": "1. Altman RB, Dugan JM: Defining bioinformatics and structural bioinformatics. Methods Biochem Anal 2003, 44:3-14.\r\n  2. Berman HM: The Protein Data Bank: a historical perspective. Acta Crystallogr A 2008, 64\\(Pt 1):88-95.\r\n  3. Berman HM, Westbrook J, Feng Z, Gilliland G, Bhat TN, Weissig H, Shindyalov IN, Bourne PE: The Protein Data Bank. Nucleic Acids Res 2000, 28\\(1):235-242.\r\n  4. Brazas MD, Fox JA, Brown T, McMillan S, Ouellette BF: Keeping pace with the data: 2008 update on the Bioinformatics Links Directory. Nucleic Acids Res 2008, 36\\(Web Server issue):W2-4.\r\n  5. Sundaramurthy P, Shameer K, Raashi S, Sunita G, and Sowdhamini R: HORI : a web server to compute higher order residue interactions in protein structures. BMC Bioinformatics 2010, 11\\(Suppl 1):2.\r\n  6. Levinthal C: Are there pathways for protein folding? J Chim Phys 1968, 65:44.\r\n  7. Anfinsen CB: The formation and stabilization of protein structure. Biochem J 1972, 128\\(4):737-749.\r\n  8. Betancourt MR, Thirumalai D: Pair potentials for protein folding: choice of reference states and sensitivity of predicted native states to variations in the interaction schemes. Protein Sci 1999, 8\\(2):361-369.\r\n  9. Munson PJ, Singh RK: Statistical significance of hierarchical multi-body potentials based on Delaunay tessellation and their application in sequence-structure alignment. Protein Sci 1997, 6\\(7):1467-1481.\r\n  10. Pace CN, Shirley BA, McNutt M, Gajiwala K: Forces contributing to the conformational stability of proteins. FASEB J 1996, 10\\(1):75-83.\r\n  11. Sippl MJ: Calculation of conformational ensembles from potentials of mean force. An approach to the knowledge-based prediction of local structures in globular proteins. J Mol Biol 1990, 213\\(4):859-883.\r\n  12. Sippl MJ: Knowledge-based potentials for proteins. Curr Opin Struct Biol 1995, 5\\(2):229-235.\r\n  13. Rojnuckarin A, Subramaniam S: Knowledge-based interaction potentials for proteins. Proteins 1999, 36\\(1):54-67.\r\n  14. Singh RK, Tropsha A, Vaisman, II: Delaunay tessellation of proteins: four body nearest-neighbor propensities of amino acid residues. J Comput Biol 1996, 3\\(2):213-221.\r\n  15. Eswar N, Eramian D, Webb B, Shen MY, Sali A: Protein structure modeling with MODELLER. Methods Mol Biol 2008, 426:145-159.\r\n  16. Kopp J, Schwede T: The SWISS-MODEL Repository: new features and functionalities. Nucleic Acids Res 2006, 34\\(Database issue):D315-318.\r\n  17. Arnold K, Bordoli L, Kopp J, Schwede T: The SWISS-MODEL workspace: a web-based environment for protein structure homology modelling. Bioinformatics 2006, 22\\(2):195-201.\r\n  18. Canutescu AA, Shelenkov AA, Dunbrack RL, Jr.: A graph-theory algorithm for rapid protein side-chain prediction. Protein Sci 2003, 12\\(9):2001-2014.\r\n  19. Teeter MM: Water structure of a hydrophobic protein at atomic resolution: Pentagon rings of water molecules in crystals of crambin. Proc Natl Acad Sci U S A 1984, 81\\(19):6014-6018.\r\n  20. Bernstein HJ: Recent changes to RasMol, recombining the variants. Trends Biochem Sci 2000, 25\\(9):453-455.\r\n  21. Sayle RA, Milner-White EJ: RASMOL: biomolecular graphics for all. Trends Biochem Sci 1995, 20\\(9):374.\r\n  22. Herr\u00e1ez A: Biomolecules in the Computer: Jmol to the rescue. Biochem Educ, 2006, 34:7.\r\n  23. Andreeva A, Howorth D, Chandonia JM, Brenner SE, Hubbard TJ, Chothia C, Murzin AG: Data growth and its impact on the SCOP database: new developments. Nucleic Acids Res 2008, 36\\(Database issue):D419-425.\r\n  24. Murzin AG, Brenner SE, Hubbard T, Chothia C: SCOP: a structural classification of proteins database for the investigation of sequences and structures. J Mol Biol 1995, 247\\(4):536-540.\r\n  25. Rousseau F, Schymkowitz JW, Itzhaki LS: The unfolding story of three-dimensional domain swapping. Structure 2003, 11\\(3):243-251.\r\n  26. Bennett MJ, Schlunegger MP, Eisenberg D: 3D domain swapping: a mechanism for oligomer assembly. Protein Sci 1995, 4\\(12):2455-2468.\r\n  27. Bennett MJ, Choe S, Eisenberg D: Domain swapping: entangling alliances between proteins. Proc Natl Acad Sci U S A 1994, 91\\(8):3127-3131.\r\n  28. deMare F, Kurtz DM, Jr., Nordlund P: The structure of Desulfovibrio vulgaris rubrerythrin reveals a unique combination of rubredoxin-like FeS4 and ferritin-like diiron domains. Nat Struct Biol 1996, 3\\(6):539-546.\r\n  29. Katsuya Y, Mezaki Y, Kubota M, Matsuura Y: Three-dimensional structure of Pseudomonas isoamylase at 2.2 A resolution. J Mol Biol 1998, 281\\(5):885-897.\r\n  30. Porter CT, Bartlett GJ, Thornton JM: The Catalytic Site Atlas: a resource of catalytic sites and residues identified in enzymes using structural data. Nucleic Acids Res 2004, 32\\(Database issue):D129-133.\r\n  31. Todd AE, Orengo CA, Thornton JM: Evolution of function in protein superfamilies, from a structural perspective. J Mol Biol 2001, 307\\(4):1113-1143.\r\n  32. Muller JJ, Thomsen KK, Heinemann U: Crystal structure of barley 1,3-1,4-beta-glucanase at 2.0-A resolution and comparison with Bacillus 1,3-1,4-beta-glucanase. J Biol Chem 1998, 273\\(6):3438-3446.\r\n  33. Coggill P, Finn RD, Bateman A: Identifying protein domains with the Pfam database. Curr Protoc Bioinformatics 2008, Chapter 2:Unit 2 5.\r\n  34. Sammut SJ, Finn RD, Bateman A: Pfam 10 years on: 10,000 families and still growing. Brief Bioinform 2008, 9\\(3):210-219."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "**R.S was a Senior Research Fellow of Wellcome Trust, U.K. We thank NCBS \\(TIFR) for infrastructural support.**"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 11425,
+                "identity": "9f793133-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Sowdhamini Ramanathan",
+                "email": "mini@ncbs.res.in",
+                "orcid": "",
+                "institution": "National Centre for Biological Sciences (TIFR), GKVK Campus, Bellary Road, Bangalore, 560065, India ",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Sowdhamini",
+                "middleName": "",
+                "lastName": "Ramanathan",
+                "suffix": ""
+            },
+            {
+                "id": 11421,
+                "identity": "9f7926cb-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Sundaramurthy Pandurangan",
+                "email": "",
+                "orcid": "",
+                "institution": "National Centre for Biological Sciences (TIFR), GKVK Campus, Bellary Road, Bangalore, 560065, India and Department of Mathematics, Indian Institute of Technology Roorkee, Roorkee 247667, Uttarakhand, India",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Sundaramurthy",
+                "middleName": "",
+                "lastName": "Pandurangan",
+                "suffix": ""
+            },
+            {
+                "id": 11422,
+                "identity": "9f792a71-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Shameer Khader",
+                "email": "",
+                "orcid": "",
+                "institution": "National Centre for Biological Sciences (TIFR), GKVK Campus, Bellary Road, Bangalore, 560065, India",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Shameer",
+                "middleName": "",
+                "lastName": "Khader",
+                "suffix": ""
+            },
+            {
+                "id": 11423,
+                "identity": "9f792cf9-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Raashi  Sreenivasan",
+                "email": "",
+                "orcid": "",
+                "institution": "National Centre for Biological Sciences (TIFR), GKVK Campus, Bellary Road, Bangalore,  560065, India  Current Address : University of Wisconsin-Madison, Madison, WI 53706-1481, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Raashi",
+                "middleName": "",
+                "lastName": "Sreeniv",
+                "suffix": "Sr"
+            },
+            {
+                "id": 11424,
+                "identity": "9f792ec5-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Sunita Gakkhar",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Mathematics, Indian Institute of Technology Roorkee, Roorkee 247667, Uttarakhand, India",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Sunita",
+                "middleName": "",
+                "lastName": "Gakkhar",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2010-09-09 15:30:56",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/nprot.2010.91",
+        "doiUrl": "https://doi.org/10.1038/nprot.2010.91",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2608094,
+                "identity": "dff91db9-9fa2-4610-bc3c-50c23f1c78ae",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:57",
+                "extension": "gif",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 23122,
+                "visible": true,
+                "origin": "",
+                "legend": "Graphical representation about the approach used for the calculation of pairwise, triplet and quadruple interactions",
+                "description": "",
+                "filename": "figure1.gif",
+                "url": "https://assets.researchsquare.com/files/nprot-655/v1/figure_1.gif"
+            },
+            {
+                "id": 2608099,
+                "identity": "5b7b9928-cd07-4ca2-9651-9f48b207588f",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:57",
+                "extension": "gif",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 123361,
+                "visible": true,
+                "origin": "",
+                "legend": "Screenshots of web-interfaces of HORI-Global, HORI-Lite and HORI-Cluster",
+                "description": "",
+                "filename": "figure2.gif",
+                "url": "https://assets.researchsquare.com/files/nprot-655/v1/figure_2.gif"
+            },
+            {
+                "id": 2608097,
+                "identity": "3ca86f26-faf6-4289-ae19-0bed297eee9e",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:57",
+                "extension": "gif",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 154709,
+                "visible": true,
+                "origin": "",
+                "legend": "Screenshot of details about different sections of a successful HORI-Global output",
+                "description": "",
+                "filename": "figure3.gif",
+                "url": "https://assets.researchsquare.com/files/nprot-655/v1/figure_3.gif"
+            },
+            {
+                "id": 2608098,
+                "identity": "80337d27-135c-4144-80a1-f038b1c4ce1a",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:57",
+                "extension": "png",
+                "order_by": 4,
+                "title": "Figure 4",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 17282,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 1   Details about PDB structures mentioned in this protocol with URL to access their HORI results",
+                "description": "",
+                "filename": "figure4.png",
+                "url": "https://assets.researchsquare.com/files/nprot-655/v1/figure_4.png"
+            },
+            {
+                "id": 13465325,
+                "identity": "7b947f6f-5f84-41b1-b0ef-50e52e0aced5",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:46:18",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 595615,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-655/v1/7b1294b6-c8c8-4a67-903e-578d7ab8aa6e.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "protein structure, higher order residue interaction, pairwise interaction, triplet interaction, quadruple interaction, structural bioinformatics protocol, protein structure analysis",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "",
+        "manuscriptTitle": "A bioinformatics protocol for the identification of spatial clusters and the calculation of higher order residue interactions in protein structures",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2010-04-09 10:23:28",
+                "doi": "10.1038/nprot.2010.91",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9f68a279-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "April 9th, 2010",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 2412,
+                "name": "Biochemistry"
+            },
+            {
+                "id": 2414,
+                "name": "Computational biology and bioinformatics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2010-04-09 10:23:28",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

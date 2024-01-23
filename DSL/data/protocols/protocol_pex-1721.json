@@ -1,0 +1,348 @@
+{
+    "identity": "pex-1721",
+    "title": "<p>Protocol for applying Machine Learning models for the transformation of conventional fluorescence images to super-resolution</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>The majority of studies evaluating fluorescently-labeled proteins are conducted using conventional microscopes with&nbsp;resolution determined by the physical properties of light at approximately 250 nm. This diffraction limit makes conventional microscopes unusable for analytical studies, since they are unable to distinguish many multi-protein complexes<sup>1</sup>.</p><p>\tIn recent years, this limit has been overcome with the help of super-resolution microscopy (SRM). These sophisticated microscopes can achieve a resolution of approximately 100 nm and, more recently, even 25-50 nm, which makes them the tools of choice for various analytical applications<sup>2,3</sup>. However, SRMs utilize highly specialized hardware, can be too daunting to operate and, since images are acquired at multiple frames, require significant computational resources. The occurrence of artifacts in super-resolution images was also reported<sup>4,5</sup>. Importantly, SRMs are usually orders of magnitude more expensive than conventional microscopes, putting them out of reach for many research labs.</p><p>\tThe latest advances in Machine Learning (ML) provided another way to achieve super-resolution in microscopy images<sup>6,7</sup>. With the help of ML models based on convolutional neural networks (CNN), it became possible to use images obtained using conventional microscopes and transform them into images with resolutions comparable to SRMs<sup>8</sup>.&nbsp;The biggest issues when creating traditional ML models are the vast amounts of images required for model training and the need for their annotation. Large sets are required for supervised learning to properly learn the mapping between a source domain and a target domain and annotation of images in them serves to identify pairs of sources and targets<sup>9</sup>. These issues obstruct the model development, since large sets of highly specific images are frequently impossible to obtain and proper annotation of them is very laborious and error-prone.</p><p>\tIn this protocol, we describe the application of Generative Adversarial Networks (GAN)-based ML models for the transformation of conventional microscopy images to images comparable with super-resolution. GAN-based models&nbsp;proved to be a highly efficient architecture capable of precise image transformation and reconstruction<sup>10</sup>. GAN networks are unsupervised. Importantly, they can perform with significantly less model training data and do not require paired training sets. GAN networks train a generative model and an adversarial model simultaneously, learn to optimize a loss function, and produce more realistic results.&nbsp;GAN-based models&nbsp;were used with great success for bright-field holography<sup>11</sup>, virtual histological staining<sup>12</sup>,&nbsp;denoising of optical diffraction tomography images<sup>13</sup>,&nbsp;and super-resolution reconstruction<sup>14,15</sup>. We employed a&nbsp;model architecture similar to a so-called Multi-Scale GAN (MSGAN)<sup>16</sup>. This architecture, Super-Resolution GAN (SRGAN) generates a low-resolution version of the image first followed by the generation of patches of constant sizes but successively growing resolutions before generating the final image (Figure 1).</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Our model combines three separate models dealing with independent image transformation tasks: Denoising, Axial Resolution Restoration, and Super-Resolution Reconstruction (Figure 2). The protocol itself consists of two workflows: workflow A and workflow B for conventional and super-resolution images, respectively (Figure 3). We enabled the use of the protocol on both desktop and mobile computing platforms<sup>17</sup>.&nbsp;Workflow A uses the SRGAN ML combined model to reduce the image noise and increase resolution and is applied to conventional images. Workflow B uses the SRGAN ML BC model to reduce the image noise and is applied to original super-resolution images.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": ""
+        },
+        {
+            "header": "Equipment",
+            "content": "<p><strong>Hardware</strong></p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;A conventional fluorescence (Workflow A) or super-resolution (Workflow B) microscope for newly acquired images.</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;A desktop or laptop Mac computer with at least 8 GB of GPU RAM (16GB is recommended) running macOS 10.15 and newer.</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;A tablet computer running iPadOS 13 and newer.</p><p><strong>Critical:&nbsp;</strong>The microscope should be able to save images as RGB files readable by the CoLocalizer app.</p><p><br></p><p><strong>Software</strong></p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;Desktop: CoLocalizer Pro for Mac 7.0 and newer (CoLocalization Research Software) (<a href=\"https://colocalizer.com/mac/\" rel=\"noopener noreferrer\" target=\"_blank\">https://colocalizer.com/mac/</a>), Fiji (<a href=\"https://fiji.sc\" rel=\"noopener noreferrer\" target=\"_blank\">https://fiji.sc</a>).</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;Tablet: CoLocalizer for iPad 2.0 and newer (CoLocalization Research Software) (<a href=\"https://geo.itunes.apple.com/app/colocalizer/id1116017542?mt=8\" rel=\"noopener noreferrer\" target=\"_blank\">https://geo.itunes.apple.com/app/colocalizer/id1116017542?mt=8</a>).</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;Desktop and tablet: Microsoft Excel (<a href=\"https://products.office.com/en/excel\" rel=\"noopener noreferrer\" target=\"_blank\">https://products.office.com/en/excel</a>).</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "Before you begin\nBefore capturing any photos, careful consideration should be given to the image file type and storage choices. Many microscopes save acquired images in lossy compression formats, such as JPEG, due to their smaller file size set by default. However, lossy formats \u201cdiscard\u201d important image color data and are not suitable for quantitative analysis. Other popular file formats saving options, such as TIFF and PNG, are lossless.\u00a0Natively, the CoLocalizer app used to transform images in this protocol, opens a limited number of lossy and lossless image file formats, including JPEG, PNG, and TIFF. Other proprietary microscopy image formats (ICS, LIF, LSM, ND2, etc) can only be opened following conversion via 3\nrd\nparty software tools and are not always optimal storage-wise, eventually limiting their use. Therefore, saving captured images as lossless TIFFs and PNGs is highly recommended. We strongly discourage using previously acquired images in lossy formats in this protocol.\nLaunching CoLocalizer app and opening images\nTiming: 1 min\n1.\u00a0Launch the CoLocalizer app either on a desktop (Mac) or a tablet (iPad) computer (Figure 4).\n2.\u00a0Open your image file:\nOn a desktop\n:\ni. Open the image by selecting the\nFile > Open\npath from the application menu bar or using the\nCommand+O\nshortcut or dragging and dropping the file on a CoLocalizer app icon in the dock (Figure 4a).\nii. If you are using single-channel images, merge them on a desktop before opening for transformation. The\nMerge\nfunctionality is not available on a tablet. To merge, select\nTools > Merge\nfrom the application menu bar or use the\nShift+Command+M\nshortcut to open the\nMerge\nwindow.\niii. Drag-and-drop single-channel images onto the respective image wells of the\nMerge\nwindow and click the\nMerge\nbutton to merge the selected channels (Figure 4b).\nOn a tablet\n:\ni. Open the image by tapping the image thumbnail on the\nFile Browser\nscreen (Figure 4c).\nii.\u00a0Once tapped, the image will open on a new\nOpen Image\nscreen (Figure 4d).\nCritical:\nDue to system RAM limitations, the protocol currently works on SISR only. If you need to apply it to the image of stacks, split it into single images (slices) and apply the protocol to the slices one-by-one.\nApplying ML models\nTiming: 10-30 min per image\n3. Once the image is opened, apply ML models to transform it. For conventional images, use the Conventional image approach (Workflow A) (Figure 5). For original super-resolution images, use the Super-Resolution approach (Workflow B) (Figure 5). The Conventional approach will apply the SRGAN ML combined model consisting of denoising, axial restoration, and super-resolution reconstruction models. The Super-Resolution approach will apply the SRGAN ML BC model consisting of the denoising model.\nWorkflow A\nOn a desktop\ni. Select the model by going to\nImage > ML Super Resolution\nin the application menu bar or use the\nOption+Command+U\nshortcut (Figure 5a).\nii. Wait for SRGAN ML combined model to be applied (Figure 5b).\niii.\u00a0Observe the transformed image (Figure 5c).\nOn a tablet\n:\ni.\u00a0Select the model by tapping the\nML Super Resolution\nicon in the navigation bar (Figure 5d).\nii. Wait for the SRGAN ML combined model to be applied (Figure 5e).\niii.\u00a0Observe the transformed image (Figure 5f).\nWorkflow B\nOn a desktop\n:\ni. Access the model either by clicking the\nBackground\nicon in the application toolbar or going to\nTools > Background Correction\nin the application menu bar or using the\nShift+Command+B\nshortcut (Figure 5g).\nii. In the opened\nBackground Correction\nview, select the color channels used for staining antigens in the image (Figure 5h).\niii. Click the\nML Correct\nbutton to apply the SRGAN ML BC model (Figure 5i).\nOn a tablet\n:\ni. Access the model by tapping the\nTools\nicon in the navigation bar and then selecting the\nCorrect Background\noption from the\nTools\npopover (Figure 5j).\nii. On the opened\nBackground Correction\nscreen, select the color channels used for staining antigens in the image\u00a0(Figure 5k).\niii. Tap the\nML Correct\nbutton to apply the SRGAN ML BC model (Figure 5l).\nCritical:\nIf a sample is stained for three different antigens and you wish to change a channel pair to view them all, change the\nChannel Pair\nusing the selector at the top of the view. No need to click or tap the\nML Correct\nbutton again.\nApplication of the models shows significantly improved quality of transformed images verified by several controls (Figure 6). After selecting a channel pair, the image will be synced between devices, i.e., it will be possible to switch between a desktop and a tablet and continue the image analysis on one device where it is left off on another device using the Handoff functionality.\nComparing results\nTiming: 1-3 min per image\nWorkflow A and B\n4. Once the models were applied, compare results in original vs transformed images. Comparison serves as a control of successful use of the models, since images are expected to change following their application.\nOn a desktop\n:\ni. Return to the main window by clicking the\nInspector\nicon in the application toolbar or going to\nTools > Inspector\nin the application menu bar or using the\nShift+Command+I\nshortcut.\nii. Choose\nUndo > ML Super Resolution\nin the application menu bar to return to the original image. Alternatively, go to\nFile > Revert To\nand find the original image to revert to.\niii. Access the\nColocalization\nview again by clicking the\nColocalization\nicon in the application toolbar or going to\nTools > Quantify Colocalization\nin the application menu bar or using the\nShift+Command+C\nshortcut as described above.\niv. Compare pixel information data on transformed vs original images.\nv. Compare original vs transformed images at higher magnification. To access the\nZoom\nfunctionality, do one of the following: (a) Click the selector field in the Zoom icon in the application toolbar and select a higher zoom option or (b) Select\nView > Zoom In\nfrom the application menu bar or (c) Use the\nCommand+Plus\nshortcut.\nOn a tablet\n:\ni. Return to the\nOpen Image\nscreen by tapping\nDone\nat the top right of the navigation bar.\nii. Tap\nUndo\nat the top left of the navigation bar to return to the original image.\niii. Compare original vs transformed at higher magnification. To zoom the image, tap on it with two fingers and pinch open to zoom in. While pinching, you will see a zoom label indicating the current image size.\nExporting data\nTiming: 1-3 min per image\nWorkflow A and B\n5. The final step of the protocol is exporting obtained data.\nOn a desktop\n:\ni. In the\nColocalization\nview, click the\nExport Results\u2026\nbutton at the bottom (Figure 7a).\nii. In the opened\nExport\nwindow, fill the\nComments\nfield and\nselect the\nData\n,\nImages\n, and\nReport\noptions (Figure 7b). The file formats for\nData\n(XLSX and Text) and\nImages\n(JPEG, PNG, and TIFF) can be set in the Preferences of the app. You can export the following features of analyzed images: the whole image, selected ROI, revealed pixels, and scattergram (scatter plot). Once selected, they will be exported as single files as well as included in the\nReport\nfile.\niii. The\nReport\noption will allow the saving of all data in PDF and HTML file formats.\niv. Click the\nSave\u2026\nbutton at the bottom of the window to save the selected options (Figure 7b).\nv. To finish the export, select the destination where you would like to save the exported data, either locally or on\niCloud Drive\n.\nCaution:\nSaving the whole image in JPEG format will make it unusable for colocalization analysis. We recommend saving it as lossless TIFF.\nCritical:\nIf you wish to export only the transformed image, go to the application menu bar and select\nFile > Export As\u2026\nor use the\nCommand+E\nshortcut. Then, save it in the file format of your choice. If you plan to reuse this image, we recommend saving it in native COLOCALIZER format.\nOn a tablet\n:\ni. On the\nOpen Image\nscreen, tap the\nExport\nicon in the navigation bar at the right to access the\nExport\npopover (Figure 7c).\nii. In the popover, select the type of data to export,\nData\nor\nImages\n. Only one option can be selected at a time.\niii. In the appeared pop-up screen, select the\nData\nor\nImages\nexporting options. Only one option can be selected at a time.\nData\ncan be saved in either PDF or XLSX formats.\nImages\ncan be saved in either JPEG, PNG, or TIFF formats (Figure 7d). In addition to coefficients numbers, a PDF file of\nData\nwill include the analyzed image, selected ROI, and scattergram (scatter plot) too.\niv. To finish the export, select the destination where you would like to save your data, either on\nOn My iPad\nor on\niCloud Drive\n."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p><strong>Step 2 (image opening)</strong></p><p><strong>Problem:</strong></p><p>The image file does not open</p><p><strong>Possible reason:</strong></p><p>Native image file formats of CoLocalizer apps are limited to JPEG, PNG, and TIFF</p><p><strong>Solution:</strong></p><p>Check the list of currently supported image file formats (<a href=\"https://colocalizer.com/support/\" rel=\"noopener noreferrer\" target=\"_blank\">https://colocalizer.com/support/</a>). If your format is not on the list, convert it using a 3<sup>rd</sup>&nbsp;party software, like Fiji (<a href=\"https://imagej.net/plugins/importing-image-files\" rel=\"noopener noreferrer\" target=\"_blank\">https://imagej.net/plugins/importing-image-files</a>), before opening it in CoLocalizer</p><p><br></p><p><strong>Step 3 (applying models)</strong></p><p><strong>Problem:</strong></p><p>ML Super Resolution option is grayed out on a desktop and an alert is shown on a tablet when trying to apply it on image stacks</p><p><strong>Possible reason:</strong></p><p>Due to GPU RAM limitations, the use of models on stacks of images is not supported</p><p><strong>Solution:</strong></p><p>Split stacks of images into single images (SI) and apply SRGAN ML models to them (SISR)</p><p><br></p><p><strong>Problem:</strong></p><p>The transformed image is the same or lower quality than the original image, image artifacts are visible</p><p><strong>Possible reason:</strong></p><p>Lossy file formats, such as JPEG, employ compression algorithms to minimize the size of the file. This results in the loss of image data and produces compression artifacts</p><p><strong>Solution:</strong></p><p>Use lossless data compression formats, like lossless TIFF and PNG</p><p><br></p><p><strong>Problem:</strong></p><p>Transformed images are not synchronized between devices</p><p><strong>Possible reason 1:</strong></p><p>No Internet connection</p><p><strong>Solution 1:</strong></p><p>Make sure you are connected to the Internet</p><p><strong>Possible reason 2:</strong></p><p>Not signed with Apple ID</p><p><strong>Solution 2:</strong></p><p>Sign with Apple ID on all devices you are using CoLocalizer with</p><p><strong>Possible reason 3:</strong></p><p>iCloud is not set up and/or iCloud Drive is not turned on</p><p><strong>Solution 3:</strong></p><p>Set up iCloud Drive and/or turn on iCloud Drive on all devices you are using CoLocalizer with</p><p><br></p><p><strong>Problem:</strong></p><p>Synchronization of images between devices is very slow</p><p><strong>Possible reason:</strong></p><p>Internet connection is insufficient. The image is too big</p><p><strong>Solution:</strong></p><p>Make sure the speed of your Internet connection is adequate</p><p><br></p><p><strong>Problem:</strong></p><p>Deleted images on one device disappear on other devices</p><p><strong>Possible reason:</strong></p><p>This is an expected pattern</p><p><strong>Solution:</strong></p><p>To delete images only on one of your devices, sign off from iCloud on that device. Keep in mind that this action will cancel all synchronization steps</p><p><br></p><p><strong>Step 4 (comparing results)</strong></p><p><strong>Problem:</strong></p><p>The total pixel count according to the selected channel pair of transformed images increased less than three times compared to the original ones</p><p><strong>Possible reason:</strong></p><p>This is possible because image transformation can change the color values of pixels in the images</p><p><strong>Solution:</strong></p><p>Nothing needs to be done</p><p><br></p><p><strong>Problem:</strong></p><p>Cannot revert to the original image</p><p><strong>Possible reason:</strong></p><p>This is possible if the app did not save a transformed image automatically</p><p><strong>Solution:</strong></p><p>Make sure to save the image after opening. The app will take care of the rest</p><p><br></p><p><strong>Step 5 (exporting data)</strong></p><p><strong>Problem:</strong></p><p>Not all images have been exported</p><p><strong>Possible reason:</strong></p><p>Certain image exporting options in the export sheet were left unchecked</p><p><strong>Solution:</strong></p><p>Make sure to check boxes for all the desired options</p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>The time to complete the protocol will depend on the size of the original image files.</p><p>Steps 1 and 2, launching CoLocalizer app and opening the image file either on a desktop or a tablet: 1 min</p><p>Step 3, applying SRGAN ML models: 10-30 min per average (1024 x 1024 pixels) image</p><p>Step 4, comparing results: 1-3 min per image</p><p>Step 5, exporting data: 1-3 min per image</p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>The application of SRGAN ML models should result in a noticeable visual improvement by revealing more details in the images (Figure 6). These changes will be more pronounced in conventional images. The extent of improvement, as well as the presence of artifacts, will depend on the image quality \u2013 the higher is the quality of the original image the better and more reliably it can be transformed. Original super-resolution images will be likely visually unchanged.</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Technically, the image files will become significantly bigger and their pixel dimensions will increase approximately three times.</p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>1. Pawley, J.&nbsp;<em>Handbook of biological confocal microscopy</em>. 3 edn,&nbsp;&nbsp;(Springer, Boston, MA, 2006).</p><p>2. Demmerle, J., Wegel, E., Schermelleh, L. &amp; Dobbie, I. M. Assessing resolution in super-resolution imaging.&nbsp;<em>Methods</em>&nbsp;<strong>88</strong>, 3-10, doi.org/10.1016/j.ymeth.2015.07.001 (2015).</p><p>3. Schermelleh, L.<em>&nbsp;et al.</em>&nbsp;Super-resolution microscopy demystified.&nbsp;<em>Nat Cell Biol</em>&nbsp;<strong>21</strong>, 72-84, doi:10.1038/s41556-018-0251-8 (2019).</p><p>4. Culley, S.<em>&nbsp;et al.</em>&nbsp;Quantitative mapping and minimization of super-resolution optical imaging artifacts.&nbsp;<em>Nat Methods</em>&nbsp;<strong>15</strong>, 263-266, doi:10.1038/nmeth.4605 (2018).</p><p>5. Culley, S.<em>&nbsp;et al.</em>&nbsp;Author Correction: Quantitative mapping and minimization of super-resolution optical imaging artifacts.&nbsp;<em>Nat Methods</em>&nbsp;<strong>17</strong>, 1167, doi:10.1038/s41592-020-00983-7 (2020).</p><p>6. Rivenson, Y. G., Z. G\u00fcnaydin, H. Zhang, Y. Wang, H. Ozcan, A. Deep learning microscopy.&nbsp;<em>Optica</em>&nbsp;<strong>4</strong>, 1437-1443 (2017).</p><p>7. Weigert, M.<em>&nbsp;et al.</em>&nbsp;Content-aware image restoration: pushing the limits of fluorescence microscopy.&nbsp;<em>Nat Methods</em>&nbsp;<strong>15</strong>, 1090-1097, doi:10.1038/s41592-018-0216-7 (2018).</p><p>8. Zinchuk, V. &amp; Grossenbacher-Zinchuk, O. Machine learning for analysis of microscopy images: a practical guide.&nbsp;<em>Curr Protoc Cell Biol</em>&nbsp;<strong>86</strong>, e101, doi:10.1002/cpcb.101 (2020).</p><p>9. LeCun, Y., Bengio, Y. &amp; Hinton, G. Deep learning.&nbsp;<em>Nature</em>&nbsp;<strong>521</strong>, 436-444, doi:10.1038/nature14539 (2015).</p><p>10. Goodfellow, I. J. P.-A., J. Mirza, M. Xu, B. Warde-Farley, D. Ozair, S. Courville, A. Bengio, Y. Generative adversarial nets. in&nbsp;<em>Adv Neur Inf Proc Syst.</em>&nbsp;Vol.&nbsp;<strong>3</strong>&nbsp;2672-2680.</p><p>11. Wu, Y.<em>&nbsp;et al.</em>&nbsp;Bright-field holography: cross-modality deep learning enables snapshot 3D imaging with bright-field contrast using a single hologram.&nbsp;<em>Light Sci Appl</em>&nbsp;<strong>8</strong>, 25, doi:10.1038/s41377-019-0139-9 (2019).</p><p>12. Rivenson, Y.<em>&nbsp;et al.</em>&nbsp;Virtual histological staining of unlabelled tissue-autofluorescence images via deep learning.&nbsp;<em>Nat Biomed Eng</em>&nbsp;<strong>3</strong>, 466-477, doi:10.1038/s41551-019-0362-y (2019).</p><p>13. Choi, G.<em>&nbsp;et al.</em>&nbsp;Cycle-consistent deep learning approach to coherent noise reduction in optical diffraction tomography.&nbsp;<em>Opt Express</em>&nbsp;<strong>27</strong>, 4927-4943, doi:10.1364/OE.27.004927 (2019).</p><p>14. Wang, H.<em>&nbsp;et al.</em>&nbsp;Deep learning enables cross-modality super-resolution in fluorescence microscopy.&nbsp;<em>Nat Methods</em>&nbsp;<strong>16</strong>, 103-110, doi:10.1038/s41592-018-0239-0 (2019).</p><p>15. Ouyang, W., Aristov, A., Lelek, M., Hao, X. &amp; Zimmer, C. Deep learning massively accelerates super-resolution localization microscopy.&nbsp;<em>Nat Biotechnol</em>&nbsp;<strong>36</strong>, 460-468, doi:10.1038/nbt.4106 (2018).</p><p>16. Uzunova, H., Ehrhardt, J. &amp; Handels, H. Memory-efficient GAN-based domain translation of high resolution 3D medical images.&nbsp;<em>Comput Med Imaging Graph</em>&nbsp;<strong>86</strong>, 101801, doi:10.1016/j.compmedimag.2020.101801 (2020).</p><p>17. Zinchuk, V. &amp; Grossenbacher-Zinchuk, O. Mobile quantitative colocalization analysis of fluorescence microscopy images.&nbsp;<em>Curr Protoc Cell Biol</em>&nbsp;<strong>78</strong>, 4 37 31-34 37 12, doi:10.1002/cpcb.43 (2018).</p><p>18. Zinchuk, V., Wu, Y., Grossenbacher-Zinchuk, O. &amp; Stefani, E. Quantifying spatial correlations of fluorescent markers using enhanced background reduction with protein proximity index and correlation coefficient estimations.&nbsp;<em>Nat Protoc</em>&nbsp;<strong>6</strong>, 1554-1567, doi:10.1038/nprot.2011.384 (2011).</p><p>19. Zinchuk, V. &amp; Grossenbacher-Zinchuk, O. Quantitative colocalization analysis of fluorescence microscopy images.&nbsp;<em>Curr Protoc Cell Biol</em>&nbsp;<strong>62</strong>, Unit 4 19 11-14, doi:10.1002/0471143030.cb0419s62 (2014).</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>Training image datasets for creating the models were taken from publicly available databases by Weigert et al.: <a href=\"https://publications.mpi-cbg.de/publications-sites/7207/\" rel=\"noopener noreferrer\" target=\"_blank\">https://publications.mpi-cbg.de/publications-sites/7207/</a> and Zhang at al.: <a href=\"https://arxiv.org/abs/1812.10366\" rel=\"noopener noreferrer\" target=\"_blank\">https://arxiv.org/abs/1812.10366</a>. Test images were taken from a publicly available database provided by Cell Image Library: <a href=\"http://cellimagelibrary.org/home\" rel=\"noopener noreferrer\" target=\"_blank\">http://cellimagelibrary.org/home</a>.</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1002/cpcb.101",
+                "date": "",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            },
+            {
+                "doi": "10.1002/cpcb.43",
+                "date": "2018-04-09 18:38:57",
+                "title": "Mobile Quantitative Colocalization Analysis of Fluorescence Microscopy Images",
+                "authors": [
+                    "Vadim Zinchuk",
+                    "Olga Grossenbacher\u2010Zinchuk"
+                ],
+                "journal": "Current Protocols in Cell Biology",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 67601728,
+                "identity": "2a6a507c-44d4-4cbe-acd9-5635e9005bb1",
+                "order_by": 0,
+                "name": "Vadim Zinchuk",
+                "email": "zinchuk@kochi-u.ac.jp",
+                "orcid": "",
+                "institution": "Kochi University Faculty of Medicine",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Vadim",
+                "middleName": "",
+                "lastName": "Zinchuk",
+                "suffix": ""
+            },
+            {
+                "id": 67601729,
+                "identity": "f907522a-66bc-42fd-88f7-483c4cb49919",
+                "order_by": 1,
+                "name": "Olga Grossenbacher-Zinchuk",
+                "email": "",
+                "orcid": "",
+                "institution": "Ziemer Ophthalmic Systems AG",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Olga",
+                "middleName": "",
+                "lastName": "Grossenbacher-Zinchuk",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2021-12-03 00:29:49",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1721/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1721/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 16546046,
+                "identity": "3bcc1cff-c205-4711-a0f0-d2406525227a",
+                "added_by": "auto",
+                "created_at": "2021-12-17 10:47:38",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 88616,
+                "visible": true,
+                "origin": "",
+                "legend": "<p>An overview of the SRGAN ML model architecture. Image transformation starts by generating the whole image with a low-resolution (LR) GAN. Then, we increase the resolution by generating patches with multiple super-resolution (SR) GANs (SRGAN 1, SRGAN 2 \u2026 SRGAN N) conditioned on the previous scales. Images with yellow selections show the input patches at the current resolution scales. Scale 0, Scale 1, and Scale N indicate the increasing scale sizes where Scale 0 is the initial scale and Scale N is the final scale. Image with purple selection shows the generated patch of the subarea of the green patch at the next higher resolution scale. Selection with an orange border shows the receptive field of the current generated green patch. Thus, the final image is the result of a sequence of steps starting from the generation of a low-resolution (LRGAN) image and ending with a super-resolution (SRGAN) image.</p>",
+                "description": "",
+                "filename": "Figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/pex-1721/v1/29243b6273f1a7bd2e85f8a6.jpg"
+            },
+            {
+                "id": 16546048,
+                "identity": "14fd97a2-fc5c-4f48-9a02-a955a78256fc",
+                "added_by": "auto",
+                "created_at": "2021-12-17 10:47:38",
+                "extension": "jpg",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 114166,
+                "visible": true,
+                "origin": "",
+                "legend": "<p>Composition of the model. Our combined model consists of three separate models: Denoising, Axial Restoration, and Super-Resolution Reconstruction. These models target specific image transformation tasks.</p>",
+                "description": "",
+                "filename": "Figure2.jpg",
+                "url": "https://assets.researchsquare.com/files/pex-1721/v1/dbd15ada7c29aa22b361a86b.jpg"
+            },
+            {
+                "id": 16546045,
+                "identity": "302f69bc-cf84-4d0d-8c12-09759b98d0b0",
+                "added_by": "auto",
+                "created_at": "2021-12-17 10:47:38",
+                "extension": "jpg",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 111166,
+                "visible": true,
+                "origin": "",
+                "legend": "<p>An overview and workflows of the protocol. Images for transformation are opened either on a desktop or a tablet computer. Workflow A (A): The Conventional image approach is applied to conventional microscopy images requiring all three components of the SRGAN ML model with the help of the SRGAN ML combined model. Workflow B (B): The Super-Resolution image approach is applied to original super-resolution microscopy images requiring only background noise reduction with the help of the SRGAN ML BC model. After applying the models, images are analyzed and both the visual appearance and pixel information in original vs transformed images are compared. Finally, images are exported for further use.</p>",
+                "description": "",
+                "filename": "Figure3.jpg",
+                "url": "https://assets.researchsquare.com/files/pex-1721/v1/1df81cc34384bc29b28dfb80.jpg"
+            },
+            {
+                "id": 16546047,
+                "identity": "ba6b2d8e-db22-4001-9a4d-57b6140e81d3",
+                "added_by": "auto",
+                "created_at": "2021-12-17 10:47:38",
+                "extension": "jpg",
+                "order_by": 4,
+                "title": "Figure 4",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 608677,
+                "visible": true,
+                "origin": "",
+                "legend": "<p>Opening images. Workflows A and B. Images can be opened using either a desktop (a,b) or a tablet (c,d) version of the CoLocalizer app. In the case of single-channel images, they should be merged (overlayed) on a Mac before opening using the Merge tool (b). Either on a desktop or a tablet, image files can be opened if they are stored either locally or in the cloud. The figure features one of the demo images included in the CoLocalizer for iPad app.</p>",
+                "description": "",
+                "filename": "Figure4.jpg",
+                "url": "https://assets.researchsquare.com/files/pex-1721/v1/b7a6d39c713346ba319deed0.jpg"
+            },
+            {
+                "id": 16546050,
+                "identity": "9ca49774-848f-4d56-ba62-52809e0356af",
+                "added_by": "auto",
+                "created_at": "2021-12-17 10:47:38",
+                "extension": "jpg",
+                "order_by": 5,
+                "title": "Figure 5",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 1861987,
+                "visible": true,
+                "origin": "",
+                "legend": "<p>Applying ML models. SRGAN ML combined model is applied to conventional images (Workflow A). SRGAN ML BC model is applied to super-resolution images (Workflow B). The models can be used either on a desktop (a-c), (g-i) or a tablet (d-f), (j-l). Transformed images show enhanced clarity of details and decreased background noise. Image histogram reflects the results of applying the SRGAN ML BC model (Workflow B) (double arrows). Note a similar modern GUI in both apps.</p>",
+                "description": "",
+                "filename": "Figure5.jpg",
+                "url": "https://assets.researchsquare.com/files/pex-1721/v1/7a0cdf23b0dca17c93f13820.jpg"
+            },
+            {
+                "id": 16546157,
+                "identity": "3aca37af-91ed-4e32-af52-a49916aa1a5c",
+                "added_by": "auto",
+                "created_at": "2021-12-17 10:53:38",
+                "extension": "jpg",
+                "order_by": 6,
+                "title": "Figure 6",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 418503,
+                "visible": true,
+                "origin": "",
+                "legend": "<p>Performance of the applied models. Comparison of the input (conventional) vs output (transformed to super-resolution) shows significant improvements of images according to all three (Denoising, Axial Resolution Restoration, and Super-Resolution Reconstruction) components of SRGAN ML combined model on different (rounded, irregular, and filamentous) types of cellular structures. The results of transformation were estimated using Peak Signal-to-Noise Ratio (PSNR) (dB) and structural similarity index (SSIM). Higher values indicate better image quality. Comparison of Output and Ground Truth images shows no obvious mismatch between the two. Super-resolution artifacts were examined by estimating Resolution Scaled Pearson-Correlation (RSP), Resolution Scaled Error (RSE), and the RSE error maps using the Fiji software NanoJ-SQUIRREL plugin version 1.2. RSP estimates the quality of images by quantifying their correlation, RSE indicates brightness and contrast differences between images, and RSE error map shows the areas of discrepancy between the input and output images. Both RSP and RSE show a low degree of error, while the RSE map reveals no obvious artifacts. The models were trained on cloud-hosted Google Collaboratory GPU and the local host computer running Nvidia GeForce GTX 1080 Ti GPU. Following training, the Python code of the models was converted to CoreML format optimized for use in Apple devices. Converted models were quantized to reduce the size of model files. Quantization decreased the size of CoreML files twice without affecting their performance.</p>",
+                "description": "",
+                "filename": "Figure6.jpg",
+                "url": "https://assets.researchsquare.com/files/pex-1721/v1/9aa2eb815813f3648401e080.jpg"
+            },
+            {
+                "id": 16546077,
+                "identity": "1b0ad1bb-1fef-46ab-8129-96ac2022d167",
+                "added_by": "auto",
+                "created_at": "2021-12-17 10:50:38",
+                "extension": "jpg",
+                "order_by": 7,
+                "title": "Figure 7",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 664992,
+                "visible": true,
+                "origin": "",
+                "legend": "<p>Exporting data. Workflows A and B. All data (numerical and images), produced by the protocol, can be exported either on a desktop (a-c) or a tablet (d-f). All exported data can be included in a single report file for archiving and further use.</p>",
+                "description": "",
+                "filename": "Figure7.jpg",
+                "url": "https://assets.researchsquare.com/files/pex-1721/v1/b8dbb1dbaaf75f69242ca89b.jpg"
+            },
+            {
+                "id": 16546158,
+                "identity": "8f65599c-8bc3-4cea-8429-f71407a70fad",
+                "added_by": "auto",
+                "created_at": "2021-12-17 10:53:40",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 559228,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1721/v1/4514c9ec-8a5f-414c-94b6-93057e6eb8c7.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "machine learning, fluorescence microscopy, super-resolution, tablet computer",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>Machine Learning offers the opportunity to visualize the invisible in conventional fluorescence microscopy images by improving their resolution while preserving and enhancing image details. This protocol describes the application of GAN-based Machine Learning models to transform the resolution of conventional fluorescence microscopy images to a resolution comparable with super-resolution. It provides a flexible environment using a modern app functioning on both desktop and mobile computers. This approach can be extended for use on other types of microscopy images empowering life science researchers with modern analytical tools.</p>",
+        "manuscriptTitle": "Protocol for applying Machine Learning models for the transformation of conventional fluorescence images to super-resolution",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2021-12-17 10:47:36",
+                "doi": "10.21203/rs.3.pex-1721/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "7f59e837-7756-437a-947a-f7ae74d6ad86",
+        "owner": [],
+        "postedDate": "December 17th, 2021",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 8911642,
+                "name": "Computational biology and bioinformatics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2021-12-17 10:47:36",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

@@ -1,0 +1,244 @@
+{
+    "identity": "nprot-2183",
+    "title": "Sequential chromatin immunoprecipitation protocol for global analysis through massive parallel sequencing \\(reChIP-seq)",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Chromatin immunoprecipitation \\(ChIP) and related assays are widely used to study protein-DNA interaction _in vivo_. Generally, the ChIP assay involves \\(a) a fixation step; most frequently perfomed by formaldehyde treatment; but also the use of UV crosslinking<sup>1</sup> or \u201cnative\u201d ChIP assays<sup>2</sup> without crosslinking have been described \\(b) chromatin fragmentation by sonication or endonuclease digestion, \\(c) immunoprecipitation \\(IP) of the target, which can be a \\(transcription/epigenetic/remodelling) factor/enzyme or even post-translational modifications of such a factor<sup>3</sup>, histone or DNA and \\(d) analysis of the enriched DNA which can be performed locally by applying methods like quantitative PCR amplification<sup>4</sup>, but with the emergence of genome-wide analytical technologies, such as oligonucleotide microarrays and high throughput sequencing, ChIP-enriched DNA can be also analysed in the context of the entire genome, thus allowing for the global mapping of the investigated epitope \\(for a review see ref <sup>5</sup>).\r\n\n\nCombining ChIP with massive parallel sequencing \\(ChIP-seq <sup>6</sup>) is the method of choice for mapping chromatin-bound protein \\(modifications) or epigenetic histone/DNA modifications. The enormous potential of ChIP-seq is, however, rather limited when two or more factors/epigenetic marks are to be compared simultaneously; in view of the complexity and interdependency of factor binding and epigenetic modifications this is an important issue. Currently, concomitant protein localization/modification at defined chromatin regions is done by comparing the various ChIP-seq profiles. However, this bioinformatics-based comparison does not necessarily reveal simultaneous co-occupancy or coordinate factor binding and histone modification. Indeed, wrong conclusions can be drawn in cases of cell-to-cell heterogeneity for the observed events. Therefore, sequential ChIP assays, also known as \u201creChIP\u201d were developed, which involve two consecutive chromatin immunoprecipitations<sup>7-11</sup>. ReChIP assays have been shown to suffer from two major limitations, namely the removal of the first antibody and the very small amounts of DNA which are obtained after the second IP. Indeed, one of the most common problems with reChIP assays is the presence of the first antibody during the second immunoprecipitation as contaminant. This leakage is responsible for false positive IP read outs at the end of the assay. In the protocol described below, this problem is solved by covalently crosslinking the first antibody to the solid substrate \\(i.e. protein A-Sepharose beads) and by elution with a reducing agent like DTT.\r\n\n\nWhereas antibody crosslinking and DTT elution can significantly decrease the presence of antibody contamination from the first IP, the final yields of reChIP assays are generally extremely low and insufficient for direct global ChIP-seq analysis. In fact, in a previous study, Caroll et al. performed ERa-RARa re-ChIP assays to support the putative cooperative chromatin binding of these components in a breast cancer model system<sup>12</sup>. Importantly, they found that in their experimental setting only 15% \\(352 sites) of the ERa binding sites that overlap with RARa binding sites in a comparison of separate ChIP-seq assays could be validated by reChIP. Two scenarios could account for this result, \\(i) there is cell-to-cell variation for the co-occupancy of ERa and RARa binding sites, or \\(ii) the reChIP-seq was hampered by the small amounts of DNA that can be obtained in reChIP assays. To circumvent the latter problem we have previously shown in the F9 cell model that by using linear DNA amplification \\(LinDA)<sup>13</sup> of the reChIP\u2019ed DNA more than 80% \\(2277 sites) of the identified ChIP-seq binding sites for RXRa and RARg could be validated. Thus,  the use of LinDA will help to assess the possibility of cell variability for coordinate events at global scale. The following protocol describes the conditions for performing sequential reChIP assays followed by LinDA amplification of the IP\u2019ed DNA for massive parallel sequencing analysis. We refer to this approach as \u201cLinDA-reChIP-seq\u201d technology."
+        },
+        {
+            "header": "Procedure",
+            "content": "**A. Preparation of immobilized antibodies for the primary ChIP**\r\n\n\n**General points to note:**\r\n\n\n As disuccinimidyl suberate \\(DSS) crosslinking is quantitative and because crosslinking will randomly occur in the epitope recognition domain of some molecules, the overall titer of functional antibodies will be decreased.  We generally start with 5-times more antibodies than used for a regular ChIP. Thus for a ChIP assay regularly performed with 3\u00b5g antibody per 25\u00b5l protein A beads, the reChIP assay is performed as following \\(for 10 primary IPs):\r\n\n\n\r\n\n\nTiming: ~1-2 days\r\n\n\n\r\n\n\n1. \\(Optional): When the antibody is stored in presence of primary amine buffers like glycin or Tris, take 150\u00b5g of antibody and dialyse overnight against 1xPBS. \r\n  2. Quantify the amount of antibody recovered from the dialysis step \\(Bradford assay).\r\n  3. Wash 250\u00b5l \\(500\u00b5l slurry) protein A sepharose beads \\(SIGMA P9424) twice with 500\u00b5l sodium borate washing solution \\(50mM Na-borate, pH 8.2).\r\n  4. Dilute the antibody 1/1 with Sodium Borate washing solution; then add it into the prewashed protein A beads. Incubate during 1hour at room temperature. In the meantime, adapt DSS crosslinker to room temperature before opening \\(avoid condensation of water).\r\n  5. Centrifuge the protein A/antibody mix \\(425xg); recover the supernatant and quantify the amount of antibody that was not crosslinked. **CRITICAL STEP:** Yields close to 80% of crosslinked antibody should be obtained after 1hour incubation; if it is not the case, increase the incubation time.\r\n  6. Wash the crosslinked beads with sodium borate washing solution.\r\n  7. Resuspend 1.625mg DSS \\(162.5\u00b5g/25\u00b5l beads) in 250\u00b5l dimethylsulfoxide \\(DMSO) or dimethylformamide \\(DMF). Add 250\u00b5l PBS and immediately add into the preloaded protein-A beads. Incubate at room temperature during 1 hour \\(rotating table). **CRITICAL STEP:**  Prepare the DSS solution just before adding it into the preloaded beads.\r\n  8. Wash the crosslinked beads twice with 1xPBS. Add 1ml ethanolamine \\(0.1M) to inactivate remaining DSS. Incubate 10 min at room temperature.\r\n  9. To remove non-crosslinked antibodies, add 1ml of glycine \\(0.1M, pH 2.8), vortex briefly, and recover supernatant in 25\u00b5l Tris-base \\(1M, pH 8.8) in order to neutralize the acidic conditions. Quantify the amount of antibody in the supernatant to estimate crosslinking efficiency. **CRITICAL STEP:** Up to 10% of the loaded antibody amounts may be retrieved.\r\n  10. Wash crosslinked beads twice with sodium borate washing solution and resuspend in 500\u00b5l PBS. The crosslinked affinity resin can be stored for weeks at 4\u00b0C. \r\n  **B. ReChIP assay.**\r\n\n\n**General points to note:**\r\n\n\nThe following sequential chromatin immunoprecipitation \\(reChIP) steps correspond to modifications to be included to the standard ChIP procedure previously described by Mendoza et al\n14\nwhich is an adaptation of previous standard procedures.\r\n\n\n\r\n\n\nTime: 3 days\r\n\n\n   \r\n\n\n1. Albeit depending on the antibody, the yield of IPed DNA in a reChIP is generally extremely low; we pool at least four primary ChIPs \\(2 million cells each) done with DSS crosslinked antibodies \\(4-times 15\u00b5g antibody crosslinked to 25\u00b5l protein A beads).\r\n  2. Elution for the first immunoprecipitation \\(IP) is done with 10 mM DTT \\(60\u00b5l per 25\u00b5l resin, 30\u00b0C for 30 minutes); 4 eluates are combined for the secondary IP.\r\n  3. To avoid DTT effects on the second IP, the combined eluates are diluted at least 30-times with the ChIP lysis buffer of choice.\r\n  4. Use smallest possible volume \\(30\u00b5l elution buffer) for reChIP elution.\r\n  \r\n\n\n**C. ReChIP validation and LinDA amplification prior massive parallel sequencing**\r\n\n\n**General points to note:** \r\n\n\nDue to the low yields of a reChIP assay, its validation prior LinDA amplification and further high-throughput sequencing is performed by qPCR in a reduced number of target sites which were previously characterized. The immunoprecipitated material is then amplified following a linear procedure previously described by Shankaranarayanan et al\n13\nand the massive parallel sequencing is performed following standard procedures \\(e.g. ChIP-seq DNA sample preparation kit, Illumina).\r\n\n\n \r\n\n\n1. From a typical reChIP eluate performed in 30\u00b5l; keep 14\u00b5l for LinDA amplification and take the remaining 16\u00b5l for qPCR validations.\r\n  2. Perform qPCR validations with at least 2 technical replicates per evaluated region: 2\u00b5l DNA per target region; 1\u00b5l 10uM primers mix; 5ul of Quantitect SyBr master mix \\(total volume: 10\u00b5l per reaction). **CRITICAL STEP:**  Under these conditions, 4 target sites can be validated without dilution; nevertheless reChIP eluate can be diluted 2 to 5-times to increase the number of sites that can be validated. Note however that this may affect the accuracy of the quantification and is therefore not recommended.\r\n  3. Take 14\u00b5l of the reChIP material for linear DNA amplification as following the corresponding protocol\n13\n.\r\n  4. Evaluate the amplified material by qPCR as indicated in step 2.\r\n  5. Perform library preparation for massive parallel sequencing by following standard conditions."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "**Weak or no-enrichment during the qPCR validation of the reChIP assay.**\r\n\n\n\r\n\n\nMake sure that the evaluated sites by the qPCR correspond to real positive sites for enrichment \\(Hot regions) in regular ChIP assays. If possible, include a \u201ccold region\u201d \\(region expected to be non-enriched during the assay) for comparative purposes. In our hands, a reChIP assay presents always higher fold occupancy between hot and cold regions than a standard ChIP assay performed under the same conditions \\(i.e. same antibodies in use); thus antibodies that produce good enrichments in regular ChIP assays may give rise to efficient reChIP assays.\r\n\n\n\r\n\n\n**Chromatin enrichment even in a mock reChIP sample \\(i.e. reChIP performed only in presence of the first antibody)**\r\n\n\n\r\n\n\nA mock reChIP is an essential control for the performance of this assay. Indeed, whereas the DSS-antibody crosslinking is expected to be quite efficient and the washes under acidic glycin conditions of the crosslinked beads before immunoprecipitations are expected to remove potential non-crossliked material, residuals of these steps may be a source of leakage for the first antibody, which may appear in the second immunoprecipitation step. A mock reChIP may have chromatin enrichments in the order of background levels; and if it is not the case, the whole procedure for antibody crosskinking needs to be restarted. Note that in contrast to local analysis, genome-wide profiling of reChIP material need to be performed in the absence of first antibody leakage.\r\n\n\n\r\n\n\n**Low fold-occupancies for reChIP-LinDA amplification**\r\n\n\n\r\n\n\nOne of the major problems when performing reChIP assays is that the final enriched material is in general out of the quantification limits \\(i.e. Qubit fluorometer: detection limit=0.1ng/ul); reason why a) reChIP assays are performed from at least 4 times more material than a regular ChIP; b) LinDA amplification is performed without having an estimation of the initial material. As indicated in<sup>13</sup>, the current lower limit for LinDA amplification is in the order of 30 pg; thus beyond such threshold the accuracy of the fold enrichment relative to the non-amplified material; evaluated by qPCR; tends to be affected. In cases that the LinDA-amplified material present different fold-occupancies compared to that obtained prior amplification, reChIPs must be performed with higher initial material to reach the 30 pg threshold required for proper LinDA amplification."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "Sequential chromatin immunoprecipitation assays applied for genome wide studies has been illustrated in Shankaranarayanan et al<sup>13</sup> by targeting the retinoic acid receptor complex, RXRa-RARg, in the F9 cell line model system. Chromatin localization of this complex has been evaluated after 2h of all-trans retinoic acid \\(ATRA) treatment either by performing standard ChIP-seq assays for both components or by in a sequential reChIP-seq assay, where the first immunoprecipitation is directed against RXRa and the second targets RARg. The reChIP-seq assay identified a subset of binding events of both RXRa and RARg ChIP-seq profiles, corresponding to the situation in which both components are found at the same locus, probably forming a single complex, whereas the RXRa or RARg sites which has not been retrieved in the reChIP-seq assay may correspond to situations in which such components form complexes with other partners as previously documented<sup>14-15</sup>.\r\n\n\nNote that this method presents important potential applications, for instance in the analysis of complex composition in a given chromatin site but also in a global manner when combining it with an unbiased DNA amplification method like LinDA."
+        },
+        {
+            "header": "References",
+            "content": "1 Nagaich, A. K. & Hager, G. L. UV laser cross-linking: a real-time assay to study dynamic protein/DNA interactions during chromatin remodeling. Sci STKE 2004, pl13, doi:stke.2562004pl13 \\[pii]\r\n\n\n10.1126/stke.2562004pl13 \\(2004).\r\n\n\n2 O'Neill, L. P. & Turner, B. M. Immunoprecipitation of native chromatin: NChIP. Methods 31, 76-82, doi:S1046202303000902 \\[pii] \\(2003).\r\n\n\n3 Ceschin, D. G. et al. Methylation specifies distinct estrogen-induced binding site repertoires of CBP to chromatin. Genes Dev 25, 1132-1146, doi:25/11/1132 \\[pii]\r\n\n\n10.1101/gad.619211 \\(2011).\r\n\n\n4 Mendoza, M. A., Panizza, S. & Klein, F. Analysis of protein-DNA interactions during meiosis by quantitative chromatin immunoprecipitation \\(qChIP). Methods Mol Biol 557, 267-283 \\(2009).\r\n\n\n5 Collas, P. The current state of chromatin immunoprecipitation. Mol Biotechnol 45, 87-100, doi:10.1007/s12033-009-9239-8 \\(2010).\r\n\n\n6 Park, P. J. ChIP-seq: advantages and challenges of a maturing technology. Nat Rev Genet 10, 669-680, doi:nrg2641 \\[pii]\r\n\n\n10.1038/nrg2641 \\(2009).\r\n\n\n7 Chaya, D., Hayamizu, T., Bustin, M. & Zaret, K. S. Transcription factor FoxA \\(HNF3) on a nucleosome at an enhancer complex in liver chromatin. J Biol Chem 276, 44385-44389, doi:10.1074/jbc.M108214200\r\n\n\nM108214200 \\[pii] \\(2001).\r\n\n\n8 Mendoza-Parra, M. A., Walia, M., Sankar, M. & Gronemeyer, H. Dissecting the retinoid-induced differentiation of F9 embryonal stem cells by integrative genomics. Mol Syst Biol 7, 538, doi:msb201173 \\[pii]\r\n\n\n10.1038/msb.2011.73 \\(2011).\r\n\n\n9 Metivier, R. et al. Estrogen receptor-alpha directs ordered, cyclical, and combinatorial recruitment of cofactors on a natural target promoter. Cell 115, 751-763, doi:S0092867403009346 \\[pii] \\(2003).\r\n\n\n10 Soutoglou, E. & Talianidis, I. Coordination of PIC assembly and chromatin remodeling during differentiation-induced gene activation. Science 295, 1901-1904, doi:10.1126/science.1068356\r\n\n\n295/5561/1901 \\[pii] \\(2002).\r\n\n\n11 Ijpenberg, A. et al. In vivo activation of PPAR target genes by RXR homodimers. EMBO J 23, 2083-2091, doi:10.1038/sj.emboj.7600209\r\n\n\n7600209 \\[pii] \\(2004).\r\n\n\n12 Ross-Innes, C. S. et al. Cooperative interaction between retinoic acid receptor-alpha and estrogen receptor in breast cancer. Genes Dev 24, 171-182, doi:24/2/171 \\[pii]\r\n\n\n10.1101/gad.552910 \\(2010).\r\n\n\n13 Shankaranarayanan, P. et al. Single-tube linear DNA amplification \\(LinDA) for robust ChIP-seq. Nat Methods 8, 565-567, doi:nmeth.1626 \\[pii]\r\n\n\n10.1038/nmeth.1626 \\(2011).\r\n\n\n14 Chiba, H., Clifford, J., Metzger, D. & Chambon, P. Distinct retinoid X receptor-retinoic acid receptor heterodimers are differentially involved in the control of expression of retinoid target genes in F9 embryonal carcinoma cells. Mol Cell Biol 17, 3013-3020 \\(1997).\r\n\n\n15 Chiba, H., Clifford, J., Metzger, D. & Chambon, P. Specific and redundant functions of retinoid X Receptor/Retinoic acid receptor heterodimers in differentiation, proliferation, and apoptosis of F9 embryonal carcinoma cells. J Cell Biol 139, 735-747 \\(1997)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "We would like to thank B. Jost, S. Vicaire and S. Le Gras for Illumina sequencing and mapping to the mouse genome, as well as W. Van Gool for help in data processing and analysis. This work was supported by funds from the Ligue National Contre le Cancer \\(laboratoire labelis\u00e9), and the European Community contracts LSHC-CT-2005-518417 \u2018EPITRON\u2019, LSHG-CT2005-018882 \u2018X-TRA-NET\u2019, LSHM-CT2005-018652 \u2018CRESCENDO\u2019 and HEALTH-F4-2009-221952 'ATLAS' ."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nmeth.1626",
+                "date": "2011-09-01 16:28:41",
+                "title": "Single-tube linear DNA amplification (LinDA) for robust ChIP-seq",
+                "authors": [
+                    "Pattabhiraman Shankaranarayanan",
+                    "Marco-Antonio Mendoza-Parra",
+                    "Mannu Walia",
+                    "Li Wang",
+                    "Ning Li",
+                    "Luisa M Trindade",
+                    "and Hinrich Gronemeyer"
+                ],
+                "journal": "Nature Methods",
+                "logo": ""
+            },
+            {
+                "doi": "10.1038/msb.2011.73",
+                "date": "2011-10-16 20:00:16",
+                "title": "Dissecting the retinoid-induced differentiation of F9 embryonal stem cells by integrative genomics",
+                "authors": [
+                    "Marco A Mendoza-Parra",
+                    "Mannu Walia",
+                    "Martial Sankar",
+                    "and Hinrich Gronemeyer"
+                ],
+                "journal": "Molecular Systems Biology",
+                "logo": ""
+            },
+            {
+                "doi": "10.1038/nprot.2011.447",
+                "date": "2012-01-26 17:26:02",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 11839,
+                "identity": "9fadc82e-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Marco Antonio Mendoza-Parra",
+                "email": "marco@igbmc.fr",
+                "orcid": "",
+                "institution": "H. Gronemeyer's Lab, IGBMC",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Marco",
+                "middleName": "Antonio",
+                "lastName": "Mendoza-Parra",
+                "suffix": ""
+            },
+            {
+                "id": 11841,
+                "identity": "9fadcf6e-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Hinrich Gronemeyer",
+                "email": "hg@igbmc.fr",
+                "orcid": "",
+                "institution": "H. Gronemeyer's Lab, IGBMC",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Hinrich",
+                "middleName": "",
+                "lastName": "Gronemeyer",
+                "suffix": ""
+            },
+            {
+                "id": 11840,
+                "identity": "9fadcca6-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Shankaranarayanan Pattabhiraman",
+                "email": "",
+                "orcid": "",
+                "institution": "H. Gronemeyer's Lab, IGBMC",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Shankaranarayanan",
+                "middleName": "",
+                "lastName": "Pattabhiraman",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2011-09-02 08:57:52",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2011.257",
+        "doiUrl": "https://doi.org/10.1038/protex.2011.257",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13465320,
+                "identity": "3f3b6b9c-4655-4bd2-9207-eeb4db029473",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:46:16",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 167443,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-2183/v1/5bfb5236-d726-4fe7-9be6-648b3c33285c.pdf"
+            }
+        ],
+        "financialInterests": "H.Gronemeyer has filed a patent application describing the Linear DNA amplification Method \\(LinDA) discussed in this protocol \\(EP11305531.3).",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "reChIP-seq, sequencing, ChIP-seq",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "Chromatin immunoprecipitation combined with massive parallel sequencing \\(ChIP-seq) is increasingly used to study protein-chromatin interactions or local epigenetic modifications at genome-wide scale. ChIP-seq can be performed directly with several ng of immunoprecipitated DNA, which is generally obtained from a several million cells, depending on the quality of the antibody. ChIP-seq can only provide binding/modification information for a single epitope but multidimensional analyses require often information about the coordinate binding of several factors to, and/or corresponding epigenetic modification of targets sites. To this aim sequential ChIP assays \\(reChIP) can in principle be combined with massive parallel sequencing but the low yields associated to such approach have seriously hampered wide-spread application. The present protocol couples a linear DNA amplification \\(LinDA) step to reChIP assays, thus facilitating global studies by using the LinDA-reChIP-seq protocol.",
+        "manuscriptTitle": "Sequential chromatin immunoprecipitation protocol for global analysis through massive parallel sequencing (reChIP-seq)",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2012-01-26 17:27:34",
+                "doi": "10.1038/protex.2011.257",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9fad5df4-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "January 26th, 2012",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 2626,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 2627,
+                "name": "Molecular Biology"
+            },
+            {
+                "id": 2628,
+                "name": "Genetics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2012-01-26 17:27:34",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

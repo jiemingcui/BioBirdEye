@@ -1,0 +1,279 @@
+{
+    "identity": "pex-1438",
+    "title": "<p>cpn60 metagenomic amplicon library preparation for the Illumina Miseq platform</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>High throughput sequencing of amplified marker gene sequences (barcodes) is a simple and rapid method of assessing the taxonomic composition of a complex microbial community. The \u201cmeta-barcoding\u201d approach is often based on amplification of one or more variable regions of the 16S rRNA gene, however, this target often fails to provide species level resolution. The cpn60 gene (also known as groEL or hsp60) contains a 552-558 bp variable region (the cpn60 \u201cuniversal target\u201d) that can be amplified with \u201cuniversal\u201d PCR primers and this sequence has been demonstrated to meet the criteria as a barcode for Bacteria&nbsp;[1]. The sequence provides species level resolution and has been shown to be a good predictor of whole genome sequence similarities&nbsp;[2\u20136]. Since cpn60 is conserved in Bacteria, Eukaryotes and some Archaea, cpn60 barcode sequencing can be used for simultaneous detection of multiple Domains of life&nbsp;[7]. A public database of cpn60 sequences, cpnDB (www.cpndb.ca), facilitates the identification of cpn60 barcode sequences&nbsp;[8]. As a result of these features, cpn60 meta-barcode sequencing has been applied to the characterization of a wide variety of host-associated and environmental microbiomes&nbsp;[7, 9\u201314].</p><p><br></p><p>Amplicon sequencing methods are subject to a variety of sources of bias, including amplification primer bias. To minimize this effect of cpn60 amplification, we developed a primer \u201ccocktail\u201d approach to ensure amplification of cpn60 sequences from genomes with a wide range of G+C content&nbsp;[15]. Use of a single annealing temperature of&nbsp;60&nbsp;\u00b0C&nbsp;is appropriate for most samples, although practitioners may want to consider pooling PCR products produced across an annealing temperature gradient in some situations&nbsp;[16].</p><p><br></p><p>The protocol presented here is a modification of the Illumina 16S Metagenomic Sequencing Library Preparation (Part #15044223)&nbsp;[17]&nbsp;and describes the production of cpn60 amplicon libraries for sequencing on the MiSeq platform. The length of the amplicon prevents assembly of complete barcode sequences, but we have shown that as little as 150 bp from the 5\u2019 end of the barcode sequence is generally sufficient for species level identification&nbsp;[18]. We routinely use a 500 cycle sequencing kit but run it as 401x101 rather than 251x251 and use only the Read 1 sequences in downstream analysis.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p>1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Platinum Taq polymerase (Invitrogen 10966-034)</p><p>2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100 mM dNTPs (Invitrogen 10297-018)</p><p>3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Primers M279, M280, M1612, M1613, each at 100 \u00b5M (any supplier)</p><p><br></p><p>Forward primers (Illumina adapter sequences are underlined):</p><p>M279&nbsp;&nbsp;&nbsp;5\u2019-<u>TCGTCGGCAGCGTCAGATGTGTATAAGAGACAG</u>GAIIIIGCIGGIGAYGGIACIACIAC-3\u2019</p><p>M1612&nbsp;5\u2019-&nbsp;<u>TCGTCGGCAGCGTCAGATGTGTATAAGAGACAG</u>GAIIIIGCIGGYGACGGYACSACSAC-3\u2019</p><p><br></p><p>Reverse primers (Illumina adapter sequences are underlined):</p><p>M280&nbsp;&nbsp;&nbsp;5\u2019-&nbsp;<u>GTCTCGTGGGCTCGGAGATGTGTATAAGAGACAG</u>YKIYKITCICCRAAICCIGGIGC-3\u2019</p><p>M1613&nbsp;5\u2019-<u>GTCTCGTGGGCTCGGAGATGTGTATAAGAGACAG</u>CGRCGRTCRCCGAAGCCSGGIGCCTT-3\u2019</p><p><br></p><p>(I = inosine, R = A or G, Y = C or T, K = G or T, S = G or C)</p><p><br></p><p>4.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Molecular biology grade water</p><p>5.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;80% ethanol, freshly prepared&nbsp;</p><p>6.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NucleoMag Beads (Macherey-Nagel, 744970.50)</p><p>7.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tris 10 mM pH 8.5 (any supplier)</p><p>8.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Qubit ds DNA BR kit (Invitrogen Q32850)</p><p>9.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;High sensitivity DNA kit (Agilent, 5067-4626)</p><p>10.&nbsp;&nbsp;Nextera XT index kit (Illumina, FC-131-2001 or FC-131-2002 or FC-131-2003 or FC-131-2004)</p><p>11.&nbsp;&nbsp;KAPA taq (Roche KK2601)</p><p>12.&nbsp;&nbsp;96 well 0.8 mL deepwell plate (Thermo Fisher Scientific, AB0859)</p><p>13.&nbsp;&nbsp;96 well PCR plate (appropriate for PCR machine used)</p><p>14.&nbsp;&nbsp;Foil Plate sealers (VWR 60941-126)</p><p>15.&nbsp;&nbsp;Pipette tips (filter tips recommended, any supplier)</p><p>16.&nbsp;&nbsp;Reagent reservoir (Any supplier)</p><p>17.&nbsp;&nbsp;Thin-walled PCR tubes for Qubit (Axygen, PCR-05-C)</p><p>18.&nbsp;&nbsp;1.7 ml microcentrifuge tubes (Axygen, MCT-175-L-C)</p><p>19.  2x KAPA HiFi Hot Start Ready Mix (Roche, KK2602)</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pipettors (P2, P20, P200 and P1000)</p><p>2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Multi-channel pipettor</p><p>3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;96-well plate magnet (Thermo Fisher, AM10027)</p><p>4.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Qubit Flurometer (Invitrogen,&nbsp;Q33216)</p><p>5.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bioanalyzer 2100 (Agilent)</p><p>6.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Plate shaker (VWR, 13500-890)</p><p>7.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bench-top centrifuge with rotor to hold 96-well plates</p><p>8.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Microcentrifuge</p><p>9.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thermocycler</p><p>10.&nbsp;&nbsp;Water bath</p><p>11.&nbsp;&nbsp;MiSeq (Illumina) and Illumina Experiment Manager software</p><p>12.&nbsp;&nbsp;TrueSeq Index Plate Fixture (Illumina, FC-130-1005)</p><p><br></p><p>\tRecommended: PCR clean-spot&nbsp;</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "The procedure is presented in 5 steps:\nA. cpn60 PCR\nB. cpn60 PCR clean-up\nC. Index PCR\nD. Index PCR clean-up\nE. Quantification, Normalization and Pooling\nA. cpn60 amplicon PCR\n:\n1. Prepare primer cocktail (1:3 molar ratio).\u00a0\u00a0Three hundred microliters primer cocktail is sufficient to amplify 300 samples.\n3 \u00b5L M279 (100 \u00b5M)\n3 \u00b5L M280 (100 \u00b5M)\n9 \u00b5L M1612 (100 \u00b5M)\n9 \u00b5L M1613 (100 \u00b5M)\n276 \u00b5L ultrapure water\n(Total volume 300 \u00b5L)\n2. Prepare PCR master mix considering one PCR reaction per sample. When calculating the number of samples, include no template control (PCR control), extraction controls (reagent control for DNA extractions) and the positive control.\nPer reaction (assuming 2 \u00b5L template volume):\n38.1 \u00b5L ultrapure water\n5 \u00b5L 10x PCR buffer\n2.5 \u00b5L MgCl2 (50 mM)\n0.4 \u00b5L Platinum Taq Polymerase\n1 \u00b5L dNTP mix (10 mM)\n1 \u00b5L primer cocktail\n3. Dispense 48 \u00b5l of master mix into the required number of wells of 96-well PCR plate. Add 2 \u00b5L template DNA.\n4. Seal the PCR plate with foil and centrifuge at 1000 x g for 1 minute at room temperature.\n5. Place the sealed PCR plate into the thermocycler.\n6. Amplify the cpn60 library following the cpn60 PCR program in a thermocycler:\n5 min at\u00a095\u00a0\u00b0C\n40 cycles of (30 sec at 95\u00a0\u00b0C, 30 sec at 60\u00a0\u00b0C, 30 sec at 72\u00a0\u00b0C)\n2 min at 72\u00a0\u00b0C\n7.\u00a0Evaluate the cpn60 PCR products by running the no template control and the positive control amplicons in a 1% agarose gel containing ethidium bromide and visualize using an imaging system. If there is a ~680 bp amplicon observed in the positive control and no amplification in the no template control (Fig. 1), proceed to amplicon clean-up step or store the amplicon PCR plate at 4\u00a0\u00b0C\u00a0and proceed to PCR clean up the next day.\nB. cpn60 PCR clean-up\n:\nThis step is carried out to remove primer-dimers and un-incorporated dNTPs and primers.\n1. Bring the amplicon PCR plate and the NucleoMag beads to room temperature.\n2. Centrifuge the amplicon PCR plate at 1000 x g at room temperature for 1 minute and remove the plate seal very carefully.\n3. Transfer 50 \u00b5l of PCR product from the amplicon PCR plate to the deepwell plate using a multi-channel pipettor.\n4. Calculate the total volume of NucleoMag beads needed (32.5 \u00b5l per sample).\n5. Vortex NucleoMag beads for 1 minute to resuspend, and aliquot the required total volume of NucleoMag beads to a reagent reservoir.\n6. Add 32.5 \u00b5l of NucleoMag beads to each well of the deepwell plate using a multi-channel pipette, changing tips after each transfer to prevent cross-contamination between samples.\n7. Seal the deepwell plate with a foil sealer and shake it in the plate-shaker at 1800 rpm for 2 minutes. (If a plate-shaker is not available, pipetting up and down 10 times using a multi-channel pipet is an alternative method for mixing)\n8. Incubate the plate at room temperature for 5 minutes.\n9. Put the deepwell plate on the magnetic stand for 2 minutes until the supernatant is clear.\n10. Using a multi-channel pipette, remove the supernatant while the PCR clean-up plate is sitting on the magnet. Change the tips in between the samples. If the beads get disturbed during the pipetting process, wait until they re-settle. Never throw away beads.\n11. Add sufficient volume of freshly prepared 80% ethanol (200 \u00b5l/well) to a reagent reservoir.\n12. While the plate is sitting on the magnet, add 200\u00b5l of ethanol to each well of the PCR clean-up plate using a multi-channel pipette.\n13. Incubate the PCR clean-up plate on the magnetic stand for 30 seconds.\n14. While the PCR clean-up plate is still sitting on the magnet, remove the supernatant very carefully using a mutichannel pipette.\n15. Perform a second wash by repeating steps 12-14.\n16. Using a P20 tip, remove all the residual ethanol while the PCR clean-up plate is sitting on the magnet. Change tips between wells.\n17. Leave the PCR-clean up plate on the magnet for 10 minutes to dry the beads.\n18. Add sufficient volume of 10 mM Tris pH 8.5 to a reagent reservoir (52.5 \u00b5L/well).\n19. Elute the amplicon DNA from the beads by removing the PCR clean-up plate from the magnet and adding 52.5 \u00b5l of 10mM Tris pH 8.5 to each well using a multi-channel pipette.\n20. Seal the PCR clean-up plate using a foil plate sealer.\n21. Shake the PCR clean-up plate using the plate shaker at 1800 rpm for 2 minutes. (If a plate-shaker is not available, pipetting up and down 10 times using a multi-channel pipet is an alternative method for mixing).\n22. Incubate the PCR clean-up plate at room temperature for 2 minutes.\n23. Return the PCR clean-up plate to the magnet for 2 minutes until the supernatant is clear.\n24. Label a new PCR plate as \u201cNucleoMag bead cleaned cpn60 amplicon\u201d.\n25. While the PCR clean-up plate is sitting on the magnet, use a multi-channel pipette to transfer 50 \u00b5l of supernatant from each well to the newly labelled plate. Change the tips in between the samples. If the beads get disturbed during the pipetting process, wait until they settle.\n26. Evaluate the cpn60 amplicons by running a randomly selected subset of NucleoMag cleaned amplicons in a 1% agarose gel. If there is a ~680 bp amplicon observed in the samples with the absence of primer dimers (Fig. 2), proceed to the index PCR step or store the plate at -20\u00a0\u00b0C\u00a0for up to 1 week.\nC. Index PCR\n(From the Illumina\n16S metagenomics sequencing library preparation protocol\n, Part #15044223)\n1. Assign the indexes against the samples using Illumina Experimental Manager software and print the template (Fig. 3)\n2. Bring the index primers, KAPA HiFi HotStart Ready Mix and the NucleoMag cleaned amplicon plate from Step B-25 to room temperature.\n3. Vortex the index primers and centrifuge briefly to settle. Arrange the index primers in the True Seq Index Plate Fixture as shown in the template in Fig. 3.\n4. Label a fresh 96-well PCR plate as \u201cIndex PCR\u201d.\n5. Transfer 5 \u00b5l of each cleaned cpn60 PCR product to the index PCR plate using a multi-channel pipet.\n6. Store the remaining NucleoMag bead cleaned indexed cpn60 amplicons at -20\u00a0\u00b0C.\n7. Add 5 \u00b5l of Nextera XT Index primer 1 (Nxxx) to the appropriate wells according to the Illumina Experimental Manager Template (Fig. 3). Re-cap the index primer tube with a new orange cap provided with the index kit.\n8.\u00a0\u00a0Add 5 \u00b5l of Nextera XT Index primer 2 (Sxxx) to the appropriate wells according to the Illumina Experimental Manager Template (Fig. 3). Re-cap the index primer tube with a new white cap provided with the index kit.\n9. Add 25\u00b5l of 2x KAPA HiFi HotStart Ready Mix each well.\n10. Add a sufficient volume of molecular biology grade water to a reagent reservoir (10 \u00b5L/well).\n11. Add 10 \u00b5l of molecular biology grade water to each well using a multi-channel pipette, pipetting up and down 10 times to mix.\n12. Cover the plate with a PCR plate sealer.\n13. Centrifuge the plate at 1000 x g for 1 minute at room temperature.\n14. Place the PCR plate in the thermocycler.\n15. Run the Index PCR program:\n5 min at\u00a095\u00a0\u00b0C\n8 cycles of\u00a030 sec at 95\u00a0\u00b0C, 30 sec at 55\u00a0\u00b0C and 30 sec at 72\u00a0\u00b0C\n5 min at 72\u00a0\u00b0C\nHold at 4\u00b0C\nD. Index PCR clean-up\n1. After completion of the index PCR program, centrifuge the index PCR plate at 1000 x g for I minute at room temperature.\n2. Transfer 50 \u00b5l of indexed PCR product from the index PCR plate to a fresh 96-well deepwell plate (PCR clean-up plate) using a multi-channel pipette.\n3. Calculate the total volume of NucleoMag beads needed (32.5\u00b5l per sample).\n4. Vortex the NucleoMag beads for 1 minute to resuspend and then add the required amount of NucleoMag beads to a reagent reservoir.\n5. Add 32.5\u00b5l of NucleoMag beads to each well using a multi-channel pipette, changing tips between samples.\n6. Seal the PCR clean-up plate with a foil sealer and shake it in the plate shaker at 1800 rpm for 2 minutes. (Pipetting up and down 10 times using a multi-channel pipet is the alternative method in the absence of a plate shaker)\n7. Incubate the plate at room temperature for 5 minutes to allow the amplicons to bind to the beads.\n8. Put the PCR clean-up plate on the magnetic stand for 2 minutes until the supernatant is clear.\n9. While the PCR clean-up plate is sitting on the magnet, use a multi-channel pipette to remove the supernatant. Change tips between samples. If the beads get disturbed during the pipetting process, wait until they settle. Never throw away beads.\n10. Add sufficient volume of freshly prepared 80% ethanol to a reagent reservoir (200 \u00b5L/well).\n11. While the PCR clean-up plate is sitting on the magnet, add 200\u00b5l of 80% ethanol to each well using a multi-channel pipette.\n12. Incubate the PCR clean-up plate on the magnetic stand for 30 seconds.\n13. While the PCR clean-up plate is sitting on the magnet, carefully remove the supernatant using a muti-channel pipette.\n14. Perform a second wash by repeating steps 11-13.\n15. While the PCR clean-up plate is sitting on the magnet, use a P20 tip remove all the residual ethanol. Change tips between wells.\n16. Leave the PCR-clean up plate on the magnet for 10 minutes to dry the beads.\n17. Add sufficient volume of 10 mM Tris pH 8.5 to a reagent reservoir (27.5 \u00b5L.well).\n18. To elute the indexed amplicons from the beads, remove the PCR clean-up plate from the magnet and add 27.5 \u00b5l of 10mM Tris pH 8.5 to each well using a multi-channel pipette.\n19. Seal PCR clean-up plate using a foil plate sealer.\n20. Shake PCR clean-up plate using the plate shaker at 1800 rpm for 2 minutes. (If a plate-shaker is not available, pipetting up and down 10 times using a multi-channel pipet is an alternative method for mixing).\n21. Incubate PCR clean-up plate at room temperature for 2 minutes.\n22. Place the PCR clean-up plate on the magnet for 2 minutes until the supernatant is clear.\n23. Label a new PCR plate as \u201cNucleoMag bead cleaned indexed cpn60 amplicon\u201d and the date.\n24. While the PCR clean-up plate is sitting on the magnet, transfer 25 \u00b5l of supernatant to the newly labelled plate using a multi-channel pipette and changing tips between samples. If the beads get disturbed during the pipetting process, wait until they settle.\n25. Evaluate the indexed cpn60 PCR product by running a randomly selected subset of NucleoMag cleaned indexed cpn60 amplicons in a 1% agarose gel (see Fig. 2). Alternatively, dilute selected amplicon libraries 1:50 and assess on a Bioanalyzer DNA High Sensitivity DNA chip (Fig. 4).\u00a0\u00a0If there is a ~730 bp amplicon observed with the absence of primer dimers (~200 bp), proceed immediately to the library quantification and pooling step (E) or store the cleaned-up indexed PCR products at -20\u00a0\u00b0C\u00a0for up to 1 week.\nE. Library Quantification, Normalization and Pooling\n1. Bring the NucleoMag bead cleaned indexed cpn60 amplicon libraries from D to room temperature.\n2. Determine the concentration of each amplicon library using the Qubit ds BR kit.\n3. Determine the indexed PCR product size from the Bioanalyzer results from step D-25\n4. Calculate the DNA concentration in nM using the below formula as shown in Illumina 16S metagenomics sequencing library preparation protocol:\nlibrary concentration in nM = [(DNA concentration or Qubit value in ng/\u00b5l) x 10\n6\n]\u00a0\u00a0/ (660 g/mol x 748)\n5. Adjust the concentration of each library to 4 nM with 10mM Tris pH 8.5 in 1.7 ml microcentrifuge tubes.\n6. Store the remaining Indexed bead cleaned cpn60 amplicons at -20\u00a0\u00b0C.\n6. Label a 1.7 ml microfuge tube as PAL (pooled amplicon library)\n7. Add 5 \u00b5l from each diluted library to the PAL tube.\n8. Follow the \u201cLibrary Denaturation and MiSeq sample loading\u201d section of the Illumina 16S metagenomics sequencing library preparation protocol. A 10 pM library with 5% phiX is recommended."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p>Amplification in the no template control:&nbsp;<em>Repeat cpn60 PCR.</em></p><p><br></p><p>No amplification of positive control:&nbsp;<em>Check the PCR program on the thermocycler and mastermix composition before repeating cpn60 PCR.</em></p><p><br></p><p>No visible cpn60 amplicon after PCR clean-up (step B):&nbsp;<em>Repeat cpn60 PCR and clean-up.</em></p><p><br></p><p>Presence of primer-dimers after PCR clean-up (step B):&nbsp;<em>Repeat clean-up.</em></p><p><br></p><p>Presence of primer-dimers after index PCR clean-up (step D):&nbsp;<em>Repeat clean-up.</em></p><p><br></p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>The complete protocol takes ~ 8hrs but there are several steps at which the procedure can be paused.</p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": ""
+        },
+        {
+            "header": "References",
+            "content": "<p>1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Links MG, Dumonceaux TJ, Hemmingsen SM, Hill JE (2012) The chaperonin-60 universal target is a barcode for bacteria that enables&nbsp;<em>de novo</em>&nbsp;assembly of metagenomic sequence data. PLoS ONE 7:e49755. https://doi.org/10.1371/journal.pone.0049755</p><p>2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Verbeke TJ, Sparling R, Hill JE, et al (2011) Predicting relatedness of bacterial genomes using the chaperonin-60 universal target (<em>cpn</em>60 UT): application to&nbsp;<em>Thermoanaerobacter</em>&nbsp;species. Systematic and Applied Microbiology 34:171\u2013179</p><p>3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Schellenberg JJ, Paramel Jayaprakash T, Withana Gamage N, et al (2016)&nbsp;<em>Gardnerella vaginalis</em>&nbsp;subgroups defined by cpn60 sequencing and sialidase activity in isolates from Canada, Belgium and Kenya. PLoS One 11:e0146510. https://doi.org/10.1371/journal.pone.0146510</p><p>4.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hill JE, Albert AYK (2019) Resolution and co-occurrence patterns of&nbsp;<em>Gardnerella leopoldii, Gardnerella swidsinskii, Gardnerella piotii</em>&nbsp;and&nbsp;<em>Gardnerella vaginalis</em>&nbsp;within the vaginal microbiome. Infection and Immunity 87:e00532-19. https://doi.org/10.1128/IAI.00532-19</p><p>5.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hill JE, Gottschalk M, Brousseau R, et al (2005) Biochemical analysis, cpn60 and 16S rDNA sequence data indicate that&nbsp;<em>Streptococcus suis</em>&nbsp;serotypes 32 and 34, isolated from pigs, are&nbsp;<em>Streptococcus orisratti</em>. Veterinary Microbiology 107:63\u20139</p><p>6.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hill JE, Paccagnella A, Law K, et al (2006) Identification of&nbsp;<em>Campylobacter</em>&nbsp;spp. and discrimination from&nbsp;<em>Helicobacter</em>&nbsp;and&nbsp;<em>Arcobacter</em>&nbsp;spp. by direct sequencing of PCR-amplified cpn60 sequences and comparison to cpnDB, a chaperonin reference sequence database. Journal of Medical Microbiology 55:393\u2013399</p><p>7.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Links MG, Demeke T, Gr\u00e4fenhan T, et al (2014) Simultaneous profiling of seed-associated bacteria and fungi reveals antagonistic interactions between microorganisms within a shared epiphytic microbiome on&nbsp;<em>Triticum</em>and&nbsp;<em>Brassica</em>&nbsp;seeds. New Phytologist 202:542\u2013553</p><p>8.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vancuren SJ, Hill JE (2019) Update on cpnDB: a reference database of chaperonin sequences. Database (Oxford) 2019:. https://doi.org/10.1093/database/baz033</p><p>9.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Albert AY, Chaban B, Wagner EC, et al (2015) A study of the vaginal microbiome in healthy Canadian women utilizing cpn60-based molecular profiling reveals distinct&nbsp;<em>Gardnerella</em>&nbsp;subgroup community state types. PLoS One 10:e0135620. https://doi.org/10.1371/journal.pone.0135620</p><p>10.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dumonceaux TJ, Hill JE, Pelletier C, et al (2006) Molecular characterization of microbial communities in Canadian pulp and paper activated sludge and quantification of a novel&nbsp;<em>Thiothrix eikelboomii</em>-like bulking filament. Canadian Journal of Microbiology 52:494\u2013500</p><p>11.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chaban B, Albert A, Links MG, et al (2013) Characterization of the upper respiratory tract microbiomes of patients with pandemic H1N1 influenza. PLoS ONE 8:e69559. https://doi.org/10.1371/journal.pone.0069559</p><p>12.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Desai AR, Links MG, Collins SA, et al (2012) Effects of plant-based diets on the distal gut microbiome of rainbow trout (<em>Oncorhynchus mykiss</em>). Aquaculture 350:134\u2013142. https://doi.org/Doi 10.1016/J.Aquaculture.2012.04.005</p><p>13.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Costa MO, Chaban B, Harding JCS, Hill JE (2014) Characterization of the fecal microbiota of pigs before and after inoculation with \u201c<em>Brachyspira hampsonii</em>.\u201d PLoS ONE 9:e106399</p><p>14.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Freitas AC, Bocking A, Hill JE, et al (2018) Increased richness and diversity of the vaginal microbiota and spontaneous preterm birth. Microbiome 6:117. https://doi.org/10.1186/s40168-018-0502-8</p><p>15.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hill JE, Town JR, Hemmingsen SM (2006) Improved template representation in&nbsp;<em>cpn</em>60 PCR product libraries generated from complex templates by application of a specific mixture of PCR primers. Environmental Microbiology 8:741\u2013746. https://doi.org/doi:10.1111</p><p>16.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Johnson LA, Chaban B, Harding JC, Hill JE (2015) Optimizing a PCR protocol for cpn60-based microbiome profiling of samples variously contaminated with host genomic DNA. BMC Research Notes 8:253. https://doi.org/10.1186/s13104-015-1170-4</p><p>17.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Illumina 16S Metagenomics Sequencing Library Preparation (Part # 15044223)</p><p>18.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vancuren SJ, Santos SJD, Hill JE, Team&nbsp;&nbsp;the MMLP (2020) Evaluation of variant calling for cpn60 barcode sequence-based microbiome profiling. PLOS ONE 15:e0235682. https://doi.org/10.1371/journal.pone.0235682</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>The authors are grateful to all members of the Hill Lab past and present, and to our collaborators who have contributed to the ongoing development of cpn60-based methods.</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 18966544,
+                "identity": "730ae755-5230-4443-908b-e92a674550c1",
+                "order_by": 0,
+                "name": "Champika Fernando",
+                "email": "",
+                "orcid": "",
+                "institution": "University of Saskatchewan",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Champika",
+                "middleName": "",
+                "lastName": "Fernando",
+                "suffix": ""
+            },
+            {
+                "id": 18966545,
+                "identity": "f9a2c98a-248c-4c21-9728-f5e29768f386",
+                "order_by": 1,
+                "name": "Janet E. Hill",
+                "email": "Janet.Hill@usask.ca",
+                "orcid": "https://orcid.org/0000-0002-2187-6277",
+                "institution": "University of Saskatchewan",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Janet",
+                "middleName": "E.",
+                "lastName": "Hill",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2021-03-29 15:12:20",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1438/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1438/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 7475441,
+                "identity": "259e78ae-dcbb-45f1-950d-8dcbb95b7e2e",
+                "added_by": "auto",
+                "created_at": "2021-03-30 08:15:31",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 73339,
+                "visible": true,
+                "origin": "",
+                "legend": "Results of cpn60 PCR with expected product of 650 bp. NTC = no template control. ",
+                "description": "",
+                "filename": "Figure1.png",
+                "url": "https://assets.researchsquare.com/files/pex-1438/v1/2bc7dbc4aed3afeeb2a39be2.png"
+            },
+            {
+                "id": 7475318,
+                "identity": "cbfb8128-647f-4590-9c79-90848c6b3571",
+                "added_by": "auto",
+                "created_at": "2021-03-30 08:12:31",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 73339,
+                "visible": true,
+                "origin": "",
+                "legend": "Results of cpn60 PCR with expected product of 650 bp. NTC = no template control. ",
+                "description": "",
+                "filename": "Figure1.png",
+                "url": "https://assets.researchsquare.com/files/pex-1438/v1/9a827dc7339d41855f26256d.png"
+            },
+            {
+                "id": 7475439,
+                "identity": "630350be-7c6c-4eb4-a0b9-58496aaa19e6",
+                "added_by": "auto",
+                "created_at": "2021-03-30 08:15:31",
+                "extension": "jpg",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 139149,
+                "visible": true,
+                "origin": "",
+                "legend": "Example of Illumina index plate template.",
+                "description": "",
+                "filename": "Figure32.jpg",
+                "url": "https://assets.researchsquare.com/files/pex-1438/v1/6ef85537d4349675f785f73d.jpg"
+            },
+            {
+                "id": 7475440,
+                "identity": "ebefa898-0467-41aa-8c93-80b77bc8f109",
+                "added_by": "auto",
+                "created_at": "2021-03-30 08:15:31",
+                "extension": "png",
+                "order_by": 4,
+                "title": "Figure 4",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 136369,
+                "visible": true,
+                "origin": "",
+                "legend": "Bio analyzer results for a cpn60 amplicon library. (A) Successful library with expected major peak with apparent size of ~730 bp, and without primer dimers (B) Small peak at ~200 bp is indicative of primer dimer contamination. This library is not suitable for sequencing. Repeat clean-up.",
+                "description": "",
+                "filename": "Figure4.png",
+                "url": "https://assets.researchsquare.com/files/pex-1438/v1/51f6cd5926182bd145f5f4a8.png"
+            },
+            {
+                "id": 13682971,
+                "identity": "160f9944-851d-4e50-9585-5df5fea072a9",
+                "added_by": "auto",
+                "created_at": "2021-09-17 11:59:53",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 598204,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1438/v1/36a0ce95-97cc-4a90-b5f1-0e8ba6270cbc.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "metagenomics, microbial ecology, Miseq, cpn60, barcode, amplicon sequencing, PCR, microbiome, marker gene",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>This protocol can be applied to determine the composition of a microbial community. The cpn60 gene (also known as groEL, hsp60) is present in almost all bacteria and a 552-558 bp region of the gene has been established as a barcode for species level identification of bacteria. The primer cocktail used in this protocol amplifies cpn60 barcode sequences from bacteria with a wide range of G+C content. Some species of&nbsp;<em>Mycoplasma</em>&nbsp;lack the cpn60 gene and therefore this method is not recommended to detect&nbsp;<em>Mycoplasma</em>. DNA sequences generated from this method could be compared to cpnDB, a public database of cpn60 sequences, for identification. Library preparation involves cpn60 amplicon generation, PCR clean-up, index PCR, index PCR clean-up, library quantification, normalization, pooling, library denaturation and loading. Time taken to complete depends on the number of samples included. If using 96 samples, the procedure takes 8 hours but there are several stages where the samples could be stored and continued the next day. Specific instructions are provided for the Illumina MiSeq platform, but the protocol could easily be adapted for other sequencing platforms.</p>",
+        "manuscriptTitle": "cpn60 metagenomic amplicon library preparation for the Illumina Miseq platform",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2021-03-30 08:12:29",
+                "doi": "10.21203/rs.3.pex-1438/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "7b947944-43aa-4bea-ab22-249c5b33d779",
+        "owner": [],
+        "postedDate": "March 30th, 2021",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3285596,
+                "name": "Microbiology"
+            },
+            {
+                "id": 3285597,
+                "name": "Molecular biology"
+            },
+            {
+                "id": 3285598,
+                "name": "Ecology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2021-03-30 08:12:29",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

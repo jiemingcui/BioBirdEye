@@ -1,0 +1,370 @@
+{
+    "identity": "nprot-4343",
+    "title": "Characterization of membrane protein interactomes by  Co-interacting Protein Identification Technology \\(CoPIT)",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "CoPIT \\(for Co-interacting Protein Identification Technology) is an experimental and computational framework that allows the comprehensive characterization of endogenous membrane as well as non-membrane protein interactomes using co-immunoprecipitations and mass spectrometry.  The protocol contains detailed experimental methods for successful membrane protein Co-IP, preparation of the sample for mass spectrometry as well as a description of the statistical methods used for identification of specific interactions and identification of differentially regulated interactions between samples.\r\n\n\nCoPIT consists of three individual workflows that are executed sequentially as shown in Figure 1.  First, an optimized experimental protocol provides enhanced sensitivity and efficiency for membrane protein interactome determination. To obtain meaningful results, it is absolutely critical to include proper controls in the experimental design \\(Figure 2).  Depending on the experimental setting, appropriate controls are \\(ideally isogenic) cell lines that do not express the bait protein to identify the background caused by the antibody and  \u201cmock-IPs\u201d, which are performed in the absence of specific antibodies against the bait, but in the presence of the beads that are used to couple the antibodies and which identify background caused by non-specific binding of proteins to beads. These controls must not be skipped as subsequent identification of the interactome relies on the results obtained in the control experiments. In the second part \\(step 5), CoPIT then determines the specificity of protein interactions in comparison to control experiments for unbiased discrimination of highly confident from less confident interactors.  Additionally, interactome changes between different experimental settings can be determined. In the third part,  the resulting interactomes are visualized with the Radial Topology Viewer \\(step 6), whereby the arithmetic distance of interactors to the bait protein in the center reflects a dynamic variable of the user\u2019s choice, and can be used to assess for example confidence of interaction or change in strength of interaction."
+        },
+        {
+            "header": "Reagents",
+            "content": "\u2022 Monoclonal Antibody or polyclonal antibody covalently coupled to Protein G or Protein A Sepharose 4 Fast Flow beads \\(Cat No. 17-0618-01, GE Healthcare)\r\n\n\n\u2022 Dulbecco\u2019s Phosphate buffered Saline \\(DPBS) without CaCl<sub>2</sub>, and MgCl<sub>2</sub> \\(Cat No. 14190-144, Gibco, Invitrogen)\r\n\n\n\u2022 Ultra-Pure Tris \\(Cat No. EC-406, National Diagnostics)\r\n\n\n\u2022 Igepal CA-630 \\(Cat No. 18896-50ML, Sigma-Aldrich)\r\n\n\n\u2022 Ultra-pure EDTA \\(Cat No. 3579, Gibco)\r\n\n\n\u2022 Sodium Chloride \\(Cat No. S7653-5KG, Sigma-Aldrich)\r\n\n\n\u2022 PhosStop \\(Cat No. 04906845001, Roche)\r\n\n\n\u2022 Complete ULTRA, EDTA-free Protease Inhibitor cocktail \\(Cat No. 05892953001, Roche)\r\n\n\n\u2022 Non-stick surface microcentrifuge tubes \\(e.g. Cat No. 20170-650, VWR)\r\n\n\n\u2022 Glycine, electrophoretic grade \\(Cat. No. 100191, Roche)\r\n\n\n\u2022 Methanol, HPLC grade \\(Cat. No. 9093-03, J.T.Baker) \r\n\n\n\u2022 Chloroform, 99.8+%, ACS reagent, stabilized with ethanol \\(Cat. No. 423555000, Acros Organics)\r\n\n\n\u2022 Rapigest SF Surfactant \\(Cat. No. 186001861, Waters)\r\n\n\n\u2022 TCEP \\(Cat. No. 77720, Thermo)\r\n\n\n\u2022 Iodoacetamide \\(Cat. No. 90034, Thermo)\r\n\n\n\u2022 Sequencing grade recombinant trypsin \\(Cat. No. V5111, Promega)\r\n\n\n\u2022 Formic acid \\(Cat. No. A117, Fisher Scientific)\r\n\n\n\u2022 Acetonitrile, HPLC grade, \u2265 99.8% purity \\(Cat. No. LC015-2.5, Honeywell)\r\n\n\n\u2022 Ammonium acetate, HPLC grade \\(Cat. No. A2149, Spectrum)\r\n\n\n\u2022 Kasil No. 1624 potassium silicate solution \\(PQ Corporation)\r\n\n\n\u2022 Kasil No.1 potassium silicate solution \\(PQ Corporation)\r\n\n\n\u2022 Fused Silica \\(Cat. No. 1068150047, i.d. 100 \u00b5m, Polymicro Technologies)\r\n\n\n\u2022 Fused Silica \\(Cat. No. 160-2250-5, i.d. 250 \u00b5m, Agilent Technologies)\r\n\n\n\u2022 Aqua C18 resin, 3 \u00b5m and 5 \u00b5m particle size \\(Cat. No 00B-4299-B0, Phenomenex)\r\n\n\n\u2022 Strong cation exchange resin \\(e.g. Cat. No. 4621-0507, Hichrom Limited)"
+        },
+        {
+            "header": "Equipment",
+            "content": "\u2022 High-pressure column and sample loader \\(pressure bomb)\r\n\n\n\u2022 HPLC \\(e.g. HP 1200; Agilent Technologies) with post-HPLC split for nanoflow\r\n\n\n\u2022 P-2000 microcapillary laser puller \\(Sutter Instrument Co.)\r\n\n\n\u2022 Mass spectrometer \\(LTQ Velos Pro Orbitrap or similar, Thermo Fisher)\r\n\n\n\u2022 Water bath sonicator \\(55kHz, 80 kHz, Branson)\r\n\n\n\u2022 Cooled Microcentrifuge\r\n\n\n\u2022 Thermomixer \\( e.g. Eppendorf Thermomixer R)\r\n\n\n\u2022 Insulin injection syringe \\(BD Bioscience)\r\n\n\n\u2022 Rotator \r\n\n\n\u2022 Cell scraper \r\n\n\n\r\n\n\n**Software**\r\n\n\nXcalibur \\(Thermo Fisher)\r\n\n\nRawExtract or RawConverter\r\n\n\nSEQUEST or ProLuCID\r\n\n\nDTASelect2\r\n\n\nMatlab incl. biostatistics package \\(www.mathworks.com)\r\n\n\nCoPITgenerator \\(www.proteomicswiki.com)\r\n\n\nRadial Topology Viewer \\(www.proteomicswiki.com)\r\n\n\n\r\n\n\nRawExtract, SEQUEST, ProLuCID, DTASelect2 and Census may be obtained from the Yates laboratory \\(www.fields.scripps.edu). Access to high performance parallel computing resources \\(cluster or cloud-based computing) is highly recommended.  RawExtract, Sequest, ProLuCID, and DTASelect are also integrated into the Integrated Proteomics Pipeline, IP2 \\(www.integratedproteomics.com), which is a commercial platform for mass spectrometry data analysis. \r\n\n\n\r\n\n\n**Equipment** **setup**\r\n\n\nFritted micro-capillary column preparation and MudPIT setup has been described in detail elsewhere <sup>1-3</sup>.  \r\n\n\nThe CoPIT protocol has been successfully carried out in combination with MudPIT 3,4 using LTQ, LTQ Orbitrap, LTQ Velos Pro Orbitrap as well as Orbitrap Elite mass spectrometers \\(all Thermo Fisher).  Briefly, purified peptides were re-suspended in 50 \u00b5l of buffer A \\(95% H2O, 5.0% MeCN, 0.1% formic acid) and pressure loaded onto the back-end of a preparative MudPIT microcapillary column consisting of fused silica \\(i.d. 250 \u00b5m) packed in-house with 2.5 cm of 5 \u00b5m Aqua C18 resin and 2.5 cm of strong cation exchange resin.  The preparative column was connected by a small union body to an analytical reversed-phase column \\(115 mm fused silica i.d. 100 \u00b5m) packed with 3 \u00b5m Aqua C18 resin.\r\n\n\nPeptides were analyzed by nano-ESI-LC/LC-MS/MS by placing the triphasic MudPIT column inline with a quaternary HPLC pump \\(Agilent) and separating the peptides in multiple dimensions with a modified 6-step gradient containing 0%, 20%, 40%, 60%, and 100% of Buffer C \\(500 mM ammonium acetate/5% MeCN/0.1% formic acid) over 12 h or a 10-step gradient \\(0% to 90% Buffer C) over 20 h as described previously <sup>4</sup>.  Each full scan mass spectrum \\(400-2000 m/z) was followed by 6 \\(LTQ, LTQ-Orbitrap XL) or 20 \\(Orbitrap Elite, Velos or Velos Pro) data-dependent MS/MS scans at 35% normalized collisional energy and an ion count threshold of 500 counts \\(LTQ) or 1000 counts \\(LTQ-Orbitrap XL, Elite or Velos).  Additionally a dynamic exclusion list with an asymmetric exclusion window of -0.51 and +1.5 Da, repeat count of 1 and list size of 500 was used."
+        },
+        {
+            "header": "Procedure",
+            "content": "**Step** **1** **Co-immunoprecipitation**\r\n\n\n**Timing**:  **1.5 days**\r\n\n\nAll steps should be performed as quickly as possible, on ice and with pre-chilled buffers.  It is very important not to use previously frozen or otherwise manipulated samples, as this will result in loss of interactors.  It is also strongly advised to test the specificity and suitability of antibodies for immunoprecipitation with Western blotting first, and verify the specificity of the antibody for the bait by including appropriate controls such as identical tissues or cells not expressing the bait \\(for example using a gene knockout model).  While mass spectrometry is exquisitely sensitive, it cannot correct for insufficient antibody specificity or affinity or for suboptimal performance of the immunoprecipitation.  Thus the bait should be highly enriched as compared to input and the antibody should be highly specific for best results.  In this regard, it is recommended to use only Sepharose beads that are sufficiently saturated with antibody and show better than 90% covalent coupling efficiency of antibodies to the beads. Saturation of ProteinA/G-Sepharose beads and covalent coupling efficiency can be easily checked by SDS-gel electrophoresis and Coomassie blue staining. Additionally, the optimal starting amount may need to be empirically determined for different bait proteins.  A very general recommendation is 1x 10\n8\ncells for bait proteins that are equal to or less than 100 molecules/cell. \r\n\n\n    \r\n\n\n1.1. Rinse cells with at least 10 volumes \\(v/v) of 1 x DPBS.  Remove excess 1 x DPBS by decanting or by vacuum suction and tapping on a paper towel.\r\n\n\n1.2. Immediately add 1.5 ml of ice-cold TNI lysis buffer per 15 cm cell culture dish \\(TNI: 0.5% Igepal CA-630, 50 mM Tris \\[pH 7.5], 250 mM NaCl, 1 mM EDTA and 1x Complete ULTRA EDTA-free Protease Inhibitor cocktail, 1x PhosStop).\r\n\n\n1.3. Incubate for 20 min on ice on an orbital shaker.\r\n\n\n1.4. Scrape off cell lysate with a large cell scraper and transfer to a 1.5 ml microcentrifuge tube.\r\n\n\n1.5. Sonicate the cell lysate for 3 min in a water bath sonicator operating at 55 kHz.  Critical:  Do not use a probe sonicator, this will result in loss of interactions.\r\n\n\n1.6. Centrifuge for 30 min. \\(18,000 x g, 4 \u02daC).  \r\n\n\n1.7. Preclear the cell lysate with an appropriate amount of Protein G Sepharose 4 Fast Flow beads \\(100 \u00b5l of 50% slurry in lysis buffer) for 2 h at 4 \u02daC with head-over-head rotation.  The volume of preclear beads is the same as the volume of antibody coupled beads.  For volumes larger than 1.4 ml, pool the cell lysates and transfer into a 15 ml tube.\r\n\n\n1.8. Centrifuge for 3 min, 500 x g, 4\u02daC.\r\n\n\n1.9. Transfer supernatant to a new microcentrifuge tube containing the\r\n\n\nappropriate amount of antibody-coupled sepharose slurry \\(e.g. 100 \u00b5l of 50% antibody slurry, equaling 200 \u00b5g of antibody for starting amount of \u224810 mg).  Incubate over night with head-over-head rotation at 4 \u02daC.\r\n\n\n1.10. Centrifuge the binding reaction for 3 min at 500 x g, 4 \u02daC.\r\n\n\n1.11. Remove the supernatant, transfer the beads to a new tube and wash the     \r\n\n\n        beads three times with 20 \u2013 100 bead volumes of TNI lysis buffer.\r\n\n\n1.12. Centrifuge for 3 min at 500 x g, 4 \u02daC, carefully remove supernatant, and  \r\n\n\n        wash beads two times with TN lysis buffer containing no Igepal CA-630.\r\n\n\n1.13. Carefully remove all of the supernatant with an insulin syringe.  Optional:  Freeze beads for >1 h at \u201380 \u02daC to increase yield. \r\n\n\nPAUSE POINT: beads can be stored at -80\u02daC for up to two weeks.\r\n\n\n\r\n\n\n**Step** **2**  **Elution** **of** **protein** **complexes** **and** **sample** **clean** **up**  \r\n\n\n           **Timing**: **60** **min**\r\n\n\n2.1. Elute proteins twice with at least four to 10 bead volumes of elution buffer \\(0.2 M glycine, pH 2.3/ 0.5% Igepal CA-630) for 20 min, 37 \u02daC, with shaking.\r\n\n\n2.2. Combine the eluates and transfer to a new microcentrifuge tube.\r\n\n\nCritical: Make sure to get no beads into the eluate, they might clog microcapillary columns and produce background signal later in the mass spectrometer.\r\n\n\n2.3. Neutralize eluate with 1/10 vol \\(v/v) freshly prepared 1 M NH\n4\nCO\n3\n.\r\n\n\n2.4. Add 4 vol \\(v/v) Methanol to the eluate and vortex.\r\n\n\n2.5. Add 1 vol \\(v/v) Chloroform and vortex well for 0.5 - 1 min.\r\n\n\n2.6. Centrifuge for 10 min at 18,000 x g. \r\n\n\n2.7. Remove the supernatant without disturbing the pellet.\r\n\n\nNote: The pellet may be very tiny or hardly visible at all. \r\n\n\n2.8. Wash pellet with 3 vol \\(v/v) Methanol. \r\n\n\n2.9. Centrifuge for 10 min at 18,000 x g.\r\n\n\n2.10. Remove the supernatant without disturbing the pellet. \r\n\n\nPAUSE POINT: the pellet can be stored at -80\u02daC for up to four weeks.\r\n\n\n\r\n\n\n**Step** **3**   **Digestion** **of** **eluted** **proteins** \r\n\n\n                **Timing**:  **15** **h**\r\n\n\n3.1. Re-solubilize the methanol / chloroform precipitated proteins \\(pellet) in 100 mM Tris, pH 8.5, 0.2% Rapigest and sonicate for 1 h in a water bath sonicator.\r\n\n\n3.2. Reduce cysteine bonds with 5 mM TCEP for 20 min.\r\n\n\n3.3. Alkylate with 10 mM Iodoacetamide or Chloroacetamide for 30 min shielded from light.\r\n\n\n3.4. Digest proteins with recombinant trypsin \\(30:1 ratio protein/trypsin) over night   at 37\u02daC with shaking \\(e.g. in an Eppendorf Thermomixer).\r\n\n\n3.5. Inactivate Rapigest by adding formic acid to 9% final concentration and    incubate for at least 1 h, 37\u02daC, with shaking.\r\n\n\n3.6. Reduce samples to near dryness in vacuo \\(approximately 45 min).\r\n\n\nPAUSE POINT: Samples can be stored at -80\u02daC for up to four weeks.\r\n\n\n\r\n\n\n**Step** **4**  **Mass** **spectrometric** **analysis** **of** **peptides** \r\n\n\n            **Timing**:  **1-2** **days**\r\n\n\nThis step may be carried out in a proteomics core facility or proteomics laboratory with MudPIT experience.\r\n\n\nResolubilize sample in a small amount of buffer A, load onto a preparative  MudPIT column and perform a MudPIT experiment as described in 2,3.\r\n\n\n\r\n\n\n**Step** **5**  **Data** **analysis**               \r\n\n\n**Timing**: **2** **days** **to** **several** **weeks**\r\n\n\nThe task to confidently identify proteins from mass spectra is complex.  Prior experience in mass spectrometry as well as in data analysis software is very strongly recommended.\r\n\n\nConvert raw data with an appropriate converter \\(e.g. RawExtract) into a file format that is compatible with the database search engine \\(e.g. Sequest or ProLuCID).\r\n\n\n Search MS/MS spectra against the appropriate protein database with a search engine such as ProLuCID to determine cross-correlation scores of acquired to in silico calculated spectra.\r\n\n\n Filter search engine results to a low false discovery rate \\(FDR), for example using DTASelect2.  Search engine results from MS/MS spectra should be combined for all biological replicates before assigning peptides to proteins and filtering the results.  We also strongly recommend to conservatively filter the search results and adjust the false positive rate to a peptide false positive rate of less than 0.5% and a protein false positive rate of less than 1.0%.\r\n\n\n Resolve protein identification ambiguities for example by using a gene centric approach.  Redundant identifications can skew the statistical analysis towards genes identified with many protein isoforms.\r\n\n\nCritical:  The bait must be among the top 10 proteins with the highest number of spectral counts. Recommended minimum spectral counts for the bait protein is between 50 and 100 spectral counts per experimental replicate \\(SpC).\r\n\n\n\r\n\n\n To distinguish specific protein interactors from non-specifically binding   proteins, run CoPITgenerator according to the instructions \\(www.proteomicswiki.com) .  CoPIT generator reports a rank-ordered list of interactors with the bait protein that can be further analyzed.  A confidence score \\(_P_-value) is reported for every potential interactor that reflects its likelihood of interaction. A user defined _P_-value cutoff can be set to differentiate weak from strong interactors.\r\n\n\n To compare interactomes, the _P_-value cutoff can be adjusted according to the ratio of bait in the different experimental conditions:\nTo identify differentially binding proteins in two different experimental conditions, calculate ratios _r_\np\nfor individual proteins \\(_p_) from the sum of all intensities per protein _I_\np\nand experiment condition _e_\n1\nand _e_\n2\nand normalize to the sum of all bait intensities \\(SpC) according to:\nCalculate errors according to random error of measurement:\nin order to find significantly different proteins for example with a cutoff of at least 2-fold difference plus one or two standard deviations.\r\n\n\n\r\n\n\n**Step** **6**  **Network** **representation** **and** **data** **presentation** \r\n\n\n            **Timing**: **2** **days** \r\n\n\n The core interactome can be loaded into the Radial Topology Viewer \\(www.proteomicswiki.com) for visualization.  The Radial Topology Viewer displays the bait at the center of the interactome network and arranges the interactors radially according to a user-defined distance.  Interactors can be further grouped in multiple spokes based on a user-defined classification scheme, for example according to GO-terms.\r\n\n\n Interactions between the identified interactors can be obtained with the GeneMANIA 2.2 Plugin in Cytoscape 2.8.2\n5,6\n. Export connectivity information to a .txt or .csv file to load into Radial Topology Viewer.  A step-by-step instruction how to obtain networks from GeneMania and Cytoscape is available in Morris et al., 2014\n7\n."
+        },
+        {
+            "header": "Timing",
+            "content": "5 days at minimum to several weeks for the whole procedure.\r\n\n\nTiming for the different parts of the protocol is given below each individual step."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<a href=\"http://www.nature.com/protocolexchange/system/uploads/3969/original/Troubleshooting_table.docx?1444763587\" > <img src=\"http://www.nature.com/protocolexchange/system/uploads/3969/original/Troubleshooting_table.docx?1444763587\" > </a"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "CoPIT identifies and quantifies the interaction between a bait and interacting proteins using a label-free MudPIT approach.  The protocol is performed in three separate steps comprising 1) performing the experimental Co-IP and mass spectrometry, 2) analyzing the mass spectrometric data and carrying out statistical analyses to identify high confidence interactors and differential interactions if more than one experimental condition was analyzed, and 3) constructing interactome networks.  Typically, performing a CoPIT experiment results in an increase in sensitivity by 30-100 fold \\(see Extended Data Figure 2, Pankow, Bamberger et al., 2015 <sup>8</sup>) and should result in several hundred to thousands of Spectral Counts for the bait per experiment. The actual result is depending on a number of factors and will vary with affinity, specificity and suitability of the antibody used for Co-IP, the abundance of the bait protein in the experimental system, the amount of starting material available as well as the type of mass spectrometer used.\r\n\n\nFor example, a Co-IP performed for \u2206F508 CFTR as bait, \\(abundance: 100-200 molecules per cell) with a starting amount of 5 mg of protein from a whole cell lysate and using an LTQ Orbitrap Elite or LTQ Orbitrap Velos Pro can result in over 3500-4500 spectral counts for \u2206F508 CFTR after stringent filtering to 0.2 % peptide FDR.  High sequence coverage of the bait \\(often greater than >60% per experiment) reflects the increased sensitivity of CoPIT.  In a successful experiment the bait will also usually be included in the list of top ten proteins in terms of spectral counts and will be highly enriched over input in a western blot experiment \\(see Pankow, Bamberger et al., 2015 <sup>8</sup>).\r\n\n\nHigh enrichment of the bait and broad coverage of the interactome in the Co-IPs is crucial for sufficient discriminative power of the subsequent data analysis. In a successful experiment, the bait and strong interactors will be in the outmost tail of the right descending flank of the normal distribution calculated for potential baits in CoPITgenerator. The maxima of the two normal distributions can be well discerned with one being close to zero.  In addition to a good confidence score \\(P-value, typically P \u2265 0.9), we normally require that proteins were detected in at least two independent biological replicates of the same experimental condition to be considered high-confidence interactors.  However, proteins with lower P-values may represent weaker or transient interactors, and may still be true interactors.  Which P-value threshold is set depends on the experiment and can be dynamically adjusted according to the ratio of bait protein between two experimental conditions.  The approach can be tested by comparing scores for putative background proteins such as antibody sequences and human hair keratins, which should have P-values well below P \u2264 0.5 \\(if the bait is not a keratin or other protein known to interact with it, of course).\r\n\n\nFinally, the complexity of a specific protein interactome will depend on the specific bait protein. As CoPIT not only identifies direct interactors, but also enables the detection of indirect second and third degree interactors, a large but specific interactome may be rationalized by an estimation of the degrees of interaction."
+        },
+        {
+            "header": "References",
+            "content": "1. Abelin, J. G. et al. Complementary IMAC enrichment methods for HLA-associated phosphopeptide identification by mass spectrometry. Nat Protoc 10, 1308-1318, \\(2015).\r\n  2. Schieltz, D. M., Washburn, M. P. & Hays, L. G. Analysis of Complex Protein Mixtures Using Nano-LC Coupled to MS/MS. CSH protocols 2006, \\(2006).\r\n  3. Wolters, D. A., Washburn, M. P. & Yates, J. R., 3rd. An automated multidimensional protein identification technology for shotgun proteomics. Anal Chem 73, 5683-5690, \\(2001).\r\n  4. Washburn, M. P., Wolters, D. & Yates, J. R., 3rd. Large-scale analysis of the yeast proteome by multidimensional protein identification technology. Nat Biotechnol 19, 242-247, \\(2001).\r\n  5. Smoot, M. E., Ono, K., Ruscheinski, J., Wang, P. L. & Ideker, T. Cytoscape 2.8: new features for data integration and network visualization. Bioinformatics 27, 431-432, \\(2011).\r\n  6. Montojo, J. et al. GeneMANIA Cytoscape plugin: fast gene function predictions on the desktop. Bioinformatics 26, 2927-2928, \\(2010).\r\n  7. Morris, J. H. et al. Affinity purification-mass spectrometry and network analysis to understand protein-protein interactions. Nat Protoc 9, 2539-2554, \\(2014).\r\n  8. Pankow S., Bamberger C., Calzolari D., Mart\u00ednez-Bartolom\u00e9 S., Lavall\u00e9e-Adam M.,  Balch W.E., and Yates J.R. \u2206F508 CFTR interactome remodeling promotes  rescue of Cystic Fibrosis.  Nature, xx-xx \\(2015)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "We would like to thank Dr. Daniel Cociorva and Dr. Tao Xu for suggestions and comments on data analysis strategies. This work is supported by NIH grants 5R01HL079442-08 \\(J.R.Y.), P01AG031097 \\(J.R.Y.), P41 RR011823 \\(J.R.Y), HHSN268201000035C \\(J.R.Y), and CFF mass spectrometry fellowship BALCH050X6 \\(S.P. and J.R.Y)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nature15729",
+                "date": "2015-11-30 18:32:37",
+                "title": "\u2206F508 CFTR interactome remodelling promotes rescue of cystic fibrosis",
+                "authors": [
+                    "Sandra Pankow",
+                    "Casimir Bamberger",
+                    "Diego Calzolari",
+                    "Salvador Mart\u00ednez-Bartolom\u00e9",
+                    "Mathieu Lavall\u00e9e-Adam",
+                    "William E. Balch & John R. Yates III"
+                ],
+                "journal": "Nature",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 13593,
+                "identity": "a07ac26d-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Sandra Pankow",
+                "email": "pankows@scripps.edu",
+                "orcid": "",
+                "institution": "Yates lab, The Scripps Research Institute, 10550 N Torrey Pines Road, La Jolla, CA 92037",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Sandra",
+                "middleName": "",
+                "lastName": "Pankow",
+                "suffix": ""
+            },
+            {
+                "id": 13597,
+                "identity": "a07acb0b-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "John R  Yates",
+                "email": "jyates@scripps.edu",
+                "orcid": "",
+                "institution": "Yates lab, The Scripps Research Institute, 10550 N Torrey Pines Road, La Jolla, CA 92037",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "John",
+                "middleName": "R",
+                "lastName": "Yates",
+                "suffix": ""
+            },
+            {
+                "id": 13594,
+                "identity": "a07ac51d-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Casimir  Bamberger",
+                "email": "",
+                "orcid": "",
+                "institution": "Yates lab, The Scripps Research Institute, 10550 N Torrey Pines Road, La Jolla, CA 92037",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Casimir",
+                "middleName": "",
+                "lastName": "Bamberger",
+                "suffix": ""
+            },
+            {
+                "id": 13595,
+                "identity": "a07ac78f-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Diego  Calzolari",
+                "email": "",
+                "orcid": "",
+                "institution": "Yates lab, The Scripps Research Institute, 10550 N Torrey Pines Road, La Jolla, CA 92037",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Diego",
+                "middleName": "",
+                "lastName": "Calzolari",
+                "suffix": ""
+            },
+            {
+                "id": 13596,
+                "identity": "a07ac981-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Andreas Bamberger",
+                "email": "",
+                "orcid": "",
+                "institution": "Albert-Ludwigs-University Freiburg, Hermann-Herder-Strasse 3a, 79104 Freiburg i.Br., Germany",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Andreas",
+                "middleName": "",
+                "lastName": "Bamberger",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2015-11-06 23:33:12",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2015.101",
+        "doiUrl": "https://doi.org/10.1038/protex.2015.101",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2609267,
+                "identity": "b8c48631-f165-4dd4-b114-a1856d85e1b7",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:48",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 349781,
+                "visible": true,
+                "origin": "",
+                "legend": "Schematic CoPIT workflow.   The three individual workflows performed in CoPIT are shown. Experimental Protocol: Experimental protocols were optimized for high bait and interactor recovery by adjusting cell lysis-, Co-IP and elution conditions. Data analysis: Resulting Raw-data are searched with ProLuCID and uniformly filtered to a peptide FDR of \u2264 0.5 %.  Signal-to-noise discrimination is carried out by including different negative controls, such as experiments from CFTR null cells, and significantly regulated interactions are identified using a counting statistics. Network comparison: Protein IDs and results are stored in a relational database, which contains also further ontological information. The Radial Topology Viewer visualizes ranking, functional annotation and connectivity of interactors in the resulting networks as well as differences between conditions.",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-4343/v1/figure_1.png"
+            },
+            {
+                "id": 2609268,
+                "identity": "cb9db7c9-429e-4355-b8dc-a99683d9d265",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:48",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 167638,
+                "visible": true,
+                "origin": "",
+                "legend": "CoPIT experimental design     *A*. Schematic of a typical CoPIT experiment with different experimental conditions and including control-IPs from cells not expressing the bait as well as bead controls (mock-IP). *B*. Schematic of experimental steps for background reduction.",
+                "description": "",
+                "filename": "figure2.png",
+                "url": "https://assets.researchsquare.com/files/nprot-4343/v1/figure_2.png"
+            },
+            {
+                "id": 2609270,
+                "identity": "db85f0ee-f271-4371-8192-410c52553a81",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:48",
+                "extension": "png",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 2492,
+                "visible": true,
+                "origin": "",
+                "legend": "Formula 1   Formula",
+                "description": "",
+                "filename": "figure3.png",
+                "url": "https://assets.researchsquare.com/files/nprot-4343/v1/figure_3.png"
+            },
+            {
+                "id": 2609271,
+                "identity": "1ce2d25f-0cc3-421a-8ceb-016cdab514bb",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:48",
+                "extension": "png",
+                "order_by": 4,
+                "title": "Figure 4",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 5422,
+                "visible": true,
+                "origin": "",
+                "legend": "Formula 2   Formula",
+                "description": "",
+                "filename": "figure4.png",
+                "url": "https://assets.researchsquare.com/files/nprot-4343/v1/figure_4.png"
+            },
+            {
+                "id": 2609272,
+                "identity": "607e6a3d-3e31-43f7-af8e-6f78a513c3e2",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:48",
+                "extension": "png",
+                "order_by": 5,
+                "title": "Figure 5",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 8718,
+                "visible": true,
+                "origin": "",
+                "legend": "Formula 3   Formula",
+                "description": "",
+                "filename": "figure5.png",
+                "url": "https://assets.researchsquare.com/files/nprot-4343/v1/figure_5.png"
+            },
+            {
+                "id": 13465072,
+                "identity": "d0d0a9de-a465-4c00-b46e-5629631f9109",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:45:32",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 687301,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-4343/v1/6014d75d-1de3-4735-b5c9-80603cddc320.pdf"
+            },
+            {
+                "id": 2609269,
+                "identity": "47910133-31d3-4e6d-89a5-3c0f2fa5910d",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:48",
+                "extension": "docx",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 116685,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 1   Troubleshooting",
+                "description": "",
+                "filename": "supplement0.docx",
+                "url": "https://assets.researchsquare.com/files/nprot-4343/v1/supplement_0.docx"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "protein complex, protein interactions, network dynamics, ion channel, cystic fibrosis, immunoprecipitation, deep interactome",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "Finding interaction partners of proteins is an important step in understanding their function.  While co-immunoprecipitation of proteins followed by mass spectrometric identification \\(AP-MS) has become a standard approach to identify interaction partners, characterization of membrane protein interactomes is still challenging because of the typically low abundance and high hydrophobicity of membrane proteins.  Here, we describe CoPIT \\(for Co-interacting Protein Identification Technology), an approach to comprehensively identify and characterize the interactome of membrane proteins.  The CoPIT protocol includes experimental and computational methods to establish membrane protein interactome networks and to monitor interactome changes upon perturbation.  While the approach in particular improves membrane protein interactome analysis as demonstrated by using a low abundant membrane protein \\(Cystic Fibrosis Transmembrane Conductance Regulator \\(CFTR)) as a model, it is applicable to all types of proteins. The time required to complete the protocol varies from 3 days to several weeks depending on whether all or only part of it is carried out.",
+        "manuscriptTitle": "Characterization of membrane protein interactomes by  Co-interacting Protein Identification Technology (CoPIT)",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2015-11-30 18:35:38",
+                "doi": "10.1038/protex.2015.101",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a07a5038-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "November 30th, 2015",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3456,
+                "name": "Biochemistry"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2015-11-30 18:35:38",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

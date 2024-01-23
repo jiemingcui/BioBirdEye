@@ -1,0 +1,422 @@
+{
+    "identity": "pex-444",
+    "title": "<p>Using ProteoCombiner to integrate bottom-up and top-down proteomics data to improve proteoform identification</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>Proteoforms describe all combinatorial sources of variation from a single gene, including genetic variations, alternative splicing, and post-translational modifications [<a href=\"https://science.sciencemag.org/content/359/6380/1106\" target=\"_blank\">1</a>]. Proteoform analysis is nowadays of crucial importance since they have been proven to have a key role in biological systems [<a href=\"https://onlinelibrary.wiley.com/doi/full/10.1002/pmic.201300432\" target=\"_blank\">2</a>] [<a href=\"https://science.sciencemag.org/content/331/6018/778\" target=\"_blank\">3</a>]. This includes both precise determination of the expressed sequence of the protein and the characterization of all Post Translational Modifications (PTM), in particular their precise localization and determination of their combination (combinatorial PTM). Several proteomics strategies, including bottom-up, middle-down and top-down proteomics, have been developed to analyze the PTM at the peptide level or to directly target proteoforms. Nevertheless, there is a lack of bioinformatics tools able to combine such proteomics results and it is still difficult to map the PTMs identified in bottom-up data onto proteoforms obtained by top-down proteomics.</p><p>In this protocol, we describe the key steps for using <strong>ProteoCombiner</strong>, a powerful tool capable of integrating proteomics datasets obtained from different experiments (bottom-up and top-down proteomics) and different search engines, such as, PatternLab for Proteomics[<a href=\"https://www.nature.com/articles/nprot.2015.133\" target=\"_blank\">4</a>], MaxQuant[<a href=\"https://pubs.acs.org/doi/abs/10.1021/pr101065j\" target=\"_blank\">5</a>], Comet[<a href=\"https://onlinelibrary.wiley.com/doi/full/10.1002/pmic.201200439\" target=\"_blank\">6</a>], ProsightPD[<a href=\"https://currentprotocols.onlinelibrary.wiley.com/doi/full/10.1002/0471250953.bi1306s19\" target=\"_blank\">7</a>], pTop[<a href=\"https://pubs.acs.org/doi/10.1021/acs.analchem.5b03963\" target=\"_blank\">8</a>] and TopPIC[<a href=\"https://academic.oup.com/bioinformatics/article/32/22/3495/2525589\" target=\"_blank\">9</a>], in order to increase the confidence of proteoform identification and facilitate the characterization of PTMs. A video demonstrating ProteoCombiner v1.0 in action is available at <a href=\"https://proteocombiner.pasteur.fr/video\" target=\"_blank\">https://proteocombiner.pasteur.fr/video</a>.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": ""
+        },
+        {
+            "header": "Equipment",
+            "content": "<p><strong>Hardware</strong></p><p><strong>\u2022&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>&nbsp;A computer with at least 8 GB RAM and 2 computing cores is recommended.</p><p><br></p><p><strong>Software</strong></p><p><strong>\u2022&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>Windows 10 (32 or 64 bits) or later.</p><p>\u2022&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The .NET framework 4.7, which will be automatically updated by ProteoCombiner if necessary.</p><p>\u2022&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>ProteoCombiner</strong> software is available at <a href=\"https://proteocombiner.pasteur.fr\" target=\"_blank\">https://proteocombiner.pasteur.fr</a>.</p><p><br></p><p><strong>Data files</strong></p><p><strong>\u2022&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ProteoCombiner</strong> v1.0 is compatible with output data files from PatternLab for Proteomics[<a href=\"https://www.nature.com/articles/nprot.2015.133\" target=\"_blank\">4</a>], MaxQuant[<a href=\"https://pubs.acs.org/doi/abs/10.1021/pr101065j\" target=\"_blank\">5</a>], Comet[<a href=\"https://onlinelibrary.wiley.com/doi/full/10.1002/pmic.201200439\" target=\"_blank\">6</a>], ProsightPD[<a href=\"https://currentprotocols.onlinelibrary.wiley.com/doi/full/10.1002/0471250953.bi1306s19\" target=\"_blank\">7</a>], pTop[<a href=\"https://pubs.acs.org/doi/10.1021/acs.analchem.5b03963\" target=\"_blank\">8</a>] and TopPIC[<a href=\"https://academic.oup.com/bioinformatics/article/32/22/3495/2525589\" target=\"_blank\">9</a>] and can work directly with Thermo\u00ae, ABSciex\u00ae, Agilent\u00ae and Waters\u00ae RAW files. The software is also compatible with mzML 1.1.0, MS2 and Mascot Generic Format (MGF).</p><p>\u2022&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>ProteoCombiner</strong> saves results in its own format (<em>i.e.</em>, <em>*.pcmb</em>) and exports them as Excel\u00ae <em>(*.xlsx</em>) and PDF\u00ae format files.</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "1.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Software installation:\nDownload\nProteoCombiner\nby clicking on the\nDownload\nbutton at\nhttps://proteocombiner.pasteur.fr\n.\n2.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Workflow\nThe following workflow demonstrates how to combine proteomics data using\nProteoCombiner\n.\n2.1.\nExecute the\nProteoCombiner\ntool (\nFigure 1\n)\n[Figure 1]\n2.2.\nSpecify the directory containing all result files from bottom-up proteomics experiments. In this directory can also have the database used in the search and the original RAW files in one of these formats: mzML 1.1.0, MS2, Mascot Generic Format (MGF), ABSciex\u00ae, Agilent\u00ae, Waters\u00ae and Thermo\u00ae RAW.\n2.2.1.\nBottom-up proteomics\n2.2.1.1.\nFor PatternLab for Proteomics and Comet output files, we recommend to use SEPro[\n1\n] tool for filtering results, and use the\n*.sepr\nfile(s) as input of ProteoCombiner.\n2.2.1.2.\nFor MaxQuant output files, we recommend using the\ntxt folder\n, that contains the following required files: proteinGroups.txt, peptides.txt and msms.txt.\n2.2.2.\nDatabase\n2.2.2.1.\nWe recommend using the FASTA and/or XML database formats obtained from\nUniprot\n.\n2.3.\nSpecify the directory containing all result files from top-down proteomics experiments. In this directory can also have the database used in the search and the original RAW files in one of these formats: mzML 1.1.0, MS2, Mascot Generic Format (MGF), ABSciex\u00ae, Agilent\u00ae, Waters\u00ae and Thermo\u00ae RAW.\n2.3.1.\nTop-Down proteomics\n2.3.1.1.\nFor ProsightPD results, we recommend exporting only PSM identifications, which contain all information of each proteoform (*\n_PSM.txt\n). This corresponding file must have the following columns: Checked, Confidence, Identifying Node Type, Identifying Node, Search ID, Identifying Node No, PSM Ambiguity, Sequence, Annotated Sequence, Modifications, # Protein Groups, # Proteins, Master Protein Accessions, Protein Accessions, Protein Descriptions, # Missed Cleavages, Charge, Original Precursor Charge, DeltaScore, DeltaCn, Rank, Search Engine Rank, m/z [Da], MH+ [Da], Theo. MH+ [Da], DeltaM [ppm], Deltam/z [Da], Matched Ions, Total Ions, Intensity, Activation Type, MS Order, Isolation Interference [%], Ion Inject Time [ms], RT [min], First Scan, Last Scan, Master Scan(s), Spectrum File, Ions Matched, Annotation, -Log P-Score, -Log E-Score, C Score, Corrected Delta Mass (Da), Corrected Delta Mass (ppm).\n2.3.1.2.\nFor pTop output files, we recommend using only the file(s) ending with\n_filter.csv\n.\n2.3.1.3.\nFor TopPIC output files, we recommend using only the file(s) ending with\n_prsm.csv\n.\n2.3.2.\nDatabase\n2.3.2.1.\nWe recommend using the FASTA and/or XML database formats obtained from\nUniprot\n.\n2.4.\nThe\nParameters\ntab allows to access various parameters that are not usually required to be changed for combining all data.\n2.4.1.\nRemove Contaminants\n: This option allows to remove all protein sequences that represent a contaminant.\n2.4.2.\nRemove Reverse Sequence\n: This option allows to remove all decoy protein sequences.\n2.5.\nTo start combining data, click on the\nOK\nbutton in the\nCombine\ntab.\nPS: Although ProteoCombiner capitalizes on the data arising from different proteomics search engines, we recommend using a single software-tool to analyze all experiments for proteolytic fragment characterization, and another to analyze intact proteins experiments.\n3.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Exploring the results\nNote: At this point we recommend saving results by selecting\nSave\nfrom File menu or by pressing CTRL + S.\n3.1.\nFilter\n3.1.1.\nAll results are pre-filtered according to the following parameters designated on the top of the\nResults Browser\nwindow, as shown in\nFigure 2\n:\n3.1.1.1.\nCombScore\n: Results containing identification scores greater than or equal to this value will be displayed.\n3.1.1.2.\nPeptide Count\n: Only identified proteins containing at least this value as identified peptide amount (by bottom-up) will be displayed.\n3.1.1.3.\nSpectral Count\n: Only identified proteins containing at least this value as identified spectra amount will be displayed.\n3.1.1.4.\nUnique peptide\n: Only identified proteins containing at least this value as identified unique peptide amount will be displayed.\n3.1.1.5.\nSearch\n: Only results from peptides or proteins containing the sequence input to this field will be displayed. The user can further search by ProteinID (protein accession number), protein description or file name.\n3.1.1.6.\nBy clicking on\nFilter\nbutton, this operation is accomplished using all of the parameters described above.\n3.1.1.7.\nBy clicking on\nReset\nbutton, all initial values are restored.\n[Figure 2]\n3.2.\nCombined results\nAll identified proteins that contain a valid sequence* will be displayed on this tab sorted by\nScore\nfollowed by\nSequence Coverage\n. The protein score is represented by the best proteoform score.\n*Protein sequence present in the database.\n3.2.1.\nBy clicking on an identified protein, all respective identified proteoforms will be displayed* below the protein table sorted by\nCombScore**\n.\n*If there is no identified proteoform for a respective protein, all possible identified peptides will be displayed instead.\n**CombScore is calculated by summing two different scores: i) a score related to the TDP identification software (which is normalized between 0 and 1; and ii) the percentage of the proteoform sequence coverage based on the peptides, obtained in BUP approach, that match to this proteoform. This score also ranges between 0 and 1.\n3.2.1.1.\nThe user can assess each identified proteoform by clicking on the\nIs valid\ncheckbox.\n3.2.1.1.1.\nAt this point, we recommend saving results once again so that the personal assessments can be included.\u00a0This is done by selecting\nSave\nfrom\nFile\nmenu or by pressing CTRL + S.\n3.2.1.2.\nBy clicking on an identified proteoform, all respective identified peptides will be displayed below the proteoform table sorted by\nPeptide Score\n.\n3.2.1.2.1\nBy double-clicking on an identified peptide, the tandem mass spectrum, which contains the best identification score, will be displayed on\nSpectrum Viewer\n. (\nFigure 3\n)\n[Figure 3]\n3.2.2.\nBy double-clicking on an identified protein, a new window will be opened that shows the\nProtein Coverage\n(\nsection 3.5\n).\n3.3.\nBottom-up proteomics results\nAll identified proteins and the corresponding peptides will be displayed on this tab.\n3.3.1.\nBy clicking on an identified protein, all respective identified peptides will be displayed below the protein table.\n3.3.1.1.\nBy clicking on an identified peptide, all respective identified tandem mass spectra will be displayed below the peptide table.\n3.3.1.1.1.\nBy double-clicking on an identified tandem mass spectrum, the\nSpectrum Viewer\nwill be opened. (\nFigure 3\n)\n3.3.2.\nBy double-clicking on an identified protein, a new window will be opened that shows the\nProtein Coverage\n(\nsection 3.5\n).\n3.4.\nTop-down proteomics results\nAll identified proteoforms will be displayed on this tab grouped by\nTheoretical Mass\nin Da.\n3.4.1.\nBy double-clicking on the\nScan Number\ncolumn of an identified proteoform, the\nSpectrum Viewer\nwill be opened. (\nFigure 3\n). By clicking on any other column, a new window will be opened that shows the\nProtein Coverage\n(\nsection 3.5\n).\n3.5.\nProtein Coverag\ne\n3.5.1.\nOnce the window is opened, the information will be displayed on the top tab: Protein description, Monoisotopic and Average protein mass* and Sequence coverage. (\nFigure 4\n)\n*If Protein coverage window is opened from the click of a specific proteoform, its monoisotopic and average mass will be displayed instead of the protein mass.\n[Figure 4]\n3.5.2.\nThe left box will display all approaches used to identify the proteoforms and/or peptides. By clicking on each item, all respective lines will be high-lighted in the right box.\n3.5.2.1.\nBottom-up and middle-down approaches, represented by the blue color,\n3.5.2.2.\nTop-down approach is represented in three different colors: Expected proteoforms in orange, which means all identified proteoforms by the full theoretical mass; non-expected proteoforms in cyan, which represents all identified truncated proteoforms; and tagged proteoforms in red, which means all proteoforms that were identified by a part of the protein sequence.\n3.5.2.3.\nAll identified PTMs will also be displayed in this box.\n3.5.3.\nThe right box will display all identified proteoforms and/or peptides that will be represented by different lines. All of them will be displayed sorted by\nCombScore\n. On the top will be displayed the full protein sequence and all theoretical modifications (present in the database) as can be seen in\nFigure 4\n. All theoretical chains will be shown below protein sequence in gray dash lines. The user is able to check all information about the modification or theoretical chain by passing the mouse over the line or the modified amino acid. (\nFigure 4\n)\n3.5.3.1.\nEach proteoform will be displayed according to the classification: expected, non-expected or tagged proteoform. By right-clicking on each line, the user is able to assess the proteoform identification (valid or invalid); in addition, it\u2019s possible to highlight only the peptides that fit into the proteoform. (\nFigure 5\n). By hovering over each line, some information will be shown: Proteoform sequence, Score, Search engine that identified this specific sequence, Start and End positions.\n3.5.3.2.\nAll identified PTMs will also be displayed and by hovering over each one, it is possible to check their position and description.\n[Figure 5]\n3.5.3.3.\nThe identified proteoforms and/or peptides can be displayed in a single line or in multiple lines. The user can change the way to visualize in\nUtils\nmenu, by selecting\nCustom Protein Visualization\noption in\nResults Browser\nwindow (or by pressing ALT + C).\n3.6.\nLoading results\n3.6.1.\nProteoCombiner\nloads results in its own format (\n*.pcmb\n). This can be accomplished in three ways, the easiest one is by double-clicking on a ProteoCombiner results file. If the\nResults Browser\nwindow is opened, another way to launch the file is by clicking on\nLoad\noption from the\nFile\nmenu or by pressing CTRL + O, as seen in (\nFigure 6\n).\u00a0Otherwise, if the main window is opened, select\nLoad Results\nfrom\nFile\nmenu (or press CTRL + O), as seen in\nFigure 7\n.\n[Figure 6]\n[Figure 7]\n3.7.\nExporting results\n3.7.1.\nProteoCombiner\nalso allows to export all combined results to Excel\u00ae (\n*.xlsx\n) or PDF\u00ae file. This is done by selecting\nExcel file\nfrom the File menu \u00de Export results (or by pressing ALT + E). Or by selecting\nPDF file\nfrom the File menu \u00de Export results (or by pressing ALT + P). (\nFigure 6\n)"
+        },
+        {
+            "header": "Troubleshooting",
+            "content": ""
+        },
+        {
+            "header": "Time Taken",
+            "content": ""
+        },
+        {
+            "header": "Anticipated Results",
+            "content": ""
+        },
+        {
+            "header": "References",
+            "content": "<p>[1]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;L. M. Smith and N. L. Kelleher, \u201cProteoforms as the next proteomics currency,\u201d <em>Science</em>, vol. 359, no. 6380, pp. 1106\u20131107, Mar. 2018.</p><p>[2]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Z. R. Gregorich and Y. Ge, \u201cTop-down proteomics in health and disease: Challenges and opportunities,\u201d <em>PROTEOMICS</em>, vol. 14, no. 10, pp. 1195\u20131210, 2014.</p><p>[3]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;J. Chamot-Rooke <em>et al.</em>, \u201cPosttranslational Modification of Pili upon Cell Contact Triggers N. meningitidis Dissemination,\u201d <em>Science</em>, vol. 331, no. 6018, pp. 778\u2013782, Feb. 2011.</p><p>[4]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P. C. Carvalho <em>et al.</em>, \u201cIntegrated analysis of shotgun proteomic data with PatternLab for proteomics 4.0,\u201d <em>Nat. Protoc.</em>, vol. 11, no. 1, pp. 102\u2013117, Dec. 2015.</p><p>[5]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;J. Cox, N. Neuhauser, A. Michalski, R. A. Scheltema, J. V. Olsen, and M. Mann, \u201cAndromeda: A Peptide Search Engine Integrated into the MaxQuant Environment,\u201d <em>J. Proteome Res.</em>, vol. 10, no. 4, pp. 1794\u20131805, Apr. 2011.</p><p>[6]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;J. K. Eng, T. A. Jahan, and M. R. Hoopmann, \u201cComet: an open-source MS/MS sequence database search tool,\u201d <em>Proteomics</em>, vol. 13, no. 1, pp. 22\u201324, Jan. 2013.</p><p>[7]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\u201cProSightPD 1.1: Integrating Top Down Searching in Proteome Discoverer 2.1.\u201d .</p><p>[8]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R.-X. Sun <em>et al.</em>, \u201cpTop 1.0: A High-Accuracy and High-Efficiency Search Engine for Intact Protein Identification,\u201d <em>Anal. Chem.</em>, vol. 88, no. 6, pp. 3082\u20133090, Mar. 2016.</p><p>[9]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Q. Kou, L. Xun, and X. Liu, \u201cTopPIC: a software tool for top-down mass spectrometry-based proteoform identification and characterization,\u201d <em>Bioinforma. Oxf. Engl.</em>, vol. 32, no. 22, pp. 3495\u20133497, Nov. 2016.</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>The authors thank the Agence Nationale de la Recherche (project ANR-15-CE18-0021) for financial support. This work is also part of the European Joint Programme One Health EJP from the European Union\u2019s Horizon 2020 research and innovation programme (Grant Agreement 773830).</p><p><br></p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1093/bioinformatics/btaa958",
+                "date": "2020-11-09 12:40:55",
+                "title": "ProteoCombiner: integrating bottom-up with top-down proteomics data for improved proteoform assessment",
+                "authors": [
+                    "Diogo B Lima"
+                ],
+                "journal": "Bioinformatics",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 96737,
+                "identity": "f4f60dd8-d68e-4105-b346-f0823b5e064e",
+                "order_by": 1,
+                "name": "Diogo Borges Lima",
+                "email": "diogobor@gmail.com",
+                "orcid": "https://orcid.org/0000-0001-6056-0825",
+                "institution": "Mass Spectrometry for Biology Unit, CNRS USR 2000, Institut Pasteur, Paris, France",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Diogo",
+                "middleName": "Borges",
+                "lastName": "Lima",
+                "suffix": ""
+            },
+            {
+                "id": 96738,
+                "identity": "0e731f24-0c1d-4640-88da-5c0a0a3c3562",
+                "order_by": 2,
+                "name": "Mathieu Dupr\u00e9",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-1845-0048",
+                "institution": "Mass Spectrometry for Biology Unit, CNRS USR 2000, Institut Pasteur, Paris, France",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Mathieu",
+                "middleName": "",
+                "lastName": "Dupr\u00e9",
+                "suffix": ""
+            },
+            {
+                "id": 96739,
+                "identity": "33512f48-ed8d-4be8-a5a5-aa4b7f261e4b",
+                "order_by": 3,
+                "name": "Magalie Duchateau",
+                "email": "",
+                "orcid": "",
+                "institution": "Mass Spectrometry for Biology Unit, CNRS USR 2000, Institut Pasteur, Paris, France",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Magalie",
+                "middleName": "",
+                "lastName": "Duchateau",
+                "suffix": ""
+            },
+            {
+                "id": 96740,
+                "identity": "7550505e-206b-401c-b053-b3aadceaa4fc",
+                "order_by": 4,
+                "name": "Quentin Giai Gianetto",
+                "email": "",
+                "orcid": "",
+                "institution": "Mass Spectrometry for Biology Unit, CNRS USR 2000, Institut Pasteur, Paris, France",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Quentin",
+                "middleName": "Giai",
+                "lastName": "Gianetto",
+                "suffix": ""
+            },
+            {
+                "id": 107869,
+                "identity": "6d506fe0-d9e5-48cf-abeb-6499ca426219",
+                "order_by": 5,
+                "name": "Martial Rey",
+                "email": "",
+                "orcid": "",
+                "institution": "Mass Spectrometry for Biology Unit, CNRS USR 2000, Institut Pasteur, Paris, France",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Martial",
+                "middleName": "",
+                "lastName": "Rey",
+                "suffix": ""
+            },
+            {
+                "id": 96741,
+                "identity": "398d7126-9624-4e15-91fb-556d20162730",
+                "order_by": 6,
+                "name": "Mariette Matondo",
+                "email": "",
+                "orcid": "",
+                "institution": "Mass Spectrometry for Biology Unit, CNRS USR 2000, Institut Pasteur, Paris, France",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Mariette",
+                "middleName": "",
+                "lastName": "Matondo",
+                "suffix": ""
+            },
+            {
+                "id": 96742,
+                "identity": "6446e25f-f008-4272-a491-908940b2e38a",
+                "order_by": 7,
+                "name": "Julia Chamot-Rooke",
+                "email": "julia.chamot-rooke@pasteur.fr",
+                "orcid": "",
+                "institution": "Mass Spectrometry for Biology Unit, CNRS USR 2000, Institut Pasteur, Paris, France",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Julia",
+                "middleName": "",
+                "lastName": "Chamot-Rooke",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2019-06-13 08:23:47",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.2.10327/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.2.10327/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 503001,
+                "identity": "d84d2eb9-4975-486a-aa95-6e4e844cd8db",
+                "added_by": "auto",
+                "created_at": "2020-02-17 17:18:43",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 23701,
+                "visible": true,
+                "origin": "",
+                "legend": "Graphical User Interface of the main window of ProteoCombiner.",
+                "description": "",
+                "filename": "Figure1.png",
+                "url": "https://assets.researchsquare.com/files/958ecb0d-f00e-48aa-a914-e37b4ce45ba1/v1/Figure1.png"
+            },
+            {
+                "id": 503002,
+                "identity": "b5559946-6558-4a51-8221-600de56a272b",
+                "added_by": "auto",
+                "created_at": "2020-02-17 17:18:43",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 15429,
+                "visible": true,
+                "origin": "",
+                "legend": "Filter parameters responsible for selecting results.",
+                "description": "",
+                "filename": "Figure2.png",
+                "url": "https://assets.researchsquare.com/files/958ecb0d-f00e-48aa-a914-e37b4ce45ba1/v1/Figure2.png"
+            },
+            {
+                "id": 503003,
+                "identity": "908bd885-13ed-4ef5-a6f7-ab372b924f82",
+                "added_by": "auto",
+                "created_at": "2020-02-17 17:18:43",
+                "extension": "png",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 61027,
+                "visible": true,
+                "origin": "",
+                "legend": "Spectrum viewer \u2013 Blue lines represent all y or x or z peaks matched, whereas red lines represent all a or b or c peaks matched. Yellow lines represent the precursor ion.",
+                "description": "",
+                "filename": "Figure3.png",
+                "url": "https://assets.researchsquare.com/files/958ecb0d-f00e-48aa-a914-e37b4ce45ba1/v1/Figure3.png"
+            },
+            {
+                "id": 503004,
+                "identity": "d3bd58cc-7bd8-45be-bb7a-42d0201d7344",
+                "added_by": "auto",
+                "created_at": "2020-02-17 17:18:43",
+                "extension": "png",
+                "order_by": 4,
+                "title": "Figure 4",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 63971,
+                "visible": true,
+                "origin": "",
+                "legend": "Protein coverage window: All identified proteoforms and/or peptides are displayed here in different lines. The theoretical sequences (proteoforms) are displayed in gray dash lines and the theoretical PTMs above protein sequence. The information about the PTM and theoretical sequences are shown when the mouse is hovered over them.",
+                "description": "",
+                "filename": "Figure4.png",
+                "url": "https://assets.researchsquare.com/files/958ecb0d-f00e-48aa-a914-e37b4ce45ba1/v1/Figure4.png"
+            },
+            {
+                "id": 503005,
+                "identity": "c938315c-47ab-4a97-b3cd-93f618069dcc",
+                "added_by": "auto",
+                "created_at": "2020-02-17 17:18:44",
+                "extension": "png",
+                "order_by": 5,
+                "title": "Figure 5",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 93178,
+                "visible": true,
+                "origin": "",
+                "legend": "An assessment can be applied for each identified proteoform in order to increase the confidence of the evaluation. The user can also highlight only peptides that fit with a specific proteoform.",
+                "description": "",
+                "filename": "Figure5.png",
+                "url": "https://assets.researchsquare.com/files/958ecb0d-f00e-48aa-a914-e37b4ce45ba1/v1/Figure5.png"
+            },
+            {
+                "id": 503006,
+                "identity": "2a3df331-c594-4713-9e0a-621a68dde545",
+                "added_by": "auto",
+                "created_at": "2020-02-17 17:18:44",
+                "extension": "png",
+                "order_by": 6,
+                "title": "Figure 6",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 14161,
+                "visible": true,
+                "origin": "",
+                "legend": "Save or Load ProteoCombiner results from Results Browser window. The user can also export the results as an Excel\u00ae or PDF format file.",
+                "description": "",
+                "filename": "Figure6.png",
+                "url": "https://assets.researchsquare.com/files/958ecb0d-f00e-48aa-a914-e37b4ce45ba1/v1/Figure6.png"
+            },
+            {
+                "id": 503007,
+                "identity": "f34750b1-7ea5-44a6-9e47-201c34ddd3c5",
+                "added_by": "auto",
+                "created_at": "2020-02-17 17:18:44",
+                "extension": "png",
+                "order_by": 7,
+                "title": "Figure 7",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 16287,
+                "visible": true,
+                "origin": "",
+                "legend": "Load ProteoCombiner results from main interface.",
+                "description": "",
+                "filename": "Figure7.png",
+                "url": "https://assets.researchsquare.com/files/958ecb0d-f00e-48aa-a914-e37b4ce45ba1/v1/Figure7.png"
+            },
+            {
+                "id": 13489607,
+                "identity": "c5498f47-e01d-42cd-bd09-46211a8c960e",
+                "added_by": "auto",
+                "created_at": "2021-09-16 22:19:52",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 728691,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-444/v1/620df729-2121-4544-9657-ad2ee237b735.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no conflicting financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "proteomics, bioinformatics, top-down, bottom-up, mass spectrometry",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>Here we present a high-performance software for proteome analysis that combines different mass spectrometric approaches, such as, top-down for intact protein analyses and bottom-up, for proteolytic fragment characterization. <strong>ProteoCombiner</strong> capitalizes on the data arising from different experiments and proteomics search engines and presents the results in a user-friendly manner. Our tool also provides a rapid and easy visualization, manual validation and comparison of the identified proteoform sequences, including post-translational modifications (PTM) characterization. Thus, ProteoCombiner is recommended for studies dealing with different proteomics strategies, in order to increase confidence in proteoform identification including PTMs.</p>",
+        "manuscriptTitle": "Using ProteoCombiner to integrate bottom-up and top-down proteomics data to improve proteoform identification",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2020-02-17 17:18:43",
+                "doi": "10.21203/rs.2.10327/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a0458b46-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "February 17th, 2020",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 43948,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 43949,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 43950,
+                "name": "Biotechnology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2020-02-17 17:18:43",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

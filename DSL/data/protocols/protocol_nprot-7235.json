@@ -1,0 +1,257 @@
+{
+    "identity": "nprot-7235",
+    "title": "Rapid modular CAR-T generation with CRISPR/Cpf1 and AAV systems",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Genetically modified T cells expressing anti-CD19 CARs have showcased their efficacy in various liquid cancers 1-5, and have been approved for clinical use in B-cell lymphomas and leukemias 6-8. Currently used delivery platforms are primarily based on lentivirus or retrovirus. Recently, CRISPR-Cas9 systems have been used for targeted knockin of anti-CD19 CAR into the T cell receptor \u03b1 constant \\(TRAC) region, which have shown higher efficacy of tumor eradiation in mice 9. The generally used method to modify human T cells is currently based on the CRISPR/Cas9 system 10. Cas12a/Cpf1 hold advantages over Cas9 as it can process crRNA arrays by itself and mediate multi-target DNA cleavage in a single customized array. In the associated publication, we describe a new method for generating CAR-T cells using a combination of mRNA electroporation for LbCpf1 and AAV6 for crRNA and homology-directed repair \\(HDR) template. We achieved simple yet highly efficient targeting of both HDR-mediated CAR-T knockin and immune checkpoint gene knockout \\(KIKO). Notably, we were also able to deliver anti-CD19 and anti-CD22 CARs for bispecific CARs at high efficiency, demonstrating the modularity and extensibility of this system. Other advantages of this method include design simplicity, higher delivery efficiency, lower toxicity, reduced exhaustion, increased effector function, and long term CAR enrichment. The efficiency of this approach makes it readily feasible to produce single knockin or double knockin CAR-T cells on the order of 1e8 to 1e9 from a regular source of blood in two to three weeks, which is the scale and timeline typically needed in the clinical setting. Figure 1 illustrates a simple workflow for the generation and functional testing of CAR-T cells using the AAV-Cpf1 KIKO system. We anticipate this system to be of use to the scientific community for CAR-T research and production."
+        },
+        {
+            "header": "Reagents",
+            "content": "Plasmids & DNA\r\n\n\n1. NSL-LbCpf1-NSL mRNA \\(TriLink BioTechnologies) \r\n  Modified mRNA transcript with full substitution of pseudo-U and Capped \\(Cap 1) using CleanCap\u2122 AG. mRNA is polyadenylated with DNase and phosphatase treatment. mRNA was purified by silica membrane and packaged as a solution in 1 mM Sodium Citrate, pH 6.4. \r\n\n\n2. Plasmids: AAV6/AAV9, PDF6, AAV vector including pXD017, pXD017-39, \r\n        pXD040, pXD042, pXD043, pXD050, pXD053 and pXD054\r\n\n\n\r\n\n\nCell lines\r\n\n\n1. Human peripheral blood CD4+ T cells \\(STEMCELL Technologies, or other donors)\r\n  2. HEK293FT cells \\(ThermoFisher)\r\n  3. NALM6 cells \\(ATCC)\r\n  \r\n\n\nKits & Chemicals\r\n\n\n1. X-VIVO 15, serum free hematopoietic cell medium \\(Lonza)\r\n  2. CD3/CD28 Dynabeads \\(Thermo Fisher)\r\n  3. Polyethyleneimine \\(Sigma)\r\n  4. Pierce Universal Nuclease \\(Thermo Fisher)\r\n  5. QuickExtract DNA Extraction Solution \\(Epicentre)\r\n  6. Taqman assays \\(ThermoFisher)\r\n  7. T7E1 \\(New England BioLabs)\r\n  8. CD22-Fc \\(R&D system)\r\n  9. APC-CD4-Clone A161A1Biolegend-357408FITC-CD3-Clone HIT3a-Biolegend-300306PE-IgG-Fc-Clone HP6017-Biolegend-409304PD-1-FITC-Clone EH12.2H7-Biolegend-329904TIGIT-APC-Clone A15153G-Biolegend-372705LAG3-Percp/cy5.5-Clone 11C3C65-Biolegend-369312APC-anti-DYKDDDDK Tag-Clone L5-Biolegend-637308\r\n  PerCP/Cyanine5.5 anti-DYKDDDDK Tag-Clone L5-Biolegend-637326\r\n\n\nIFN"
+        },
+        {
+            "header": "Equipment",
+            "content": "Equipment:\r\n\n\n1. PCR Thermocycler\r\n  2. Tissue culture hood\r\n  3. 15-cm tissue culture dishes \\(Corning)\r\n  4. Retronectin-coated plates \\(Takara)\r\n  5. Neon\u00ae Transfection System \\(ThermoFisher)\r\n  6. Bioanalyzer \\(Agilent)\r\n  7. Pipettes and tips\r\n  8. Next generation sequencing machines \\(Illumina)\r\n  9. Cell culture incubators \\(37 \u00b0, 5% CO2)\r\n  10. Countess automated cell counter \\(Thermo Fisher)\r\n  11. Plate reader \\(PerkinElmer)\r\n  12. BD FACSAria II \\(BD Biosciences)\r\n  13. FlowJo software 9.9.4 \\(Treestar, Ashland, OR)"
+        },
+        {
+            "header": "Procedure",
+            "content": "Procedure\r\n\n\n\r\n\n\nConstruction of AAV vectors\r\n\n\ncrRNA expression vector design and construction\r\n\n\n1. Identify genes for knockout by targeted delivery of HDR template. Here we chose TRAC and PDCD1, but note that any gene with a Cpf1 PAM sequence may be targeted.\r\n  2. Design LbCpf1 crRNA \\(20bp) with Benchling or other computational pipelines.\r\n  crTRAC: GAGTCTCTCAGCTGGTACAC \r\n\n\ncrPDCD1:  GCACGAAGCTCTCCGATGTG\r\n\n\n3. Synthesize oligonucleotides with two LbCpf1 direct repeat and sticky ends.\r\n  4. Digest pXD017 with FD BbsI and insert guide after U6 promoter \\(pXD017-39).\r\n  \r\n\n\nCAR sequence generation\r\n\n\n1. Generation of CD22BBz CAR as previously described 11. CD22 binding scFV \\(m971) specific for the human CD22 followed by CD8 hinge-transmembrane-regions linked to 4-1BB \\(CD137) intracellular domains and CD3\u03b6 intracellular domain.\r\n  2. The sequence of CD19 binding scFv \\(FMC63) was found from NCBI \\(GenBank: HM852952) and followed by CD8 hinge-transmembrane-regions linked to 4-1BB \\(CD137) intracellular domains and CD3\u03b6 intracellular domain 12. In order to detect CD19BBz CAR in different way, the Flag-tag sequence \\(GATTACAAAGACGATGACGATAAG) was added after the CD8\u237a leader sequence.\r\n  3.   Synthesize m971-BBz and FMC63-BBz using gBlock \\(IDT).\r\n  \r\n\n\nHDR template design\r\n\n\n1. Amplify left and right homologous arms of the TRAC or PDCD1 locus from primary CD4+ T cells by PCR using locus-specific primer sets with multiple cloning site \\(MCS). PCR annealing temperature \\(60\u2103).\r\n  TRAC_HDR_F1 \\(With AAV vector overlap sequence) TCAACTAGATCTTGAGACAAGGTACGATGTAAGGAGCTGCTGTGACT\r\n\n\nTRAC_HDR_R1 \\(With MCS) GGTACCTCGAGCGTACGGGTCAGGGTTCTGGATATCTGTG\r\n\n\nTRAC_HDR_F2 \\(With MCS) CGTACGCTCGAGGTACCGAGAGACTCTAAATCCAGTGACAAG\r\n\n\nTRAC_HDR_R2 \\(With AAV vector overlap sequence) CTTTTATTAAGCTTGATATCGAATTGTGGGTTAATGAGTGACTGCG\r\n\n\nPDCD1 _HDR_F1 \\(With AAV vector overlap sequence)  TGGCAGGAGAGGGCACGTGGGCAGCCTCACGTAGAAGGAA\r\n\n\nPDCD1 _HDR_R1 \\(With MCS) TCCGAGAATTCTTTGTTAACTGTGTTGGAGAAGCTGCAGGT\r\n\n\nPDCD1 _HDR_F2 \\(With MCS) CACAGTTAACAAAGAATTCTCGGAGAGCTTCGTGCTAAACTGG\r\n\n\nPDCD1 _HDR_R2 \\(With AAV vector overlap sequence) GCGGCCGCTCGGTCCGCACCTGATCCTGTGCAGGAGGG\r\n\n\n\r\n\n\n2. Sequence amplicons \\(Yale Keck or any other Sanger sequencing facility).\r\n  \r\n\n\nAAV-crRNA-HDR-CAR vector cloning\r\n\n\n1. pXD040 construction: Clone HDR sequences into the AAV vector \\(pXD017-39) by Gibson assembly. Incubate samples in a thermocycler at 50\u00b0C for 30 minutes.  \r\n  2. pXD043 \\(CD22CAR) and pXD054 \\(CD19CAR) construction: Digest pXD040 with BsiWI and Acc65I, and then clone CAR sequences into MCS by Gibson assembly.\r\n  \r\n\n\nAAV production and titration\r\n\n\nAAV production\r\n\n\n1. Transfect HEK293FT cells with AAV constructs in 15-cm tissue culture dishes, AAV2 transgene vectors, packaging \\(pDF6) plasmid, and AAV6/9 serotype plasmid together with polyethyleneimine \\(PEI).\r\n  2. Collect transfected cells with PBS after 72 hours of transfection.\r\n  \r\n\n\nAAV purification and titration\r\n\n\n1. Mix transfected cells with pure chloroform \\(1/10 volume).\r\n  2. Incubate cells at 37 \u00b0C with shake vigorously for 1 h.\r\n  3. Add NaCl to a final concentration of 1 M.\r\n  4. Centrifuge at 20,000g at 4 \u00b0C for 15 mins.\r\n  5. Transfer aqueous layer to another tube and discard the chloroform layer.\r\n  6. Add PEG8000 to sample until 10% \\(w/v) and shake until dissolved.\r\n  7. Incubate mix at 4 \u00b0C for 1 h and then centrifuge at 20,000g at 4 \u00b0C.\r\n  8. Discard supernatant and suspend pellet in DPBS with MgCl2.\r\n  9. Treat sample with universal nuclease and incubate at 37 \u00b0C for 30 mins.\r\n  10. Add chloroform \\(1:1 volume), shake, and centrifuge at 12,000g at 4\u00b0C for 15 mins.\r\n  11. Isolate aqueous layer and concentrate through a 100-kDa MWCO. Critical step: concentrate AAV at high concentration so the volume can be reduced when performing the infection, which can decrease the toxicity of AAV. AAV should be aliquoted and stored at -80\u2103.\r\n  12. Titer virus by qPCR using custom Taqman assays \\(ThermoFisher) targeted to promoter U6.\r\n  \r\n\n\nT cell electroporation\r\n\n\n1. Human primary peripheral blood CD4+ T cells were acquired from healthy donors \\(STEMCELL technologies). T cells were cultured in X-VIVO media \\(Lonza) with 5% human AB serum and recombinant human IL-2 30U/mL.\r\n  2. Activate T cells with CD3/CD28 Dynabeads for 2 days prior to electroporation.\r\n  3. Use magnetic holder to remove Dynabeads.\r\n  4. Prepare cells at a density of 2 x 105 cells per 10 \u03bcL tip reaction or 2 x 106 cells per 100 \u03bcL tip reaction in electroporation Buffer R \\(Neon Transfection System Kits).\r\n  5. Mixed with 1 \u03bcg or 10 \u03bcg of modified NLS-LbCpf1-NLS mRNA \\(TriLink) according to reaction volume.\r\n  6. Electric shocked at program 24 \\(1,600V, 10ms, and three pulses).\r\n  7. Transfer cells into 200\u00b5l or 1mL of pre-warmed X-VIVO media \\(without antibiotics) immediately after electroporation.\r\n  8. Add indicated volumes of AAV \\(AAV volume to not exceed 20% of culture volume) into the T cells 2-4 hours after electroporation. CAR will begin to be expressed after two to three days and have enrichment after stimulation with target cells. \r\n  \r\n\n\nCAR-T detection by flow cytometry\r\n\n\n1. After electroporation for 5 days, incubate 1\u00d7106 CD22BBz CAR transduced T cells with 0.2 \u03bcg CD22-Fc \\(R&D system) in 100 \u03bcL PBS for 30 mins, and then stain with PE-IgG-Fc and FITC-CD3 antibodies for 30 mins.\r\n  2. For CD19BBz CAR detection, incubate CD19BBz CAR transduced T cells with APC-anti-DYKDDDDK Tag and FITC-CD3 antibodies for 30 mins.\r\n  3. Wash cells twice after staining. Quantify and sort labeled cells on BD FACSAria II.\r\n  4. The staining patterns were analyzed using FlowJo software 9.9.4 \\(Treestar, Ashland, OR).\r\n  \r\n\n\nT7E1 assay\r\n\n\n1. Five days after electroporation, harvest the bulk transduced T cells and sorted T cells.  The genomic DNA was collected using the QuickExtract DNA Extraction Solution \\(Epicentre).\r\n  2. PCR amplify target loci from genomic DNA around cutting site.\r\n  TRAC_suvF: CTGAGTCCCAGTCCATCACG \r\n\n\nTRAC_suvR: AGGGTTTTGGTGGCAATGG\r\n\n\n            PDCD1_suvF: GTAGGTGCCGCTGTCATTGC \r\n\n\n            PDCD1_suvR: GAGCAGTGCAGACAGGACCA\r\n\n\n3. Run PCR amplicons on 2% E-gel EX and purify \\(with known band size) using QIAquick Gel Extraction Kit.\r\n  4. After purification, denature 200 ng of purified PCR product, anneal, and digest with T7E1, 37\u2103 45min  \\(New England BioLabs).\r\n  5. Load digested PCR products into 2% E-gel EX and quantify DNA fragment abundance using E-Gel\u2122 Low Range Quantitative DNA Ladder \\(ThermoFisher).\r\n  \r\n\n\nHDR quantification and NGS sequencing analysis\r\n\n\nSemi-quantitative In-Out PCR \r\n\n\n1. Use three primers for In-Out PCR:\r\n               TRAC 1st: binds to a sequence from the left TRAC homology arm\r\n\n\n             TRAC 2st: binds to genomic sequence outside of this AAV donor \r\n\n\n             CD22CAR 3rd: recognizes a sequence contained in the m971-BBz cassette\r\n\n\nTRAC 1st: CCCTTGTCCATCACTGGCAT\r\n\n\nTRAC 2st: GCACACCCCTCATCTGACTT\r\n\n\nCD22CAR 3rd: GAAATCAAAGCGGCCGCAG\r\n\n\n2. Normalize amplicon \\(labeled TRAC-HDR) concentration by comparison to the product resulting from the uninfected control with genomic DNA isolated from human CD4+ T cells.\r\n  3. PCR products were used for Nextera library preparation following the manufacturer\u2019s protocols \\(Illumina).\r\n  4. Prepped libraries were sequenced using 100-bp paired-end reads on an Illumina HiSeq 4000 instrument or equivalent.\r\n  \r\n\n\nIndel quantification \r\n\n\n1. Some PCR products from amplification around cutting site of genomic DNA \\(same samples as T7E1 assay) were used for Nextera library preparation following the manufacturer\u2019s protocols \\(Illumina).\r\n  2. Prepped libraries were sequenced using 100-bp paired-end reads on an Illumina HiSeq 4000 instrument or equivalent \\(generating 29 to 74 million reads per library).\r\n  3. Map paired reads to amplicon sequences \\(expected sequences provided in FASTA form to generate indices) using BWA-MEM with the -M option.\r\n  4. Discard 100bp reads in SAM file that fall outside a +/- 75bp window of expected cut site within the amplicon.\r\n  5. Discard soft-clipped reads \\(identified with \u201cS\u201d character in CIGAR string).\r\n  6. Identify indel reads by the presence of \"I\" or \"D\" characters within the CIGAR string.\r\n  7. Quantify cutting efficiency as percentage of indels over total \\(indel plus wild-type reads) within the defined window.\r\n  \r\n\n\nHDR quantification \r\n\n\n1. Map reads to possible amplicons based on primer combinations and HDR status.\r\n  2. Define \"informative\" amplicons as truncated so that 100bp reads would have at least 20bp homology with the CAR sequence \\(or with the other TRAC arm, in the case of wild-type sequences). Informative reads can be used to distinguish wild-type, NHEJ and HDR reads with higher confidence.\r\n  3. Map paired reads to amplicon sequences using BWA-MEM with -M flag to generate SAM files.\r\n  4. Use SAMtools to convert SAM files to BAM, sort, index, and generate summary statistics of read counts with the idxstats option.\r\n  5. To quantify wild-type vs NHEJ reads, take reads that mapped to \u201cinfo_nonHDR\u201d sequence \\(described below), and call reads with indels \\(I\" or \"D\" characters within the CIGAR string) as NHEJ. Otherwise call reads as wild-type.\r\n  6. Pool read counts for downstream analysis. \r\n  7. Schema for our amplicon sequences and quantifications provided below:\r\n  \r\n\n\namplicon_nonHDR: refers to full amplicon from F1 and R1 of genomic, wild-type DNA.\r\n\n\namplicon_CAR_F1: refers to full amplicon from F1 and R1 of expected, integrated CAR.\r\n\n\namplicon_CAR_F2: refers to full amplicon from F2 \\(primer site within the CAR as opposed to outside) and R1 of expected, integrated CAR.\r\n\n\n\r\n\n\ninfo_nonHDR same as amplicon_nonHDR, except truncated to 80bp of the TRAC arms.\r\n\n\ninfo_CAR_F1: same as amplicon_CAR_F1, except truncated to 80bp of the TRAC arms flanking the TRAC-CAR interface.\r\n\n\ninfo_CAR_F2: same as amplicon_CAR_F2, except truncated to 80bp of the TRAC arms flanking the TRAC-CAR interface \\(relevant to the right arm only, since F2 is within the CAR sequence). \r\n\n\n\r\n\n\nHDR, NHEJ, and WT scores were calculated as follows:\r\n\n\ninfo_nonHDR = info_WT + info_NHEJ\r\n\n\n\r\n\n\nhdr_score = info_CAR_F2/\\(info_CAR_F2+info_nonHDR)\r\n\n\nwt_score = info_WT/\\(info_CAR_F2+info_nonHDR)\r\n\n\nnhej_score = info_NHEJ/\\(info_CAR_F2+info_nonHDR)\r\n\n\n\r\n\n\nCo-culture functional assays\r\n\n\nStable cell line generation\r\n\n\n1. Generate lentivirus including GFP-Luciferase reporter genes.\r\n  2. Infect NALM6 cells \\(ATCC) with 2x concentrated lentivirus by spinoculation in retronectin-coated \\(Takara) plates at 800g for 45 mins at 32\u00b0C.\r\n  3. After infection for 2 days, sort GFP positive cells \\(NALM6-GL) by flow cytometry.\r\n  4. Perform a second round of sorting after culturing for an additional two days.\r\n  5. Incubate cells with 150g/ml D-Luciferin \\(PerkinElmer) and measure bioluminescence signal intensity by an IVIS system to assess luciferase expression.\r\n  \r\n\n\nCancer cell cytolytic assay \\(kill assay)\r\n\n\n1. Seed 2104  NALM6-GL cells in a 96 well plate.\r\n  2. Co-culture modified T cells with NALM6-GL at indicated E:T ratios for 24 hours.\r\n  3. Add 150g/ml D-Luciferin \\(PerkinElmer) into each well and measure luciferase assay intensity by a plate reader \\(PerkinElmer) to assess cell proliferation.\r\n  \r\n\n\nT cell exhaustion assay \r\n\n\n1. Co-culture T cells modified by AAV with NALM6-GL cells at 0.5:1 E:T ratio for 24 hours.\r\n  2. Collect cells and wash once by DPBS. Incubate cells with 0.2 \u03bcg CD22-Fc \\(R&D Systems) in 100 \u03bcL DPBS for 30 mins.\r\n  3. Stain cells with PE-IgG-Fc, PD-1-FITC, TIGIT-APC and LAG3-Percp/cy5.5 \\(Biolegend) for 30 mins.\r\n  4. Measure stained cells by flow cytometry.\r\n  \r\n\n\nIntracellular staining of IFN\u03b3 and TNF-\r\n\n\n1. After infection for 5 days, co-culture AAV transduced CD22BBz CAR-T cells with NALM6 at 1:1 E:T ratio in fresh media supplemented with brefeldin A and 2 ng/mL IL-2.\r\n  2. After 5 hours of incubation, collect and stain for surface CAR.\r\n  3. Fix and permeabilize cells by fixation/permeabilization solution \\(BD) and add anti-IFN\u03b3-APC or anti-TNF--FITC for intracellular staining.\r\n  4. After 30 mins, wash stained cells by BD Perm/Wash\u2122 buffer and measure cells by flow cytometry."
+        },
+        {
+            "header": "Timing",
+            "content": "Time Taken\r\n\n\nAAV vector construction: 1~2 weeks\r\n\n\nAAV production and purification: 4~5 days\r\n\n\nT cell electroporation and infection: 5 hours\r\n\n\nCAR-T expression and detection: 5+ days depending on experiment\r\n\n\nCytolytic assay: 24 hours\r\n\n\nT cell surface marker or exhaustion flow assay: 24 hours\r\n\n\nT cell intracellular staining: 8 hours"
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "Troubleshooting\r\n\n\n\r\n\n\nProblems\r\n\n\nPossible reasons\r\n\n\nSolution\r\n\n\n\r\n\n\nLow titer of AAV\r\n\n\n1. Plasmid purity is too low. \r\n  Plasmids possibly have RNA or protein contamination. Try to remove RNA and protein completely.\r\n\n\n2. HEK293FT with high passage number.\r\n  Use early passage of HEK293FT cells. \r\n\n\n3. Didn't concentrate virus enough.\r\n  AAV purified from one 150mm*25mm petri dish of cells should be concentrated to less than 200\u00b5l.\r\n\n\n\r\n\n\nLow survival rate of cell after electroporation\r\n\n\n1. T cell cultured for too long.\r\n  Freshly isolated T cells are best, do not culture T cell for too long.\r\n\n\n2. Over-activation.\r\n  Over-activation of T cells by CD3/CD28 Dynabeads could induce cell apoptosis. If using CD8 T cell, decrease activation time.\r\n\n\n3. Electroporation program didn't set well.\r\n  The condition for Neon system is 1600V, 10ms, and three pulses.\r\n\n\n4. Multiple use of electroporation tips.\r\n  Electroporation tips are better not to be used more than twice.\r\n\n\n5. Too much virus.\r\n  Virus volume should not exceed 20%.\r\n\n\n\r\n\n\nLow cutting efficiency\r\n\n\n1. Didn't do guide optimization.\r\n  Design several guides for each gene and choose the best ones.\r\n\n\n2. mRNA degraded.\r\n  mRNA should be stored at -80 \u00b0C, limit thaw and freeze cycles.\r\n\n\n\r\n\n\n3. Low dose of Cpf1 mRNA used.\r\n  For 10\u00b5l reaction, should add 1\u00b5g of Cpf1 mRNA.\r\n\n\n\r\n\n\n4. T cell not active.\r\n  If not active, stimulate T cells by CD3/CD28 antibody / beads before electroporation.\r\n\n\n\r\n\n\n5. Wrong buffer used.\r\n  R buffer has higher electroporation efficiency than T buffer.\r\n\n\n6. Virus titer is too low.\r\n  Concentrate AAV to smaller volume.\r\n\n\n\r\n\n\nLow HDR efficiency\r\n\n\n1. Virus titer is too low.\r\n  Concentrate AAV to smaller volume.\r\n\n\n2. HDR arm is too short.\r\n  HDR arms should ideally not be shorter than 300bp.\r\n\n\n3. AAV vector design problem.\r\n  If insertion site not at the first exon or near a promoter, add the promoter in front of CAR."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "See Dai et al. Nature Methods, \u201cOne-step generation of modular CAR-T with AAV-Cpf1\u201d."
+        },
+        {
+            "header": "References",
+            "content": "References\r\n\n\n1. Garfall, A.L. et al. Chimeric Antigen Receptor T Cells against CD19 for Multiple Myeloma. N Engl J Med 373, 1040-1047 \\(2015).\r\n  2. Tebas, P. et al. Gene editing of CCR5 in autologous CD4 T cells of persons infected with HIV. New England Journal of Medicine 370, 901-910 \\(2014).\r\n  3. Jackson, H.J., Rafiq, S. & Brentjens, R.J. Driving CAR T-cells forward. Nat Rev Clin Oncol 13, 370-383 \\(2016).\r\n  4. Labanieh, L., Majzner, R.G. & Mackall, C.L. Programming CAR-T cells to kill cancer. Nature Biomedical Engineering 2, 377 \\(2018).\r\n  5. Rosenbaum, L. Tragedy, perseverance, and chance\u2014the story of CAR-T therapy. New England Journal of Medicine 377, 1313-1315 \\(2017).\r\n  6. Porter, D.L., Levine, B.L., Kalos, M., Bagg, A. & June, C.H. Chimeric antigen receptor\u2013modified T cells in chronic lymphoid leukemia. New England Journal of Medicine 365, 725-733 \\(2011).\r\n  7. Kalos, M. et al. T cells with chimeric antigen receptors have potent antitumor effects and can establish memory in patients with advanced leukemia. Science translational medicine 3, 95ra73-95ra73 \\(2011).\r\n  8. Neelapu, S.S. et al. Axicabtagene Ciloleucel CAR T-Cell Therapy in Refractory Large B-Cell Lymphoma. N Engl J Med 377, 2531-2544 \\(2017).\r\n  9. Eyquem, J. et al. Targeting a CAR to the TRAC locus with CRISPR/Cas9 enhances tumour rejection. Nature 543, 113 \\(2017).\r\n  10. Schumann, K. et al. Generation of knock-in primary human T cells using Cas9 ribonucleoproteins. Proceedings of the National Academy of Sciences 112, 10437-10442 \\(2015).\r\n  11. Haso, W. et al. Anti-CD22-chimeric antigen receptors targeting B cell precursor acute lymphoblastic leukemia. Blood, blood-2012-2006-438002 \\(2012).\r\n  12. Kochenderfer, J.N. et al. Construction and pre-clinical evaluation of an anti-CD19 chimeric antigen receptor. Journal of immunotherapy \\(Hagerstown, Md.: 1997) 32, 689 \\(2009)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "We thank Drs. Charles Fuchs and Roy Herbst for their assistance and insightful discussions. We thank Lupeng Ye, Jingjing Li, Li Shen, Matthew Dong, Ryan Chow, Zhigang Bai, Xiaoya Zhang and all other members in Chen laboratory for technical assistance and discussions. We thank various colleagues in Department of Genetics, Systems Biology Institute, Cancer Systems Biology Center, MCGD Program, Immunobiology Program, BBS Program, Cancer Center and Stem Cell Center at Yale for assistance and/or discussion. We thank the Center for Genome Analysis, Center for Molecular Discovery, Pathology Tissue Services, Histology Services, High Performance Computing Center, West Campus Analytical Chemistry Core and West Campus Imaging Core and Keck Biotechnology Resource Laboratory at Yale, for technical support. \r\n\n\n\r\n\n\nS.C. is supported by Yale SBI/Genetics Startup Fund, Damon Runyon Dale Frey Award \\(DFS-13-15), Melanoma Research Alliance \\(412806, 16-003524), St-Baldrick\u2019s Foundation \\(426685), Breast Cancer Alliance, Cancer Research Institute \\(CLIP), AACR \\(499395, 17-20-01-CHEN), The Mary Kay Foundation \\(017-81), The V Foundation \\(V2017-022), Ludwig Family Foundation, DoD \\(W81XWH-17-1-0235), Sontag Foundation, and NIH/NCI \\(1DP2CA238295-01, 1R01CA231112-01, 1U54CA209992-8697, 5P50CA196530-A10805, 4P50CA121974-A08306). GW is supported by CRI Irvington and RJ Anderson Postdoctoral Fellowships. J.J.P. is supported by the Yale MSTP training grant from NIH \\(T32GM007205)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41592-019-0329-7",
+                "date": "",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 16121,
+                "identity": "a1a3eacd-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Sidi Chen",
+                "email": "sidi.chen@yale.edu",
+                "orcid": "",
+                "institution": "Sidi Chen Laboratory, Yale University",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Sidi",
+                "middleName": "",
+                "lastName": "Chen",
+                "suffix": ""
+            },
+            {
+                "id": 16118,
+                "identity": "a1a3e3f3-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Xiaoyun Dai",
+                "email": "",
+                "orcid": "",
+                "institution": "Sidi Chen Laboratory, Yale University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Xiaoyun",
+                "middleName": "",
+                "lastName": "Dai",
+                "suffix": ""
+            },
+            {
+                "id": 16119,
+                "identity": "a1a3e779-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Jonathan Park",
+                "email": "",
+                "orcid": "",
+                "institution": "Sidi Chen Laboratory, Yale University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jonathan",
+                "middleName": "",
+                "lastName": "Park",
+                "suffix": ""
+            },
+            {
+                "id": 16120,
+                "identity": "a1a3e922-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Yaying Du",
+                "email": "",
+                "orcid": "",
+                "institution": "Sidi Chen Laboratory, Yale University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Yaying",
+                "middleName": "",
+                "lastName": "Du",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2019-01-15 15:19:26",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2018.139",
+        "doiUrl": "https://doi.org/10.1038/protex.2018.139",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 92709,
+                "identity": "09635218-ef94-4145-858c-0e60ff93d6c6",
+                "added_by": "auto",
+                "created_at": "2019-09-20 15:41:53",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 885580,
+                "visible": true,
+                "origin": "",
+                "legend": "Fig.1   Figure 1. Schematics for CAR-T generation and functional testing using AAV-Cpf1 KIKO system",
+                "description": "",
+                "filename": "MethodFlowv2.png",
+                "url": "https://assets.researchsquare.com/files/nprot-7235/v1/Method_Flow_v2.png"
+            },
+            {
+                "id": 13473874,
+                "identity": "33a11f5e-aea6-4ec7-adc2-af3f43cca19f",
+                "added_by": "auto",
+                "created_at": "2021-09-16 21:20:57",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 629897,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-7235/v1/bf0706e7-225d-4fb0-8a80-e0053c3e2c40.pdf"
+            }
+        ],
+        "financialInterests": "Provisional patents related to this work have been filed by the authors via Yale University.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "CRISPR, Cpf1, AAV, CAR-T, T Cell, Cancer, Immunotherapy",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "Chimeric antigen receptor \\(CAR) T cells have recently become powerful players in the arsenal of immune-based cancer therapy. More recently, gene-editing technologies have enabled more direct engineering of immune cells. Targeting CAR to the TRAC locus has been shown to enhance CAR-T stability and function. However, current lentiviral, retroviral, or CRISPR/Cas9 based methods have various limitations in CAR targeting efficiency and modularity, especially for generation of multi-component CAR-T cells. Here we describe a new method, the AAV-Cpf1 KIKO system, using a combination of viral and non-viral approaches to generate a stable CAR-T with homology-directed repair \\(HDR) knock-in and immune checkpoint knockout at high efficiency in one step. This protocol accompanies Dai et al. Nature Methods \u201cOne-step generation of modular CAR-T with AAV-Cpf1\u201d.",
+        "manuscriptTitle": "Rapid modular CAR-T generation with CRISPR/Cpf1 and AAV systems",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2019-09-20 15:41:53",
+                "doi": "10.1038/protex.2018.139",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a1a37b53-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "September 20th, 2019",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 4466,
+                "name": "Genetics"
+            },
+            {
+                "id": 4467,
+                "name": "Biological techniques"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2019-09-20 15:41:53",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

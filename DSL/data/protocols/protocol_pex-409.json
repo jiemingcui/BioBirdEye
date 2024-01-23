@@ -1,0 +1,241 @@
+{
+    "identity": "pex-409",
+    "title": "<p>Constructing plasmid under GT DNA assembly standard</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>DNA assembly is the cornerstone of genetic engineering<sup>1</sup>. Researchers are currently using various DNA assembly methods to construct plasmid by assembling multiple DNA parts<sup>1</sup>. We reported GT standard (GTS)<sup>2</sup> for plasmid construction under which DNA sequences are defined as two types of standard, reusable parts (fragment and barcode). We developed a barcoding method that can efficiently add any two barcodes to two ends of any fragment without leaving scars in most cases. In brief, the DNA fragments can be standardized by generating two conserved one nucleotide (1-nt) sticky ends (SEs, \u201cC\u201d and \u201cT\u201d) at both ends, which can be ligated (barcoded) with a pair of barcoding oligos with compatible SEs (\u201cG\u201d and \u201cA\u201d). After barcoding, we can assemble up to seven such barcoded fragments through long overlapping sequences (15 to 20 bp) into one plasmid by using one of the existing DNA assembly methods, including CLIVA, Gibson assembly, In-fusion cloning, restriction enzyme (RE)-based methods and Yeast <em>in vivo</em> assembly. GTS provides an open and flexible architecture, allowing users to flexibly define sharable barcode sequence with or without biological functions, and select the appropriate DNA assembly methods based on their preference and the requirements of plasmid construction. To promote researchers to adopt GTS for plasmid construction, a detailed protocol is provided here.&nbsp;</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p>Oligonucleotides (oligos)/Integrated DNA Technologies (IDT)</p><p>Q5\u00ae Hot Start High-Fidelity 2X Master Mix/ New England Biolabs (NEB), M0494</p><p>1 kb DNA Ladder/NEB, N3232L</p><p>Gel Loading Dye, Orange (6X)/NEB, B7021S</p><p>Nuclease-free water/1st BASE Biochemicals, BUF-1180-1L</p><p>GeneJET Gel Extraction Kit/Thermo Fisher Scientific, K0691</p><p>Trisaminomethane (Tris)/1st BASE Biochemicals, 3021</p><p>Iodine/Sigma-Aldrich, 207772</p><p>Ethanol/Sigma-Aldrich, 270741</p><p>T4 Polynucleotide Kinase/NEB, B0201</p><p>T4 ligase buffer/NEB, B0202</p><p>Blunt/TA Ligase Master Mix/NEB, B0202, M0367</p><p>BamHI restriction enzyme/NEB, R0136S</p><p>AatII restriction enzyme/NEB, R0117S</p><p>10X CutSmart\u00ae Buffer/NEB, B7204S</p><p>Dh5\u03b1 heat-shock competent cell/NEB, C2987H</p><p>SOC medium/NEB, B9020S</p><p>Gibson Assembly Master Mix/NEB, E2611S</p><p>In-Fusion HD Enzyme Premix/Clontech, 639645</p><p>LB Broth/Thermo Fisher Scientific, DF0446-17-3</p><p>GeneJET Plasmid Miniprep Kit/Thermo Fisher Scientific, K0503</p><p><br></p><p><br></p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>Bio-Rad T100\u2122 Thermal Cycler/ Bio-Rad Laboratories</p><p>Eppendorf ThermoMixer F1.5/Eppendorf</p><p>Horizontal Electrophoresis Systems/Bio-Rad Laboratories</p><p>Eppendorf centrifuge 5430/Eppendorf</p><p>Floor Incubator Shaker MAXQ 8000-430/Thermo Fisher Scientific</p><p>Eppendorf\u2122 Vacufuge\u2122 Concentrator/Eppendorf</p><p>NanoDrop\u2122 2000/2000c Spectrophotometers/Thermo Fisher Scientific</p><p>Gel Doc EZ imager/Bio-Rad Laboratories</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "Step 1: Design GTS oligos\nThere are two types of oligos under GTS, fragment-associated and barcode-associated oligos. We have developed a Matlab App (Oligo Designer for GT Standard) to design these GTS oligos. The App can be downloaded from the link,\nhttps://www.mathworks.com/matlabcentral/fileexchange/71880-oligo-designer-for-gt-standard\n. This App can be directly installed into Matlab. If user does not have Matalb installed, an exe file can be downloaded from the link,\nhttps://github.com/KangZhouGroupNUS/GTS-Oligo-Designer.exe.git\n.\na)\u00a0\u00a0\u00a0Install and run the App. A graphic interface containing two modules for designing fragment- and barcode-associated oligos will appear.\nb)\u00a0\u00a0\u00a0Design fragment-related oligos: Input name and sequence of fragment (>= 35 bp), and click button \u201cClick to design oligos for FRAGMENT\u201d. Remember to include the conversed G and T in the input sequence. If the fragment length is longer than 90 bp, Foligos with or without phosphorothioate (PS)-bonds will be designed and displayed on the right-side of the window. If the fragment length is less than 91 bp, Noligos (Non-modified fragment oligos) will be designed and displayed in addition to Foligos. Users can use button \u201cCopy oligo info\u201d to copy information of the designed oligos to clipboard of the desktop's operating system (so far only Microsoft Windows 10 has been tested), which can be pasted into a spreadsheet of Microsoft Excel. The software arranges the oligo information according to format requirement of the IDT ordering system, and it determines the synthesis scale automatically. Click button \u201cClear results\u201d to reset the software for the next design.\nc)\u00a0\u00a0\u00a0Design barcode-related oligos: Input name and sequence of barcode (20-80 bp), and click button \u201cClick to design oligos for BARCODE\u201d. Two types of Boligos and Aoligos will be designed, and the oligo information will be displayed. The software automatically determines SE sequence. If it cannot find a suitable SE sequence, user can consider to extend the barcode sequence to enlarge the search space. User can manually specify the SE sequence to overwrite the SE search step but it may result in lower assembly efficiency. Boligos designed here can be used with CLIVA, Gibson and In-fusion assembly method. Aoligos designed here are for the CLIVA method. User may manually modify the designed Aoligos for Gibson and In-fusion method: remove the PS modifications and extend SE sequence to meet requirement of those methods. This version of the software does not support RE-based cloning and we will release new version to support them.\nStep 2: Prepare GTS oligos\na)\u00a0\u00a0\u00a0All GTS oligos with or without PS bonds (dried form) purchased from oligo manufacturer should be dissolved in nuclease-free water to a final concentration of 100 \u00b5M, and can be stored at -20 \u00b0C for long-term use.\nb)\u00a0\u00a0\u00a0Phosphorylation of Boligos:\nBoligos should have phosphate group at 5\u2019 end and properly folded.\n1)\u00a0\u00a0\u00a0The phosphorylation reaction solution contains 1 \u00b5L of 100 \u00b5M Boligo, 2 \u00b5L of 10X T4 ligase buffer, 0.5 \u00b5L of T4 polynucleotide kinase and 16.5 \u00b5L of nuclease-free water.\nNote: This step can be skipped if phosphorylated Boligos are ordered directly from oligo manufacturer.\n2)\u00a0\u00a0\u00a0One-step phosphorylation and folding of Boligo are performed using the following condition in a Bio-Rad T100\u2122 Thermal Cycler: 37 \u00b0C for 30 min (phosphorylation), 65 \u00b0C for 20 min (inactivation of T4 kinase), 98 \u00b0C for 2 min (DNA denaturing), 98 to 45 \u00b0C at a rate of 0.1 \u00b0C/s, 45 \u00b0C for 2 min, 45 \u00b0C to 4 \u00b0C at rate of 0.1 \u00b0C/s (annealing), and hold at 4 \u00b0C.\nNote: The phosphorylation and inactivation in this step can be skipped if phosphorylated Boligos are used.\n3)\u00a0\u00a0\u00a0Twenty microliters of the phosphorylated and folded Boligos are diluted using 60 \u00b5L of nuclease-free water, and can be stored at -20 \u00b0C for long-term use.\nStep 3: Prepare GTS fragments\nUser can choose one of the following three options to prepare a GTS fragment.\na)\u00a0\u00a0\u00a0Creating fragment using PS-modified Foligos\nFragments can be amplified from various sources (e.g., plasmid, synthetic DNA, genomic DNA) using PS-modified Foligos.\n1)\u00a0\u00a0\u00a0PCR reaction solution contains 1-5 \u00b5L of template DNA (1 to 10 ng/\u00b5L for plasmid and synthetic DNA; 50 to 250 ng/\u00b5L for genomic DNA), 0.3 \u00b5L of 100 \u00b5M G-Foligo, 0.3 \u00b5L of 100 \u00b5M A-Foligo, 25 \u00b5L of Q5\u00ae Hot Start High-Fidelity 2X Master Mix, and ultrapure water to top up volume up to 50 \u00b5L.\n2)\u00a0\u00a0\u00a0PCR cycling condition: 98 \u00b0C for 30 s (initial denaturation), 98 \u00b0C for 8 s (denaturation), 55-65 \u00b0C for 15 s (annealing, the temperature is based on melting temperature of primers), 72 \u00b0C for 20-30 s per kb (extension), the steps of denaturation, annealing, and extension are repeated for 35 cycles, 72 \u00b0C for 2 min as a final extension, then hold at 4 \u00b0C.\n3)\u00a0\u00a0\u00a0After PCR, the solution is mixed with 10 \u00b5L of 6X gel loading dye, and loaded into two wells in a 1 % (w/v) agarose gel in Tris acetate-EDTA buffer. Run gel electrophoresis at 150 V for 25-35 min, and image the gel using Gel Doc EZ imager.\n4)\u00a0\u00a0\u00a0Cut two slices of gel containing appropriate bands and transfer them into 1.7 mL Eppendorf microcentrifuge tube. If Thermo-Scientific Gel Extraction Kit is used, add 500 \u00b5L of binding buffer to the tube, dissolve the gel completely at 50 \u00b0C, load the solution to the column, wash it using 550 \u00b5L of wash buffer once, dry the column by centrifuging it at at least 10,000 g for 1 min,, and elute the solution using 40 \u00b5L of HPLC water (room temperature).\n5)\u00a0\u00a0\u00a0Iodine-based cleavage reaction: Mix 40 \u00b5L of purified DNA solution with 5.5 \u00b5L of 1 M Tris solution (pH 9) and 10 \u00b5L of 30 g/L iodine solution, and then incubate it at 70 \u00b0C for 5 min in an Eppendorf ThermoMixer.\n6)\u00a0\u00a0\u00a0The treated solution is diluted with 250 \u00b5L of nuclease-free water and 350 \u00b5L of the DNA extraction binding buffer. Load the well mixed solution to the column, wash it using 550 \u00b5L of wash buffer two times, dry it and elute the solution using 30 \u00b5L of HPLC water (room temperature).\n7)\u00a0\u00a0\u00a0The prepared fragment can be stored at -20 \u00b0C for long-term use.\nb)\u00a0\u00a0\u00a0Creating fragment using non-modified Foligos\nFragments can be amplified from various sources (e.g., plasmid, synthetic DNA, genomic DNA) using non-modified Foligos.\n1)\u00a0\u00a0\u00a0The steps of amplification of fragments using non-modified oligos are the same to\nStep 3a 1\nand\n3a 2\n.\n2)\u00a0\u00a0\u00a0The steps of isolation and purification of fragment are the same to\nStep 3a 3\nand\n3a 4\n. At the last step, use 30 \u00b5L of HPLC water to elute DNA fragments from column.\nc)\u00a0\u00a0\u00a0Creating fragment using Noligos\nShort fragments can be directly created by annealing Noligos.\n1)\u00a0\u00a0\u00a0The annealing solution contains 50 \u00b5L of 100 \u00b5M G-Noligo and 50 \u00b5L of 100 \u00b5M A-Noligo.\n2)\u00a0\u00a0\u00a0The annealing is done by the following program in a thermo cycler: 98 \u00b0C for 2 min (denaturation), 98 to 75 \u00b0C at rate of 0.1 \u00b0C/s, 75 \u00b0C for 2 min, 75 to 45 \u00b0C at rate of 0.1 \u00b0C/s, 45 \u00b0C for 2 min, 45 \u00b0C to 4 \u00b0C at rate of 0.1 \u00b0C/s (annealing), and hold at 4 \u00b0C.\n3)\u00a0\u00a0\u00a0The fragments prepared by annealing Noligos are diluted with nuclease-free water to a final concentration of 10-20 ng/\u00b5L, and can be stored at -20 \u00b0C for long-term use.\nStep 4: Ligate Boligos with GTS fragments\nThe ligation of two Boligos to two ends of a fragment is termed as barcoding. User can choose the following two options to barcode a fragment.\na)\u00a0\u00a0\u00a0Barcoding fragment prepared using PS-modified oligos and Noligos\n1)\u00a0\u00a0\u00a0The barcoding reaction solution contains 3 \u00b5L of prepared fragment (with 1-nt SEs), 0.3 \u00b5L of 1.25 \u03bcM LA-Boligo, 0.3 \u00b5L of 1.25 \u03bcM RG-Boligo, and 3.6 \u00b5L of Blunt/TA Ligase Master Mix.\nNote: The recommended minimal fragment concentration is 10 ng/\u00b5L for fragment no longer than 1 kb. If fragment is larger than 1 kb, we recommend to use at least 100 ng/\u00b5L; if fragment is larger than 2 kb, we recommend to use at least 200 ng/\u00b5L. Vacufuge can be used to concentrate fragment solution when the concentration is too low. It is critical to have high purity of fragment with 1-nt SEs, so absorption spectrum (200-300 nm) of each fragment solution should be examined by Nanodrop or a similar device to ensure there is a peak at 260 nm before its fragment concentration can be used in the calculation.\n2)\u00a0\u00a0\u00a0The barcoding reaction is done using the following program in a thermo cycler: 25 \u00b0C for 5 min, and hold at 4 \u00b0C.\nb)\u00a0\u00a0\u00a0Barcoding fragment prepared using non-modified oligos\nA one-pot reaction is performed to generate the fragment with 1-nt SEs using non-modified oligos.\n1)\u00a0\u00a0\u00a0The one-pot RE-digestion and ligation solution contains 1 \u00b5L of Type IIS RE (MboII [R0148S], HphI [R0158S], BmrI [R0600S] and BciVI [R0596S] from NEB), 0.3 \u00b5L of 1.25 \u03bcM L(G/A)-Boligo, 0.3 \u00b5L of 1.25 \u03bcM R(G/A)-Boligo, 3 \u00b5L of fragment obtained in the previous step, and 4.6 \u00b5L of Blunt/TA Ligase Master Mix.\nNote: The concentration of fragment is recommended in\nStep 4a\n.\n2)\u00a0\u00a0\u00a0The mixture is incubated at 37 \u00b0C for 1 hour, 25 \u00b0C for 10 min, and hold at 4 \u00b0C.\nStep 5: Amplify GTS barcoded fragment\nLigation PCR is performed to amplify barcoded fragment from barcoding solution or plasmids constructed under GTS.\na)\u00a0\u00a0\u00a0Amplify barcoded fragments from barcoding solution\n1)\u00a0\u00a0\u00a0Ligation PCR solution contains 1 \u00b5L of barcoding reaction solution obtained from barcoding step (\nStep 4a 2\nor\nStep 4b 2\n), 0.3 \u00b5L of 100 \u00b5M RG-Aoligo, 0.3 \u00b5L of 100 \u00b5M LA-Aoligo, 25 \u00b5L of Q5\u00ae Hot Start High-Fidelity 2X Master Mix, and ultrapure water to top up to 50 \u00b5L.\nNote: If barcoded fragments are assembled using CLIVA method, Aoligos with PS bonds are used in ligation PCR; if the barcoded fragments are assembled using Gibson, In-fusion cloning and RE-based methods, non-modified Aoligos should be used in ligation PCR.\n2)\u00a0\u00a0\u00a0PCR cycling condition is the same to\nStep 3a 2\n.\n3)\u00a0\u00a0\u00a0The isolation of gel containing appropriate bands after gel electrophoresis is the same to\nStep 3a 3\n.\n4)\u00a0\u00a0\u00a0The purification of gel containing appropriate bands is the same to\nStep 3a 4\n. In the end, use 40 \u00b5L ultrapure water to elute the column.\nb)\u00a0\u00a0\u00a0Amplify barcoded fragment from plasmid solution\nPlasmids constructed under GTS contain barcoded fragments, thus PCR can be performed to amplify them.\n1)\u00a0\u00a0\u00a0PCR solution contains 1 \u00b5L of plasmid solution (1 to 10 ng/\u00b5L, diluted using ultrapure water), 0.3 \u00b5L of 100 \u00b5M RG-Aoligo, 0.3 \u00b5L of 100 \u00b5M LA-Aoligo, 25 \u00b5L of Q5\u00ae Hot Start High-Fidelity 2X Master Mix, and ultrapure water to top up the volume up to 50 \u00b5L.\n2)\u00a0\u00a0\u00a0The other steps are same to the\nStep 3a 2\nto\nStep 3a 4\n.\nStep 6: Prepare GTS barcoded fragment\na)\u00a0\u00a0\u00a0If the barcoded fragments are prepared using non-modified Aoligos, 40 \u00b5L of barcoded fragment prepared in\nStep 5a 4\nand\n5b 2\ncan be directly used in DNA assembly step using Gibson or In-fusion cloning method.\nb)\u00a0\u00a0\u00a0If RE-based method is used, a barcoded fragment will be amplified using non-modified Aoligos containing desired RE sites. The barcoded fragment prepared in\nStep 5a 4\nor\n5b 2\nwill be enzymatically treated to generate SEs, and then the treated fragment can be ligated with a plasmid digested using the same REs.\n1)\u00a0\u00a0\u00a0The RE-digestion solution contains 1 \u00b5L of RE1 and 1 \u00b5L of RE2 that recognize two cutting sites on both ends of barcoded fragment, 1 \u00b5g of barcoded fragment, 5 \u00b5L of 10X proper Buffer, and nuclease-free water to 50 \u00b5L. The users should follow general rules of REs here, such as avoiding internal cutting sites.\n2)\u00a0\u00a0\u00a0The RE-digestion mixture is incubated at 37 \u00b0C for 3 hours (overnight can be used to achieve complete digestion), and the appropriate fragments are separated using gel electrophoresis, and then purified using column as described in\nStep 3a 4\n.\n3)\u00a0\u00a0\u00a0Twenty-five microliters of enzymatically treated barcoded fragment are typically obtained from the previous step.\nc)\u00a0\u00a0\u00a0If barcoded fragment is amplified using PS-modified Aoligos, iodine-based cleavage reaction is performed to treat barcoded fragment (prepared in\nStep 5a 4\nor\n5b 2\n) to generate long SEs at its both ends as described in\nStep 3a 5\n. Thirty microliters of purified barcoded fragment can be obtained for subsequent assembling step using CLIVA method.\nd)\u00a0\u00a0\u00a0The concentrations (ng/\u00b5L) of the barcoded fragments (purified after chemical or enzymatic treatment) are determined using NanoDrop or any other similar device.\nStep 7: Assemble GTS barcoded fragments\nThe barcoded fragments obtained in\nStep 6\nare assembled into plasmid using various DNA assembly methods.\na)\u00a0\u00a0\u00a0Gibson method:\n1)\u00a0\u00a0\u00a0The assembly reaction solution contains 4 \u00b5L of 2X Gibson Assembly Master Mix, and 4 \u00b5L of fragment mixture containing the equimolar barcoded fragments obtained in\nStep 5d\n. The recommended quantity of total barcoded fragment is 0.2-1 pmols.\n2)\u00a0\u00a0\u00a0The assembly reaction is performed at 50 \u00b0C for 15 min (2 to 3 fragments) or 60 min (4 to 6 fragments) in a thermo cycler. Two microliter of the assembly mixture is used for transformation.\nb)\u00a0\u00a0\u00a0In-fusion cloning\n1)\u00a0\u00a0\u00a0The assembly reaction solution contains 1 \u00b5L of 5X In-Fusion HD Enzyme Premix, and 4 \u00b5L of fragment mixture containing the equimolar barcoded fragments obtained in\nStep 5d\n. The recommended quantity of total barcoded fragment is 0.2-1 pmols.\n2)\u00a0\u00a0\u00a0The assembly reaction is performed at 50 \u00b0C for 15 min in a thermo cycler. One microliter of the assembly mixture is used for transformation.\nc)\u00a0\u00a0\u00a0RE-based method\n1)\u00a0\u00a0\u00a0The ligation solution contains 0.5 \u00b5L of T4 ligase, 0.5 \u00b5L of 10X T4 ligase buffer, 4 \u00b5L of mixture containing the enzymatically digested barcoded fragment and backbone obtained in\nStep 6b 3\n(the molar ratio of insert to backbone is 3:1).\n2)\u00a0\u00a0\u00a0The assembly reaction is done at 16 \u00b0C for 12 h in a thermo cycler. One microliter of the assembly mixture is used for transformation.\nd)\u00a0\u00a0\u00a0CLIVA\n1)\u00a0\u00a0\u00a0The assembly reaction solution contains 1 \u00b5L of 10 mM MgCl\n2\n, and 4 \u00b5L of mixture containing equimolar barcoded fragments (obtained in\nStep 6c\n). The recommended quantity of total barcoded fragment is 0.2-1 pmols.\n2)\u00a0\u00a0\u00a0The assembly reaction solution is heated in a thermo cycler at 80 \u00b0C for 1 min, decreased to 68 \u00b0C at a default speed of thermal cycler, kept for 10 min and then decreased to 4 \u00b0C at 0.1 \u00b0C/s. One microliter of the assembly mixture is used for transformation.\nStep 8: Transformation\na)\u00a0\u00a0\u00a0One microliter of assembly products obtained in\nStep 7a, 7b, 7c\nand\n7d\nis mixed with 17 \u00b5L of\nE. coli\nDh5\u03b1 heat-shock competent cell in a pre-chilled 1.7 mL Eppendorf microcentrifuge tube on ice for 5 min.\nb)\u00a0\u00a0\u00a0The tube is heat-shocked at 42 \u00b0C in an Eppendorf ThermoMixer for exactly 35 s, and then incubated on ice for 2 min. The cell solution is mixed with 150 \u00b5L of SOC medium and directly plated on LB Agar plate that contains proper antibiotic.\nc)\u00a0\u00a0\u00a0The plate is incubated at the temperature required by specific applications. Usually, colony appears after 12-16 h when incubated at 37 \u00b0C.\nStep 9: Colony PCR verification\na)\nE. coli\ncolony PCR reaction solution contains 1 \u00b5L of colony suspension (single colony obtained in\nStep 8c\nis resuspended using 100 \u00b5L of ultrapure water in 0.2 mL PCR Tubes), 0.15 \u00b5L of 100 \u00b5M forward oligo, 0.15 \u00b5L of 100 \u00b5M reverse oligo, 5 \u00b5L of Q5 High-Fidelity 2X Master Mix, and 3.7 \u00b5L of nuclease-free water.\nb)\u00a0\u00a0\u00a0PCR cycling condition: 98 \u00b0C for 5 min (cell lysis and initial denaturation), 98 \u00b0C for 8 s (denaturation), 55-65 \u00b0C for 15 s (annealing, the temperature is based on melting temperature of primers), 72 \u00b0C for 20-30 s per kb (extension), the steps of denaturation, annealing, and extension are repeated for 35 cycles, 72 \u00b0C for 2 min as a final extension, then hold at 4 \u00b0C.\nc)\u00a0\u00a0\u00a0After PCR, the solution is mixed with 2 \u00b5L of 6X gel loading dye, and loaded into one well in a 1 % (w/v) agarose gel in Tris acetate-EDTA buffer. Run gel electrophoresis at 150 V for 25-35 min, and image the gel using Gel Doc EZ imager.\nd)\u00a0\u00a0\u00a0Ten microliters of the positive colony resuspension identified by gel electrophoresis is inoculated into 10 mL of LB Broth with proper antibiotic in a 50 mL falcon tube. Culture the cells at the temperature required by specific applications overnight.\nStep 10: Plasmid extraction and sequencing\na)\u00a0\u00a0\u00a0Harvest the cells from 10 mL of cell culture obtained in\nStep 9d\nby centrifugation at 4,000 rpm for 10 min. Extract the plasmids from the obtained cells using commercial plasmid extraction kit, following the manufacturer\u2019s instructions.\nb)\u00a0\u00a0\u00a0Fifty microliters of plasmid solution (plasmid DNA is eluted from the column using elution buffer) is obtained in the previous step. Twenty microliters of the solution can be sent to local sequencing service provider for sequencing verification.\nc)\u00a0\u00a0\u00a0The sequencing data received can be analysed using Benchling or similar software. The data with ab1 format are uploaded, and are aligned with plasmid sequence.\nNotes: 1) One more plasmid can be sent out for sequencing if mutation/insertion/deletion that affects the biological function of plasmid is encountered in the sequenced one. 2) The sequencing results should cover the important regions of plasmid (e.g., barcode sequence with biological function [ribosomal binding site, 5\u2019- and 3\u2019-untranslated regions, protein linker, etc.] and coding sequence)."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p>Step 3a</p><p>Problem: </p><p>Non-specific amplicons in amplification of fragment</p><p>Possible reason:&nbsp;</p><p>Low specificity of Foligos to template</p><p>Solution: </p><p>Run gel electrophoresis for longer time until a clear target band can be isolated from non-specific ones; Adjust temperature in annealing step of PCR to improve yield of target band.</p><p><br></p><p>Step 3a</p><p>Problem: Failed to amplify long fragment</p><p>Possible reason: </p><p>1)&nbsp;Extension time is too short</p><p>2)&nbsp;DNA polymerase expired or lost activity</p><p>Solution:  </p><p>1)&nbsp;Use longer extension time in PCR. </p><p>2)&nbsp;Use and store enzymes properly by following general molecular biology practices.</p><p><br></p><p>Step 5a</p><p>Problem: </p><p>Failed to amplify barcoded fragment</p><p>Possible reason: </p><p>1)&nbsp;&nbsp;&nbsp;&nbsp;Low concentration of fragment with 1-nt SEs</p><p>2)&nbsp;&nbsp;&nbsp;&nbsp;Poor quality of fragment with 1-nt SEs</p><p>3)&nbsp;&nbsp;&nbsp;&nbsp;Decay of reagents.</p><p>Solution:  </p><p> 1)&nbsp;Increase concentration of fragment with 1-nt SEs using Vacufuge; Increase PCR volume to 100 \u00b5L, and purify four slices of gel containing appropriate band using one column, and then elute DNA using 30 \u00b5L of nuclease-free water.</p><p>2)&nbsp;The quality of purified product should be checked using Nanodrop to ensure a clear peak is observed at A260 before barcoding.</p><p>3)&nbsp;Aliquot the reagents (DNA polymerase and ligase) in small volume for multiple time use, and place the reagents on ice during use.</p><p><br></p><p>Step 6b</p><p>Problem: </p><p>Failed to digest fragments</p><p>Possible reason: </p><p>1) The enzymatic reaction is not completed</p><p>2)&nbsp;Decay of reagents</p><p>Solution:  </p><p>1)&nbsp;Increase the incubation time of enzymatic reaction.</p><p>2)&nbsp;Aliquot the reagents (restriction enzymes) for multiple time use, and place the reagents on ice during use.</p><p><br></p><p>Step 8</p><p>Problem: </p><p>Low assembly efficiency of plasmid (less colony appeared on the plate)</p><p>Possible reason: </p><p>1)&nbsp;Inappropriate DNA assembly methods are used</p><p>2)&nbsp;Inappropriate molar ratio of barcoded fragments</p><p>3)&nbsp;Toxicity of genes to cell&nbsp;</p><p>Solution:</p><p>1)&nbsp;Try a different DNA assembly method.</p><p>2)&nbsp;Ensure appropriate molar ratio of barcoded fragments based on DNA assembly method. </p><p>3)&nbsp;Use inducible promoter or replication origin with low copy number to lower the expression of target gene that could be toxic to cell</p><p><br></p><p>Step 10a</p><p>Problem: </p><p>Low concentration of plasmid</p><p>Possible reason: </p><p>Low copy number of plasmid</p><p>Solution:  </p><p>Use 20 mL of cell culture to extract plasmid with low copy number.</p><p><br></p><p>Step 10c</p><p>Problem:</p><p>No signal of sequencing data</p><p>Possible reason:</p><p>1)&nbsp;Poor binding efficiency of sequencing primer</p><p>2)&nbsp;Failed assembly</p><p>3)&nbsp;Contamination of cell culture</p><p>Solution:</p><p>1)&nbsp;Use another primer that can efficiently bind to target region of plasmid. </p><p>2)&nbsp;Check all the fragments using colony PCR before sequencing to exclude the failed construction.</p><p>3)&nbsp;Culture the cells using fresh LB medium and appropriate amount of antibiotics. </p><p>  </p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>Step 1_30 min</p><p>Step 2a _20 min</p><p>Step 2b_90 min</p><p>Step 3a 1_10 min</p><p>Step 3a 2_60 to150 min</p><p>Step 3a 3_30 to 40 min</p><p>Step 3a 4_25 min </p><p>Step 3a 5_10 min</p><p>Step 3a 6_20 min</p><p>Step 3b 1_100 to 200 min</p><p>Step 3b 2_10 min</p><p>Step 3c 1_10 min</p><p>Step 3c 2_25 min</p><p>Step 3c 3_10 min</p><p>Step 4a 1_10 min</p><p>Step 4a 2_10 min</p><p>Step 4b 1_10 min</p><p>Step 4b 2_70 min</p><p>Step 5a 1_10 min</p><p>Step 5a 2_60 to 150 min</p><p>Step 5a 3_30 to 40 min</p><p>Step 5a 4_ 25 min</p><p>Step 5b 1_10 min</p><p>Step 5b 2_115 to 215 min</p><p>Step 6a 1_0 min</p><p>Step 6b 1_10 min</p><p>Step 6b 2_120 to 240 min</p><p>Step 6c_20 min</p><p>Step 6d_20 min</p><p>Step 7a 1_10 min</p><p>Step 7a 2_15 min</p><p>Step 7b 1_10 min</p><p>Step 7b 2_15 min</p><p>Step 7c 1_10 min</p><p>Step 7c 2_Overnight (12 to 16 hours)</p><p>Step 7d 1_10 min</p><p>Step 7d 2_25 min</p><p>Step 8a_15 min</p><p>Step 8b_5 min</p><p>Step 8c_Overnight</p><p>Step 9a_20 min</p><p>Step 9b_60 to 150 min</p><p>Step 9c_30 to 40 min</p><p>Step 9d_Overnight</p><p>Step 10a_25 min</p><p>Step 10b_Overnight</p><p>Step 10c_20 min </p><p>  </p><p><br></p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>All the results can be found in the paper<sup>2</sup>, named \"A standard for near-scarless plasmid construction using reusable DNA parts\".</p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>1. Canton, B. et al. Refinement and standardization of synthetic biological parts and devices. Nat<em> </em>Biotechnol. 26, 787 (2008).</p><p>2. Ma, X. et al. A standard for near-scarless plasmid construction using reusable DNA parts. Nature Communcations, (2019), in press.</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>This work was supported by National University of Singapore Start-up Grant (R-279-000-452-133), Singapore Ministry of Education Tier 1 Grants (R-279-000-478-112 and R-279-000-494-114), Singapore National Research Foundation CRP Grant (R-279-000-512-281), and Disruptive &amp; Sustainable Technologies for Agricultural Precision Grant (R-279-000-531-592).</p><p><br></p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41467-019-11263-0",
+                "date": "2019-07-23 10:03:15",
+                "title": "A standard for near-scarless plasmid construction using reusable DNA parts",
+                "authors": [
+                    "Xiaoqiang Ma",
+                    "Hong Liang",
+                    "Xiaoyi Cui",
+                    "Yurou Liu",
+                    "Hongyuan Lu",
+                    "Wenbo Ning",
+                    "Nga Yu Poon",
+                    "Benjamin Ho",
+                    "Kang Zhou"
+                ],
+                "journal": "Nature Communications",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 101535,
+                "identity": "27a71cb2-3a17-4677-b548-51cda7103ed9",
+                "order_by": 1,
+                "name": "Xiaoqiang Ma",
+                "email": "xiaoqiang@smart.edu.sg",
+                "orcid": "https://orcid.org/0000-0003-0712-8210",
+                "institution": "Singapore-MIT Alliance for Research and Technology",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Xiaoqiang",
+                "middleName": "",
+                "lastName": "Ma",
+                "suffix": ""
+            },
+            {
+                "id": 101649,
+                "identity": "c699de0e-7238-456b-b757-b42018ecc5ab",
+                "order_by": 2,
+                "name": "Hong Liang",
+                "email": "",
+                "orcid": "",
+                "institution": "National University of Singapore",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Hong",
+                "middleName": "",
+                "lastName": "Liang",
+                "suffix": ""
+            },
+            {
+                "id": 101537,
+                "identity": "1b7dbb17-966a-470a-8417-4f20812a5d3a",
+                "order_by": 3,
+                "name": "Kang Zhou",
+                "email": "kang.zhou@nus.edu.sg",
+                "orcid": "https://orcid.org/0000-0003-0606-7030",
+                "institution": "National University of Singapore",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Kang",
+                "middleName": "",
+                "lastName": "Zhou",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2019-06-03 11:22:12",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.2.10082/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.2.10082/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13468507,
+                "identity": "e587264d-bf38-4941-a605-cbbc223d8ce9",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:59:16",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 324313,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-409/v1/50d51cdc-7309-431d-a15c-b827098b03d1.pdf"
+            }
+        ],
+        "financialInterests": "A Singapore provisional patent has been filed on the technologies reported in this protocol. ",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "DNA assembly standard, standard DNA parts, plasmid construction, CLIVA, Gibson assembly, In-fusion cloning, restriction enzyme",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>We reported a new DNA assembly standard (GT standard, GTS), which allowed constructing plasmid using standard DNA parts and various DNA assembly methods in a near-scarless manner Here we provide a protocol to detail the experimental procedures to construct plasmid under GTS using CLIVA, Gibson assembly, In-fusion cloning, and restriction enzyme (RE)-based methods.&nbsp;</p>",
+        "manuscriptTitle": "Constructing plasmid under GT DNA assembly standard",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2019-07-23 14:10:09",
+                "doi": "10.21203/rs.2.10082/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "affce6f9-ba3b-4858-83aa-48077fd6024e",
+        "owner": [],
+        "postedDate": "July 23rd, 2019",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 14509,
+                "name": "Biochemistry"
+            },
+            {
+                "id": 14510,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 14511,
+                "name": "Cell biology"
+            },
+            {
+                "id": 14512,
+                "name": "Molecular Biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2019-07-23 14:10:09",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

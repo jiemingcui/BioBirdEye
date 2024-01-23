@@ -1,0 +1,256 @@
+{
+    "identity": "nprot-385",
+    "title": "Prediction of allergenic proteins and mapping of IgE epitopes in allergens",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "In present era use of genetically modified proteins in foods, therapeutics and biopharmaceuticals is increasing with exponential rate. Thus it is important to predict whether a modified protein allergenic or not.  In 2003, the Codex Alimentarius Commission \\(Codex) conveyed a panel of international food safety regulators to review the FAO/ WHO 2001 recommendations and recognized the uncertainties associated with the bioinformatics part of the   guidelines. They recommended various tests for examining allergenic behavior of proteins that includes source of gene, sequence similarities with known allergens, stability of protein and IgE bindings. Considering these points in mind a method was developed for predicting allergenic proteins, which is based on various approaches."
+        },
+        {
+            "header": "Reagents",
+            "content": "Both formatted and non-formated sequences are accepted as input. For formatted sequences the server uses ReadSeq. software which can read most commonly used standard sequence formats including FASTA/PIR/EMBL/GENBANK etc. The user have to specify whether the sequence is in any format or non-formated as raw/plain text \\(single letter coded amino acid only)"
+        },
+        {
+            "header": "Equipment",
+            "content": "User can access and use this web server from any computer \\(Windows or Linux or Mac) with web browser and Internet connection"
+        },
+        {
+            "header": "Procedure",
+            "content": "To run prediction, follow these stepwise instructions. \r\n\n\nStep 1: Type the following URL address in your web browser \"http://www.imtech.res.in/raghava/algpred\":http://www.imtech.res.in/raghava/algpred\r\n\n\nStep 2: The user is required to fill the sequence submission form. A brief description of each of the field is as follows: \r\n\n\nProtein sequence name: This is an optional field.\r\n\n\nPaste protein sequence in plain or standard format: Paste the query protein sequence in one of the standard format \\(FASTA, EMBL, PIR etc.) or amino acid sequence only in single letter code.\r\n\n\nOr Upload sequence file: The user can also upload the query sequence directly from a file.\r\n\n\nNOTE: Care should be taken that the server accepts input from either of two options, not both.\r\n\n\nInput sequence format: The user has to select the appropriate format according to the input sequence.\r\n\n\n\r\n\n\nStep 3: Users can select one or more approaches at a time in a submission form as mentioned below:\r\n\n\n i) Mapping of IgE epitopes and PID: The server searches known IgE epitopes in query protein sequence and will assign as allergen if any segment have high similarity with any known epitope. If there is a known epitope\\(s), then mapping of the epitope\\(s) is performed in the query sequence. The specificity of this approach is very high but the disadvantage is it has low sensitivity, as not all IgE epitopes of all allergens are known.\r\n\n\nii)MEME/MAST motif: The input query protein sequence searched in MEME matrices created by using allergen sequences. The specificity of this approach is high with low sensitivity.\r\n\n\niii)SVM module based on amino acid composition: The SVM module is generated using amino acid composition of protein sequence of allergens and nonallergens. The threshold value used is -0.4. At this value sensitivity and specificity of this method is 88.87% and 81.86% respectively, using fivefold cross-validation.\r\n\n\niv)SVM module based on dipeptide composition: The SVM module is generated using dipeptide composition of protein sequence of allergens and nonallergens. The threshold value used is -0.2. At this value sensitivity and specificity of this method is 82.78% and 85.00% respectively, using fivefold cross-validation.\r\n\n\nv)Blast search on allergen representative peptides \\(ARPs):  The query protein sequence search the database of 2890 allergen representative peptides \\(ARPs), obtained from Bjorklund et al 2005. If there is a hit, then it will assign as allergen and the ARP is shown in the result field. The accuracy of this method is very high with high sensitivity as well as specificity.\r\n\n\nvi)Hyprid approach: The query protein sequence is assign as allergen if any one of the methods \\( SVM composition based +mapping of  IgE epitopes + ARPs BLAST + MEME/MAST)  predicts it as allergen.\r\n\n\n\r\n\n\nStep 4: Finally click on \"Submit\" button\r\n\n\n\r\n\n\nOne Submission filled form is shown in Figure 1"
+        },
+        {
+            "header": "Timing",
+            "content": "Time taken for prediction depend on length of protein and method used for prediction. Server takes around 50 second in searching IgE epitopes in a protein of 200 amino acids. In case of SVM based model Algpred take around 1 minute for a protein of 200 amino acids. Sever may take long time if hybrid model which combines all modes were used for prediction."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "This server allows users to predict allergens and mapping of IgE epitopes. Server may take time if users choose all the available approaches at one go"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "The server allows users to present results of various approaches in a single HTML output page. It provides comprehensive information about the prediction that includes score, threshold, distance from threshold, Positive Predictive Value \\(PPV) and Negative Predictive Value \\(NPV). If the PPV is &gt;80%, then there is a high chance that the protein is a potential allergen. In case of BLAST search, if the query sequence matches with any ARP in the database, then the matched ARP is also shown. AlgPred also allows the mapping of IgE epitopes on allergenic proteins. The output of AlgPred has been shown in Figure 2. A result of hybrid model is shown in Figure 3, which is output of hybrid model."
+        },
+        {
+            "header": "References",
+            "content": "Saha, S. and Raghava, G.P.S.   \\(2006)  AlgPred: prediction of allergenic proteins and mapping of IgE epitopes. _Nucleic Acids Res._ **34**\\(Web Server issue):W202-9."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "This work was supported by the Council of Scientific and Industrial Research and the Department of Biotechnology, Government of India."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 10811,
+                "identity": "9f203996-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Sudipto Saha",
+                "email": "",
+                "orcid": "",
+                "institution": "Indiana University-Purdue University Indianapolis, IN",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Sudipto",
+                "middleName": "",
+                "lastName": "Saha",
+                "suffix": ""
+            },
+            {
+                "id": 10812,
+                "identity": "9f203d43-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Gajendra Raghava",
+                "email": "",
+                "orcid": "",
+                "institution": "Institute of Microbial Technology, Sector 39A, Chandigarh, India",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Gajendra",
+                "middleName": "",
+                "lastName": "Raghava",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2010-12-10 05:13:54",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/nprot.2007.505",
+        "doiUrl": "https://doi.org/10.1038/nprot.2007.505",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2607892,
+                "identity": "c753e7c1-82aa-4020-96d0-028d851f9bf9",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:50",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 154785,
+                "visible": true,
+                "origin": "",
+                "legend": "Submission form of algpred where sequence is in FASTA format; IgE mapping option is used for prediction.",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-385/v1/figure_1.png"
+            },
+            {
+                "id": 2607887,
+                "identity": "be844129-7ce2-4704-816e-bfa19367a7b5",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:50",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 92819,
+                "visible": true,
+                "origin": "",
+                "legend": "Example output of algpred for \"IgE Mapping\" option",
+                "description": "",
+                "filename": "figure2.png",
+                "url": "https://assets.researchsquare.com/files/nprot-385/v1/figure_2.png"
+            },
+            {
+                "id": 2607889,
+                "identity": "e5e60c1d-d3fc-4081-8ef1-598130be4051",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:50",
+                "extension": "png",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 53201,
+                "visible": true,
+                "origin": "",
+                "legend": "Example output of algpred for hybrid option where all methods are used",
+                "description": "",
+                "filename": "figure3.png",
+                "url": "https://assets.researchsquare.com/files/nprot-385/v1/figure_3.png"
+            },
+            {
+                "id": 13464397,
+                "identity": "8b8afa56-3b25-47d0-a333-a73bd054ea90",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:43:12",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 376266,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-385/v1/08ef85e7-55e5-4977-9840-48c04c657dc0.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "allergenic proteins, IgE epitopes, prediction, allergen representative peptides, support vector machine  ",
+        "license": {
+            "name": "None",
+            "url": ""
+        },
+        "manuscriptAbstract": "",
+        "manuscriptTitle": "Prediction of allergenic proteins and mapping of IgE epitopes in allergens",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2007-11-14 03:24:00",
+                "doi": "10.1038/nprot.2007.505",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9f1d3320-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "November 14th, 2007",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 2037,
+                "name": "Biochemistry"
+            },
+            {
+                "id": 2039,
+                "name": "Computational biology and bioinformatics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2007-11-14 03:24:00",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

@@ -1,0 +1,276 @@
+{
+    "identity": "pex-1365",
+    "title": "<p>CIM-seq</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": ""
+        },
+        {
+            "header": "Reagents",
+            "content": "<p>Lambda Exonuclease - New England Biolabs Catalog <strong>#M0262L</strong> </p><p>HotStart ReadyMix (KAPA HiFi PCR kit) - Kapa Biosystems Catalog <strong>#KK2601</strong> </p><p>psfTn5 Addgene - Catalog #<strong>79107</strong> </p><p>10% SDS solution - Teknova Catalog <strong>#S0287</strong> </p><p>SMARTScribe Reverse Transcriptase - Takarabio Catalog <strong>#634888</strong> </p><p>Magnesium chloride solution for molecular biology - Sigma Aldrich Catalog <strong>#M1028</strong> </p><p>Triton X-100 - Sigma Catalog #<strong>93426</strong> </p><p>KAPA HiFi PCR kit with dNTPs - Fisher Scientific Catalog <strong>#NC0142652</strong> </p><p>Recombinant RNAse Inhibitor - Takarabio Catalog <strong>#2313A</strong> </p><p>Betaine 5M - Sigma Aldrich Catalog <strong>#B0300</strong> </p><p>ERCC RNA Spike-In Mix - Thermo Fisher Catalog <strong>#4456740</strong> </p><p>USB Dithiothreitol (DTT) Solution - Thermo Fisher Catalog <strong>#707265ML</strong> </p><p>DEPC-Treated Water - Thermo Fisher Catalog <strong>#750023</strong> </p><p>dNTP Mix - Thermo Fisher Catalog <strong>#R0192</strong> </p><p>Sera-Mag Speed Beads - GE Healthcare Catalog <strong>#65152105050250</strong> </p><p>Hard-Shell\u00ae 384-Well PCR Plates - BioRad Sciences Catalog <strong>#HSP3801</strong> </p><p>Qubit 1X dsDNA HS Assay Kit - Thermo Fisher Scientific Catalog <strong>#Q33231</strong> </p><p>PEG 8000 - Sigma Aldrich Catalog <strong>#P2139</strong> </p><p>TAPS - Sigma Aldrich Catalog <strong>#T5130</strong></p><p> </p><p>Oligonucleotides (all ordered from IDT using Standard desalting, except barcodes ordered in solution/plates):</p><p>Oligo-dT: AAGCAGTGGTATCAACGCAGAGTACTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT(N1:34333300)(N2:25252525)</p><p>IS_PCR: 5\u2032-AAGCAGTGGTATCAACGCAGAGT-3\u2032 </p><p>TSO: 5\u2032-AAGCAGTGGTATCAACGCAGAGTACATrGrG+G-3\u2032</p><p>ME-A: 5'-TCGTCGGCAGCGTCAGATGTGTATAAGAGACAG-3'</p><p>ME-B: 5'-GTCTCGTGGGCTCGGAGATGTGTATAAGAGACAG-3'</p><p>ME-Rev: 5'-/5Phos/CTGTCTCTTATACACATCT-3'</p><p><br></p><p>Illumina-compatible barcodes used (Sxxx/Nxxx series, n=784) are available as a supplementary table in the manuscript. </p>"
+        },
+        {
+            "header": "Equipment",
+            "content": ""
+        },
+        {
+            "header": "Procedure",
+            "content": "A prerequisite for CIM-seq is the dissociation of cell lines or tissues into cell suspensions containing both single cells and multiplets. Dissociation procedure will have to be adjusted to the tissue and species of interest and a general method will therefore not be included here. For dissociation of murine lung, spleen, small intestine and colon as performed in the CIM-seq manuscript, please see the methods section of the CIM-seq manuscript.\nWe have divided this procedure section into three subsections:\nA) Cell sorting and library preparation\nB) Feature selection and clustering (Seurat)\nC) Multiplet deconvolution\nThe library preparation section will describe Smartseq2 (well based) library preparation. For 10x Genomics, consult the manufacturers instructions for library prep found at:\nhttps://support.10xgenomics.com/single-cell-gene-expression/library-prep/doc/user-guide-chromium-single-cell-3-reagent-kits-user-guide-v3-chemistry\n.\nA) Cell sorting and library preparation using Smartseq2:\n1) Prepare lysis buffer mix\n(2\u00b5l per well)\n:\nNOTE: Reagents are prepared on ice, working quickly. ERCC is stored in single-use aliquots at -80 \u00b0C , thawed on ice and added last.\nReagent\n-\n\u03bcl per reaction\nH20 - 1.31\u03bcl\nRNase Inhibitor - 0.05\u03bcl\nERCC (1:600 000) - 0.05\u03bcl\nTriton-X100 (10% solution) - 0.04\u03bcl\n10mM dNTP - 0.5\u03bcl\n100uM dT primer - 0.05\u03bcl\nTotal - 2\u03bcl\nAdd 2\u00b5l\nlysis buffer mix\nto each well. Cover with appropriate lids. Spin down.\nSnap freeze on\ndry ice\n. Store until use at -80 \u00b0C\n2) Sort single cells and multiplets\n(aggregates of multiple cells)\nSort into wells containing 2 \u00b5l\nlysis buffer mix.\nMultiplets can be discerned from singlets by gating on the basis of FSC-W (Forward scatter - Width) and FSC-H (Forward scatter - Height) (see\nFigure 1\n).\nFollowing sort, immediately seal with appropriate seals (approved for -80\u00b0C) and centrifuge at 2000 x g, 4\u00b0C, 5 min. Snap freeze on\ndry ice\n. Store until use at -80 \u00b0C.\n3) Primer annealing\nNOTE: Perform steps 3 and 4 as quickly as possible in order to prevent RNA degradation\nThaw plate and spin down briefly. Incubate in thermocycler at 72\u00b0C for 3 min to anneal primers. Place on ice immediately.\n4) Reverse transcription\nPrepare RT master-mix:\nReagent - Reagent volume\nSmartScribe - 0.475\u03bcl\nRNase Inhibitor - 0.125\u03bcl\n5x First Strand buffer - 1\u03bcl\nDTT (100mM) - 0.25\u03bcl\nBetaine (5M) -\t1\u03bcl\nMgCl2 (1M) - 0.03\u03bcl\nTSO (100uM) - 0.05\u03bcl\nH20 - 0.07\u03bcl\nTotal - 3\u03bcl\nDispense 3\u00b5l per well, cover plate with new film and spin down. Incubate in thermocycler:\n42\u00b0C for\n90min.\n70\u00b0C for 5 min.\n4\u00b0C hold.\n4) cDNA preamplification:\nPrepare cDNA preamplification mix:\nReagents - Reagent volume\nH2O - 1.0688\u03bcl\nKapa HiFi HotStart ReadyMix (2x) - 6.25\u03bcl\nIS_PCR primer (10uM) - 0.125\u03bcl\nLambda Exonuclease - 0.05625\u03bcl\nTotal - 7.5\u03bcl\nDispense 7.5 \u00b5l per well. Total reaction volume will be 12.5\u00b5l. Spin down and cover with new lid. Incubate in thermocycler with the following program:\n1 cycle:\n37\u00b0C for 30 min.\n95\u00b0C for 3 min.\nRepeat 18-24 cycles (depending on initial RNA concentration):\n98\u00b0C for 20 sec.\n67\u00b0C for 15 sec.\n72\u00b0C for 4 min.\n1 final elongation cycle:\n72\u00b0C 5 min.\n4\u00b0C min. hold\n5) cDNA cleanup\nFor cDNA cleanup we prepare SPRI-beads in 20% PEG-8000 solution as described in:\nhttps://openwetware.org/wiki/SPRI_bead_mix#Ingredients_for_50_mL_2\nUsing 20% SPRI-bead solution:\ni. Add 0.7x the reaction volume of SPRI beads per well. Mix well by pipetting. (i.e 8.75 \u00b5l SPRI-bead solution for 12.5 \u00b5l reaction volume)\nii. Incubate 5 min. Room temperature\niii. Place on magnetic stand for 3 min.\niv. Carefully remove supernatant\nv. Add 40 \u00b5l 80% EtOH and incubate 30 sec.\nvi. Remove EtOH (without disturbing the beads)\nvii. Wash again with EtOH. Make sure to remove as much ethanol as possible.\nviii. Allow beads to air-dry for 10 - 15 min.\nix. Remove plate from magnetic stand\nx. Elute beads in 15 \u00b5l EB or TE buffer. Mix well by pipetting\nxii. Incubate 5 min. Room temperature\nxiii. Place on magnetic plate for 3 min.\nxiv.\nOptional: Carefully transfer supernatant to a new plate\n6)\ncDNA quantification\nIn order to normalize cDNA amounts, measure concentration of randomly selected wells using Qubit HS dsDNA, adapted to a 96-well plate reader (May also be performed using standard Qubit protocol). Concentrations should be sampled both from wells containing single cells and multiplets in order to normalize separately.\ni. Add 97 \u00b5l of 1X Qubit HS dsDNA solution to a flat-bottom, black plate\nii. Add 3 \u00b5l of cDNA sample\niii. Add Standards (NOTE: We make a 8-step ladder from 0ng/\u00b5l --> 10ng/\u00b5l Qubit Standard DNA in TE buffer)\niv. Read in plate reader using 485nM excitation/528nm emission\nv. Calculate average well cDNA concentration for single cells and multiplets respectively\n7)\n(optional) cDNA quality control\nUsing Agilent HS 5000 DNA chips (or equivalent) to profile cDNA fragment lengths (See example cDNA profile in Fig. 2.).\n8) Dilute cDNA\nDilute cDNA in water based on average concentration from Qubit measurements.\nTarget concentration is 150pg/\u00b5l per well.\n9) Tn5 digestion\nTn5 is produced from psfTn5 (Addgene #79107), purified to ~3mg/ml and assembled with Illumina Tn5 adapters (see oligos in Reagents) as in Picelli et al, 2014 (Ref. 1).\nPrepare Tn5 master mix:\nNOTE\n:\nTAPS-PEG Buffer contains PEG, which is viscous. Buffer should equilibrate to room temperature before use to allow proper mixing.\nReagent - Reagent volume\nNuclease free H2O - 1.05\u00b5l\nTAPS-PEG (50mM TAPS, 25mM MgCl2, 40% PEG-8000) - 0.5\u00b5l\npsfTn5 (loaded with 50\u00b5M MEDS-A/B) - 0.25\u00b5l\nTotal - 1.8\u00b5l\nDispense 1.8 \u00b5l per well in a new plate (tagmentation plate).\nAdd 0.7 \u00b5l cDNA (normalized to 150pg/\u00b5l) to tagmentation plate\nCover with new lid, mix well by vortexing plate and spin down.\nIncubate in thermocycler at 55\u00b0C for 10 min.\nRemove immediately and stop the reaction by adding 1\u00b5l of 0.1% SDS per well.\nVortex, spin down and incubate 7 min. at Room temperature\n10) cDNA library PCR and barcoding\nMake PCR master-mix:\nReagents\n-\nReagent volume:\nH2O\n-\n13.25\u00b5l\n5x buffer\n-\n5\u00b5l\ndNTPs\n-\n0.75\u00b5l\nKAPA\n-\n0.5\u00b5l\nTotal\n-\n19.50\u00b5l\nDispense 19.5 \u00b5l per well to tagmentation plate (containing 3.5 \u00b5l sample after step 9)\nAdd primers/barcodes:\nDispense 2 \u00b5l per well (from 384-well index plates, with 3.75\u00b5M/each forward/reverse primers;\nsee oligos in materials\n).\nTotal reaction volume is 25 \u00b5l (3.5 \u00b5l sample + 19.5 \u00b5l PCR mix and 2 \u00b5l primers).\nCover, vortex and spin down. Incubate in thermocycler as follows:\n1 cycle:\n72\u00baC\t3 min.\n95\u00baC\t30 sec\n12 cycles:\n95\u00baC\t15 sec\n67\u00baC\t30 sec\n72\u00baC\t45 sec\n1 cycle:\n72\u00baC\t4 min\n4\u00baC\thold\nFollowing barcoding, pool 2.5\u00b5l from each well to an 1.5ml Eppendorf tube.\n11) Library cleanup\ni. Add 0.9x pooled library volume of SPRI-bead solution. Incubate for 5 min. at room temperature.\nii. Place on magnetic rack for 3 min.\niii. Remove supernatant without disturbing magnetic beads.\niv. Add at least 1 mL 80% EtOH (fresh). Incubate for 30 sec.\nv. Remove supernatant.\nvi. Repeat EtOH wash.\nvii. Air dry for 10 - 15 min.\nviii. Re-suspend beads thoroughly in 100 \u00b5l EB or TE buffer.\nix. Place eppendorf on magnetic rack for 3 min.\nx. Transfer supernatant to new 1.5ml Eppendorf tube.\nxi. Repeat cleanup (from step 1-7) and elute in 30\u00b5l EB or TE buffer.\nxii.\n(Optional) Place eppendorf on magnetic rack for 3 min. and transfer supernatant to new tube.\n12) Library quality control\nUse Agilent HS 5000 DNA chips (or equivalent) to profile cDNA fragment lengths (See example cDNA profile in Fig. 3).\n13)\nSequencing\nPool libraries and sequence on Illumina sequencing platform of choice according to manufacturers instructions (For data generated in CIM-seq manuscript barcoded libraries were subjected to 75 bp single read sequencing on the Illumina NextSeq 550 instrument).\nB) Feature selection and clustering (Seurat)\n1. Data alignment and pre-processing\nA series of pre-processing steps must be performed in order to generate a counts file:\ni. Trim reads, remove adapter sequences and align RNAseq data to reference genome using STAR (Ref. 2)\nii. Remove duplicate reads using Picard (Ref. 3)\niii. Generate transcript counts file using HTSeq (Ref. 4)\n2. Data preparation for CIM-seq\nOnce a counts file has been generated the data can be analyzed. CIM-seq requires five arguments in order to run:\ni. The raw counts data with gene IDs as row names and sample IDs as column names.\nii. The ERCC spike-in counts data with gene IDs as row names and sample IDs as column names (Well based CIM-seq only).\niii. The dimensionality reduced representation of the data.\niv. A classification for each of the individual singlets.\nv. A set of marker genes to be used for deconvolution\nIn order to generate the last three of these as well as removing low quality cells from the data set we recommend using the Seurat package in R (Ref. 5), as CIM-seq is implemented in R as well. A number of tutorials for Seurat can be found on the Satijalab website:\nhttps://satijalab.org/seurat/index.html\nC) Multiplet deconvolution\nCIM-Seq can be downloaded from:\nhttps://github.com/EngeLab/CIMseq\nOr installed directly in R using the devtools package and running the command:\ndevtools::install_github(\"EngeLab/CIMseq\")\nThe CIM-Seq Vignette should be followed in order to get an understanding for how the method works and the available arguments:\nhttps://github.com/EngeLab/CIMseq/tree/master/vignettes\n\ufeff"
+        },
+        {
+            "header": "Troubleshooting",
+            "content": ""
+        },
+        {
+            "header": "Time Taken",
+            "content": ""
+        },
+        {
+            "header": "Anticipated Results",
+            "content": ""
+        },
+        {
+            "header": "References",
+            "content": "<p>1. Simone Picelli et al., \u201cTn5 Transposase and Tagmentation Procedures for Massively Scaled Sequencing Projects,\u201d <em>Genome Research</em> 24, no. 12 (December 1, 2014): 2033\u20132040.</p><p>2. Alexander Dobin et al., \u201cSTAR: Ultrafast Universal RNA-Seq Aligner,\u201d <em>Bioinformatics</em> 29, no. 1 (January 1, 2013): 15\u201321.</p><p>3. Aaron McKenna et al., \u201cThe Genome Analysis Toolkit: A MapReduce Framework for Analyzing next-Generation DNA Sequencing Data,\u201d <em>Genome Research</em> 20, no. 9 (September 1, 2010): 1297\u20131303.</p><p>4. Simon Anders, Paul Theodor Pyl, and Wolfgang Huber, \u201cHTSeq\u2014a Python Framework to Work with High-Throughput Sequencing Data,\u201d <em>Bioinformatics</em> 31, no. 2 (January 15, 2015): 166\u2013169.</p><p>5. Yuhan Hao et al., \u201cIntegrated Analysis of Multimodal Single-Cell Data,\u201d preprint at https://www.biorxiv.org/content/10.1101/2020.10.12.335331v1. (October 12, 2020)</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41592-021-01196-2",
+                "date": "2021-07-12 16:08:31",
+                "title": "An unsupervised method for physical cell interaction profiling of complex tissues",
+                "authors": [
+                    "Nathanael Andrews",
+                    "Jason T. Serviss",
+                    "Natalie Geyer",
+                    "Agneta B. Andersson",
+                    "Ewa Dzwonkowska",
+                    "Iva \u0160utevski",
+                    "Rosan Heijboer",
+                    "Ninib Baryawno",
+                    "Marco Gerling",
+                    "Martin Enge"
+                ],
+                "journal": "Nature Methods",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 11220520,
+                "identity": "fb695033-0744-4e80-9ad8-51c5b9f41d2a",
+                "order_by": 0,
+                "name": "Nathanael Andrews",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0003-4139-2904",
+                "institution": "Oncology and Pathology",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Nathanael",
+                "middleName": "",
+                "lastName": "Andrews",
+                "suffix": ""
+            },
+            {
+                "id": 11220521,
+                "identity": "446d8bf2-4dae-421a-a6dc-22e8b9400c72",
+                "order_by": 1,
+                "name": "Martin Enge",
+                "email": "Martin.Enge@ki.se",
+                "orcid": "",
+                "institution": "Oncology and Pathology",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Martin",
+                "middleName": "",
+                "lastName": "Enge",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2021-02-10 10:05:15",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1365/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1365/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 16544973,
+                "identity": "18c0bc39-6cfe-435f-8c67-5676a9aa6a96",
+                "added_by": "auto",
+                "created_at": "2021-12-17 10:08:33",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 997564,
+                "visible": true,
+                "origin": "",
+                "legend": "<p>Gating scheme and result of FSC-W and FSC-H based sort of multiplets (top) and singlets (bottom) using HCT116 cells.</p>",
+                "description": "",
+                "filename": "singletMultipletGating.pdf.png",
+                "url": "https://assets.researchsquare.com/files/pex-1365/v1/dc26a71394091fb3564c6243.png"
+            },
+            {
+                "id": 16545113,
+                "identity": "231bf429-bce3-4ac6-9409-8de73f0a3112",
+                "added_by": "auto",
+                "created_at": "2021-12-17 10:11:33",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 60931,
+                "visible": true,
+                "origin": "",
+                "legend": "<p>cDNA profile of a single cell run on HS D5000 Agilent tapestation</p>",
+                "description": "",
+                "filename": "ExampleSingleCellTapestation.png",
+                "url": "https://assets.researchsquare.com/files/pex-1365/v1/bb5b968cb2a54f23fbc3bdbc.png"
+            },
+            {
+                "id": 16544974,
+                "identity": "39012f60-8af7-452e-b268-e249231c7e1e",
+                "added_by": "auto",
+                "created_at": "2021-12-17 10:08:33",
+                "extension": "png",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 50420,
+                "visible": true,
+                "origin": "",
+                "legend": "<p>cDNA profile of a library of 784 cells (both single cells and multiplets) on HS D5000 Agilent tapestation.</p>",
+                "description": "",
+                "filename": "LibraryExample.png",
+                "url": "https://assets.researchsquare.com/files/pex-1365/v1/8f843ca683e3e7275e0e68a9.png"
+            },
+            {
+                "id": 16545129,
+                "identity": "a7e1c366-0b91-4d74-9367-b6a306c18cf8",
+                "added_by": "auto",
+                "created_at": "2021-12-17 10:11:41",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 724167,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1365/v1/a32d719f-2a26-4ddd-b218-059ce96d9896.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "scRNA-seq, cell-cell interactions, cell communication",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>CIM-seq is a tool for deconvoluting RNA-seq data from cell multiplets (clusters of two or more cells) in order to identify physically interacting cell in a given tissue. The method requires two RNAseq data sets from the same tissue: one of single cells to be used as a reference, and one of cell multiplets to be deconvoluted. CIM-seq is compatible with both droplet based sequencing methods, such as Chromium Single Cell 3\u2032 Kits from 10x genomics; and plate based methods, such as Smartseq2. The pipeline consists of three parts: 1) Dissociation of the target tissue, FACS sorting of single cells and multiplets, and conventional scRNA-seq 2) Feature selection and clustering of cell types in the single cell data set - generating a blueprint of transcriptional profiles in the given tissue 3) Computational deconvolution of multiplets through a maximum likelihood estimation (MLE) to determine the most likely cell type constituents of each multiplet.</p>",
+        "manuscriptTitle": "CIM-seq",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2021-12-17 10:08:31",
+                "doi": "10.21203/rs.3.pex-1365/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "075cd712-d926-4d53-9b11-1eec843fb437",
+        "owner": [],
+        "postedDate": "December 17th, 2021",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 2376483,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 2376484,
+                "name": "Cell Biology"
+            },
+            {
+                "id": 2376485,
+                "name": "Computational biology and bioinformatics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2021-12-17 10:08:31",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

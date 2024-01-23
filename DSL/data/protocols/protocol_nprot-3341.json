@@ -1,0 +1,316 @@
+{
+    "identity": "nprot-3341",
+    "title": "Modified paired end rapid library preparation protocol for 454 GS Junior 8 kb library preparation using Covaris g-tubes and BluePippin electrophoresis",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "In large-scale sequencing centers it is commonplace to have a range of DNA sequencing platforms \\(e.g. 454, Illumina, SOLiD, and PacBio) and also specialized devices for shearing of DNA molecules common in the preparation of paired-end libraries. With the introduction of laboratory-scale devices like the GS Jr and MiSeq there is a shift occurring where DNA sequencing technology is becoming directly accessible within small labs. The ability to perform whole genome sequencing and assembly within a lab is now reasonable to consider for Bacteria using the GS Jr. A crucial type of data for scaffolding of genome assemblies is paired-end data. By generating information from sequencing reads linked across some known or estimated spanning distance, bioinformatic techniques are capable of ordering and orienting contigs produced from shotgun sequencing. In terms of the GS Jr platform the system is inherently capable of sequencing paired-end libraries but there is a challenge for laboratory-scale use as the conventional protocol for library production includes shearing of DNA molecules using a Hydroshear. As a specialized device the Hydroshear represents a significant investment for a laboratory-scale setting and may present a barrier to the use of paired-end sequencing in lab settings. This protocol describes an alternative approach to performing Roche\u2019s Paired End Rapid Library Preparation Method for 8 kb span libraries. This method uses the Corvaris g-tube for DNA fragmentation, eliminating the need for a HydroShear apparatus, and a Sage Science BluePippin electrophoresis platform to size select the 8 kb fragments, eliminating the need for agarose gel electrophoresis and sample recovery using a Whatman Elutrap device. These two modifications allow the protocol to be completed in significantly less time \\(by eliminating an overnight step) and simplify sheared fragment purification. This modified library preparation protocol yielded paired-end libraries meeting all the quality control benchmarks of the original protocol and has been combined with shotgun sequencing on a GS Junior to generate excellent assemblies for a range of Bacteria. The equipment substitutions and associated savings in time provide a practical protocol for laboratory-scale paired-end sequencing on the GS Jr."
+        },
+        {
+            "header": "Reagents",
+            "content": "Reagents unique to modified protocol:\r\n\n\nCovaris g-tube \\(sold as package of 10) - Covaris #: 520079\r\n\n\nSage Science pre-cast gels - Sage Science #: BLF7510\r\n\n\nSage Science control DNA - Sage Science #: CON7504\r\n\n\n\r\n\n\nRegents in common with original Roche paired end rapid library preparation method:\r\n\n\nGS FLX Titanium Library Paired End Adaptors \\(Shared with GS FLX System) - Roche #: 5463343001\r\n\n\nGS Rapid Library Preparation Kit - Roche #: 5608228001\r\n\n\nAMPure XP 5 ml kit - Beckman coulter \\(Agencourt) #: A63880\r\n\n\nGenFind DNA Isolation Tube kit - Beckman coulter \\(Agencourt) #: A41499\r\n\n\nHigh Sensitivity DNA kit \\(for BioAnalyzer) - Agilent #: 5067-4626\r\n\n\nPlasmid-Safe ATP-Dependent DNase \\(10,000 U/ml) - Epicentre biotechnologies #: E3101K\r\n\n\nAmicon Ultra-0.5 ml Centrifugal filters - Fisher Scientific #: UFC501096\r\n\n\nMolecular Biology Grade water - Fisher Scientific #: BP2819-100\r\n\n\nDynabeads M-270 Streptavidin - Life Technologies #: 65305\r\n\n\nQubit BR dsDNA assay kit - Life Technologies #: Q32850\r\n\n\nQubit ssDNA Assay Kit - Life Technologies #: Q10212\r\n\n\nCre recombinase - New England Biolabs #: M0298L\r\n\n\nExonuclease I \\(20,000 U/ml) - New England Biolabs #: M0293L\r\n\n\nBst DNA Polymerase, Large fragment \\(8,000 U/ml) - New England Biolabs #: M0275L\r\n\n\nMinElute PCR Purification Kit \\(50 columns) - Qiagen #: 28004\r\n\n\nFastStart Taq DNA polymerase - Roche #: 12032902001\r\n\n\n1,4-Dithiothreitol \\(ultrapure) - Roche #: 3117006001\r\n\n\nBovine Serum Albumin \\(20 mg/ml) - Roche #: 10711454001\r\n\n\nATP, lithium salt, pH 7 \\(100 mM) - Roche #: 11140965001\r\n\n\nPCR Nucleotide mix \\(10 mM each) - Roche #: 11581295001\r\n\n\nT4 DNA Polymerase \\(1,000 U/ml) - Roche #: 11004794001\r\n\n\nPolynucleotide Kinase \\(PNK) \\(10,000 U/ml) - Roche #: 10633542001\r\n\n\n5 M NaCl - made in-house\r\n\n\n10x TE buffer - made in-house\r\n\n\n100% ethanol - supplied locally\r\n\n\nGeneral lab consumables \\(microfuge tubes, PCR tubes, plugged pipette tips, etc.)"
+        },
+        {
+            "header": "Equipment",
+            "content": "Equipment unique to modified protocol:\r\n\n\nEppendorf 5415R or 5424 or MiniSpin plus microcentrifuge\r\n\n\nSage Science BluePippin electrophoresis platform\r\n\n\n\r\n\n\nEquipment in common with original Roche paired end rapid library preparation method: \r\n\n\nWaterbath\r\n\n\nLabQuake rotator\r\n\n\nMagnetic particle concentrator \\(MPC)\r\n\n\nThermocycler\r\n\n\nQubit fluorometer \\(Life Technologies)\r\n\n\nNitrogen gas tank\r\n\n\nGeneral lab equipment \\(pipettors)"
+        },
+        {
+            "header": "Procedure",
+            "content": "Base protocol is the Paired End Rapid Library Preparation Method Manual, 20 kb and 8 kb Span, GS Junior Titanium Series, March 2012. See attached \"Supplementary Manual\":http://www.nature.com/protocolexchange/system/uploads/3223/original/GSJuniorPairedEndLibraryPrepMethodManual-20kb-8kbSpan_March2012.pdf?1409053168.\r\n\n\n\r\n\n\nModifications by Hill lab \\(Saskatoon) group:\r\n\n\n\r\n\n\nStart with 15 \u00b5g of sample genomic DNA in 150 \u00b5L Tris-HCl pH 8.0 \\(genomic DNA preparation of 100 ng/\u00b5L) - same as original protocol\r\n\n\n\r\n\n\nSection 3.1 - DNA Fragmentation \\(HydroShear) - completely disregard this section. Instead, use Covaris g-tubes.\r\n\n\n\u2022 Save a few \u00b5L of original genomic DNA to visualize on an agarose gel later.\r\n\n\n\u2022 Add the 150 \u00b5L genomic DNA prep to a g-tube. Follow instructions with tubes - Spin in an Eppendorf MiniSpin plus microcentrifuge at 8,600 rpm for 1 min, flip tube over, repeat spin, remove sample from tube.\r\n\n\n\u2022 Keep 2 \u00b5L of the sheared sample to run on an agarose gel later.\r\n\n\n\r\n\n\nSection 3.2 - Fragment End Repair\r\n\n\n\u2022 For 25\u00b0C steps throughout protocol, set waterbath to maintain this temperature. Room temperature does not always work.\r\n\n\n\u2022 Disregard step 3 \\(don\u2019t need this agarose gel).\r\n\n\n\u2022 Step 4m - use the arm on the Labquake to keep the tube from flipping completely over when doing this gentle mixing \\(just rock the tube back and forth).\r\n\n\n\r\n\n\nSection 3.3 - Circularization Adaptor Ligation\r\n\n\n\u2022 Step 1 - change the 2x rapid ligase buffer for 10x rapid ligase buffer \\(New England Biolabs product) and only add 10 \u00b5L \\(reduces mixture to 100 \u00b5L from 190 \u00b5L).\r\n\n\n\u2022 Stop at the end of Step 4 and disregard Steps 5-11. Instead, take the entire sample and load onto a BluePippin cassette. Save a few \u00b5L of the sample pre-loading to run on an agarose gel later.\r\n\n\n\u2022 To load the sample, bring the sample volume to 120 \u00b5L with Tris-HCl pH 8.0 and add 40 \u00b5L BluePippin loading dye. Follow cassette instructions to prepare Blue Pippin cassette and load 4 lanes of a cassette by adding 40 \u00b5L of sample into each lane. Load the 5th lane with BluePippin marker.\r\n\n\n\u2022 Run the BluePippin with the range selection from 5,000-11,000 bp.\r\n\n\n\u2022 When finished, remove the size-selected DNA from the elution well into a microfuge tube and rise the elution chamber with 40 \u00b5L 0.1% Tween 20 solution \\(supplied with BluePippin), adding this to the tube with the sample.\r\n\n\n\u2022 Concentrate and wash the size-selected sample by loading all the BluePippin eluted DNA into an Amicon filter column \\(0.5 mL, 10 K) and spinning for 10 min at 14,000 x g. Discard flow-thru and add 250 \u00b5L Tris-HCl to the column. Spin for 15 min at 14,000 x g. Invert column in a clean collection tube and spin for 2 min at 1,000 x g.\r\n\n\n\u2022 Save a few \u00b5L of concentrated sample to run on an agarose gel later.\r\n\n\n\u2022 Run an agarose gel of the original genomic DNA \\(unsheared), g-tube sheared DNA, sample before BluePipping and sample after BluePippin.\r\n\n\n\u2022 Continue to next section\r\n\n\n\r\n\n\nSection 3.5 - Fill-In Reaction\r\n\n\n\u2022 At Step 3, quantify with Life Technologies\u2019s Qubit BR dsDNA quantification kit. You need to achieve at least 6 ng/\u00b5L to continue.\r\n\n\n\r\n\n\nSection 3.6 - Circularization\r\n\n\n\u2022 No changes to protocol\r\n\n\n\r\n\n\nSection 3.7 - Nebulizer Assembly \\(3.7.1) and DNA Nebulization and Collection/Purification of the Fragmented DNA \\(3.7.2)\r\n\n\n\u2022 No changes to protocol\r\n\n\n\r\n\n\nSection 3.8 - Fragment End Repair\r\n\n\n\u2022 No changes to protocol\r\n\n\n\r\n\n\nSection 3.9 - Immobilization Bead Preparation\r\n\n\n\u2022 For Step 1 - prepare 2x Library Binding Buffer by mixing 5 mL Molecular Biology Grade Water, 4 mL of 5 M NaCl and 1 mL of 10x TE.\r\n\n\n\r\n\n\nSection 3.10 - Adaptor Ligation\r\n\n\n\u2022 For Step 4 - incubate at 25\u00b0C for 1 hour in a thermocycler.\r\n\n\n\r\n\n\nSection 3.11 - Library Immobilization\r\n\n\n\u2022 No changes to protocol\r\n\n\n\r\n\n\nSection 3.12 - Library Amplification\r\n\n\n\u2022 Prepare the PCR mixture as indicated for the sample and a second mixture to run without sample as a negative control. Save a few \u00b5L of the sample PCR after amplification and the negative PCR sample to run on the BioAnalyzer chip at the end.\r\n\n\n\r\n\n\nSection 3.13 - Sizing Mix Preparation\r\n\n\n\u2022 No changes to protocol\r\n\n\n\r\n\n\nSection 3.14 - Final Library Size Selection\r\n\n\n\u2022 No changes to protocol\r\n\n\n\r\n\n\nSection 3.15 - Library Quality Assessment\r\n\n\n\u2022 Step 1 - use BioAnalyzer chip and run the PCR sample and negative control from Section 3.12, as well as the final sample. Also, quantify final sample using Life Technologies\u2019s Qubit ssDNA quantification kit."
+        },
+        {
+            "header": "Timing",
+            "content": "Sections 3.1 to 3.5 can be performed in a day \\(including the BluePippin run). A good spot to pause overnight is either right after the BluePippin run \\(end of Section 3.4) or after the fill-in reaction and quantification \\(end of Section 3.5). Sections 3.5 or 3.6 to the end of Section 3.11 is a good second day of work. Finishing Section 3.12 to 3.15 on the third morning allows for plenty of time to continue on with sequencing emPCR later in that day."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "Things that we have noted:\r\n\n\n\u2022 The AMPure size selection at the end \\(Section 3.13 and 3.14) can be variable, depending on the AMPure lot and day you do it. \r\n\n\n\u2022 We have considered running the BluePippin cassette selecting for the tighter ~500 bp range \\(instead of the larger range in the protocol) to standardize the paired end fragment size and make this selection more precise. However, if the genomic DNA shearing wasn\u2019t precisely around the 8 kb mark, keeping the larger size window gives more DNA to work with and appears to work just fine."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "Figure 1 shows typical results of shearing with the Covaris g-tubes and the purification of appropriately sized fragments using the Blue Pippin. Table 1 shows sequencing metrics generated on the GS Junior apparatus for three bacteria."
+        },
+        {
+            "header": "References",
+            "content": "Paired End Rapid Library Preparation Method Manual, 20 kb and 8 kb Span, GS Junior Titanium Series, March 2012"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 13027,
+                "identity": "a0344ada-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Janet Hill",
+                "email": "janet.hill@usask.ca",
+                "orcid": "",
+                "institution": "Hill Lab",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Janet",
+                "middleName": "",
+                "lastName": "Hill",
+                "suffix": ""
+            },
+            {
+                "id": 13028,
+                "identity": "a0344f49-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Bonnie Chaban",
+                "email": "",
+                "orcid": "",
+                "institution": "Hill Lab",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Bonnie",
+                "middleName": "",
+                "lastName": "Chaban",
+                "suffix": ""
+            },
+            {
+                "id": 13029,
+                "identity": "a0345191-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Jennifer Town",
+                "email": "",
+                "orcid": "",
+                "institution": "Hill Lab",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jennifer",
+                "middleName": "",
+                "lastName": "Town",
+                "suffix": ""
+            },
+            {
+                "id": 13030,
+                "identity": "a0345308-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Matthew Links",
+                "email": "",
+                "orcid": "",
+                "institution": "Hill Lab",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Matthew",
+                "middleName": "",
+                "lastName": "Links",
+                "suffix": ""
+            },
+            {
+                "id": 13031,
+                "identity": "a0345461-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Tim Dumonceaux",
+                "email": "",
+                "orcid": "",
+                "institution": "Hill Lab",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Tim",
+                "middleName": "",
+                "lastName": "Dumonceaux",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2014-07-31 17:07:28",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2014.028",
+        "doiUrl": "https://doi.org/10.1038/protex.2014.028",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2609017,
+                "identity": "48ae5e08-96bf-41f9-b8e5-d665a56fe71e",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:38",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 474256,
+                "visible": true,
+                "origin": "",
+                "legend": "Gel electrophoresis of sheared DNA   Agarose gel of DNA before and after shearing and before and after BluePippin.",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-3341/v1/figure_1.png"
+            },
+            {
+                "id": 2609018,
+                "identity": "b79827ce-8fcd-4874-b787-68f14ae76bf9",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:38",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 40506,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 1.   Sequencing metrics   Sequencing metrics using shotgun and paired-end protocols on the GS Junior (Titanium chemistry). Results are shown for three genomes: Pseudomonas sp. BRG100, Brachyspira sp. KL180, and Pantoea agglomerans isolate 4. ",
+                "description": "",
+                "filename": "figure2.png",
+                "url": "https://assets.researchsquare.com/files/nprot-3341/v1/figure_2.png"
+            },
+            {
+                "id": 2609016,
+                "identity": "0c04ded0-bbbd-4583-aab4-c8e3f04ce20f",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:38",
+                "extension": "png",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 17069,
+                "visible": true,
+                "origin": "",
+                "legend": "flowchart   flowchart of modified paired-end protocol",
+                "description": "",
+                "filename": "figure3.png",
+                "url": "https://assets.researchsquare.com/files/nprot-3341/v1/figure_3.png"
+            },
+            {
+                "id": 13464682,
+                "identity": "f151c868-6916-4af8-af98-f6add8dcb045",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:44:19",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 855275,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-3341/v1/d21e00f7-9202-4556-bed7-87b0217fb672.pdf"
+            },
+            {
+                "id": 2609020,
+                "identity": "cdcd1247-8228-4745-8645-ac6f8c2a5fd0",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:38",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 654692,
+                "visible": true,
+                "origin": "",
+                "legend": "Supplementary Manual   Paired End Library Preparation Method Manual, 20 kb and 8 kb Span",
+                "description": "",
+                "filename": "supplement0.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-3341/v1/supplement_0.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "pyrosequencing, 454 Roche, GS Junior, paired end sequencing, genome sequencing, Covaris g-tube, BluePippin",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "This protocol describes an alternative approach to performing Roche\u2019s Paired End Rapid Library Preparation Method for 8 kb span libraries. This method uses the Corvaris g-tube for DNA fragmentation, eliminating the need for a HydroShear apparatus, and a Sage Science BluePippin electrophoresis platform to size select the 8 kb fragments, eliminating the need for agarose gel electrophoresis and sample recovery using a Whatman Elutrap device. These two modifications allow the protocol to be completed in significantly less time \\(eliminate an overnight step) and require significantly less capital investment in laboratory equipment. This modified library preparation protocol has yielded paired end libraries meeting all the quality control benchmarks the original protocol stipulates and has been combined with sequencing on a GS Junior instrument to generate excellent sequencing results. The equipment substitutions presented allow paired end library preparation to be practical for smaller research groups.",
+        "manuscriptTitle": "Modified paired end rapid library preparation protocol for 454 GS Junior 8 kb library preparation using Covaris g-tubes and BluePippin electrophoresis",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2014-08-26 11:42:40",
+                "doi": "10.1038/protex.2014.028",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a033f128-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "August 26th, 2014",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3167,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 3168,
+                "name": "Microbiology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2014-08-26 11:42:40",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

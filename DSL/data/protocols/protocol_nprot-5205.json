@@ -1,0 +1,287 @@
+{
+    "identity": "nprot-5205",
+    "title": "Target-specific DMS-MaPseq for _in vivo_ RNA structure determination",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "This protocol is used for the _in vivo_ DMS-based chemical probing of RNA structure using target-specific enrichment of RNA species from _S. cerevisiae_, human cells in culture, or _D. melanogaster_ ovaries, providing quantitative RNA structure data encoded as mismatches. In the first step, cells/tissues are treated with DMS, followed by total RNA extraction, DNase treatment, and rRNA depletion. The remaining RNA is used for reverse transcription with gene-specific primers and the thermostable group II intron reverse transcriptase \\(TGIRT), which encodes DMS modifications as mismatches in the cDNA. Using gene-specific primers in a PCR step, the RNA region of interest is amplified with an optimal amplicon length of ~500 nucleotides. The dsDNA product is then subject to NexteraXT tagmentation to randomly fragment and add adaptors for Illumina sequencing. An alternative method that includes a unique molecular index \\(UMI) at the RT step is prepared without tagmentation and used for longer-read sequencing."
+        },
+        {
+            "header": "Reagents",
+            "content": "With the exception of standard laboratory reagents \\(such as RNase-free or molecular-biology grade water, ethanol, buffers, salts, etc.), the following items are used this protocol:\r\n\n\n\r\n\n\nDimethyl sulfate \\(D186309-5ML, Sigma Aldrich)\r\n\n\nBeta-mercaptoethanol \\(M3148, Sigma Aldrich)\r\n\n\nIsoamyl alcohol \\(W205710, Sigma Aldrich)\r\n\n\nAcid phenol or Trizol \\(AM9720 or 15596026, Ambion)\r\n\n\nChloroform \\(BP1145-1 Fisher Scientific)\r\n\n\nRibo-Zero Gold rRNA Removal Kit \\(species-specific product numbers, Epicentre)\r\n\n\nHybridase Thermostable RNaseH \\(H39100, Epicentre)\r\n\n\nTURBO DNase \\(AM2238, Ambion)\r\n\n\nRNA Clean & Concentrator-5 columns \\(R1015, Zymo Research)\r\n\n\nDNase I \\(AM2222, Ambion)\r\n\n\nSUPERase Inhibitor \\(AM2696, Ambion)\r\n\n\nTGIRT-III \\(Ingex)\r\n\n\n0.1 M Dithiothreitol i.e. DTT \\(D9163, Sigma Aldrich), prepared the day of reverse transcription\r\n\n\nRNase H \\(Y9220F, Enzymatics)\r\n\n\nDNA Clean & Concentrator-5 columns \\(D4003, Zymo Research)\r\n\n\nAdvantage HF 2 PCR Kit \\(639123, Clontech)\r\n\n\nNovex TBE Gels \\(varying percentages available, Invitrogen)\r\n\n\nSYBR Gold Nucleic Acid Gel Stain \\(S11494, Invitrogen)\r\n\n\nCostar Spin-X columns \\(8162, Corning)\r\n\n\nGlycoBlue Coprecipitant \\(AM9516, Ambion)\r\n\n\nNexteraXT DNA Library Preparation Kit \\(FC-131-1024, Illumina)\r\n\n\nPCRClean DX beads \\(C-1003, Aline Biosciences)\r\n\n\nPhusion High Fidelity DNA polymerase \\(M0530S, New England Biolabs)\r\n\n\nMiSeq v2 kit \\(varying lengths, Illumina)\r\n\n\nHiSeq 2500 v2 kit or HiSeq 3000/4000 kit \\(varying options, Illumina)"
+        },
+        {
+            "header": "Equipment",
+            "content": "With the exception of standard laboratory equipment \\(such as nuclease-free tubes, centrifuges, thermocyclers, incubators, water baths, etc.), the following items are used this protocol:\r\n\n\n\r\n\n\nEppendorf Thermomixer, for use with 1.5 ml tubes\r\n\n\nBlue light \\(ex. Invitrogen)\r\n\n\nMagnetic rack for 1.5 ml tubes \\(ex. DynaMag-2, 12321D, Thermo Fisher Scientific)\r\n\n\nBioanalyzer \\(Agilent) or Fragment Analyzer \\(Advanced Analytical Technologies)\r\n\n\nHiSeq 2500, HiSeq 4000, or MiSeq sequencer \\(Illumina)"
+        },
+        {
+            "header": "Procedure",
+            "content": "**1. In vivo dimethyl sulfate \\(DMS) modification**\r\n\n\n\r\n\n\n*Cautions before working with DMS:\r\n\n\nDMS is highly toxic and should only be used in a well-ventilated fume hood. We recommend using multiple layers of nitrile gloves such that the exterior layer can be removed and replaced after handling DMS directly. DMS should have a faint yellow color, that will become darker due to oxidation over time. Open a fresh bottle of DMS every six months to ensure freshness and optimal reactivity. DMS will be quenched during the following procedure by BME and resulting liquid waste should be disposed of per your local hazardous waste regulations. With the exception of the centrifugation steps and final steps of total RNA extraction, all steps should be done in a fume hood.\r\n\n\n\r\n\n\na. _S. cerevisiae_\r\n\n\n\r\n\n\n\u25cf Dilute saturated overnight yeast cultures to OD600 of ~0.09, and grow at 30\u00b0C to a final log phase OD600 of 0.5-0.7 at the time of DMS treatment.\r\n\n\n\u25cf Pre-chill a 30 ml stop solution on ice for > 1 hour before DMS treatment. Stop solution contains 15 ml 100% isoamyl alcohol, 9 ml BME, and 6 ml ddH2O. Also prepare and pre-chill a 10 ml wash solution containing 3 ml BME and 7 ml ddH2O. \\(Solutions will phase separate, invert to mix directly prior to use.)\r\n\n\n\u25cf Move 15 ml of log-phase yeast culture into a 50 ml conical and place in a rack submerged in a 30\u00b0C water bath, such that the entire 15 ml culture is just submerged.\r\n\n\n\u25cf Pipet 750 \u00b5l of DMS \\(5% v/v) into the yeast culture, stirring immediately with a serological pipet. Treat the yeast for 4 min, with consistent stirring or swirling of the culture. Culture should remain submerged in the water bath during this time.\r\n\n\n\u25cf Pour ice cold 30 ml stop solution into yeast culture with DMS, cap, invert to mix, and place on ice. The DMS will be fully hydrolyzed by the BME at this point.\r\n\n\n\u25cf Centrifuge 50 ml conical for 4 min at 3,500 x g at 4\u00b0C. Optional: parafilm the lids to minimize the smell of DMS if centrifuge is located outside of a fume hood.\r\n\n\n\u25cf Decant supernatant into DMS/BME waste, will have a small pellet of yeast at the bottom. Pour in ice-cold wash solution, and shake/pipet to resuspend yeast pellet.\r\n\n\n\u25cf Parafilm lid \\(optional) and spin again for 4 min at 3,500 x g at 4\u00b0C.\r\n\n\n\u25cf Decant supernatant into waste. Residual wash solution remaining in tube is fine, and traces of remaining BME in tube will quench any remaining DMS released upon cell lysis.\r\n\n\n\u25cf Add 0.6 ml total RNA lysis buffer \\(6 mM EDTA, 45 mM NaOac pH 5.5) to tube and resuspend yeast pellet by pipet. Move sample to 1.5 ml Eppendorf tube that contains 40 \u00b5l 20% SDS. \r\n\n\n\u25cf Prewarm 0.65 ml of acid phenol in thermomixer at 65\u00b0C. \r\n\n\n\u25cf Move tube with yeast/SDS mixture to 65\u00b0C thermomixer and shake at 1,400 rpm for 30 sec to ensure mixing of SDS.\r\n\n\n\u25cf Add yeast sample to tube with hot acid phenol. Incubate in thermomixer at 65\u00b0C, shaking for 2 min at 1,400 rpm. Note, that DMS-treated RNA can be brittle and high temperature or vortexing steps should be minimized to prevent fragmentation.\r\n\n\n\u25cf Immediately move samples into a dry ice / EtOH bath \\(\n1:1 composition) until frozen,\n3 min.\r\n\n\n\u25cf Spin tubes 3 min at 20,000 x g at room temp and immediately remove top aqueous phase into new 1.5 ml tube, avoiding material at the phase interface.\r\n\n\n\u25cf Add 0.65 ml acid phenol \\(room temperature) to aqueous phase. Incubate at room temperature in thermomixer for 2-3 min, shaking at 1400 rpm.\r\n\n\n\u25cf Spin tubes 3 min at 20,000 x g at room temp and immediately remove top aqueous phase into new 1.5 ml tube, avoiding material at the phase interface.\r\n\n\n\u25cf Add 0.65 ml RNase-free chloroform and vortex at room temperature in thermomixer for 30 sec. Spin tubes 2 min at 20,000 x g at room temp and immediately remove top aqueous phase into new 1.5 ml tube, avoiding material at the phase interface.\r\n\n\n\u25cf Add >1 volume isopropanol \\(ex. 700 \u00b5l) to final aqueous phase. Invert to mix well and chill >30min at -30\u00b0C.\r\n\n\n\u25cf Spin >45 min at 20,000 x g at 4\u00b0C to pellet nucleic acids.\r\n\n\n\u25cf Remove supernatant and wash pellet in 0.75 ml 70-80% EtOH.\r\n\n\n\u25cf Pulse spin tube to collect residual EtOH at the bottom, and remove all liquid with small pipet tip.\r\n\n\n\u25cf Air-dry 5 min and resuspend in 50 \u00b5l 10 mM Tris pH 7.0. May need to add additional volume if the pellet is large.\r\n\n\n\u25cf Nanodrop a 1:10 or 1:100 dilution of RNA sample. Procedure should yield >50-100 \u00b5g RNA.\r\n\n\n\r\n\n\nb. Adherent human cells\r\n\n\n\r\n\n\n\u25cf Begin with a 15 cm2 plate of fully adherent HEK 293T cells in 15 ml media \\(other adherent cell lines will work with the procedure too). \r\n\n\n\u25cf Working a fume hood, remove 10 ml media from the plate into a 50 ml conical and add 200-300 \u00b5l DMS. Shake vigorously to ensure mixing.\r\n\n\n\u25cf Slowly pipette the DMS/media mixture back on the plate by tilting the plate and pipetting into a corner. Note that this step has to be done very carefully to avoid lifting cells from the plate. \r\n\n\n\u25cf Parafilm the plate, and move it to a 37\u00b0C incubator / hybridization oven for 5 min, keeping the plate in a fume hood if possible and swirling occasionally. Some cells may become detached during treatment.\r\n\n\n\u25cf Slowly pipet out the DMS/media into waste.\r\n\n\n\u25cf Add 10 ml of 30% v/v BME \\(diluted in 1 x PBS) and collect the cells into a 15 ml conical using a scraper to scrape the cells from the plate.  \r\n\n\n\u25cf Centrifuge cells at 1000 x g at 4\u00b0C for 3 min; decant the BME solution. \r\n\n\n\u25cf Wash the cells by adding 10 ml of 1 x PBS and repeating the centrifugation step. Decant the PBS. \r\n\n\n\u25cf Add 1 ml Trizol to plate, lysing cells, and extracting total RNA according to the Trizol protocol \\(Optional: if using higher amounts of DMS you may add 10 \u00b5l 100% BME to the Trizol).\r\n\n\n\r\n\n\nc. _D. melanogaster_ ovaries\r\n\n\n\r\n\n\n\u25cf Begin with 100 D. melanogaster ovaries, removed via microdissection and collected in 250 \u00b5l 1 x PBS in an Eppendorf tube. \r\n\n\n\u25cf Add 100-250 \u00b5l DMS to ovaries \\(depending on desired level of modification), shaking at 500 rpm in a thermomixer for 5 min at 26\u00b0C. \r\n\n\n\u25cf Stop the reaction with the addition of 1 ml of 30% v/v BME solution.\r\n\n\n\u25cf Transfer suspension into a sieve, removing DMS/BME liquid. \r\n\n\n\u25cf With ovaries still in the sieve, wash 3 x \\(in a 6 well cell culture plate) with 1 ml of 30% v/v BME, followed by 2 washes with dH2O.\r\n\n\n\u25cf After final wash, collect ovaries from sieve into an Eppendorf tube using a pipette.\r\n\n\n\u25cf Remove residual dH2O, and resuspend in 1 ml Trizol\r\n\n\n\u25cf Grind ovaries in Trizol.\r\n\n\n\u25cf Extract total RNA according to Trizol protocol.\r\n\n\n\r\n\n\n**2. DNase Treatment**\r\n\n\n\r\n\n\n\u25cf Starting with 5 \u00b5g of total RNA in 17 \u00b5l 10 mM Tris 7.0 or RNase-free H2O, add 2 \u00b5l of 10x TURBO DNase Buffer and 1 \u00b5l of TURBO DNase to produce at 20 \u00b5l reaction. Mix well.\r\n\n\n\u25cf Incubate 30 min at 37\u00b0C.\r\n\n\n\u25cf Use RNA Clean & Concentrator-5 columns to clean-up the reaction, following the manufacturer small RNA elimination procedure. Elute sample from the column with 6 \u00b5l RNase-free water. Add another 6 \u00b5l of water to the column and elute again into the same tube, collecting ~11 \u00b5l of final volume.\r\n\n\n\r\n\n\n\r\n\n\n**3. rRNA depletion**\r\n\n\n\r\n\n\na. Ribo-Zero\r\n\n\n\r\n\n\n\u25cf Using entire DNase-treated RNA sample \\(<5 \u00b5g), follow protocol instructions for the depletion of rRNA.\r\n\n\n\u25cf Instead of a final EtOH precipitation as described in the Ribo-Zero protocol, the final supernatant removed from beads was cleaned by RNA Clean & Concentrator-5 column, using the small RNA elimination procedure and eluted 2 x 6 \u00b5l RNase-free H2O as above.\r\n\n\n\r\n\n\nb. RNase H\r\n\n\n\r\n\n\nIn the event that Ribo-Zero is not available for a particular species or is not cost-effective, the following RNase H protocol may be used. Some troubleshooting may be required when using new RNA subtraction oligos.\r\n\n\n\u25cf Begin with <5 \u00b5g of DNase-treated RNA, which has been depleted of small RNA species by RNA Clean & Concentrator-5 columns.\r\n\n\n\u25cf Combine RNA with 5 \u00b5g of published RNase H oligos\n1\nin a total volume of 30 \u00b5l 1x Hybridization buffer \\(200 mM NaCl, 100 mM Tris pH 7.5). \r\n\n\n\u25cf Incubate reaction at 68\u00b0C for 1 min in a thermocycler, then ramp down the temperature at a rate of 1\u00b0C / min down to 45\u00b0C. \r\n\n\n\u25cf Add MgCl2 to a 10 mM final concentration, and add 3 \u00b5l of Hybridase Thermostable RNase H, followed by a 30 min incubation at 45\u00b0C. \r\n\n\n\u25cf Purify the reaction by RNA Clean & Concentrator-5 column with the small RNA elimination procedure, eluting once in 6 \u00b5l RNase-free water.\r\n\n\n\u25cf Use DNase I \\(Ambion) by following manufacturer instructions and a final RNA Clean & Concentrator-5 column clean-up to remove excess RNase H subtraction oligos.\r\n\n\n\r\n\n\n**4. Reverse Transcription**\r\n\n\n\r\n\n\n\u25cf Start with 20-100 ng of DNase-treated and rRNA-depleted RNA in 5 \u00b5l 10 mM Tris pH 7.0 for a 10 \u00b5l reaction volume in a 0.2 ml PCR tube.\r\n\n\n\u25cf Add 2 \u00b5l 5x First Strand Synthesis buffer \\(final reaction concentration of 50 mM Tris-HCl pH 8.3, 75 mM KCl, 3 mM MgCl2), 1 \u00b5l 10 M gene-specific RT primer \\(Tm > 60.5\u00b0C), 1 \u00b5l 10 mM dNTPs, 0.5 \u00b5l 0.1 M DTT, 0.5 \u00b5l \\(i.e. 100 U) TGIRT-III, and 0.5 \u00b5l SUPERase Inhibitor. Mix. \r\n\n\n*The 0.1M DTT stock is prepared freshly from powder the day of reverse transcription. Additionally, fresh aliquots of all RT components, including the primer, should be used when possible.\r\n\n\n*It is possible to combine multiple gene-specific primers in a single RT reaction. We have tested up to five in combination, adding 0.5 \u00b5l of each RT primer and excluding additional water.\r\n\n\n*Reverse transcription can also be completed with an anchored oligo dT\\(42) primer, recommended in a 20 \u00b5l reaction.\r\n\n\n\u25cf Incubate reaction at 57\u00b0C for 2 hours in a thermocycler with a heated lid.\r\n\n\n\u25cf Move reaction to ice, and add 1 \u00b5l of RNase H \\(Enzymatics) to release cDNA from RNA:DNA hybrids. Mix.\r\n\n\n\u25cf Incubate RNaseH reaction for 20 min at 37\u00b0C.\r\n\n\n*RNA hydrolysis by the addition of 1 \u00b5l 5M NaOH and incubation at 95\u00b0C for 3 min can be used instead of RNase H.\r\n\n\n\u25cf Optional: Purify cDNA using the ssDNA procedure for DNA Clean & Concentrator-5 columns, eluting 2 x 6 \u00b5l with RNase-free water\r\n\n\n\r\n\n\n\r\n\n\n**5. PCR**\r\n\n\n\r\n\n\nReactions will be described for 50 \u03bcl total reaction volume, but this can be scaled down to 20 \u03bcl. Additional options/variations of the PCR protocol can be found under the troubleshooting section of this protocol. PCR primers should be designed with Tm > 62\u00b0C. The reverse PCR primer used here may be the same primer as used for reverse transcription above, and the ideal PCR product size will be 300-600 nucleotides in length and begin only slightly 5\u2019 of the RT primer binding site. Longer amplicons \\(~2 kb) can be amplified successfully if highly abundant, ex. rRNA. To assess the success of a PCR amplification, we recommended running two PCR reactions in parallel\u2014one that is limited in cycle number according to the following instructions and another with a high number of PCR cycles that can be easily visualized on an agarose or TBE polyacrylamide gel.\r\n\n\n\r\n\n\n\u25cf Start with 1 \u00b5l from the purified cDNA above \\(~ 1/12 of the sample).\r\n\n\n\u25cf Set up 50 \u00b5l PCR reaction using the Advantage HF 2 PCR kit and its included HF buffer, dNTPs, and 1 \u00b5l 50 x HF polymerase. Add 1 \u00b5l 10 M of each PCR primer, using fresh primer aliquots for optimal PCR amplification. \r\n\n\n\r\n\n\nPCR Program\r\n\n\nInitial denaturation: 94\u00b0C, 1 min\r\n\n\n\r\n\n\n10 cycles with the following settings:\r\n\n\nDenaturation: 94\u00b0C, 30 sec\r\n\n\nExtension: 65\u00b0C, 1.5 min\r\n\n\n\r\n\n\n20-25 cycles with the following settings:\r\n\n\nDenaturation: 94\u00b0C, 30 sec\r\n\n\nExtension: 57\u00b0C, 1.5 min\r\n\n\n\r\n\n\n\u25cf Run 5 \u00b5l of each PCR product on 1% Agarose gel to validate the expected product size. Will pool PCR products from remaining reaction volume, not used for the gel.\r\n\n\n\u25cf Combine all desired PCR products \\(in proportion to the band intensities on the agarose gel) to be sequenced into one tube. \r\n\n\n\u25cf PCR clean up using DNA Clean & Concentrator-5 columns, proceed to step 6. \r\n\n\n\r\n\n\nOptional: If there are unexpected bands during the PCR or the bands are highly contaminated with smears, gel purify the PCR products using the following protocol: \r\n\n\n\r\n\n\n\u25cf Run 3 \u00b5l of PCR product on 8% TBE polyacrylamide gel at 180 V for 50 min. \\(Run time will depend on size of dsDNA product, and amount of input material will vary based on robustness of PCR reaction). May run samples from a low and high-number of PCR cycles side-by-side to observe clear band with high amplification, but cut the gel region of corresponding band size from the low amplification product. Note: it is also possible to purify from an agarose gel, particularly if the PCR reaction does not produce other contaminating species.\r\n\n\n\u25cf Stain gel with SYBR Gold, and cut PCR bands using a blue light.\r\n\n\n\u25cf To extract PCR fragment from TBE gel, nest a 0.5 ml Eppendorf tube in a 1.5 ml Eppendorf tube with two holes poked in to the bottom of the smaller tube using a 20-gauge needle. Place the cut gel piece into the small 0.5 ml tube, and spin the nested tubes at room temperature for 3 min at 20,000 x g.\r\n\n\n\u25cf Move any remaining gel pieces into the bottom of the 1.5 ml tube, and discard the 0.5 ml tube.\r\n\n\n\u25cf Add 300 \u00b5l 0.3 mM NaCl and shake in a thermomixer at 70\u00b0C for 10 min with vigorous shaking \\(1400 rpm). Gel slurry can also be left rotating overnight at 4\u00b0C.\r\n\n\n\u25cf Transfer the gel slurry to a Costar Spin-X column, using a 1 mL pipet tip with the end trimmed using a sterile razorblade. Spin Costar column 3 min at 20,000 x g.\r\n\n\n\u25cf Transfer eluate into fresh 1.5 ml Eppendorf tube.\r\n\n\n\u25cf Add 800 \u00b5l 100% IsOH and 2 \u00b5l GlycoBlue.\r\n\n\n\u25cf Precipitate nucleic acids by placing tube at -30\u00b0C for 30 min or more. \r\n\n\n\u25cf Spin 45 min, 4\u00b0C at max speed \\(20,000 x g).\r\n\n\n\u25cf Remove supernatant. Wash pellet gently with 500 \u00b5l 70-80% EtOH and allow pellet to air dry 5 min. \r\n\n\n\u25cf Resuspend pellet in 5 \u00b5l 10 mM Tris pH 8.0.\r\n\n\n        \r\n\n\n\r\n\n\n**6. Fragment and add adaptors for sequencing**\r\n\n\n\r\n\n\n\u25cf Use 1 ng of dsDNA from PCR for NexteraXT tagmentation, following the manufacturer protocol. \r\n\n\n\u25cf Barcode and amplify tagmentation products using 12 cycles of PCR, using Nextera indices for multiplexing.\r\n\n\n\u25cf Barcoded libraries were cleaned using 1.5x \\(v/v) PCRClean beads, producing a library of 200-300 nucleotides in size.\r\n\n\n\u25cf Libraries were quantified by Fragment Analyzer bioanalysis, pooled for multiplexing if needed, and sequenced on a HiSeq 4000 or other Illumina Nextera-compatible sequencer, using 50 bp single-end reads.\r\n\n\n\r\n\n\n\r\n\n\n**7. Variation of protocol to include a unique molecular index \\(UMI)**\r\n\n\n\r\n\n\nIt may be desirable to use a UMI when it is necessary to use many \\(>35) cycles of PCR to amplify a low abundant RNA species. The UMI, combined with unique mismatch profiles from DMS modification itself, can be used to collapse to unique reads and remove any biases generated during rounds of PCR.\r\n\n\n\r\n\n\n\u25cf Follow the protocol as above through reverse transcription, with one adjustment. The gene-specific RT primer should be designed with 10 random nucleotides on the 5\u2019 end, preceded by a primer-binding overhang that will be used in the first round of PCR \\(see the oMZ282 primer sequence). The Tm of the gene-specific binding region should still be > 60.5\u00b0C.\r\n\n\n\u25cf After RT, use a forward gene-specific PCR primer and oMZ283 for the reverse primer, which complementary to the RT primer overhang. Amplicon size should be chosen based on the sequencing read length used downstream. For example, for a MiSeq 2x150 bp run, amplify PCR regions ~160bp in length to read through entire region in both directions that will remove sequencing errors. Follow the PCR protocol using Advantage HF 2 polymerase as above.\r\n\n\n\u25cf Amplicons were purified by TBE polyacrylamide gel and extracted with a Costar column as described above.\r\n\n\n\u25cf Using 1 \u00b5l of dsDNA from the first PCR, complete a second round of PCR using Phusion in an 18 \u00b5l reaction \\(3.4 \u00b5l 5x HF buffer, 0.4 \u00b5l 10 mM dNTPs, 0.2 \u00b5l Phusion, 11.9 \u00b5l RNase-free H2O, 0.2 \u00b5l 100 M oMZ284, and 1 \u00b5l 10 M indexing oligo) to add indices and adaptors for Illumina sequencing. Libraries were constructed so the UMI was sequenced first using custom Read1 sequencing primer oNTI202.\r\n\n\n\r\n\n\nPCR Program\r\n\n\nInitial denaturation: 98\u00b0C, 30 sec\r\n\n\n\r\n\n\n20-25 cycles with the following settings:\r\n\n\nDenaturation: 94\u00b0C, 15 sec\r\n\n\nAnnealing: 55\u00b0C, 5 sec\r\n\n\nExtension: 65\u00b0C, 10 sec\r\n\n\n\r\n\n\n\u25cf Run out PCR product on 8% TBE gel and gel extract with Costar column as described previously.\r\n\n\nResuspend pellet in 5 \u00b5l 10 mM Tris pH 8.0 and quantify by bioanalysis before sequencing."
+        },
+        {
+            "header": "Timing",
+            "content": "3 days."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "Certain PCR products may be more difficult to amplify than others. Decreasing the DMS modification level, either by altering time or concentration by up to two-fold, may be sufficient to generate a PCR product while still retaining excellent DMS signal. Given low levels of fragmentation that may occur on DMS-treated RNA, decreasing the length of the PCR amplicon could prove helpful, particularly for low abundance RNA targets. For G-rich regions that have the potential to form G-quadruplexes in vitro that might disrupt reverse transcription, we recommend using a higher salt buffer comprised of 200 mM NaCl instead of KCl as described in the protocol. Finally, if needed, one may switch to the Advantage GC 2 PCR kit \\(639119, Clontech) instead of the Advantage HF 2 PCR kit. If using a low fidelity polymerase, it will also be important to amplify a non-DMS treated sample to assess any background signal produced during PCR. \r\n\n\n\r\n\n\nMore generally, we do not use an untreated or denatured RNA structure sample to correct for our DMS-MaPseq signal, but it may prove useful in the case of a low fidelity polymerase, the identification of SNPs or endogenous modifications, or the empirical identification of PCR amplicon boundaries after sequencing."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "This protocol will produce gene-specific libraries ready for sequencing on an Illumina platform."
+        },
+        {
+            "header": "References",
+            "content": "1. Adiconis, X. et al. Comparative analysis of RNA sequencing methods for degraded or low-input samples. Nat. Methods 10, 623\u2013629 \\(2013)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nmeth.4057",
+                "date": "2016-11-07 17:04:52",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 14151,
+                "identity": "a0ce7fa5-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Jonathan S. Weissman",
+                "email": "jonathan.weissman@ucsf.edu",
+                "orcid": "",
+                "institution": "UCSF and Howard Hughes Medical Institute",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Jonathan",
+                "middleName": "S.",
+                "lastName": "Weissman",
+                "suffix": ""
+            },
+            {
+                "id": 14152,
+                "identity": "a0ce8315-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Silvi Rouskin",
+                "email": "srouskin@wi.mit.edu",
+                "orcid": "",
+                "institution": "Whitehead Institute and MIT",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Silvi",
+                "middleName": "",
+                "lastName": "Rouskin",
+                "suffix": ""
+            },
+            {
+                "id": 14147,
+                "identity": "a0ce724e-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Meghan Zubradt",
+                "email": "",
+                "orcid": "",
+                "institution": "Weissman Lab",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Meghan",
+                "middleName": "",
+                "lastName": "Zubradt",
+                "suffix": ""
+            },
+            {
+                "id": 14148,
+                "identity": "a0ce76eb-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Paromita Gupta",
+                "email": "",
+                "orcid": "",
+                "institution": "Rouskin Lab",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Paromita",
+                "middleName": "",
+                "lastName": "Gupta",
+                "suffix": ""
+            },
+            {
+                "id": 14149,
+                "identity": "a0ce798e-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Sitara Persad",
+                "email": "",
+                "orcid": "",
+                "institution": "Rouskin Lab",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Sitara",
+                "middleName": "",
+                "lastName": "Persad",
+                "suffix": ""
+            },
+            {
+                "id": 14150,
+                "identity": "a0ce7cf0-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Alan M. Lambowitz",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Alan",
+                "middleName": "M.",
+                "lastName": "Lambowitz",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2016-09-19 23:07:38",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2016.069",
+        "doiUrl": "https://doi.org/10.1038/protex.2016.069",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2609556,
+                "identity": "446d6c4f-8da5-444d-8e50-3b39a6a3826d",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:00",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 142029,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 1   Primers for UMI Protocol Variation",
+                "description": "",
+                "filename": "figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-5205/v1/figure_1.jpg"
+            },
+            {
+                "id": 13465099,
+                "identity": "2a11229e-c010-49c4-b1c4-0ff89a459310",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:45:39",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 242228,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-5205/v1/836c7fff-3e55-4073-b625-8408c6670f10.pdf"
+            }
+        ],
+        "financialInterests": "Thermostable group II intron reverse transcriptase \\(TGIRT) enzymes and methods for their use are the subject of patents and patent applications that have been licensed by the University of Texas and East Tennessee State University to InGex, LLC. A.M.L. and the University of Texas are minority equity holders in InGex, LLC and receive royalty payments from the sale of TGIRT enzymes and the licensing of intellectual property. The other authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "RNA structure, RNA folding",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "Target-specific dimethyl sulfate mutational profiling with sequencing \\(DMS-MaPseq) is a method suitable for the _in vivo_ investigation of RNA folding on specific or low abundance RNA species. Based on the RNA structure-specific _in vivo_ chemical modification by DMS and the encoding of resultant modifications as mismatches during reverse transcription, it is possible to easily amplify an RNA of interest using this simple and cost-effective RT-PCR strategy. Additionally, this approach can be used to investigate RNA structure heterogeneity under the same physiological conditions, including allele-specific RNA structure differences and structural variation between pre-mRNA and its mature spliced counterparts. Here we describe the target-specific DMS-MaPseq protocol, which produces libraries suitable for Illumina sequencing and yields excellent RNA structure data for multiple model systems.",
+        "manuscriptTitle": "Target-specific DMS-MaPseq for in vivo RNA structure determination",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2016-11-07 17:10:03",
+                "doi": "10.1038/protex.2016.069",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a0cd7e77-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "November 7th, 2016",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3705,
+                "name": "Cell biology"
+            },
+            {
+                "id": 3706,
+                "name": "Biochemistry"
+            },
+            {
+                "id": 3707,
+                "name": "Molecular Biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2016-11-07 17:10:03",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

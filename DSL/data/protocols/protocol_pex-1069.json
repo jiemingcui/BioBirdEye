@@ -1,0 +1,343 @@
+{
+    "identity": "pex-1069",
+    "title": "<p>Sample preparation and imaging procedures for fast and multiplexed superresolution microscopy with DNA-PAINT-ERS</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>DNA-PAINT is a recent technique for superresolution imaging based on subdiffractive localization of single fluorescent events<sup>1</sup>. In DNA-PAINT, the single-molecule events are due to transient binding and unbinding between a pair of DNA oligos, one attached to the affinity agent bound to a specific target and designated the docking strand (DS), and the other conjugated to a fluorophore and designated the imaging strand (IS). The fluorescent IS typically diffuses in the imaging buffer and is not visible until it hybridizes with the DS, upon which a distinct, fluorescent spot is detected on the camera. As such, each fluorescent spot arises from a single IS molecule binding to the DS, and the precise location of the DS (and the underlying target molecule) can be determined through subpixel localization of the single-molecule image. Compared with other superresolution microscopy strategies<sup>2,3</sup>, DNA-PAINT has the advantage of convenient multiplexing: multiple targets can each be labeled with a DNA-barcoded affinity agent (e.g. antibody) and imaged sequentially using corresponding IS oligos in multiple cycles. Since the binding between each pair of IS and DS is transient, the IS used for the current target can be easily and cleanly removed via buffer exchange, and the sample is ready for the next round of imaging using an IS for another target. In practice, however, the use of DNA-PAINT had been hampered by the slow imaging speed, with each imaging session typically taking tens of minutes to hours.</p><p><br></p><p>To overcome this limitation, we have introduced a set of strategies for accelerating multiplexed DNA-PAINT imaging. These strategies comprise the addition of ethylene carbonate, a small molecule that increases DS-IS dissociation (off-) rate with little impact on the association (on-) rate, the usage of repetitive docking sequences in the DS to increase IS binding, and the insertion of a short spacer between the DS and the affinity agent to reduce steric hindrance and increase IS binding<sup>4</sup>. These strategies, collectively termed DNA-PAINT-ERS (E=ethylene carbonate, R=repeating sequence, S=spacer), allows completion of superresolution imaging in 2-5 minutes. DNA-PAINT-ERS uses existing DS-IS pairs and workflows with minor modifications that can be easily implemented. Below we provide detailed, step-by-step instructions for performing single- or dual-color DNA-PAINT-ERS imaging of cellular structures including microtubules, clathrin, and caveolae. The procedures can be readily adapted for imaging other targets and in more colors.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p><strong>Reagents and supplies for antibody oligo conjugation</strong></p><p>\u00b7&nbsp;Docking strand (DS) oligo with a 5\u2019 amino modifier C6 and either a 3\u2019 6-FAM or Cy3 fluorophore; HPLC purified (Integrated DNA Technologies)</p><p>\u00b7&nbsp;Imaging strand (IS) oligo with a 3\u2019 amino modifier; HPLC purified (Integrated DNA Technologies)</p><p>\u00b7&nbsp;CF\u00ae660R Succinimidyl Ester (Biotium, 92134) or the NHS-ester of another dye of choice</p><p>\u00b7&nbsp;DBCO-PEG12-NHS ester (BroadPharm, BP-24149)</p><p>\u00b7&nbsp;DBCO-PEG4-NHS ester (Click Chemistry Tools, A134</p><p>\u00b7&nbsp;DBCO-Sulfo-NHS ester (Click Chemistry Tools, A124)</p><p>\u00b7&nbsp;Azido-PEG4-NHS ester (Click Chemistry Tools, AZ103)</p><p>\u00b7&nbsp;Invitrogen\u2122 ultraPure\u2122 DNase/RNase-Free Distilled water (Fisher Scientific, 10977023)</p><p>\u00b7&nbsp;Sodium bicarbonate (Fisher Scientific, M-14636)</p><p>\u00b7&nbsp;Sodium acetate (Sigma, 55636)</p><p>\u00b7&nbsp;Ethanol 200 proof (Fisher Scientific, 04355223)</p><p>\u00b7&nbsp;AffiniPure Donkey anti-Rabbit IgG (H+L) (Jackson Immuno Research, 711-005-152)</p><p>\u00b7&nbsp;AffiniPure Donkey anti-Mouse IgG (H+L) (Jackson Immuno Research, 715-005-150</p><p>\u00b7&nbsp;Gibco\u2122 Dulbecco\u2019s Phosphate-Buffered Saline (PBS) (Fisher Scientific, 14190-144)</p><p>\u00b7&nbsp;50 kDa Millipore Sigma\u2122 Amicon\u2122 ultra Centrifugal Filter Units (Fisher Scientific, UFC505096)</p><p>\u00b7&nbsp;100 kDa Millipore Sigma\u2122 Amicon\u2122 ultra Centrifugal Filter Units (Fisher Scientific, UFC510024)</p><p><br></p><p><strong>Reagents and supplies for sample preparation and imaging</strong></p><p>\u00b7&nbsp;Beta tubulin monoclonal antibody (ThermoFisher Scientific, 32-2600)</p><p>\u00b7&nbsp;Anti-clathrin heavy chain antibody (abcam, ab21679)</p><p>\u00b7&nbsp;Anti-caveolin-1 antibody (abcam, ab2910)</p><p>\u00b7&nbsp;Paraformaldehyde (Sigma, P6148)</p><p>\u00b7&nbsp;Triton X-100 (Sigma, X100)</p><p>\u00b7&nbsp;25% glutaraldehyde (Millipore Sigma, G6257)</p><p>\u00b7&nbsp;Bovine serum albumin (Fisher Scientific, BP1600)</p><p>\u00b7&nbsp;Sodium hydroxide (Fisher Scientific, S318-100)</p><p>\u00b7&nbsp;Sodium borohydride (Sigma, 452882)</p><p>\u00b7&nbsp;Invitrogen\u2122 Salmon Sperm DNA (Fisher Scientific, AM9680)</p><p>\u00b7&nbsp;Sodium azide (Fisher Scientific, AC190381000)</p><p>\u00b7&nbsp;Dulbecco\u2019s Phosphate Buffered Saline with calcium and magnesium (PBS+) (Fisher Scientific, 14-040-182)</p><p>\u00b7&nbsp;50 nm gold particles (BBI Solutions, EM.GC50/4)</p><p>\u00b7&nbsp;PIPES (Sigma, P6757)</p><p>\u00b7&nbsp;HEPES (Fisher Scientific, BP310-500)</p><p>\u00b7&nbsp;EGTA (Fisher Scientific, O2783-100)</p><p>\u00b7&nbsp;MgSO4 (Acros, 4138-5000)</p><p>\u00b7&nbsp;10 M potassium hydroxide (Sigma, 221473)</p><p>\u00b7&nbsp;Ethylene carbonate (Fisher Scientific, AC118412500)</p><p>\u00b7&nbsp;U2OS cells (ATCC, HTB-96)</p><p>\u00b7&nbsp;Gibco DMEM (ThermoFisher, 11995073)</p><p>\u00b7&nbsp;Phenol red-free DMEM (Fisher Scientific, 21-063-045)</p><p>\u00b7&nbsp;Fetal bovine serum (Fisher Scientific, 26-140-079)</p><p>\u00b7&nbsp;0.25% Trypsin-EDTA (Thermo Fisher, 25200056)</p><p>\u00b7&nbsp;Corning tissue culture dishes (Fisher Scientific, 08-772-22)</p><p>\u00b7&nbsp;Lab-Tek\u00ae II eight-well chambered coverglasses (ThermoFisher Scientific, 155360)</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>1. Tabletop centrifuge operating at 4 \u00b0C such as the Eppendorf 5424R or another model that goes to 20,000 xg or higher with refrigeration or placed in a cold room, for protein purification using size exclusion or other types of columns;</p><p>2. -80 \u00b0C freezer (or -20 \u00b0C) for DNA precipitation and long-term storage of reagents such as antibody-oligo conjugates;</p><p>3. UV-Vis spectrometer such as Nanodrop 2000 (ThermoFisher) for meausring concentrations of DNA, protein, and fluorophores;</p><p>4. Tissue culture incubator and biosafety hood;</p><p>5. Commercial or custom single-molecule superresolution microscopy setup. As an example, the custom superresolution microsocope setup used in the demonstrations in this protcol comprises the following: </p><p>Three lasers emitting at 488 nm (Coherent Sapphire 488, 200 mW), 561 nm (Opto Engine LLC, 150 mW), and 647 nm (Coherent OBIS 647, 140 mW) were combined and introduced into the back of a Nikon Ti-U microscope equipped with a 60\u00d7 TIRF objective (Nikon, Oil immersion, NA 1.49). An f=400 mm lens was placed at the back port of the microscope to focus the collimated laser light to the back aperture of the objective to achieve through-objective total internal reflection (TIR) illumination. The excitation light can be continuously tuned between epi-fluorescence and strict TIR modes by shifting the incident laser horizontally with a translational stage before entering the back port of the microscope. A custom focus stabilizing system based on detection of the reflected excitation laser was used to stabilize the focus during data acquisition. A multi-edge polychroic mirror (Semrock, Di01-R405/488/561/635) was used to reflect the lasers into the objective and clean up fluorescence signals from the sample. Emission filters used for the 488 nm (for imaging FAM on the DS), 561 nm (for imaging Cy3 on the DS), and 647 nm (for imaging CF660R conjugated imager strands) were FF01-525/45, FF01-605/64, FF01-708/75, respectively (all from Semrock). Fluorescence signals were collected through the objective by an electron-multiplied charge-coupled device (EM-CCD, Andor, iXon Ultra 897) using a typical EM gain setting at 200-300 in frame transfer mode.</p><p><br></p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "Antibody oligo (DS) conjugation\nI. Preparing DS-PEGx-DBCO\n1.\u00a0Suspend DS oligos in ultra-pure water for a 1 mM concentration\n2.\u00a0Combine 20 \u00b5l of DS oligo (1 mM), 19 \u00b5l of ultra-pure water, and 8.5 \u00b5l of freshly made 1M NaHCO\n3\n. Vortex, then add 2.5 \u00b5l of desired DBCO-PEGx-NHS ester linker (DBCO-PEG12-NHS ester, DBCO-PEG4-NHS ester, or DBCO-Sulfo-NHS; 10 mM stocks in DMSO). Vortex and run reaction for 3 hours at room temperature with gentle shaking\n3. Add 500 \u00b5l of 100% EtOH and 50 \u00b5l of 3M sodium acetate. Vortex, then leave in -80\u00b0C overnight\n4.\u00a0Spin for 30 min at ~20,000 g at 4\u00b0C\n5.\u00a0Remove supernatant, add 500 \u00b5l ETOH, vortex, and spin for 5 min at ~20,000 g in 4\u00b0C. Repeat 3 times\n6.\u00a0After the last wash, remove supernatant and add 50 \u00b5l of ultra-pure water, 100% EtOH and 50 \u00b5l of 3M sodium acetate. Vortex, then leave in -80\u00b0C overnight\n7.\u00a0Repeat DNA centrifugation and purification once as described earlier\n8.\u00a0Measure DS-PEG concentration with NanoDrop UV-Vis spectrophotometer and record ratio of absorbance values at 260 nm (for DNA) and 495 nm (for 6-FAM) or 550 nm (for Cy3\u2122)\nII. Preparing antibody-PEG\n4\n-azide\n1.\u00a0Mix 100 \u00b5l of antibody with 10 \u00b5l of freshly made 1 M NaHCO\n3\n2.\u00a0Add azido-PEG\n4\n-NHS in 100x molar excess (around 1 \u00b5l if using 100 mM stocks in DMSO)\n3.\u00a0Vortex and run reaction for 3 hours at room temperature with gentle shaking\n4.\u00a0Flow antibody-PEG\n4\n-azide conjugates through a 50 kDa size exclusion column and wash with PBS 15 times on the column via centrifugation. Centrifuge at 4\u00b0C, 6000 g, 2.5 minutes each spin\n5.\u00a0After the final wash, there should be at least 90 \u00b5l of antibody-azide remaining\nIII. Making antibody-(PEG)\n4+x\n-DS\n\ufeff\n1.\u00a0Add DS-PEGx-DBCO in 5x molar excess to the antibody-azide conjugate. Vortex and run reaction overnight at room temperature with gentle shaking\n2.\u00a0Add 0.1% sodium azide to quench reaction (at ~1:10 v/v ratio to the reaction mixture)\n3.\u00a0After one hour, flow antibody-DS conjugates through a 100 kDa size exclusion column and wash with PBS 5 times on the column via centrifugation. Centrifuge at 4\u00b0C, 6000 g, 2.5 minutes each spin. The final product (antibody-PEG4+x-DS) should be suspended in ~90 \u00b5l PBS\n4.\u00a0Measure antibody concentration with NanoDrop UV-Vis spectrophotometer. Calculate DOL using peak absorbance values at 280 nm (for DNA), 495 nm (for 6-FAM) or 550 nm (for Cy3\u2122), correcting for DNA absorbance contribution at 260 nm\nImaging strand conjugation\n1.\u00a0Make a 10 mg/ml\u00a0stock of CF\u00ae660R Succinimidyl Ester (or another NHS-ester of another dye of choice) in DMSO; store as aliquots and keep at -80\u00b0C\n2.\u00a0Add 5 \u00b5l of IS oligo (1 mM) to 40.5 \u00b5l of freshly made 0.1 M NaHCO\n3\n. Vortex, then add 4.5 \u00b5l of dye (10 mg/ml). Vortex and run reaction for 3 hours at room temperature with gentle shaking\n3.\u00a0Add 500 \u00b5l of 100% EtOH and 50 \u00b5l of 3M sodium acetate. Vortex, then leave in -80\u00b0C overnight\n4.\u00a0Spin for 30 min at ~20,000 g at 4\u00b0C\n5.\u00a0Remove supernatant, add 500 \u00b5l ETOH, vortex, and spin for 5 min, ~20,000 g, 4\u00b0C. Repeat 3 times\n6.\u00a0After the last wash, remove supernatant and dry pellet. Add 20 \u00b5l of ultra-pure water to the final product\n7.\u00a0Measure IS concentration with NanoDrop UV-Vis spectrophotometer. Calculate DOL using 260 nm and 660 nm absorbance values\nSample preparation\nI. Tissue culture\n1.\u00a0Maintain U2OS cells in Gibco DMEM + 10% FBS\u00a0and passage every three to four days\n2.\u00a0Grow cells overnight on 8-well chambered coverglass in phenol red-free DMEM for 50-60% confluency the next day\nII. immunostaining of unextracted U2OS cells\n3.\u00a0For immunostaining of clathrin or caveolin, quickly wash cells with PBS 1x and then fix with cold 3.7% paraformaldehyde (PFA) in 1x PHEM buffer. Recipe for 2x PHEM buffer: 0.06M PIPES, 0.025M HEPES, 0.01M EGTA, 0.008M MgSO4 in distilled water, with pH adjusted to 7 with 10M potassium hydroxide\n4.\u00a0After two PBS washes, quench with freshly made 0.1% sodium borohydride in PBS for 7 minutes\n5.\u00a0Wash with PBS 3 times and permeabilize with 0.5% saponin in PBS for 20 minutes\n6.\u00a0For immunostaining of microtubules, fix cells with 3.7% PFA and 0.1% glutaraldehyde (GA) in 1x PHEM for 20 min before quenching with sodium borohydride and permeabilization in 0.2% Triton X-100 in PBS.\n7.\u00a0Block in 5% BSA in PBS for 30 minutes on a gentle rocker\n8.\u00a0Incubate with the primary antibodies for clathrin, caveolin, or tubulin antibody (0.5 mg/mL or 1:200 dilution from stock) in PBS buffer containing 3% BSA and 5% salmon sperm DNA. Let incubation take place on a rocker at room temperature for 1 hour\n9.\u00a0Wash with PBS (3x, 5 minutes each) before incubation with DS-conjugated secondary antibody at a final concentration of ~8 \u00b5g/ml in PBS buffer containing 3% BSA and 5% salmon sperm DNA. Let incubation take place on a rocker at room temperature for 1 hour. Keep sample in the dark from here on out\n10.\u00a0Wash with PBS (3x, 5 minutes each)\nIII. Immunostaining of extracted samples\n1.\u00a0For immunostaining in extracted samples (microtubules alone, or microtubules co-labeled with clathrin), pre-permeabilize cells with cold 0.1% Triton X-100 in 1x PHEM buffer for 45 seconds. Then fix with 3.7% PFA in 1x PHEM for 20 minutes\n2.\u00a0After two PBS washes, quench with freshly made 0.1% sodium borohydride in PBS for 7 minutes\n3.\u00a0For microtubule single staining, follow procedure described earlier for unextracted samples\n4.\u00a0For co-stained samples, further permeablize the cells and block with 3% BSA and 0.2% Triton X-100 for 1 hour\n5.\u00a0Label cells with beta-tubulin as described earlier, postfix with 3.7% PFA for 10 minutes, and then stain for clathrin as described earlier.\nIV. Post-fixation and final preparations for imaging\n1.\u00a0For all cell staining procedures, post-fix for 10 minutes with 3.7% PFA and 0.1% GA in 1x PHEM\n2.\u00a0Before imaging, add 150 \u00b5l of 2.5% 50 nm gold particles in PBS+ to cells for 10 minutes. Wash with PBS\n3.\u00a0Add imaging buffer with desired ratios of Buffer C (500 mM), ethylene carbonate, and IS-CF660R at 1-2 nM final concentration. The exact concentration of IS may need to be adjusted depending on the target and based on the imaging kinetics.\nImage acquisition and analysis\n1. Image acqusition should be done accordingly to the configurations of the microscope system used. Here we describe procedures for operating a custom single-molecule superresolution setup based on a Nikon Ti-U microscope frame. Specifics of a custom superresolution setup can be found in the 'Equipment' section\n2. Image analysis and reconstruction for DNA-PAINT could also be performed with custom software including those in the public domain\n5\n. Here we describe . More details can be found in our recent publication by Nickerson et al.\n6\n3. Turn on the microscope, lasers and EMCCD camera. Select 60x Apochromat TIRF objective with 1.49NA and mount the sample by applying index matching oil between the objective and sample\n4.\u00a0Open the laser shutter and bring the sample to focus\n5.\u00a0Adjust TIRF angle such that desired penetration depth is reached\n5.\u00a0Initially set the exposure time (30-50 ms), laser power (~500 W/cm\n2\n), EMCCD gain (200-300), and adjust these parameters as necessary depending on the single-molecule brightness and localization kinetics\n6.\u00a0Engage the auto-focus system and start the acquisition using micromanager\n7\nor another acquisition software of choice\n7.\u00a0Extract the localizations, sorting, and rendering by using in-house Matlab scripts\n6"
+        },
+        {
+            "header": "Troubleshooting",
+            "content": ""
+        },
+        {
+            "header": "Time Taken",
+            "content": ""
+        },
+        {
+            "header": "Anticipated Results",
+            "content": ""
+        },
+        {
+            "header": "References",
+            "content": "<p>1. Jungmann, R., Avenda\u00f1o, M. S., Woehrstein, J. B., Dai, M., Shih, W. M., &amp; Yin, P. Multiplexed 3D cellular super-resolution imaging with DNA-PAINT and Exchange-PAINT. <em>Nat. Meth.</em>, <em>11</em>(3), 313\u2013318 (2014).</p><p>2. Betzig, E., Patterson, G. H., Sougrat, R., Lindwasser, O. W., Olenych, S., Bonifacino, J. S., Davidson, M. W., Lippincott-Schwartz, J., &amp; Hess, H. F. Imaging intracellular fluorescent proteins at nanometer resolution. <em>Science</em>, <em>313</em>(5793), 1642\u20131645 (2006). </p><p>3. Rust, M. J., Bates, M., &amp; Zhuang, X. Sub-diffraction-limit imaging by stochastic optical reconstruction microscopy (STORM). <em>Nat. Meth.</em>, <em>3</em>(10), 793\u2013795 (2006). </p><p>4. Civitci, F., Shangguan, J., Zheng, T., Tao, K., Rames, M., Kenison, J., Zhang, Y., Wu, L., Phelps, C., Esener, S., Nan, X. Fast and multiplexed superresolution imaging with DNA-PAINT-ERS. in revision.</p><p>5. Schnitzbauer, J., Strauss, M. T., Schlichthaerle, T., Schueder, F., &amp; Jungmann, R. Super-resolution microscopy with DNA-PAINT. <em>Nat. Prot.</em>, <em>12</em>(6), 1198\u20131228 (2017).</p><p>6. Nickerson, A., Huang, T., Lin, L.-J., &amp; Nan, X. Photoactivated Localization Microscopy with Bimolecular Fluorescence Complementation (BiFC-PALM). <em>J. Vis. Exp.</em>, <em>106</em>, e53154 (2015).</p><p>7. Edelstein, A. D., Tsuchida, M. A., Amodaj, N., Pinkard, H., Vale, R. D., &amp; Stuurman, N. Advanced methods of microscope control using \u03bcManager software. <em>J. Biol. Meth.</em>, <em>1</em>(2), 10 (2014).</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41467-020-18181-6",
+                "date": "",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 1021757,
+                "identity": "cfd8e728-523a-493d-9a0c-cac9ef2020dc",
+                "order_by": 0,
+                "name": "Fehmi Civitci",
+                "email": "",
+                "orcid": "",
+                "institution": "Oregon Health and Science University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Fehmi",
+                "middleName": "",
+                "lastName": "Civitci",
+                "suffix": ""
+            },
+            {
+                "id": 1022815,
+                "identity": "dcaa3d38-6a5f-49de-bd43-0337366ca145",
+                "order_by": 1,
+                "name": "Julia Shangguan",
+                "email": "",
+                "orcid": "",
+                "institution": "Oregon Health and Science University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Julia",
+                "middleName": "",
+                "lastName": "Shangguan",
+                "suffix": ""
+            },
+            {
+                "id": 1022816,
+                "identity": "87721467-b94c-41dd-af2c-4c0d1d5bc260",
+                "order_by": 2,
+                "name": "Ting Zheng",
+                "email": "",
+                "orcid": "",
+                "institution": "Oregon Health and Science University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Ting",
+                "middleName": "",
+                "lastName": "Zheng",
+                "suffix": ""
+            },
+            {
+                "id": 1022817,
+                "identity": "71dfac54-5b7d-4560-a14a-7115bfe7ab25",
+                "order_by": 3,
+                "name": "Kai Tao",
+                "email": "",
+                "orcid": "",
+                "institution": "Oregon Health and Science University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Kai",
+                "middleName": "",
+                "lastName": "Tao",
+                "suffix": ""
+            },
+            {
+                "id": 1022818,
+                "identity": "618ca23c-4f59-49fd-92da-2c652463674d",
+                "order_by": 4,
+                "name": "Matthew Rames",
+                "email": "",
+                "orcid": "",
+                "institution": "Oregon Health and Science University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Matthew",
+                "middleName": "",
+                "lastName": "Rames",
+                "suffix": ""
+            },
+            {
+                "id": 1022819,
+                "identity": "09cb2188-5ca3-4f5e-94ab-3408280f7998",
+                "order_by": 5,
+                "name": "John Kenison",
+                "email": "",
+                "orcid": "",
+                "institution": "Oregon Health and Science University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "John",
+                "middleName": "",
+                "lastName": "Kenison",
+                "suffix": ""
+            },
+            {
+                "id": 1022820,
+                "identity": "37bbf82a-fd0c-4f22-b49a-87f309d9cc03",
+                "order_by": 6,
+                "name": "Ying Zhang",
+                "email": "",
+                "orcid": "",
+                "institution": "Oregon Health and Science University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Ying",
+                "middleName": "",
+                "lastName": "Zhang",
+                "suffix": ""
+            },
+            {
+                "id": 1022821,
+                "identity": "7ed044a6-56cb-4a5b-a5db-e208d1487c2a",
+                "order_by": 7,
+                "name": "Lei Wu",
+                "email": "",
+                "orcid": "",
+                "institution": "Oregon Health and Science University and Wuhan University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Lei",
+                "middleName": "",
+                "lastName": "Wu",
+                "suffix": ""
+            },
+            {
+                "id": 1022822,
+                "identity": "da8b96c9-d006-4332-9f78-216eee1ab596",
+                "order_by": 8,
+                "name": "Carey Phelps",
+                "email": "",
+                "orcid": "",
+                "institution": "Oregon Health and Science University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Carey",
+                "middleName": "",
+                "lastName": "Phelps",
+                "suffix": ""
+            },
+            {
+                "id": 1022823,
+                "identity": "756d0a86-4e5c-4491-8040-c5da40259cf8",
+                "order_by": 9,
+                "name": "Sadik Esener",
+                "email": "",
+                "orcid": "",
+                "institution": "Oregon Health and Science University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Sadik",
+                "middleName": "",
+                "lastName": "Esener",
+                "suffix": ""
+            },
+            {
+                "id": 1022824,
+                "identity": "2d1bf92f-4977-4f9d-95d2-64ccc8c41229",
+                "order_by": 10,
+                "name": "Xiaolin Nan",
+                "email": "nan@ohsu.edu",
+                "orcid": "",
+                "institution": "Oregon Health and Science University",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Xiaolin",
+                "middleName": "",
+                "lastName": "Nan",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2020-07-24 04:34:58",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1069/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1069/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13586774,
+                "identity": "2632d69d-ad82-48e8-b94d-f82684d1f504",
+                "added_by": "auto",
+                "created_at": "2021-09-17 04:48:25",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 292180,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1069/v1/eab27f42-4e61-48be-9437-8513006cf19f.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "superresolution microscopy, single-molecule localization microscopy, DNA-PAINT, multiplexed imaging, antibody oligonucleotide conjugation, immunofluorescence, DNA hybridization",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>DNA point accumulation for imaging in nanoscale topography (DNA-PAINT) facilitates multiplexing in superresolution microscopy but is practically limited by slow imaging speed. We have developed DNA-PAINT-ERS, where E=ethylene carbonate, R=repeating sequence, and S=spacer, for fast and multiplexed superresolution imaging with DNA-PAINT. Here we describe detailed procedures for DNA-PAINT-ERS including reagent preparation, sample labeling, as well as image acqusition and analysis.</p>",
+        "manuscriptTitle": "Sample preparation and imaging procedures for fast and multiplexed superresolution microscopy with DNA-PAINT-ERS",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2020-09-01 09:12:48",
+                "doi": "10.21203/rs.3.pex-1069/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "f251d91b-4bc4-4299-8f8d-578fd7a8681d",
+        "owner": [],
+        "postedDate": "September 1st, 2020",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 197018,
+                "name": "Biophysics"
+            },
+            {
+                "id": 197019,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 197020,
+                "name": "Optics and photonics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2020-09-01 09:12:48",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

@@ -1,0 +1,226 @@
+{
+    "identity": "pex-474",
+    "title": "<p>Discovery and Interrogation of Functional Protein Modifications by Hotspot Thermal Profiling</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>Recent advances in global profiling methods have greatly accelerated the discovery and study of endogenous protein posttranslational modification (PTM)<sup>1</sup>, which represents a central signaling mechanism in all aspects of cellular function. Chief among these technologies are liquid chromatography-mass spectrometry (LC-MS) proteomics platforms, which are typically integrated with front-end, PTM-specific enrichment protocols to detect modified peptides and proteins from biological samples. Coupled with data-dependent and de-novo PTM discovery algorithms, mass spectrometry-based studies have discovered tens of thousands unique PTM sites on proteins from diverse organisms<sup>2-4</sup>. More recently, quantitative proteomic methods have enabled the dynamics of these sites to be studied in diverse cell states and responses to stimuli<sup>5-7</sup>. A critical question that remains, however, is how minute changes to chemical structure alters the biophysical properties of a much larger protein, and how these changes lead to signaling and phenotypic consequences. The traditional approach to address this problem involves identifying specific modification sites associated with a phenotype of interest, and then laboriously studying the properties of mutant proteins that attempt to mimic the modified protein one-by-one. Because we lack general methods with which to predict, or even prioritize, which modification sites are likely to be functional in the proteome, the downstream study of PTMs is intrinsically inefficient and low-throughput.&nbsp;</p><p><br></p><p>Here we sought to address these limitations by developing a quantitative proteomic method that enables direct, high-throughput interrogation of altered protein stability in response to endogenous, site-specific posttranslational modifications for thousands of proteins in parallel. This method, Hotspot Thermal Profiling (HTP), couples PTM-specific enrichments and isotopic labeling with thermal proteomic profiling to globally detect and quantitatively measure the thermal stability of endogenous proteins and their site-specific, modified proteoforms, which we refer to herein as \u201cmodiforms,\u201d from&nbsp;<em>in vitro&nbsp;</em>and<em>insitu</em>samples. We establish and apply this approach to a ubiquitous yet diminutive PTM \u2013 phosphorylation \u2013 and demonstrate that global thermal profiling of the modified proteome enables specific detection of both inter- and intramolecular interactions on wide range of proteins.&nbsp;</p><p><br></p><p>Our approach is applicable to study posttranslational modifications in diverse organisms and cell types. Before embarking on this protocol, one should first optimize enrichment strategies for the PTM of interest using the appropriate cell lines. Often a large amount of bulk cell lysates is needed for sufficient enrichment. Since our protocol has ten temperature fractions and each fraction is enriched independently before pooling, variable input proteome quantities should be tested for optimal results. Other step-by-step experimental considerations are described in the protocol.&nbsp;</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p>HEK293T (ATCC)</p><p>Iodoacetamide (Sigma Aldrich, I1149)</p><p>Lactic Acid (Sigma Aldrich, 69785)</p><p>Hydroxylamine (Thermo Fisher, 467804)</p><p>Pyrrolidine (Sigma Aldrich, 83240)</p><p>Acetonitrile (Fisher Chemical, 75-05-8 )</p><p>Formic Acid (Fluka Analytical, 94318)</p><p>Trifluoricacetic Acid (Alfa Aesar, 44630)</p><p>EDTA-free protease inhibitor tablet (Roche, 4693132001)</p><p>Phosphatase inhibitor cocktail 3 (Sigma Aldrich, P0044)</p><p>Pierce\u2122 Trypsin Protease, MS Grade (Thermo Pierce, 90057)</p><p>Sep-Pak tC18 cartridges, 50mg (Waters, WAT200685)</p><p>TiO2 spin tips (Thermo Pierce, 88303)</p><p>ZipTip C18 tips, 100 \u00b5L bed (Millipore, 87784)</p><p>TMT10plex\u2122 Isobaric Label Reagent Set (Thermo Fisher, 90406)</p><p>Integrated Proteomics Pipeline (Intergratedproteomics.com)</p><p>R Studio (Rstudio.com)</p><p>TPP Package for R (bioconductor.org/packages/release/bioc/html/TPP.html)</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>Q Exactive HF (Thermo Fisher)</p><p>Easy-nLC 1200 (Thermo Fisher)</p><p>Table top centrifuge</p><p>Thermal cycler</p><p>Lyophilizer</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "Cell Preparation\n1.\u00a0\u00a0\u00a0\u00a0Propagate HEK293T cell in RPMI 1640 media supplemented with 2 mM L-glutamine, 10% fetal bovine serum and 1% penicillin-streptomycin at 37\u00b0C in a 5% CO\n2\nhumidified incubator until five 15-cm cell culture treated plates are grown to 90% confluence.\n|Suggestion| Five 15-cm plates of HEK293T provide ~10 mg of protein lysates. Different cell lines may require different number of plates to provide the desired amount of proteome.\n2.\u00a0\u00a0\u00a0\u00a0Remove media and wash cells once with DPBS.\n3.\u00a0\u00a0\u00a0\u00a0Add 3 mL of DPBS to each plate and gently collect cells from plates with sterile scraper.\n4.\u00a0\u00a0\u00a0\u00a0Wash cells two more times with DPBS by centrifugation at 200\ng\nfor 2 minutes.\n5.\u00a0\u00a0\u00a0\u00a0Resuspend cells in 4 mL of DPBS with EDTA-free protease inhibitor tablet and 1:100 phosphatase inhibitor cocktail 3.\n6.\u00a0\u00a0\u00a0\u00a0Divide live cells into ten aliquots of 400\u00a0mL each (or 40 aliquots of 100\u00a0mL each if thermal cycler tubes are used).\nIn Situ\nThermal Pulse\n7.\u00a0\u00a0\u00a0\u00a0Expose each 400\u00a0mL of cell lysates to a steady temperature between 37\u00b0C to 67\u00b0C for 3 mins in parallel (eg. aliquot #1 at 37\u00b0C for 3 mins, aliquot #2 at 40\u00b0C for 3 mins, etc.)\n|Caution| Cells must be exposed to temperature treatment immediately after collection from plates and all aliquots must be treated in parallel to avoid sample variation due to time delay.\n8.\u00a0\u00a0\u00a0\u00a0After heat treatment, cool and incubate cells at 25\u00b0C for another 3 mins.\n9.\u00a0\u00a0\u00a0\u00a0Immediately lyse cells by rapid freeze-thawing three times with liquid nitrogen.\n10.\u00a0\u00a0Remove insoluble proteins and cell debris by centrifugation at 17,000\ng\nfor 10 mins.\n11.\u00a0\u00a0Set aside a small amount of supernatant from the 37\u00b0C aliquot for protein quantification by Bradford assay.\n|Caution| For high efficiency phosphopeptide enrichment, at least 700\u00a0mg of proteins (preferably 1 mg) should be present in the 37\u00b0C aliquot.\n12.\u00a0\u00a0Collect 360\u00a0mL of lysate from each aliquot. Be careful not to disturb the pellet.\nTrypsin Digestion\n13.\u00a0\u00a0Denature lysates in 8 M urea, followed by disulfide reduction with DTT (10 mM, 30 mins, 65\u00b0C), alkylation (iodoacetamide, 15 mM, 30 min, room temperature, protected from light) and quenching (DTT, 5 mM, 10 mins, room temperature).\n14.\u00a0\u00a0Dilute lysates 4-fold in ammonium bicarbonate solution (50 mM, pH 8.0).\n15.\u00a0\u00a0Add CaCl\n2\n(final concentration 1 mM) and sequencing grade trypsin (~1:100 enzyme/protein ratio) to each aliquot.\n16.\u00a0\u00a0Rotate at 37\u00b0C while rotating overnight.\n17.\u00a0\u00a0Quench peptide digestion reaction by acidification to pH 2-3 with 1% formic acid.\n18.\u00a0\u00a0Desalt peptides with Sep-Pak tC18 cartridges according to manufacturer\u2019s protocol.\n19.\u00a0\u00a0Dry eluted peptides under vacuum and resuspend in 1 mL of LC-MS grade water.\n20.\u00a0\u00a0Reserve 50\u00a0mL or 5% from each aliquot for bulk unmodified proteome thermal profiling.\n21.\u00a0\u00a0Freeze and lyophilize the two sets of peptides (95% and 5%).\nPhosphopeptide Enrichment\n22.\u00a0\u00a0Resolubilize the major fraction of lyophilized peptides (95%) in 28.5% lactic acid, 57% acetonitrile, 0.28% TFA, and applied to TiO\n2\nspin tips (88303, Thermo Pierce) for phosphopeptide enrichment according to manufacturer\u2019s protocol.\n23.\u00a0\u00a0Acidify eluted phosphopeptides with 1% formic acid until pH 2-3.\n24.\u00a0\u00a0Desalt acidified phosphopeptides with ZipTip C18 tips according to manufacturer\u2019s protocol.\n25.\u00a0\u00a0Freeze and lyophilize desalted phosphopeptides.\n|Suggestion| Desalted peptides could be stored -20\u00b0C for months but modified peptides are more sensitive to storage and freeze-thaw cycles. For best results, modified peptides should be analyzed right away.\nTMT Labeling\n26.\u00a0\u00a0Reconstitute TMT reagents to 8 mg/mL with anhydrous acetonitrile.\n27.\u00a0\u00a0Re-dissolve lyophilized peptides in 100\u00a0mL of 200 mM HEPES buffer, pH 8.0. Sonicate with water bath to help with reconstitution.\n28.\u00a0\u00a0Add 10\u00a0mL of reconstituted TMT reagents to each aliquot of peptides. Each aliquot should be labeled by a different isobaric TMT tag.\n29.\u00a0\u00a0Incubate for 1 hour in room temperature with gentle shaking.\n30.\u00a0\u00a0Quench reaction by adding 5\u00a0mL of 5% hydroxylamine solution to each tube.\n31.\u00a0\u00a0Incubate for 15 mins in room temperature with gentle shaking.\n32.\u00a0\u00a0Combine all 10 TMT-labeled phosphopeptides into one tube, and combine all 10 TMT-labeled non-enriched peptides into another tube.\n33.\u00a0\u00a0Acidify the peptide solution by adding formic acid until pH 2-3.\n34.\u00a0\u00a0Desalt using ZipTip C18 tips according to manufacturer\u2019s protocol.\n35.\u00a0\u00a0Freeze and lyophilize.\nProteomic Analysis by LC-MS/MS\n36.\u00a0\u00a0Dissolve processed peptides in LC-MS/MS Buffer A (LC-MS/MS grade H\n2\nO with 0.1% formic acid). Sonicate for 5 mins to help peptides dissolve if needed.\n37.\u00a0\u00a0Perform LC-MS/MS with an Easy-nLC 1000 ultra-high pressure LC system (ThermoFisher) using a PepMap RSLC C18 column (75 \u03bcm x 50 cm; 3 \u03bcm, 100 \u00c5, Thermo Scientific) heated to 40\u00b0C coupled to a Q Exactive HF orbitrap and Easy-Spray nanosource (ThermoFisher).\n38.\u00a0\u00a0Separate samples using the following gradient of buffer B (0.1% Formic acid acetonitrile) at 300 nL/min: 0-10% buffer B in 5 minutes, 10-40% buffer B in 240 mins, 40-90% buffer B over 6 mins, and hold at 90% for 20 mins.\n39.\u00a0\u00a0Collect MS/MS spectra from 0 to 250 mins using a data-dependent, top-10 ion setting with the following settings: acquire full MS scans at a resolution of 120,000, scan range of 375-1500 m/z, maximum IT of 60 ms, AGC target of 1e6, and data collection in profile mode. Perform MS2 by HCD fragmentation with a resolution of 60,000, AGC target of 1e5, maximum IT of 60 ms, NCE of 30, and data type in centroid mode. Set isolation window for precursor ions to 1.0 m/z with an underfill ratio of 0.5%. Exclude peptides with charge state 1 and undefined and set dynamic exclusion to 20 seconds. Set S-lens RF level to 60 with a spray voltage value of 2.60kV and ionization chamber temperature of 300\u00b0C.\n|Suggestion| Chromatography and MS should be optimized for the PTM of interest. Further off-line fractionation might be needed to provide deep proteome coverage if PTM of interest is low in abundance.\nProteomics Data Analysis\n40.\u00a0\u00a0Generate a concatenated target/decoy database from UniProt in Fasta format.\n41.\u00a0\u00a0Generate MS2 files and search data using the ProLuCID algorithm in the Integrated Proteomics Pipeline (IP2) software platform. Basic searches were performed with the following search parameters: HCD fragmentation method; monoisotopic precursor ions; high resolution mode (3 isotopic peaks); precursor mass range 600-6,000 and initial fragment tolerance at 600 p.p.m.; enzyme cleavage specificity at C-terminal lysine and arginine residues with 3 missed cleavage sites permitted; static modification of +57.02146 on cysteine (carboxyamidomethylation), +229.1629 on N-terminal and lysine for TMT-10-plex tag; 4 total differential modification sites per peptide, including oxidized methionine (+15.9949), and phosphorylation (+79.9663) on serine, threonine, and tyrosine (only for phospho-enriched samples); primary scoring type by XCorr and secondary by Zscore; minimum peptide length of six residues with a candidate peptide threshold of 500; minimum of one peptide per protein and half-tryptic peptide specificity; \u0394mass cutoff = 10 p.p.m. with modstat, and trypstat settings; false-discovery rates of peptide (sfp) at 1%. Perform TMT quantification using the isobaric labeling 10-plex labeling algorithm, with a mass tolerance of 5.0 p.p.m. or less in cases where co-eluting peptide interfere. Use reporter ions 126.127726, 127.124761, 127.131081, 128.128116, 128.134436, 129.131417, 129.13779, 130.134825, 130.141145, and 131.13838 for relative quantification.\nMelting Curve Analyses\n42.\u00a0\u00a0Export peptide quantitative results from IP2 in Excel format.\n43.\u00a0\u00a0Organize results in excel into 15 columns: one column displaying sequence peptide, one column displaying the custom identifier (Gene_pSite) that localizes the phosphosite in the protein, one column displaying number of spectra detected for that peptide sequence, 10 columns displaying TMT reporter ion intensities of the 10 different temperature fractions, one column displaying protein accession, and one column displaying protein description.\n44.\u00a0\u00a0Use the consolidate function in Excel, integrate TMT reporter ion intensities of the same temperature fraction for peptides that map to the same phosphosite(s) using Gene_pSite column as filter.\n45.\u00a0\u00a0Calculate fold change values by dividing all 10 reporter ion intensities by the reporter ion intensity of the 37\u00b0C fraction.\n46.\u00a0\u00a0Generate unmodified protein and phosphomodiform melt curves, fit relative fold changes as a function of temperature to the equation derived from the chemical denaturation theory using the R package developed by Savitski et al (Science, 2014). T\nm\nvalues are calculated at which the sigmoidal curve crosses the 0.5-fold change level.\n47.\u00a0\u00a0Remove T\nm\nvalues from curves with sigmoidal curve R\n2\n< 0.8.\n48.\u00a0\u00a0Calculate \u0394T\nm\nby subtracting T\nm\nof the bulk, unmodified protein from that of the phosphomodiform. \u0394T\nm\ns could only be calculated for phosphomodiforms belonging to proteins that are also detected in the unmodified proteome."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p>Problem</p><p>Very few modified peptides detected.</p><p><br></p><p>Reason</p><p>Not enough bulk peptides are used for enrichment.</p><p>Solution</p><p>Use more cells so that more raw proteome can be collected. Use at least 700 \uf06dg of peptides in the lowest temperature fraction prior to enrichment.&nbsp;</p><p><br></p><p>Reason</p><p>Low enrichment efficiency.</p><p>Solution</p><p>Try a different brand/manufacturer of&nbsp;modification enrichment reagent. Experiment with different enrichment buffer conditions and protocol timing.</p><p><br></p><p>Reason</p><p>MS and/or&nbsp;&nbsp;chromatography not optimized for modified peptides.</p><p>Solution</p><p>Optimize methods for TMT-or specific PTM-modified peptide detection to account for unique physicochemical properties. Alter chromatography settings or chemistry. Alter ionization settings.</p><p><br></p><p>Reason</p><p>Peptides degraded in storage.&nbsp;</p><p>Solution</p><p>Perform LC-MS/MS experiments as soon as samples are finished processing.</p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>Cell preparation: 1 hour</p><p><em>In situ</em>thermal pulse workflow: 2 hours</p><p>Trypsin digestion: 2 hours for pre-digestion sample preparation and 16 hours overnight incubation</p><p>Peptide desalting: 2-3 hours using gravity elution, overnight lyophilization</p><p>Phosphopeptide enrichment: 4 hours sample preparation, overnight lyophilization</p><p>TMT labeling: 4 hours sample preparation, overnight lyophilization</p><p>LC-MS/MS analysis: 6-7 hours total running time per injection including 4 hours of analytical gradient and 2-3 hours of instrument equilibration</p><p>ProLuCID search: 0.5 to 1 day per MS run</p><p>Data analysis: 1 day</p><p><br></p><p>Time for the entire procedure: 7 days; samples can be processed in parallel.&nbsp;</p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>Depending on LC-MS/MS instrumentation and settings this method should yield &gt;4,000 proteins from combined replicates of the bulk, unmodified proteome and &gt;10,000 TMT-labeled phosphopeptides from the phospho-enriched proteome.</p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>1.&nbsp;&nbsp;&nbsp;&nbsp;Aebersold, R. &amp; Mann, M. Mass-spectrometric exploration of proteome structure and function.&nbsp;<em>Nature</em><strong>537</strong>, 347-355 (2016).</p><p>2.&nbsp;&nbsp;&nbsp;&nbsp;Huttlin, E.L.<em>, et al.</em>A tissue-specific atlas of mouse protein phosphorylation and expression.&nbsp;<em>Cell</em><strong>143</strong>, 1174-1189 (2010).</p><p>3.&nbsp;&nbsp;&nbsp;&nbsp;Olsen, J.V. &amp; Mann, M. Status of large-scale analysis of post-translational modifications by mass spectrometry.&nbsp;<em>Molecular &amp; cellular proteomics : MCP</em><strong>12</strong>, 3444-3452 (2013).</p><p>4.&nbsp;&nbsp;&nbsp;&nbsp;Walther, T.C. &amp; Mann, M. Mass spectrometry-based proteomics in cell biology.&nbsp;<em>The Journal of cell biology</em><strong>190</strong>, 491-500 (2010).</p><p>5.&nbsp;&nbsp;&nbsp;&nbsp;Humphrey, S.J., Azimifar, S.B. &amp; Mann, M. High-throughput phosphoproteomics reveals in vivo insulin signaling dynamics.&nbsp;<em>Nature biotechnology</em><strong>33</strong>, 990-995 (2015).</p><p>6.&nbsp;&nbsp;&nbsp;&nbsp;Olsen, J.V.<em>, et al.</em>Quantitative phosphoproteomics reveals widespread full phosphorylation site occupancy during mitosis.&nbsp;<em>Sci Signal</em><strong>3</strong>, ra3 (2010).</p><p>7.&nbsp;&nbsp;&nbsp;&nbsp;Tsai, C.F.<em>, et al.</em>Large-scale determination of absolute phosphorylation stoichiometries in human cells by motif-targeting quantitative proteomics.&nbsp;<em>Nat Commun</em><strong>6</strong>, 6622 (2015).</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": ""
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41592-019-0499-3",
+                "date": "2019-08-05 16:03:06",
+                "title": "High throughput discovery of functional protein modifications by Hotspot Thermal Profiling",
+                "authors": [
+                    "Jun X. Huang",
+                    "Gihoon Lee",
+                    "Kate E. Cavanaugh",
+                    "Jae W. Chang",
+                    "Margaret L. Gardel",
+                    "Raymond E. Moellering"
+                ],
+                "journal": "Nature Methods",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 100571,
+                "identity": "2eab70d3-6f6e-44fd-898e-efd4168fb5f8",
+                "order_by": 1,
+                "name": "Jun X. Huang",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-1318-8562",
+                "institution": "University of Chicago",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jun",
+                "middleName": "X.",
+                "lastName": "Huang",
+                "suffix": ""
+            },
+            {
+                "id": 100814,
+                "identity": "b66dd80b-7b2b-4899-90fe-88b2876eec29",
+                "order_by": 2,
+                "name": "Gihoon Lee",
+                "email": "",
+                "orcid": "",
+                "institution": "University of Chicago",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Gihoon",
+                "middleName": "",
+                "lastName": "Lee",
+                "suffix": ""
+            },
+            {
+                "id": 100588,
+                "identity": "e323bffe-077c-4322-b422-350150f9da20",
+                "order_by": 3,
+                "name": "Raymond E. Moellering",
+                "email": "rmoellering@uchicago.edu",
+                "orcid": "",
+                "institution": "University of Chicago",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Raymond",
+                "middleName": "E.",
+                "lastName": "Moellering",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2019-06-21 15:12:11",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.2.10602/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.2.10602/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13469608,
+                "identity": "b7647eef-0117-4ec4-b796-d2603fca6e2d",
+                "added_by": "auto",
+                "created_at": "2021-09-16 21:02:24",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 169621,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-474/v1/99886600-cd59-4bcf-8891-9194c3ef0f61.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no conflicting financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Proteomics, Post-Translational Modifications, Biophysics, Mass Spectrometry, Signaling, Thermal Profiling",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>Hundreds of protein posttranslational modification types have been reported across diverse organisms, however we still lack methods to systematically predict, or even prioritize, which modification sites may perturb protein function under specific cellular contexts. This protocol describes a method to detect the effects of site-specific protein phosphorylation on the thermal stability of thousands of native proteins in live cells. This mass spectrometry-based protocol measures shifts in overall protein stability in response to site-specific phosphorylation sites. The resulting dataset can enable discovery of intrinsic changes to protein structure as well as extrinsic changes to protein-protein, and protein-metabolite interactions, and can help prioritize site-specific study in a high-throughput and unbiased fashion. This approach takes several days complete, can be performed with multiple samples in parallel and is applicable to diverse organisms, cell types and posttranslational modifications.&nbsp;</p>",
+        "manuscriptTitle": "Discovery and Interrogation of Functional Protein Modifications by Hotspot Thermal Profiling",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2019-08-08 09:22:01",
+                "doi": "10.21203/rs.2.10602/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "ee1653aa-fd82-4c46-93f7-9c294bcbd477",
+        "owner": [],
+        "postedDate": "August 8th, 2019",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 14197,
+                "name": "Biochemistry"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2019-08-08 09:22:01",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

@@ -1,0 +1,274 @@
+{
+    "identity": "nprot-3903",
+    "title": "Ribose-seq: ribonucleotides in DNA to Illumina library",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Ribonucleotides, also known as ribonucleoside 5\u2032-monophosphates \\(rNMPs), which are normally monomers of RNA, have been found to be the most abundant non-canonical nucleotides incorporated into DNA2,3. Sources of ribonucleotide incorporation into DNA include incomplete Okazaki fragment maturation, oxidative damage, and numerous DNA polymerases. Quantitative measures of rNMPs in DNA following alkali treatment of yeast genomic DNA derived from RNase H2-deficient cells estimated ~2,000 rNMPs per genome4,5 while similar measurement conducted for genomic DNA derived from RNase H2-deficient embryonic fibroblasts revealed the presence of more than one million rNMPs in the mouse genome6. Ribonuclease H type 2 \\(RNase H2) is a major protein factor involved in repair of rNMPs in DNA and initiates ribonucleotide excision repair2,3. If not removed, rNMPs have been shown to have both positive roles, such as acting as strand discrimination signal during MMR, and negative consequences, including replication stress and genome instability2,3.\r\n\n\n Despite the numerous studies showing the presence of rNMPs in DNA, information about the distribution and identity of these rNMPs in genomic DNA was unknown till very recently. We developed ribose-seq to capture rNMPs in genomic DNA along with their upstream DNA sequence for library construction, next-generation sequencing, and analysis1. Implementation of ribose-seq to genomic DNA from RNase H2-deficient yeast Saccharomyces cerevisiae cells revealed widespread but non-random distribution of rNMPs in yeast genome, with specific base preferences, neighboring DNA sequence preferences, bias of leading and lagging strand, and hotspots. Ribose-seq allows us to explore rNMP incorporation into DNA potentially in any cell type of any organism and opens up a new direction to better comprehend the impact of rNMPs on genome integrity.\r\n\n\n Here, we detail the steps of ribose-seq library construction as shown in Figure 1. Ribose-seq employs the unique capacity of Arabidopsis thaliana tRNA ligase \\(AtRNL) to ligate 2\u2032,3\u2032-cyclic monophosphate or 2\u2032-monophosphate termini of DNA and RNA to 5\u2032-monophosphate ends of DNA and RNA7,8. A double-stranded \\(ds) sequencing adaptor, which has both primer sequences for later PCR amplification step, is initially ligated to genomic DNA fragments as AtRNL prefers self-ligation or circularization. Alkali treatment exposes the rNMP-specific 2\u2032,3\u2032-cyclic monophosphate or 2\u2032-monophosphate termini. Upon ligation by AtRNL, the rNMP is captured along with its upstream DNA sequence while unligated linear single-stranded \\(ss) DNA is degraded with T5 exonuclease. Yeast 2\u2032-phosphotransferase Tpt1 then removes the 2\u2032-monophosphate at the ligation junction, allowing subsequent PCR amplification of the library.\r\n\n\n The details given in this protocol correspond to Illumina library to be sequenced on MiSeq with 50-cycle single-end reads."
+        },
+        {
+            "header": "Reagents",
+            "content": "1. DNase/RNase-free water\r\n  2. Qubit dsDNA HS Assay Kit \\(Life Technologies)\r\n  3. Adaptor.L oligonucleotide \\(PAGE-purified, 5\u2032-P-NNNNNNNNAGATCGGAAGAGCGTCGTGTAGGGAAAG\r\n  AGGGAGTTCAGACGTGTGCTCTTCCGATCTAGCCAGCGCAGACCGTGAGGT-3\u2032) \\(Integrated DNA Technologies)\r\n\n\n4. Adaptor.S oligonucleotide \\(Desalted, 5\u2032-P-CCTCACGGTCTGCGCTGGCT-Am-3\u2032) \\(Integrated DNA Technologies)\r\n  5. Annealing Buffer \\(500 mM Tris-HCl, pH 7.5, 2.5 M NaCl, 50 mM EDTA)\r\n  6. illustra MicroSpin G-25 Column \\(GE Healthcare Life Sciences)\r\n  7. 10X NEBuffer 2 \\(New England Biolabs)\r\n  8. 20U/uL DraI \\(New England Biolabs)\r\n  9. 20U/uL EcoRV \\(New England Biolabs)\r\n  10. 5U/uL SspI \\(New England Biolabs)\r\n  11. PCR Purification Kit \\(QIAGEN)\r\n  12. Experion DNA 12K Analysis Kit \\(BIO-RAD)\r\n  13. 10 mM dATP \\(Sigma-Aldrich)\r\n  14. 5U/uL Klenow Fragment \\(3\u2032\u21925\u2032 exo\u2013) \\(New England Biolabs)\r\n  15. 400U/uL T4 DNA Ligase with 10X T4 DNA Ligase Reaction Buffer \\(New England Biolabs)\r\n  16. Agencourt RNAClean XP \\(Beckman Coulter)\r\n  17. 2 M NaOH\r\n  18. 2 M HCl\r\n  19. pH Litmus Paper\r\n  20. 3.75 uM purified AtRNL protein\r\n  21. 10X AtRNL Reaction Buffer \\(500 mM Tris-HCl, pH 7.5, 400 mM NaCl, 50 mM MgCl2, 10 mM DTT, 300 \u00b5M ATP)\r\n  22. 10U/uL T5 Exonuclease with 10X NEBuffer 4 \\(New England Biolabs)\r\n  23. 37 uM purified Tpt1 protein\r\n  24. 10X Tpt1 Reaction Buffer \\(200 mM Tris-HCl, pH 7.5, 50 mM MgCl2, 1 mM DTT, 4% Triton X-100)\r\n  25. 50 mM NAD+ \\(Sigma-Aldrich)\r\n  26. PCR.1.Index oligonucleotide \\(Desalted, 5\u2032-CAAGCAGAAGACGGCATACGAGATcgtgatGTGACTGGAGTTCAGACGTGTGCTCTTCCGATC-3\u2032) \\(Eurofins MWG Operon)\r\n  27. PCR.2 oligonucleotide \\(Desalted, 5\u2032-AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCT-3\u2032)\r\n  28. 2U/uL Phusion DNA Polymerase with 5X HF Buffer, 100% DMSO, and 10 mM dNTPs \\(New England Biolabs)\r\n  29. 6% Non-denaturing Polyacrylamide \\(29:1) Mini-Gel\r\n  30. 1X TBE Buffer\r\n  31. SYBR Gold Nucleic Acid Stain \\(Life Technologies)"
+        },
+        {
+            "header": "Equipment",
+            "content": "1. Qubit 2.0 \\(Life Technologies)\r\n  2. Experion Automated Electrophoresis System \\(BIO-RAD)\r\n  3. NanoDrop Spectrophotometer \\(Thermo Scientific)\r\n  4. Thermal Cycler for PCR\r\n  5. Mini-PROTEAN Tetra Cell \\(BIO-RAD)\r\n  6. Gel Imaging System \\(UV-light)"
+        },
+        {
+            "header": "Procedure",
+            "content": "**A. Preparation of rNMPs-embedded genomic DNA**\r\n\n\n1. Extract a minimum of 10 ug of genomic DNA from the cells. Various methods of genomic DNA extraction could be used. Koh et al.1 used S. cerevisiae cells and the protocol \u201cPreparation of Yeast Samples\u201d in the QIAGEN Genomic DNA Handbook.\r\n  3. Use Qubit 2.0 \\(dsDNA HS) to quantify the amount of extracted genomic DNA.\r\n  \r\n\n\n**B. Preparation of ds sequencing adaptor**\r\n\n\n1. Resuspend each of oligonucleotides \\(oligos) Adaptor.L and Adaptor.S in DNase/RNase-free water to a concentration of 50 uM and 500 uM, respectively. \\(All subsequent steps of the protocol use DNase/RNase-free water).\r\n  2. Set up the mixture for annealing Adaptor.L/Adaptor.S as follows:\r\n  \r\n\n\nAnnealing Buffer: 3 uL\r\n\n\n50 uM Adaptor.L: 25 uL\r\n\n\n500 uM Adaptor.S: 12.5 uL\r\n\n\nH\n2\nO: 9.5 uL\r\n\n\nTotal: 50 uL\r\n\n\n\r\n\n\n5-fold excess of Adaptor.S was added to the mixture to ensure that all Adaptor.L molecules are annealed to Adaptor.S. The remaining single-stranded Adaptor.S will be removed in subsequent purification steps.\r\n\n\n3. Perform annealing by heating the mixture to 95\u2013100 \u00b0C and gradually cooling to room temperature. The resulting ds Adaptor.L/Adaptor.S is at a concentration of 25 uM.\r\n  4. Desalt the mixture by using a spin column. Koh et al.1 used illustra MicroSpin G-25 Column.\r\n  5. Use NanoDrop to quantify the amount of desalted ds Adaptor.L/Adaptor.S. Typically, the yielded concentration ranges from 10 to 13 uM. A concentration of 10 uM will be assumed for subsequent steps of the protocol.\r\n  \r\n\n\n**C. Fragmentation of rNMPs-embedded genomic DNA**\r\n\n\n1. Set up 2 identical reactions of restriction enzyme digestion of genomic DNA as follows \\(for S. cerevisiae genomic DNA as an example):\r\n  \r\n\n\n10X NEBuffer 2: 12 uL\r\n\n\nGenomic DNA: 5 ug \\(x uL)\r\n\n\n20U/uL DraI: 4 uL\r\n\n\n20U/uL EcoRV: 4 uL\r\n\n\n5U/uL SspI: 4 uL\r\n\n\nH\n2\nO: 96-x uL\r\n\n\nTotal: 120 uL\r\n\n\n\r\n\n\nGenomic DNA could be digested with a different set of blunt-end resulting restriction enzymes. However, one need to make sure that the restriction sites are well-distributed in the genome and that the digestion results in a population of fragments with an average size of 800\u20131,500 bp.\r\n\n\n2. Incubate at 37 \u00b0C overnight.\r\n  3. Purify the fragmented DNA by using a spin column. Koh et al.1 used the QIAGEN spin column from their PCR Purification Kit. Both reactions can be purified using a single column with elution volume of 30 uL.\r\n  4. Use Qubit 2.0 \\(dsDNA HS) to quantify the amount of fragmented DNA. Typically, the concentration of the resulting DNA is ~200 ng/uL, following the reaction conditions listed above. A concentration of 200 ng/uL will be assumed for subsequent steps of the protocol.\r\n  5. Check the size range of the fragmented DNA by using the Experion DNA 12K Analysis Kit. Typically, with the reaction conditions listed above, the fragmentation results in an average size of ~1,500 bp.\r\n  \r\n\n\n**D. dA-tailing and ds sequencing adaptor-ligation of fragmented rNMPs-embedded DNA**\r\n\n\n1. Set up a dA-tailing reaction as follows:\r\n  \r\n\n\n10X NEBuffer 2: 5 uL\r\n\n\n10 mM dATP: 1 uL\r\n\n\n200 ng/uL Fragmented DNA: 25 uL \\(5 ug)\r\n\n\n5U/uL Klenow Fragment \\(3\u2032\u21925\u2032 exo\u2013): 3 uL\r\n\n\nH\n2\nO: 16 uL\r\n\n\nTotal: 50 uL\r\n\n\n\r\n\n\n2. Incubate at 37 \u00b0C for 30 min.\r\n  3. Purify using a spin column. Koh et al.1 used the QIAGEN spin column from their PCR Purification Kit, with elution volume of 30 uL.\r\n  4. Set up a sequencing adaptor-ligation reaction as follows:\r\n  \r\n\n\n10X T4 DNA Ligase Buffer: 5 uL\r\n\n\n10 uM Adaptor.L/Adaptor.S: 5 uL\r\n\n\ndA-tailed DNA: 30 uL\r\n\n\n400U/uL T4 DNA Ligase: 5 uL\r\n\n\nH\n2\nO: 5 uL\r\n\n\nTotal: 50 uL\r\n\n\n\r\n\n\n5. Incubate at 15 \u00b0C overnight.\r\n  6. Purify using Agencourt RNAClean XP with elution volume of 30 uL.\r\n  \r\n\n\n**E. Alkali treatment of adaptor-ligated rNMPs-embedded DNA**\r\n\n\n1. Set up an alkali-treatment reaction as follows:\r\n  \r\n\n\n2 M NaOH: 7.5 uL\r\n\n\nAdaptor-ligated DNA: 30 uL\r\n\n\nH\n2\nO: 12.5 uL\r\n\n\nTotal: 50 uL\r\n\n\n\r\n\n\n2. Incubate at 55 \u00b0C for 2 h.\r\n  3. Neutralize with 2 M HCl to pH 7. Use pH Litmus Paper to check the pH. Typically, 7.5\u20138 uL is needed for neutralization. \r\n  4. Purify using Agencourt RNAClean XP with elution volume of 20 uL.\r\n  5. Heat the resulting solution at 95 \u00b0C for 3 min to ensure denaturation of dsDNA and immediately chill on ice.\r\n  \r\n\n\n**F. Self-ligation \\(circularization) of rNMP-terminating DNA by AtRNL**\r\n\n\n1. Set up 2 reactions, one without AtRNL \\(AtRNL\u2013) and one with \\(AtRNL+), as follows:\r\n  \r\n\n\nAtRNL\u2013\r\n\n\n10X AtRNL Reaction Buffer: 2 uL\r\n\n\nAlkali-treated DNA: 10 uL\r\n\n\nH\n2\nO: 8 uL\r\n\n\nTotal: 20 uL\r\n\n\n\r\n\n\nAtRNL+\r\n\n\n10X AtRNL Reaction Buffer: 2 uL\r\n\n\nAlkali-treated DNA: 10 uL\r\n\n\n3.75 uM AtRNL: 5.4 uL\r\n\n\nH\n2\nO: 2.6 uL\r\n\n\nTotal: 20 uL\r\n\n\n\r\n\n\nFinal reaction concentration of AtRNL is 1 uM.\r\n\n\n3. Incubate all reactions at 30 \u00b0C for 1 h.\r\n  4. Purify each reaction using RNAClean XP with elution volume of 30 uL.\r\n  \r\n\n\n**G. Removal of linear ssDNA**\r\n\n\n1. Set up 4 reactions, one without \\(AtRNL\u2013 T5Exo\u2013; AtRNL+ T5Exo\u2013) and one with T5 Exonuclease \\(AtRNL\u2013 T5Exo+; AtRNL+ T5Exo+) for each of AtRNL\u2013 and AtRNL+ product, as follows:\r\n  \r\n\n\nAtRNL\u2013 T5Exo\u2013\r\n\n\n10X NEBuffer 4: 5 uL\r\n\n\nAtRNL\u2013 DNA: 15 uL\r\n\n\nH\n2\nO: 30 uL\r\n\n\nTotal: 50 uL\r\n\n\n\r\n\n\nAtRNL\u2013 T5Exo+\r\n\n\n10X NEBuffer 4: 5 uL\r\n\n\nAtRNL\u2013 DNA: 15 uL\r\n\n\n10U/uL T5 Exonuclease: 5 uL\r\n\n\nH\n2\nO: 25 uL\r\n\n\nTotal: 50 uL\r\n\n\n\r\n\n\nAtRNL+ T5Exo\u2013\r\n\n\n10X NEBuffer 4: 5 uL\r\n\n\nAtRNL+ DNA: 15 uL\r\n\n\nH\n2\nO: 25 uL\r\n\n\nTotal: 50 uL\r\n\n\n\r\n\n\nAtRNL+ T5Exo+\r\n\n\n10X NEBuffer 4: 5 uL\r\n\n\nAtRNL+ DNA: 15 uL\r\n\n\n10U/uL T5 Exonuclease: 5 uL\r\n\n\nH\n2\nO: 25 uL\r\n\n\nTotal: 50 uL\r\n\n\n\r\n\n\nT5Exo\u2013 samples may not be necessary as dA-tailing and adaptor-ligation reactions are standard steps. However, they do act as positive control for the later PCR reaction.\r\n\n\n2. Incubate all reactions at 37 \u00b0C for 2 h.\r\n  3. Purify each reaction using RNAClean XP with elution volume of 20 uL.\r\n  \r\n\n\n**H. Removal of 2\u2032-phosphate at the ligation junction**\r\n\n\n1. Set up 4 reactions with Tpt1 for each of AtRNL\u2013 T5Exo\u2013, AtRNL\u2013 T5Exo+, AtRNL+ T5Exo\u2013, and AtRNL+ T5Exo+ products, as follows:\r\n  \r\n\n\nTpt1+\r\n\n\n10X Tpt1 Reaction Buffer: 4 uL\r\n\n\n50 mM NAD+: 8 uL\r\n\n\nDNA: 20 uL\r\n\n\n37 uM Tpt1: 1.1 uL\r\n\n\nH\n2\nO: 6.9 uL\r\n\n\nTotal: 40 uL\r\n\n\n\r\n\n\nFinal reaction concentration of Tpt1 is 1 uM. DNA indicates either AtRNL\u2013 T5Exo\u2013, AtRNL\u2013 T5Exo+, AtRNL+ T5Exo\u2013, or AtRNL+ T5Exo+ product.\r\n\n\n2. Incubate all reactions at 30 \u00b0C for 1 hr.\r\n  3. Purify each reaction using RNAClean XP with elution volume of 30 uL.\r\n  \r\n\n\n**I. PCR amplification and library verification**\r\n\n\n1. Set up 5 PCR reactions, one without any template \\(Primers-only) and four with each of AtRNL\u2013 T5Exo\u2013 Tpt1+, AtRNL\u2013 T5Exo+ Tpt1+, AtRNL+ T5Exo\u2013 Tpt1+, or AtRNL+ T5Exo+ Tpt1+ products, as follows:\r\n  \r\n\n\nPrimers-only\r\n\n\n5X HF Buffer: 10 uL\r\n\n\n10 mM dNTPs: 2 uL\r\n\n\n100% DMSO: 0.5 uL\r\n\n\n40 uM PCR.1.Index: 1 uL\r\n\n\n40 uM PCR.2: 1 uL\r\n\n\n2U/uL Phusion DNA Polymerase: 0.5 uL\r\n\n\nH\n2\nO: 35 uL\r\n\n\nTotal: 50 uL\r\n\n\n\r\n\n\nTemplate+\r\n\n\n5X HF Buffer: 10 uL\r\n\n\n10 mM dNTPs: 2 uL\r\n\n\n100% DMSO: 0.5 uL\r\n\n\n40 uM PCR.1.Index: 1 uL\r\n\n\n40 uM PCR.2: 1 uL\r\n\n\nDNA: 20 uL\r\n\n\n2U/uL Phusion DNA Polymerase: 0.5 uL\r\n\n\nH\n2\nO: 15 uL\r\n\n\nTotal: 50 uL\r\n\n\n\r\n\n\nDNA indicates either AtRNL\u2013 T5Exo\u2013 Tpt1+, AtRNL\u2013 T5Exo+ Tpt1+, AtRNL+ T5Exo\u2013 Tpt1+, or AtRNL+ T5Exo+ Tpt1+ product. 5\u201330 uL of each product could be used as template for PCR. Koh et al.1 used 20 uL. For products which were not treated with T5 Exonuclease \\(AtRNL\u2013 T5Exo\u2013 Tpt1+ and AtRNL+ T5Exo\u2013 Tpt1+), 5 uL is sufficient to visualize non-specific amplification.\r\n\n\n2. Run PCR with the following settings:\r\n  \r\n\n\n98 \u00b0C for 30 s\r\n\n\n98 \u00b0C for 10 s, 65 \u00b0C for 20 s, and 72 \u00b0C for 30 s \\(repeated for 30 cycles)\r\n\n\n72 \u00b0C for 5 m\r\n\n\n4 \u00b0C\r\n\n\n\r\n\n\nPCR could be run for 26\u201332 cycles. Koh et al. used 30 cycles.\r\n\n\n3. Run 6% Non-denaturing PAGE with 10 uL aliquot of each sample. Koh et al. used 100 bp DNA Ladder \\(NEB) as the ladder.\r\n  4. Stain the gel in 1X SYBR Gold \\(Life Technologies) for 30\u201340 m.\r\n  5. Visualize under UV light. An exemplary gel image is shown in Figure 2. AtRNL+ T5Exo+ Tpt1+ sample will be your ribose-seq library while Primers-only and AtRNL\u2013 T5Exo+ Tpt1+ samples will be your controls where no amplification should be observed \\(only primer dimers).\r\n  6. Purify PCR mixtures from Primers-only, AtRNL\u2013 T5Exo+ Tpt1+, and AtRNL+ T5Exo+ Tpt1+ using RNAClean XP with elution volume of 15 uL. Controls Primers-only and AtRNL\u2013 T5Exo+ Tpt1+ are also purified so that the amount of actual ribose-seq library can be determined and quantitatively confirmed.\r\n  7. Use Qubit 2.0 \\(dsDNA HS) to quantify the amount of ribose-seq library. Confirm that the amount of purified Primers-only product is similar to the amount of AtRNL\u2013 T5Exo+ Tpt1+. The amount of the actual ribose-seq library can be calculated by subtracting the amount of AtRNL\u2013 T5Exo+ Tpt1+ \\(which should be just primer dimers) from AtRNL+ T5Exo+ Tpt1+. Typically, ~25 nM of the ribose-seq library is resulted."
+        },
+        {
+            "header": "Timing",
+            "content": "This protocol takes ~3\u20134 working days."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "Depending on the genotype of the cell, the cell type, and the organism, more genomic DNA and more reactions leading to more template for PCR may be necessary. The amount of template used and the number of cycles run during PCR can also vary. If using another DNA polymerase for PCR, different reaction conditions such as concentrations of DMSO and primers and annealing temperature need to be tested, minimizing the cycle number while minimizing the background amplification for AtRNL\u2013 T5Exo+ Tpt1+."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "Application of ribose-seq to yeast genome was recently reported by Koh et al.1 Following this protocol, ribose-seq libraries from genomic DNA of various S. cerevisiae cells were constructed. The libraries were then sequenced on Illumina MiSeq, collecting 50-cycle single-end reads. Analysis of the sequencing data led to profiling of ribonucleotide incorporation in yeast genomic DNA."
+        },
+        {
+            "header": "References",
+            "content": "1 Koh, K. D., Balachander, S., Hesselberth, J. R. & Storici, F. Ribose-seq: global mapping of ribonucleotides embedded in genomic DNA. Nat. Methods 12, 251\u2013257 \\(2015).\r\n\n\n2 Williams, J. S. & Kunkel, T. A. Ribonucleotides in DNA: origins, repair and consequences. DNA Repair \\(Amst.) 19, 27\u201337 \\(2014).\r\n\n\n3 Potenski, C. J. & Klein, H. L. How the misincorporation of ribonucleotides into genomic DNA can be both harmful and helpful to cells. Nucleic Acids Res. 42, 10226\u201310234 \\(2014).\r\n\n\n4 Lujan, S. A., Williams, J. S., Clausen, A. R., Clark, A. B. & Kunkel, T. A. Ribonucleotides are signals for mismatch repair of leading-strand replication errors. Mol. Cell 50, 437\u2013443 \\(2013).\r\n\n\n5 Reijns, M. A. et al. Lagging-strand replication shapes the mutational landscape of the genome. Nature 518, 502\u2013506 \\(2015).\r\n\n\n6 Reijns, M. A. et al. Enzymatic removal of ribonucleotides from DNA is essential for mammalian genome integrity and development. Cell 149, 1008\u20131022 \\(2012).\r\n\n\n7 Schutz, K., Hesselberth, J. R. & Fields, S. Capture and sequence analysis of RNAs with terminal 2',3'-cyclic phosphates. RNA 16, 621\u2013631 \\(2010).\r\n\n\n8 Remus, B. S. & Shuman, S. Distinctive kinetics and substrate specificities of plant and fungal tRNA ligases. RNA 20, 462\u2013473 \\(2014)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "We thank S. Garrey for AtRNL and Tpt1 protein purification, F. Stewart for technical support, and all members of the Storici laboratory for experimental suggestions. This work was supported by US National Science Foundation award number MCB-1021763 \\(to F.S.), Georgia Research Alliance award number R9028 \\(to F.S.), an American Cancer Society Research Scholar Grant \\(to J.R.H.), a Damon Runyon-Rachleff Innovation Award from the Damon Runyon Cancer Research Foundation \\(to J.R.H.) and the University of Colorado Golfers Against Cancer \\(to J.R.H.)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nmeth.3259",
+                "date": "2015-04-29 21:35:16",
+                "title": "Ribose-seq: global mapping of ribonucleotides embedded in genomic DNA",
+                "authors": [
+                    "Kyung Duk Koh",
+                    "Sathya Balachander",
+                    "Jay R Hesselberth",
+                    "and Francesca Storici"
+                ],
+                "journal": "Nature Methods",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 13357,
+                "identity": "a05c98be-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Jay  Hesselberth",
+                "email": "jay.hesselberth@gmail.com",
+                "orcid": "",
+                "institution": "Department of Biochemistry and Molecular Genetics, University of Colorado Anschutz Medical School",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Jay",
+                "middleName": "",
+                "lastName": "Hesselberth",
+                "suffix": ""
+            },
+            {
+                "id": 13358,
+                "identity": "a05c9a85-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Francesca Storici",
+                "email": "storici@gatech.edu",
+                "orcid": "",
+                "institution": "School of Biology, Georgia Institute of Technology",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Francesca",
+                "middleName": "",
+                "lastName": "Storici",
+                "suffix": ""
+            },
+            {
+                "id": 13356,
+                "identity": "a05c9523-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Kyung Duk Koh",
+                "email": "",
+                "orcid": "",
+                "institution": "School of Biology, Georgia Institute of Technology",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Kyung",
+                "middleName": "Duk",
+                "lastName": "Koh",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2015-04-29 21:43:59",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2015.044",
+        "doiUrl": "https://doi.org/10.1038/protex.2015.044",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2609175,
+                "identity": "db3a8072-8a2c-4455-8153-7078161b5b5c",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:44",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 69696,
+                "visible": true,
+                "origin": "",
+                "legend": "Scheme of ribose-seq   \u2018R\u2019 in red denotes an rNMP while \u2018P\u2019 indicates a monophosphate group.",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-3903/v1/figure_1.png"
+            },
+            {
+                "id": 2609177,
+                "identity": "1cc9c772-7bd7-4698-bd98-a1de5f43fc37",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:44",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 139252,
+                "visible": true,
+                "origin": "",
+                "legend": "Ribose-seq library from genomic DNA of RNase H2-deficient S. cerevisiae cells   Appropriate PCR products were analyzed by PAGE. \u2018P\u2019 indicates Primers-only.",
+                "description": "",
+                "filename": "figure2.png",
+                "url": "https://assets.researchsquare.com/files/nprot-3903/v1/figure_2.png"
+            },
+            {
+                "id": 13464790,
+                "identity": "3b75a730-0177-4e7a-8cb9-df9814c462be",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:44:47",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 442780,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-3903/v1/09fd11b5-31bd-4bdd-8764-0a20a062a316.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Ribonucleotide; ribonucleotide in DNA; DNA sequencing.",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "Ribonucleotides are now widely considered as the most frequently incorporated non-canonical nucleotides in genomic DNA. Here, we describe an approach, ribose-seq, to prepare DNA libraries for next-generation sequencing to map ribonucleotide incorporation into DNA. By specifically targeting and capturing the unique ends of alkali-derived 2\u2032,3\u2032-cyclic monophosphate or 2\u2032-monophosphate from ribonucleotides embedded in DNA, ribose-seq libraries are constructed. Upon high-throughput sequencing and analysis, the distribution and identity of ribonucleotides in the genome could be determined as recently reported using yeast as a model organism1. Ribose-seq could potentially be applied to any cell type of any organism to allow profiling of ribonucleotide incorporation into genomic DNA.",
+        "manuscriptTitle": "Ribose-seq: ribonucleotides in DNA to Illumina library",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2015-05-19 11:38:44",
+                "doi": "10.1038/protex.2015.044",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a05c1ea2-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "May 19th, 2015",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3345,
+                "name": "Genetics"
+            },
+            {
+                "id": 3346,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 3347,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 3348,
+                "name": "Molecular Biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2015-05-19 11:38:44",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

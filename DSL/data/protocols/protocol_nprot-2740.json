@@ -1,0 +1,168 @@
+{
+    "identity": "nprot-2740",
+    "title": "Sequence Similarity Search, Multiple Sequence Alignment, Model Selection, Distance Matrix and Phylogeny Reconstruction",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Nucleic acid sequence analysis is an integral part of phylogenetic and phylogeographic analyses. This protocol is for the DNA sequence \\(s) analysis for phylogeny reconstruction using freeware MEGA and paid version of GeneiousPro- a combination that works best in my experience. For ModelTest, Distance Matrix construction and ML analysis, MEGA is preferred while for Sequence assembly, similarity search, alignment and BI, Geneious is preferred."
+        },
+        {
+            "header": "Equipment",
+            "content": "Windows-based computer with good processing power \\(intel i7 with 4GB RAM or equivalent)"
+        },
+        {
+            "header": "Procedure",
+            "content": "**Sequence Trimming and Assembly**\r\n\n\n1. Drag sequences from bidirectional Sanger sequence output \\(.ab1 files containing electropherograms) into \"GeneiousPro\"http://www.geneious.com/web/geneious/download-geneious main window.\r\n  2. Select both sequences, right click and choose \"trim ends\" and choose default values.\r\n  3. Select trimmed sequences and click deNovo assembly option under \"assembly\" menu.\r\n  4. Right click assembled sequence and choose \"Generate Consensus Sequence\", name it and describe with NCBI Taxon ID-if any.\r\n  \r\n\n\n**BLASTn Sequence Similarity Search**\r\n\n\n5. Select the sequence generated in step 4 and choose \"sequence search\" option on the top menu.\r\n  6. In the BLAST options, choose BLASTn \\(Nucleotide BLAST) as the database, opt for \"Fully annotate hits\" and choose 100 as number of hits.\r\n  7. Once the search is complete, drag these results to the folder in which you are working.\r\n  8. In the left panel, choose 'NCBI > Nucleotide\" and get additional sequences of interest. This include target taxonomic representatives and suitable outgroups.Drag all pertinent results to the folder.\r\n  \r\n\n\n**Multiple Sequence Alignment \\(MSA)**\r\n\n\n9. Select all sequences that need to be aligned and choose Ctrl+Shift+A\r\n  10. Align first by Geneious alignment, with default parameters. Make sure \"Automatically determine sequence's direction\" is selected. \r\n  11. Align once again \\(Ctrl_Shift+A) using MUSCLE alignment with 8 iterations.\r\n  12. Once sequence is aligned, zoom to check accuracy of the alignment. Obviously un-alignable sequences should be removed and realigned. Ends of the alignment may be trimmed to match ends of query sequence. Alignment should be carefully edited by eye and introduce gaps wherever necessary.\r\n  \r\n\n\n**Importing MSA in MEGA and performing analysis there**\r\n\n\n13. Select the final trimmed alignment and choose Ctrl+Shift+E\r\n  14. Choose FASTA and all the default options, and save it to a folder of your data\r\n  15. Open this folder, right click on the fasta file and choose \u201cOpen with MEGA\u201d\r\n  16. In the alignment Explorer window of MEGA, choose \u201cPhylogenetic analysis\u201d in the main menu.\r\n  17. Choose appropriate option. If sequence is Introns or other non-coding regions, choose no. If sequence is a CDS/Gene, choose Yes.\r\n  18. In the MEGA main menu, choose \u201cFind best DNA/Protein Models\u201d under _Models_. \r\n  19. Choose an appropriate options. For sequences with many gaps, \u201cuse all sites\u201d may be appropriate. For general, good quality alignments, \u201cComplete deletion\u201d option is better. Perform the ModelTest.\r\n  20. In the result table, choose the first model and note its BIC score to quote in paper.\r\n  21. In the MEGA main menu, choose Distance > Compute Pairwise Distance\r\n  22. In the options, choose appropriate. Choose the best model found in step 20. Choose same options selected for step 19. Perform the analysis.\r\n  23. Result of distance matrix will be presented. Choose \u201cexport/print distances\u201d from file menu and choose lower-left matrix with excel as output format.\r\n  24. In the MEGA main menu, choose Phylogeny >Construct/Test ML Phylogeny\r\n  25. Choose appropriate options. Choose the best model found in step 20. Choose same options selected for step 19. Choose 1000 bootstrap replicates. Perform the analysis.\r\n  26. Save this tree in a vector format and export as .nexus for uploading to TreeBASE.\r\n  \r\n\n\n**Performing Bayesian Inference Phylogeny**\r\n\n\n27. Go back to Geneious and choose the same alignment.\r\n  28. In the Tree option, choose MrBayes \\(with MrBayes add-in installed). Choose pertinent options. Choose the best model found in step 20. Choose same options selected for step 19. If the best model is not available, choose the model with lowest BIC score from available options. Perform the analysis.\r\n  29. Save this tree in a vector format and export as .nexus for uploading to TreeBASE.\r\n  30. Use appropriate vector image editor \\(Adobe Illustrator) to combine these two trees and make the final tree."
+        },
+        {
+            "header": "Timing",
+            "content": "2-5 hours depending on number of taxa and sequence length."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "1. Assembled sequence\r\n  2. Multiple Sequence Alignment\r\n  3. Results of ML ModelTest as a table\r\n  4. results of pairwise distance analysis as an excel matrix\r\n  5. ML Phylogram, with Bootstrap Proportions\r\n  6. BI Phylogram with Posterior Probabilities"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "I thank DST-INSPIRE, Government of India  to fund this work. I also thank Vice Chancellor, Central University of Punjab for his support."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 12564,
+                "identity": "a0087f75-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Felix Bast",
+                "email": "felix.bast@gmail.com",
+                "orcid": "",
+                "institution": "Molecular Genetics Laboratory, Central University of Punjab",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Felix",
+                "middleName": "",
+                "lastName": "Bast",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2013-06-19 16:29:00",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2013.065",
+        "doiUrl": "https://doi.org/10.1038/protex.2013.065",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13464721,
+                "identity": "874dc48c-c82a-4091-86e0-9ff670c51441",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:44:29",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 128851,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-2740/v1/fa1cb6a0-1a79-4e7d-aa3d-74de04a2993c.pdf"
+            }
+        ],
+        "financialInterests": "None",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Sequence similarity search, Multiple Sequence Alignment, Model Selection, Distance Matrix, Phylogeny Reconstruction",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "This is a generic sequence analysis protocol suitable for plant and algal phylogeographic studies. Generated sequences from bidirectional Sanger sequencers are first assembled using Geneious. Sequence assembly is then trimmed and similarity search is conducted using BLASTn within Geneious. BLAST hits and other target taxa are selected and multiple sequence alignment is constructed. The alignment is then refined by checking using eye and exported as .fasta. Using MEGA, best-fitting nucleic acid substitution models will be calculated in MLModelTest. Model with lowest BIC score is selected and used for further phylogenetic analysis using MEGA or Geneious, which include distance matrix construction, phylogeny reconstruction using ML and BI.",
+        "manuscriptTitle": "Sequence Similarity Search, Multiple Sequence Alignment, Model Selection, Distance Matrix and Phylogeny Reconstruction",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2013-07-11 10:59:34",
+                "doi": "10.1038/protex.2013.065",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a00824ac-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "July 11th, 2013",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3017,
+                "name": "Genetics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2013-07-11 10:59:34",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

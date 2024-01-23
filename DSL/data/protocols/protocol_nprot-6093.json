@@ -1,0 +1,252 @@
+{
+    "identity": "nprot-6093",
+    "title": "Alternative splicing analysis of RNA-seq data using SAJR",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Here we describe a fast an efficient protocol for analyzing alternative splicing using \u2018cutadapt\u2019 \\[1] to trim reads before alignment with \u2018STAR\u2019 \\[2], subsequent merging of samples using \u2018samtools\u2019 \\[3] and finally analysis of splicing with \u2018SAJR\u2019 \\[4]. We also added annotation of novel splicing events and conversion of SAJR specific ids to standard gene ids using \u2018bedtools\u2019 \\[5] and custom perl scripts."
+        },
+        {
+            "header": "Procedure",
+            "content": "First part of the protocol is preparing and mapping reads.\r\n\n\n\r\n\n\n1. Trim reads to remove adapter sequences. Example using  \u2018cutadapt\u2019 and Nextera adapters:\r\n  cutadapt --trim-n -m 15 -o trimmed.S1_1.fastq.gz -p trimmed.S1_2.fastq.gz -a CTGTCTCTTATACACATCTCCGAGCCCACGAGA -A CTGTCTCTTATACACATCTGACGCTGCCGACGA S1_1.fastq.gz S1_2.fastq.gz\r\n\n\n\r\n\n\n2. Align the samples to the genome using \u2018STAR.\u2019 \r\n  \r\n\n\n3. Merge all BAM files into a single BAM file using \u2018samtools merge\u2019.\r\n  \r\n\n\nSecond part of the protocol is preparing a reference as well as identifying novel splicing patterns and annotating these.\r\n\n\n\r\n\n\n4. Convert a GTF reference to an SAJR specific GFF reference using SAJR\u2019s annotation conversion mode.\r\n  \r\n\n\n5. Run SAJR in de novo annotation mode to find novel splice-forms using the merged BAM file and the known annotation to produce a novel annotation, novel.gff\r\n  \r\n\n\n6. Run SAJR in annotation comparison mode to compare the novel annotation with the known annotation and use get_genename_from_junction_comparison.pl to filter the results:\r\n  get_genename_from_junction_comparison.pl sajr.comp > sajr.novel2known.tsv\r\n\n\n\r\n\n\n7. Use bedtools and get_genename_from_segment_overlap.pl to associate SAJR ids with known gene ids from the reference:\r\n  bedtools intersect -s -f 1.0 -loj -a novel.gff -b known.gff > novel_overlap_known.gff\r\n\n\nget_genename_from_segment_overlap.pl novel_overlap_known.gff > novel2known_from_overlap.tsv\r\n\n\n\r\n\n\n8. Use bedtools and annotate_novel_segments.pl to annotate novel spliced regions:\r\n  bedtools intersect -s -f 1.0 -r -loj -a novel.gff -b known.gff > novel_overlap_known_stringent.gff\r\n\n\nannotate_novel_segments.pl novel_overlap_known_stringent.gff > novel_overlap_known_stringent_novel.tsv\r\n\n\n\r\n\n\nThe final part of the protocol is estimating inclusion levels in each sample, and testing for differences between groups of samples.\r\n\n\n\r\n\n\n9. Run SAJR in count mode for each sample using the novel.gff reference.\r\n  \r\n\n\n10. Use the R package part of SAJR to identify alternative splicing, see sajr_analysis.R for an example workflow incorporating annotation of novel spliced regions."
+        },
+        {
+            "header": "Timing",
+            "content": "The whole analysis can be completed within 24 hours for 36 samples with a total of app. 450 mio reads running on 16 cores."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "The expected outcome is a list of significant alternative splicing events with with optional indication of novel splicing patterns."
+        },
+        {
+            "header": "References",
+            "content": "1 Martin, M. Cutadapt removes adapter sequences from high-throughput sequencing reads. 2011 17, doi:10.14806/ej.17.1.200\r\n\n\npp. 10-12 \\(2011).\r\n\n\n2 Dobin, A. et al. STAR: ultrafast universal RNA-seq aligner. Bioinformatics 29, 15-21, doi:10.1093/bioinformatics/bts635 \\(2013).\r\n\n\n3 Li, H. et al. The Sequence Alignment/Map format and SAMtools. Bioinformatics 25, 2078-2079, doi:10.1093/bioinformatics/btp352 \\(2009).\r\n\n\n4 Mazin, P. et al. Widespread splicing changes in human brain development and aging. Molecular systems biology 9, 633, doi:10.1038/msb.2012.67 \\(2013).\r\n\n\n5 Quinlan, A. R. & Hall, I. M. BEDTools: a flexible suite of utilities for comparing genomic features. Bioinformatics 26, 841-842, doi:10.1093/bioinformatics/btq033 \\(2010)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nature20789",
+                "date": "2017-05-31 13:06:13",
+                "title": "Splicing factor 1 modulates dietary restriction and TORC1 pathway longevity in C. elegans",
+                "authors": [
+                    "Caroline Heintz",
+                    "Thomas K. Doktor",
+                    "Anne Lanjuin",
+                    "Caroline C. Escoubas",
+                    "Yue Zhang",
+                    "Heather J. Weir",
+                    "Sneha Dutta",
+                    "Carlos Giovanni Silva-Garc\u00eda",
+                    "Gitte H. Bruun",
+                    "Ianessa Morantte",
+                    "Gerta Hoxhaj",
+                    "Brendan D. Manning",
+                    "Brage S. Andresen",
+                    "and William B. Mair"
+                ],
+                "journal": "Nature",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 14897,
+                "identity": "a11c92fd-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Thomas Doktor",
+                "email": "thomaskd@bmb.sdu.dk",
+                "orcid": "",
+                "institution": "Andresen's lab, University of Southern Denmark",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Thomas",
+                "middleName": "",
+                "lastName": "Doktor",
+                "suffix": ""
+            },
+            {
+                "id": 14898,
+                "identity": "a11c95c0-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Caroline Heintz",
+                "email": "",
+                "orcid": "",
+                "institution": "Harvard T. H. Chan School of Public Health",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Caroline",
+                "middleName": "",
+                "lastName": "Heintz",
+                "suffix": ""
+            },
+            {
+                "id": 14899,
+                "identity": "a11c991d-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Brage Andresen",
+                "email": "",
+                "orcid": "",
+                "institution": "Andresen's lab, University of Southern Denmark",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Brage",
+                "middleName": "",
+                "lastName": "Andresen",
+                "suffix": ""
+            },
+            {
+                "id": 14900,
+                "identity": "a11c9af9-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "William Mair",
+                "email": "",
+                "orcid": "",
+                "institution": "Harvard T. H. Chan School of Public Health",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "William",
+                "middleName": "",
+                "lastName": "Mair",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2017-06-30 13:34:15",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2018.029",
+        "doiUrl": "https://doi.org/10.1038/protex.2018.029",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13465747,
+                "identity": "959f4986-3528-4a7e-b2ce-666644dbdfd6",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:48:02",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 129098,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-6093/v1/b6ebc376-f82e-4301-9802-f53d1f656f90.pdf"
+            },
+            {
+                "id": 2609846,
+                "identity": "f7562807-a229-46e6-a82c-17f9c9edffe7",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:14",
+                "extension": "zip",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 6490,
+                "visible": true,
+                "origin": "",
+                "legend": "Scripts   Scripts   Zip file containing perl scripts used in the protocol and example R script.",
+                "description": "",
+                "filename": "supplement0.zip",
+                "url": "https://assets.researchsquare.com/files/nprot-6093/v1/supplement_0.zip"
+            }
+        ],
+        "financialInterests": "The authors declare no conflicting financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "RNA-seq, alternative splicing",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "Here we describe a fast an efficient protocol for analyzing alternative splicing using SAJR.",
+        "manuscriptTitle": "Alternative splicing analysis of RNA-seq data using SAJR",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2018-03-12 11:07:42",
+                "doi": "10.1038/protex.2018.029",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a11c1d29-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "March 12th, 2018",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3989,
+                "name": "Computational biology and bioinformatics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2018-03-12 11:07:42",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

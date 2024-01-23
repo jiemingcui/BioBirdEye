@@ -1,0 +1,300 @@
+{
+    "identity": "nprot-3423",
+    "title": "**Identification of genes directly regulated by a transcription factor in rice**",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Environmental stresses like drought and high temperature primarily affect the grain yield of cereals by reducing photosynthesis and related carbon metabolism<sup>1</sup>. A comprehensive analysis of the gene network regulating these complex processes will help in development of genetic tools for maintaining yield under stress. The expression of stress related genes is largely affected by transcription factors like AP2, MYB, NAC, bZIP etc. The APETALA2 \\(AP2) family of transcription factors are associated with various developmental and stress related responses in plants and has a highly conserved DNA binding AP2/ERF domain that recognize conserved cis-regulatory elements \\(CRE) of the GCC core<sup>2</sup>. The presence of conserved DNA binding domain in transcription factors therefore can be used for identification of potential regulated genes by both in vivo and in planta assays. \r\n\n\nMany DNA protein interaction studies have been previously done using in vitro assays such as electrophoretic mobility shift assay \\(EMSA). However, chromatin immuno-precipitation \\(ChIP) has now become a powerful tool to detect in vivo interactions between DNA-binding proteins and genomic DNA. ChIP DNA can be combined with RNA-seq or massively parallel sequencing to identify gene regulatory networks active during the biological processes of grain filling and/or in response to the environmental stresses. The ChIP procedure includes: \\(1) Crosslinking of DNA with protein in vivo using formaldehyde; \\(2) Sonication of the fixed chromatin to an average size of 500\u2009bp ranging from 200 to 1000\u2009bp; \\(3) Extraction of chromatin using different buffers; \\(4) Immunoprecipitation with specific antibodies; \\(5) Removal of beads, reverse crosslinking, elution of DNA and purification; \\(6) qPCR analysis of the bound DNA relative to positive and negative controls. However the major disadvantage of ChIP technology is the requirement of antibodies specific to the protein of interest. Here we report the use of TAP \\(tandem affinity purification) tagged system which has previously been used for identification of protein interaction partners<sup>3,4</sup> for identification of targets of transcription factors \\(DNA-protein interaction) in rice, making use of the commonly used His and myc antibodies. Furthermore, to elucidate the role of TFs in directly activating its targets in the transcription complex, we report here on the use of the steroid receptor-based inducible system. The TF is fused with a human estradiol receptor \\(HER) which renders the transcription factor inactive in the cell as it is sequestered in the cytoplasm via binding to a cytoplasmic complex. In presence of estrogen \\(estradiol), the complex is disrupted owing to the binding of the hormone to the steroid-binding domain thereby allowing the transcription factor to enter the nucleus and regulate the expression of the downstream target genes<sup>5</sup>. In the presence of cycloheximide \\(translation inhibitor) only the targeted transcription factor and its downstream target genes will be induced while the other downstream genes will not be induced owing to lack of protein synthesis, thereby making this steroid-inducible system a potential tool for identification direct targets of transcription factors<sup>6,7</sup>. The present study describes the protocol for identification of targets of an AP2 transcription factor HYR in rice followed by validation using a luciferase assay with the Dual Glo luciferase assay system \\(firefly luciferase luminescence normalized to renilla luciferase). Finally, the protocol describes the identification of the direct targets identified from ChIP and luciferase assay using a steroid receptor based inducible system."
+        },
+        {
+            "header": "Reagents",
+            "content": "**Enzymes used for cloning purposes**\r\n\n\nXbaI, BamHI, KpnI, SacI, EcoRI\r\n\n\nBP and LR clonase \\(Invitrogen) \r\n\n\n**ChIP Antibodies**\r\n\n\nanti-His \\(R932-25, Invitrogen) \r\n\n\nanti-MYC \\(AHO0062, Invitrogen) \r\n\n\nanti-Histone H3 conjugate \\(nonspecific Ab, AHO1432, Invitrogen)\r\n\n\nAlkaline Phosphatase conjugated secondary Antibody \\(WP20006, Invitrogen)\r\n\n\n**Protein purification/analysis**\r\n\n\nNi-NTA agarose \\(Invitrogen)\r\n\n\nBiotin 3\u2019 End DNA Labeling Kit \\(Pierce)\r\n\n\nNylon membrane \\(Biodyne)\r\n\n\nLight Shift Chemiluminescent EMSA kit\r\n\n\n**Luciferase analysis**\r\n\n\nTrizol \\(Invitrogen)\r\n\n\nReverse Trasncription System \\(Promega, A3500)\r\n\n\nqPCR master mix \\(A6001)\r\n\n\nDual-Glo\u00ae Luciferase Assay System \\( Promega, E2940)\r\n\n\n**Plasmids Used**\r\n\n\npGL3-Basic \\(Promega U47295)\r\n\n\npGL4 70\\[hRluc] Vector \\(Promega, E688A)\r\n\n\nHER clone \\(Fisher scientific)"
+        },
+        {
+            "header": "Equipment",
+            "content": "Bench top centrifuge \\(Eppendorf 5430)\r\n\n\nBiorad Mini Protean System\r\n\n\nCyclomixer\r\n\n\nGelDoc It<sup>TS2</sup> Imager \\(UVP)\r\n\n\nIncubator \\(America Scientific Products, C144)\r\n\n\nLaminar Flow Hood \\(Forma Scientific)\r\n\n\nLuminometer \\(Promega, Glomax 20/20)\r\n\n\nMultiporator \\(Eppendorf)\r\n\n\nPCR machine \\(Biorad, C1000 touch thermal cycler)\r\n\n\nqPCR machine \\(Biorad, CFX96)\r\n\n\nQSonica \\(Sonicator)\r\n\n\nRefrigerated centrifuge \\(Beckman, Allegra 25R)\r\n\n\nTissue Lyser \\(Retch, MM200)\r\n\n\nWater bath \\(Precision)\r\n\n\nWater Purifying system \\(Milipore, Synergy UV)"
+        },
+        {
+            "header": "Procedure",
+            "content": "**A. Construct Preparation**\r\n\n\n1. A tandem affinity protein \\(TAP) tagged HYR construct was made in pUC19 assembling the fragments of CaMV35S promoter\n8\nat XbaI and BamHI sites, gateway cassette \\(for cloning gene of interest) is cloned between BamHI/KpnI sites, coding sequence for six His repeat \\(6xHis), a 9x-myc peptide, a 3C protease cleavage site and two copies of the IgG binding domain \\(2xIgG-BD) together known as TAP tag were amplified using pCTAPa \\(CD3-679) as template at KpnI/ SacI sites\n3,4\nand the NOS terminator at KpnI/EcoRI sites. \r\n  2. The entire cassette was cloned between the Xba1-EcoR1 sites of pMOG22 \\(Zeneca-Mogen), which contains a chimeric CaMV 35S hygromycin phosphotransferase-tNos for selection during rice transformation. \r\n  \r\n\n\n**B. Promoter Analysis**\r\n\n\n1. To identify potential cis-acting regulatory elements \\(CAREs) involved in HYR \\(target genes of interest) regulation of gene expression \\(Fig. 1a), use FIRE\n9\nfor de novo discovery of short DNA motifs specific to genes differentially regulated upon HYR \\(target genes of interest) expression by comparing the motif content of 1 Kb upstream sequences of these genes to that of the rest of the genome, followed by comparison to known cis-elements\n10\n. \r\n  2. To identify the potential candidate genes regulated by HYR \\(target genes of interest) for experimental validation, identify genes \\(in HYR lines or transgenic or mutant plants with target genes of interest) that were also differentially expressed under drought\n11\nor high temperature\n12\n\\(condition of interest). Analyze the promoter sequences \\(1.0 kb) for these genes using Place database\n10\nand Plant Care\n13\nto look for the presence of cis elements. \r\n  3. HYR is an AP2 transcription factor that recognizes the GCC core \\(GCCGCC), promoter sequences for the putative HYR-regulated genes were scanned by using FIRE and Place database to look for the presence of the GCC core, and similarly for canonical cis-elements recognized by the other TFs analyzed. Note: Recognition sequence is specific to the group or family of transcription factor being analyzed.\r\n  \r\n\n\n**C. Chromatin Immunoprecipitation**\r\n\n\n**Crosslinking Buffer:** Prepare by mixing 3.4g of sucrose \\(0.1M), 1 ml sodium phosphate buffer \\(10 mM, pH7), 1 ml NaCl  \\(50 mM), volume made upto 100 ml. Autoclave and store on ice before use.\r\n\n\n**Buffer A:** Prepare by mixing 250 \u00b5l sodium phosphate buffer \\(10 mM, pH7), 500 \u00b5l NaCl  \\(100 mM), 3.2 ml of 2-methyl 2.4 pentanediol and 17.7 \u00b5l of \u03b2-mercaptoethanol,  volume made upto 25 ml. Add \u00bd tablet protease inhibitor cocktail and store at 4\no\nC for further use.\r\n\n\n**Buffer B:** Prepare by mixing 250 \u00b5l sodium phosphate buffer \\(10 mM, pH7), 500 \u00b5l NaCl  \\(100 mM), 250 \u00b5l MgCl-2- \\(10mM), 625 \u00b5l Triton-X-100 \\(0.5%), 3.2 ml of 2-methyl 2.4 pentanediol and 17.7 \u00b5l of \u03b2-mercaptoethanol, volume made upto 25 ml. Add \u00bd tablet protease inhibitor cocktail and store at 4\no\nC for further use.\r\n\n\n**Buffer C:** Prepare by mixing 250 \u00b5l sodium phosphate buffer \\(10 mM, pH7), 500 \u00b5l NaCl  \\(100 mM), and 17.7 \u00b5l of \u03b2-mercaptoethanol,  volume made upto 25 ml. Add \u00bd tablet protease inhibitor cocktail and store at 4\no\nC for further use.\r\n\n\n**Sonic Buffer:** Prepare by mixing  250 \u00b5l sodium phosphate buffer \\(10 mM, pH7), 500 \u00b5l NaCl  \\(100 mM), 50 \u00b5l EDTA \\(10 mM) and 125 mg sarkosyl \\(0.5%) volume made upto 25 ml. Filter sterilize. Add \u00bd tablet protease inhibitor cocktail \\(fresh) and store at 4\no\nC for further use.\r\n\n\n**IP Buffer:** Prepare by mixing 2.5 ml HEPES buffer \\(50 mM, pH 7.5), 750 \u00b5l NaCl  \\(150 mM), 125 \u00b5l MgCl-2- \\(5 mM), 2.5 \u00b5l ZnSO-4- \\(10 \u00b5M), 1.25 ml Triton-X-100 \\(1%) and 125 \u00b5l SDS \\(0.05%). Filter sterilize and store at -2\no\nC in aliquots for further use.\r\n\n\n**Elution Buffer:** Prepare by mixing 2 ml glycine \\(0.1M), 2.5 ml NaCl \\(0.5M), 12.5 \u00b5l Tween 20 \\(0.05%) volume made upto 25 ml. Filter sterilize and store at 4\no\nC for further use.\r\n\n\n\r\n\n\n**Chromatin crosslinking** **\\(Fig 1b)**\r\n\n\n1. Rice seedlings \\(5g) from HYR:TAP tagged lines were placed in Falcon tubes \\(50ml) and rinsed thoroughly with Millipore water.\r\n  2. Crosslink rice tissues in crosslinking buffer containing 2% formaldehyde on ice under vacuum in an exicator until air bubbles appear on the sides of the tubes. Release the vacuum after 15 min. Mix well and apply vacuum for another 25 min.\r\n  3. Stop fixation by adding 3 ml glycine \\(2.5M) and apply vacuum for another 5 min.\r\n  4. Wash cross-linked leaf samples three times with buffer A \\(30 ml) and then dry on filter paper followed by quick freeze in liquid nitrogen, Note: Pause point: Samples can be stored at -80\no\nC for further use.\r\n  \r\n\n\n**Nuclei Isolation and shearing of chromatin**\r\n\n\n5. Homogenize frozen tissue thoroughly in liquid Nitrogen in mortar and pestle and transferred to tubes with 10 ml buffer B.\r\n  6. Filter the slurry through three layers of cheese cloth and collect in 50 ml tube kept on ice followed by two washes with buffer A to collect all the nuclei.\r\n  7. Centrifuge the filtrate at 3500 rpm for 20 min at 4\no\nC.\r\n  8. Wash nuclear pellet thrice with 5 ml of buffer C and centrifuge at 3500 rpm for 20 min at 4\no\nC\r\n  9. Wash the pellet once with buffer D and centrifuge at 3500 rpm for 20 min at 4\no\nC.\r\n  10. Resuspend the pellet in 1 ml sonic buffer and transfer to 2 ml safelock Eppendorf tubes.\r\n  11. Sonicate the chromatin for 5 cycles: 30 seconds ON and 1 minute OFF for each cycle on full power. Note: 15 \u03bcl for DNA is kept to check DNA extraction. \r\n  12. Centrifuge the suspension at 14000 rpm for 15 min at 4\no\nC. Collect the supernatant and centrifuge again at top speed for 5 min. Collect the supernatant and transfer to new Eppendorf tubes.\r\n  \r\n\n\n**Preclearing**\r\n\n\n13. Transfer the supernatant to new tubes with equal volume of IP buffer. Keep 100 \u00b5l of the mix aside as control to check the degree of sonication.\r\n  14. Centrifuge the precleared chromatin at 14000 rpm for 15 min at 4\no\nC. Collect the supernatant followed by incubation with 100 \u00b5l Protein A agarose for 1 hr 30 min \\(prolonged incubation is required if pre-immune serum is not available).\r\n  15. Centrifuge at 4000 rpm for 5 min at 4\no\nC. Collect the supernatant and centrifuge again at top speed for 10 min.\r\n  16. Divide supernatant into three parts : i) one that serves as negative control \\(Histone Ab) ii) the other two are samples \\(immunoprecipitated with 6X His and Myc antibody).\r\n  17. Incubate IP samples with 10 \u00b5l of antibody \\(1.5-2\u00b5g) for 10 h at 4\no\nC on a rotating wheel. \r\n  18. Centrifuge samples at 12000 rpm for 5 min at 4\no\nC to remove the debris and collect supernatant into 2 ml safelock tubes.\r\n  19. Add 50 \u00b5l Protein A agarose to the IP samples and incubate at 4\no\nC for 2hr on a rotating wheel.\r\n  20. Centrifuge at 5000 rpm for 5 min. Discard supernatant and retain pellet \\(beads) for further use.\r\n  21. Wash the beads five times with 5 ml IP buffer at room temperature on a rotating wheel.\r\n  22. Elute Protein-DNA complexes by using 100 \u00b5l cold elution buffer, incubate for 5 min at 37\no\nC. Centrifuge at top speed for 2 min. Collect supernatant and neutralize with 50 \u00b5l Tris-Cl \\(pH-9) to neutralize. Repeat elution steps twice.\r\n  \r\n\n\n**Reverse Crosslinking and DNA purification**\r\n\n\n23. Add Proteinase K \\(11.25 \u00b5l of 20 mgml\n-1\nstock) and incubate at 37\no\nC for overnight with constant shaking on a rotating wheel. Proceed with Input DNA sample \\(obtained from step 13) simultaneously from step 23 \\(Add 330 \u00b5l of TE to reach the same volume as IP sample).\r\n  24. Add Proteinase K \\(second aliquot) and incubate at 65\no\nC overnight to allow reverse crosslinking.\r\n  25. Precipitate DNA by adding 1/10th volume sodium-acetate \\(pH 5.2), 2.5 volume of ethanol \\(100%) and 1 \u00b5l of glycogen overnight at -20\no\nC.\r\n  26. Centrifuge at top speed for 15 min at 4\no\nC. Resuspend DNA in 100 \u00b5l of Millipore water.\r\n  27. Purify DNA using PCR purification columns and elute in 35\u00b5l Millipore water. Note: Samples can be stored at -80\no\nC for further use.\r\n  28. Carry out qPCR to test for enrichment of target and control primers for both positive and negative IP samples.\r\n  29. Calculate the fold enrichment for the His and MYC antibodies against the nonspecific antibody using the formula: Ct \\(Target) - Ct \\(Non Specific Ab) = dCt\n16\n. Normalize against the calibrator using the equation \\(2\n-\u0394\u0394Ct\n)\n11\n. Represent fold enrichment of target genes as a mean of three replicates and the statistical significance of the variation over WT and transgenic can be tested by both sided t-test at p\u22640.01.\r\n  \r\n\n\n**D. HYR protein purification from bacteria**\r\n\n\n**PBS buffer**\r\n\n\nPrepare by mixing: 137 mM NaCl, 2.7mM KCl, 10 mM Na-2-HPO-4-, 2 mM KH-2-PO-4- and volume made upto 100 ml with dd H-2-O. Autoclaved and stored at room temperature for future use.\r\n\n\n\r\n\n\n1. Amplify the HYR coding region by PCR using forward and reverse primer containing attB1 and attB2 sites respectively.\r\n   2. Clone PCR purified HYR \\(target genes) and clone into pDEST42 \\(C-6X-His tag Gateway expression vector of choice, 12276-010) vector using the Gateway cloning strategy \\(BP and LR reaction system, Invitrogen) and transform into E. coli strain BL-21.\r\n\n\n3. Induce recombinant protein for 4 hr using 1mM IPTG .\r\n  4.  Pellet down cells and resuspend in PBS buffer. Add lysozyme \\(4mg/ml) and incubate for 30 min in ice. Sonicate for 3 min \\(50% duty cycle) with pulses of 15s. Note: Care should be taken that the solution is very clean and not gelatinous.\r\n  4. Pellet down cells by centrifugation at 12,000 rpm, 10 min 4\u00b0C. Collect the supernatant and use for protein purification using Ni-NTA agarose \\(Invitrogen).\r\n  5. Confirm identity of the proteins by immunoblotting using His-tag antibody or any antibody of choice \\(1:1000). \r\n  \r\n\n\n**E. Electrophoretic Mobility Shift Assay \\(EMSA)**\r\n\n\n1. Design specific sets of primers for 250 bp spanning the binding sites in the promoter region of target genes of HYR and its downstream genes \\(**Fig 1a**), and amplify the fragments using genomic DNA of Nipponbare rice as template. \r\n  2. Gel purify the amplified promoter fragments and label using Biotin 3\u2019 End DNA Labeling Kit \\(Pierce).\r\n  3. Perform the binding reactions and the electrophoretic mobility shift assay according to the manufacturer\u2019s instructions \\(Light Shift Chemiluminescent EMSA kit)\r\n  4. Incubate the binding reactions for 10 min. on ice after adding 100 fold excess of unlabeled competitor DNA followed by the addition of labeled DNA and further incubate for 20 min. on ice before loading on to 5% native polyacrylamide gel. \r\n  5. Electroblot the resolved DNA protein complexes onto Nylon membrane \\(Biodyne) and detect gel-shift using the chemiluminescent nucleic acid detection kit.\r\n  \r\n\n\n**F. Transactivation Analysis using Dual Glo Luciferase Assay in Protoplasts**\r\n\n\n**Buffer A** Prepare by mixing 0.6M mannitol, 10 mM MES \\[pH 5.7], 10 mM CaCl2 and the volume made upto 100 ml with water. Autoclave and store at room temperature.\r\n\n\n**Buffer B** Prepare by mixing 0.6 M mannitol, 10 mM MES \\(pH 5.7), 1.5% Cellulase \\(C1794, Sigma) 0.75% Pectinase \\(P2401, Sigma) and warm to 55\u00b0C to inactivate DNAse and proteases to enhance solubility. Cooled to room temperature, then 10mM CaCl2, 2.5 mM \u03b2-mercaptoethanol and add 0.1 % BSA and store for further use.\r\n\n\n**Buffer C** Prepare by mixing 154 mM NaCl, 125 mM CaCl2, 5 mM KCl and 2 mM MES \\(pH 5.7) and volume made upto 100ml with Millipore water. Autoclave and stored for further use.\r\n\n\n**MMG solution** Prepare by mixing 0.4 M mannitol, 15 mM MgCl2 and 4 mM MES  \\(pH 5.7) and volume made upto 25ml with Millipore water. Autoclave and stored for further use.\r\n\n\n**Buffer D** Prepare by mixing 0.5 M mannitol, 20 mM KCl and 4 mM MES \\(pH 5.7) and volume made upto 25ml with Millipore water. Autoclave and store for further use.\r\n\n\n\r\n\n\n**Isolation of Protoplasts from rice seedlings**\r\n\n\nProtoplasts were isolated from rice cultivar Nipponbare\n17,18\nwith modifications. \r\n\n\n1. Dehull rice seeds \\(Nipponbare)  and sterilize with 75% ethanol for 30s followed by sterilization in 75% bleach for 30 min with continuous shaking.\r\n  2. Wash Sterilized seeds three times with sterile water followed by one wash with MS liquid medium.\r\n  3. Incubate the seeds in \u00bc\nth\nMS medium \\(0.8% Gellan gum) at 28\u00b0C for 15 days with a photoperiod of 12 h light \\(about 150 \u03bcmol m\n-2\ns\n-1\n) and 12 h dark.\r\n  4.  Rice plants \\(40-50 seedlings) were cut together into strips of 0.5-1mm length using a sharp razor blade and immediately put into 20ml buffer A for 10 min at 28\n\u00b0\nC with shaking \\(60-80 rpm) in dark. Note: Care should be taken that leaf tips are not damaged during cutting.\r\n  5. Discard mannitol and immediately incubate the rice samples in 20ml; buffer B for 6 hr in the dark at 28\u00b0C with constant shaking \\(60-80 rpm). Note: The enzyme solution should turn green indicating the release of protoplasts.\r\n  6.  Dilute the enzyme solution with equal volume of buffer C to remove undigested protoplasts before filtration.\r\n  7. Filter the enzyme/protoplast solution through three layers of cheese cloth pre-wetted with buffer C. Wash leaf tissues twice with buffer C and then pool the entire filtrate.\r\n  8. Centrifuge the filtered solution at 2500 rpm for 5 min in a swing bucket rotor to collect the protoplast at the bottom of the tube. Wash the protoplast after centrifugation once with buffer C.\r\n  9. Resuspend the protoplast in MMG solution at a concentration of 2\u00d710\n6\ncells mL\n-1\ndetermined by using a haemocytometer.\r\n  \r\n\n\n**Transfection of protoplast by electroporation** **\\(Fig 1c)**\r\n\n\n10. Incubate 300\u00b5l of freshly prepared protoplast with 15\u00b5g of plasmid DNA in microcentifuge tube. Mix gently by tapping and incubate for 10 min at room temperature.\r\n  11. Carry out electroporation using Multiporator \\(Eppendorf) with conditions: 5 msec, 400 V and 200 \u00b5F and 2 pulses. Carrier DNA is not required. Note 2-3 pulses are required if a high transformation efficiency is required.\r\n  12. Incubate the protoplast-DNA solution after electroporation in ice for 10 min. Dilute the protoplast-DNA solution with buffer C and then pellet by centrifugation at 3500 rpm for 5 min.\r\n  13. Resuspend the protoplasts gently in 1 mL buffer D \\(0.5 M mannitol, 20 mM KCl and 4 mM MES at pH 5.7) and incubate O/N at 28\n\u00b0\nC\r\n  \r\n\n\n**Protoplast Culture and Harvest**\r\n\n\n14. After the desired period of incubation, harvest protoplasts by centrifugation at 2000 rpm for 5 min.\r\n  15. Discard the supernatant and store the pelleted protoplasts at -80\no\nC for further use.\r\n  \r\n\n\n**Transactivation Analysis by using Dual Glo Luciferase Assay**\r\n\n\n16. Incubate 300\u00b5l of protoplast with reporter and effector constructs respectively \\(15\u00b5g of plasmid DNA) along with control plasmid \\(Renilla luciferase driven by constitutive promoter). Reporter Plasmid: Promoter of interest driving firefly luciferase gene. Effector Plasmid: Constitutive promoter driving the gene of interest. Note: One tube containing only protoplast will serve as control. Only reporter and control to show that there is no luciferase activity coming from reporter construct.\r\n  17. Continue from step 11.\r\n  18. Incubate the pelleted protoplasts with 100\u00b5l of protoplast lysis buffer and mix thoroughly by vortexing for 5s and then incubate on ice for 5 min.\r\n  19. Pellet cells by centrifugation at 12,000 rpm for 5 min. Collect supernatant for luciferase assay.\r\n  20. Mix 75\u00b5l of supernatant with equal volume of LAR reagent \\(prepared again to Promega technical manual). Measure luminescence after 10 min in Glomax 20/20 luminometer \\(Promega). Stop reaction by adding Dual Glo Stop and Glo solution and measure luminescence due to Renilla luciferase same order as firefly luminescence was measured\n20\n.\r\n  21. Results are expressed normalized to the Renilla luminescence.\r\n  \r\n\n\n**Identification of direct targets using steroid receptor-based inducible system**\r\n\n\n22. Mix freshly prepared protoplast \\(step 9) with 15\u00b5g plasmid \\(construct containing the gene of interest fused with the HER\n21, 22\n\\[Human estrogen receptor]). \r\n  23. After electroporation incubate protoplasts with 2 \u03bcM estradiol for 6 h to induce the activity of the respective genes. The same concentration of ethanol used to dissolve estradiol was applied to the control protoplasts as the mock treatment. Where indicated, protoplasts were treated with cycloheximide \\(2 \u03bcM) 30 min before addition of estradiol to inhibit new protein synthesis **\\(Fig 1d)**.\r\n  24. Continue to step 12\r\n  25. Resuspend pelleted protoplasts in buffer D and incubated for 6 h. Following incubation, harvest the cells and stored at -80\no\nC for further analysis.\r\n  26. Isolate total RNA using Trizol method \\(Invitrogen, technical manual)\r\n  27. Synthesize cDNA using 1\u00b5g of total RNA \\(DNase treated) and analyze expression of downstream target genes by qRT-PCR. \r\n  28. The gene expression is represented as fold change after estradiol treatments over control \\(mock treatment with ethanol) while for cycloheximide and estradiol \\(CHX+E) it is represented as fold change over protoplasts treated with CHX alone. \r\n  \r\n\n\n**Statistical Analysis of data**\r\n\n\n29. Express fold change of target genes as a mean of three replicates and the statistical significance of the variation over WT and transgenic \\(control protoplasts and electroporated) can be tested by the 2-sided t-test at p\u22640.01.\r\n  \r\n\n\n \r\n\n\n**References**\r\n\n\n1. Chaves, M.M., Flexas, J. & Pinheiro, C. Photosynthesis under drought and salt stress: regulation mechanisms from whole plant to cell. Ann Bot 103, 551-60 \\(2009).\r\n  2.    Haake, V. et al. Transcription factor CBF4 is a regulator of drought adaptation in Arabidopsis. Plant Physiol 130, 639-48 \\(2002).\r\n  3. Rohila, J.S., Chen, M., Cerny, R. & Fromm, M.E. Improved tandem affinity purification tag and methods for isolation of protein heterocomplexes from plants. Plant J 38, 172-81 \\(2004).\r\n  4. Rubio, V., Shen, Y. and Saijo, Y., Liu, Y., Gusmaroli, G., DineshKumar, S.P. and Deng, \r\n  X.W. An alternative tandem affinity purification strategy applied to Arabidopsis protein complex isolation. Plant J. 41, 767\u2013778 \\(2005).\r\n\n\n5.  Zhong, R., Lee, C., Zhou, J., McCarthy, R.L., and Ye, Z.H. . A battery of transcription  \r\n  factors involved in the regulation of secondary cell wall biosynthesis in Arabidopsis. Plant Cell 20: 2763\u20132782 \\(2008)\r\n\n\n6. Wagner, D., Sablowski, R.W.M., and Meyerowitz, E.M.. Tran scriptional activation of APETALA1 by LEAFY. Science 285: 582\u2013584 \\(1999).\r\n  7.  Baudry, A., Heim, M.A., Dubreucq, B., Caboche, M., Weisshaar, B.,and Lepiniec, L..      TT2, TT8, and TTG1 synergistically specify the expression of BANYULS and     proanthocyanidin biosynthesis in Arabidopsis thaliana. Plant J. 39: 366\u2013380 \\(2004).\r\n  8.  Pietrzak, M., Shillito, R.D., Hohn, T. & Potrykus, I. Expression in plants of two bacterial     antibiotic resistance genes after protoplast transformation with a new plant expression vector.  Nucleic Acids Res 14, 5857-68 \\(1986).\r\n  9.  Elemento, O., Slonim, N. & Tavazoie, S. A universal framework for regulatory element discovery across all Genomes and data types. Molecular Cell 28, 337-350 \\(2007).\r\n  10. Higo, K., Ugawa, Y., Iwamoto, M. & Korenaga, T. Plant cis-acting regulatory DNA elements \\(PLACE) database: 1999. Nucleic Acids Research 27, 297-300 \\(1999).\r\n  11. Jain, M. et al. F-box proteins in rice. Genome-wide analysis, classification, temporal and spatial gene expression during panicle and seed development, and regulation by light and abiotic stress. Plant Physiology 143, 1467-1483 \\(2007).\r\n  12.  Jung, K.-H. & An, G. Application of MapMan and RiceNet drives systematic analyses of the early heat stress transcriptome in rice seedlings. Journal of Plant Biology 55\\(2012).\r\n  13. Lescot, M. et al. PlantCARE, a database of plant cis-acting regulatory elements and a portal to tools for in silico analysis of promoter sequences. Nucleic Acids Research 30, 325-327 \\(2002).\r\n  14. Kaufmann, K. et al. Chromatin immunoprecipitation \\(ChIP) of plant transcription factors followed by sequencing \\(ChIP-SEQ) or hybridization to whole genome arrays \\(ChIP-CHIP). Nature Protocols 5, 457-472 \\(2010).\r\n  15. Haring, M. et al. Chromatin immunoprecipitation: optimization, quantitative analysis and data normalization. Plant Methods 3, 11 \\(2007).\r\n  16.  Livak, K.J. & Schmittgen, T.D. Analysis of relative gene expression data using real-time quantitative PCR and the 2\\(-Delta Delta C\\(T)) Method. Methods 25, 402-8 \\(2001).\r\n  17. Chen, H. et al. Firefly luciferase complementation imaging assay for protein-protein interactions in plants. Plant Physiol 146, 368-76 \\(2008).\r\n  18.  Zhang, Y. et al. A highly efficient rice green tissue protoplast system for transient gene expression and studying light/chloroplast-related processes. Plant Methods 7\\(2011).\r\n  19.  Bates, G.W. Plant transformation via protoplast electroporation. Methods Mol Biol 111, 359-66 \\(1999).\r\n  20. Shi, J.X. et al. SHINE transcription factors act redundantly to pattern the archetypal surface of Arabidopsis flower organs. PLoS Genet 7, e1001388.\r\n  21.  Zuo, J., Niu, Q.W. & Chua, N.H. Technical advance: An estrogen receptor-based transactivator XVE mediates highly inducible gene expression in transgenic plants. Plant J 24, 265-73 \\(2000).\r\n  22.  Zhou, J., Lee, C., Zhong, R. & Ye, Z.H. MYB58 and MYB63 are transcriptional activators of the lignin biosynthetic pathway during secondary cell wall formation in Arabidopsis. Plant Cell 21, 248-66 \\(2009)."
+        },
+        {
+            "header": "Timing",
+            "content": "2 weeks"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "This work was supported in part by the National Science Foundation awards DBI-0922747 and ABI1062472, and by the National Research Initiative Competitive Grant no. VAR-2008-01133 from the USDA National Institute of Food and Agriculture."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/ncomms6302",
+                "date": "2014-11-25 14:02:39",
+                "title": "Coordinated regulation of photosynthesis in rice increases yield and tolerance to environmental stress",
+                "authors": [
+                    "Madana M. R. Ambavaram",
+                    "Supratim Basu",
+                    "Arjun Krishnan",
+                    "Venkategowda Ramegowda",
+                    "Utlwang Batlang",
+                    "Lutfor Rahman",
+                    "Niranjan Baisakh",
+                    "and Andy Pereira"
+                ],
+                "journal": "Nature Communications",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 13059,
+                "identity": "a0386670-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Andy Pereira",
+                "email": "apereira@uark.edu",
+                "orcid": "",
+                "institution": "University of Arkansas/ Virginia Bioinformatics Institute",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Andy",
+                "middleName": "",
+                "lastName": "Pereira",
+                "suffix": ""
+            },
+            {
+                "id": 13056,
+                "identity": "a0386040-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Madana Ambavaram",
+                "email": "",
+                "orcid": "",
+                "institution": "Virginia Bioinformatics Instriute, Virginia Tech",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Madana",
+                "middleName": "",
+                "lastName": "Ambavaram",
+                "suffix": ""
+            },
+            {
+                "id": 13057,
+                "identity": "a03861e9-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Lutfor  Rahman",
+                "email": "",
+                "orcid": "",
+                "institution": "University of Arkansas",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Lutfor",
+                "middleName": "",
+                "lastName": "Rahman",
+                "suffix": ""
+            },
+            {
+                "id": 13058,
+                "identity": "a038642c-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Venkategowda Ramegowda",
+                "email": "",
+                "orcid": "",
+                "institution": "University of Arkansas",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Venkategowda",
+                "middleName": "",
+                "lastName": "Ramegowda",
+                "suffix": ""
+            },
+            {
+                "id": 13054,
+                "identity": "a0385ac4-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Supratim Basu",
+                "email": "",
+                "orcid": "",
+                "institution": "University of Arkansas",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Supratim",
+                "middleName": "",
+                "lastName": "Basu",
+                "suffix": ""
+            },
+            {
+                "id": 13055,
+                "identity": "a0385e61-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Arjun Krishnan",
+                "email": "",
+                "orcid": "",
+                "institution": "Virginia Bioinformatics Institute, Virginia Tech",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Arjun",
+                "middleName": "",
+                "lastName": "Krishnan",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2014-09-29 11:30:16",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2014.039",
+        "doiUrl": "https://doi.org/10.1038/protex.2014.039",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2609030,
+                "identity": "583d5243-6da1-405b-bf91-438918162e8d",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:39",
+                "extension": "tif",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 5782916,
+                "visible": true,
+                "origin": "",
+                "legend": "Strategy to show transcriptional regulatory functions of HYR and other TFs. ",
+                "description": "",
+                "filename": "figure1.tif",
+                "url": "https://assets.researchsquare.com/files/nprot-3423/v1/figure_1.tif"
+            },
+            {
+                "id": 13464749,
+                "identity": "1532bd10-740e-4363-8492-7bf478728614",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:44:36",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 676861,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-3423/v1/aa0f5438-57cb-4a79-9416-c5147798a03d.pdf"
+            }
+        ],
+        "financialInterests": "No conflicting financial interests",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "transcription factor, rice, protoplast,  chromatin immunoprecipitation, luciferase assay",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "A protocol is described for identification of gene \\(promoter) targets regulated by an AP2/ERF transcription factor \\(TF) in rice. A tandem affinity purification TAP-tagged construct of the AP2 TF transformed into rice is used in chromatin immunoprecipitation \\(ChIP) assays to verify the putative AP2-regulated genes that are first identified from gene expression data and analysis of cis-regulatory elements in their promoters. Transcriptional activation/repression of the AP2 TF bound promoters is experimentally validated by a Dual Glo luciferase assay system \\(firefly luciferase luminescence normalized to renilla luciferase) using putative regulated promoters cloned upstream of the luciferase and co-transformed with a construct expressing the AP2 TF in rice protoplasts. Finally, the protocol describes the identification of the direct targets identified from ChIP and luciferase assay using a steroid receptor based inducible system.",
+        "manuscriptTitle": "Identification of genes directly regulated by a transcription factor in rice",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2014-11-25 14:06:54",
+                "doi": "10.1038/protex.2014.039",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a037e1e0-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "November 25th, 2014",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3189,
+                "name": "Genetics"
+            },
+            {
+                "id": 3190,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 3192,
+                "name": "Molecular Biology"
+            },
+            {
+                "id": 3193,
+                "name": "Plant sciences"
+            },
+            {
+                "id": 3194,
+                "name": "Biochemistry"
+            },
+            {
+                "id": 3195,
+                "name": "Biological techniques"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2014-11-25 14:06:54",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

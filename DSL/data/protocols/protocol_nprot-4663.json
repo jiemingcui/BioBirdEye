@@ -1,0 +1,286 @@
+{
+    "identity": "nprot-4663",
+    "title": "SMRT RenSeq protocol",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "This protocol is used to prepare long gDNA and cDNA libraries for targeted enrichment followed by PacBio SMRT sequencing. In the first step, Illumina adaptors are ligated to sheared template DNA, which allows subsequent amplification of long libraries prior to and post enrichment. The post-enrichment library is used as an input to PacBio SMRT library preparation.\r\n\n\nThe protocol is designed to yield 3-5 kb libraries that can be sequenced with the PacBio P6-C4 chemistry \\(>14 kb average read length). To avoid sequencing of smaller molecules \\(<3 kb), an additional size selection step is recommended after shearing \\(2.1.2). \r\n\n\nThe target enrichment protocol is optimized for the MYbaits sequence capture kit, using halved reaction volumes; however, it can be simply adjusted to be compatible with other enrichment kits \\(e.g. Agilent SureSelect)."
+        },
+        {
+            "header": "Reagents",
+            "content": "Except from standard laboratory reagents \\(like molecular biology grade water, agarose gels, 96% ethanol), the following kits and reagents are necessary to complete this protocol:\r\n\n\n\r\n\n\n\u2022 NEBNext Ultra DNA Library Prep Kit for Illumina, New England Biolabs, Cat No. E7370S and NEBNext Multiplex Oligos for Illumina \\(Index Primers Set 1), New England Biolabs, Cat No. E7335S\r\n\n\n\u2022 MYbaits customized target enrichment kits for next-gen sequencing, MYcroarray \\(http://www.mycroarray.com/). Sequences of 20,000 Solanum baits can be found in attachment File 1.\r\n\n\n\u2022 KAPA HiFi HotStart ReadyMix, KAPA Biosystems, Cat. No. KK2601\r\n\n\n\u2022 Agencourt AMPure XP Reagent, Beckman Coulter, Cat. No. A63880\r\n\n\n\u2022 Dynabeads MyOne Streptavidin C1, Thermo Fisher Scientific, Cat. No. 65001\r\n\n\n\u2022 SeqCap EZ Developer Reagent, Roche, Cat. No. 06684335001\r\n\n\n\u2022 Covaris Red miniTUBEs \\(5.0 kb), Covaris, Cat. No. 520066"
+        },
+        {
+            "header": "Equipment",
+            "content": "\u2022 0.2 ml PCR tubes, 1.5 ml Eppendorf tubes\r\n\n\n\u2022 Magnetic particle collector for ~1.5 ml tubes\r\n\n\n\u2022 Covaris S2 sonicator or a different suitable model\r\n\n\n\u2022 Thermal cycler \\(any model)\r\n\n\n\u2022 Eppendorf ThermoMixer\r\n\n\n\u2022 Water bath\r\n\n\n\u2022 Optionally: SpeedVac vacuum concentrator and a qPCR system"
+        },
+        {
+            "header": "Procedure",
+            "content": "**Long library preparation**\r\n\n\n\r\n\n\nIn this step, long libraries are prepared and Illumina adaptors are ligated.\r\n\n\n\r\n\n\n**DNA shearing**\r\n\n\n\r\n\n\nWe tested two Covaris-based options to shear DNA; Red miniTUBE \\(this protocol) and gTUBE for longer fragments \\(>5 kb).\r\n\n\n\r\n\n\n**1. Red miniTUBE on Covaris S2.**\r\n\n\n\r\n\n\nShear 2-4 \u03bcg of gDNA with the following settings \\(5 kb):\r\n\n\n\u2022 Intensity \u2013 1\r\n\n\n\u2022 Duty Cycle \u2013 20%\r\n\n\n\u2022 Cycles per Burst \u2013 1000\r\n\n\n\u2022 Treatment time \u2013 600 s\r\n\n\n\u2022 Temperature \u2013 20\u00b0C\r\n\n\n\u2022 Water level \u2013 15\r\n\n\n\u2022 Sample volume \u2013 200 \u03bcl\r\n\n\nCheck whether DNA was sheared to the desired size on 0.8% agarose gel with a suitable DNA marker.\r\n\n\n\r\n\n\n**2. Purification and size selection on AMPure XP beads**\r\n\n\n\r\n\n\nThis purification step includes also first size selection with 0.4X AMPure XP beads.\r\n\n\n\r\n\n\n\u2022 To the sheared DNA \\(190 \u03bcl) in a sterile, nuclease-free Eppendorf tube, add 76 \u03bcl \\(0.4X) resuspended by vortexing AMPure XP beads and mix well by pipetting up and down at least 10 times. \r\n\n\n\u2022 Incubate for 5 minutes at room temperature. \r\n\n\n\u2022 Spin briefly \\(1-2 s) and place the tube on a magnetic stand to separate beads from supernatant. After the solution is clear \\(about 5 minutes), carefully transfer the supernatant to a new tube. Be careful not to disturb the beads that contain the target DNA fragments.\r\n\n\n\u2022 Add 200 \u03bcl of freshly prepared 80% ethanol to the tube while on the magnetic stand. Incubate at room temperature for 30 seconds, and then carefully remove and discard the supernatant. \r\n\n\n\u2022 Repeat wash step twice, to three washes in total. \r\n\n\n\u2022 Briefly spin the tube \\(1-2 s) and put it back on the magnetic stand. \r\n\n\n\u2022 Completely remove the residual ethanol and air dry beads for up to 10 minutes while the tube is on the magnetic stand with lid open. \r\n\n\n\u2022 Elute the DNA target from the beads with 65 \u03bcl nuclease-free water. Mix well by pipetting up and down and put the tube on the magnetic stand until the solution is clear. \r\n\n\n\u2022 Transfer the supernatant to a sterile, nuclease-free Eppendorf tube.\r\n\n\n\r\n\n\nCheck size-selected fraction on 0.8% agarose gel \\(it should contain fragments >2 kb).\r\n\n\nSize selection is optional for longer libraries \\(>3 kb).\r\n\n\n\r\n\n\n**3. Enrichment library construction**\r\n\n\n\r\n\n\nTo construct a DNA library for sequence capture, the NEBNext Ultra DNA Library Prep Kit for Illumina is used according to the manufacturer\u2019s protocol, with minor modifications. The recommended input is 500 ng-1 \u03bcg of sheared and size-selected DNA. Lower amounts are acceptable, but will require some adjustments \\(see NEBNext protocol for details).\r\n\n\n\r\n\n\n**Note:** Other kits can also be used, but check for compatibility with downstream oligo blocks and adaptors.\r\n\n\n\r\n\n\n**4. End repair**\r\n\n\n\r\n\n\nBefore starting, make sure that DTT in End Repair Reaction buffer is fully dissolved.\r\n\n\n\r\n\n\n\u2022 Mix the following components in a sterile, nuclease-free Eppendorf tube: \r\n\n\nEnd Prep Enzyme Mix \u2013 3.0 \u03bcl\r\n\n\nEnd Repair Reaction Buffer \\(10X) \u2013 6.5 \u03bcl\r\n\n\nFragmented DNA \u2013 55.5 \u03bcl\r\n\n\n\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014-\r\n\n\nTotal volume \u2013 65 \u03bcl \r\n\n\n\r\n\n\n\u2022 Mix by pipetting followed by a quick spin to collect all liquid from the sides of the tube.\r\n\n\n\r\n\n\n\u2022 Incubate as below: \r\n\n\n30 minutes at 20\u00b0C\r\n\n\n30 minutes at 65\u00b0C\r\n\n\n5 minutes on ice.\r\n\n\n\r\n\n\n**5. Adaptor ligation**\r\n\n\n\r\n\n\n\u2022 Add the following components directly to the End Prep reaction mixture and mix well: \r\n\n\nBlunt/TA Ligase Master Mix \u2013 15 \u03bcl \r\n\n\nNEBNext Adaptor for Illumina \u2013 2.5 \u03bcl \r\n\n\nLigation Enhancer \u2013 1 \u03bcl\r\n\n\n\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014-\r\n\n\nTotal volume \u2013 83.5 \u03bcl\r\n\n\n\r\n\n\n\u2022 Mix by pipetting, followed by a quick spin to collect all liquid from the sides of the tube.\r\n\n\n\r\n\n\n\u2022 Incubate at 20\u00b0C for 30 minutes.\r\n\n\n\r\n\n\n\u2022 Add 3 \u03bcl of USER enzyme to the ligation mixture above.\r\n\n\n\r\n\n\n\u2022 Mix well and incubate at 37\u00b0C for 20 minutes.\r\n\n\n\r\n\n\n**6. Library purification**\r\n\n\n\r\n\n\nFor this step, use ~0.5X AMPure beads as there is no need to perform a more stringent size selection step here.\r\n\n\n\r\n\n\n\u2022 Add 43 \u03bcl resuspended by vortexing AMPure XP beads to the ligation reaction. Mix well by pipetting up and down at least 10 times. \r\n\n\n\u2022 Incubate for 5 minutes at room temperature.\r\n\n\n\u2022 Spin briefly \\(1-2 s) and place the tube on a magnetic stand to separate beads from supernatant. After the solution is clear \\(about 5 minutes), carefully transfer the supernatant to a new tube. Be careful not to disturb the beads that contain the target DNA fragments.\r\n\n\n\u2022 Add 200 \u03bcl of freshly prepared 80% ethanol to the tube while on the magnetic stand. Incubate at room temperature for 30 seconds, and then carefully remove and discard the supernatant. \r\n\n\n\u2022 Repeat wash step twice, to three washes in total. \r\n\n\n\u2022 Briefly spin the tube \\(1-2 s) and put it back on the magnetic stand. \r\n\n\n\u2022 Completely remove the residual ethanol and air dry beads for up to 10 minutes while the tube is on the magnetic stand with lid open. \r\n\n\n\u2022 Elute the DNA target from the beads with 25 \u03bcl nuclease-free water. Mix well by pipetting up and down and put the tube on the magnetic stand until the solution is clear. \r\n\n\n\u2022 Transfer the supernatant to a sterile, nuclease-free Eppendorf tube.\r\n\n\n\r\n\n\n**7. PCR amplification**\r\n\n\n\r\n\n\nMix the following components in a sterile, nuclease-free PCR tube:\r\n\n\nAdaptor Ligated DNA Fragments \u2013 10 \u03bcl*\r\n\n\n2X KAPA HiFi HotStart ReadyMix \u2013 25 \u03bcl\r\n\n\nIndex Primer \u2013 1 \u03bcl\r\n\n\nUniversal PCR Primer \u2013 1 \u03bcl\r\n\n\nWater \u2013 13 \u03bcl\r\n\n\n\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014-\r\n\n\nTotal volume \u2013 50 \u03bcl\r\n\n\n\r\n\n\nPCR cycling conditions:\r\n\n\nInitial denaturation: 98\u00b0C, 4 minutes \r\n\n\n8-15 cycles with the following settings:\r\n\n\nDenaturation: 98\u00b0C, 30 seconds \r\n\n\nAnnealing: 65\u00b0C, 30 seconds\r\n\n\nExtension: 72\u00b0C, 4 minutes\r\n\n\nFinal extension 72\u00b0C, 10 minutes. \r\n\n\n\r\n\n\n==*== The amount of the library used for amplification may require optimization for different libraries.\r\n\n\n \r\n\n\n\u2022 First perform 8 cycles and run 5 \u03bcl of the reaction on 0.8% agarose gel next to 1 \u03bcl of unamplified library \\(as a control of input DNA). In case there is not enough DNA, put the reaction back to thermocycler for additional 2-5 cycles.\r\n\n\n\r\n\n\n**8. Library size selection and purification**\r\n\n\n\r\n\n\n\u2022 Transfer the PCR reaction \\(45 \u03bcl) to a sterile, nuclease-free Eppendorf tube, add 18 \u03bcl \\(0.4X) of resuspended by vortexing AMPure XP beads and mix well by pipetting up and down at least 10 times. \r\n\n\n\u2022 Incubate for 5 minutes at room temperature. \r\n\n\n\u2022 Spin briefly \\(1-2 s) and place the tube on a magnetic stand to separate beads from supernatant. After the solution is clear \\(about 5 minutes), carefully transfer the supernatant to a new tube. Be careful not to disturb the beads that contain the target DNA fragments.\r\n\n\n\u2022 Add 200 \u03bcl of freshly prepared 80% ethanol to the tube while on the magnetic stand. Incubate at room temperature for 30 seconds, and then carefully remove and discard the supernatant. \r\n\n\n\u2022 Repeat wash step twice, to three washes in total. \r\n\n\n\u2022 Briefly spin the tube \\(1-2 s) and put it back on the magnetic stand. \r\n\n\n\u2022 Completely remove the residual ethanol and air dry beads for up to 10 minutes while the tube is on the magnetic stand with lid open. \r\n\n\n\u2022 Elute the DNA target from the beads with 20 \u03bcl nuclease-free water. Mix well by pipetting up and down and put the tube on the magnetic stand until the solution is clear. \r\n\n\n\u2022 Transfer the supernatant to a sterile, nuclease-free Eppendorf tube.\r\n\n\n\r\n\n\nCheck size-selected fraction on 0.8% agarose gel. \r\n\n\n\r\n\n\n**9. Hybridization**\r\n\n\n\r\n\n\nThe enrichment of target DNA fragments is achieved through hybridization of the PCR amplified genomic libraries \\(Section 2) with complementary RNA \\(cRNA) baits \\(bait library). The following protocol is based on the MYbaits protocol and kit \\(Agilent SureSelect can be easily adapted as well). The high capture efficiency observed over time allowed to perform the hybridization in a half of reaction volume.\r\n\n\n\r\n\n\n**Note:** Hybridization setup is based on MYbaits protocol v3. For more information, see MYbaits protocol: www.mycroarray.com/pdf/MYbaits-manual-v3.pdf\r\n\n\n\r\n\n\nBefore starting, equilibrate HYB #4 tube at room temperature to fully dissolve SDS that may have precipitated during storage at 4\u00b0C.\r\n\n\n\r\n\n\n**10. Library Master Mix Preparation**\r\n\n\n\r\n\n\n**Note 1:** The recommended input for half a reaction volume is 250-350 ng of library DNA in 3.5 \u03bcl. It may be necessary to concentrate the genomic library before further processing by reducing the volume using a SpeedVac.\r\n\n\n**Note 2:** Although Block #1 and Block #2 from MYbaits kit can be used for plant based enrichment, enrichment efficiency is higher when these blockers are replaced by Roche SeqCap EZ Developer Reagent. \r\n\n\n**Note 3:** Make sure that Block #3 matches adapters used for long library preparation.\r\n\n\n\r\n\n\nIn a sterile, nuclease-free PCR tube, mix:\r\n\n\nSeqCAP \u2013 2.5 \u03bcl\r\n\n\nBlock #3 \u2013 0.3 \u03bcl\r\n\n\nLong Illumina library from step 2.2.5 \\(250-500 ng) \u2013 3.5 \u03bcl\r\n\n\n\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014-\r\n\n\nTotal volume \u2013 6.3 \u03bcl\r\n\n\n\r\n\n\nTransfer the tube containing the Library Master Mix to the thermocycler and incubate at 95\u00b0C for 5 minutes and then hold at 65\u00b0C, with the \u2018heated lid\u2019 option enabled. While Library Master Mix is incubated in the thermocycler, proceed to Hybridization Master Mix preparation.\r\n\n\n\r\n\n\n**11. Hybridization Master Mix Preparation**\r\n\n\n\r\n\n\nIn a sterile, nuclease-free PCR tube, mix: \r\n\n\nHyb #1 \u2013 4.5 \u00b5l\r\n\n\nHyb #2 \u2013 0.25 \u00b5l\r\n\n\nHyb #3 \u2013 1.75 \u00b5l\r\n\n\nHyb #4 \u2013 0.25 \u00b5l\r\n\n\nRNase Block \u2013 0.5\u00b5l\r\n\n\nBaits \u2013 2.5 \u00b5l\r\n\n\n\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014-\r\n\n\nTotal volume \u2013 9.25 \u03bcl\r\n\n\n\r\n\n\n\u2022 Mix the components by vortexing, followed by a quick spin to collect all liquid from the sides of the tube. \r\n\n\n\u2022 Transfer the tube containing the Hybridization Master Mix to the thermocycler and incubate at 65\u00b0C for 5 minutes.\r\n\n\n\u2022 While keeping the tube at 65\u00b0C, transfer 9 \u03bcl of Hybridization Master Mix to the Library Master Mix and mix by pipetting.\r\n\n\n\u2022 Hybridize solution at 65\u00b0C for 16-24 hours. \r\n\n\n\r\n\n\n**12. Recovery of captured targets**\r\n\n\n\r\n\n\nBefore starting, preheat Wash Buffer 2 to 65\u00b0C for at least 1 hour, then prepare Wash Buffer 2.2 as follows:\r\n\n\n\u2022 In a 50 ml tube, combine 400 \u03bcl HYB #4, 39.6 ml nuclease-free water and 10 ml Wash Buffer 2. \r\n\n\n\u2022 Heat the Wash Buffer 2.2 to 65\u00b0C for at least 45 minutes before use.\r\n\n\n\r\n\n\nThe prepared volume of Wash Buffer 2.2 is sufficient for washing 33 samples. It can be stored at 4\u00b0C for up to 6 weeks.\r\n\n\n\r\n\n\n**13. Capture and washing**\r\n\n\n\r\n\n\n\u2022 Transfer 20 \u03bcl of MyOne Streptavidin C1 magnetic beads to a sterile, nuclease-free Eppendorf tube.\r\n\n\n\u2022 Place the tube on a magnetic stand to separate beads from supernatant. After the solution is clear, carefully remove and discard the supernatant.\r\n\n\n\u2022 Add 200 \u03bcl Binding Buffer to wash the beads. Vortex the tube for 5-10 seconds, place on the magnetic stand for 2 minutes, and then carefully remove and discard the supernatant.\r\n\n\n\u2022 Repeat wash step twice for a total of three washes.\r\n\n\n\u2022 Resuspend the beads in 35 \u03bcl Binding Buffer and incubate at 65\u00b0C for 2 minutes.\r\n\n\n\u2022 Transfer the hybridization solution to the Binding Buffer/Beads and incubate 45min at 65\u00b0C, mixing solution every 5-10 minutes.\r\n\n\n\u2022 Pellet the beads on the magnetic stand for 2 minutes and carefully remove and discard the supernatant.\r\n\n\n\u2022 Add 500 \u03bcl of the Wash Buffer 2.2 from 65\u00b0C to the beads and mix by pipetting. Incubate for 10 minutes at 65\u00b0C in a thermal block. Flick the tube occasionally to resuspend the beads. Pellet the beads on the magnetic stand for 2 minutes and carefully remove and discard the supernatant.\r\n\n\n\u2022 Repeat washing step twice for a total of three 65\u00b0C washes. After the third wash, make sure all additional buffer is removed by giving the tube a quick spin after the supernatant has been removed, and re-pelleting the beads with the magnetic stand.\r\n\n\n\u2022 Resuspend the beads in 20 \u03bcl molecular biology grade water. \r\n\n\n\r\n\n\n**14. Amplification of the captured library**\r\n\n\n\r\n\n\nThis step consists of amplifying the captured DNA while it is still attached to the streptavidin beads. It is important to limit the number of cycles to get just enough material for sequencing while minimizing PCR amplification bias. For this step, KAPA HiFi DNA Polymerase was used which compares favourably to other available DNA polymerases.\r\n\n\n\r\n\n\n\u2022 Prepare a 50 \u03bcl PCR reaction as follows on ice in a nuclease-free PCR tube, and mix by pipetting:\r\n\n\nCaptured Library \u2013 1 \u03bcl*\r\n\n\n2X KAPA HiFi HotStart ReadyMix \u2013 25 \u03bcl\r\n\n\nP5 primer \\(10 \u03bcM) \u2013 1.5 \u03bcl \r\n\n\nP7 primer \\(10 \u03bcM) \u2013 1.5 \u03bcl\r\n\n\nWater \u2013 22.5 \u03bcl\r\n\n\n\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014-\r\n\n\nTotal volume \u2013 50 \u03bcl\r\n\n\n\r\n\n\n\u2022 PCR cycling conditions:\r\n\n\nInitial denaturation: 98\u00b0C, 4 minutes \r\n\n\n25 cycles with the following settings:\r\n\n\nDenaturation: 98\u00b0C, 30 seconds \r\n\n\nAnnealing: 65\u00b0C, 30 seconds\r\n\n\nExtension: 72\u00b0C, 4 minutes\r\n\n\nFinal extension: 72\u00b0C, 10 minutes. \r\n\n\n\r\n\n\n==*== The amount of the enriched library \\(from step 3.2.1) used for amplification may require optimization for different libraries.\r\n\n\n\r\n\n\n\u2022 Check 5 \u03bcl of PCR product on the 0.8% agarose gel \u2013 usually, 25 cycles yield 1-2 \u03bcg of the amplified enriched library; therefore, 5 \u03bcl should be well visible on gel. If amplification is weak, perform 2-5 additional cycles.\r\n\n\n\u2022 It is highly recommended to perform enrichment efficiency check using qPCR. Primer should be designed in a few genes used for enrichment. Difference between enriched and non enriched samples will oscillate between 8-11 cycles."
+        },
+        {
+            "header": "Timing",
+            "content": "1 week"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "This protocol should yield an enriched 3-5 kb library. It is crucial to perform Blue Pippin size selection after enrichment and prior to PacBio library construction, as otherwise short fragments are preferentially sequenced. Agarose gel based or AMPure XP size selection are generally not sufficient for removal of small DNA fragments. AsBlue Pippin size selection recovers only a fraction of the input DNA, usually 5-10 individual, 50 \u03bcl PCR reactions need to be performed. This should yield >10-15 \u03bcg of amplified DNA, resulting in at least 500 ng of size selected DNA. Final PacBio library preparation requires an input of 500-750 ng of size selected DNA."
+        },
+        {
+            "header": "References",
+            "content": "Jupe, F. et al. Resistance gene enrichment sequencing \\(RenSeq) enables reannotation of the NB-LRR gene family from sequenced plant genomes and rapid mapping of resistance loci in segregating populations. Plant J. 76, 530-544 \\(2013)\r\n\n\nAndolfo, G. et al. Defining the full tomato NB-LRR resistance gene repertoire using genomic and cDNA RenSeq. BMC Plant Biol. 14: 120 \\(2014)\r\n\n\nWitek, K. et al. Accelerated cloning of a potato late blight\u2013resistance gene using RenSeq and SMRT sequencing. Manuscript accepted"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nbt.3540",
+                "date": "2016-04-26 21:00:48",
+                "title": "Accelerated cloning of a potato late blight\u2013resistance gene using RenSeq and SMRT sequencing",
+                "authors": [
+                    "Kamil Witek",
+                    "Florian Jupe",
+                    "Agnieszka I Witek",
+                    "David Baker",
+                    "Matthew D Clark",
+                    "and Jonathan D G Jones"
+                ],
+                "journal": "Nature Biotechnology",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 13810,
+                "identity": "a0ac825a-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Kamil Witek",
+                "email": "kamil.witek@tsl.ac.uk",
+                "orcid": "",
+                "institution": "Jonathan Jones Lab (TSL)",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Kamil",
+                "middleName": "",
+                "lastName": "Witek",
+                "suffix": ""
+            },
+            {
+                "id": 13811,
+                "identity": "a0ac85df-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Florian Jupe",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Florian",
+                "middleName": "",
+                "lastName": "Jupe",
+                "suffix": ""
+            },
+            {
+                "id": 13812,
+                "identity": "a0ac87e6-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Agnieszka I Witek",
+                "email": "",
+                "orcid": "",
+                "institution": "Jonathan Jones Lab (TSL)",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Agnieszka",
+                "middleName": "I",
+                "lastName": "Witek",
+                "suffix": ""
+            },
+            {
+                "id": 13813,
+                "identity": "a0ac8bae-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "David  Baker",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "David",
+                "middleName": "",
+                "lastName": "Baker",
+                "suffix": ""
+            },
+            {
+                "id": 13814,
+                "identity": "a0ac8dd0-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Matthew D Clark",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Matthew",
+                "middleName": "D",
+                "lastName": "Clark",
+                "suffix": ""
+            },
+            {
+                "id": 13815,
+                "identity": "a0ac8f66-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Jonathan DG Jones",
+                "email": "",
+                "orcid": "",
+                "institution": "Jonathan Jones Lab (TSL)",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jonathan",
+                "middleName": "DG",
+                "lastName": "Jones",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2016-04-18 18:25:46",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2016.027",
+        "doiUrl": "https://doi.org/10.1038/protex.2016.027",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13464883,
+                "identity": "7076dd22-99c6-4d2b-a69d-f2a96f5e867c",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:44:59",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 149256,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-4663/v1/f8a451ff-7a82-4f19-affd-81ab14004f05.pdf"
+            },
+            {
+                "id": 2609396,
+                "identity": "16f2ad7b-db57-4013-aadc-c6be289a1258",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:53",
+                "extension": "fasta",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 2983046,
+                "visible": true,
+                "origin": "",
+                "legend": "File 1   Solanum bait library   Sequences of 20,000 baits designed to target Solanum NLR genes.",
+                "description": "",
+                "filename": "supplement0.fasta",
+                "url": "https://assets.researchsquare.com/files/nprot-4663/v1/supplement_0.fasta"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "RenSeq, PacBio, SMRT sequencing, targeted enrichment",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "R gene enrichment and Sequencing \\(RenSeq, Jupe et al. 2013) is a genome complexity reduction method which allows to enrich for nucleotide-binding, leucine reach repeat \\(NLR) type plant disease resistance genes prior to sequencing. RenSeq was established and successfully used with Illumina platforms \\(Jupe et al. 2013, Andolfo et al. 2014), however the repetitive nature of NLR genes hampered de novo assembly of this family. Here we describe a protocol which enables to prepare long enriched libraries that are suitable for Pacific Biosciences Single-Molecule Real Time \\(SMRT) sequencing. Reads Of Inserts \\(ROI) generated with this protocol are around 3-4 kb in length \\(longer than the average NLR sequence). These long reads are especially well suited for de novo assembly of whole NLR genes including their regulatory elements \\(Witek et al. 2016). \r\n\n\nThe protocol presented here is not restricted to NLR genes; it can be used to generate long \\(>3 kb) enriched libraries for any multigene family from any type of tissue and organism.",
+        "manuscriptTitle": "SMRT RenSeq protocol",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2016-04-26 21:22:37",
+                "doi": "10.1038/protex.2016.027",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a0ac322e-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "April 26th, 2016",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3568,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 3569,
+                "name": "Molecular Biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2016-04-26 21:22:37",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

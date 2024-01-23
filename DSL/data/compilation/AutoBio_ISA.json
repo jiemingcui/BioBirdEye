@@ -1,0 +1,1983 @@
+{
+    "REMOVE":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            },
+            "source":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            },
+            "device":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            },
+            "purpose":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            },
+            "method":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            },
+            "notice":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Remove]{operation} [aliquot of cells]{reagent1} [for counting]{purpose}.",
+            "[Remove]{operation} the [colon]{reagent1} at [the most distal position accessible]{source} with [a small scissor]{device} [(sample any organ or tissue of interest for further studies)]{notice}.",
+            "[Remove]{operation} [residual hemocytes]{reagent1} by [centrifuging at 150 x g at room temperature for 10 min]{method}."
+        ],
+        "notice":[
+
+        ],
+        "synonym":[
+
+        ]
+    },
+    "ADD":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"List<REG>",
+                "commit":"The additive reagent"
+            },
+            "reagent2":{
+                "require":1,
+                "type":"REG",
+                "commit":"The target reagent or empty container"
+            },
+            "device":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Add]{operation} [400 ul of methanol]{reagent1}, to [the protein solution]{reagent2}.",
+            "[Add]{operation} [4 ml of PBS]{reagent1} in [an empty ultra-low attachment dish]{reagent2}.",
+            "[Add]{operation} [10% volume of 3M sodium acetate, pH 5.2]{reagent1}"
+        ],
+        "notice":[
+
+        ],
+        "synonym":[
+            "apply", "load", "pour"
+        ]
+    },
+    "TRANSFER":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commet":"The reagent to be transfered"
+            },
+            "source":{
+                "require":0,
+                "type":"STR",
+                "commet":""
+            },
+            "destination":{
+                "require":1,
+                "type":"STR",
+                "commet":""
+            },
+            "component":{
+                "require":0,
+                "type":"STR",
+                "commet":""
+            },
+            "volume":{
+                "require":0,
+                "type":"VOL",
+                "commet":""
+            },
+            "notice":{
+                "require":0,
+                "type":"STR",
+                "commet":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commet":""
+            }
+        },
+        "exmaple":[
+            "[Transfer]{operation} the [cryo vials]{reagent1} from the [-80°C freezer]{source} [into a pre-equilibrated CoolBox CFT30 containing a green freezing cartridge inside it]{destination}.",
+            "[Transfer]{operation} the [supernatant]{component} [to a new eppendorf]{destination}.", 
+            "[Pipette]{operation} the [conjugation reaction mixture]{reagent1} [onto the column]{destination}.",
+            "[Load]{operation} [500μl]{volume} of [diluted tissue lysate]{reagent1} [onto a Vivacon 500 filter unit]{destination}."
+        ],
+        "notice":[
+            "TRANSFER instruction sometimes transfer all reagent(reagent1), sometimes only a portion(such as supernatant or a certain volume). Use \"component\" or \"volume\" under this circumstances.",
+            "Prepositions before \"destination\" should also be retained to avoid semantic loss.",
+            "\"Pipette\" and \"Transfer by pipetting\" have the same meaning."
+        ],
+        "synonym":["Pipette","Load"]
+    },
+    "INCUBATE":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be incubated"
+            },
+            "reagent2":{
+                "require":0,
+                "type":"List<REG>",
+                "commit":"Additional reagents added during incubation"
+            },
+            "temperature":{
+                "require":1,
+                "type":"TEMP",
+                "commit":"defult=roomtemp"
+            },
+            "time":{
+                "require":0,
+                "type":"TIME",
+                "commit":""
+            },
+            "environment":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            },
+            "device":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            },
+            "thermoProgram":{
+                "require":0,
+                "type":"STR",
+                "commit":"when \"device\"=thermocycler, this parameter should be changed to REQ"
+            },
+            "notice":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Incubate]{operation} at [room temperature]{temperature} for [30min]{time} [in the dark]{environment}.",
+            "[Incubate]{operation} the [washed RBC]{reagent1} with [equal volume of bacteria]{reagent2} at [room temperature]{temperature} [under steady rotation at 6 rpm]{notice}.",
+            "[Incubate]{operation} the [cells]{reagent1} again for [3 more hours]{time} at [BOD incubator]{device}.",
+            "[Incubate]{operation} the reaction in [thermocycler]{device}:  [1 cycle at 95°C for 5 min, 40 cycles of 95°C for 1 min, 60°C for 30 s and 72°C for 15 s, 1 cycle 72°C for 5 min and hold at 8°C]{thermoProgram}."
+        ],
+        "notice":[
+
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "SUSPEND":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be suspended"
+            },
+            "reagent2":{
+                "require":0,
+                "type":"REG",
+                "commit":"suspension"
+            },
+            "targetConc":{
+                "require":0,
+                "type":"CONC",
+                "commit":""
+            },
+            "notice":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Suspend]{operation} by [gentle trituration 100 times]{mothod} [without bubbles]{notice}",
+            "[Suspend]{operation} [1-5 million cells]{reagent1} in the [labeling medium]{reagent2} for [10 min]{time} at [37 ˚C]{temperature} [(refer to step 1 in the protocol for mammalian cell cultures for labeling medium preparation)]{notice}.",
+            "[Resuspend]{operation] the [cell pellet]{reagent1} at a density of [3.0 x 10-6cells/mL]{targetConc} in [freezing medium]{reagent2}."
+        ],
+        "notice":[
+
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "PLATE":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be plated"
+            },
+            "reagent2":{
+                "require":0,
+                "type":"REG",
+                "commit":"Auxiliary reagent"
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Plate]{operation} the [transformed bacterial cells]{reagent1} on [agar plates containing Carbenicillin]{reagent2}.",
+            "[Plate]{operation} [5x10-6 monocytes]{reagent1} in [5 ml MDDC culture media in a 10 cm plate with recombinant human GM-CSF at 10 ng\/ml and recombinant human IL-4 at 50 ng\/ml]{reagent2}",
+            "[Plate]{operation} preparation: [20 μl of 100 mM IPTG and 70 μl of 2% Bluo-Gal]{reagent1} were [spread]{operation} on [LB plate containing kanamycin \\(final concentration of 50 μg\/ml) and gentamycin \\(final concentration of 7 μg\/ml)]{reagent2}."
+        ],
+        "notice":[
+            "In most cases, PLATE lay the cells in the plate/dish, and in a few cases, cells are laid in the reagent."
+        ],
+        "synonym":[
+            "spread"
+        ]
+    },
+    "COLLET":{
+        "slot":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be plated"
+            },
+            "component":{
+                "require":1,
+                "type":"STR",
+                "commit":"The part to be collected in reagent0"
+            },
+            "destination":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            },
+            "volume":{
+                "require":0,
+                "type":"VOL",
+                "commit":""
+            },
+            "purpose":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Collect]{operation} [cells]{component} by [centrifugation (200 g, 5 min, room temperature)]{method}*",
+            "[Collect]{operation} [10 ml whole blood]{component} by [peripheral venipuncture]{method} using [a 21 gauge butterfly needle]{device} [into a K2EDTA vacutainer tube]{destination}.",
+            "[Harvest]{operation} the [hiPSCs]{component} with [a Cell Scraper]{device}.",
+            "[Harvest]{operation} [sperm]{component} from the [caudal epididymides of a >8 week-old B6D2F1 male]{reagent1}"
+        ],
+        "notice":[
+            "When COLLECT is executed by centrifugation, the target container is often not explicitly indicated."
+        ],
+        "synonym":[
+            "Harvest"
+        ]
+    },
+    "MIX":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"List<REG>",
+                "commit":"Contains at least one reagent"
+            },
+            "method":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            },
+            "container":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            },
+            "purpose":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            },
+            "repeat":{
+                "require":0,
+                "type":"NUM",
+                "commit":""
+            },
+            "notice":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Mix]{operation} by [pipetting carefully]{method} to [make the stock of the single cell suspension]{purpose}.",
+            "[Mix]{operation} [20 μl of 10× PCR buffer]{reagent1[0]}, [2 μl of 250 mM MgCl-2]{reagent1[1]}, [10 μl of 5 mM dNTPs]{reagent1[2]}, [1 μl of 100 μM mDNA-F2 primer]{reagent1[3]}, [1 μl of 100 μM mDNA-R3 primer]{reagent1[4]}, [2 μl of Taq DNA polymerase]{reagent1[5]}, [5 μl of the 1st PCR product from step 71]{reagent1[6]}, and [159 μl of RNase- free water]{reagent1[7]}in a [200-μl PCR tubes]{container}.",
+            "[Mix]{operation} well by [pipetting up and down]{method} [at least 10 times]{repeat}."
+        ],
+        "notice":[
+            "MIX sometimes fully mixes the reagents already added in the previous sections, and sometimes new reagents are mixed in.",
+            "Most MIX instructions are relatively simple."
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "DILUTE":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be diluted"
+            },
+            "reagent2":{
+                "require":1,
+                "type":"REG",
+                "commit":"The diluent"
+            },
+            "targetConc":{
+                "require":0,
+                "type":"CONC",
+                "commit":""
+            },
+            "purpose":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Dilute]{operation} [Streptavidin HRP and Biotin Conjugate]{reagent1} [1:99]{targetConc} using [conjugate diluent]{reagent2} to [prepare the detection solution]{purpose)}.",
+            "[Dilute]{operation} [10 µl purified virus]{reagent1} in [90 µl PBS]{reagent2} to [add Multiplicity of infection of 10 to the tube of cells to infect]{purpose}.",
+            "[Dilute]{operation} the [genomic DNA products]{reagent1} to [50 ng/μL]{targetConc}."
+        ],
+        "notice":[
+            "Sometimes the target concentration is explicitly indicated by \"1: n\" or concentration units, and sometimes it is implicitly indicated by giving the volume of the diluted solvent."
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "SHAKE":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be shaked"
+            },
+            "speed":{
+                "require":0,
+                "type":"SPD",
+                "commit":""
+            },
+            "time":{
+                "require":0,
+                "type":"TIME",
+                "commit":""
+            },
+            "method":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            },
+            "device":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            },
+            "repeat":{
+                "require":0,
+                "type":"NUM",
+                "commit":"This parameter is usually given if SHAKE is performed by hand"
+            },
+            "temperature":{
+                "require":0,
+                "type":"TEMP",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Shake]{operation} at [moderate speed]{speed} for [approximately 30 minutes]{time}.",
+            "[Shake]{operation} the [tubes]{reagent1} [vigorously]{speed} by [hand]{method}.",
+            "[Shake]{operation} [PCR clean-up plate]{reagent1} using the [plate shaker]{device} at [1800 rpm]{speed} for [2 minutes]{time}."
+        ],
+        "notice":[
+            "For most of times, SHAKE uses rpm or xg to represent strength, which is similar to CENTRIFUGATION."
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "CENTRIFUGE":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be centrifuged"
+            },
+            "speed":{
+                "require":0,
+                "type":"SPD",
+                "commit":"The centrifugal force"
+            },
+            "time":{
+                "require":0,
+                "type":"TIME",
+                "commit":""
+            },
+            "temperature":{
+                "require":0,
+                "type":"TEMP",
+                "commit":""
+            },
+            "purpose":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Centrifuge]{operation} at [2,500g]{speed} for [15 min]{time} at [4 °C]{temperature}.",
+            "[Spin]{operation} at [13,200 rpm]{speed} at [RT]{temperature} for [15min]{time}.",
+            "[Centrifuge]{operation} [samples]{reagent1} for [1 min]{time} at [13,000 g]{speed} to [separate the phases]{purpose}.",
+            "[Spin]{operation} down [(1 sec)]{time}."
+        ],
+        "notice":[
+            "CENTRIFUGE is a standard operation carried out in a centrifuge, and its protocol writing is relatively standardized. In standard centrifugation, \"spd\" (rpm/xg/rcf) and \"time\" must be given, and \"temperature\" is an optional parameters; But if protocol means spin down it randomly, these three parameters can be all optional."
+        ],
+        "synonym":[
+            "centrifugate","spin"
+        ]
+    },
+    "PURIFY":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be purified"
+            },
+            "device":{
+                "require":1,
+                "type":"STR",
+                "commit":"Purification facilities must be provided, otherwise operation cannot proceed"
+            },
+            "notice":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Purify]{operation} [CD11c-positive cells]{reagent1} [twice]{repeat} using [CD11c MicroBeads]{device} [according to the manufacturer&#x2019;s instructions]{notice}.",
+            "[Purify]{operation} [RNA]{reagent1} using a [RNeasy Micro Kit (Qiagen)]{device}.",
+            "[Purify]{operation} the [products]{reagent1} using [Eppendorf Perfectprep PCR Cleanup 96]{device}."
+        ],
+        "notice":[
+            "PURIFY is difficult to generalize, but most PURIFY operations involve using specific equipment for purification."
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "DISCARD":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be discarded"
+            },
+            "component":{
+                "require":1,
+                "type":"STR",
+                "commit":"The discarded part"
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Discard]{operation} [supernatant]{component}.",
+            "[Discard]{operation} the [protein solution]{component}.",
+            "[Pipette off]{device} [supernatant]{component} completely."
+        ],
+        "notice":[
+            "DISCARD is often used alone with REMOVE, such as \"Remove and discard the superior\".",
+            "For most of times, DISCARD only discards a portion of the operational ragent (such as the supernatant), otherwise making this agent would be meaningless."
+        ],
+        "synonym":[
+            "Pipette off"
+        ]
+    },
+    "REPLACE":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be replaced"
+            },
+            "reagent2":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be added in"
+            },
+            "volume":{
+                "require":0,
+                "type":"VOL",
+                "commit":"If protocol has this parameter, reagent1 keep alive"
+            },
+            "frequency":{
+                "require":0,
+                "type":"FREQ",
+                "commit":""
+            },
+            "timer":{
+                "require":0,
+                "type":"TIME",
+                "commit":"Operation start after a certain period of time"
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Replace]{operation} the [medium]{reagent1} with [xeno-free hEPS medium]{reagent2} [24 hours later]{timer}.",
+            "[Replace]{operation} [1 ml]{volume} of [Locke solution]{reagent1} [10 times every 5 min]{frequency}.",
+            "[Replace]{operation} with [250 µL Cell Recovery Solution]{reagent2}."
+        ],
+        "notice":[
+
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "MEASURE":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be measured, keep alive"
+            },
+            "attribute":{
+                "require":0,
+                "type":"STR",
+                "commit":"Measured attributes"
+            },
+            "device":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            },
+            "component":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            },
+            "method":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            }
+        },
+        "emit":{
+            
+        },
+        "example":[
+            "[Measure]{operation} the [total weight]{attribute} of [the sample loaded (for example, 750 µL in Figure 5) in a well]{reagent1}.",
+            "[Measure]{operation} the [recovered RCA DNA]{reagent1} using [Nanodrop]{device}",
+            "[Measure]{operation} the [final volume]{attribute} of the [supernatant (About 500 µL)]{component} by [weighing the tubes again]{method}."
+        ],
+        "notice":[
+            "Some MEASUREs do not provide specific \"attribute\" for measurement, which may be due to the fact that the measurement content is implicitly provided by \"device\", such as the UV spectrophotometer always measuring absorbance."
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "DISSOLVE":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be dissolved"
+            },
+            "reagent2":{
+                "require":1,
+                "type":"REG",
+                "commit":"The solvent"
+            },
+            "container":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            },
+            "targetConc":{
+                "require":0,
+                "type":"CONC",
+                "commit":""
+            },
+            "notice":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Dissolve]{operation} [1.0 g HAuCl4•4H2O]{reagent1} with [Millipore water]{reagent2} in [a 100 mL volumetric flask]{container} to make [1% (w\/v) HAuCl4•4H2O solution]{targetConc}.",
+            "[Dissolve]{operation} [0.8 mg RGO]{reagent1} in [1.5 mL chitosan solution]{reagent2}.",
+            "[Dissolve] the [pellet]{reagent1} in [water (VW)]{reagent2} to yield a solution of [0.01-0.1 mg/ml]{targetConc} [(based on the amount of starting materials) (note: the color is yellowish)]{notice}."
+        ],
+        "notice":[
+
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "ASPIRATE":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The source reagents, keep alive"
+            },
+            "component":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            },
+            "source":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            },
+            "notice":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Aspirate]{operation} [PBS]{reagent1} from the [collection tube]{source}.",
+            "[Aspirate]{operation} [supernatant]{component}.",
+            "[Aspirate]{operation} [gently]{notice} to [remove the supernatant]{component}."
+        ],
+        "notice":[
+            "The sentence structure of ASPIRATE is very simple.",
+            "ASPIRATE is usually used alone with other operations, such as \"Aspirate and re-suspend\" and \"Aspirate and discard\".",
+            "The source reagents(reagent1) of ASPIRATE are generally not provided and need to be predicted"
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "COAT":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be coated"
+            },
+            "reagent2":{
+                "require":1,
+                "type":"List<REG>",
+                "commit":"The reagent applied to reagent1"
+            },
+            "device":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            },
+            "time":{
+                "require":0,
+                "type":"TIME",
+                "commit":""
+            },
+            "temperature":{
+                "require":0,
+                "type":"TEMP",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Coat]{operation} [samples]{reagent1} with [gold]{reagent2} using [sputter coater]{device}.",
+            "[Coat]{operation} [wells]{reagent1} with [1-2 ml of 0.5% gelatin solution]{reagent2} in a [humidified incubator]{device} at [37⁰C]{temperature} for [30 minutes]{time}.",
+            "[Coat]{operation} the [surface of MEA]{reagent1} with [0.1mg\/mL poly-D-lysine]{reagent2[0]} and [Geltrex]{reagent2[1]} to [improve cell adhesion]{purpose}. "
+        ],
+        "notice":[
+
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "RINSE":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be rinsed"
+            },
+            "reagent2":{
+                "require":1,
+                "type":"List<REG>",
+                "commit":"The flushing agent, default=water"
+            },
+            "repeat":{
+                "require":0,
+                "type":"NUM",
+                "commit":""
+            },
+            "time":{
+                "require":0,
+                "type":"TIME",
+                "commit":""
+            },
+            "purpose":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Rinse]{operation} [filter]{reagent1} with [2 mL ice cold staining solution]{reagent2} to [dislodge cells stuck to the membrane]{purpose}.",
+            "[Rinse]{operation} [brains]{reagent1} [six times]{repeat} in [PBS]{reagent2}, [4 min]{time} for each rinse.",
+            "[Rinse]{operation} the [metallic layer]{componment} of the [blank DVD]{reagent1} with [ethanol]{reagent2} to [remove the organic dye]{purpose}."
+        ],
+        "notice":[
+
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "ELUTE":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be eluted"
+            },
+            "reagent2":{
+                "require":1,
+                "type":"List<REG>",
+                "commit":"The eluent"
+            },
+            "flowrate":{
+                "require":0,
+                "type":"RATE",
+                "commit":""
+            },
+            "time":{
+                "require":0,
+                "type":"TIME",
+                "commit":""
+            },
+            "temperature":{
+                "require":0,
+                "type":"TEMP",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Elute]{operation} [column]{reagent1} with [5 column volumes of 25 mM DTT in PBS]{reagent2}, [flow rate 2.5 ml/min]{flowrate}.",
+            "[Elute]{operation} [DNA]{reagent1} by using [50 µL 25 mM K-3BO-3 (pH 7.0)]{reagent2}.",
+            "[Elute]{operation} [proteins]{reagent1} [twice]{repeat} with [at least four to 10 bead volumes of elution buffer \\(0.2 M glycine, pH 2.3\/ 0.5% Igepal CA-630)]{reagent2} for [20 min]{time}, [37 ˚C]{temperature}."
+        ],
+        "notice":[
+
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "VORTEX":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be putted under vortex movement"
+            },
+            "time":{
+                "require":0,
+                "type":"TIME",
+                "commit":""
+            },
+            "temperature":{
+                "require":0,
+                "type":"TEMP",
+                "commit":""
+            },
+            "repeat":{
+                "require":0,
+                "type":"NUM",
+                "commit":""
+            },
+            "purpose":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            },
+            "notice":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Vortex]{operation} [vigorously]{notice} for [30 seconds]{time} at [RT]{temperature}.",
+            "[Vortex]{operation} [9 times]{repeat}.",
+            "[Vortex]{operation} the [tube]{reagent1} [at the lowest speed]{notice} for [at least 30 minutes}{time} [to permeabilize membranes]{purpose}."
+        ],
+        "notice":[
+            "All the parameters are optional because sometimes it's just a random spin."
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "THAW":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be thawed"
+            },
+            "environment":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            },
+            "temperature":{
+                "require":0,
+                "type":"TEMP",
+                "commit":""
+            },
+            "time":{
+                "require":0,
+                "type":"TIME",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Thaw]{operation} [Matrigel]{reagent1} [on ice]{environment}.",
+            "[Thaw]{operation} [100 ml aliquot of serum]{reagent1} at [4°C]{temperature} [overnight]{time}.",
+            "[Thaw]{operation} [20 mM unidirectional linker mix]{reagent1} [in an ice-water bath]{environment}."
+        ],
+        "notice":[
+            "The \"environment\" should contain the preceding preposition, such as \"on ice\"",
+            "The protocol writing is relatively standardized."
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "PASSAGE":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be passaged"
+            },
+            "reagent2":{
+                "require":1,
+                "type":"REG",
+                "commit":"The culture medium for passage cultivation"
+            },
+            "reagent3":{
+                "require":0,
+                "type":"List<REG>",
+                "commit":"Additional reagents for passage cultivation"
+            },
+            "targetConc":{
+                "require":0,
+                "type":"CONC",
+                "commit":""
+            },
+            "notice":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            },
+            "frequency":{
+                "require":0,
+                "type":"FREQ",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Passage]{operation} to [new Gelatin-coated 150-mm culture dish]{reagent2} at [1:4 dilution]{targetConc} with [0.25w/v% trypsin digestion]{reagent3}.",
+            "[Passage]{operation} [feeder-independent hESCs]{reagent1} using [0.5 mM EDTA]{reagent3} in [sterile D-PBS]{reagent2} [without calcium and magnesium]{notice}.",
+            "[Passage]{operation} [xeno-free human EPS cells]{reagent1} [every 3-4 days]{frequency}."
+        ],
+        "notice":[
+            "There may be situations where multiple additional reagents may be added, so reagent3 will be extended to List in advance"
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "PELLET":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be pelleted"
+            },
+            "method":{
+                "require":0,
+                "type":"STR",
+                "commit":"Used to handle nested statements"
+            },
+            "time":{
+                "require":0,
+                "type":"TIME",
+                "commit":""
+            },
+            "speed":{
+                "require":0,
+                "type":"SPD",
+                "commit":""
+            },
+            "temperature":{
+                "require":0,
+                "type":"TEMP",
+                "commit":""
+            },
+            "device":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Pellet]{operation} [cells]{reagent1} by [centrifugation at 200 rcf for 5 min (4ºC)]{method}.",
+            "[Pellet]{operation} the [particles]{reagent1} via a [magnetic separator]{device}.",
+            "[Pellet]{operation} [cells]{reagent1} for [3 min]{time} at [300xg]{speed}, [4°C]{temperature} in a [pre-chilled centrifuge]{device}."
+        ],
+        "notice":[
+            "Most examples of PELLET are pelleting cells, and a few examples are pelleting beads or nuclei, but these things are also related to cells.",
+            "All parameters are optional, as sometimes protocol is just \"Pellet the cells\"."
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "REPEAT":{
+        "slot":{
+            "begin":{
+                "require":1,
+                "type":"NUM",
+                "commit":""
+            },
+            "end":{
+                "require":1,
+                "type":"NUM",
+                "commit":""
+            },
+            "repeat":{
+                "require":1,
+                "type":"NUM",
+                "commit":""
+            }
+        },
+        "emit":{
+            
+        },
+        "example":[
+            "[Repeat]{operation} [steps 11]{begin}-[13]{end} to [collect more samples]{purpose}.",
+            "[Repeat]{operation} [wash]{predict begin and end}.",
+            "[Repeat]{operation} [this step]{predict begin and end} [one more time]{repeat}."
+        ],
+        "notice":[
+            "REPEAT cannot handle nested loops (Actually, no nested loop is actually observed).",
+            "The interval composed of begin and end is a closed interval"
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "DIGEST":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be digested"
+            },
+            "reagent2":{
+                "require":0,
+                "type":"REG",
+                "commit":"The digestive reagent"
+            },
+            "time":{
+                "require":0,
+                "type":"TIME",
+                "commit":""
+            },
+            "temperature":{
+                "require":0,
+                "type":"TEMP",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Digest]{operation} for [6hr]{time} [RT]{temperature}.",
+            "[Digest]{operation} [cortices from E16 rats]{reagent1} by [0.125 % trypsin]{reagent2}.",
+            "[Digest]{operation} [tissue]{reagent1} in [10 mL of lysis buffer]{reagent2}."
+        ],
+        "notice":[
+            "DIGEST is divided into two types. The first type includes the reagent to be digested and the digestive agent (such as \"Digest cortices from E16 rats by 0.125 % trypsin\"), and the second type only accepts one reagent, which is equivalent to PLACE(such as \"Digest for 6hr RT\"). The reason may be that the protocol has written the digestive reagent into the previous ADD"
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "EXTRACT":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be extracted, keep alive"
+            },
+            "reagent2":{
+                "require":0,
+                "type":"REG",
+                "commit":"The extractant"
+            },
+            "repeat":{
+                "require":0,
+                "type":"NUM",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Extract]{operation} the [solution]{reagent1} with [EtOAc (4 ×(repeat) 50 mL)]{reagent2}.",
+            "[Extract]{operation} [remaining peptide]{reagent1} from [gel]{source} with [50 μl extract buffer I(50% Acetonitrile\/5% Formic acid)]{reagent2} for [30 min]{time} in a [thermomixer(700 rpm)]{device}.",
+            "[Extract]{operation} [genomic DNA]{reagent1} from [5 ml whole blood]{reagent2} using [standard phenol/chloroform method]{method}."
+        ],
+        "notice":[
+            "\"4  ×  50mL\" means \"Extract 4 times, 50mL each time\", including a hidden \"repeat\", and cannot be directly used as an attribute of reagent2."
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "PIPETTE":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be pipetted"
+            },
+            "repeat":{
+                "require":0,
+                "type":"NUM",
+                "commit":""
+            },
+            "purpose":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Pipette]{operation} [cells]{reagent1} [few times]{repeat}.",
+            "[Pipette]{operation} up and down [several times]{repeat} to [ensure mixing]{purpose}.",
+            "[Pipette]{operation} about [20-30 times]{repeat} with a [1 ml pipette tip]{device} to [obtain a single cell suspension]{purpose}."
+        ],
+        "notice":[
+            "Pipette has three meanings, one means \"transfer operation\" and belongs to TRANSFER/ADD; One is usually written as' Pipette off ' and belongs to DISCARD ; One belongs to PIPETTE"
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "CONCENTRATE":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be concentrated"
+            },
+            "targetVol":{
+                "require":0,
+                "type":"VOL",
+                "commit":""
+            },
+            "targetConc":{
+                "require":0,
+                "type":"CONC",
+                "commit":""
+            },
+            "method":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            },
+            "device":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Concentrate]{operation} [eluate]{reagent1} in [speedvac]{device} to [22.5 µL]{targetVol}.",
+            "[Concentrate]{operation} the [commercial silver colloid]{reagent1} [10 times]{repeat} by [centrifugation \\(16,770 g, 15 min)]{method}.",
+            ""
+        ],
+        "notice":[
+            "Unlike DILUTE, CONCENTRATE mostly indicates the target volume rather than the target concentration.",
+            "To accurately express the meaning, here use parameter \"targetVol\" instead of the old parameter \"Volume\", to avoid being mistaken for the volume of the reagent to be concentrated.",
+            "Some protocols do not provide any parameters, such as \"Concentrate if necessary\""
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "STERILIZE":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be sterilized"
+            },
+            "reagent2":{
+                "require":0,
+                "type":"REG",
+                "commit":"Sterilant"
+            },
+            "component":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            },
+            "device":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            },
+            "time":{
+                "require":0,
+                "type":"TIME",
+                "commit":""
+            },
+            "temperature":{
+                "require":0,
+                "type":"TEMP",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Sterilize]{operation} the [both sides]{component} of [flanks]{reagent1} with [a Betadine dipped gauze sponge]{reagent2}.",
+            "[Sterilize]{operation} [the medium]{reagent1} in [an autoclave]{device} at [110C]{tempurature} for [15 minutes]{time}.",
+            "[Sterilize]{operation} [20-50 seeds]{reagent1} for [30s]{time} with [20 ml of 75% ethanol]{reagent2} in [a sterile Petri dish with a lid]{device}."
+        ],
+        "notice":[
+            "Sometimes reagents are used for sterilization, and sometimes equipment is used instead of sterilant, so reagent2 is optional.",
+            "Sometimes only one part of reagent1 is sterilized (such as mouse skin), so the parameter \"component\" should be added"
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "PRECIPITATE":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be precipitated, keep alive"
+            },
+            "reagent2":{
+                "require":0,
+                "type":"REG",
+                "commit":"The precipitant"
+            },
+            "component":{
+                "require":1,
+                "type":"STR",
+                "commit":""
+            },
+            "time":{
+                "require":0,
+                "type":"TIME",
+                "commit":""
+            },
+            "temperature":{
+                "require":0,
+                "type":"TEMP",
+                "commit":""
+            },
+            "method":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Precipitate]{operation} the [RNA]{component} [overnight]{time} with [one volume of 5 M lithium chloride]{reagent2} at [-80°C]{temperature}.",
+            "[Precipitate]{operation} [DNA]{component} by [adding  3.5 ml or  10.5 ml  of room temperature isopropanol to the eluted DNA]{method}.",
+            "[Precipitate]{operation} [DNA]{component} at [-20&#xB0;C]{temperature} for [at least 30 min]{time}."
+        ],
+        "notice":[
+            "The precipitate must be a part of the original reagent reagent1, so use \"component\" to indicate the part to precipitate",
+            "There is a large amount of instruction nesting (\"by adding\", etc.), which is putted in \"method\"."
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "QUENCH":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be quenched"
+            },
+            "reagent2":{
+                "require":0,
+                "type":"REG",
+                "commit":"The quencher"
+            },
+            "time":{
+                "require":0,
+                "type":"TIME",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Quench]{operation} the crosslinking by [adding 10 mL of 2.5M Glycine]{method}.",
+            "[Quench]{operation} with [NH4Cl 50mM 15 min]{reagent2}.",
+            "[Quench]{operation} [unreacted iodoacetamide]{reagent1} by [incubation with 5 – 10 mM DTT (final concentration) for 30 min at 25 °C]{method}."
+        ],
+        "notice":[
+           "A large number of nested statements appear in this instruction, such as \"Quench the crosslinking by adding 10 mL of 2.5M Glycine.\"" 
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "FLOW":{
+        "slot":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":"Flowing reagents"
+            },
+            "reagent2":{
+                "require":1,
+                "type":"REG",
+                "commit":"Reagent to be flowed"
+            },
+            "device":{
+                "require":0,
+                "type":"REG",
+                "commit":"At least provide one of \"device\" or reagent2"
+            },
+            "purpose":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Flow]{operation} the [worm suspension]{reagent1} through the [filtering device]{device} to [remove debris]{purpose}.",
+            "[Flow]{operation} the [cleavage buffer]{reagent1} onto [the sample]{reagent2} to [extinguish fluorescence from the sample]{purpose}.",
+            ""
+        ],
+        "notice":[
+            "FLOW can be described as: causing a liquid reagent to flow through a certain solid (device or reagent reagent2), so reagent2 is OPT."
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "NORMALIZE":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be normalized"
+            },
+            "targetConc":{
+                "require":0,
+                "type":"CONC",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Normalize]{operation} [samples]{reagent1} for protein concentration \\(recommended concentration: [between 0.3 and 0.6 µg\/µl]{targetConc})."
+        ],
+        "notice":[
+            "NORMALIZE could be used to normalize both solution concentration and data."
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "DISPENSE":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be dispensed"
+            },
+            "volume":{
+                "require":1,
+                "type":"REG",
+                "commit":"Volume per serving"
+            },
+            "container":{
+                "require":1,
+                "type":"STR",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"List<REG>",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Dispense]{operation} [4 μL]{volume} into [each]{reagent0.size} well of a [96-well PCR plate]{container}.",
+            "[Aliquot]{operation} [control cells]{reagent1} into [9]{reagent0.size} [tubes]{container} of [100 µL]{volume} each.",
+            "[Aliquot]{operation} the [cell suspension]{reagent1} at [1 ml]{volume} each into [cryotubes]{container}."
+        ],
+        "notice":[
+            "The type of reagent0 is List<REG>, and the number of elements is usually indicated by the protocol, sometimes requiring speculation.",
+            "The protocol is written in a standardized manner, both the \"container\" and \"volume\" must be provided"
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "EVAPORATE":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be evaporated"
+            },
+            "environment":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            },
+            "device":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            },
+            "temperature":{
+                "require":0,
+                "type":"TEMP",
+                "commit":""
+            },
+            "time":{
+                "require":0,
+                "type":"TIME",
+                "commit":""
+            },
+            "termination":{
+                "require":0,
+                "type":"REG",
+                "commit":"Reaction endpoint, such as \"dryness\""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Evaporate]{operation} the [tube]{reagent1} under [N2]{environment} in [a water bath]{environment} with [30-40 C]{temperature}. It takes [about an hour]{time}.",
+            "[Evaporate]{operation} the [solvent]{reagent1} to [dryness]{termination} using a [rotary evaporator]{device}.",
+            "[Evaporate]{operation} the [separated organic solution]{reagent1} with a [rotary evaporator]{device} at [50℃]{temperature} for [4 minutes]{time}."
+        ],
+        "notice":[
+            "The sentence structure is relatively standardized, and EVAPORATE has no ambiguity."
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "ALIQUOT":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be sampled, keep alive"
+            },
+            "volume":{
+                "require":0,
+                "type":"VOL",
+                "commit":""
+            },
+            "container":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Aliquot]{operation} [3 mL]{volume} of [cold DMEM/F-12]{reagent1} into [a 15 mL tube]{container}.",
+            "[Aliquot]{operation} [cells]{reagent1} into [a 15 mL tube]{container}.",
+            "[Aliquot]{operation} [mRNA]{reagent1}."
+        ],
+        "notice":[
+            "The ALIQUOT instruction means sampling. Sometimes protocols use aliquot to describe dividing samples equally, and these should be classified as DISPENSE.",
+            "After sampling, the original sample may have other uses, so keep alive."
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "WASH":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be washed"
+            },
+            "reagent2":{
+                "require":0,
+                "type":"REG",
+                "commit":"The detergent"
+            },
+            "time":{
+                "require":0,
+                "type":"TIME",
+                "commit":""
+            },
+            "temperature":{
+                "require":0,
+                "type":"TEMP",
+                "commit":""
+            },
+            "repeat":{
+                "require":0,
+                "type":"NUM",
+                "commit":""
+            },
+            "notice":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            },
+            "method":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Wash]{operation} the [slides]{reagent1} in [0.01M PBS]{reagent2} for [5 min]{time} [three times]{repeat}.",
+            "[Wash]{operation} the **beads(reagent1)** **twice(repeat)** by **adding 500 μL of Tween Wash Buffer and incubating at 55 for 2 minutes shaking(method)**.",
+            "[Wash]{operation} [twice]{repeat} for [5 min]{time} with [1 ml PBS]{reagent2} at [room temperature]{temperature} [while gently rocking]{notice}."
+        ],
+        "notice":[
+            "There are a few instructions nested."
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "PLACE":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be placed"
+            },
+            "destination":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            },
+            "notice":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            },
+            "time":{
+                "require":0,
+                "type":"TIME",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Place]{operation} the [cryo vials]{reagent1} [directly]{notice} [in the wells of the pre-equilibrated CoolRack CFT30]{destination} to [snap-freeze the samples]{purpose}.",
+            "[Place]{operation} [500 μL]{volume} of [the final extract]{reagent1} in [a chromatographic vial]{destination}.",
+            "[Place]{operation} back in [37°C incubator]{destination} [overnight]{time}."
+        ],
+        "notice":[
+            "There are many destinations for Place, including container, device, and environment (water bath). Considering that it is a transfer operation, it is uniformly identified as a parameter \"destination\" here",
+            "It is necessary to retain the preposition before destination to preserve the complete semantics. For example, this could tell the difference between \"in ice\" (ice bath) and \"on ice\"."
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "CUT":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be cut"
+            },
+            "size":{
+                "require":0,
+                "type":"LEN",
+                "commit":""
+            },
+            "device":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            },
+            "environment":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            },
+            "repeat":{
+                "require":1,
+                "type":"NUM",
+                "commit":"Number of cutting product"
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Cut]{operation} the [segments]{reagent1} into [smaller pieces]{size} with a [scalpel]{device} under [sterile conditions]{environment}.",
+            "[Cut]{operation} the [tissue]{reagent1} at [30 µm]{size} in sets of [5]{repeat}.",
+            "[Cut]{operation} the [scalp]{reagent1} about [1cm]{size}."
+        ],
+        "notice":[
+            "The most important information in CUT is the size of the cutting product, which is indicated by the \"size\" parameter. The parameter \"size\" can be either a fixed size (such as 1cm) or a vague description (such as small pieces)"
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "CHANGE":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be changed"
+            },
+            "frequency":{
+                "require":0,
+                "type":"FREQ",
+                "commit":""
+            },
+            "time":{
+                "require":0,
+                "type":"TIME",
+                "commit":""
+            },
+            "repeat":{
+                "require":0,
+                "type":"NUM",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Change]{operation} the [medium]{reagent1} every [2 days]{frequency}, for [10 days]{time} [(5 times)]{repeat}.",
+            "[Change]{operation} the [mosquito pipets]{reagent1}"
+        ],
+        "notice":[
+            "Most CHANGE operations are a combination of DISCARD and ADD, but they cannot be split into these two instructions because CHANGE contains the meaning that new reagent has the same attributes such as size, shape, position as original reagent."
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "FIX":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be Fixed"
+            },
+            "reagent2":{
+                "require":0,
+                "type":"REG",
+                "commit":"The place to fix the reagent"
+            },
+            "direction":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            },
+            "method":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Fix]{operation} the [mouse]{reagent1} with [its head away from the operator]{direction} by [taping its feet to the operating table]{method}.",
+            "[Fix]{operation} the [silicon]{reagent1} on the [spin coater]{reagent2}.",
+            "[Fix]{operation} by [placing the slide in 2% paraformaldehyde in PBS for at least 10 minutes]{method}."
+        ],
+        "notice":[
+            "It is necessary to introduce parameter \"direction\" to indicate the fixed direction.",
+            "Some of Fix means PLACE, such as \"Fix whole brains in 4% PFA overnight at 4°C\""
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "DRY":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be dried"
+            },
+            "temperature":{
+                "require":0,
+                "type":"TEMP",
+                "commit":""
+            },
+            "environment":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            },
+            "time":{
+                "require":0,
+                "type":"TIME",
+                "commit":""
+            },
+            "device":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Dry]{operation} the [slides]{reagent1} at [room temperature]{temperature} in the [dark]{environment}.",
+            "[Dry]{operation} the [pellet]{reagent1} under a [vacuum]{environment} for [5 min]{time}.",
+            "[Dry]{operation} the [product]{reagent1} in an [oven]{device} at [60 °C]{temperature} for [24 h]{time}."
+        ],
+        "notice":[
+
+        ],
+        "synonym":[
+            
+        ]
+    },
+    "HEAT":{
+        "slot":{
+            "reagent1":{
+                "require":1,
+                "type":"REG",
+                "commit":"The reagent to be heated"
+            },
+            "temperature":{
+                "require":0,
+                "type":"TEMP",
+                "commit":""
+            },
+            "time":{
+                "require":0,
+                "type":"TIME",
+                "commit":""
+            },
+            "device":{
+                "require":0,
+                "type":"STR",
+                "commit":""
+            }
+        },
+        "emit":{
+            "reagent0":{
+                "require":1,
+                "type":"REG",
+                "commit":""
+            }
+        },
+        "example":[
+            "[Heat]{operation} [shock]{reagent1} at [42˚C]{temperature} for [15 min]{time}.",
+            "[Heat]{operation} the [wafer]{reagent1} for [2 min]{time} at [95 ºC]{temperature} using a [hotplate]{device}.",
+            "[Heat]{operation} [sample]{reagent1} at [95-100°C]{temperature} for [10 min]{time} on a [heating block]{device}."
+        ],
+        "notice":[
+
+        ],
+        "synonym":[
+            
+        ]
+    }
+}

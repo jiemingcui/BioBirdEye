@@ -1,0 +1,453 @@
+{
+    "identity": "pex-702",
+    "title": "<p>Recovery of Paired T Cell Receptors from Single-cell Seq-Well Libraries</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>Antigen-specific T cells play key roles in a number of diseases including autoimmune disorders and cancer<sup>1\u20134</sup>. Assessing the phenotypes and functions of these cells is essential to both understanding underlying disease biology and designing new therapeutic modalities<sup>5\u20137</sup>.&nbsp;To study antigen-specific T cells comprehensively, two sequencing-based approaches have emerged: 1) bulk genomic sequencing of T cell receptor (TCR) repertoires to assess clonal diversity, and 2) RNA-Sequencing (RNA-Seq) to reveal phenotypic attributes. The TCR recognizes antigenic peptides bound in major histocompatibility complex (MHC) receptors and mediates CD3-dependent signaling upon cognate recognition; sequencing of the TCR repertoire thus can highlight clonotypic diversity and the dynamics of antigen-dependent responses associated with disease, such as clonal expansion or selection<sup>2,8,9</sup>. RNA-Seq, in contrast, can reveal novel states and functions of disease-relevant T cells through unique patterns of gene expression, albeit without determination of whether those cells are recognizing common antigens<sup>10\u201313</sup>.</p><p>Here, we report a simple process to sequence concomitantly both the transcriptome and receptor sequences of T cells from a single sequencing library generated using a massively-parallel 3\u2019 scRNA-Seq platform, such as Seq-Well or Drop-seq (<strong>Figure</strong> 1). In our approach, a 3\u2019 barcoded whole transcriptome amplification (WTA) is performed using standard protocols for Seq-Well or Drop-seq<sup>14-16</sup>. Next, one fraction of the amplified product is used to generate a 3\u2019 scRNA-Seq library to quantify single-cell mRNA expression levels in individual cells; another is used to perform direct single-cell TCR sequencing.&nbsp;For the latter, TCR transcripts contained within amplified 3\u2019 barcoded WTA products are first enriched by affinity capture using biotinylated oligonucleotide-probes targeting TCR constant regions, and are then re-amplified with the same universal primer site (UPS) used in the original WTA (<strong>Supplementary Table</strong> <strong>1a,b</strong>). Next, the amplified pool is selectively modified by primer extension using a set of oligonucleotides comprising a shared 5\u2019 second universal primer site (UPS2) linked to regions specific for each TCR V-region (<strong>Supplementary Table 2</strong>). The modified products are then further amplified with primers specific for UPS2 and an extended version of the original UPS, which is only present on the 3\u2019 end of the library. This final amplification adds flanking regions of oligonucleotides for sequencing to the TCR enriched library (<strong>Supplementary Table</strong> <strong>1b</strong>). The combination of targeted enrichment and primer extension produces a size-defined, CDR3-enriched library that does not require additional fragmentation before short-read sequencing (e.g., Illumina). The resulting library can then be sequenced using custom primers targeting the constant region of the TCR to directly recover the CDR3 region (<strong>Figure</strong> <strong>1</strong>, bottom right; <strong>Supplementary Table</strong> <strong>1c</strong>). This approach retains the original cellular and molecular identifiers appended during WTA, making it possible to match TCR sequences computationally with corresponding whole transcriptome profiles determined using traditional 3\u2019 scRNA-Seq.</p><p><br></p><p><strong>Definition of terms:</strong></p><p><strong>WTA- </strong>Whole transcriptome amplified products. Full length transcriptome products that are single-cell barcoded on the 3\u2019 side. In this protocol, WTA libraries were constructed via Seq-Well, which has identical WTA structure as DropSeq.</p><p><strong>&nbsp;Pull-down probes- </strong>Oligonucleotide probes with biotinylated 5\u2019 end. This protocol uses probes targeting the constant region of the TCRs. Used in conjunction with the IDT xGen enrichment kit to target for TCR whole transcripts. See Supplementary Table 1 in the original publication for exact sequences.</p><p><strong>&nbsp;UPS primers- </strong>Universal priming site primers. UPS and UPS2 primers are used to uniformly amplified all products and construct Illumina-compatible libraries. See Supplementary Table 1 for exact sequences.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p>xGen Hybridization and Wash Kit (IDT; Cat.No.1072281)</p><p>KAPA HiFi Hotstart Readymix PCR Kit (Kapa Biosystems Cat No. KK-2602)</p><p>Dynabeads M-270 Streptavidin (Invitrogen; Cat.No.65306)</p><p>AmpureXP (Beckman Coulter; A63880) or homemade Serapure SPRI reagent (see appendix for recipe)</p><p>Human Cot-1 DNA (Invitrogen; Cat.No.15279011)</p><p>UltraPure Distilled Water (Thermo Fisher Scientific Cat No. 10977023, or equivalent)</p><p>PCR primers, listed in Supplementary Table 1 and 2.</p><p><br></p><p>Optional for homemade SPRI reagent (see end of procedure):</p><p>Sera-mag SpeedBeads (Fisher # 09-981-123)</p><p>PEGN8000 (Amresco 0159) </p><p>0.5 M EDTA, pH 8.0 (Amresco E177) </p><p>1.0 M Tris, pH 8.0 (Amresco E199) </p><p>Tween 20 (Amresco 0777) </p><p>5 M NaCL </p><p>Fermentas ladder(s) (Ultra-low range:&nbsp;Fisher # FERSM1211, 50 bp: FERSM0371)</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>PCR Thermocycler (e.g. Eppendorf Mastercyler; Catalog No.&nbsp;6337000027)</p><p>DynaMag-96 Side Magnet (Invitrogen; Cat.No.12331D), or equivalent</p><p>DynaMag-2 Magnet (Invitrogen; Cat.No.12321D), or equivalent</p><p>Optional: Eppendorf ThermoMixer C (Eppendor; Catalog No.&nbsp;2231000574)</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "I. TCR Enrichment from 3\u2019 Barcoded Single-cell Libraries:\nThe protocol assumes that whole transcriptome amplified products generated by the Seq-Well/DropSeq platform are being used.\nBefore starting:\n1.\u00a0\u00a0\u00a0\u00a0\u00a0Make sure to dilute all the necessary buffers from the xGen kit (IDT; Cat.No.1072281). Extra can be kept at 4\no\nC, and brought to 37\no\nC before use to make sure all salts go into solution.\n2.\u00a0\u00a0\u00a0\u00a0\u00a0Pull-down-probes should be diluted ahead of time. We highly suggest aliquot the probes in multi-channel compatible format (i.e. in strip tubes with caps).\n2a.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0TCR\u03b1 and TCR\u03b2 probes should be mixed and diluted to 1.5uM (each, or 3 uM total)\n3.\u00a0\u00a0\u00a0\u00a0\u00a0Thaw both the 2x hybridization buffer and the xGen buffer enhancer from the xGen kit, and bring to room temperature.\nA.\u00a0\u00a0\u00a0Make the following master mix (per sample/reaction):\nUPS (50 uM)\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a00.8 uL\nCot-1 DNA\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a00.5 uL\n2X Hybridization Buffer\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a08.5 uL\nxGen Buffer Enhancer\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a02.7 uL\nTotal\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a012.5 uL\n1.\u00a0\u00a0\u00a0\u00a0\u00a0Mix 3.5 uL of WTA product with the master mix (for a total of 16 uL)\n1a.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0We recommend using 0.2mL PCR strip tubes with caps.\n2.\u00a0\u00a0\u00a0\u00a0\u00a0Incubate mixture at room temperature for 5 minutes\n3.\u00a0\u00a0\u00a0\u00a0\u00a0Then incubate mixer at 95 degree for 10 minutes (could be done in thermocycler, with lid set to 105 degrees)\n4.\u00a0\u00a0\u00a0\u00a0\u00a0Remove mixture to room temperature, and add 1uL of pull-down probes mix (see above). Vortex to mix, and centrifuge to collect liquid.\n5.\u00a0\u00a0\u00a0\u00a0\u00a0Incubate the mixture at 65 degree for one hour to allow for hybridization of pull-down probes to WTA libraries.\nB.\u00a0\u00a0\u00a0\u00a0During the incubation, prepare the streptavidin beads (Invitrogen; Cat.No.65306)\n1.\u00a0\u00a0\u00a0\u00a0\u00a0Aliquot 50uL of beads per sample into a 1.5 mL microcentrifuge tube.\n2.\u00a0\u00a0\u00a0\u00a0\u00a0Place the tube on magnetic stand and allow for the beads to pellet.\n3.\u00a0\u00a0\u00a0\u00a0\u00a0Remove supernatant, and add equal volume of bead wash buffer into the tube\n4.\u00a0\u00a0\u00a0\u00a0\u00a0Vortex to mix, and place back on the magnetic stand\n5.\u00a0\u00a0\u00a0\u00a0\u00a0Repeat 3-4\n6.\u00a0\u00a0\u00a0\u00a0\u00a0Take tube off of magnet, and add equal volume of bead was buffer\n7.\u00a0\u00a0\u00a0\u00a0\u00a0Aliquot 50uL (per sample) of the mixture into PCR strip tubes.\n8.\u00a0\u00a0\u00a0\u00a0\u00a0Place tubes back on magnetic stands.\n9.\u00a0\u00a0\u00a0\u00a0\u00a0Remove the supernatant. The beads are now ready for hybridized mixes from A.\nC.\u00a0\u00a0\u00a0\u00a0After the pull-down probes have been hybridized to WTA libraries\n1.\u00a0\u00a0\u00a0\u00a0\u00a0Add mixes from A into the prepared beads from B.\n2.\u00a0\u00a0\u00a0\u00a0\u00a0Vortex to mix.\n3.\u00a0\u00a0\u00a0\u00a0\u00a0Incubate mixture at 65 degrees for 45 minutes.\na.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Intermittently vortex the mixture every 10 minutes to keep the streptavidin beads suspended in the mixture.\nb.\u00a0\u00a0\u00a0\u00a0\u00a0If possible, we recommend using a thermal shaker (e.g. Eppendorf ThermoMixer C) to automate intermittent vortexing.\nD.\u00a0\u00a0\u00a0Prepare buffer for 65 degree wash steps.\n1.\u00a0\u00a0\u00a0\u00a0\u00a0During incubation of C, aliquot and preheat Wash Buffer 1 (WB1) and Stringent Wash Buffer (SWB) at 65 degree.\n2.\u00a0\u00a0\u00a0\u00a0\u00a0Preheat at least 100 uL/sample of WB1 and 400uL/sample of SWB (2x200uL).\na.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0We recommend aliquot the buffers into PCR strip tubes, and preheat on thermocycler/thermoshaker for fast preheating.\nE.\u00a0\u00a0\u00a0\u00a0Wash hybridized beads at 65 degrees.\n1.\u00a0\u00a0\u00a0\u00a0\u00a0After C, add 100uL of heated WB1 into each hybridized mixture, and place onto magnetic stand.\n2.\u00a0\u00a0\u00a0\u00a0\u00a0Aspirate supernatant, and take mixtures off of magnetic stand.\n3.\u00a0\u00a0\u00a0\u00a0\u00a0Add 200uL of heated SWB into each reaction, and resuspend the bead pellets\n4.\u00a0\u00a0\u00a0\u00a0\u00a0Inbcubate mixture at 65 degrees for 5 minutes\n5.\u00a0\u00a0\u00a0\u00a0\u00a0Place mixture back on magnetic stand, and repeat 2-4\n6.\u00a0\u00a0\u00a0\u00a0\u00a0Aspirate the final wash of SWB.\nF.\u00a0\u00a0\u00a0\u00a0\u00a0Wash hybridized beads at room temperature\n1.\u00a0\u00a0\u00a0\u00a0\u00a0Add 200uL of room temperature WB1 into each reaction\n2.\u00a0\u00a0\u00a0\u00a0\u00a0Vortex for 2 minutes to mix, spin to collect liquid, and place on magnetic stand.\n3.\u00a0\u00a0\u00a0\u00a0\u00a0Aspirate, and add 200uL of room temperature WB2.\n4.\u00a0\u00a0\u00a0\u00a0\u00a0Vortex for 1 minutes to mix, spin to collect liquid, and place on magnetic stand.\n5.\u00a0\u00a0\u00a0\u00a0\u00a0Aspirate, and add 200uL of room temperature WB3.\n6.\u00a0\u00a0\u00a0\u00a0\u00a0Vortex for 30 seconds to mix, spin to collect liquid, and place on magnetic stand.\n7.\u00a0\u00a0\u00a0\u00a0\u00a0Aspirate, and add 20uL of water.\nG.\u00a0\u00a0\u00a0PCR amplify pull-down TCR products\nFor each reaction, we will perform 5 PCR reactions, using 2uL of mixture from F in each reaction (using a total of 10 out of 20 uL).\nMake the following master mix (per reaction).\nKapa Hifi Hotstart Readymix 2X (Kapa Biosystems)\u00a0\u00a012.5 uL\nUPS(10uM)\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a02uL\nWater\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a08.5uL\n1.\u00a0\u00a0\u00a0\u00a0\u00a0Aliquot 5x 23uL of master mix for each reaction\n2.\u00a0\u00a0\u00a0\u00a0\u00a0Add 2uL of mixture from F into each of the aliquots\n3.\u00a0\u00a0\u00a0\u00a0\u00a0PCR amplify using the following condition:\n1 cycle of\n[95oC for 3 minutes]\n25 cycles of\n[98oC for 40 seconds\n67oC for 20 seconds\n72oC for 1 minute]\n1 cycles of\n[72oC for 5 minutes]\nHold at 4oC\n4.\u00a0\u00a0\u00a0\u00a0\u00a0After amplification, pool all 5 PCR reactions (20uL for each sample) into a single tube (for 100uL total)\n5.\u00a0\u00a0\u00a0\u00a0\u00a0Perform SPRI purification, aiming to remove all products < 1kbp\n5a.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0We recommend using AmpureXP or homemade Serapure SPRI reagent (see appendix for protocol)\n5b.\u00a0\u00a0\u00a0\u00a0\u00a0Elute the samples into a final volume of 13-15 uL of water.\n5c.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0The final product contains both full-length TCR alpha and beta products.\n5d.\u00a0\u00a0\u00a0\u00a0\u00a0We recommend assessing the quality of the enrichment via fragment analyzer.\n5e.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0See example below for expected size distribution.\n5f.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Take note of estimated concentration\n5g.\u00a0\u00a0\u00a0\u00a0\u00a0If amplification was unsuccessful (either due to low concentration of product, or technical error), the rest of the beads from F can be used to repeat G.\nSee\nFigure 2\nfor examples of successfully enriched products.\nII. TCR V-region primer extension\n:\nAfter enriching for full-length TCR products, we then perform primer-extension using TCRV-UPS2 primers (see\nSupplementary Table 1\nfor exact sequences).\nBefore starting, prepare separate TCRV-UPS2 alpha and beta mixes by equimolar pool each of the primers, and dilute as necessary to 10uM (total concentration).\nMake the following master mix (per reaction). Make two separate mixes (one for TCR\u03b1 and one for TCR\u03b2 chain):\nKapa Hifi Hotstart Readymix 2X\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a012.5\u00b5L\nTCRV-UPS2 TCR\u03b1 or TCR\u03b2(10uM)\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a02.5 \u00b5L\nWater\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a06\u00b5L\nAliquot 21 uL (per reaction) of mastermix into PCR tubes.\nAdd 4uL of TCR enrich product, for a total of 25uL per reaction.\nPerform primer extension using the following condition\n1 cycle of\n[95\no\nC for 5 minutes]\n1 cycles of\n[55\no\nC for 30 seconds]\n1 cycles of\n[72\no\nC for 2 minutes]\nHold at 4\no\nC\nAfter extension, add 25uL of water, to bring each reaction to a total of 50uL\nSPRI clean as before. Elute into 11uL of water.\nIII. TCR UPS2 amplification\n:\nAfter primer-extension, we use UPS2-N70x and UPS-mod-N50x primers to amplify the resulting products, and add Illumina flanking sequences for sequencing.\nSee\nSupplementary Table 1\nfor primer sequences. Thaw and dilute the primers into 10uM aliquots.\nTo minimized barcode swapping, we will split each sample into 4 PCR reactions, and pool them again after amplification.\nMake the following master mix (per reaction. prepare 4 reactions for each sample):\nKapa Hifi Hotstart Readymix 2X\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a012.5\u00b5L\nUPS-mod-N50x\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a00.5\u00b5L\nUPS2-N70x\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a00.5\u00b5L\nWater\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a09\u00b5L\nAdd 2.5\u00b5L of products from\nII.\nTo each reaction, for a total of 25\u00b5L per rection.\nAmplify using the following condition:\n1 cycle of\n[95\no\nC for 2 minutes]\n9-18 cycles (see below) of\n[95\no\nC for 30 seconds\n60\no\nC for 30 seconds\n72\no\nC for 1.5 minute]\n1 cycles of\n[72\no\nC for 5 minutes]\nHold at 4\no\nC\nThe precise cycle would need to be tested and adjusted for each sample. We recommend the guideline outlined in\nSupplement Table 3,\nbased on the concentration estimation of amplified pull-down product from\nI.\nTake 12.5 uL of each reaction and pool for each sample (for a total of 50uL per sample)\nSPRI clean as previously described. The final product is ready for Illumina Sequencers.\nWe recommend assessing the size distribution (figure2) and concentration of the final product using fragment analyzer and Kapa quant qPCR.\nSee\nFigure 3\nfor an example of successfully amplified products.\nIV. Sequencing of final TCR libraries\n:\nHere we describe the sequencing condition for sequencing the prepared TCR libraries. For a detailed loading protocol, please consult Illumina.\nWe require the use of two custom sequencing primers (see\nSupplement\n). Due to the large size of the final libraries, we aim to load the flow cells to a lower density\nWe recommend sequencing on the Illumina MiSeq using the 150 cycle kit. For libraries consisting of high number of cells, a NextSeq could also be used.\nSequencing specification:\nRead 1: 150bp\nIndex 1: 20bp\nMiSeq:\nSequencing primers were used at a final concentration of 2.5\u00b5M. We aimed for 8-12 * 10\n6\npass filter reads per lane (cluster density of roughly 450K/mm2). Based on the whole-transcriptome data, we allotted ~6,000 T cells per lane.\nNextSeq:\nSequencing primers were used at a final concentration of 2.5\u00b5M. We aimed for 150-200 * 10\n6\npass filter reads per lane (cluster density of roughly 100K/mm2). Based on the whole-transcriptome data, we allotted ~80,000 T cells per lane.\nFinal fastq will contain TCR sequences in Read 1, and cell barcode with UMI in Index 1.\nAppendix.\nSPRI protocol and notes\nThroughout this protocol, we require purification of amplified products at various steps. In all cases, we aim to purify TCR products > 1kbp in length. Standard SPRI reagents could be used following manufacturer\u2019s instructions (Ampure XP, etc.). Here we provide a homemade alternative taken from Nadin Rohland (Doi:\u00a010.1101/gr.128124.111). Heretofore referred to as Serapure reagent.\nTo make homemade SPRI reagent\n:\n1. In a 50 mL conical using sterile stock solutions, prepare TE (10 mM TrisNHCl, 1 mM EDTA\n= 500 \u00b5L 1 M Tris pH8 + 100 \u00b5L 0.5 M EDTA, fill conical to 50 mL mark with dH20).\n2. Mix SeraNmag SpeedBeads and transfer 1 mL to a 1.5 mL microtube.\n3. Place SpeedBeads on magnet stand until beads are drawn to magnet.\n4. Remove supernatant with P200 or P1000 pipetter.\n5. Add 1 mL TE to beads, remove from magnet, mix, return to magnet.\n6. Remove supernatant with P200 or P1000 pipetter.\n7. Add 1 mL TE to beads, remove from magnet, mix, return to magnet.\n8. Remove supernatant with P200 or P1000 pipetter.\n9. Add 1 mL TE to beads and remove from magnet.\u00a0Fully resuspend and set microtube in\nrack (i.e. not on magnet stand).\n10. Add 9 g PEGN8000 to a new 50 mL, sterile conical.\n11. Add 10 mL 5 M NaCL (or 2.92 g) to conical.\n12. Add 500 \u00b5L 1 M TrisNHCL to conical.\n13. Add 100 \u00b5L 0.5 M EDTA to conical.\n14. Fill conical to ~ 49 mL using sterile dH20.\u00a0You can do this by eye, just go slowly.\n15. Mix conical for about 15 minutes until PEG goes into solution (solution, upon sitting,\nshould be clear).\n16. Add 27.5 uL Tween 20 to conical and mix gently.\n17. Mix 1 mL SpeedBead + TE solution and transfer to 50 mL conical.\n18. Fill conical to 50 mL mark with dH20 (if not already there) and gently mix 50 mL conical\nuntil brown.\n19. Test against AMPure XP using aliquots of ladder (Fermentas GeneRuler).\u00a0I recommend\nthe 50 bp ladder in place of the ultra-low range ladder.\n20. Wrap in tinfoil (or place in dark container) and store at 4\u00b0C.\nTesting\n:\nYou should test the Serapure mixture to ensure that it is working as expected.\u00a0You can do this\nusing DNA ladder (Fermentas GeneRuler \u2013 NEB ladders may cause problems):\n1. Prep fresh aliquots of 80% EtOH.\n2. Mix 2 \u00b5L GeneRuler with 18 \u00b5L dH20.\n3. Add 20 \u00b5L GeneRuler mixture to a volume of Serapure and/or AMPure (the specific\nvolume depends on whether you are trying exclude small fragments or not; see the\nfigure on the next page).\n4. Incubate mixture 5 min. at room temperature.\n5. Place on magnet stand.\n6. Remove supernatant.\n7. Add 200 \u00b5L 80 % EtOH.\n8. Incubate on stand for 1 min.\n9. Remove supernatant.\n10. Add 200 \u00b5L 70% EtOH.\n11. Incubate on stand for 1 min.\n12. Remove supernatant.\n13. Place beads on 37\u00b0C heat block for 3-4 min. until dry.\n14. Rehydrate with 20 \u00b5L dH20.\n15. Place on magnet stand.\n16. Transfer supernatant to new tube.\n17. Mix supernatant with 1 \u00b5L loading dye.\n18. Electrophorese in 1.5 % agarose for 60 min. at 100 V.\nSee\nFigure 4\nfor an example of expected results"
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p><strong>Note</strong>: Certain samples often need to be enriched for TCR transcripts multiple times, especially for samples with low gene recovery, or low number of \u03b1\u03b2 T cells. Part <strong>I</strong>. could be repeated if necessary, resulting in multiple rounds of TCR enrichment. For subsequent rounds of enrichment, we recommend decreasing the cycles of PCR amplification from 25 to 12.</p><p><br></p><p><strong>Note 2: </strong>If amplification was unsuccessful after SPRI purification at Step III, the remaining half of the unpurified amplified product can be amplified further for 2-4 more PCR cycles.</p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": ""
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>The resulting libraries should be sequenceable on Illumina MiSeq or NextSeq, using the custom primers outline in <strong>Supplementary Table 1</strong>. Please see Tu, A. et al. Nat. Immunol. (2019) for more details.</p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Schrama, D., Ritter, C. &amp; Becker, J. C. T cell receptor repertoire usage in cancer as a surrogate marker for immune responses. <em>Semin. Immunopathol.</em> <strong>39</strong>, 255\u2013268 (2017).</p><p>2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lossius, A. <em>et al.</em> High-throughput sequencing of TCR repertoires in multiple sclerosis reveals intrathecal enrichment of EBV-reactive CD8(+) T cells. <em>Eur. J. Immunol.</em> <strong>44</strong>, 1\u201341 (2014).</p><p>3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kirsch, I. R. <em>et al.</em> TCR sequencing facilitates diagnosis and identifies mature T cells as the cell of origin in CTCL. <em>Sci. Transl. Med.</em> <strong>7</strong>, 1\u201313 (2015).</p><p>4.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Atkinson, M. A. The Pathogenesis and Natural History of Type 1 Diabetes. <em>Cold Spring Harb. Perspect. Med.</em> <strong>2</strong>, a007641\u2013a007641 (2012).</p><p>5.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Barrett, D. M., Grupp, S. A. &amp; June, C. H. Chimeric Antigen Receptor- and TCR-Modified T Cells Enter Main Street and Wall Street. <em>J. Immunol.</em> <strong>195</strong>, 755\u201361 (2015).</p><p>6.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Robins, H. Immunosequencing: applications of immune repertoire deep sequencing. <em>Curr. Opin. Immunol.</em> <strong>25</strong>, 646\u201352 (2013).</p><p>7.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Crosby, E. J. <em>et al.</em> Complimentary mechanisms of dual checkpoint blockade expand unique T-cell repertoires and activate adaptive anti-tumor immunity in triple-negative breast tumors. <em>Oncoimmunology</em> <strong>7</strong>, e1421891 (2018).</p><p>8.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tirosh, I. <em>et al.</em> Dissecting the multicellular ecosystem of metastatic melanoma by single-cell RNA-seq. doi:10.1126/science.aad0501</p><p>9.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Khodadoust, M. S. <em>et al.</em> Antigen presentation profiling reveals recognition of lymphoma immunoglobulin neoantigens. <em>Nature</em> <strong>543</strong>, 723\u2013727 (2017).</p><p>10.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gaublomme, J. T. <em>et al.</em> Single-Cell Genomics Unveils Critical Regulators of Th17 Cell Pathogenicity. <em>Cell</em> 1\u201313 (2015). doi:10.1016/j.cell.2015.11.009</p><p>11.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Avraham, R. <em>et al.</em> Pathogen Cell-to-Cell Variability Drives Heterogeneity in Host Immune Responses. <em>Cell</em> 1\u201313 (2015). doi:10.1016/j.cell.2015.08.027</p><p>12.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Papalexi, E. &amp; Satija, R. Single-cell RNA sequencing to explore immune cell heterogeneity. <em>Nat. Rev. Immunol.</em> <strong>18</strong>, 35\u201345 (2017).</p><p>13.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shalek, A. K. <em>et al.</em> Single-cell transcriptomics reveals bimodality in expression and splicing in immune cells. <em>Nature</em> <strong>498</strong>, 236\u2013240 (2013).</p><p>14.\t\t  Macosko, E. Z. <em>et al.</em> Highly Parallel Genome-wide Expression Profiling of Individual Cells Using Nanoliter Droplets. <em>Cell</em> <strong>161</strong>, 1202\u20131214 (2015).</p><p>15.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gierahn, T. M. <em>et al.</em> Seq-Well: portable, low-cost RNA sequencing of single cells at high throughput. <em>Nat. Methods</em> <strong>14</strong>, 395\u2013398 (2017).</p><p>16.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hughes, T. K. <em>et al.</em> Highly Efficient, Massively-Parallel Single-Cell RNA-Seq Reveals Cellular States and Molecular Features of Human Skin Pathology. <em>bioRxiv</em> 689273 (2019). doi:10.1101/689273</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>We thank P. Blainey and M. Birnbaum for fruitful discussions. This work was supported in part by the Koch Institute Support (core) NIH Grant P30-CA14051 from the National Cancer Institute, as well as the Koch Institute - Dana-Farber/Harvard Cancer Center Bridge Project. This work was also supported by the Food Allergy Science Initiative at the Broad Institute and the NIH (5P01AI039671, 5U19AI089992, U19AI095261). A.K.S. was supported by the Searle Scholars Program, the Beckman Young Investigator Program, the Pew-Stewart Scholars Program for Cancer Research, a Sloan Fellowship in Chemistry, the NIH (1DP2GM119419, 2U19AI089992, 2R01HL095791, 1U54CA217377, 2P01AI039671, 5U24AI118672, 2RM1HG006193, 1R33CA202820, 1R01AI138546, 1R01HL126554, 1R01DA046277, 1U2CCA23319501) the Bill and Melinda Gates Foundation (OPP1139972, OPP1202327, OPP1137006, and OPP1202327), and Agilent Technologies.</p><p><br></p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41590-019-0544-5",
+                "date": "",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            },
+            {
+                "unpublished": "Tu, AA, et al. TCR Sequencing Paired with Massively-Parallel 3\u2019 RNA-Seq Reveals Clonotypic T Cell Signatures . Nature Immunology (2019)"
+            }
+        ],
+        "authors": [
+            {
+                "id": 141538,
+                "identity": "2b961c5d-df3a-4048-945d-15a696c3ef7a",
+                "order_by": 1,
+                "name": "Ang A. Tu",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0001-5145-7869",
+                "institution": "MIT",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Ang",
+                "middleName": "A.",
+                "lastName": "Tu",
+                "suffix": ""
+            },
+            {
+                "id": 142513,
+                "identity": "787e916b-6d71-4b60-983a-54d35cf4481d",
+                "order_by": 2,
+                "name": "Todd M. Gierahn",
+                "email": "",
+                "orcid": "",
+                "institution": "MIT",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Todd",
+                "middleName": "M.",
+                "lastName": "Gierahn",
+                "suffix": ""
+            },
+            {
+                "id": 142514,
+                "identity": "c80db0b5-f60d-487c-81a1-26bd2162d6c6",
+                "order_by": 3,
+                "name": "Brinda Monian",
+                "email": "",
+                "orcid": "",
+                "institution": "MIT",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Brinda",
+                "middleName": "",
+                "lastName": "Monian",
+                "suffix": ""
+            },
+            {
+                "id": 142515,
+                "identity": "42f4994a-cebe-4cc3-9ca5-be445c0785c1",
+                "order_by": 4,
+                "name": "Duncan M. Morgan",
+                "email": "",
+                "orcid": "",
+                "institution": "MIT",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Duncan",
+                "middleName": "M.",
+                "lastName": "Morgan",
+                "suffix": ""
+            },
+            {
+                "id": 142516,
+                "identity": "dfeff58f-242b-45f4-8d14-0b68c8b580f1",
+                "order_by": 5,
+                "name": "Naveen K. Mehta",
+                "email": "",
+                "orcid": "",
+                "institution": "MIT",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Naveen",
+                "middleName": "K.",
+                "lastName": "Mehta",
+                "suffix": ""
+            },
+            {
+                "id": 142517,
+                "identity": "a18b6783-e4eb-471a-9a03-66b41ed2d522",
+                "order_by": 6,
+                "name": "Bert Ruiter",
+                "email": "",
+                "orcid": "",
+                "institution": "MGH",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Bert",
+                "middleName": "",
+                "lastName": "Ruiter",
+                "suffix": ""
+            },
+            {
+                "id": 142518,
+                "identity": "6c4996cf-7a01-42d1-b0c5-37155053e29a",
+                "order_by": 7,
+                "name": "Wayne G. Shreffler",
+                "email": "",
+                "orcid": "",
+                "institution": "MGH",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Wayne",
+                "middleName": "G.",
+                "lastName": "Shreffler",
+                "suffix": ""
+            },
+            {
+                "id": 142463,
+                "identity": "8cc73fd3-7a20-4691-825f-f7cf469f45c5",
+                "order_by": 8,
+                "name": "Alex K. Shalek",
+                "email": "shalek@mit.edu",
+                "orcid": "https://orcid.org/0000-0001-5670-8778",
+                "institution": "MIT",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Alex",
+                "middleName": "K.",
+                "lastName": "Shalek",
+                "suffix": ""
+            },
+            {
+                "id": 141539,
+                "identity": "f06767a0-be6d-490b-906b-2d30f09d40fc",
+                "order_by": 9,
+                "name": "J. Christopher Love",
+                "email": "clove@mit.edu",
+                "orcid": "",
+                "institution": "MIT",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "J.",
+                "middleName": "Christopher",
+                "lastName": "Love",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2019-08-23 17:16:05",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.2.13685/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.2.13685/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 168788,
+                "identity": "80162d6c-530f-47f3-b3ba-7257c62eebf4",
+                "added_by": "auto",
+                "created_at": "2019-11-20 12:33:14",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 1176434,
+                "visible": true,
+                "origin": "",
+                "legend": "Strategy for TCR recovery from 3\u2019 barcoded single-cell sequencing libraries. (top) Barcoded cDNA libraries (WTA products) include TCR\u03b1 and \u03b2 chains in addition to other transcripts. A portion of the cDNA is used to construct a sequencing library for transcriptomic sequencing, and analyzed via 3\u2019 gene mapping as previously described22. (bottom) Another portion of the same cDNA library is used for TCR recovery. TCR\u03b1 and \u03b2 transcripts are affinity enriched using biotinylated oligonucleotides specific for the TCR constant regions, followed by primer extension with V-region primer sets and PCR amplification using the UPS2 handles. Finally, the CDR3 region is sequenced using Illumina MiSeq with custom sequencing primers, and merged with the transcriptomic data based on single-cell barcodes.",
+                "description": "",
+                "filename": "Figure1finalhq.jpg",
+                "url": "https://assets.researchsquare.com/files/f86eeec4-ae0e-4605-a40f-e451265f429a/v1/Figure1_final_hq.jpg"
+            },
+            {
+                "id": 168790,
+                "identity": "726167e3-fdb5-4b33-a379-3da681fb8766",
+                "added_by": "auto",
+                "created_at": "2019-11-20 12:33:14",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 260120,
+                "visible": true,
+                "origin": "",
+                "legend": "(top) Typical size distribution of starting WTA product and (bottom) expected size distribution of amplified TCR\u03b1 and TCR\u03b2 pull-down products. Slight variation between samples is acceptable and expected.",
+                "description": "",
+                "filename": "ProtocolFigures.png",
+                "url": "https://assets.researchsquare.com/files/f86eeec4-ae0e-4605-a40f-e451265f429a/v1/Protocol Figures.png"
+            },
+            {
+                "id": 168793,
+                "identity": "af262d2f-9919-4232-a508-1de3da7ab7d6",
+                "added_by": "auto",
+                "created_at": "2019-11-20 12:33:14",
+                "extension": "png",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 228184,
+                "visible": true,
+                "origin": "",
+                "legend": "Expected size distribution of UPS2 amplified (top) TCR\u03b1 and (bottom) TCR\u03b2 products. Slight variation between samples is acceptable and expected. TCR\u03b1 products are expected to be longer than TCR\u03b2 products.",
+                "description": "",
+                "filename": "ProtocolFigure2.png",
+                "url": "https://assets.researchsquare.com/files/f86eeec4-ae0e-4605-a40f-e451265f429a/v1/Protocol Figure 2.png"
+            },
+            {
+                "id": 168794,
+                "identity": "56a30313-bfb8-473c-bf49-e38d30359130",
+                "added_by": "auto",
+                "created_at": "2019-11-20 12:33:15",
+                "extension": "png",
+                "order_by": 4,
+                "title": "Figure 4",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 658391,
+                "visible": true,
+                "origin": "",
+                "legend": "Example results of varying the ratio of Serapure reagent to GeneRuler DNA ladder. The ratio is denoted as ratio of the Serapure reagent to the sample. For example, for a 50\u00b5L sample, 0.9x of serapure reagent means 50*0.9 = 45\u00b5L of Serapure reagent, for a total mixture of 50+45 = 95\u00b5L of Serapure + original sample.",
+                "description": "",
+                "filename": "ProtocolFigure3.png",
+                "url": "https://assets.researchsquare.com/files/f86eeec4-ae0e-4605-a40f-e451265f429a/v1/Protocol Figure 3.png"
+            },
+            {
+                "id": 13479178,
+                "identity": "ae08ca8c-3296-4c08-a0ed-9bc2f389afd2",
+                "added_by": "auto",
+                "created_at": "2021-09-16 21:38:15",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 937100,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-702/v1/6ba7d001-8471-482c-8e65-b5e8cbfc4dcf.pdf"
+            },
+            {
+                "id": 168789,
+                "identity": "efd55c81-7577-4740-bb96-3729a70a09d2",
+                "added_by": "auto",
+                "created_at": "2019-11-20 12:33:14",
+                "extension": "xlsx",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 9952,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "SupplementaryTable1.xlsx",
+                "url": "https://assets.researchsquare.com/files/f86eeec4-ae0e-4605-a40f-e451265f429a/v1/Supplementary Table 1.xlsx"
+            },
+            {
+                "id": 168791,
+                "identity": "1cea6c8a-a593-41e8-b036-3e0fd2987c6e",
+                "added_by": "auto",
+                "created_at": "2019-11-20 12:33:14",
+                "extension": "xlsx",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 13729,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "SupplementaryTable2TRVUPS2primers.xlsx",
+                "url": "https://assets.researchsquare.com/files/f86eeec4-ae0e-4605-a40f-e451265f429a/v1/Supplementary Table 2 TRV_UPS2 primers.xlsx"
+            },
+            {
+                "id": 168792,
+                "identity": "3bd07126-8ada-4785-966d-d4cf3a2641c9",
+                "added_by": "auto",
+                "created_at": "2019-11-20 12:33:14",
+                "extension": "xlsx",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 9836,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "SupplementaryTable3.xlsx",
+                "url": "https://assets.researchsquare.com/files/f86eeec4-ae0e-4605-a40f-e451265f429a/v1/Supplementary Table 3.xlsx"
+            }
+        ],
+        "financialInterests": "A.A.T., T.M.G., J.C.L., and the Massachusetts Institute of Technology have filed a patent application (patent no. PCT/US2018/013443) that relates to T cell receptors recovery, compositions of matter, the outlined experimental and computational methods and uses thereof. J.C.L. and A.K.S. are co-founders and shareholders of Honeycomb Biotechnologies, Inc. T.M.G. is currently an employee of Honeycomb Biotechnologies, Inc. ",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Seq-Well, RNA-Seq, TCR, Single-cell",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>High-throughput 3\u2019 single-cell RNA-Sequencing (scRNA-Seq) allows for cost-effective, detailed characterization of thousands of individual immune cells from healthy and diseased tissues. Current techniques, however, are limited in their ability to elucidate essential immune cell features, including the variable sequences of T cell receptors (TCRs) that confer antigen specificity in T cells. Here, we present an enrichment strategy that enables simultaneous analysis of TCR variable sequences and corresponding full transcriptomes from 3\u2019 barcoded scRNA-Seq samples. This approach is compatible with common 3\u2019 scRNA-Seq methods, and adaptable to processed samples <em>post hoc</em>. We applied the technique to resolve clonotype-to-phenotype relationships among antigen-activated T cells from immunized mice and from patients with food allergy. We observed diverse but preferential&nbsp;cellular phenotypes manifest among subsets of expanded clonotypes, including functional Th2 states associated with food allergy. These results demonstrate the utility of our method when studying complex diseases in which clonotype-driven immune responses are critical to understanding the underlying biology.</p>",
+        "manuscriptTitle": "Recovery of Paired T Cell Receptors from Single-cell Seq-Well Libraries",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2019-11-20 12:33:13",
+                "doi": "10.21203/rs.2.13685/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "56aca25c-9019-40ee-a84a-58c3464f3fe3",
+        "owner": [],
+        "postedDate": "November 20th, 2019",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 23465,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 23466,
+                "name": "Molecular Biology"
+            },
+            {
+                "id": 23467,
+                "name": "Biotechnology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2019-11-20 12:33:13",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

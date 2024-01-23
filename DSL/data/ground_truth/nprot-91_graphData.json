@@ -1,0 +1,539 @@
+{
+  "name": "nprot-91.json",
+  "nodes": [
+    {
+      "id": "2326af78-44aa-496b-b3d0-e1029983fc13",
+      "text": "Record 3D TROSY-HNCA, 3D MQ-CCH-TOCSY and 4D 13C, 15N-edited NOESY for resonance assignment. Use half-point delays for the evolution periods of C\u03b1 spins (t1) in the HNCA, 13C spins (bonded with the directly detected 1H, t2) in the MQ-CCH-TOCSY, and both 13C and 15N spins (t2 and t3) in the 4D NOESY. In this way, the peaks aliased with odd times have opposite signs to those aliased with even times. Record a 2D 1H-15N TROSY-HSQC with enough spectral width in the 15N dimension to facilitate the identification of peaks aliased in the 15N dimension in 3D HNCA and 4D 13C, 15N-edited NOESY",
+      "instruction": "RECORD",
+      "slots": [
+        {
+          "key": "it's a slot key",
+          "value": "it's a slot value",
+          "id": "2326af78-44aa-496b-b3d0-e1029983fc13",
+          "node_id": "2326af78-44aa-496b-b3d0-e1029983fc13"
+        }
+      ],
+      "emits": []
+    },
+    {
+      "id": "60f42087-a50f-461f-9257-710698428030",
+      "text": "Process the data with NMRPipe. Use linear prediction to improve the resolution of all indirectly detected dimensions.\n Covert the processed spectra into ucsf format for further analysis with Sparky",
+      "instruction": "ADD",
+      "slots": [
+        {
+          "key": "it's a slot key",
+          "value": "it's a slot value",
+          "id": "60f42087-a50f-461f-9257-710698428030",
+          "node_id": "60f42087-a50f-461f-9257-710698428030"
+        }
+      ],
+      "emits": []
+    },
+    {
+      "id": "31dce182-34d0-4033-a78e-51c808a442c6",
+      "text": "Use peak picking functions in Sparky to pick HNCA peaks automatically. Group them into clusters according to (HN, N) chemical shifts. Usually one cluster contains two peaks: one from the intraresidue C\u03b1, another from the C\u03b1 of the preceding residue. However, some clusters contain only one peak due to degenerate C\u03b1 chemical shifts, while some clusters may contain more than two peaks due to the overlap of amide chemical shifts. Identify peaks from NH2 groups according to their paired patterns and unusual \u201cC\u03b1\u201d chemical shifts. These peaks can be excluded during backbone assignment.\n Check the number of clusters identified and the expected number and ensure that there is not a large difference",
+      "instruction": "ADD",
+      "slots": [
+        {
+          "key": "it's a slot key",
+          "value": "it's a slot value",
+          "id": "31dce182-34d0-4033-a78e-51c808a442c6",
+          "node_id": "31dce182-34d0-4033-a78e-51c808a442c6"
+        }
+      ],
+      "emits": []
+    },
+    {
+      "id": "f58841dc-79ab-47fa-8751-46f3bddc4055",
+      "text": "Pick peaks in 4D 13C,15N-edited NOESY manually or automatically. Group NOE peaks into their corresponding clusters according to (HN, N) chemical shifts of individual clusters. Due to lower resolution of the 4D NOESY, some peaks cannot be grouped into only one cluster unambiguously. These peaks will remain ungrouped.",
+      "instruction": "PICK",
+      "slots": [
+        {
+          "key": "it's a slot key",
+          "value": "it's a slot value",
+          "id": "f58841dc-79ab-47fa-8751-46f3bddc4055",
+          "node_id": "f58841dc-79ab-47fa-8751-46f3bddc4055"
+        }
+      ],
+      "emits": []
+    },
+    {
+      "id": "dd0c834b-a41a-4f63-8529-a184ac80a1d3",
+      "text": "Correct chemical shifts of the aliased peaks in 3D TROSY-HNCA and 4D NOESY with Sparky.",
+      "instruction": "ADD",
+      "slots": [
+        {
+          "key": "it's a slot key",
+          "value": "it's a slot value",
+          "id": "dd0c834b-a41a-4f63-8529-a184ac80a1d3",
+          "node_id": "dd0c834b-a41a-4f63-8529-a184ac80a1d3"
+        }
+      ],
+      "emits": []
+    },
+    {
+      "id": "e5c80754-4433-44c3-863a-c1962226a262",
+      "text": "Pick peaks in CCH-TOCSY",
+      "instruction": "PICK",
+      "slots": [
+        {
+          "key": "it's a slot key",
+          "value": "it's a slot value",
+          "id": "e5c80754-4433-44c3-863a-c1962226a262",
+          "node_id": "e5c80754-4433-44c3-863a-c1962226a262"
+        }
+      ],
+      "emits": []
+    },
+    {
+      "id": "b813af5d-d10c-44dc-9bab-a3a8fde112af",
+      "text": "Each cluster is characterized by a pair of (HN, N) chemical shifts. Typically, one cluster contains two HNCA peaks and a number of HC-NH NOE peaks. First, initialize a spin-system from one HNCA peak in a given cluster. Second, among the NOE peaks in this cluster, identify the peak that matches the HNCA peak in 13C chemical shift within a certain tolerance (e.g., ~0.3 ppm). If only one peak is identified, this peak is considered as a sequential or intra-residue C\u03b1H\u03b1-NH NOE10. Note that there are two \u03b1 protons for glycine residues and thus two peaks with identical C\u03b1 shifts may be observed. Third, display the TOCSY slice defined by the (H, C) chemical shifts of each NOE peak in this cluster and check if the CH spin-pair of the NOE peak correlates with the C\u03b1 spin of this initial spin-system. If yes, the NOE peak is regarded as a sequential or intraresidue side chain NOE in this spin-system. The 13C spin of the CH spin-pair should also correlate with C\u03b1H\u03b1 of this spin-system via TOCSY. In some cases, this correlation cannot be detected because it is too weak or close to the intense water signal. For spin-systems of long side chains, a few more CH spin-pairs may be added into the spin-systems according to their TOCSY correlations with side chain CH spin-pairs that are already identified.",
+      "instruction": "ADD",
+      "slots": [
+        {
+          "key": "it's a slot key",
+          "value": "it's a slot value",
+          "id": "b813af5d-d10c-44dc-9bab-a3a8fde112af",
+          "node_id": "b813af5d-d10c-44dc-9bab-a3a8fde112af"
+        }
+      ],
+      "emits": []
+    },
+    {
+      "id": "e494edc9-1757-4d4f-b679-8ec259eebe64",
+      "text": "In cases where only one HNCA peak is picked for one cluster due to degenerate C\u03b1 chemical shifts and two NOE peaks match this HNCA peak, build two spin-systems using the two NOE peaks. The NOE peaks belonging to these two spin-systems can be separated because side chain 13C spins correlate with two non-degenerate C\u03b1H\u03b1 spin-pairs in CCH-TOCSY, provided that 13C-C\u03b1H\u03b1 correlations are detectable.",
+      "instruction": "ADD",
+      "slots": [
+        {
+          "key": "it's a slot key",
+          "value": "it's a slot value",
+          "id": "e494edc9-1757-4d4f-b679-8ec259eebe64",
+          "node_id": "e494edc9-1757-4d4f-b679-8ec259eebe64"
+        }
+      ],
+      "emits": []
+    },
+    {
+      "id": "40db284c-a5c3-4785-a0b3-327ccdc4bdee",
+      "text": "For each spin-system, check whether the CH spin-pairs correlate with each other in CCH-TOCSY and whether the correlations can be explained by one of the 20 amino acids in terms of number of peaks and chemical shifts",
+      "instruction": "ADD",
+      "slots": [
+        {
+          "key": "it's a slot key",
+          "value": "it's a slot value",
+          "id": "40db284c-a5c3-4785-a0b3-327ccdc4bdee",
+          "node_id": "40db284c-a5c3-4785-a0b3-327ccdc4bdee"
+        }
+      ],
+      "emits": []
+    },
+    {
+      "id": "dc07714f-73a4-4e30-bda5-14831acda4bd",
+      "text": "Classify a spin-system by residue type according to its C\u03b1 chemical shift and NOE peaks. Typically it is possible to unambiguously recognize most glycine, alanine, threonine, valine, isoleucine, and leucine, which account for ~42% amino acid residues in a protein. Glycine can be identified according to its small C\u03b1 chemical shift, and sometimes two H\u03b1 peaks. Alanine can be identified based on its strong intraresidue C\u03b2H\u03b2-NH NOE peak, strong C\u03b1-C\u03b2H\u03b2 TOCSY peak, and characteristic C\u03b1 and C\u03b2 chemical shifts. For threonine, valine, isoleucine and leucine, classification can be easily done based on their characteristic side chain chemical shifts. In particular, the methyl groups of these residues always give rise to well resolved TOCSY correlations with other 13C spins. Some serine, lysine, arginine, and proline can be distinguished, provided that the C\u03b2H\u03b2 spin-pair for serine, C\u03b2H\u03b2, C\u03b3H\u03b3 and C\u03b4H\u03b4 spin-pairs for lysine, arginine and proline can be identified. Classify other residues into three groups: (Asp, Asn, Phe, Tyr), (Gln, Glu, Met) and (Cys, Trp, His) according to both 1H and 13C chemical shifts.\n If a spin-system contains too few peaks to be classified, leave it without classification. Usually classification of about ~35-50% spin-systems is sufficient for obtaining backbone assignment.",
+      "instruction": "ADD",
+      "slots": [
+        {
+          "key": "it's a slot key",
+          "value": "it's a slot value",
+          "id": "dc07714f-73a4-4e30-bda5-14831acda4bd",
+          "node_id": "dc07714f-73a4-4e30-bda5-14831acda4bd"
+        }
+      ],
+      "emits": []
+    },
+    {
+      "id": "239a9942-eeac-468f-82ea-bf0930d112a1",
+      "text": "Link clusters to build fragments through matching spin-systems. Two spin-systems match each other when they have i). identical C\u03b1 chemical shifts, ii). the largest number of matched NOE peaks, and iii). no inconsistent (C, H) chemical shifts",
+      "instruction": "ADD",
+      "slots": [
+        {
+          "key": "it's a slot key",
+          "value": "it's a slot value",
+          "id": "239a9942-eeac-468f-82ea-bf0930d112a1",
+          "node_id": "239a9942-eeac-468f-82ea-bf0930d112a1"
+        }
+      ],
+      "emits": []
+    },
+    {
+      "id": "3af0ff1e-5d6f-4700-b5ab-88eb8dc1987e",
+      "text": "Compare spin-system types of a connectivity fragment with the protein sequence. If only one segment in the sequence matches the fragment in residue type at every amino acid position, map this fragment onto the segment of the sequence. Note that it is unknown which end of the fragment is the N-terminus since intraresidue and sequential spin-systems are not distinguished. The intraresidue HNCA peak is usually stronger than the sequential one. If a mapping is inconsistent with this, it may contain errors and need to check more carefully.",
+      "instruction": "COMPARE",
+      "slots": [
+        {
+          "key": "it's a slot key",
+          "value": "it's a slot value",
+          "id": "3af0ff1e-5d6f-4700-b5ab-88eb8dc1987e",
+          "node_id": "3af0ff1e-5d6f-4700-b5ab-88eb8dc1987e"
+        }
+      ],
+      "emits": []
+    },
+    {
+      "id": "3ff2ffbe-0429-408b-92ec-0e2854e5b3d0",
+      "text": "Use common NOEs shared by two clusters to resolve ambiguities in sequential connectivities for unassigned spin-systems6. If two spin-systems have a true sequential relationship, no mismatch of intra-residue and sequential correlations should exist. On the basis of this fact, some ambiguities can be removed too.",
+      "instruction": "ADD",
+      "slots": [
+        {
+          "key": "it's a slot key",
+          "value": "it's a slot value",
+          "id": "3ff2ffbe-0429-408b-92ec-0e2854e5b3d0",
+          "node_id": "3ff2ffbe-0429-408b-92ec-0e2854e5b3d0"
+        }
+      ],
+      "emits": []
+    },
+    {
+      "id": "104e596b-dee0-47a7-82e0-346c7396496d",
+      "text": "assign the unassigned fragments and clusters in an iterative way",
+      "instruction": "ADD",
+      "slots": [
+        {
+          "key": "it's a slot key",
+          "value": "it's a slot value",
+          "id": "104e596b-dee0-47a7-82e0-346c7396496d",
+          "node_id": "104e596b-dee0-47a7-82e0-346c7396496d"
+        }
+      ],
+      "emits": []
+    },
+    {
+      "id": "1a93294b-4be8-4ab8-903c-8c40cc51210e",
+      "text": "Note that some initial errors may be introduced during the processes of identifying, classifying and matching spin-systems and mapping fragments to the sequence. Most errors can be recognized during the process of assignment and will not lead to wrong final assignments. Those lead to wrong initial assignments should be recognized when some other clusters can\u2019t be assigned",
+      "instruction": "ADD",
+      "slots": [
+        {
+          "key": "it's a slot key",
+          "value": "it's a slot value",
+          "id": "1a93294b-4be8-4ab8-903c-8c40cc51210e",
+          "node_id": "1a93294b-4be8-4ab8-903c-8c40cc51210e"
+        }
+      ],
+      "emits": []
+    },
+    {
+      "id": "fe86ecce-68c7-4cc2-9bb2-bd5a872cb025",
+      "text": "Most side chain chemical shifts are ready to be extracted according to the identified spin-systems and backbone assignments. Assign some more side chain resonances by comparing two 13C,15N-edited NOESY planes defined by two adjacent amides, and by exploring the MQ-CCH-TOCSY more extensively",
+      "instruction": "ADD",
+      "slots": [
+        {
+          "key": "it's a slot key",
+          "value": "it's a slot value",
+          "id": "fe86ecce-68c7-4cc2-9bb2-bd5a872cb025",
+          "node_id": "fe86ecce-68c7-4cc2-9bb2-bd5a872cb025"
+        }
+      ],
+      "emits": []
+    },
+    {
+      "id": "aad1623f-839b-4920-9ec7-56b14f9d7e1e",
+      "text": "Assign NH2 chemical shifts according to i) C\u03b2-NH2 and C\u03b3-NH2 correlations in the HNCA spectrum for asparagine and glutamine respectively, ii) H\u03b2C\u03b2-NH2 and H\u03b3C\u03b3-NH2 /H\u03b2C\u03b2-NH2 correlations in the 4D 13C,15N-edited NOESY for asparagine and glutamine respectively",
+      "instruction": "ADD",
+      "slots": [
+        {
+          "key": "it's a slot key",
+          "value": "it's a slot value",
+          "id": "aad1623f-839b-4920-9ec7-56b14f9d7e1e",
+          "node_id": "aad1623f-839b-4920-9ec7-56b14f9d7e1e"
+        }
+      ],
+      "emits": []
+    },
+    {
+      "id": "19769a23-52c0-4532-8ace-5eaba806d92a",
+      "text": "Assign C\u03b4H\u03b4 groups of aromatic residues according to their NOE correlations with intraresidue and sequential amides11. Other aromatic resonances can be assigned later with a 4D 13C,13C-edited NOESY",
+      "instruction": "ADD",
+      "slots": [
+        {
+          "key": "it's a slot key",
+          "value": "it's a slot value",
+          "id": "19769a23-52c0-4532-8ace-5eaba806d92a",
+          "node_id": "19769a23-52c0-4532-8ace-5eaba806d92a"
+        }
+      ],
+      "emits": []
+    },
+    {
+      "id": "f78fb446-3f12-482f-83a3-6c090d67cf44",
+      "text": "With a relatively complete chemical shift list, assign other NOE peaks in the 4D 13C,15N-edited NOESY and 13C,13C-edited NOESY. Follow the conventional procedure for NOE assignment and structure calculation. The chemical shifts of a few more side chain atoms may be assigned during this process.",
+      "instruction": "ADD",
+      "slots": [
+        {
+          "key": "it's a slot key",
+          "value": "it's a slot value",
+          "id": "f78fb446-3f12-482f-83a3-6c090d67cf44",
+          "node_id": "f78fb446-3f12-482f-83a3-6c090d67cf44"
+        }
+      ],
+      "emits": []
+    }
+  ],
+  "edges": [
+    {
+      "id": "f8eeaf64-ace0-4e53-be25-825cfab3be7a",
+      "source": {
+        "text": "Record 3D TROSY-HNCA, 3D MQ-CCH-TOCSY and 4D 13C, 15N-edited NOESY for resonance assignment. Use half-point delays for the evolution periods of C\u03b1 spins (t1) in the HNCA, 13C spins (bonded with the directly detected 1H, t2) in the MQ-CCH-TOCSY, and both 13C and 15N spins (t2 and t3) in the 4D NOESY. In this way, the peaks aliased with odd times have opposite signs to those aliased with even times. Record a 2D 1H-15N TROSY-HSQC with enough spectral width in the 15N dimension to facilitate the identification of peaks aliased in the 15N dimension in 3D HNCA and 4D 13C, 15N-edited NOESY",
+        "node_id": "2326af78-44aa-496b-b3d0-e1029983fc13",
+        "attr_id": "2326af78-44aa-496b-b3d0-e1029983fc13"
+      },
+      "target": {
+        "text": "Process the data with NMRPipe. Use linear prediction to improve the resolution of all indirectly detected dimensions.\n Covert the processed spectra into ucsf format for further analysis with Sparky",
+        "node_id": "60f42087-a50f-461f-9257-710698428030",
+        "attr_id": "60f42087-a50f-461f-9257-710698428030"
+      },
+      "text": "it's a edge text"
+    },
+    {
+      "id": "d88a4a2a-facd-4979-8ccd-d1b4afe9f953",
+      "source": {
+        "text": "Process the data with NMRPipe. Use linear prediction to improve the resolution of all indirectly detected dimensions.\n Covert the processed spectra into ucsf format for further analysis with Sparky",
+        "node_id": "60f42087-a50f-461f-9257-710698428030",
+        "attr_id": "60f42087-a50f-461f-9257-710698428030"
+      },
+      "target": {
+        "text": "Use peak picking functions in Sparky to pick HNCA peaks automatically. Group them into clusters according to (HN, N) chemical shifts. Usually one cluster contains two peaks: one from the intraresidue C\u03b1, another from the C\u03b1 of the preceding residue. However, some clusters contain only one peak due to degenerate C\u03b1 chemical shifts, while some clusters may contain more than two peaks due to the overlap of amide chemical shifts. Identify peaks from NH2 groups according to their paired patterns and unusual \u201cC\u03b1\u201d chemical shifts. These peaks can be excluded during backbone assignment.\n Check the number of clusters identified and the expected number and ensure that there is not a large difference",
+        "node_id": "31dce182-34d0-4033-a78e-51c808a442c6",
+        "attr_id": "31dce182-34d0-4033-a78e-51c808a442c6"
+      },
+      "text": "it's a edge text"
+    },
+    {
+      "id": "8e13c833-95d4-46d8-a9eb-dd7308474852",
+      "source": {
+        "text": "Use peak picking functions in Sparky to pick HNCA peaks automatically. Group them into clusters according to (HN, N) chemical shifts. Usually one cluster contains two peaks: one from the intraresidue C\u03b1, another from the C\u03b1 of the preceding residue. However, some clusters contain only one peak due to degenerate C\u03b1 chemical shifts, while some clusters may contain more than two peaks due to the overlap of amide chemical shifts. Identify peaks from NH2 groups according to their paired patterns and unusual \u201cC\u03b1\u201d chemical shifts. These peaks can be excluded during backbone assignment.\n Check the number of clusters identified and the expected number and ensure that there is not a large difference",
+        "node_id": "31dce182-34d0-4033-a78e-51c808a442c6",
+        "attr_id": "31dce182-34d0-4033-a78e-51c808a442c6"
+      },
+      "target": {
+        "text": "Pick peaks in 4D 13C,15N-edited NOESY manually or automatically. Group NOE peaks into their corresponding clusters according to (HN, N) chemical shifts of individual clusters. Due to lower resolution of the 4D NOESY, some peaks cannot be grouped into only one cluster unambiguously. These peaks will remain ungrouped.",
+        "node_id": "f58841dc-79ab-47fa-8751-46f3bddc4055",
+        "attr_id": "f58841dc-79ab-47fa-8751-46f3bddc4055"
+      },
+      "text": "it's a edge text"
+    },
+    {
+      "id": "f89a3f74-ad95-4637-929f-5866475d33aa",
+      "source": {
+        "text": "Pick peaks in 4D 13C,15N-edited NOESY manually or automatically. Group NOE peaks into their corresponding clusters according to (HN, N) chemical shifts of individual clusters. Due to lower resolution of the 4D NOESY, some peaks cannot be grouped into only one cluster unambiguously. These peaks will remain ungrouped.",
+        "node_id": "f58841dc-79ab-47fa-8751-46f3bddc4055",
+        "attr_id": "f58841dc-79ab-47fa-8751-46f3bddc4055"
+      },
+      "target": {
+        "text": "Correct chemical shifts of the aliased peaks in 3D TROSY-HNCA and 4D NOESY with Sparky.",
+        "node_id": "dd0c834b-a41a-4f63-8529-a184ac80a1d3",
+        "attr_id": "dd0c834b-a41a-4f63-8529-a184ac80a1d3"
+      },
+      "text": "it's a edge text"
+    },
+    {
+      "id": "4a552785-d9a2-4a4c-ba65-bf21246f8796",
+      "source": {
+        "text": "Correct chemical shifts of the aliased peaks in 3D TROSY-HNCA and 4D NOESY with Sparky.",
+        "node_id": "dd0c834b-a41a-4f63-8529-a184ac80a1d3",
+        "attr_id": "dd0c834b-a41a-4f63-8529-a184ac80a1d3"
+      },
+      "target": {
+        "text": "Pick peaks in CCH-TOCSY",
+        "node_id": "e5c80754-4433-44c3-863a-c1962226a262",
+        "attr_id": "e5c80754-4433-44c3-863a-c1962226a262"
+      },
+      "text": "it's a edge text"
+    },
+    {
+      "id": "8bb387b7-7290-45be-8d51-aff9b28a23e2",
+      "source": {
+        "text": "Pick peaks in CCH-TOCSY",
+        "node_id": "e5c80754-4433-44c3-863a-c1962226a262",
+        "attr_id": "e5c80754-4433-44c3-863a-c1962226a262"
+      },
+      "target": {
+        "text": "Each cluster is characterized by a pair of (HN, N) chemical shifts. Typically, one cluster contains two HNCA peaks and a number of HC-NH NOE peaks. First, initialize a spin-system from one HNCA peak in a given cluster. Second, among the NOE peaks in this cluster, identify the peak that matches the HNCA peak in 13C chemical shift within a certain tolerance (e.g., ~0.3 ppm). If only one peak is identified, this peak is considered as a sequential or intra-residue C\u03b1H\u03b1-NH NOE10. Note that there are two \u03b1 protons for glycine residues and thus two peaks with identical C\u03b1 shifts may be observed. Third, display the TOCSY slice defined by the (H, C) chemical shifts of each NOE peak in this cluster and check if the CH spin-pair of the NOE peak correlates with the C\u03b1 spin of this initial spin-system. If yes, the NOE peak is regarded as a sequential or intraresidue side chain NOE in this spin-system. The 13C spin of the CH spin-pair should also correlate with C\u03b1H\u03b1 of this spin-system via TOCSY. In some cases, this correlation cannot be detected because it is too weak or close to the intense water signal. For spin-systems of long side chains, a few more CH spin-pairs may be added into the spin-systems according to their TOCSY correlations with side chain CH spin-pairs that are already identified.",
+        "node_id": "b813af5d-d10c-44dc-9bab-a3a8fde112af",
+        "attr_id": "b813af5d-d10c-44dc-9bab-a3a8fde112af"
+      },
+      "text": "it's a edge text"
+    },
+    {
+      "id": "afaeaac3-1b81-494b-a1ed-e310f9415a9f",
+      "source": {
+        "text": "Each cluster is characterized by a pair of (HN, N) chemical shifts. Typically, one cluster contains two HNCA peaks and a number of HC-NH NOE peaks. First, initialize a spin-system from one HNCA peak in a given cluster. Second, among the NOE peaks in this cluster, identify the peak that matches the HNCA peak in 13C chemical shift within a certain tolerance (e.g., ~0.3 ppm). If only one peak is identified, this peak is considered as a sequential or intra-residue C\u03b1H\u03b1-NH NOE10. Note that there are two \u03b1 protons for glycine residues and thus two peaks with identical C\u03b1 shifts may be observed. Third, display the TOCSY slice defined by the (H, C) chemical shifts of each NOE peak in this cluster and check if the CH spin-pair of the NOE peak correlates with the C\u03b1 spin of this initial spin-system. If yes, the NOE peak is regarded as a sequential or intraresidue side chain NOE in this spin-system. The 13C spin of the CH spin-pair should also correlate with C\u03b1H\u03b1 of this spin-system via TOCSY. In some cases, this correlation cannot be detected because it is too weak or close to the intense water signal. For spin-systems of long side chains, a few more CH spin-pairs may be added into the spin-systems according to their TOCSY correlations with side chain CH spin-pairs that are already identified.",
+        "node_id": "b813af5d-d10c-44dc-9bab-a3a8fde112af",
+        "attr_id": "b813af5d-d10c-44dc-9bab-a3a8fde112af"
+      },
+      "target": {
+        "text": "In cases where only one HNCA peak is picked for one cluster due to degenerate C\u03b1 chemical shifts and two NOE peaks match this HNCA peak, build two spin-systems using the two NOE peaks. The NOE peaks belonging to these two spin-systems can be separated because side chain 13C spins correlate with two non-degenerate C\u03b1H\u03b1 spin-pairs in CCH-TOCSY, provided that 13C-C\u03b1H\u03b1 correlations are detectable.",
+        "node_id": "e494edc9-1757-4d4f-b679-8ec259eebe64",
+        "attr_id": "e494edc9-1757-4d4f-b679-8ec259eebe64"
+      },
+      "text": "it's a edge text"
+    },
+    {
+      "id": "a49c1399-2a31-477c-a373-bdec4e546aec",
+      "source": {
+        "text": "In cases where only one HNCA peak is picked for one cluster due to degenerate C\u03b1 chemical shifts and two NOE peaks match this HNCA peak, build two spin-systems using the two NOE peaks. The NOE peaks belonging to these two spin-systems can be separated because side chain 13C spins correlate with two non-degenerate C\u03b1H\u03b1 spin-pairs in CCH-TOCSY, provided that 13C-C\u03b1H\u03b1 correlations are detectable.",
+        "node_id": "e494edc9-1757-4d4f-b679-8ec259eebe64",
+        "attr_id": "e494edc9-1757-4d4f-b679-8ec259eebe64"
+      },
+      "target": {
+        "text": "For each spin-system, check whether the CH spin-pairs correlate with each other in CCH-TOCSY and whether the correlations can be explained by one of the 20 amino acids in terms of number of peaks and chemical shifts",
+        "node_id": "40db284c-a5c3-4785-a0b3-327ccdc4bdee",
+        "attr_id": "40db284c-a5c3-4785-a0b3-327ccdc4bdee"
+      },
+      "text": "it's a edge text"
+    },
+    {
+      "id": "a2232494-344f-43de-94a1-6ea919485607",
+      "source": {
+        "text": "For each spin-system, check whether the CH spin-pairs correlate with each other in CCH-TOCSY and whether the correlations can be explained by one of the 20 amino acids in terms of number of peaks and chemical shifts",
+        "node_id": "40db284c-a5c3-4785-a0b3-327ccdc4bdee",
+        "attr_id": "40db284c-a5c3-4785-a0b3-327ccdc4bdee"
+      },
+      "target": {
+        "text": "Classify a spin-system by residue type according to its C\u03b1 chemical shift and NOE peaks. Typically it is possible to unambiguously recognize most glycine, alanine, threonine, valine, isoleucine, and leucine, which account for ~42% amino acid residues in a protein. Glycine can be identified according to its small C\u03b1 chemical shift, and sometimes two H\u03b1 peaks. Alanine can be identified based on its strong intraresidue C\u03b2H\u03b2-NH NOE peak, strong C\u03b1-C\u03b2H\u03b2 TOCSY peak, and characteristic C\u03b1 and C\u03b2 chemical shifts. For threonine, valine, isoleucine and leucine, classification can be easily done based on their characteristic side chain chemical shifts. In particular, the methyl groups of these residues always give rise to well resolved TOCSY correlations with other 13C spins. Some serine, lysine, arginine, and proline can be distinguished, provided that the C\u03b2H\u03b2 spin-pair for serine, C\u03b2H\u03b2, C\u03b3H\u03b3 and C\u03b4H\u03b4 spin-pairs for lysine, arginine and proline can be identified. Classify other residues into three groups: (Asp, Asn, Phe, Tyr), (Gln, Glu, Met) and (Cys, Trp, His) according to both 1H and 13C chemical shifts.\n If a spin-system contains too few peaks to be classified, leave it without classification. Usually classification of about ~35-50% spin-systems is sufficient for obtaining backbone assignment.",
+        "node_id": "dc07714f-73a4-4e30-bda5-14831acda4bd",
+        "attr_id": "dc07714f-73a4-4e30-bda5-14831acda4bd"
+      },
+      "text": "it's a edge text"
+    },
+    {
+      "id": "06a0dab1-fda4-4d0b-ad16-4f807765fafb",
+      "source": {
+        "text": "Classify a spin-system by residue type according to its C\u03b1 chemical shift and NOE peaks. Typically it is possible to unambiguously recognize most glycine, alanine, threonine, valine, isoleucine, and leucine, which account for ~42% amino acid residues in a protein. Glycine can be identified according to its small C\u03b1 chemical shift, and sometimes two H\u03b1 peaks. Alanine can be identified based on its strong intraresidue C\u03b2H\u03b2-NH NOE peak, strong C\u03b1-C\u03b2H\u03b2 TOCSY peak, and characteristic C\u03b1 and C\u03b2 chemical shifts. For threonine, valine, isoleucine and leucine, classification can be easily done based on their characteristic side chain chemical shifts. In particular, the methyl groups of these residues always give rise to well resolved TOCSY correlations with other 13C spins. Some serine, lysine, arginine, and proline can be distinguished, provided that the C\u03b2H\u03b2 spin-pair for serine, C\u03b2H\u03b2, C\u03b3H\u03b3 and C\u03b4H\u03b4 spin-pairs for lysine, arginine and proline can be identified. Classify other residues into three groups: (Asp, Asn, Phe, Tyr), (Gln, Glu, Met) and (Cys, Trp, His) according to both 1H and 13C chemical shifts.\n If a spin-system contains too few peaks to be classified, leave it without classification. Usually classification of about ~35-50% spin-systems is sufficient for obtaining backbone assignment.",
+        "node_id": "dc07714f-73a4-4e30-bda5-14831acda4bd",
+        "attr_id": "dc07714f-73a4-4e30-bda5-14831acda4bd"
+      },
+      "target": {
+        "text": "Link clusters to build fragments through matching spin-systems. Two spin-systems match each other when they have i). identical C\u03b1 chemical shifts, ii). the largest number of matched NOE peaks, and iii). no inconsistent (C, H) chemical shifts",
+        "node_id": "239a9942-eeac-468f-82ea-bf0930d112a1",
+        "attr_id": "239a9942-eeac-468f-82ea-bf0930d112a1"
+      },
+      "text": "it's a edge text"
+    },
+    {
+      "id": "7a72faa6-eef1-46e8-b992-d9bb04a49cd5",
+      "source": {
+        "text": "Link clusters to build fragments through matching spin-systems. Two spin-systems match each other when they have i). identical C\u03b1 chemical shifts, ii). the largest number of matched NOE peaks, and iii). no inconsistent (C, H) chemical shifts",
+        "node_id": "239a9942-eeac-468f-82ea-bf0930d112a1",
+        "attr_id": "239a9942-eeac-468f-82ea-bf0930d112a1"
+      },
+      "target": {
+        "text": "Compare spin-system types of a connectivity fragment with the protein sequence. If only one segment in the sequence matches the fragment in residue type at every amino acid position, map this fragment onto the segment of the sequence. Note that it is unknown which end of the fragment is the N-terminus since intraresidue and sequential spin-systems are not distinguished. The intraresidue HNCA peak is usually stronger than the sequential one. If a mapping is inconsistent with this, it may contain errors and need to check more carefully.",
+        "node_id": "3af0ff1e-5d6f-4700-b5ab-88eb8dc1987e",
+        "attr_id": "3af0ff1e-5d6f-4700-b5ab-88eb8dc1987e"
+      },
+      "text": "it's a edge text"
+    },
+    {
+      "id": "b575e705-0ee0-4170-964e-12ce896d42a5",
+      "source": {
+        "text": "Compare spin-system types of a connectivity fragment with the protein sequence. If only one segment in the sequence matches the fragment in residue type at every amino acid position, map this fragment onto the segment of the sequence. Note that it is unknown which end of the fragment is the N-terminus since intraresidue and sequential spin-systems are not distinguished. The intraresidue HNCA peak is usually stronger than the sequential one. If a mapping is inconsistent with this, it may contain errors and need to check more carefully.",
+        "node_id": "3af0ff1e-5d6f-4700-b5ab-88eb8dc1987e",
+        "attr_id": "3af0ff1e-5d6f-4700-b5ab-88eb8dc1987e"
+      },
+      "target": {
+        "text": "Use common NOEs shared by two clusters to resolve ambiguities in sequential connectivities for unassigned spin-systems6. If two spin-systems have a true sequential relationship, no mismatch of intra-residue and sequential correlations should exist. On the basis of this fact, some ambiguities can be removed too.",
+        "node_id": "3ff2ffbe-0429-408b-92ec-0e2854e5b3d0",
+        "attr_id": "3ff2ffbe-0429-408b-92ec-0e2854e5b3d0"
+      },
+      "text": "it's a edge text"
+    },
+    {
+      "id": "01c66ced-7054-4199-81b5-2caefe249b9b",
+      "source": {
+        "text": "Use common NOEs shared by two clusters to resolve ambiguities in sequential connectivities for unassigned spin-systems6. If two spin-systems have a true sequential relationship, no mismatch of intra-residue and sequential correlations should exist. On the basis of this fact, some ambiguities can be removed too.",
+        "node_id": "3ff2ffbe-0429-408b-92ec-0e2854e5b3d0",
+        "attr_id": "3ff2ffbe-0429-408b-92ec-0e2854e5b3d0"
+      },
+      "target": {
+        "text": "assign the unassigned fragments and clusters in an iterative way",
+        "node_id": "104e596b-dee0-47a7-82e0-346c7396496d",
+        "attr_id": "104e596b-dee0-47a7-82e0-346c7396496d"
+      },
+      "text": "it's a edge text"
+    },
+    {
+      "id": "d910f3f6-42d1-4c8c-a0e4-562998cdfd0f",
+      "source": {
+        "text": "assign the unassigned fragments and clusters in an iterative way",
+        "node_id": "104e596b-dee0-47a7-82e0-346c7396496d",
+        "attr_id": "104e596b-dee0-47a7-82e0-346c7396496d"
+      },
+      "target": {
+        "text": "Link clusters to build fragments through matching spin-systems. Two spin-systems match each other when they have i). identical C\u03b1 chemical shifts, ii). the largest number of matched NOE peaks, and iii). no inconsistent (C, H) chemical shifts",
+        "node_id": "239a9942-eeac-468f-82ea-bf0930d112a1",
+        "attr_id": "239a9942-eeac-468f-82ea-bf0930d112a1"
+      },
+      "text": "it's a edge text"
+    },
+    {
+      "id": "ccd858ed-ed31-423a-89b5-76cd7ae43ffa",
+      "source": {
+        "text": "assign the unassigned fragments and clusters in an iterative way",
+        "node_id": "104e596b-dee0-47a7-82e0-346c7396496d",
+        "attr_id": "104e596b-dee0-47a7-82e0-346c7396496d"
+      },
+      "target": {
+        "text": "Note that some initial errors may be introduced during the processes of identifying, classifying and matching spin-systems and mapping fragments to the sequence. Most errors can be recognized during the process of assignment and will not lead to wrong final assignments. Those lead to wrong initial assignments should be recognized when some other clusters can\u2019t be assigned",
+        "node_id": "1a93294b-4be8-4ab8-903c-8c40cc51210e",
+        "attr_id": "1a93294b-4be8-4ab8-903c-8c40cc51210e"
+      },
+      "text": "it's a edge text"
+    },
+    {
+      "id": "3771b9ec-fe2c-4acc-bce3-2ecbbe8d69c5",
+      "source": {
+        "text": "Note that some initial errors may be introduced during the processes of identifying, classifying and matching spin-systems and mapping fragments to the sequence. Most errors can be recognized during the process of assignment and will not lead to wrong final assignments. Those lead to wrong initial assignments should be recognized when some other clusters can\u2019t be assigned",
+        "node_id": "1a93294b-4be8-4ab8-903c-8c40cc51210e",
+        "attr_id": "1a93294b-4be8-4ab8-903c-8c40cc51210e"
+      },
+      "target": {
+        "text": "Most side chain chemical shifts are ready to be extracted according to the identified spin-systems and backbone assignments. Assign some more side chain resonances by comparing two 13C,15N-edited NOESY planes defined by two adjacent amides, and by exploring the MQ-CCH-TOCSY more extensively",
+        "node_id": "fe86ecce-68c7-4cc2-9bb2-bd5a872cb025",
+        "attr_id": "fe86ecce-68c7-4cc2-9bb2-bd5a872cb025"
+      },
+      "text": "it's a edge text"
+    },
+    {
+      "id": "7e3cbb89-86f4-48df-9343-e993b977e529",
+      "source": {
+        "text": "Most side chain chemical shifts are ready to be extracted according to the identified spin-systems and backbone assignments. Assign some more side chain resonances by comparing two 13C,15N-edited NOESY planes defined by two adjacent amides, and by exploring the MQ-CCH-TOCSY more extensively",
+        "node_id": "fe86ecce-68c7-4cc2-9bb2-bd5a872cb025",
+        "attr_id": "fe86ecce-68c7-4cc2-9bb2-bd5a872cb025"
+      },
+      "target": {
+        "text": "Assign NH2 chemical shifts according to i) C\u03b2-NH2 and C\u03b3-NH2 correlations in the HNCA spectrum for asparagine and glutamine respectively, ii) H\u03b2C\u03b2-NH2 and H\u03b3C\u03b3-NH2 /H\u03b2C\u03b2-NH2 correlations in the 4D 13C,15N-edited NOESY for asparagine and glutamine respectively",
+        "node_id": "aad1623f-839b-4920-9ec7-56b14f9d7e1e",
+        "attr_id": "aad1623f-839b-4920-9ec7-56b14f9d7e1e"
+      },
+      "text": "it's a edge text"
+    },
+    {
+      "id": "fd4848f6-2207-4a08-9c3c-37df05255c59",
+      "source": {
+        "text": "Assign NH2 chemical shifts according to i) C\u03b2-NH2 and C\u03b3-NH2 correlations in the HNCA spectrum for asparagine and glutamine respectively, ii) H\u03b2C\u03b2-NH2 and H\u03b3C\u03b3-NH2 /H\u03b2C\u03b2-NH2 correlations in the 4D 13C,15N-edited NOESY for asparagine and glutamine respectively",
+        "node_id": "aad1623f-839b-4920-9ec7-56b14f9d7e1e",
+        "attr_id": "aad1623f-839b-4920-9ec7-56b14f9d7e1e"
+      },
+      "target": {
+        "text": "Assign C\u03b4H\u03b4 groups of aromatic residues according to their NOE correlations with intraresidue and sequential amides11. Other aromatic resonances can be assigned later with a 4D 13C,13C-edited NOESY",
+        "node_id": "19769a23-52c0-4532-8ace-5eaba806d92a",
+        "attr_id": "19769a23-52c0-4532-8ace-5eaba806d92a"
+      },
+      "text": "it's a edge text"
+    },
+    {
+      "id": "07a21b2d-0dc1-4a9a-ac0b-83d2e1430ff1",
+      "source": {
+        "text": "Assign C\u03b4H\u03b4 groups of aromatic residues according to their NOE correlations with intraresidue and sequential amides11. Other aromatic resonances can be assigned later with a 4D 13C,13C-edited NOESY",
+        "node_id": "19769a23-52c0-4532-8ace-5eaba806d92a",
+        "attr_id": "19769a23-52c0-4532-8ace-5eaba806d92a"
+      },
+      "target": {
+        "text": "With a relatively complete chemical shift list, assign other NOE peaks in the 4D 13C,15N-edited NOESY and 13C,13C-edited NOESY. Follow the conventional procedure for NOE assignment and structure calculation. The chemical shifts of a few more side chain atoms may be assigned during this process.",
+        "node_id": "f78fb446-3f12-482f-83a3-6c090d67cf44",
+        "attr_id": "f78fb446-3f12-482f-83a3-6c090d67cf44"
+      },
+      "text": "it's a edge text"
+    }
+  ]
+}

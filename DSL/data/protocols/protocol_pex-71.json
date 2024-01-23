@@ -1,0 +1,326 @@
+{
+    "identity": "pex-71",
+    "title": "APEX-seq: RNA subcellular localization by proximity labeling",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p><strong>General notes:</strong></p><p>1. The APEX-seq protocol takes roughly 4 days to complete:</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Day 1: Labeling of cells and extraction of RNAs</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Day 2: Enrichment for biotinylated RNAs</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Days 3-4: Preparation of sequencing libraries</p><p><br></p><p>2. This protocol assumes cells containing APEX-fusion proteins have been prepared, and the localization of the fusion construct has been confirmed by microscopy. See Hung <em>et al.</em><sup><em>1</em></sup> for details on designing APEX-fusion constructs, transfecting constructs into cells, and imaging cells.</p><p><br></p><p>3. Use proper techniques for handing RNA, and avoiding contamination with RNases. These include using a dedicated bench area for RNA, using filtered pipette tips, wiping all surfaces with RNase Zap (Invitrogen), using certified RNase-free buffers and reagents, and testing buffers for RNase contamination using RNase Alert (Ambion). When appropriate, add ~1-2&nbsp;\u00b5L of Ribolock RNase inhibitor (Thermo Fischer) per 100-200&nbsp;\u00b5L of buffer/solution.</p><p><br></p><p>4. For all water, we use ultrapure distilled water (Invitrogen). However, any source of certified/verified RNase-free water may be used.</p><p><br></p><p>5. The current APEX-seq protocol recovers total RNA or polyA-selected RNAs. We select for RNAs longer than 100&nbsp;nt. We have not tested modifications to these selection criteria.</p><p><br></p><p>6. All experiments were carried out at room temperature, unless otherwise mentioned.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": ""
+        },
+        {
+            "header": "Equipment",
+            "content": ""
+        },
+        {
+            "header": "Procedure",
+            "content": "Day 0: Growing Cells\nDetails described below are for adherent human embryonic kidney (HEK293) cells. Modify as appropriate for cells from other tissues and/or organisms.\n1. Prepare 10-cm plates for growing HEK293 cells by coating with fibronectin. To do so:\n(a) Dilute 1\u00a0mg/mL fibronectin (EMD Millipore, Catalog No. FC010) by 100 fold in PBS.\n(b) Filter solution using 0.10\u00a0\u00b5m filter (0.22\u00a0\u00b5m okay too; Steriflip EMD Millipore).\n(c) Fully cover each 10-cm plate with ~3\u00a0mL fibronectin mix.\n(d) Incubate in 37\u00b0C incubator for ~1\u00a0hour.\n(e) Aspirate off remaining liquid, and add cells to plate.\nWe typically grow/expand cells without fibronectin, and only use fibronectin for plates that will be used for labeling.\n2. Grow cells overnight at 37\u00b0C (5% CO\n2\n) incubator to ~70-80% confluency. For HEK293 we use Gibco DMEM (Thermo Fischer) with 10% FBS (filtered) and 1% Gibco PenStrep (100X, Thermo Fischer). If cells grow too quickly, a 1:1 mix of DMEM: MEM may be used instead. However, the growth conditions and media should be kept constant for the project.\nNote: For APEX-seq, we typically prepare 6 plates per condition \u2013 3 plates for labeled \u201ctargets\u201d, and 3 plates for unlabeled \u201ccontrols\u201d. Depending on the biological question, 4 plates (2 targets, 2 controls) might be sufficient, though it\u2019s better to have multiple biological replicates (ideally 3+ each) for both targets and controls.\nDay 1: Labeling Cells\n1. Wash cells once with Gibco PBS (Thermo Fischer).\n2. Incubate cells at 37\u00b0C for 30\u00a0minutes with 3\u00a0mL media (or PBS) containing 0.5\u00a0mM biotin-phenol (Iris Biotech GMBH). To do so:\n(a) Prepare a 1000X biotin-phenol (BP) stock (500\u00a0mM) by adding 0.37\u00a0g BP to 2\u00a0mL DMSO. Any surplus stock can be aliquoted and stored in the -80\u00b0C for >6\u00a0months.\n(b) Add 3\u00a0\u00b5L 1000X BP stock to 3\u00a0mL media (or PBS).\n3. Label the target plates (but not the control plates) with 1\u00a0mM H\n2\nO\n2\nfor exactly 1\u00a0minute. To do so:\n(a) Prepare a ~83X H\n2\nO\n2\nstock solution by adding 10 \u00b5L 30% H\n2\nO\n2\nsolution (Sigma Aldrich, 8.8\u00a0M) to 1\u00a0mL water. Add 36\u00a0uL of this solution to the center of each target plate containing the BP solution. Shake the plate gently to mix and incubate for exactly 1\u00a0minute, followed by addition of 3\u00a0mL quenching solution.\n(b) To prepare quenching solution, add 10\u00a0mM sodium ascorbate, 10\u00a0mM sodium azide and 5\u00a0mM Trolox to PBS.\n(c) To prepare 1\u00a0M (100X) sodium ascorbate, dissolve 198\u00a0mg (Sigma Aldrich) in 1\u00a0mL water. For 1\u00a0M (100X) sodium azide, dissolve 65\u00a0mg (Sigma Aldrich) in 1\u00a0mL water. For 500\u00a0mM Trolox (100X), add 125\u00a0mg to 1\u00a0mL DMSO. Prepare these reagents fresh each time.\n(d) To stop labeling after 1\u00a0minute treatment with H\n2\nO\n2\n, pour out BP solution containing H\n2\nO\n2\nfrom 10-cm plates and immediately add ~3\u00a0mL quenching solution. Shake well and pour out quenching solution. Quickly add another ~3\u00a0mL quenching solution, shake well and pour out again. Finally add ~1\u00a0mL quenching solution and shake to cover cells. Be careful not to lose or detach cells during washing.\n(e) Add ~4\u00a0uL RNase inhibitor to each plate.\n(f) Proceed to RNA extraction as soon as possible. If additional time is required to label/process multiple plates, we keep the plates on ice in the meantime (no longer than 1\u00a0hour).\n(g) To prepare control samples, exclude 1\u00a0minute H\n2\nO\n2\naddition step and carry out all subsequent steps (including quenching-solution treatment) identically to target samples.\n4. Scrape the cells carefully using cell lifters (Corning), and transfer contents of 10-cm plate (cells and residual quenching buffer) to 1.5\u00a0mL Eppendorf tubes. Transfer to benchtop centrifuge, and spin at ~300G for 3-5\u00a0minutes. Remove most of the solution using a pipette, keeping the last ~50-100\u00a0\u00b5L quenching solution in the tube.\nNote: We want to inhibit any further reaction of biotin-phenol catalyzed by APEX2, so we keep cells in residual quenching solution until we have lysed cells.\n5. Follow instructions to extract total RNA from animal cells using the RNeasy plus mini kit (Qiagen). A few notes:\n(a) Add \u00df\u2011mercaptoethanol to Buffer RLT plus, as recommended by the manufacturer (10\u00a0uL \u00df\u2011ME per 1\u00a0mL Buffer).\n(b) Use 600\u00a0uL Buffer RLT Plus per 10-cm plate.\n(c) Homogenize the lysate carefully to prevent clogging the column, and transfer lysate to a gDNA eliminator spin column.\n(d) Instead of using Buffer RW1, we use Buffer RWT (Qiagen).\n(e) Carry out the optional step of centrifuging at full speed for 1\u00a0minute before eluting.\n(f) Elute in 60-100\u00a0\u00b5L water. We usually elute by running 30-50\u00a0\u00b5L water twice through the column to maximize yield.\n(g) After eluting into supplied 1.5\u00a0mL tubes, transfer RNA to a fresh 1.5\u00a0mL Eppendorf tube.\n(h) Check concentration of RNA. We use the Nanodrop (Thermo Fischer) for quantification, and typically recover 60-100\u00a0ug RNA per plate.\n6. Bioanalyze samples (or run a gel) to confirm RNA is intact. We aim for a RIN (RNA integrity number) >\u00a08.5. Proceed with caution for RNA with RIN\u00a0= 7.5\u00a0- 8.5. Check for RNase contamination and repeat protocol if RNA is degraded (RIN\u00a0<= 7.5). We use the RNA pico assay on the Agilent Bioanalyzer 2100 to determine RNA integrity.\n7. Recovered RNA may be stored overnight at \u201320\u00b0C. However, beyond 1-2 days at \u201320\u00b0C, RNA should be stored at \u201380\u00b0C.\nNote: For some cell lines and/or purposes, it may be necessary or desirable to have an additional step of DNA elimination. To do so:\n(a) Incubate RNA with TURBO DNase (Thermo Fischer) for 30\u00a0minutes at 37\u00b0C following the manufacture\u2019s protocol.\n(b) Purify RNA by sending through RNeasy plus mini kit.\nDay 2: Enrichment of Biotinylated RNAs\nBelow are details to enrich for biotinylated RNAs. It is very important to maintain RNase-free conditions, as we typically do not carry out any further quality-control measure until we have sequencing libraries.\n1. We usually use ~\u00bd (~30-50\u00a0\u00b5g) of our recovered RNA from the previous day for enrichment, but no less than 25\u00a0\u00b5g. The remaining \u00bd is kept in case it is necessary to repeat downstream measurements, to make a technical replicate, or to generate libraries using different approaches (for example, \u00bd of original used to prepare total-RNA libraries, and the other half libraries from polyA-selected RNAs). Start by adding water to make the RNA volume ~125\u00a0\u00b5L.\nNote: If carrying out APEX-seq experiment for first time, it is advisable to use >=\u00a050\u00a0\u00b5g RNA.\n2. Prepare streptavidin beads to enrich for biotinylated RNAs. To do so:\n(a) We use 10\u00a0\u00b5L pierce streptavidin magnetic beads (Thermo Fischer) per 25\u00a0\u00b5g RNA. Adjust volume of beads appropriate to RNA amount. Mix beads well by vortexing the bottle prior to aliquoting.\n(b) Add ~500\u00a0\u00b5L binding and washing (B&W) buffer (5\u00a0mM Tris-HCl, pH\u00a0= 7.5; 0.5\u00a0mM EDTA; 1\u00a0M NaCl; 0.1% TWEEN 20 (Sigma Aldrich)) to beads in 1.5\u00a0mL Eppendorf tube.\n(c) Put beads on magnet for 5\u00a0minutes. Discard supernatant and remove tubes from magnet.\n(d) Resuspend beads in 500\u00a0\u00b5L B&W buffer, place on magnet for 2\u00a0minutes, and then discard supernatant.\n(e) Repeat step (d) twice more, for a total of 3 washes.\n(f) Repeat washing step twice more, but this time using solution A (100\u00a0mM NaOH, 50\u00a0mM NaCl) each time.\n(g) Repeat washing step again, but this time with solution B (100\u00a0mM NaCl) once.\n(h) Resuspend beads in 125\u00a0uL solution B containing ~3\u00a0uL Ribolock RNase inhibitor.\n(i) Add 125\u00a0uL RNA from step 1 to ~125\u00a0uL beads and incubate tube on a rotator for 2\u00a0hours at 4\u00b0C.\nNote: Do not rotate overnight \u2013 we have noticed a decreased yield upon overnight incubation.\n3. After incubation, to get rid of unbound RNAs we carry out high-salt washes using B&W buffer. To do so:\n(a) Place tubes from step 3 (j) on magnet for 5\u00a0minutes and discard supernatant.\n(b) Remove tubes from magnet and resuspend beads in 500\u00a0\u00b5L B&W buffer.\n(e) Repeat steps (a) and (b) above twice for a total of 3 washes.\n(f) After the third wash, keep beads on magnet and remove any residual liquid remaining using a P20 (20\u00a0uL micropipette) tip.\n(g) Resuspend beads in 54\u00a0uL water, transfer to a new 1.5\u00a0mL Eppendorf tube, and proceed to next step immediately.\n4. To release biotinylated RNAs bound to streptavidin beads, incubate beads with proteinase K. To do so:\n(a) Prepare 3X proteinase digestion buffer (1.1\u00a0mL) fresh as follows: 330\u00a0\u00b5L 10X PBS, pH\u00a0= 7.4 (Ambion); 330\u00a0\u00b5L 20% N-laurylsarcosine sodium solution (Sigma Aldrich); 66\u00a0\u00b5L of 0.5\u00a0M ETDA; 16.5\u00a0uL of 1\u00a0M DTT; 357.5\u00a0uL water).\n(b) For each reaction, mix 33\u00a0uL 3X proteinase digestion buffer, 10\u00a0\u00b5L proteinase K (20\u00a0mg/ml, Thermo Fischer), 3\u00a0\u00b5L Ribolock RNase inhibitor. Add this mix to the 54\u00a0uL beads (total volume\u00a0= 100\u00a0\u00b5L).\n(c) Incubate beads with vigorous mixing at 42\u00b0C for 1 hour, followed by 55\u00b0C for 1 hour. We incubate on a thermomixer while shaking at 900\u00a0rpm.\n(d) After incubation, place tubes containing beads on magnet for 5\u00a0minutes. Carefully extract supernatant containing released RNAs, without disturbing beads. Place liquid into new 1.5\u00a0mL Eppendorf tube.\n5. Purify recovered RNAs using RNA clean and concentrator -5 kit (Zymo Research). A few notes:\n(a) Follow the manufacture protocol, but carry out an extra centrifuge step for 1\u00a0minute with no liquid added, before eluting RNA with water. This step ensures complete removal of the wash buffer.\n(b) Elute in 6\u00a0\u00b5L water for downstream total RNA libraries, and 12\u00a0\u00b5L water for polyA-selected RNA libraries. For 12\u00a0\u00b5L volume, send 6\u00a0\u00b5L twice through column to increase yield.\n6. Transfer RNA to 0.2\u00a0mL PCR tubes (Thermo Fischer). Store RNA overnight at \u201320\u00b0C, or at \u201380\u00b0C for longer duration.\nDays 3-4: Preparation of TruSeq Libraries\n1. Prepare RNA-seq libraries using the Illumina TruSeq stranded mRNA library prep kit (previously RS-122-2101/2102; recently Illumina has begun offering the library preparation kit, catalog number 20020594, and index adapters separately.). The kit allows preparation of libraries from total RNA, or alternatively polyA-selected RNA using the Oligo-dT beads (supplied). Follow the LS protocol to generate stranded RNA-seq libraries.\n2. Note that the expected yield (~10\u00a0ng) from day 2 is less than the recommended amount for TruSeq, but we get high-quality libraries using the kit. Nonetheless we recommend following the guidelines carefully to minimize material loss.\n3. For the first-strand synthesis mix, we use Superscript III (instead of Superscript II). So far we have not tested Superscript IV in the APEX-seq protocol.\n4. When ligating barcodes to cDNA libraries, we recommend using 0.55\u00a0\u00b5L adapter index mix (and not the 2.5\u00a0\u00b5L recommended by protocol). Unreacted adaptor can lead to downstream issues.\n5. Typical amplification is ~16-24 cycles, and the default 15 cycles recommended is often insufficient amplification. We aim for final concentrations of ~10-20\u00a0nM, as determined by bioanalyzer. However, we usually do not recover high-quality libraries from samples that require >25 cycles amplification. In our experience, the control samples need ~2-3 extra cycles of amplification relative to the labeled target samples.\n6. To PCR all APEX-seq libraries to the same amount for convenient pooling, we recommend replacing the suggested Illumina 15-cycle PCR step with the following protocol:\n(a) PCR 1: Add 20\u00a0\u00b5L DNA, 5\u00a0\u00b5L PCR Primer Cocktail, and 25\u00a0\u00b5L PCR Mix. Carry out 10 cycles of PCR following TruSeq recommendations: step 1: 98\u00b0C for 30 seconds; step 2: 10 cycles of 98\u00b0C 10 seconds, 60\u00b0C 30 seconds, 72\u00b0C 30 seconds; step 3: 72\u00b0C for 5 seconds; step 4: Hold at 4\u00b0C. Clean up following TruSeq protocol using 50\u00a0\u00b5L Ampure XP beads (Thermo Fischer), and finally elute in 22 \u00b5L buffer.\n(b) To quantify libraries, carry out a qPCR step using 0.4\u00a0\u00b5L 10\u00a0\u00b5M Illumina general primers, 10\u00a0\u00b5L 2X SYBR green master mix (Thermo Fischer), 8.6\u00a0\u00b5L water, and 1\u00a0\u00b5L amplified DNA. qPCR this 20\u00a0\u00b5L mix for 30 cycles using the following settings: step 1 (preincubation): 95\u00b0C for 5\u00a0minutes; step 2 (amplification, x30 cycles): 95\u00b0C for 10 seconds, 60\u00b0C for 20 seconds, 72\u00b0C for 30 seconds; step 3 (melting curve): follow qPCR-machine-manufacture protocol; step 4 (cooling): hold at 37\u00b0C for 30 seconds. Carry out all qPCR measurements in duplicate or triplicate. The sequence of Illumina primers are as follows:\nAATGATACGGCGACCACCGAGAT\nCAAGCAGAAGACGGCATACGA\n(c) From step (b), choose the cycle number that gives 1/6 maximum fluorescence (\nN\n), and subtract by two to determine the number of cycles (=\nN\n\u2013 2) for amplification. We use the Lightcycler 480 (Roche) for qPCR experiments.\n(d) PCR 2: Add remaining DNA (19-20\u00a0\u00b5L), 5\u00a0\u00b5L PCR Primer Cocktail, and 25\u00a0\u00b5L 2X NEBNext PCR master mix (high fidelity, New England Biolabs). PCR each sample for the number of cycles determined in step (c). Clean up following the TruSeq protocol using 50\u00a0\u00b5L XP Ampure beads, and eluting in 30\u00a0\u00b5L buffer.\n(e) For accurate pooling do a second qPCR step using 1/1000 of the DNA from step (d). Calculate the delta Ct values and pool as desired. We typically aim to sequence all APEX-seq libraries to the same depth, which usually means the libraries are pooled at the same amount. Quantify absolution concentration using the bioanalyzer \u201chigh-sensitivity\u201d setting (Agilent Bioanalyzer 2100).\n7. Prepare a 4\u00a0nM 10\u00a0\u00b5L pooled-library mix for subsequent sequencing. For sequencing, we typically check library quality on the Illumina MiSeq. For deep sequencing, we recommend paired-end reads (2 x 75) using the Illumina Hiseq\u00a04000 or Illumina NextSeq. We aim for ~25-40\u00a0million reads per sample.\nNote: There are many library-preparation kits on the market to prepare sequencing libraries. While other kits could work as well, we have not tested these kits.\nNote: We do not carry out any gel purification of DNA libraries. However, it is very important that contamination with unreacted adapters is minimal, as determined by the bioanalyzer traces in step 6 (e). If there is substantial contamination, additional purification of the libraries may be necessary.\nDays 5+: Analysis of APEX-seq Libraries\nPlease refer to the methods section of Fazal\net al.\n2\nfor suggestions on analyzing libraries.\n1. See summarized methods for details on trimming data (optional if contamination with unreacted adapters is absent/minimal), mapping data (using STAR\n3\n), counting reads (using HTSEQ\n4\n) and analyzing data (using DESEQ2\n5\n).\n2. Transcripts that are differentially expressed in targets relative to controls are identified using DESEQ2. Suggestions to analyze data may be gathered from APEX proteomics experiments (Hung et al.\n1\n) using true-positive and false-positive lists, and by referring to the \u201cERM APEX\u2011seq extended analysis section\u201d of the methods.\n3. If no prior information is known or assumed about expected transcripts, a reasonable starting point is to consider transcripts with a log\n2\nfoldchange\u00a0> 0.75, and an FDR\u00a0< 0.05, as enriched by APEX-seq."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": ""
+        },
+        {
+            "header": "Time Taken",
+            "content": ""
+        },
+        {
+            "header": "Anticipated Results",
+            "content": ""
+        },
+        {
+            "header": "References",
+            "content": "<p>1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hung, V.<em> et al.</em> Spatially resolved proteomic mapping in living cells with the engineered peroxidase APEX2. <em>Nat. Protoc.</em> <strong>11</strong>, 456-475, doi:10.1038/nprot.2016.018 (2016).</p><p>2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fazal, F. M.<em> et al.</em> Atlas of Subcellular RNA Localization Revealed by APEX-seq. <em>bioRxiv</em>, 454470, doi:10.1101/454470 (2018).</p><p>3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dobin, A.<em> et al.</em> STAR: ultrafast universal RNA-seq aligner. <em>Bioinformatics</em> <strong>29</strong>, 15-21, doi:10.1093/bioinformatics/bts635 (2013).</p><p>4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Anders, S., Pyl, P. T. &amp; Huber, W.&nbsp;&nbsp;&nbsp;&nbsp;(Cold Spring Harbor Laboratory, 2014).</p><p>5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Love, M. I., Huber, W. &amp; Anders, S. Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. <em>Genome Biol.</em> <strong>15</strong>, doi:10.1186/s13059-014-0550-8 (2014).</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": ""
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "",
+        "associatedPublications": [
+            {
+                "doi": "10.1101/454470",
+                "date": "2018-10-27 14:57:04",
+                "title": "Atlas of Subcellular RNA Localization Revealed by APEX-seq",
+                "authors": [
+                    "Furqan M Fazal",
+                    "Shuo Han",
+                    "Pornchai Kaewsapsak",
+                    "Kevin R Parker",
+                    "Jin Xu",
+                    "Alistair N Boettiger",
+                    "Howard Y Chang",
+                    "Alice Y Ting"
+                ],
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 87590,
+                "identity": "ad918efd-dc75-43f6-97de-e3959f725904",
+                "order_by": 1,
+                "name": "Furqan M. Fazal",
+                "email": "ffazal08@gmail.com",
+                "orcid": "https://orcid.org/0000-0003-0758-4582",
+                "institution": "Stanford University",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Furqan",
+                "middleName": "M.",
+                "lastName": "Fazal",
+                "suffix": ""
+            },
+            {
+                "id": 87591,
+                "identity": "7798915f-5294-4a3e-9f0e-95246a4c6fc0",
+                "order_by": 2,
+                "name": "Shuo Han",
+                "email": "",
+                "orcid": "",
+                "institution": "Stanford University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Shuo",
+                "middleName": "",
+                "lastName": "Han",
+                "suffix": ""
+            },
+            {
+                "id": 87592,
+                "identity": "5c8957de-27da-4f56-976b-9865643cb4d2",
+                "order_by": 3,
+                "name": "Kevin R. Parker",
+                "email": "",
+                "orcid": "",
+                "institution": "Stanford University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Kevin",
+                "middleName": "R.",
+                "lastName": "Parker",
+                "suffix": ""
+            },
+            {
+                "id": 87593,
+                "identity": "a3275979-3f00-47ef-8795-638bcc28c50b",
+                "order_by": 4,
+                "name": "Pornchai Kaewsapsak",
+                "email": "",
+                "orcid": "",
+                "institution": "Stanford University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Pornchai",
+                "middleName": "",
+                "lastName": "Kaewsapsak",
+                "suffix": ""
+            },
+            {
+                "id": 87594,
+                "identity": "0e3b9a21-780d-40d3-a833-5bf1e7a81c5a",
+                "order_by": 5,
+                "name": "Jin Xu",
+                "email": "",
+                "orcid": "",
+                "institution": "Stanford University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jin",
+                "middleName": "",
+                "lastName": "Xu",
+                "suffix": ""
+            },
+            {
+                "id": 87595,
+                "identity": "87078644-a481-4930-be05-a3f387fad613",
+                "order_by": 6,
+                "name": "Alistair Boettiger",
+                "email": "",
+                "orcid": "",
+                "institution": "Stanford University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Alistair",
+                "middleName": "",
+                "lastName": "Boettiger",
+                "suffix": ""
+            },
+            {
+                "id": 87596,
+                "identity": "468e1dc1-48d2-49a6-a2fe-99ea872414a6",
+                "order_by": 7,
+                "name": "Howard Y. Chang",
+                "email": "howchang@stanford.edu",
+                "orcid": "",
+                "institution": "Stanford University",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Howard",
+                "middleName": "Y.",
+                "lastName": "Chang",
+                "suffix": ""
+            },
+            {
+                "id": 87597,
+                "identity": "f0b85227-fda7-4d50-8935-fac24ca1d228",
+                "order_by": 8,
+                "name": "Alice Y. Ting",
+                "email": "ayting@stanford.edu",
+                "orcid": "",
+                "institution": "Stanford University",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Alice",
+                "middleName": "Y.",
+                "lastName": "Ting",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2019-04-04 15:42:12",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.2.1857/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.2.1857/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2612180,
+                "identity": "ebc6797e-d3e2-461d-89d6-29e94b2d5229",
+                "added_by": "c4032ac3-5da8-4955-bf3f-a87450f29e30",
+                "created_at": "2020-09-25 20:52:46",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 162787,
+                "visible": true,
+                "origin": "",
+                "legend": "Schematic diagram of the APEX-seq protocol",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/pex-71/v1/figure_1.png"
+            },
+            {
+                "id": 13466979,
+                "identity": "8515771c-00ef-4a65-a462-da00e90807fa",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:53:29",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 516785,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-71/v1/8d0d68af-1265-48da-aac1-1c7b2f844926.pdf"
+            }
+        ],
+        "financialInterests": "A.Y.T., P.K., H.Y.C. and F.M.F. have filed a patent application covering aspects of this work (U.S. Patent Application Number US 2017/0226561). H.Y.C. is a co-founder and advisor of Accent Therapeutics. H.Y.C. is an advisor of 10X Genomics and Spring Discovery.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "APEX-seq, promixity labeling, vicinal, RNA-seq, sequencing, subcellular, RNA, localization, spatial, transcriptomics",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p><strong>We introduce APEX\u2011seq, a method for RNA sequencing based on direct proximity labeling of RNA using the peroxidase enzyme APEX2. APEX\u2011seq in nine distinct subcellular locales produced a nanometer-resolution spatial map of the human transcriptome as a resource, revealing extensive and exquisite patterns of localization for diverse RNA classes and transcript isoforms. APEX\u2011seq should be widely applicable to many systems, enabling comprehensive investigations of the spatial transcriptome.</strong></p><p><br></p>",
+        "manuscriptTitle": "APEX-seq: RNA subcellular localization by proximity labeling",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2019-05-15 11:13:15",
+                "doi": "10.21203/rs.2.1857/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "c4032ac3-5da8-4955-bf3f-a87450f29e30",
+        "owner": [],
+        "postedDate": "May 15th, 2019",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 12224,
+                "name": "Molecular Biology"
+            },
+            {
+                "id": 12225,
+                "name": "Cell biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2019-05-15 11:13:15",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

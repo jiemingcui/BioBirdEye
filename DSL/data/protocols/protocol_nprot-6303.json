@@ -1,0 +1,265 @@
+{
+    "identity": "nprot-6303",
+    "title": "Library construction and imaging for high-throughput image-based screening using multiplexed FISH",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "This high-throughput image-based screening methods utilizes optical microscopy to measure both \\(1) the phenotype produced by each member of libraries of genetic variants and \\(2) a unique RNA barcode expressed within each cell associated with a given genotype. The method is compatible with a wide range of phenotypes and many different methods for constructing libraries of genetic variants; thus, here we describe only the protocols associated with \\(i) constructing a library of RNA barcodes, \\(ii) fusing this library with an existing genetic variant library, \\(iii) using next-generation sequencing to determine which barcode is associated with each genetic variant, and \\(iv) using a modified version of multiplex error-robust fluorescence in situ hybridization \\(MERFISH)<sup>1,2</sup> to optically determine the barcode associated with each cell after the phenotype of that cell has been imaged. We have utilized this method to screen libraries containing tens of thousands of unique genetic variants in tens of millions of E. coli cells."
+        },
+        {
+            "header": "Reagents",
+            "content": "Barcode construction and fusion with genetic variant libraries\r\n\n\n\u2022 Oligonucleotides for barcode assembly \\(Integrated DNA Technologies; Sequences included in Table 1)\r\n\n\n\u2022 pZ Series expression plasmids<sup>3</sup> \\(ExpresSys)\r\n\n\n\u2022 Plasmid library of genetic variants\r\n\n\n\u2022 Several sets of PCR primers \\(the sequences will depend on the expression plasmids used)\r\n\n\no Barcode-amplification primers designed to amplify the DNA containing the barcode sequence and integrate it into the desired expression plasmid via isothermal assembly<sup>4</sup>.\r\n\n\no Barcode-genetic-variant-fusion primers designed to extract the expression region for the barcodes from a plasmid barcode library and the expression region from a genetic variant and then create a library of plasmids that fuse these expression cassettes via isothermal assembly. In addition, these primers will introduce a 20-nt stretch of random nucleotides that will serve as a unique molecular identifier \\(UMI).\r\n\n\no Illumina-sequencing-adaptor primers designed to extract the barcode sequence, genetic variant sequence, and UMI from each plasmid and add the appropriate adaptors to permit Illumina sequencing.\r\n\n\n\u2022 Nuclease free water\r\n\n\n\u2022 UltraPure agarose \\(ThermoFisher, 16500500)\r\n\n\n\u2022 T4 ligase \\(NEB, M0202S)\r\n\n\n\u2022 T4 polynucleotide kinase \\[PNK] \\(NEB, M0201S)\r\n\n\n\u2022 Phusion polymerase \\(NEB, M0531S0)\r\n\n\n\u2022 EvaGreen \\(Biotium, 3100)\r\n\n\n\u2022 NEBuilder HiFi DNA Assembly Master Mix \\(NEB, E2621L)\r\n\n\n\u2022 Turbo electrocompetent E. coli \\(NEB, C2986K)\r\n\n\n\u2022 Super optimal broth with catabolite repression \\[SOC] \\(NEB, B9020S)\r\n\n\n\u2022 Zymoclean Gel DNA Recovery Kit \\(Zymo, D4002)\r\n\n\n\u2022 DNA Clean and Concentrator \\(Zymo, D4003)\r\n\n\n\u2022 Zyppy plasmid miniprep kit \\(Zymo, D4019)\r\n\n\n\u2022 Electroporation cuvettes \\(ThermoFisher, P41050)\r\n\n\n\u2022 Luria-Bertani broth \\[LB] \\(Teknova, L8000)\r\n\n\n\u2022 Carbenicillin \\(ThermoFisher, 10177-012)\r\n\n\n\u2022 Glycerol \\(Teknova, G1796)\r\n\n\n\u2022 Qubit dsDNA HS assay kit \\(ThermoFisher, Q32851)\r\n\n\n\u2022 MiSeq reagent kit v2 \\(Illumina, MS-102-2003)\r\n\n\nBarcode imaging\r\n\n\n\u2022 Imaging coverslips \\(Bioptechs, 0420-0323-2)\r\n\n\n\u2022 LB \\(Teknova, L8000)\r\n\n\n\u2022 Carbenicillin \\(ThermoFisher, 10177-012)\r\n\n\n\u2022 Chloramphenicol \\(Sigma, C0378)\r\n\n\n\u2022 Phosphate-buffered saline \\[PBS] \\(ThermoFisher, AM9625)\r\n\n\n\u2022 Ethanol\r\n\n\n\u2022 Methanol\r\n\n\n\u2022 Acetone\r\n\n\n\u2022 Nuclease free water\r\n\n\n\u2022 Polyethylenimine \\[PEI] \\(Sigma-Aldrich, P3143-500ML)\r\n\n\n\u2022 Tris\\(2-carboxyethyl)phosphine \\[TCEP] \\(Sigma-Aldrich, 646547-10X1ML)\r\n\n\n\u2022 Dextran sulfate \\(EMD Millipore, 3730-100ML)\r\n\n\n\u2022 Ethylene carbonate \\(Sigma-Aldrich, E26258-500G)\r\n\n\n\u2022 Murine RNase inhibitor \\(NEB, M0314L)\r\n\n\n\u2022 DNA oligonucleotides labeled with either ATTO565, Cy5, or Alexa750 via a disulfide bond \\(Bio-Synthesis Inc; Sequences in Table 2)\r\n\n\n\u2022 Glucose \\(Sigma-Aldrich, G8270)\r\n\n\n\u2022 Trolox \\(Sigma-Aldrich, 238813)\r\n\n\n\u2022 Glucose oxidase \\(Sigma-Aldrich, G2133)\r\n\n\n\u2022 Catalase \\(Sigma-Aldrich, C100-500mg)"
+        },
+        {
+            "header": "Equipment",
+            "content": "Barcode construction and fusion with genetic variant libraries\r\n\n\n\u2022 Standard molecular biology lab equipment\r\n\n\n\u2022 Bio-Rad CFX96\r\n\n\n\u2022 Amaxa Nucleofector II\r\n\n\n\u2022 Qubit 3.0 Fluorometer\r\n\n\n\u2022 Illumina MiSeq\r\n\n\nBarcode imaging\r\n\n\n\u2022 Computer-controlled fluidic system \\(Detailed protocols for construction are provided in Ref. 5) \r\n\n\n\u2022 Epi-fluorescence microscope \\(custom built or commercial) with the following components\r\n\n\no Automatic focus lock\r\n\n\no Motorized stage\r\n\n\no 100-500 mW illumination sources at 750 nm, 650 nm, 560 nm\r\n\n\no Brightfield lamp\r\n\n\no High numerical aperture objective, e.g. 1.4 NA 60X Objective\r\n\n\no High performance camera, e.g. EMCCD or sCMOS\r\n\n\no Optional: Optics to flatten the illumination profile\r\n\n\n\u2022 Open-source software for integrated microscope and fluidic system control \\(github.com/ZhuangLab/storm-control)\r\n\n\n\u2022 Open-source software for the analysis of phenotype and barcode images \\(http://zhuang.harvard.edu/merfish.html)"
+        },
+        {
+            "header": "Procedure",
+            "content": "Barcode construction and fusion with genetic variant libraries\r\n\n\n1. Construction of the barcode library\r\n  1.1. Mix all of the barcode construction oligonucleotides listed in Table 1 in water to a final concentration of 100 nM each.\r\n\n\n1.2. Mix 16 \u00b5L of the above oligonucleotide mixture, 2 \u00b5L T4 ligase buffer, 2 \u00b5L PNK in a PCR tube.\r\n\n\n1.3. Incubate this mixture at 37 \u00b0C for 30 minutes to phosphorylate any oligonucleotides that may have lost the phosphorylation provided during oligonucleotide synthesis. Incubate at 65 \u00b0C for 20 minutes to heat inactive the PNK.\r\n\n\n1.4. Add 1 \u00b5L T4 ligase \\(NEB, M0202S) to this mixture and incubate this reaction for 1 hour at room temperature to ligate the oligonucleotides forming the DNA template for the RNA barcodes.\r\n\n\n1.5. To amplify this library of DNA templates, dilute the ligation product 10 fold into water and mix 5 \u00b5L of this dilution with 25 \u00b5L Phusion 2X master mix, 2.5 \u00b5L 20X EvaGreen, the barcode amplification primers to a final concentration each of 0.5 \u00b5M, and water to a total volume of 50 \u00b5L. \r\n\n\n1.6. PCR amplify this reaction via limited cycle PCR.\r\n\n\n1.7. Gel purify this PCR product using the Zymoclean DNA recovery kit and the manufacturer\u2019s instructions. Elute the product into 20 \u00b5L water.\r\n\n\n1.8. To create the desired backbone vector for barcode expression, PCR amplify 50 \u00b5L of the specific backbone vector and gel purify \\(as in 1.5-1.7). Elute in 20 \u00b5L water. \r\n\n\n1.9. Mix 5 \u00b5L of the gel purified barcode ligation product, 5 \u00b5L of the gel purified barcode expression backbone, and 10 \u00b5L HiFi DNA assembly master mix. Incubate for 1 hour at 50 \u00b0C to fuse the barcode DNA template with the plasmid backbone, purify using the Zymo DNA clean and concentrator kit according to the manufacturer\u2019s instructions, and elute the plasmid library with 6 \u00b5L water.\r\n\n\n1.10. To transform this plasmid library into E. coli, mix the assembled plasmids with 10 \u00b5L of electrocompetent E. coli on ice, transfer into an electroporation cuvette on ice, and electroporate using an Amaxa Nucleofector II set to bacteria program 3. \r\n\n\n1.11. Immediately add 1 mL SOC, transfer into a 14mL culture tube, and incubate at 37 \u00b0C on a shaker for one hour. \r\n\n\n1.12. Dilute this culture into 50 mL of LB supplemented with 0.1 mg/mL carbenicillin in a sterile, beveled 250 mL flask. Place on the shaker at 37 \u00b0C overnight to allow the cells which have taken up a plasmid to grow. \r\n\n\n1.13. Miniprep the overnight culture using the Zyppy plasmid miniprep kit according to the manufacturer\u2019s instructions. Elute the final barcode plasmid library into 30 \u00b5L Zymo elution buffer and store at -20 \u00b0C until needed.\r\n\n\n\r\n\n\n2. Merging the barcode expression library with an existing genetic variant library\r\n  2.1. Amplify and gel purify the corresponding halves of the barcode plasmid library and an existing genetic variant library by limited-cycle PCR using the appropriate barcode-genetic-variant-fusion primers \\(as in 1.5 \u2013 1.7).\r\n\n\n2.2. Mix 5 \u00b5L of each of the purified plasmid library fragments with 10 \u00b5L HiFi DNA assembly master mix. Incubate for 1 hour at 50 \u00b0C to assemble these PCR fragments, and purify the resulting plasmids using the Zymo DNA clean and concentrator kit according to the manufacturer\u2019s instructions. Elute the plasmid library into 6 \u00b5L of water.\r\n\n\n2.3. Transform this library into electrocompetent E. coli and then re-isolate this plasmid library via plasmid extraction as described in 1.10 \u2013 1.12.\r\n\n\n2.4. To ensure that each E. coli contains at most one plasmid, dilute this plasmid library to a defined concentration of 100 pg/\u00b5L in water and re-electroporate into E. coli \\(as in 1.10 \u2013 1.12). \r\n\n\n2.5. Measure the OD600 of the overnight culture and dilute this culture to a concentration of ~1000 cells/\u00b5L using the conversion of 800 million cells per 1 unit of OD600. \r\n\n\n2.6. Inoculate 2mL of LB containing 0.1 mg/mL carbenicillin with a volume of culture containing the number of cells corresponding to the desired library size. \\(We typically keep a number of cells that is at most 10% of the expected number of unique barcodes in the original barcode library). Incubate at 37 \u00b0C overnight on a shaker to grow this culture to saturation.\r\n\n\n2.7. Miniprep 600 \u00b5L of the overnight culture \\(as in 1.13) and elute into 30 \u00b5L Zymo elution buffer. Store this plasmid library at -20 \u00b0C. It will be used as a source for material for next-generation sequencing.\r\n\n\n2.8. To archive the E. coli containing this barcoded genetic-variant library for later high-throughput image-based screening, mix the remaining overnight culture with an equal volume of 50% glycerol. Separate this mixture into 100 \u00b5L single-use aliquots and store at -80 \u00b0C. \r\n\n\n\r\n\n\n3. Sequencing the merged genetic variant and barcode expression library to determine which barcode was associated with each genetic variant\r\n  3.1. Dilute the barcoded genetic variant plasmid library \\(prepared in 2.7) 10-fold in water. To extract the desired regions of this plasmid, where each region contains the UMI, amplify 5 \u00b5L of this dilution via limited cycle PCR using the Illumina-sequencing-adaptor primers and gel purify this product \\(as in 1.5-1.7). Elute the product in 200 \u00b5L of water. To address complications associated with sequencing of libraries with identical regions within many different molecules, these primers should contain short regions of random nucleotides of variable length. These variable length regions will introduce apparent variability into these common regions during sequencing.\r\n\n\n3.2. Because the desired region to be sequenced is typically larger than the read length associated with the sequencing platform used, repeat 3.1 using different primer sets that allow amplification of different portions of the desired region of these plasmids. It is crucial that each amplification product contain the UMI region so that these different fragments can be associated with the same plasmid during analysis.\r\n\n\n3.3. To add the adapters necessary for Illumina sequencing, amplify and gel purify 5 \u00b5L of this product \\(as in 1.5-1.7). To limit the degree of amplification, use these primers at a reduced concentration of 0.05 \u00b5M. Elute the product into 10 \u00b5L water. \r\n\n\n3.4. Quantify the concentration of the elution using the Qubit fluorimeter and dilute to 4 nM in water. \r\n\n\n3.5. Sequence these molecules following the MiSeq protocol from Illumina.\r\n\n\n3.6. Construct the barcode to genetic variant look-up table by grouping sequencing reads by UMI and assigning to each the most frequently occurring barcode and gene variant seen for that UMI.\r\n\n\n\r\n\n\nBarcode imaging\r\n\n\n1. Preparing the library for barcode imaging\r\n  1.1. Thaw a 100 \u00b5L aliquot of the barcoded genetic-variant library \\(prepared in 2.8) to room temperature and dilute into 2 mL LB supplemented with 0.1 mg/mL carbenicillin. Incubate on the shaker at 37 \u00b0C for 3 hours to allow these cells to grow. \r\n\n\n1.2. Optional: If the barcode library is under the control of a plasmid utilizing a relaxed origin, e.g. an origin capable of dividing even when translation is inhibited, barcode expression can be enhanced by inhibiting protein translation. Add 20 \u00b5L of chloramphenicol to the culture to a final concentration of 34 \u00b5g/mL to inhibit growth. Incubate at 37 \u00b0C for an additional 3 hours.\r\n\n\n1.3. In parallel, coat an imaging coverslip so that E. coli will stick to it by placing the coverslip in a petri dish and covering with 1% PEI in water for 30 minutes. Wash the coverslip once in PBS. Dry the coverslip by removing the PBS. \r\n\n\n1.4. To adhere E. coli to the coverslip, dilute the above culture 10-fold into PBS and pour onto the coated coverslip. To force E. coli cells to lie flat on the surface of the coverslip, spin the petri dish in a centrifuge at 100g for 5 minutes. \r\n\n\n1.5. Wash the coverslip once with PBS.\r\n\n\n\r\n\n\n2. Prepare the hybridization and imaging buffers for measurement of the barcode RNAs\r\n  2.1. Prepare aliquots of water, PBS, 2X SSC, and fixation buffer\n6\n\\(80% v/v methanol and 20% v/v acetone).\r\n\n\n2.2. Prepare an imaging buffer\n7\nwhich will reduce the rate of fluorophore photobleaching during barcode imaging. This buffer is comprised of 50 mM TrisHCl pH 8, 10% w/v glucose, 2 mM Trolox, 0.5 mg/mL glucose oxidase, and 40 \u00b5g/mL catalase in 2X SSC.\r\n\n\n2.3. Prepare a cleavage buffer to cleave the disulfide bond linking fluorophores to readout probes, allowing these dyes to be rapidly washed away. This buffer is comprised of 50 mM TCEP in 2X SSC.\r\n\n\n2.4. Prepare a master hybridization mix consisting of 5% w/v dextran sulfate, 5% w/v ethylene carbonate, 0.05% w/v yeast tRNA, and 0.1% v/v Murine RNase inhibitor in 2X SSC.\r\n\n\n2.5. Aliquot 1 mL of this hybridization master mix into 15 mL falcon tubes, making one tube for each round of hybridization. Add to each tube the appropriate set of readout probes \\(as described in Table 2) to a final concentration each of 10 nM. Each readout probe will determine the presence of a \u201c1\u201d or a \u201c0\u201d in a given bit, and each round can probe the value of multiple bits simultaneously by using multiple readout probes each conjugated to a spectrally distinct fluorescent dye. \r\n\n\n2.6. Load all buffers and hybridization mixes into the fluidics system.\r\n\n\n\r\n\n\n3. Image the phenotypes and the barcodes\r\n  3.1. Assemble the coverslip into the flow chamber following the manufacturer\u2019s instruction.\r\n\n\n3.2. Flow PBS into the chamber and place it on the microscope.\r\n\n\n3.3. Proceed with the appropriate high-resolution imaging protocol for the desired phenotype measurement. \r\n\n\n3.4. After phenotype imaging, fix the cells by washing the flow chamber with water to remove salts \\(that can precipitate upon contact with methanol and acetone) and then flowing on the fixation buffer. Incubate the sample at room temperature for 30 minutes in this buffer. Wash again with water to remove residual fixation buffer.\r\n\n\n3.5. Flow on the hybridization buffer containing the readout probes assigned to the first hybridization round.\r\n\n\n3.6. Incubate at room temperature for 30 minutes to allow the readout probes to hybridize to the complementary barcode RNAs.\r\n\n\n3.7. Flow the imaging buffer onto the sample.\r\n\n\n3.8. Collect an image of each field-of-view with the illumination channels appropriate to the readout probes utilized. For example, for the readout probes listed in Table 2, collect an image of each field-of-view when illuminated with 750-nm, 650-nm, and 560-nm light to image the readout probes conjugated to Alexa750, Cy5, and ATTO565, respectively, in addition to an image with bright-field illumination for image alignment.\r\n\n\n3.9. Collect a brightfield image of this field-of-view which will be used during analysis to correct any small offset of the stage observed between imaging rounds\r\n\n\n3.10. Repeat 3.8-3.9 for as many fields of view as desired.\r\n\n\n3.11. Flow the cleavage buffer onto the sample to extinguish fluorescence from the sample. Incubate for 15 minutes.\r\n\n\n3.12. Flow 2XSSC onto the sample to remove residual cleavage buffer. \r\n\n\n3.13. Repeat 3.5-3.12 for each round of hybridization. For example, readout of a 21-bit barcode will require 42 distinct readout probes which, with 3 color imaging, can be measured in 14 rounds of hybridization. \r\n\n\n3.14. Recommended: The use of integrated microscope and fluid handling software can automate the repetitive process of imaging, fluid handling and flow, and staining of the sample, substantially simplifying this protocol. \r\n\n\n\r\n\n\n4. Identify the barcode expressed within each cell\r\n  4.1. Correct inhomogeneities in the illumination using a flat-field correction. This correction can be determined by averaging the fluorescence signal observed across many fields of view.\r\n\n\n4.2. Align images from each round of imaging by maximizing the cross-correlation of the bright-field images.\r\n\n\n4.3. Segment cells by determining closed boundaries after applying the Canny edge detection algorithm.\r\n\n\n4.4. For each cell, calculate the mean fluorescence intensity across all constituent pixels in each image.\r\n\n\n4.5. To account for differences in dye brightness and staining between hybridization rounds, normalize the intensity observed for each color channel in each round by the mean intensity observed for that color channel and round across all fields of view.\r\n\n\n4.6. For each bit, determine the ratio of the fluorescence signal observed in each cell for the readout probe associated with a \u201c0\u201d signal to that associated with a \u201c1\u201d signal. This \u201c0\u201d-to-\u201c1\u201d ratio will be used to determine if the barcode associated with each cell should be assigned a \u201c1\u201d or \u201c0\u201d in a given bit. \r\n\n\n4.7. To determine the best bit-calling-threshold for assigning a bit value from the \u201c0\u201d-to-\u201c1\u201d ratio, select ~100 barcodes known to be present in the sample via next-generation sequencing. Determine the frequency with which these barcodes are detected as a function of this bit-calling-threshold for each bit. Select the set of thresholds that maximize this number. \r\n\n\n4.8. For each cell, determine the value of the measured barcode using these thresholds and the measured \u201c0\u201d-to-\u201c1\u201d ratios. \r\n\n\n4.9. Discard cells with measured barcodes that were revealed by next-generation sequencing to have been assigned to multiple genetic variants\r\n\n\n4.10. Recommended: Some cells will appear dim in both the \u201c1\u201d and \u201c0\u201d channels associated with a given bit, potentially leading to incorrect calling of this bit. Thus, to increase the accuracy, cells with a \u201c1\u201d or \u201c0\u201d brightness below a given threshold can be discarded from subsequent analysis. \r\n\n\n4.11. Group cells together that are expressing the same barcode to determine the average properties of the measured phenotype."
+        },
+        {
+            "header": "References",
+            "content": "1. Chen, K. H., Boettiger, A. N., Moffitt, J. R., Wang, S. & Zhuang, X. Spatially resolved, highly multiplexed RNA profiling in single cells. Science \\(80-. ). 348, aaa6090-aaa6090 \\(2015).\r\n  2. Moffitt, J. R. et al. High-throughput single-cell gene-expression profiling with multiplexed error-robust fluorescence in situ hybridization. Proc. Natl. Acad. Sci. 113, 11046\u201311051 \\(2016).\r\n  3. Lutz, R. & Bujard, H. Independent and tight regulation of transcriptional units in Escherichia coli via the LacR/O, the TetR/O and AraC/I1-I2 regulatory elements. Nucleic Acids Res. 25, 1203\u201310 \\(1997).\r\n  4. Gibson, D. G. et al. Enzymatic assembly of DNA molecules up to several hundred kilobases. Nat. Methods 6, 343\u2013345 \\(2009).\r\n  5. Moffitt, J. R. & Zhuang, X. RNA Imaging with Multiplexed Error-Robust Fluorescence In Situ Hybridization \\(MERFISH). in 1\u201349 \\(2016). doi:10.1016/bs.mie.2016.03.020\r\n  6. Shaffer, S. M., Wu, M.-T., Levesque, M. J. & Raj, A. Turbo FISH: A method for rapid single molecule RNA FISH. PLoS One 8, e75120 \\(2013).\r\n  7. Rasnik, I., McKinney, S. A. & Ha, T. Nonblinking and long-lasting single-molecule fluorescence imaging. Nat. Methods 3, 891\u2013893 \\(2006)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "We thank H. Babcock for instrumentation advice. This work was supported in part by the NIH. X.Z. is an HHMI investigator."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nmeth.4495",
+                "date": "2017-10-30 15:52:11",
+                "title": "High-throughput, image-based screening of pooled genetic-variant libraries",
+                "authors": [
+                    "George Emanuel",
+                    "Jeffrey R Moffitt",
+                    "and Xiaowei Zhuang"
+                ],
+                "journal": "Nature Methods",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 15112,
+                "identity": "a12fe7ab-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Jeffrey R. Moffitt",
+                "email": "lmoffitt@mcb.harvard.edu",
+                "orcid": "",
+                "institution": "Zhuang lab, Harvard University",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Jeffrey",
+                "middleName": "R.",
+                "lastName": "Moffitt",
+                "suffix": ""
+            },
+            {
+                "id": 15113,
+                "identity": "a12fe96a-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Xiaowei Zhuang",
+                "email": "zhuang@chemistry.harvard.edu",
+                "orcid": "",
+                "institution": "Zhuang lab, Harvard University",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Xiaowei",
+                "middleName": "",
+                "lastName": "Zhuang",
+                "suffix": ""
+            },
+            {
+                "id": 15111,
+                "identity": "a12fe488-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "George Emanuel",
+                "email": "",
+                "orcid": "",
+                "institution": "Zhuang lab, Harvard University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "George",
+                "middleName": "",
+                "lastName": "Emanuel",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2017-10-03 12:35:10",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2017.109",
+        "doiUrl": "https://doi.org/10.1038/protex.2017.109",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13465520,
+                "identity": "476b1e2f-5ed9-4541-b2fa-0f3b5893f004",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:46:57",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 167505,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-6303/v1/712b24a5-bcfd-4ccc-a8d6-1be483ae2335.pdf"
+            },
+            {
+                "id": 2609921,
+                "identity": "513f6862-94d3-47cb-800f-7a0b422e6e45",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:17",
+                "extension": "xlsx",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 12176,
+                "visible": true,
+                "origin": "",
+                "legend": "Table  1   List of oligonucleotides for barcode assembly ",
+                "description": "",
+                "filename": "supplement0.xlsx",
+                "url": "https://assets.researchsquare.com/files/nprot-6303/v1/supplement_0.xlsx"
+            },
+            {
+                "id": 2609924,
+                "identity": "23bade7a-7e49-4a8c-9371-14e307ea1937",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:17",
+                "extension": "xlsx",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 11111,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 2   List of readout probe sequences and dyes",
+                "description": "",
+                "filename": "supplement0.xlsx",
+                "url": "https://assets.researchsquare.com/files/nprot-6303/v1/supplement_0.xlsx"
+            }
+        ],
+        "financialInterests": "G.E., J.R.M., and X.Z. are inventors on a patent applied for by Harvard University that covers the screening method described here.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "high-throughput screening, image-based screening, image-based genotyping, fluorescence in situ hybridization, MERFISH",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "Image-based, high-throughput screening of pooled libraries of genetic perturbations will greatly advance our understanding of biological systems and facilitate many biotechnology applications. Recently, we introduced a method for high-throughput, image-based screening in which the genotypes of individual cells are determined optically using multiplexed FISH to identify expressed RNA barcodes unique to each genotype. Here we describe protocols to construct a library of expression plasmids that express these RNA barcodes and the associated genetic variants and to perform the multiplexed FISH required to identify these barcodes. This protocol is suitable for screening a wide variety of genetic variants in E. coli cells and can be adapted to image other cell types.",
+        "manuscriptTitle": "Library construction and imaging for high-throughput image-based screening using multiplexed FISH",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2017-10-30 18:13:57",
+                "doi": "10.1038/protex.2017.109",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a12f9432-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "October 30th, 2017",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 4068,
+                "name": "Cell biology"
+            },
+            {
+                "id": 4070,
+                "name": "Genetics"
+            },
+            {
+                "id": 4071,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 4072,
+                "name": "Nanoscience and technology"
+            },
+            {
+                "id": 4073,
+                "name": "Molecular Biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2017-10-30 18:13:57",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

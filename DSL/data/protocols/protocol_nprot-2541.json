@@ -1,0 +1,359 @@
+{
+    "identity": "nprot-2541",
+    "title": "An automated procedure for the statistical analysis of two-dimensional electrophoresis gels for biomarkers discovery",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Proteomics is a fundamental tool for the discovery of disease biomarkers and to find new therapeutic targets <sup>1</sup>. Originally proposed as the protein complement of the genome, the proteome recently assumed a more functional significance <sup>2 3 4</sup>. In integration with genomics, transcriptomics, bioinformatics and biostatistics, proteomics became an indispensable instrument for translational aspects of modern molecular medicine <sup>5</sup>. Proteomics is an intrinsically unbiased approach, aimed at generating a list of candidate proteins deserving further targeted studies <sup>6</sup>. Such a global approach to biology and medicine allows to manage with the great complexity of the system being investigated, thus overcoming limits of conventional biochemistry or molecular biology tools <sup>7</sup>. \r\n\n\nIn order to be unbiased, proteome should be approached globally. Despite the protein separation technique being employed \\(either gel-based or gel-free) <sup>8 9 10</sup>, it is possible to observe protein levels spanning over three order of magnitude even if they cover almost six orders of magnitude in a cell and up to ten in plasma <sup>11</sup>. Although there is a strong technological push towards gel-free techniques, 2-DE continues to be preferred for its capacity to resolve thousands of spots simultaneously and represents the only technique that can be routinely applied for parallel quantitative expression profiling of large sets of complex protein mixtures such as whole cell lysates <sup>12 13</sup>. 2-DE gels are at the same time an image of protein distribution \\(in terms of molecular weight and pI) and levels, and a container of separated proteins available for further characterization <sup>13</sup>. Nevertheless, there are intrinsic weaknesses in 2-DE. Due to the reduced dynamic range of the detection technique, less represented proteins are lost, thus limiting the global characteristic of the proteomic approach. Moreover, proteins of extreme hydrophobicity and those of extreme basic or acidic pI are not considered in the majority of published studies <sup>14</sup>. \r\n\n\nIn this protocol we propose a suite of standardized computational procedures to analyze densitometry data from 2-DE gel image analysis. Briefly, data are internally normalized and quality-checked to ensure that the right comparative statistics procedure is applied. Confounding factors are identified in order to exclude spots significantly associated to them from any further analysis. Given the log-normal distribution of magnitude values, a non-parametric test is performed to identify a set of spots that best contribute to a discriminant function, the latter being identified by linear discriminant analysis. Furthermore, selected spots are ranked in terms of their contribution to the predictive model. Eventually, the efficiency of the set of spots is verified by power analysis, predictions are calculated by the leave-one-out cross validation and performance parameters are calculated in terms of receiver operating characteristics \\(ROC) analysis."
+        },
+        {
+            "header": "Equipment",
+            "content": "2-DE gel images were acquired \\(12 bit grayscale) with the GelDoc-It Imaging System \\(UVP, Upland, CA, U.S.A.) and analyzed with ImageMaster 2D Platinum \\(GE Healthcare, Uppsala, Sweden). All procedures for data analysis and graphics were written in _R_, an open-source environment for statistical computing <sup>15</sup>."
+        },
+        {
+            "header": "Procedure",
+            "content": "**1. Import spot volumes and clinical/demographic data**\r\n\n\nSpot volumes, exported from the ImageMaster software or other image analysis softwares in .csv \\(comma separated values) format, are read as a data matrix. Each row represents one of the L gels, whereas columns from 3 to N+2 are spot volumes for each of the N detected spots. Column 1 contains the gel labels, whereas column 2 contains the group factor \\(e.g., control vs. affected). A second matrix is read in .csv format, containing again one row per gel. Columns represent clinical and demographic data \\(age, gender, years from onset, disease staging, \\(any) drug daily dose, treated or not with a given drug, etc). Columns are read as independent vectors for further analysis.\r\n\n\n\r\n\n\n**2. Normalize 2-DE spot volumes**\r\n\n\nIn each gel, a set of spots common to all gels \\(if L is small) or to 75% of gels \\(if L is large) is identified for normalization purposes. The sum of these spot volumes is considered as a loading/staining reference, thus providing L normalization factors. Each line in the spot volume matrix is then divided by the appropriate normalization factor to obtain a new matrix of normalized spot volumes. \r\n\n\n\r\n\n\n**3. Replace missing values**\r\n\n\nAfter normalization, missing spot values are replaced by the mean value of the spot volume of the group \\(_i.e._, control or affected) or, if the mean was lower than the 98\nth\npercentile, by the minimum value observed in the group\n12\n. This ensures to safely prevent the artefactual assignment of missing spots \\(qualitative differences) as false negatives. To this purpose, the data matrix is split into separate submatrices for distinct groups, _i.e._, controls \\(co), early-onset patients \\(eo) and late-onset patients \\(lo).\r\n\n\n\r\n\n\n**4. Check the quality of data sets**\r\n\n\nLike many other biological observables, 2-DE spot volumes show a log-normal distribution, with less-intense spots more frequent than more-intense ones. To simply verify this, spot volumes are transformed logarithmically and the standard deviation is calculated within the group. \"Figure 1\":http://www.nature.com/protocolexchange/system/uploads/2372/original/Figure1.jpg?1355321820  shows almost constant values of standard deviations as a function of log\\(volume), as expected for a log-normal distribution. This means that, in principle, a parametric test is suitable for comparison between groups after logarithmic transformation of spot volumes\n16\n.\r\n\n\nThen, the biological variability of the subjects in each group is evaluated. Pairs of 2-DE gels of specimens from different subjects in the same group are compared by Pearson linear correlation of corresponding spot volumes after logarithmic transformation. If the number of specimens \\(_i.e._, L) is large, it is preferable to take a single subject per group as a reference, so that all gels in the group are compared to this one. For each comparison, the Pearson correlation coefficient is shown below the scatter graph. Dispersions of the studentized residuals against ranked magnitudes \\(QQ) plots are shown on the left of each correlation \\( \"Figure 2\":http://www.nature.com/protocolexchange/system/uploads/2373/original/Figure2.jpg?1355322300 ). Spots deviating from linearity indicate non-normal distribution of residuals. A linear behavior indicates linear proportionality between gels. Dashed lines indicate 95% CI. On this basis, a direct proportionality between gels from different subjects may be assumed\n16\n. Otherwise, the gel shall be discarded. \r\n\n\n\r\n\n\n**5. Identify spots associated to confounding factors**\r\n\n\nConfounding factors may be either grouping classes \\(gender, assuming or not a given treatment, familiarity) or real numbers \\(age, daily drug dose, age at onset, disease duration, disease staging). In the first case, a nonparametric Wilcoxon test is performed on spot volumes grouped according to the classes, so to determine which spots are significantly different in a class with respect to the other one \\( \"Figure 3\":http://www.nature.com/protocolexchange/system/uploads/2374/original/Figure3.jpg?1355322720 ). \r\n\n\nOtherwise, a linear correlation analysis is performed to determine which spots are significantly correlated with the magnitude of the confounding factor \\(_e.g._, daily drug dose or age). Important to notice, the analysis of correlation with age should be performed on control subjects only \\( \"Figure 4\":http://www.nature.com/protocolexchange/system/uploads/2374/original/Figure3.jpg?1355322720 ). Similarly, in the drug dose correlation only patients should be included, treated or not with that drug.\r\n\n\nEventually, spots that significantly correlate with one or more confounding factor\\(s) are removed from the dataset.\r\n\n\n\r\n\n\n**6. Calculate p values for all comparisons**\r\n\n\nThis is the most critical step of the procedure. If data are log-normally distributed, a parametric test may be applied after logarithmic transformation of the dataset. A Welch test is preferred, since distinct spots may have different variance. Otherwise, a non-parametric test such as the Wilcoxon test may be a safer choice\n16\n. Working with three groups, five contrast are suggested, in principle. Three are binary contrast \\(one group vs. another one), a fourth compares patients \\(both eo and lo) _vs._ control subjects and the last contrast compares a peculiar group \\(_e.g._, eo) _vs._ all other subjects. In this way, ten p values are computed for each spot \\(five Welch test and five Wilcoxon test). If the purpose is to identify a biomarker able to discriminate patients from controls, then the threshold for significance should be 0.05/N, where N is the number of spots, and a non-parametric variant of the classic ANOVA test might be preferable\n16\n. However, our procedure might be employed to identify all those spots that are different in the contrast, in order to build a classification function as a linear combination of all the selected spots or of a subset of them.\r\n\n\n \r\n\n\n**7. Build a linear discriminant function to classify the individuals and verify the predictive model**\r\n\n\nPredictive models for the classification of patients with respect to control subjects, or of patients with a particular disease subtype with respect to idiopathic disease patients \\(_e.g._, early-onset _vs._ late-onset) are built by linear discriminant analysis \\(LDA)\n16\n.  Volumes of spots selected as described above are linearly combined in a discriminating function, thus providing a likelihood score for the disease. The predictive model is verified by leave-one-out cross-validation. Each subject is iteratively removed from the dataset and classified on the basis of the spot volumes observed in the remaining individuals. This procedure permits to obtain reliable estimates of sensitivity and specificity. A disease likelihood score is attributed to each subject and a ROC curve\n16\nis calculated by plotting sensitivity and specificity as a function of the cutoff value. \r\n\n\nThe contribution of each spot may be of different relevance, depending on the separation of mean volume values and their LDA coefficient. The product of these two parameters indicates the intrinsic contribution of every spot to the discriminating model, so to permit the selective removal of worst-contributing spots.  Eventually, a report table is produced to summarize the descriptive statistics results, the fold of change in log2 units, the LDA coefficient and the weighted contribution of each spot to the model \\(_i.e._, the product of the difference of mean values times the LDA coefficient) \\( \"Table 1\":http://www.nature.com/protocolexchange/system/uploads/2376/original/Table1.jpg?1355330640 ). On this basis, a subset of most relevant spots may be selected instead of the list including all identified spots. \r\n\n\n\r\n\n\n**8. Make a power analysis**\r\n\n\nSpots to be included in the classification function have been selected on the basis of a non-parametric test. However, linear discriminant analysis takes into account the separation of two normal distributions. It may be useful, at this point, to check which one would be the appropriate number of subjects to be enrolled in a verification study, assuming a normal distribution of each spot volume across the individuals. \r\n\n\n\r\n\n\n**Note:** the complete source is available \"here\":http://www.nature.com/protocolexchange/system/uploads/2394/original/protocol.R?1356083285  as a text file."
+        },
+        {
+            "header": "Timing",
+            "content": "The whole procedure usually requires less than five minutes to be completed, depending on the size of the dataset and on the CPU clock of the computer being used."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "The appropriate choice of the comparative statistics test is a critical issue. As we discussed above, proteomics data - including 2-DE spot volumes - are expected to show a log-normal distribution. In this case, the researcher faces two possibilities: either data are transformed on a logarithmic scale and are analyzed by parametric tests, possibly considering a different variance for the compared groups, or data are compared on a linear scale after ranking, i.e. with a non-parametric test. Our procedure offers both possibilities, with a parametric Welch test or a non-parametric Wilcoxon test being performed on all spots. Related to this issue is the choice of the p value used as a threshold for statistical significance. When dealing with multiple comparisons, the p value should be corrected for the number of observables being observed \\(Bonferroni correction) <sup>16</sup>. Nevertheless, it is up to the investigator to apply any correction of the p value. Actually, identified spots should not be considered _per se_ as being significant in discriminating a patient group from a control group. Rather, a larger number of spots should be included in the LDA procedure to further refine them in a separate step.\r\n\n\nLDA is a parametric approach, therefore it may not be effective in the classification of subjects based on multiple comparisons obtained with a non-parametric test. For this reason, an accurate refinement of the spots to be included in the model is advisable. We tackled this problem by progressively refining the list of candidate spots on the basis of their contribution to the model. When the reported procedure was applied <sup>17</sup>, we started from a 20-spot model and progressively discarded the six spots showing the worst contribution \\(weight < 0.3) and the LDA was performed on the remaining 14 spots. In a further refinement, we discarded additional spots with weight < 1, thus obtaining a 9-spot model. A comparison of the performance of the three predictive models is shown in \"Table 2\":http://www.nature.com/protocolexchange/system/uploads/2377/original/Table2.jpg?1355330700 <sup>17</sup>."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "A correct analysis of proteomic data is fundamental for the identification of candidate biomarkers. First, an adequate assessment of the gel quality grants a remarkable spare of time. Indeed, the inclusion of poorly resolved gels or bad quality gel images in the dataset leads to loss of significance of potentially interesting results. Any foreseeable correlation with confounding factors has to be taken into account, age and gender being just an example. Using this approach, we identified several spots that are correlated with dopaminergic therapies <sup>18</sup> and excluded them from the further analysis. Eventually, LDA allowed us to set up a discriminant function based on a linear combination of a set of independent observations, that dramatically improves sensitivity and specificity of the proposed diagnostic tool. We anticipate that this procedure might permit a rapid screening of 2-DE spots to be efficiently included in a panel of protein biomarkers for molecular diagnostics."
+        },
+        {
+            "header": "References",
+            "content": "1. Alberio, T. & Fasano, M. Proteomics in Parkinson's disease: An unbiased approach towards peripheral biomarkers and new therapies. J Biotechnol. 156, 325-337 \\(2011).\r\n  2. Blackstock, W.P. & Weir, M.P. Proteomics: quantitative and physical mapping of cellular proteins. Trends Biotechnol. 17, 121-127 \\(1999).\r\n  3.  Pandey, A. & Mann, M. Proteomics to study genes and genomes. Nature 405, 837-846 \\(2000).\r\n  4. Tyers, M. & Mann, M. From genomics to proteomics. Nature 422, 193-197 \\(2003). \r\n  5. Ostrowski, J. & Wyrwicz, L.S. Integrating genomics, proteomics and bioinformatics in translational studies of molecular medicine. Expert Rev. Mol. Diagn. 9, 623-630 \\(2009).\r\n  6. Caudle, W.M. et al. Using 'omics' to define pathogenesis and biomarkers of Parkinson's disease. Expert Rev. Neurother. 10, 925-942 \\(2010). \r\n  7. Villoslada, P. et al. Systems biology and its application to the understanding of neurological diseases. Ann. Neurol. 65, 124-139 \\(2009).\r\n  8. Jacobs, J.M. et al. Utilizing human blood plasma for proteomic biomarker discovery. J. Proteome Res. 4, 1073-1085 \\(2005).\r\n  9. Miller, I. et al. Protein stains for proteomic applications: which, when, why? Proteomics 6, 5385-5408 \\(2006).\r\n  10. Schulze, W.X. & Usadel, B. Quantitation in mass-spectrometry-based proteomics. Annu. Rev. Plant Biol. 61, 491-516 \\(2010).\r\n  11. Anderson, N.L. & Anderson, N.G. The human plasma proteome: history, character, and diagnostic prospects. Mol. Cell. Proteomics 1, 845-867 \\(2002).\r\n  12. Albrecht, D. et al. Missing values in gel-based proteomics. Proteomics 10, 1202-1211 \\(2010).\r\n  13. G\u00f6rg, A. et al. Current two-dimensional electrophoresis technology for proteomics. Proteomics 4, 3665-3685 \\(2004). \r\n  14. Wilkins, M.R. Hares and tortoises: the high- versus low-throughput proteomic race. Electrophoresis 30 Suppl 1, S150-S155 \\(2009). \r\n  15. R Development Core Team. R: A language and environment for statistical computing. Vienna: R Foundation for Statistical Computing \\(2009). \r\n  16. McDonald,  J.H. Handbook of Biological Statistics. 2nd ed. Baltimore: Sparky House Publishing \\(2009).\r\n  17. Alberio, T. et al. Discovery and verification of panels of T-lymphocyte proteins as biomarkers of Parkinson's disease. Sci. Rep. 2, 953; DOI:10.1038/srep00953 \\(2012).\r\n  18. Alberio, T. et al. Dopaminergic therapies modulate the T-cell proteome of patients with Parkinson's disease. IUBMB Life 64, 846-852 \\(2012)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "Authors gratefully acknowledge Prof. Riccardo Fesce for helpful discussion and Mr. Simone Olgiati and Mrs. Agnese Pippione for testing the protocol."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/srep00953",
+                "date": "2012-12-11 20:24:17",
+                "title": "Discovery and verification of panels of T-lymphocyte proteins as biomarkers of Parkinson's disease",
+                "authors": [
+                    "Tiziana Alberio",
+                    "Agnese C. Pippione",
+                    "Maurizio Zibetti",
+                    "Simone Olgiati",
+                    "Daniela Cecconi",
+                    "Cristoforo Comi",
+                    "Leonardo Lopiano",
+                    "and Mauro Fasano"
+                ],
+                "journal": "Scientific Reports",
+                "logo": ""
+            },
+            {
+                "doi": "10.1002/iub.1073",
+                "date": "2012-11-28 19:46:55",
+                "title": "Dopaminergic therapies modulate the T-CELL proteome of patients with Parkinson's disease",
+                "authors": [
+                    "Tiziana Alberio",
+                    "Agnese C. Pippione",
+                    "Cristoforo Comi",
+                    "Simone Olgiati",
+                    "Daniela Cecconi",
+                    "Maurizio Zibetti",
+                    "Leonardo Lopiano",
+                    "and Mauro Fasano"
+                ],
+                "journal": "IUBMB Life",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 12267,
+                "identity": "9fe1e0b7-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Mauro Fasano",
+                "email": "mauro.fasano@uninsubria.it",
+                "orcid": "",
+                "institution": "Department of Theoretical and Applied Sciences, University of Insubria",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Mauro",
+                "middleName": "",
+                "lastName": "Fasano",
+                "suffix": ""
+            },
+            {
+                "id": 12268,
+                "identity": "9fe1e5c1-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Tiziana Alberio",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Theoretical and Applied Sciences, University of Insubria",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Tiziana",
+                "middleName": "",
+                "lastName": "Alberio",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2012-12-21 11:23:41",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2013.001",
+        "doiUrl": "https://doi.org/10.1038/protex.2013.001",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2608604,
+                "identity": "dee46b57-3342-4e57-adc7-82fdbae55cb7",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:20",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 146444,
+                "visible": true,
+                "origin": "",
+                "legend": "Log-normal distribution of data   Values of standard deviations as a function of log(volume) are almost constant, as expected for a log-normal distribution. Open circles: control group. Filled circles: patients group.",
+                "description": "",
+                "filename": "figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-2541/v1/figure_1.jpg"
+            },
+            {
+                "id": 2608607,
+                "identity": "8d3d23e1-f87a-4e0f-a1d9-9abb58046637",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:21",
+                "extension": "jpg",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 211783,
+                "visible": true,
+                "origin": "",
+                "legend": "Gel quality control   Left panel: scatter plot of a pair of gels belonging to the same group. The Pearson correlation coefficient is reported below, together with the slope of the straight line. Right panel: quantile-quantile plot for the residuals of the linear fit in panel A. A linear correlation between t quantiles and Studentized residuals indicates that gels are comparable.",
+                "description": "",
+                "filename": "figure2.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-2541/v1/figure_2.jpg"
+            },
+            {
+                "id": 2608605,
+                "identity": "22bc0790-defc-4e18-bff9-bfc91ad9523b",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:21",
+                "extension": "jpg",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 111466,
+                "visible": true,
+                "origin": "",
+                "legend": "Identification of spots associated with the gender   Box and whiskers plot for the volume of Spot 391 in females (green) and males (red). ",
+                "description": "",
+                "filename": "figure3.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-2541/v1/figure_3.jpg"
+            },
+            {
+                "id": 2608610,
+                "identity": "53c32e22-be61-4798-b843-5d9ab6f26ebf",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:21",
+                "extension": "jpg",
+                "order_by": 4,
+                "title": "Figure 4",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 134669,
+                "visible": true,
+                "origin": "",
+                "legend": "Identification of spots correlated with the age   Linear correlation of the volume of Spot 513 _vs._ the age of control subjects.",
+                "description": "",
+                "filename": "figure4.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-2541/v1/figure_4.jpg"
+            },
+            {
+                "id": 2608609,
+                "identity": "a68c82e0-2800-480c-b860-d3da0025f34b",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:21",
+                "extension": "jpg",
+                "order_by": 5,
+                "title": "Figure 5",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 39962,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 1   Summary of performance parameters for the three predictive models   Cutoff values are expressed in terms of the likelihood PD score obtained as a linear combination of selected spot relative volumes; ROC = receiver operating characteristic; AUC = area under curve; p values refer to Wilcoxon test on PD scores. Sensitivity, specificity and ROC AUC were obtained by leave-one-out cross-validation.",
+                "description": "",
+                "filename": "figure5.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-2541/v1/figure_5.jpg"
+            },
+            {
+                "id": 2608612,
+                "identity": "d38d2189-72e3-4f4a-a8fa-937ec7c84bb0",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:21",
+                "extension": "jpg",
+                "order_by": 6,
+                "title": "Figure 6",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 143320,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 2   Statistics report   A report table is produced to summarize the descriptive statistics results, the fold of change in log2 units, the LDA coefficient and the weighted contribution of each spot to the model (i.e., the product of the difference of mean values times the LDA coefficient).",
+                "description": "",
+                "filename": "figure6.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-2541/v1/figure_6.jpg"
+            },
+            {
+                "id": 13464680,
+                "identity": "ec85d3d9-e699-4011-941b-3a88aa5f7d02",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:44:18",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 606756,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-2541/v1/6d4612d5-66e7-47fa-a79d-8795d4eae571.pdf"
+            },
+            {
+                "id": 2608611,
+                "identity": "77032856-d38a-4858-8270-762bfeb6da40",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:21",
+                "extension": "r",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 14758,
+                "visible": true,
+                "origin": "",
+                "legend": "Supplementary document 1   R code   The complete code is available as a text file.",
+                "description": "",
+                "filename": "supplement0.r",
+                "url": "https://assets.researchsquare.com/files/nprot-2541/v1/supplement_0.r"
+            }
+        ],
+        "financialInterests": "Tiziana Alberio and Mauro Fasano are listed as inventors in the patent application IT/TO2011A001241 entitled \"Method for the in vitro diagnosis of Parkinson's disease\".",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Two-dimensional gel electrophoresis, biomarker discovery, statistics, linear discriminant analysis, power analysis, Pearson correlation.",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "A protocol for the analysis of two-dimensional electrophoresis images has been written in R, an open-source environment for statistical computing, with the purpose of identifying and verifying potential disease biomarkers. In a stepwise procedure, spot volumes are normalized and missing values are replaced. A quality control procedure permits to efficiently discard gels that should not be included in a comparative statistics. Spots associated with confounding factors are identified and discarded from any further analysis. Comparisons between groups are performed with both parametric and non parametric tests, thus allowing researchers to choose the most appropriate condition. Hereafter, a classification model is built by linear discriminant analysis. The model is then verified so to obtain expected sensibility and specificity values.",
+        "manuscriptTitle": "An automated procedure for the statistical analysis of two-dimensional electrophoresis gels for biomarkers discovery",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2013-01-02 10:28:47",
+                "doi": "10.1038/protex.2013.001",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9fe17fee-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "January 2nd, 2013",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 2852,
+                "name": "Biochemistry"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2013-01-02 10:28:47",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

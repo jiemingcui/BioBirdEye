@@ -1,0 +1,481 @@
+{
+    "identity": "pex-1327",
+    "title": "<p>SIESTA as a universal unbiased proteomics approach for identification and prioritization of enzyme substrates&nbsp;</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>The identification let alone prioritization of enzyme substrates is challenging. Current approaches for identifying specific substrates are specific to an enzyme or a class of enzymes and are often labor-intensive and not straightforward. Furthermore, modifying enzymes or co-substrates for capturing substrates can alter the biology of the system under study and produce a bias. Thus, unbiased, general and swift proteome-wide techniques avoiding enzyme or cosubstrate modification are needed. </p><p>Here, through an inventive experimental development, we designed a new technique called System-wide Identification and prioritization of Enzyme Substrates by Thermal Analysis (SIESTA) by applying TPP <sup>5</sup> or MS-CETSA <sup>6</sup> to samples treated in parallel with vehicle, the enzyme, co-substrate or both. Since PTMs can alter the thermal stability of a protein, SIESTA can probe the proteome-wide effects on thermal stability of specific PTMs and identify enzyme substrates. In the associated publication, we show that SIESTA can identify the substrates of Thioredoxin reductase 1, protein kinase B (AKT1) and poly-(ADP-ribose) polymerase-10 systems <sup>2</sup>. Since SIESTA can identify changes in stability resulting from even small modifications such as phosphorylation, we believe that it can be applied to most enzymes. </p><p>Experimental design, proteomics sample preparation and data analysis are the key stages of this protocol. In this protocol, we will elaborate on experimental design aspects and give a detailed protocol on SIETSA workflow. Finally, our SIESTA package on GitHub <sup>3</sup> can be used for data analysis. Here, we will use the AKT1 system as an example.&nbsp;</p><p><br></p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p>A recombinant enzyme (e.g. AKT1) (Carna BioSciences, cat no. 01-401-20N)</p><p>Corresponding enzyme co-substrate (e.g. ATP) (Sigma, cat no. GE27-2056-01)</p><p>Trypsin-EDTA (for cell detachment)</p><p>Phosphate buffered saline (PBS)</p><p>HEPES (Sigma, cat no. H3375-100G)</p><p>Protease inhibitor cocktail (Roche, cat no. 11697498001)</p><p>Phosphatase inhibitors (PhosSTOP) (Sigma, cat no. 4906837001)</p><p>Liquid nitrogen</p><p>Pierce BCA assay kit (Thermo)</p><p>Dithiothreitol (DTT)</p><p>Iodoacetamide (IAA)</p><p>Methanol</p><p>Chloroform</p><p>EPPS (Sigma, cat no. E9502-100G)</p><p>Lysyl Endopeptidase (LysC) (Promega, cat no. VA1170)</p><p>Sequencing-grade trypsin (Promega, cat no. V5111)</p><p>Acetonitrile</p><p>TMT10plex reagents (Thermo, cat no. 90110)</p><p>50% Hydroxylamine (Thermo, cat no. 90115)</p><p>Trifluoroacetic acid (TFA)</p><p>Formic acid</p><p>&nbsp;</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "</p><p>Bench-top centrifuge (Thermo, Heraeus Pico 17)</p><p>Ultracentrifuge (Backman, Optima XPN-80)</p><p>ThermoMixer compact (Eppendorf)</p><p>SimpliAmp Thermocycler (Thermo)</p><p>Sep-Pak cartridges (Waters, cat no. 41115712)</p><p>DNA 120 SpeedVac\u2122 Concentrator (Thermo)</p><p>XBrigde BEH C18 2.1x150 mm column (Waters, cat no. 186003023)</p><p>Dionex Ultimate 3000 LC system (Thermo)</p><p>EASY-Spray column (75 \u00b5m internal diameter, packed with PepMap C18, 2 \u00b5m beads, 100 \u00c5 pore size) (Thermo)</p><p>EASY-nLC 1000 (Thermo)</p><p>Dionex UltiMate 3000 UHPLC system (Thermo)</p><p>Q Exactive HF mass spectrometer (Thermo)</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "Experiment design considerations\nSIESTA\nexperiments are based on parallel monitoring of protein stability changes in cell lysate aliquots treated with vehicle, enzyme, its co-substrate, or a combination of the enzyme with co-substrate. Within this design, vehicle-, enzyme-, and co-substrate-treated samples serve as controls. Proteins which demonstrate a specific shift in stability in samples treated with a combination of enzyme and co-substrate are considered the putative substrates of the enzyme under study. If the enzyme has more than one co-substrate, the additional cosubstrate(s) can be used as additional control(s). The concentration of enzyme and its co-substrate should be in the physiological range. SIESTA can be performed using either TPP or PISA workflows. Below is the protocol based on TPP. A schematic workflow can be found in Figure 1 of the associated publications\n1,2\n.\nSample preparation\n1.\u00a0\u00a0Culture cells in multiple 175 cm\n2\nflasks (Sarstedt), detach with trypsinization and wash twice with PBS.\n2.\u00a0\u00a0Resuspend in 12 mL 50 mM HEPES pH 7.5, with complete protease inhibitor cocktail and phosphatase inhibitor tablets.\n3.\u00a0\u00a0Lyse the resuspended cells by five freeze-thaw cycles in multiple 1.5 mL eppendorfs using liquid nitrogen.\n4.\u00a0\u00a0Centrifuge the cell lysate at 21,000 g for 10 min at 4\u00b0C and collect the soluble fraction.\n5.\u00a0\u00a0Measure protein concentration in the lysate using BCA assay.\n6.\u00a0\u00a0Distribute the lysate equally into 8 aliquots (1.1-1.2 mL each).\n7.\u00a0\u00a0Treat each pair of aliquots with vehicle, 500 \u00b5M ATP, 500 nM AKT1 or with AKT1+ATP and incubate on a thermomixer at 37\u00b0C for 30 min.\n8.\u00a0\u00a0After incubation, aliquot each replicate into 10 PCR microtubes (100 \u03bcL each) and incubate each for 3 min in the thermocycler at the corresponding temperature points of 37, 41, 44, 47, 50, 53, 56, 59, 63, and 67\u00b0C.\n9.\u00a0\u00a0Let the samples cool down for 3 min at room temperature and afterwards keep on ice.\n10. Transfer the samples into polycarbonate thickwall tubes and centrifuge at 100,000 g and 4\u00b0C for 20 min.\n11.\u00a0After ultracentrifugation, collect the soluble protein fractions and transfer them to new Eppendorf tubes.\n12.\u00a0Measure protein concentration in the samples treated at lowest temperature points (37 and 41\u00b0C) using BCA Assay.\n13.\u00a0Determine the volume containing 50 \u00b5g of protein in the samples corresponding to 37 and 41\u00b0C.\n14.\u00a0Transfer the same volume (calculated above) from each sample to new Eppendorf tubes.\n15.\u00a0Add urea to the final concentration of 4 M.\n16.\u00a0Add DTT to a final concentration of 10 mM and incubate for 1 h at room temperature.\n17.\u00a0Add IAA to a final concentration of 50 mM and incubate for 1 h at room temperature in the dark.\n18.\u00a0Quench the reaction by adding an additional 10 mM of DTT.\n19.\u00a0Add 4 volumes of methanol to the samples and vortex.\n20.\u00a0Add 1 volume of chloroform to the samples and vortex (from this step until step 27, work should be done under a fume hood because of methanol and chloroform).\n21.\u00a0Add 3 volumes of deionized water to the samples. At this stage, a cloudy solution must form.\n22.\u00a0Centrifuge the samples at 21,000 g for 10 min. A pellet must form at the interphase.\n23.\u00a0Discard the aqueous layer above the pellet as much as possible.\n24.\u00a0Add 1 volume of methanol, disrupt the pellet by pipetting and wash the pellet by centrifugation at 21,000 g for 10 min.\n25.\u00a0Discard the supernatant.\n26.\u00a0Let the pellets dry (but do not over-dry the pellets).\n27.\u00a0Dissolve the semi-dry protein pellet in 20 mM EPPS (pH=8.5) with 8 M urea.\n28.\u00a0Dilute urea to 4 M.\n29.\u00a0Dissolve LysC in 20 mM EPPS, add 1:100 w/w enzyme to protein (e.g. 0.5 \u03bcg enzyme to 50 \u03bcg protein) and incubate the samples at room temperature overnight.\n30.\u00a0Dilute the urea to 1 M.\n31.\u00a0Dissolve sequencing-grade trypsin in 20 mM EPPS and add 1:100 w/w enzyme to protein (e.g. 0.5 \u03bcg enzyme to 50 \u03bcg protein) and incubate the samples at room temperature for 6 h.\n32.\u00a0Add acetonitrile to a final concentration of 20%.\n33.\u00a0Dissolve TMT10 reagents and add 4x by weight to the samples (200 \u03bcg TMT label for 50 \u03bcg of protein; each TMT reagents will be added to corresponding samples heated to different temperature points, e.g. TMT126 to 37\u00b0C, TMT127N to 41\u00b0C and so on).\n34.\u00a0Incubate the samples for 2 h at room temperature.\n35.\u00a0Quench the reaction by addition of 0.5% hydroxylamine for 15 min at room temperature.\n36.\u00a0Pool the labeled samples from each replicate.\n37.\u00a0Dry at least 30% of the samples to reduce the acetonitrile content to <5%.\n38.\u00a0Acidify the samples to pH 1-3 using TFA.\n39.\u00a0Clean the samples using Sep-Pak cartridges, according to the manufacturer protocol.\n40.\u00a0Dry the samples using DNA 120 SpeedVac concentrator.\n41.\u00a0Depending on availability of equipment and the proteome coverage required, the samples can then be fractionated by:\n42.\u00a0Either dissolve each replicate in 0.1% TFA and fractionate into 8 fractions using Pierce High pH Reversed-Phase Peptide Fractionation Kit.\nOr: Resuspend the samples in 20 mM ammonium hydroxide and fractionate into 96 fractions on an XBrigde BEH C18 2.1x150 mm column, using a Dionex Ultimate 3000 LC system. The samples can then be concatenated into as many fractions as desired (for example, for concatenation into 24 fractions as in our paper, fractions 1, 25, 49 and 73 can be combined, as well as fractions 2, 26, 50 and 74, and so on).\n43.\u00a0Dry the samples in a concentrator.\n44.\u00a0Store peptide pellets at -80\u00b0C.\nLiquid Chromatography and Mass Spectrometry\n45.\u00a0Dissolve the samples in buffer A (0.1% formic acid and 2% acetonitrile in water) to an estimated 0.2 \u03bcg/\u03bcl concentration.\n46.\u00a0Prepare liquid chromatograph (Dionex UltiMate 3000 UHPLC system). Prepare buffer A (0.1% formic acid and 2% acetonitrile in water) and buffer B (0.1% formic acid, 98% acetonitrile in water).\n47.\u00a0Load 5 \u03bcL of each sample. Perform reverse-phase separation using an Easy-Spray HPLC column (75 \u00b5m internal diameter, packed with PepMap C18, 2 \u00b5m beads, 100 \u00c5 pore size).\n48.\u00a0Connect the EASY-Spray column to a nanoflow Dionex UltiMate 3000 UHPLC system (Thermo) and elute in an organic solvent gradient increasing from 4% to 26% (B: 98% acetonitrile, 0.1% formic acid, 2% water) at a flow rate of 300 nL min\n-1\nover 95 min.\n49.\u00a0For MS acquisition on Q Exactive HF, program the following setting in the method: Record the precursor ion spectra at the m/z range of 375-1500 with 120,000 m/z resolution, automatic gain control target of 3x10\n6\nions and maximum injection time of 100 ms. Record fragment ions in MS/MS with 60,000 m/z resolution, automatic gain control target of 2 x10\n5\nions and maximum injection time of 120 ms.\nData processing\n50.\u00a0Process the mass spectra raw files using MaxQuant\n7\n(e.g. v. 1.5.6.5 or 1.6.2.3). Use the UniProt complete human proteome database for protein identification. Use Trypsin/P as enzyme specificity and do not allow for more than 2 missed cleavages. Select TMT10-plex in MS2 for peptide quantification. Set cysteine carbamidomethylation as a fixed modification, and methionine oxidation as a variable modification. Include phosphorylation on serine and threonine as variable modifications and use the same settings in quantification (the last setting is important if a kinase such as AKT1 is used as an enzyme). Use a 1% false discovery rate as a filter at both protein and peptide levels. Use the \u201cMatch Between Runs\u201d option with default settings.\n51.\u00a0Analyze the \u201cProteinGroups.txt\u201d file resulting from the above search using our SIESTA package hosted on GitHub\n3\n."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p>There are a few steps that might need troubleshooting:</p><p><br></p><p><strong>Step 5</strong></p><p>Problem: Little protein amount after BCA.</p><p>Possible reason: Low efficiency of extraction or low number of starting cells.</p><p>Solution: Culture and extract more cells or perform freeze-thaw in smaller Eppendorf to enhance the extraction efficiency.</p><p><br></p><p><strong>Steps 22 and 25</strong></p><p>Problem: No pellet is seen.&nbsp;</p><p>Possible reason: The pellet is too small.</p><p>Solution: This may happen if the sample size is small. Collect 90% of the soluble fraction in step 11.</p><p><br></p><p><strong>Step 25</strong></p><p>Problem: Pellet is floating.</p><p>Possible reason: Pellet is not disrupted before final centrifugation.</p><p>Solution: Fully disrupt the pellet before the final wash.</p><p><br></p><p><strong>Step 50</strong></p><p>Problem: Very few peptides are detected.</p><p>Possible reason: Failed digestion, wrong trypsin or LysC concentration.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p><p>Solution: Repeat the experiment using reagents prepared from stock anew.</p><p><br></p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>The protocol will take 5 days for sample preparation and 14 days of sample analysis by mass spectrometry (when analyzing 24 fractions, including the blank samples for washing the column between the samples). If our new approach Proteome Integral Solubility Alteration assay (PISA) <sup>4</sup> is used instead, the sample preparation time will reduce by 1 day and analysis time by mass spectrometry is reduced to 1-2 days for the same number of samples. A detailed PISA protocol can be found in the above citation.</p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>This protocol will yield information on the abundance of 5,000-8,000 proteins, depending on the cell line, number of analyzed fractions and the mass spectrometer (and all the settings). The results would identify the co-substrate (here ATP) binding proteins, protein-protein interactions (for AKT1) and putative protein substrates for AKT1. Exemplary results can be seen in our paper in BioRxiv <sup>1</sup> as well as the associated publication <sup>2</sup>.&nbsp;</p><p><br></p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Saei, A. A. <em>et al.</em> System-wide Identification of Enzyme Substrates by Thermal Analysis (SIESTA). <em>bioRxiv</em> 423418&nbsp;doi:10.1101/423418. Preprint at <u>https://www.biorxiv.org/content/10.1101/423418v2</u> (2020).</p><p>2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Saei, A. A. <em>et al.</em> System-wide identification and prioritization of enzyme substrates by thermal analysis. <em>Nat. Commun.</em>, under final review (2021).</p><p>3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Saei, A. A. <em>et al.</em> SIESTA: System-wide Identification and prioriotization of enzyme Substrates by Thermal Analysis. doi:10.5281/zenodo.4423098 (2021).</p><p>4.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gaetani, M. <em>et al.</em> Proteome Integral Solubility Alteration: A High-Throughput Proteomics Assay for Target Deconvolution. <em>J. Proteome Res.</em> doi:10.1021/acs.jproteome.9b00500, 18, 4027\u20134037 (2019).</p><p>5.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Savitski, M. M. <em>et al.</em> Tracking cancer drugs in living cells by thermal profiling of the proteome. <em>Science.</em> 346, 1255784 (2014).</p><p>6.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Molina, D. M. <em>et al.</em> Monitoring drug target engagement in cells and tissues using the cellular thermal shift assay. 341, 84-87 (2013).</p><p>7.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cox, J. &amp; Mann, M. MaxQuant enables high peptide identification rates, individualized p.p.b.-range mass accuracies and proteome-wide protein quantification. <em>Nat. Biotechnol.</em> 26, 1367\u20131372 (2008).</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1101/423418",
+                "date": "2018-09-21 18:00:49",
+                "title": "System-wide identification and prioritization of enzyme substrates by thermal analysis (SIESTA)",
+                "authors": [
+                    "Amir Ata Saei",
+                    "Christian M. Beusch",
+                    "Pierre Sabatier",
+                    "Juan Astorga Wells",
+                    "Alexey Chernobrovkin",
+                    "Sergey Rodin",
+                    "Katja N\u00e4reoja",
+                    "Ann-Gerd Thorsell",
+                    "Tobias Karlberg",
+                    "Qing Cheng",
+                    "Susanna L. Lundstr\u00f6m",
+                    "Massimiliano Gaetani",
+                    "\u00c1kos V\u00e9gv\u00e1ri",
+                    "Elias S.J. Arn\u00e9r",
+                    "Herwig Sch\u00fcler",
+                    "Roman A. Zubarev"
+                ],
+                "journal": "",
+                "logo": ""
+            },
+            {
+                "doi": "10.1038/s41467-021-21540-6",
+                "date": "",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 8055695,
+                "identity": "277f4ed6-6901-434f-8c64-090f0b59ac10",
+                "order_by": 0,
+                "name": "Amir Ata Saei",
+                "email": "amirata.saei.dibavar@ki.se",
+                "orcid": "https://orcid.org/0000-0002-2639-6328",
+                "institution": "Division of Physiological Chemistry I, Department of Medical Biochemistry and Biophysics, Karolinska Institutet, SE-17 177 Stockholm, Sweden",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Amir",
+                "middleName": "Ata",
+                "lastName": "Saei",
+                "suffix": ""
+            },
+            {
+                "id": 8055696,
+                "identity": "bae3e01f-266e-4200-ab35-88330eed3c22",
+                "order_by": 1,
+                "name": "Christian M. Beusch",
+                "email": "",
+                "orcid": "",
+                "institution": "Division of Physiological Chemistry I, Department of Medical Biochemistry and Biophysics, Karolinska Institutet, SE-17 177 Stockholm, Sweden",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Christian",
+                "middleName": "M.",
+                "lastName": "Beusch",
+                "suffix": ""
+            },
+            {
+                "id": 8055697,
+                "identity": "4ea675ee-424a-4bbc-9f5b-41149a726da8",
+                "order_by": 2,
+                "name": "Pierre Sabatier",
+                "email": "",
+                "orcid": "",
+                "institution": "Division of Physiological Chemistry I, Department of Medical Biochemistry and Biophysics, Karolinska Institutet, SE-17 177 Stockholm, Sweden",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Pierre",
+                "middleName": "",
+                "lastName": "Sabatier",
+                "suffix": ""
+            },
+            {
+                "id": 8055698,
+                "identity": "d56df697-4c0a-45e6-bebd-bafde6212537",
+                "order_by": 3,
+                "name": "Juan Astorga Wells",
+                "email": "",
+                "orcid": "",
+                "institution": "Division of Physiological Chemistry I, Department of Medical Biochemistry and Biophysics, Karolinska Institutet, SE-17 177 Stockholm, Sweden",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Juan",
+                "middleName": "Astorga",
+                "lastName": "Wells",
+                "suffix": ""
+            },
+            {
+                "id": 8055699,
+                "identity": "a37666e7-9ba4-459e-9ed7-1c9cf31b944c",
+                "order_by": 4,
+                "name": "Hassan Gharibi",
+                "email": "",
+                "orcid": "",
+                "institution": "Division of Physiological Chemistry I, Department of Medical Biochemistry and Biophysics, Karolinska Institutet, SE-17 177 Stockholm, Sweden",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Hassan",
+                "middleName": "",
+                "lastName": "Gharibi",
+                "suffix": ""
+            },
+            {
+                "id": 8055700,
+                "identity": "40856849-95fb-4386-a9e8-b24bfe0d6b45",
+                "order_by": 5,
+                "name": "Zhaowei Meng",
+                "email": "",
+                "orcid": "",
+                "institution": "Division of Physiological Chemistry I, Department of Medical Biochemistry and Biophysics, Karolinska Institutet, SE-17 177 Stockholm, Sweden",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Zhaowei",
+                "middleName": "",
+                "lastName": "Meng",
+                "suffix": ""
+            },
+            {
+                "id": 8055701,
+                "identity": "4ce4039d-e312-4f1b-8655-58bf4191d01f",
+                "order_by": 6,
+                "name": "Alexey Chernobrovkin",
+                "email": "",
+                "orcid": "",
+                "institution": "Pelago Bioscience AB, 171 48, Solna, Sweden",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Alexey",
+                "middleName": "",
+                "lastName": "Chernobrovkin",
+                "suffix": ""
+            },
+            {
+                "id": 8055702,
+                "identity": "d8fa3197-5e68-4955-852c-0258ba1aae87",
+                "order_by": 7,
+                "name": "Sergey Rodin",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Surgical Sciences, Uppsala University, Sweden",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Sergey",
+                "middleName": "",
+                "lastName": "Rodin",
+                "suffix": ""
+            },
+            {
+                "id": 8055703,
+                "identity": "3e01d9a0-8902-4ccb-8d10-71b766f17cb7",
+                "order_by": 8,
+                "name": "Katja N\u00e4reoja",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Biosciences and Nutrition, Karolinska Institutet, SE-14157 Huddinge, Sweden",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Katja",
+                "middleName": "",
+                "lastName": "N\u00e4reoja",
+                "suffix": ""
+            },
+            {
+                "id": 8055704,
+                "identity": "3b6091f2-c7b3-48ad-8c9c-ba54f956ccae",
+                "order_by": 9,
+                "name": "Ann-Gerd Thorsell",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Biosciences and Nutrition, Karolinska Institutet, SE-14157 Huddinge, Sweden",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Ann-Gerd",
+                "middleName": "",
+                "lastName": "Thorsell",
+                "suffix": ""
+            },
+            {
+                "id": 8055705,
+                "identity": "b6a2a19c-bc53-4833-9511-c6a71696e6b9",
+                "order_by": 10,
+                "name": "Tobias Karlberg",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Biosciences and Nutrition, Karolinska Institutet, SE-14157 Huddinge, Sweden",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Tobias",
+                "middleName": "",
+                "lastName": "Karlberg",
+                "suffix": ""
+            },
+            {
+                "id": 8055706,
+                "identity": "1596ae4c-dab1-48fc-8fe6-f0c72d136069",
+                "order_by": 11,
+                "name": "Qing Cheng",
+                "email": "",
+                "orcid": "",
+                "institution": "Division of Biochemistry, Department of Medical Biochemistry and Biophysics, Karolinska Institutet, SE-171 77 Stockholm, Sweden",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Qing",
+                "middleName": "",
+                "lastName": "Cheng",
+                "suffix": ""
+            },
+            {
+                "id": 8055707,
+                "identity": "c4fbf5e7-d987-488c-8f77-a71add9d9a60",
+                "order_by": 12,
+                "name": "Susanna L. Lundstr\u00f6m",
+                "email": "",
+                "orcid": "",
+                "institution": "Division of Physiological Chemistry I, Department of Medical Biochemistry and Biophysics, Karolinska Institutet, SE-17 177 Stockholm, Sweden",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Susanna",
+                "middleName": "L.",
+                "lastName": "Lundstr\u00f6m",
+                "suffix": ""
+            },
+            {
+                "id": 8055708,
+                "identity": "a513304b-00cd-4aa9-9931-cd83a77e0e2f",
+                "order_by": 13,
+                "name": "Massimiliano Gaetani",
+                "email": "",
+                "orcid": "",
+                "institution": "Chemical Proteomics Core Facility, Division of Physiological Chemistry I, Department of Medical Biochemistry and Biophysics, Karolinska Institutet, SE-17 177 Stockholm, Sweden",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Massimiliano",
+                "middleName": "",
+                "lastName": "Gaetani",
+                "suffix": ""
+            },
+            {
+                "id": 8055709,
+                "identity": "4da93785-13f4-4e1d-831e-ccda006f4b74",
+                "order_by": 14,
+                "name": "\u00c1kos V\u00e9gv\u00e1ri",
+                "email": "",
+                "orcid": "",
+                "institution": "Proteomics Biomedicum, Division of Physiological Chemistry I, Department of Medical Biochemistry and Biophysics, Karolinska Institutet, SE-17 177 Stockholm, Sweden",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "\u00c1kos",
+                "middleName": "",
+                "lastName": "V\u00e9gv\u00e1ri",
+                "suffix": ""
+            },
+            {
+                "id": 8055710,
+                "identity": "ecc86493-28b0-48b7-bc25-ed3dd1f65fbc",
+                "order_by": 15,
+                "name": "Elias S.J. Arn\u00e9r",
+                "email": "",
+                "orcid": "",
+                "institution": "Division of Biochemistry, Department of Medical Biochemistry and Biophysics, Karolinska Institutet, SE-171 77 Stockholm, Sweden",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Elias",
+                "middleName": "S.J.",
+                "lastName": "Arn\u00e9r",
+                "suffix": ""
+            },
+            {
+                "id": 8055711,
+                "identity": "54a05ad9-504e-413f-808c-5f153bed0932",
+                "order_by": 16,
+                "name": "Herwig Sch\u00fcler",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Biosciences and Nutrition, Karolinska Institutet, SE-14157 Huddinge, Sweden",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Herwig",
+                "middleName": "",
+                "lastName": "Sch\u00fcler",
+                "suffix": ""
+            },
+            {
+                "id": 8055712,
+                "identity": "4326fdff-3681-4d31-9ec7-17890abe1ae5",
+                "order_by": 17,
+                "name": "Roman A. Zubarev",
+                "email": "Roman.zubarev@ki.se",
+                "orcid": "https://orcid.org/0000-0001-9839-2089",
+                "institution": "Division of Physiological Chemistry I, Department of Medical Biochemistry and Biophysics, Karolinska Institutet, SE-17 177 Stockholm, Sweden",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Roman",
+                "middleName": "A.",
+                "lastName": "Zubarev",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2021-01-08 15:43:15",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1327/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1327/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13672817,
+                "identity": "3c005872-0391-45ab-a23a-6d6b9eb0dd10",
+                "added_by": "auto",
+                "created_at": "2021-09-17 11:15:03",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 274962,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1327/v1/effcc67a-130b-4aee-98fe-93d9cba179c1.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "ADP-ribosylation, drug target, drug discovery, mass spectrometry, melting temperature, post-translational modification, phosphorylation, proteomics, PTM, screening, target, thermal stability, thermal proteome profiling, PISA, proteome integral solubility alteration assay, stability shift ",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>This protocol describes the proteomics technique called System-wide Identification and prioritization of Enzyme Substrates by Thermal Analysis or SIESTA <sup>1,2</sup>. SIESTA can be used for universal discovery of enzyme substrates that shift in thermal stability or solubility upon post-translational modification (PTM). Experimental design, proteomics sample preparation and data analysis are the key stages of this protocol. Data analysis can be performed using our SIESTA package hosted on GitHub <sup>3</sup>. When performed with classical thermal proteome profiling (TPP), the protocol will take 5 days for sample preparation and 14 days of sample analysis by mass spectrometry (the current protocol). If our high-throughput version of TPP called Proteome Integral Solubility Alteration assay (PISA) <sup>4</sup> is used instead, the sample analysis time by mass spectrometry is reduced to 1-2 days for the same number of conditions.</p>",
+        "manuscriptTitle": "SIESTA as a universal unbiased proteomics approach for identification and prioritization of enzyme substrates&nbsp;",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2021-02-26 17:35:47",
+                "doi": "10.21203/rs.3.pex-1327/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "6e8742a4-e707-4e51-b1db-dbf1cdc4a0bd",
+        "owner": [],
+        "postedDate": "February 26th, 2021",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 1851110,
+                "name": "Biochemistry"
+            },
+            {
+                "id": 1851111,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 1851112,
+                "name": "Cell Biology"
+            },
+            {
+                "id": 1851113,
+                "name": "Structural biology"
+            },
+            {
+                "id": 1851114,
+                "name": "Drug discovery"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2021-02-26 17:35:47",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

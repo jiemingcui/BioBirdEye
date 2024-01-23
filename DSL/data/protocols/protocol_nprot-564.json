@@ -1,0 +1,332 @@
+{
+    "identity": "nprot-564",
+    "title": "ACEMBLing multigene expression vectors by recombineering",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Multiprotein complexes are an emerging focus of contemporary biological research efforts<sup>1</sup>. Molecular and structural studies of multiprotein assemblies are often handicapped by the low abundance and heterogeneous nature of most of these complexes in their native hosts, thus inhibiting direct extraction. Recombinant methods that can achieve overproduction of these multiprotein complexes are therefore often a crucial prerequisite for their study.  \r\n\n\nWe addressed several of the challenges by creating ACEMBL, a system for rapid and flexible multigene assembly for multiprotein expression in _E. coli_. ACEMBL complements MultiBac, our previously introduced expression technology for the baculovirus/insect cell system<sup>2</sup>.  ACEMBL uses recombineering for constructing multigene expression vectors and to rapidly introduce diversity into each gene of interest if the need arises. These features are especially important in modern structural biology, as rapid revision of complex expression and diversification of each component involved can be crucial for successful structure determination. The ACEMBL system can be fully automated, which is a top priority in current protein science. For further information about ACEMBL, including updates of the procedures used, a User Manual can be obtained from our EMBL home page: \"http://www.embl.fr/research/services/berger/ACEMBL.pdf\":http://www.embl.fr/research/services/berger/ACEMBL.pdf. For ACEMBL reagents please contact iberger@embl.fr.\r\n\n\nThe protocols presented in the following describe in detail the approaches for \\(de)constructing multigene expression vectors in the ACEMBL system: \\(1) Single gene insertion or polycistron assembly via sequence and ligation independent cloning \\(SLIC) procedures; \\(2) gene insertion by restriction/ligation; \\(3) expression cassette multiplication by using homing endonucleases \\(HE) and \\(4) fusion of multiple expression plasmids into a single multigene expression construct by site-specific recombination using the _Cre_ recombinase. In addition to multigene construction, we also describe how to deconstruct multigene expression fusion plasmids by using the _Cre_ enzyme, for example to change or alter only a particular subunit of a multiprotein complex.  Combination of the protocols presented allows for simple assembly and disassembly of multigene constructs for multiprotein complex expression, as well as for rapid revision and diversification of expression experiments \\(**Fig. 1**). The protocols can be used in a manual setup and also in a robotic environment using a liquid handling workstation."
+        },
+        {
+            "header": "Reagents",
+            "content": "- Phusion polymerase \\(and 5x HF Buffer), Finnzymes, Finland\r\n\n\n- dNTP mix \\(10 mM), New England Biolabs \\(NEB), USA\r\n\n\n- 10 mM BSA, NEB\r\n\n\n- _Cre_ recombinase \\(and 10x Buffer), EMBL core facility, Germany\r\n\n\n- Restriction endonucleases \\(and 10x Buffer), various suppliers\r\n\n\n- Homing endonucleases PI-SceI, I-CeuI \\(and 10x Buffer), NEB\r\n\n\n- Restriction enzyme BstXI \\(and 10x Buffer), NEB\r\n\n\n- T4 DNA ligase \\(and 10x Buffer), NEB \r\n\n\n- T4 DNA polymerase \\(and 10x Buffer), NEB\r\n\n\n- Calf or Shrimp intestinal alkaline phosphatase, Stratagene Corp., USA\r\n\n\n- DpnI enzyme, NEB\r\n\n\n- _E. coli_ competent cells \\(pir+ strains, pir- strains), Novagen Inc., UK\r\n\n\n- 100 mM DTT, 2 M Urea, 500 mM EDTA, Sigma-Aldrich, USA \r\n\n\n- PCR purification kit, Qiagen, Germany\r\n\n\n- Gel extraction kit, Qiagen, Germany\r\n\n\n- NucleoSpin kit, Macherey-Nagel, France\r\n\n\n- Antibiotics \\(ampicillin, chloramphenicol, kanamycin, spectinomycin, tetracyclin)\r\n\n\n- LB media\r\n\n\n- Agar"
+        },
+        {
+            "header": "Equipment",
+            "content": "- 96 well microtiter plates, Greiner GmbH, Germany\r\n\n\n- 12 well tissue-culture plates \\(or petri dishes), Greiner GmbH, Germany"
+        },
+        {
+            "header": "Procedure",
+            "content": "The Multiple Integration Element \\(MIE) was derived from a polylinker\n4\nand allows for several approaches for multigene assembly. Single or multiple genes can be inserted into the MIE of any of the ACEMBL vectors by a variety of methods. For this, the vector needs to be linearized, which can be carried out efficiently by PCR reaction with appropriate primers, since the vectors are all small \\(2-2.6 kb). Alternatively, if more conventional approaches are preferred i.e. in a regular wet lab setting without robotics, the vectors can also be linearized by restriction digestion, and a gene of interest can be pasted in by ligation. The following protocols describe these approaches in detail.\r\n\n\n\r\n\n\n**Single gene insertion into the MIE by SLIC** \r\n\n\n\r\n\n\n1. Primer design\r\n  \r\n\n\nDesign primers for the SLIC procedure containing the regions of homology which result in the long sticky ends upon treatment with T4 DNA polymerase in the absence of dNTPs\n3\n:\r\n\n\nPrimers for the insert contain a DNA sequence corresponding to this region of homology \\(adaptor sequence), followed by a sequence which specifically anneals to the insert to be amplified. Useful adaptor sequences for SLIC can be taken directly from the ACEMBL Manual deposited at the EMBL Grenoble homepage: \"http://www.embl.fr/research/services/berger/ACEMBL.pdf\":http://www.embl.fr/research/services/berger/ACEMBL.pdf.\r\n\n\nIn case the gene of interest is amplified from a vector already containing expression elements \\(e.g. the pET vector series), the \u201cinsert specific sequence\u201d can be located upstream of a ribosome binding site \\(rbs). Otherwise, the forward primer needs to be designed such that a ribosome binding site is also provided in the final construct.\r\n\n\nPrimers for PCR linearization of the vector backbone are simply complementary to the two adaptor sequences present in the primer pair chosen for insert amplification.\r\n\n\n\r\n\n\n2. PCR amplification of insert and vector\r\n  \r\n\n\nPrepare PCR reactions in 100 \u00b5l volume for DNA insert to be cloned and the vector backbone to be linearized:\r\n\n\n\r\n\n\nddH\n2\nO: 75 \u00b5l\r\n\n\n5x Phusion HF Reaction buffer: 20 \u00b5l\r\n\n\ndNTPs \\(10 mM stock): 2 \u00b5l\r\n\n\nTemplate DNA \\(100 ng/\u00b5l): 1 \u00b5l\r\n\n\n5' SLIC primer \\(100 \u00b5M stock): 1 \u00b5l\r\n\n\n3' SLIC primer \\(100 \u00b5M stock): 1 \u00b5l\r\n\n\nPhusion polymerase \\(2 U/\u00b5l): 0.5 \u00b5l\r\n\n\n\r\n\n\nCarry out PCR reactions with a standard PCR program \\(unless very long DNAs are amplified, then double the extension time or refer to the corresponding instruction of the polymerase to be used):\r\n\n\n\r\n\n\n1 x 98 \u00baC for 2 min\r\n\n\n30 x \\[98 \u00baC for 20 s \u2192 50 \u00baC for 30 s \u2192 72 \u00baC for 3 min]\r\n\n\nHold at 10 \u00baC\r\n\n\n\r\n\n\nAnalysis of the PCR reactions by agarose gel electrophoresis and ethidium bromide staining is recommended.\r\n\n\n\r\n\n\n3. DpnI treatment of PCR products \\(optional)\r\n  \r\n\n\nSupply PCR reactions with 1 \u00b5l DpnI enzyme which cleaves parental plasmids \\(methylated). For insert PCR reactions, DpnI treatment is not required if the resistance marker of the template plasmid differs from the destination vector.\r\n\n\nCarry out reactions as follows:\r\n\n\n\r\n\n\nIncubation: 37 \u00baC for 1-4 h\r\n\n\nInactivation: 80 \u00baC for 20 min\r\n\n\n\r\n\n\n4. Purification of PCR products\r\n  \r\n\n\n**Note:** PCR products must be cleaned of residual dNTPs. Otherwise, the T4 DNA polymerase reaction \\(step 5) is compromised.\r\n\n\n\r\n\n\nProduct purification is best performed by using commercial kits. It is recommended to perform elution in the minimal possible volume indicated by the manufacturer.\r\n\n\n\r\n\n\n5. T4 DNA polymerase exonuclease treatment \r\n  \r\n\n\nPrepare identical reactions in a 20 \u00b5l volume for the insert and the corresponding vector it should be cloned into \\(both eluted in step 4):\r\n\n\n\r\n\n\n10x T4 DNA polymerase buffer: 2 \u00b5l\r\n\n\n100 mM DTT: 1 \u00b5l\r\n\n\n2 M Urea: 2 \u00b5l\r\n\n\nDNA eluate from Step 3 \\(vector or insert): 14 \u00b5l\r\n\n\nT4 DNA polymerase: 1 \u00b5l\r\n\n\n\r\n\n\nCarry out reactions as follows:\r\n\n\n\r\n\n\nIncubation: 23 \u00baC for 20 min\r\n\n\nArrest: Addition of 1 \u00b5l 500 mM EDTA\r\n\n\nInactivation: 75 \u00baC for 20 min\r\n\n\n\r\n\n\n6. Mixing and Annealing\r\n  \r\n\n\nMix T4 DNA polymerase treated insert and vector \\(step 5), followed by an \\(optional) annealing step which was found to enhance efficiency:\r\n\n\n\r\n\n\nT4 DNA pol treated insert: 10 \u00b5l\r\n\n\nT4 DNA pol treated vector: 10 \u00b5l\r\n\n\n\r\n\n\nAnnealing: 65 \u00baC for 10 min\r\n\n\nCooling: Slowly to RT \\(at least 2h)\r\n\n\n\r\n\n\n7. Transformation\r\n  \r\n\n\nTransform mixture from step 6 into competent cells following standard transformation procedures. \r\n\n\nTransform reactions for pACE and pACE2 derivatives into standard _E. coli_ cells for cloning \\(such as MACH1, TOP10, DH5\u03b1, HB101). After recovery \\(2-4 h) plate the transformed reactions on agar containing ampicillin \\(100 \u00b5g/ml) or tetracycline \\(25 \u00b5g/ml), respectively.\r\n\n\nTransform reactions for Donor derivatives into _E. coli_ cells expressing the _pir_ gene \\(such as BW23473, BW23474, or PIR1 and PIR2, Invitrogen) and plate the  transformed reactions on agar containing chloramphenicol \\(25 \u00b5g/ml, pDC), kanamycin \\(50 \u00b5g/ml, pDK) or spectinomycin \\(50 \u00b5g/ml, pDS). \r\n\n\nIt is recommended to plate the transformed reaction on two agar plates in dilution series, so that one can always easily pick single colonies after the overnight incubation.\r\n\n\n\r\n\n\n8. Plasmid analysis\r\n  \r\n\n\nGrow culture for plasmid isolation \\(small-scale) in media containing the corresponding antibiotic. The isolated plasmids should then be analyzed by sequencing and \\(optional) restriction mapping using appropriate restriction enzymes.\r\n\n\n\r\n\n\n**Polycistron assembly in MIE by SLIC**\r\n\n\n\r\n\n\nThe multiple integration element \\(MIE) can also be used to integrate genes of interest by using multi-fragment SLIC recombination in order to assemble polycistrons. Genes preceded by ribosome binding sites \\(rbs) can be assembled in this way under the control of one promoter.\r\n\n\n\r\n\n\n1. Primer design\r\n  \r\n\n\nThe multiple integration element \\(MIE) is composed of tried-and-tested primer sequences. These constitute the \u201cadaptor sequences\u201d that can be used for inserting single genes or multigene constructs. Recommended adaptor sequences for SLIC can be taken directly from the ACEMBL manual: \"http://www.embl.fr/research/services/berger/ACEMBL.pdf\":http://www.embl.fr/research/services/berger/ACEMBL.pdf.\r\n\n\nAdaptor sequences form the 5\u2019 segments of the primers used to amplify DNA fragments to be inserted into the MIE. Insert specific sequences are added at 3\u2019, and a DNA sequence encoding for a ribosome binding sites can be inserted optionally if not already present on the PCR template.\r\n\n\n\r\n\n\n2. PCR amplification of inserts and vector\r\n  \r\n\n\nPrepare identical PCR reactions in 100 \u00b5l volume for all inserts to be cloned and the vector backbone to be linearized:\r\n\n\n\r\n\n\nddH\n2\nO: 75 \u00b5l\r\n\n\n5x Phusion HF Reaction buffer: 20 \u00b5l\r\n\n\ndNTPs \\(10 mM stock): 2 \u00b5l\r\n\n\nTemplate DNA \\(100 ng/\u00b5l): 1 \u00b5l\r\n\n\n5' SLIC primer \\(100 \u00b5M stock): 1 \u00b5l\r\n\n\n3' SLIC primer \\(100 \u00b5M stock): 1 \u00b5l\r\n\n\nPhusion polymerase \\(2 U/\u00b5l): 0.5 \u00b5l\r\n\n\n\r\n\n\nCarry out PCR reactions with a standard PCR program \\(unless very long DNAs are amplified, then double extension time or refer to the corresponding instruction of the polymerase to be used):\r\n\n\n\r\n\n\n1 x 98 \u00baC for 2 min\r\n\n\n30 x \\[98 \u00baC for 20 s \u2192 50 \u00baC for 30 s \u2192 72 \u00baC for 3 min]\r\n\n\nHold at 10 \u00baC\r\n\n\n\r\n\n\nAnalysis of the PCR reactions by agarose gel electrophoresis and ethidium bromide staining is recommended.\r\n\n\n\r\n\n\n3. DpnI treatment of PCR products \\(optional)\r\n  \r\n\n\nSupply PCR reactions with 1 \u00b5l DpnI enzyme which cleaves parental plasmids \\(methylated). For insert PCR reactions, DpnI treatment is not required if the resistance marker of the template plasmids differs from the destination vector.\r\n\n\nCarry out reactions as follows:\r\n\n\n\r\n\n\nIncubation: 37 \u00baC for 1-4h\r\n\n\nInactivation: 80 \u00baC for 20 min\r\n\n\n\r\n\n\n4. Purification of PCR products\r\n  \r\n\n\n**Note:** PCR products must be cleaned of residual dNTPs. Otherwise, the T4 DNA polymerase reaction \\(step 5) is compromised.\r\n\n\n\r\n\n\nProduct purification is best performed by using commercial kits. It is recommended to perform elution in the minimal possible volume indicated by the manufacturer.\r\n\n\n\r\n\n\n5. T4 DNA polymerase exonuclease treatment\r\n  \r\n\n\nPrepare identical reactions in 20 \u00b5l volume for each insert and the corresponding vector they should be cloned into \\(both eluted in step 4):\r\n\n\n\r\n\n\n10x T4 DNA polymerase buffer: 2 \u00b5l\r\n\n\n100 mM DTT: 1 \u00b5l\r\n\n\n2M Urea: 2 \u00b5l\r\n\n\nDNA eluate from Step 3 \\(vector or insert): 14 \u00b5l\r\n\n\nT4 DNA polymerase: 1 \u00b5l\r\n\n\n\r\n\n\nCarry out reactions as follows:\r\n\n\n\r\n\n\nIncubation: 23 \u00baC for 20 min\r\n\n\nArrest: Addition of 1 \u00b5l 500 mM EDTA\r\n\n\nInactivation: 75 \u00baC for 20 min\r\n\n\n\r\n\n\n6. Mixing and Annealing\r\n  \r\n\n\nMix T4 DNA polymerase treated inserts and vector \\(step 5), followed by an \\(optional) annealing step which was found to enhance efficiency\n1\n:\r\n\n\n\r\n\n\nT4 DNA pol. treated insert 1: 5 \u00b5l\r\n\n\nT4 DNA pol. treated insert 2: 5 \u00b5l\r\n\n\nT4 DNA pol. treated insert 3: 5 \u00b5l\r\n\n\nT4 DNA pol. treated vector: 5 \u00b5l\r\n\n\n\r\n\n\nAnnealing: 65 \u00baC for 10 min\r\n\n\nCooling: Slowly \\(switch off heat block) to RT\r\n\n\n\r\n\n\n7. Transformation\r\n  \r\n\n\nTransform mixture from step 6 into competent cells following standard transformation procedures. \r\n\n\nTransform reactions for pACE and pACE2 derivatives into standard _E. coli_ cells for cloning \\(such as MACH1, TOP10, DH5\u03b1, HB101). After recovery, plate the transformed reactions on agar containing ampicillin \\(100 \u00b5g/ml) or tetracycline \\(25 \u00b5g/ml), respectively.\r\n\n\nTransform reactions for Donor derivatives into _E. coli_ cells expressing the _pir_ gene \\(such as BW23473, BW23474, or PIR1 and PIR2, Invitrogen) and plate the transformed reactions on agar containing chloramphenicol \\(25 \u00b5g/ml, pDC), kanamycin \\(50 \u00b5g/ml, pDK) or spectinomycin \\(50 \u00b5g/ml, pDS). \r\n\n\nIt is recommended to plate the transformed reaction on two agar plates in dilution series, so that one can always easily pick single colonies after the overnight incubation.\r\n\n\n\r\n\n\n8. Plasmid analysis\r\n  \r\n\n\nGrow culture for plasmid isolation in media containing the corresponding antibiotic. The isolated plasmids should then be analyzed by sequencing and \\(optional) restriction mapping using appropriate restriction enzymes.\r\n\n\n\r\n\n\n**Gene insertion by restriction/ligation**\r\n\n\n\r\n\n\n1. Primer design\r\n  \r\n\n\nFor conventional cloning, if the gene of interest is to be PCR amplified, design PCR primers containing chosen restriction sites, preceded by appropriate overhangs for efficient restriction digestion \\(c.f. New England Biolabs catalogue). This region is followed by \u2265 20 nucleotides overlapping with the gene of interest that is to be inserted.\r\n\n\nMIEs are identical in all the ACEMBL vectors. They contain a ribosome binding site preceding the NdeI site. Therefore, for single gene insertions, a ribosome binding site \\(rbs) does not need to be included in the forward primer. \r\n\n\nIn case multigene insertions are planned, primers need to be designed such that a rbs is at the beginning of the gene and a stop codon at its end. Therefore, in particular for polycistron cloning by restriction/ligation, it is recommended to construct templates by custom gene synthesis. In this process, the restriction sites present in the MIE can be eliminated from the encoding DNAs. \r\n\n\n\r\n\n\n2. Insert preparation\r\n  \r\n\n\ni) PCR of insert\\(s):\r\n\n\nPrepare identical PCR reactions in 100 \u00b5l volume for each gene of interest to be inserted into the MIE:\r\n\n\n\r\n\n\nddH\n2\nO: 75 \u00b5l\r\n\n\n5x Phusion HF Reaction buffer: 20 \u00b5l\r\n\n\ndNTPs \\(10 mM stock): 2 \u00b5l\r\n\n\nTemplate DNA \\(100 ng/\u00b5l): 1\u00b5l\r\n\n\n5' primer \\(100 \u00b5M stock): 1 \u00b5l\r\n\n\n3' primer \\(100 \u00b5M stock): 1 \u00b5l\r\n\n\nPhusion polymerase \\(2 U/\u00b5l): 0.5 \u00b5l\r\n\n\n\r\n\n\nCarry out PCR reactions with a standard PCR program \\(unless very long DNAs are amplified, then double the extension time or refer to the corresponding instruction of the polymerase used):\r\n\n\n\r\n\n\n1 x 98 \u00baC for 2 min\r\n\n\n30 x \\[98 \u00baC for 20 s \u2192 50 \u00baC for 30 s \u2192 72 \u00baC for 3 min]\r\n\n\nHold at 10 \u00baC\r\n\n\n\r\n\n\nAnalysis of the PCR reactions by agarose gel electrophoresis and ethidium bromide staining is recommended.\r\n\n\nPurification of PCR products is best performed by using commercial kits. It is recommended to perform elution in the minimal possible volume indicated by the manufacturer.\r\n\n\n\r\n\n\nii) Restriction digestion of insert\\(s):\r\n\n\nCarry out restriction reactions in 40 \u00b5l reaction volume, by using the specific restriction enzymes as specified by manufacturer\u2019s recommendations.\r\n\n\n \r\n\n\nPCR Kit eluate \\(\u2265 1 \u00b5g): 30 \u00b5l\r\n\n\n10x Restriction enzyme buffer: 4 \u00b5l\r\n\n\n10 mM BSA: 2 \u00b5l\r\n\n\nRestriction enzyme for 5\u2019: 2 \u00b5l\r\n\n\nRestriction enzyme for 3\u2019: 2 \u00b5l  \\(in case of double digestion, otherwise ddH\n2\nO)\r\n\n\n\r\n\n\nPerform restriction digestion in a single reaction with both enzymes \\(double digestion) or sequentially \\(two single digestion reactions) if the reaction conditions required are incompatible.\r\n\n\n\r\n\n\niii) Gel extraction of insert\\(s):\r\n\n\nPurify processed inserts by agarose gel extraction using commercial kits. It is recommended to elute the extracted DNA in the minimal volume defined by the manufacturer.\r\n\n\n\r\n\n\n3. Vector preparation\r\n  \r\n\n\ni) Restriction digestion of ACEMBL plasmid\\(s):\r\n\n\nCarry out restriction reactions in 40 \u00b5l reaction volume, using specific restriction enzymes as specified by manufacturer\u2019s recommendations \\(c.f. New England Biolabs catalogue and others).\r\n\n\n \r\n\n\nACEMBL plasmid \\(\u2265 0.5 \u00b5g) in ddH\n2\nO: 30 \u00b5l\r\n\n\n10x Restriction enzyme buffer: 4 \u00b5l\r\n\n\n10 mM BSA: 2 \u00b5l\r\n\n\nRestriction enzyme for 5\u2019: 2 \u00b5l\r\n\n\nRestriction enzyme for 3\u2019: 2 \u00b5l  \\(in case of double digestion, otherwise ddH\n2\nO)\r\n\n\n\r\n\n\nPerform restriction digestion in a single reaction with both enzymes \\(double digestion) or sequentially \\(two single digestion reactions) if the reaction conditions required are incompatible.\r\n\n\nAnalysis of the restriction digestion of ACEMBL vectors by agarose gel electrophoresis and ethidium bromide staining is recommended before gel extraction \\(ii).\r\n\n\n\r\n\n\nii) Gel extraction of linearized vector\\(s):\r\n\n\nPurify processed vectors by agarose gel extraction using commercial kits. It is recommended to elute the extracted DNA in the minimal volume defined by the manufacturer.\r\n\n\n\r\n\n\n4. Ligation\r\n  \r\n\n\nIt is recommended to analyze the intensity and integrity of vectors and inserts from gel extraction by agarose gel electrophoresis and ethidium bromide staining. Normally the ratio between vector and insert is ranged from 1:3 to 1:6.\r\n\n\nCarry out ligation reactions in 20 \u00b5l reaction volume according to the recommendations of the supplier of T4 DNA ligase:\r\n\n\n\r\n\n\nACEMBL plasmid \\(gel extracted, step 3): 8 \u00b5l\r\n\n\nInsert \\(gel extracted, step 2): 10 \u00b5l\r\n\n\n10x T4 DNA Ligase buffer: 2 \u00b5l\r\n\n\nT4 DNA Ligase: 0.5 \u00b5l\r\n\n\n\r\n\n\nPerform ligation reactions at 25 \u00baC \\(sticky end) for 1h or at 16 \u00baC \\(blunt end) overnight.\r\n\n\n\r\n\n\n5. Transformation\r\n  \r\n\n\nTransform ligation mixtures \\(step 4) into _E. coli_ competent cells following standard transformation procedures. \r\n\n\nTransform reactions for pACE and pACE2 derivatives into standard _E. coli_ cells for cloning \\(such as TOP10, DH5\u03b1, HB101). After recovery, plate the transformed reactions on agar containing ampicillin \\(100 \u00b5g/ml) or tetracycline \\(25 \u00b5g/ml), respectively.\r\n\n\nTransform reactions for Donor derivatives into _E. coli_ cells expressing the _pir_ gene \\(such as BW23473, BW23474, or PIR1 and PIR2, Invitrogen) and plate the transformed reactions on agar containing chloramphenicol \\(25 \u00b5g/ml, pDC), kanamycin \\(50 \u00b5g/ml, pDK) or spectinomycin \\(50 \u00b5g/ml, pDS). \r\n\n\nWe recommend plating the transformed reaction on agar plates in a dilution series, to ensure optimal colony separation.\r\n\n\n\r\n\n\n6. Plasmid analysis\r\n  \r\n\n\nCulture plasmids and select correct clones based on specific restriction digestion and DNA sequencing of the inserts.\r\n\n\n\r\n\n\n**Multiplication by using the HE and BstXI sites**\r\n\n\n\r\n\n\nThe presence of a homing endonuclease \\(HE) cutting site \\(PI-SceI or I-CeuI) together with a BstXI site makes it feasible to iteratively insert further gene\\(s) of interest, which are already cloned into the MIE of an ACEMBL vector, into the expression cassette. The insert is being released by restriction digestion with both HE and BstXI, whereas the vector is being linearized by restriction digestion with HE.\r\n\n\n\r\n\n\n1. Insert preparation\r\n  \r\n\n\ni) Restriction digestion of insert\\(s)\r\n\n\nCarry out restriction reactions in 40 \u00b5l reaction volume by using homing endonucleases PI-SceI \\(Donors) or I-CeuI \\(Acceptors) as recommended by the supplier \\(c.f. New England Biolabs catalogue and others).\r\n\n\n\r\n\n\nACEMBL plasmid \\(\u2265 0.5 \u00b5g) in ddH\n2\nO: 32 \u00b5l\r\n\n\n10x Restriction enzyme buffer: 4 \u00b5l\r\n\n\n10 mM BSA: 2 \u00b5l\r\n\n\nPI-SceI \\(Donors) or I-CeuI \\(Acceptors): 2 \u00b5l\r\n\n\n\r\n\n\nPurify reactions using commercial kits, or acidic ethanol precipitation and perform the second restriction digestion by BstXI according to the recommendations of the supplier.\r\n\n\n\r\n\n\nHE digested DNA in ddH\n2\nO: 32 \u00b5l\r\n\n\n10x Restriction enzyme buffer: 4 \u00b5l\r\n\n\n10 mM BSA: 2 \u00b5l\r\n\n\nBstXI: 2 \u00b5l\r\n\n\n\r\n\n\nii) Gel extraction of insert\\(s):\r\n\n\nPurify processed insert\\(s) by agarose gel extraction using commercial kits. It is recommended to elute the extracted DNA in the minimal volume defined by the manufacturer.\r\n\n\n\r\n\n\n2. Vector preparation\r\n  \r\n\n\ni) Restriction digestion of vector\\(s)\r\n\n\nCarry out restriction reactions in 40 \u00b5l reaction volume by using homing endonucleases PI-SceI \\(Donors) or I-CeuI \\(Acceptors) as recommended by the supplier \\(c.f. New England Biolabs catalogue and others).\r\n\n\n \r\n\n\nACEMBL plasmid \\( \u2265 0.5 \u00b5g) in ddH\n2\nO: 33 \u00b5l\r\n\n\n10x Restriction enzyme buffer: 4 \u00b5l\r\n\n\n10 mM BSA: 2 \u00b5l\r\n\n\nPI-SceI \\(Donors) or I-CeuI \\(Acceptors): 1 \u00b5l\r\n\n\n\r\n\n\nAnalysis of restriction digestion of ACEMBL vectors by agarose gel electrophoresis and ethidium bromide staining before phosphatase treatment is recommended. \r\n\n\nPurify reactions using commercial kits, or acidic ethanol precipitation. Next, treat the purified reactions with intestinal alkaline phosphatase according to the recommendations of the supplier.\r\n\n\n\r\n\n\nHE digested DNA in ddH\n2\nO: 17 \u00b5l\r\n\n\n10x Alkaline phosphatase buffer: 2 \u00b5l\r\n\n\nAlkaline phosphatase: 1 \u00b5l\r\n\n\n\r\n\n\nii) Gel extraction of vector\\(s):\r\n\n\nPurify processed vector\\(s) by agarose gel extraction using commercial kits. It is recommended to elute the extracted DNA in the minimal volume defined by the manufacturer.\r\n\n\n\r\n\n\n3. Ligation\r\n  \r\n\n\nIt is recommended to analyze the intensity and integrity of vectors and inserts from gel extraction by agarose gel electrophoresis and ethidium bromide staining. Normally the ratio between vector and insert is ranged from 1:3 to 1:6.\r\n\n\nCarry out ligation reactions in 20 \u00b5l reaction volume:\r\n\n\n\r\n\n\nHE/Phosphatase treated vector \\(gel extracted): 4 \u00b5l\r\n\n\nHE/BstXI treated insert \\(gel extracted): 14 \u00b5l\r\n\n\n10x T4 DNA Ligase buffer: 2 \u00b5l\r\n\n\nT4 DNA Ligase: 0.5 \u00b5l\r\n\n\n\r\n\n\nPerform ligation reactions at 25 \u00baC for 1h or at 16 \u00baC overnight.\r\n\n\n\r\n\n\n4. Transformation\r\n  \r\n\n\nTransform ligation mixtures from step 3 into _E. coli_ competent cells following standard transformation procedures. \r\n\n\nTransform reactions for pACE and pACE2 derivatives into standard _E. coli_ cells for cloning \\(such as TOP10, DH5\u03b1, HB101). After recovery, plate the transformed reactions on agar containing ampicillin \\(100 \u00b5g/ml) or tetracycline \\(25 \u00b5g/ml), respectively.\r\n\n\nTransform reactions for Donor derivatives into _E. coli_ cells expressing the _pir_ gene \\(such as BW23473, BW23474, or PIR1 and PIR2, Invitrogen) and plate the transformed reactions on agar containing chloramphenicol \\(25 \u00b5g/ml, pDC), kanamycin \\(50 \u00b5g/ml, pDK) or spectinomycin \\(50 \u00b5g/ml, pDS).\r\n\n\nWe recommend plating the transformed reaction on two agar plates in dilution series, to ensure optimal colony separation.\r\n\n\n\r\n\n\n5. Plasmid analysis\r\n  \r\n\n\nCulture plasmids and select correct clones based on specific restriction digestion and DNA sequencing of the inserts.\r\n\n\n\r\n\n\n**Note:** One can likewise perform the integration by sequence and ligation independent cloning \\(SLIC). It is recommended to carry out linearization of the vector by digestion with HE, if heterologous genes are already present, to avoid PCR amplification over encoding regions. The fragment to be inserted is generated by PCR amplification resulting in a PCR fragment containing a 20-25 base pair stretch at its 5\u2019 end that is identical to the corresponding DNA sequence present at the HE site counted from the site of cleavage towards 5\u2019 \\(site of cleavage is position -4). At the 3\u2019 end of the PCR fragment, the homology region is 20-25 base pairs counted from the site of cleavage towards 3\u2019.\r\n\n\n\r\n\n\n**_Cre_-LoxP fusion of Acceptors and Donors**\r\n\n\n\r\n\n\n_Cre_ recombinase is a member of the integrase family catalyzing the recombination of a 34 bp LoxP site in the absence of accessory protein or auxiliary DNA sequence. The LoxP site itself is comprised of two 13 bp recombinase-binding elements arranged as inverted repeats flanking an 8 bp central region where cleavage and ligation reaction occur. As all ACEMBL plasmids contain a single LoxP site, they can be fused in a _Cre_-dependent reaction. This is possible not only for 2 plasmids \\(Acceptor-Donor fusion), but also for the fusion of several \\(3-4) plasmids in a single reaction.  \r\n\n\nThe fact that Donors contain a conditional origin of replication that depends on a _pir+_ background allows for selection of desired fusion products out of such a reaction. Being transformed into _pir-_ strains \\(MACH1, TOP10, DH5\u03b1, HB101 or other common laboratory cloning strains), Donor vectors will act as suicide vectors when plated out on agar containing the antibiotic corresponding to the Donor encoded resistance marker, unless fused with an Acceptor. By properly combining antibiotics in the agar, all desired Acceptor-Donor fusions can be selected.\r\n\n\n\r\n\n\n1. For a 20 \u00b5l _Cre_ reaction, mix 1-2 \u00b5g of each educt in approximately equal amounts. Add ddH\n2\nO to adjust the total volume to 16-17 \u00b5l, then add 2 \u00b5l 10x _Cre_ buffer and 1-2 \u00b5l _Cre_ recombinase.\r\n  \r\n\n\n**CRITICAL STEP**\r\n\n\n\r\n\n\n2. Incubate _Cre_ reaction at 37 \u00b0C \\(or 30 \u00b0C) for 1 hour.\r\n  \r\n\n\n3. Optional: load 2-5 \u00b5l of _Cre_ reaction on an analytical agarose gel for examination.\r\n  \r\n\n\n**Note:** Heat inactivation at 70 \u00b0C for 10 minutes before the gel loading is strongly recommended.\r\n\n\n\r\n\n\n4. For chemical transformation, mix 10-15 \u00b5l _Cre_ reaction with 200 \u00b5l chemical competent cells. Incubate the mixture on ice for 15-30 minutes. Then perform heat shock at 42 \u00b0C for 45-60 s.\r\n  \r\n\n\n**Note:** Up to 20 \u00b5l _Cre_ reaction \\(max. 10% of the total volume of chemical competent cell suspension) can be directly transformed into 200 \u00b5l chemical competent cells. For electro-transformation, one could mix up to 2 \u00b5l _Cre_ reaction with 100 \u00b5l electrocompetent cells and perform the transformation by using an electroporator \\(e.g. BIORAD _E. coli_ Pulser) at 1.8-2.0 kV.\r\n\n\n\r\n\n\n**Note:** Larger volumes of _Cre_ reaction must be desalted by ethanol precipitation or a PCR purification column before electrotransformation. The desalted _Cre_ reaction mix should not exceed 10% of the volume of the electrocompetent cell suspension. \r\n\n\n\r\n\n\nThe cell/DNA mixture could be immediately used for electrotransformation without prolonged incubation on ice.\r\n\n\n\r\n\n\n5. Add up to 400 \u00b5l of LB media \\(or SOC media) per 100 \u00b5l of cell/DNA suspension immediately after the transformation \\(heat shock or electroporation). \r\n  \r\n\n\n6. Incubate the suspension in a 37 \u00b0C shaking incubator overnight or for at least 4 hours \\(recovery period).\r\n  \r\n\n\n**Note:** For recovering multifusion plasmid containing more than 2 resistance markers, it is strongly recommended to incubate the suspension at 37 \u00b0C overnight.\r\n\n\n\r\n\n\n7. Plate out the recovered cell suspension on agar containing the desired combination of antibiotics. Incubate at 37 \u00b0C overnight.\r\n  \r\n\n\n**TROUBLESHOOTING**\r\n\n\n\r\n\n\n8. Clones from colonies present after overnight incubation can be verified by restriction digestion at this stage \\(refer to steps 12-16).\r\n  \r\n\n\n**Note:** Verification is recommended especially in the case that only one multifusion plasmid is desired. \r\n\n\n\r\n\n\nFor further selection by single antibiotic challenges on a 96 well microtiter plate, continue to step 9.\r\n\n\n\r\n\n\n**Note:** Several to many different multifusion plasmid combinations can be processed and selected on one 96 well microtiter plate in parallel.\r\n\n\n\r\n\n\n9. For 96 well antibiotic tests, inoculate four colonies from each agar plate with different antibiotic combination into ~500 \u00b5l LB media without antibiotics. Incubate the cell cultures in a 37 \u00b0C shaking incubator for 1-2 hours.\r\n  \r\n\n\n10. During the incubation of colonies, fill a 96 well microtiter plate with 150 \u00b5l antibiotic-containing LB media. We added coloured dye \\(positional marker) in selected wells as positional markers \\(**Fig. 2**).\r\n   \r\n\n\n**Note:** A typical arrangement of the solutions, which is used for parallel selection of multifusion plasmids, is shown in **Figure 2** as well as the ACEMBL Manual: \"http://www.embl.fr/research/services/berger/ACEMBL.pdf\":http://www.embl.fr/research/services/berger/ACEMBL.pdf. The concept behind the 96 well plate experiment is that every cell suspension from single colonies needs to be challenged by all four single antibiotics for unambiguous interpretation.\r\n\n\n\r\n\n\n11. Add 1 \u00b5l aliquots of pre-incubated cell culture \\(Step 9) to the corresponding wells. Then incubate the inoculated 96 well microtiter plate in a 37 \u00b0C shaking incubator overnight at 180-200 rpm. \r\n  \r\n\n\n**Recommended:** Use parafilm to wrap the plate to avoid drying out. \r\n\n\n\r\n\n\nThe remainder of the pre-incubated cell cultures could be kept at 4 \u00b0C for further inoculation if necessary.\r\n\n\n\r\n\n\n12. Select transformants containing desired multifusion plasmids based on antibiotic resistance, according to the combination of dense \\(positive) and clear \\(no growth) cell microcultures from each colony. Inoculate 10-20 \u00b5l cell culture into 10 ml LB media with corresponding antibiotics. Incubate in a 37 \u00b0C shaking incubator overnight.\r\n  \r\n\n\n13. Centrifuge the overnight cell cultures at 4000 g for 5-10 minutes. Purify plasmid from the resulting cell pellets. It is recommended to utilize commercial kits. \r\n  \r\n\n\n14. Determine the concentration of purified plasmid solutions by using UV absorption spectroscopy \\(e.g. by using a NanoDropTM 1000 machine). \r\n  \r\n\n\n15. Digest 0.5-1 \u00b5g of the purified plasmid solution in a 20 \u00b5l restriction digestion with appropriate endonuclease\\(s). Incubate under recommended reaction condition for ~2 hours. \r\n  \r\n\n\n16. Use 5-10 \u00b5l of the digestion for analytical agarose \\(0.8-1.2 %) gel electrophoresis. Verify plasmid integrity by comparing the experimental restriction pattern to a restriction pattern predicted in silico \\(e.g. by using program VectorNTI from Invitrogen or similar programs).\r\n  \r\n\n\n**Deconstruction of fusion vectors by _Cre_ recombinase**\r\n\n\n\r\n\n\nIt is advantageous to release all or part of the educts composing a particular multifusion plasmid, for further modification and diversification.\r\n\n\n\r\n\n\n1. Incubate ==\n== 1 \u00b5g multifusion plasmid with 2 \u00b5l 10x _Cre_ buffer and 1-2 \u00b5l _Cre_ recombinase. Add ddH\n2~O to adjust the total reaction volume to 20 \u00b5l.\r\n  \r\n\n\n2. Incubate this _Cre_ deconstruction reaction mixture at 30\u00b0C \\(1-4 h).\r\n  \r\n\n\n3. Optional: load 2-5 \u00b5l of the reaction on an analytical agarose gel for examination. \r\n  \r\n\n\n**Note:** Heat inactivation at 70 \u00b0C for 10 minutes before the gel loading is strongly recommended.\r\n\n\n\r\n\n\n4. For chemical transformation, mix 10-15 \u00b5l De-Cre reaction with 200 \u00b5l chemical competent cells. Incubate the mixture on ice for 15-30 minutes. Then perform heat shock at 42 \u00b0C for 45-60 seconds.\r\n  \r\n\n\n**Note:** Up to 20 \u00b5l De-Cre reaction \\(10% of total volume of transformation reaction) can be directly transformed into 200 \u00b5l chemical competent cells. For electrotransformation, up to 2 \u00b5l De-Cre reaction could be directly mixed with 100 \u00b5l electrocompetent cells, and transformed by using an electroporator \\(e.g. BIORAD _E. coli_ Pulser) at 1.8-2.0 kV.\r\n\n\n\r\n\n\n**Note:** Larger volume of De-Cre reaction must be desalted by ethanol precipitation or PCR purification column before electrotransformation. The desalted De-Cre reaction mix should not exceed 10% of the volume of the electrocompetent cell suspension. \r\n\n\n\r\n\n\nThe cell/DNA mixture could be immediately used for electro-transformation without prior incubation on ice.\r\n\n\n\r\n\n\n5. Add up to 400 \u00b5l of LB media \\(or SOC media) per 100 \u00b5l of cell/DNA suspension immediately after the transformation \\(heat shock or electroporation). \r\n  \r\n\n\n6. Incubate the suspension in a 37 \u00b0C shaking incubator \\(recovery).\r\n  \r\n\n\n**Note:** For recovery of partially deconstructed double/triple fusions, incubate the suspension in a 37 \u00b0C shaking incubator overnight or for at least 4 hours.\r\n\n\n\r\n\n\nFor recovery of individual educts such as single ACEMBL vectors from pACKS plasmid, incubate the suspension in a 37 \u00b0C shaking incubator \\(1-2 h).\r\n\n\n\r\n\n\n7. Plate out the recovered cell suspension on agar containing the desired \\(combination of) antibiotic\\(s). Incubate at 37 \u00b0C overnight.\r\n  \r\n\n\n**TROUBLESHOOTING**\r\n\n\n\r\n\n\n8. Colonies after overnight incubation might be verified directly by restriction digestion at this stage \\(refer to steps 12-16).\r\n  \r\n\n\n**Note:** Especially recommended in the case that only one single educt or partially deconstructed multifusion plasmid is desired.\r\n\n\nFor further selection by single antibiotic challenge on a 96 well microtiter plate, continue with step 9.\r\n\n\n\r\n\n\n**Note:** Several different single educts/partially deconstructed multifusion plasmids can be processed and selected on one 96 well microtiter plate in parallel.\r\n\n\n\r\n\n\n9. For 96 well microtiter plate analysis inoculate four colonies each from agar plates containing a defined set of antibiotics into ~500 \u00b5l LB media without antibiotics. Incubate the cell cultures in a 37 \u00b0C shaking incubator \\(1-2 h).\r\n  \r\n\n\n10. During the incubation of colonies, fill a 96 well microtiter plate with 150 \u00b5l antibiotic-containing LB media or coloured dye \\(positional marker) in the corresponding wells \\(**Fig. 2**).\r\n   \r\n\n\n**Note:** Compare **Figure 2** as well as the ACEMBL Manual: \"http://www.embl.fr/research/services/berger/ACEMBL.pdf\":http://www.embl.fr/research/services/berger/ACEMBL.pdf for the arrangement of the solutions in the wells, which are used for parallel selection of single educts or partially deconstructed multifusion plasmids. The concept is that every cell suspension from a single colony needs to be challenged by all four antibiotics separately for unambiguous interpretation.\r\n\n\n\r\n\n\n11. Add 1 \u00b5l aliquots from the pre-incubated cell cultures \\(step 9) into the corresponding wells. Then incubate the 96 well microtiter plate in a 37 \u00b0C shaking incubator overnight at 180-200 rpm. \r\n  \r\n\n\n**Recommended:** Use parafilm to wrap the plate to prevent dehydration. \r\n\n\n\r\n\n\nThe remainder of the pre-incubated cell cultures can be kept in 4\u00b0C fridge for further inoculation if necessary.\r\n\n\n\r\n\n\n12. Select transformants containing desired single educts or partially deconstructed multifusion plasmids according to the combination of dense \\(growth) and clear \\(no growth) cell cultures from each colony. Inoculate 10-20 \u00b5l cell cultures into 10 ml LB media with corresponding antibiotic\\(s). Incubate in a 37 \u00b0C shaking incubator overnight.\r\n  \r\n\n\n13. Centrifuge the overnight cell cultures at 4000 g for 5-10 minutes. Purify plasmid from cell pellets. \r\n  \r\n\n\n14. Determine the concentration of purified plasmid solutions by using UV absorption spectroscopy \\(e.g. NanoDropTM 1000). \r\n  \r\n\n\n15. Digest 0.5-1 \u00b5g of the purified plasmid solution in a 20 \u00b5l restriction digestion \\(with 5-10 unit endonuclease). Incubate under recommended reaction condition for ~2 hours. \r\n  \r\n\n\n16. Use 5-10 \u00b5l of the digestion for analytical agarose gel \\(0.8-1.2 %) electrophoresis. Verify the plasmid integrity by comparing the actual restriction pattern to predicted restriction pattern in silico \\(e.g. by using VectorNTI, Invitrogen, or any other similar program).\r\n  \r\n\n\n17. Optional: Possibly, a deconstruction reaction is not complete but yields partially deconstructed fusions which still retain entities to be eliminated. In this case, we recommend to pick these partially deconstructed fusions containing and perform a second round of _Cre_ deconstruction reaction \\(repeat steps 1-8) by using this construct as starting material.\r\n  \r\n\n\n**Note:** In our hands, two sequential deconstruction reactions were always sufficient to recover all individual modules."
+        },
+        {
+            "header": "Critical Steps",
+            "content": "Depending on plasmid purity and size, it may be necessary to use up to &#xB5;g amounts of each educt plasmid for assembling multifusion plasmids in a _Cre_-LoxP reaction. Competent cells that are used for subsequent transformation should be of high-quality, possibly commercial grade \\(10<sup>8-9</sup> colony forming units \\(cfu))."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "**Problem 1: There is no colony on the plate from the _Cre_-LoxP fusion of Acceptors and Donors.**\r\n\n\n\r\n\n\nSolution: Increase the amount of each educt of the _Cre_-LoxP fusion; use chemical competent cell with higher competence; desalt and transform more _Cre_-reaction into electrocompetent cells; recover the transformed cell suspension at 37 &#xBA;C overnight.\r\n\n\n\r\n\n\n**Problem 2: There is no single educts from deconstruction of fusion vectors by _Cre_ recombinase.**\r\n\n\n\r\n\n\nSolution: increase the incubation time with _Cre_ recombinase to 4 hours; test more colonies on 96 well microtiter plate."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "This protocol describes a number of methods, mostly based on recombination reactions, that can be applied, also in combination, to rapidly assemble, disassemble and alter multigene expression plasmids for the production of protein complexes. Experienced users will be able to produce numerous versions of their protein complexes of choice, in parallel, within 2 weeks when working manually. Further, the reactions can be implemented on a liquid handling workstation, thereby maximizing throughput."
+        },
+        {
+            "header": "References",
+            "content": "1. Charbonnier, S., Gallego, O. and Gavin, A.C. _Biotechnol. Annu. Rev._ **14**, 1-28 \\(2008).\r\n  2. Fitzgerald, D.J. _et al_. _Nat. Methods_ **3**, 1021-1032 \\(2006).\r\n  3. Li, M.Z. and Elledge, S.J. _Nat. Methods_ **4**, 251-256 \\(2007).\r\n  4. Tan, S., Kern, R.C. and Selleck, W. _Protein Expr. Purif._ **40**, 385-395 \\(2005)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "We thank the members of the Berger, Schaffitzel and Steinmetz laboratories for discussions and technical assistance."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nmeth.1326",
+                "date": "2009-04-23 09:52:36",
+                "title": "Automated unrestricted multigene recombineering for multiprotein complex production",
+                "authors": [
+                    "Christoph Bieniossek",
+                    "Yan Nie",
+                    "Daniel Frey",
+                    "Natacha Olieric",
+                    "Christiane Schaffitzel",
+                    "Ian Collinson",
+                    "Christophe Romier",
+                    "Philipp Berger",
+                    "Timothy J Richmond",
+                    "Michel O Steinmetz & Imre Berger"
+                ],
+                "journal": "Nature Methods",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 11211,
+                "identity": "9f5b86c4-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Yan Nie",
+                "email": "",
+                "orcid": "",
+                "institution": "European Molecular Biology Laboratory, Grenoble Outstation, 38042 Grenoble Cedex 9, France;  Unit of Virus Host-Cell Interactions (UVHCI), 6 rue Jules Horowitz, 38042 Grenoble Cedex 9, France",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Yan",
+                "middleName": "",
+                "lastName": "Nie",
+                "suffix": ""
+            },
+            {
+                "id": 11212,
+                "identity": "9f5b8968-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Christoph Bieniossek",
+                "email": "",
+                "orcid": "",
+                "institution": "European Molecular Biology Laboratory, Grenoble Outstation, 38042 Grenoble Cedex 9, France; Unit of Virus Host-Cell Interactions (UVHCI), 6 rue Jules Horowitz, 38042 Grenoble Cedex 9, France",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Christoph",
+                "middleName": "",
+                "lastName": "Bieniossek",
+                "suffix": ""
+            },
+            {
+                "id": 11213,
+                "identity": "9f5b8b45-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Daniel Frey",
+                "email": "",
+                "orcid": "",
+                "institution": "Biomolecular Research, Structural Biology, Paul Scherrer Institut, CH-5232 Villigen PSI, Switzerland ",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Daniel",
+                "middleName": "",
+                "lastName": "Frey",
+                "suffix": ""
+            },
+            {
+                "id": 11214,
+                "identity": "9f5b8d7a-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Natacha Olieric",
+                "email": "",
+                "orcid": "",
+                "institution": "Biomolecular Research, Structural Biology, Paul Scherrer Institut, CH-5232 Villigen PSI, Switzerland ",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Natacha",
+                "middleName": "",
+                "lastName": "Olieric",
+                "suffix": ""
+            },
+            {
+                "id": 11215,
+                "identity": "9f5b8f8a-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Christiane Schaffitzel",
+                "email": "",
+                "orcid": "",
+                "institution": "European Molecular Biology Laboratory, Grenoble Outstation, 38042 Grenoble Cedex 9, France;  Unit of Virus Host-Cell Interactions (UVHCI), 6 rue Jules Horowitz, 38042 Grenoble Cedex 9, France",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Christiane",
+                "middleName": "",
+                "lastName": "Schaffitzel",
+                "suffix": ""
+            },
+            {
+                "id": 11216,
+                "identity": "9f5b9127-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Michel O. Steinmetz",
+                "email": "",
+                "orcid": "",
+                "institution": "Biomolecular Research, Structural Biology, Paul Scherrer Institut, CH-5232 Villigen PSI, Switzerland ",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Michel",
+                "middleName": "O.",
+                "lastName": "Steinmetz",
+                "suffix": ""
+            },
+            {
+                "id": 11217,
+                "identity": "9f5b92ba-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Imre Berger",
+                "email": "",
+                "orcid": "",
+                "institution": "European Molecular Biology Laboratory, Grenoble Outstation, 38042 Grenoble Cedex 9, France; Unit of Virus Host-Cell Interactions (UVHCI), 6 rue Jules Horowitz, 38042 Grenoble Cedex 9, France; Correspondence to iberger@embl.fr",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Imre",
+                "middleName": "",
+                "lastName": "Berger",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2010-08-31 14:49:13",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/nprot.2009.104",
+        "doiUrl": "https://doi.org/10.1038/nprot.2009.104",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2608007,
+                "identity": "af600b3f-65a8-45a5-ae4b-0d8755d937c2",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:54",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 130070,
+                "visible": true,
+                "origin": "",
+                "legend": "*A.* The ACEMBL system. Acceptor and Donor vectors contain a LoxP sequence and an identical multiple integration element (MIE). Promoters (T7 or _lac_), corresponding terminators and homing endonuclease (HE) sites (blue strike-through box, Acceptors: I-CeuI; Donors: PI-SceI) and matching BstXI sites (small blue squares) are indicated. Origins of replication (Acceptors: BR322; Donors: R6K&#x3B3;) are shown. Ap: Ampicillin, Cm: Chloramphenicol, Kn: Kanamycin, Sp: Spectinomycin. *B.* Outline of the method. ",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-564/v1/figure_1.png"
+            },
+            {
+                "id": 2608010,
+                "identity": "38ea237e-f6b7-4d03-bde0-ba35cc3f4fcd",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:54",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 248893,
+                "visible": true,
+                "origin": "",
+                "legend": "_Cre_ reaction and 96 well microtiter plate selection. A schematic _Cre_ reaction pyramid is shown on the left for three educt plasmids (pACE, pDK, pDS). A fourth Donor (pDC) can be accommodated in this reaction, but is not shown for matters of clarity. _Cre_ mediated plasmid assembly (Cre) and disassembly (De-Cre) reaches equilibrium with all plasmids shown in the pyramid present in the reaction tube. Transformation and plating of the _Cre_ reaction yields educt plasmids and fusion plasmids. The plate drawn on the right displays a typical arrangement of media aliquots containing antibiotics as indicated, which is used for parallel selection of multifusion plasmids. Every cell suspension from single colonies on single- or multi-resistance agar plates needs to be challenged by all antibiotics for unambiguous identification of the expected plasmid architecture. A fusion reaction involving four plasmids (one Acceptor, three Donors, resulting in pACE-pDS-pDK-pDC) is marked with asterisk, but was not included in the pyramid on the left for matters of clarity. Four colonies from each single- or multi-resistance agar plate with two (Ap/Kn; Ap/Sp), three (Ap/Kn/Sp) or even four (Ap/Kn/Sp/Cm) antibiotics, are counter-selected in such a 96 well plate in parallel. denote antibiotics contained in the media aliquots (acronyms as in Fig. 1). Wells in the right two rows are charged differently. Those inoculated with four colonies each from one agar plate are boxed in black. Red dye is used as positional marker. Deconstruction of fusion plasmids can be carried out likewise in the reverse approach.",
+                "description": "",
+                "filename": "figure2.png",
+                "url": "https://assets.researchsquare.com/files/nprot-564/v1/figure_2.png"
+            },
+            {
+                "id": 13465213,
+                "identity": "cff475c3-4c50-416b-ba6c-79767d439df0",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:45:57",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 569279,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-564/v1/b7172005-ffd2-4bba-a172-1715953a719c.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "ACEMBL system, multigene expression, protein complex, Cre recombination, homing endonuclease, sequence and ligation independent cloning (SLIC)\r\n\r\n",
+        "license": {
+            "name": "None",
+            "url": ""
+        },
+        "manuscriptAbstract": "",
+        "manuscriptTitle": "ACEMBLing multigene expression vectors by recombineering",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2009-05-08 06:23:17",
+                "doi": "10.1038/nprot.2009.104",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9f5b2bdd-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "May 8th, 2009",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 2278,
+                "name": "Genetics"
+            },
+            {
+                "id": 2279,
+                "name": "Molecular Biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2009-05-08 06:23:17",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

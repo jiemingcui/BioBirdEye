@@ -1,0 +1,211 @@
+{
+    "identity": "nprot-6217",
+    "title": "Setting up the Talos Arctica electron microscope and Gatan K2 direct detector for high-resolution cryogenic single-particle data acquisition",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "When collecting data using a two-condenser lens TEM, it is imperative that the lenses are set to illuminate the sample with a maximally parallel beam in order to prevent changes in defocus from causing magnification changes. Larger defocus changes produce a greater degree of magnification distortion. Although the magnification changes resulting from non-parallel illumination are subtle, they will nonetheless degrade the high-resolution information of a reconstruction when thousands of particles from different defoci are averaged together.\r\n\n\n\r\n\n\nThis protocol assumes that: 1) Gun alignments have already been performed on the microscope \\(note that only service engineers should change the gun settings on an X-FEG), 2) the Microscope User Interface and Digital Micrograph software are installed on the scope and camera computers, respectively, 3) grids amenable to data collection have already been prepared and loaded into the microscope, and 4) SA-mode magnifications use NanoProbe mode, all M and LM magnifications use MicroProbe."
+        },
+        {
+            "header": "Reagents",
+            "content": "Holey EM grids containing frozen-hydrated sample"
+        },
+        {
+            "header": "Equipment",
+            "content": "Talos Arctica TEM operating at 200 keV equipped with a Gatan K2 Summit direct electron detector and 4K \u00d7 4K CETA 16M CCD camera \\(or similar), operating with the following microscope settings:\r\n\n\n- Extraction voltage: 4150 V\r\n\n\n- Gun lens setting: 8\r\n\n\n- Spot size 3 \\(or 4 depending on desired exposure rate, see B.8)\r\n\n\n- C1 aperture: 2000 \u00b5m\r\n\n\n- C2 aperture: 70 \u00b5m\r\n\n\n- Objective aperture: 100 \u00b5m\r\n\n\n\r\n\n\n500 nm crossed lines grating replica calibration grid \\(Ted Pella, Inc. Product # 677 or similar).\r\n\n\n\r\n\n\nAutogrid C-clip rings \\(FEI, Product #1036173) and Autogrid C-clips \\(FEI Product #1036171) for Talos Arctica TEM autoloader."
+        },
+        {
+            "header": "Procedure",
+            "content": "**A. K2 gain corrections**\r\n\n\n1) Navigate to an empty square and change to a magnification within the SA lens series \\(e.g. SA 45000x).\r\n\n\n2) In Digital Micrograph, go to Camera \u2192 Prepare Gain Reference. Follow prompts. \r\n\n\n3) Collect new hardware dark references every day of data collection\r\n\n\n\r\n\n\n**B. Parallel illumination**\r\n\n\n1) Move to an intact square on the calibration grid and determine eucentric height \\(Z-shift).\r\n\n\n2) With the objective aperture removed determine proper focus at a magnification of SA 45000x using Digital Micrograph to display the Fourier Transform of a live image.\r\n\n\n3) Center the C2 aperture \\(70 \u00b5m) and stigmate the C2 lens.\r\n\n\n4) At proper focus and eucentric height, align the beam tilt pivot points.\r\n\n\n5) At a magnification of 120000x determine the rotation center alignment of the objective lens. \r\n\n\n6) Change to SA 45000x magnification. While in diffraction mode, insert the objective aperture \\(100 \u00b5m) and move the aperture off-center so that the edge of the aperture is overlapping the gold powder diffraction rings. \r\n\n\n7) Adjust using the focus knob until the edge of the objective aperture is as sharp/crisp as possible. Then, using the intensity knob, minimize the width of the gold powder diffraction rings. \r\n\n\n8) Make note of the beam intensity value, as this value is to be used for exposure image acquisition under conditions of parallel illumination. NOTE: Exposure rate adjustments must be performed using changes in spot size rather than changes in beam intensity. If changes in spot size, exposure magnification, C2 or objectives aperture are made, then steps B.1-7 need to be repeated.\r\n\n\n9) Center the objective aperture and stigmate the objective lens. \r\n\n\n\r\n\n\n**C. Determine exposure rate**\r\n\n\n1) Navigate to an empty square and set scope to 45000x magnification and beam intensity value as determined in step B.8\r\n\n\n2) In Digital Micrograph, click on the settings icon in the \u201cCamera View\u201d window, and make sure that the binning = 1, and click on \u201cFull CCD\u201d.\r\n\n\n3) Set an exposure time of 1 second and click on \u201cstart view\u201d. The exposure rate \\(in e\n-\n/pixel/s) will show up in the Camera Monitor window. A value of 2-5 e\n-\n/pixel/s is desired. NOTE: Exposure rate adjustments must be performed using changes in spot size rather than changes in beam intensity. If changes in spot size, exposure magnification, C2 or objectives apertures are made, then steps B.1-8 need to be repeated.\r\n\n\n4) Using the determined exposure rate, adjust the total movie exposure time to yield a cumulative exposure of ~50-65 e\n-\n/\u00c5\n2\n. Adjust the per-frame exposure time \\(e.g. 100-250 ms) to yield a per-frame cumulative exposure greater than 0.8 e\n-\n/\u00c5\n2\n/frame, while maximizing the number of frames for better correction of per-frame movement. \r\n\n\n\r\n\n\n**D. Coma-free alignment**\r\n\n\nComa-free alignments were performed as previously described \\(Glaeser et al. 2011), and steps below carried out using the Leginon software. This procedure is done to confirm that rotation center alignment done in step B.5 was performed correctly.\r\n\n\n1) Move to an intact square on the calibration grid and determine eucentric height and proper focus.\r\n\n\n2) Create a preset that uses the same magnification and intensity settings as the exposure preset. Set this preset to use a defocus of -3e\n-7\n\u00b5m and acquire 924x924 \\(binned by 2) images with a 2 second exposure.\r\n\n\n3) Go to the \u201cBeam Tilt Image\u201d node and set these parameters in the settings:\r\n\n\n\r\n\n\n\u2022 Tableau Type: beam tilt series-power\r\n\n\n\u2022 Beam Tilt: 0.005 radians\r\n\n\n\u2022 Number of tilt directions: 4\r\n\n\n\u2022 Start angle: 0\r\n\n\n\u2022 Correlation type: phase\r\n\n\n\u2022 Tableau binning: 2\r\n\n\n\u2022 beam tilt count: 1\r\n\n\n\r\n\n\n4) Click on the \u201cSimulate target\u201d icon in the Beam Tilt Image node.\r\n\n\n5) The opposing images in the resulting tableau should have approximately the same amount of astigmatism and Thon ring spacing. If adjustments are necessary, we recommend repeating the rotation center alignment \\(step B.5)."
+        },
+        {
+            "header": "References",
+            "content": "Glaeser RM, Typke D, Tiemeijer PC, Pulokas J, & Cheng A \\(2011) Precise beam-tilt alignment and collimation are required to minimize the phase error associated with coma in high-resolution cryo-EM. J Struct Biol 174\\(1):1-10.\r\n\n\n\r\n\n\nSuloway C, et al. \\(2005) Automated molecular microscopy: the new Leginon system. J Struct Biol 151\\(1):41-60."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nmeth.4461",
+                "date": "2017-10-12 09:41:29",
+                "title": "Achieving better-than-3-\u00c5 resolution by single-particle cryo-EM at 200 keV",
+                "authors": [
+                    "Mark A Herzik",
+                    "Mengyu Wu",
+                    "and Gabriel C Lander"
+                ],
+                "journal": "Nature Methods",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 15055,
+                "identity": "a1289e8f-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Gabriel C. Lander",
+                "email": "glander@scripps.edu",
+                "orcid": "",
+                "institution": "Lander Lab, The Scripps Research Institute",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Gabriel",
+                "middleName": "C.",
+                "lastName": "Lander",
+                "suffix": ""
+            },
+            {
+                "id": 15053,
+                "identity": "a1289598-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Mark A. Herzik, Jr.",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Mark",
+                "middleName": "A.",
+                "lastName": "Herzik",
+                "suffix": "Jr."
+            },
+            {
+                "id": 15054,
+                "identity": "a1289c45-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Mengyu Wu",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Mengyu",
+                "middleName": "",
+                "lastName": "Wu",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2017-08-21 21:05:57",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2017.108",
+        "doiUrl": "https://doi.org/10.1038/protex.2017.108",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13465214,
+                "identity": "c5c8c8eb-61d4-4801-9a8b-772e807f4a68",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:45:57",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 137173,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-6217/v1/de2e475c-cff0-45b0-93e8-3d0c6fa17e33.pdf"
+            }
+        ],
+        "financialInterests": "None",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "cryo-EM, electron microscopy, 200 kev, Talos Arctica, Gatan K2",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "It has been determined that a Talos Arctica transmission electron microscope \\(TEM) is capable of resolving frozen-hydrated macromolecules of various sizes and internal symmetries to better than 3 \u00c5 resolution using single particle methodologies. This protocol describes how to maximize parallel illumination conditions in a Talos Arctica TEM operating at 200 keV for high-resolution cryogenic data acquisition for structure determination.",
+        "manuscriptTitle": "Setting up the Talos Arctica electron microscope and Gatan K2 direct detector for high-resolution cryogenic single-particle data acquisition",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2017-10-12 09:41:52",
+                "doi": "10.1038/protex.2017.108",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a1281a4b-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "October 12th, 2017",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 4036,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 4037,
+                "name": "Structural biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2017-10-12 09:41:52",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

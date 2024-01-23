@@ -1,0 +1,260 @@
+{
+    "identity": "pex-1218",
+    "title": "<p>Classification of primary Glioblastoma cell lines into molecular subtypes</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>Classical serum-grown Glioblastoma (GBM) cell lines have been shown to display molecular traits that are divergent from primary tumor masses from which they derive; as such, they are of limited utility to study Glioblastoma<sup>1</sup>. For this reason, many groups now prefer to use primary GBM cell lines maintained in serum-free media. Specifically, we used two independent primary GMB cell lines, HuTu10 and HuTu13<sup>2</sup>.</p><p>Glioblastomas (GBMs) can be classified in at least three transcriptional subtypes, defined as Proneural, Classical and Mesenchymal; Proneural and Mesenchymal GBMs represent two extremes in terms of molecular marker expression and patients\u2019 survival<sup>3</sup>. As such, we were interested in determine the molecular subtypes to which HuTu10 and HuTu13 belong to.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": ""
+        },
+        {
+            "header": "Equipment",
+            "content": ""
+        },
+        {
+            "header": "Procedure",
+            "content": "Before the start: we performed total RNA extraction in quadruplicate from HuTU cell colture and total RNA was then used for Affymetrix Microarray profiling on HG-U133 Plus 2.0 arrays (Affymetrix), as detailed for other cancer cell lines in Azzolin et al, 2012\n4\n.\nThen, we proceeded as follows:\n1) Probe level signals were converted to expression values using robust multi-array average procedure\n5\n(RMA) of Bioconductor\naffy\npackage and a custom CDF for Affymetrix HG-U133Plus2 arrays based on Entrez genes (hgu133plus2hsentrezgcdf version 21.0.0; http://brainarray.mbni.med.umich.edu/Brainarray/Database/CustomCDF/21.0.0/entrezg.asp).\n2) We then compared the transcriptome of these cells with those of the TCGA primary GBMs. Specifically, we used the gene expression data and molecular subtypes of the TCGA tumors to train the R version of the ClaNC (Classification to Nearest Centroids\n6\n) classifier implemented in the\nclanc.R\nfunction (https://github.com/naikai/sake/blob/master/R/clanc.R). The ClaNC classifier correctly classified 89.1%, 83%, 89.41%, and 86.71 of TCGA Classical, Proneural, Neural, and Mesenchymal samples using 1016 selected genes (centroids; Supplementary Table 1). Then, we merged HuTu and TCGA expression matrixes retaining the set of common gene symbols and removing batch effects with the\nComBat\nfunction\n8\nof the Bioconductor\nsva\npackage.\n3) Finally, we clustered the samples of the merged HuTu and TCGA data using the set of 1016 centroid genes. The supervised clustering grouped HuTu10 samples in the cluster enriched in Proneural TCGA samples, and HuTu13 in the group enriched in Mesenchymal. Hierarchical clustering was performed using the function\nhclust\nof R\nstats\npackage with Pearson correlation as distance metric and average agglomeration method. All analyses were performed in R 3.5.0."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": ""
+        },
+        {
+            "header": "Time Taken",
+            "content": ""
+        },
+        {
+            "header": "Anticipated Results",
+            "content": ""
+        },
+        {
+            "header": "References",
+            "content": "<p>1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lee, J.<em> et al.</em> Tumor stem cells derived from glioblastomas cultured in bFGF and EGF more closely mirror the phenotype and genotype of primary tumors than do serum-cultured cell lines. Cancer cell 9, 391-403 (2006).</p><p>2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pistollato, F.<em> et al.</em> Molecular mechanisms of HIF-1alpha modulation induced by oxygen tension and BMP2 in glioblastoma derived cells. PloS one 4, e6206 (2009).</p><p>3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chen, J., McKay, R. M. &amp; Parada, L. F. Malignant glioma: lessons from genomics, mouse models, and stem cells. Cell 149, 36-47 (2012).</p><p>4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Azzolin, L.<em> et al.</em> Role of TAZ as mediator of Wnt signaling. Cell 151, 1443-1456 (2012).</p><p>5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Irizarry, R. A.<em> et al.</em> Exploration, normalization, and summaries of high density oligonucleotide array probe level data. Biostatistics 4, 249-264 (2003).</p><p>6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dabney, A. R. Classification of microarrays to nearest centroids. Bioinformatics 21, 4148-4154 (2005).</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s43018-020-00150-z",
+                "date": "2020-12-07 18:13:14",
+                "title": "Single-cell analyses reveal YAP/TAZ as regulators of stemness and cell plasticity in glioblastoma",
+                "authors": [
+                    "Martina Castellan",
+                    "Alberto Guarnieri",
+                    "Atsushi Fujimura",
+                    "Francesca Zanconato",
+                    "Giusy Battilana",
+                    "Tito Panciera",
+                    "Hanna Lucie Sladitschek",
+                    "Paolo Contessotto",
+                    "Anna Citron",
+                    "Andrea Grilli",
+                    "Oriana Romano",
+                    "Silvio Bicciato",
+                    "Matteo Fassan",
+                    "Elena Porc\u00f9",
+                    "Antonio Rosato",
+                    "Michelangelo Cordenonsi",
+                    "Stefano Piccolo"
+                ],
+                "journal": "Nature Cancer",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 4284036,
+                "identity": "29c55c04-8b06-4253-ad04-fe7f102f16c6",
+                "order_by": 0,
+                "name": "Michelangelo Cordenonsi",
+                "email": "michelangelo.cordenonsi@unipd.it",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Michelangelo",
+                "middleName": "",
+                "lastName": "Cordenonsi",
+                "suffix": ""
+            },
+            {
+                "id": 4284037,
+                "identity": "fa25a7ee-5759-41c2-b6c4-353879f7b900",
+                "order_by": 1,
+                "name": "Silvio Bicciato",
+                "email": "silvio.bicciato@unimore.it",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Silvio",
+                "middleName": "",
+                "lastName": "Bicciato",
+                "suffix": ""
+            },
+            {
+                "id": 4284038,
+                "identity": "6b5f3378-04c5-4da2-ae7a-39471ed2c683",
+                "order_by": 2,
+                "name": "Stefano Piccolo",
+                "email": "piccolo@bio.unipd.it",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Stefano",
+                "middleName": "",
+                "lastName": "Piccolo",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2020-10-17 12:18:47",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1218/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1218/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13630146,
+                "identity": "59bd689c-0172-43ea-93aa-86a3ab20c1c0",
+                "added_by": "auto",
+                "created_at": "2021-09-17 08:10:57",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 155746,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1218/v1/535d7bb6-4080-4db8-90a3-e46c33ceb3ab.pdf"
+            },
+            {
+                "id": 4129474,
+                "identity": "31d40f78-b276-4647-afb3-0634c4ce0db4",
+                "added_by": "auto",
+                "created_at": "2020-12-09 16:28:49",
+                "extension": "xlsx",
+                "order_by": 1,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 73977,
+                "visible": true,
+                "origin": "",
+                "legend": "Supplementary Data Table 1: centroids as determined by the ClaNC classifier trained using gene expression data and molecular subclasses of the GBM TCGA data set",
+                "description": "",
+                "filename": "SupplementaryTable1.xlsx",
+                "url": "https://assets.researchsquare.com/files/pex-1218/v1/9ff528506bbe7bd0cf54ee00.xlsx"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Glioblastoma, primary cell lines, molecular subtypes",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>This protocol provides the details for the classification of the primary Glioblastoma cell lines HuTu10 and HuTu13 into the Glioblastoma molecular subtypes using microarray data.</p>",
+        "manuscriptTitle": "Classification of primary Glioblastoma cell lines into molecular subtypes",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2020-12-09 16:28:48",
+                "doi": "10.21203/rs.3.pex-1218/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "474bd255-8456-4ebe-8673-73e714d9d658",
+        "owner": [],
+        "postedDate": "December 9th, 2020",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 1395986,
+                "name": "Cancer"
+            },
+            {
+                "id": 1395987,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 1395988,
+                "name": "Cell Biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2020-12-09 16:28:48",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

@@ -1,0 +1,320 @@
+{
+    "identity": "nprot-286",
+    "title": "Visualizing and exploring genomic information for non-protein-coding RNA identification using ApolloRNA",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "This protocol describes installation and use of the ApolloRNA software to visualize and explore various genomic information for non-protein-coding RNA \\(ncRNA) identification in prokaryote. The first part details how to install Apollo<sup>1</sup> and the extension ApolloRNA on a computer with Windows, Linux or MAC OS X. The second part describes how to collect and visualize annotations and some information of an organism. This protocol allows to bring together information on an organism to visualize and analyze them locally on a computer in order to define and select valuable ncRNA candidates to be experimentally tested."
+        },
+        {
+            "header": "Equipment",
+            "content": "A modern personal computer with Windows \\(Microsoft), Linux \\(_e.g._ debian or Red Hat) or MacOS X \\(Apple) operating system is required as well as an Internet connection and any graphical user interface-based web-browser."
+        },
+        {
+            "header": "Procedure",
+            "content": "**Part 1. Apollo and ApolloRNA installation. TIMING 35 min \\(Windows), 40 min \\(Linux) or 45 min \\(MAC)**\r\n\n\n**1| Download and install Apollo using option A, B or C depending on the operating system.**\r\n\n\n**\\(A) For Windows**\r\n\n\n   \\(i) In the directory 'My Documents', create the subdirectory 'Applications'.\r\n\n\n  \\(ii) In the directory 'Applications', create the subdirectory 'Apollo'.\r\n\n\n \\(iii) Access the download Apollo page at \"http://www.fruitfly.org/annot/apollo/install.html\":http://www.fruitfly.org/annot/apollo/install.html. \r\n\n\n  \\(iv) In the line 'Windows', in the column 'includes Java VM', right-click the link 'Download'. In the menu, click 'Save link as...' and save the file in the directory 'Apollo'.\r\n\n\n   \\(v) Double-click the downloaded file 'install.exe' and follow instructions choosing the 'Apollo' directory as installation directory.\r\n\n\n**\\(B) For Linux**\r\n\n\n   \\(i) Create the directory '~/Applications'.\r\n\n\n  \\(ii) In the directory 'Applications', create the subdirectory 'Apollo'.\r\n\n\n \\(iii) Access the download Apollo page at \"http://www.fruitfly.org/annot/apollo/install.html\":http://www.fruitfly.org/annot/apollo/install.html.\r\n\n\n  \\(iv) In the line 'Linux', in the column 'includes Java VM', right-click the link 'Download'. In the menu, click 'Save link as...' and save the file in the directory 'Apollo'.\r\n\n\n   \\(v) Open a terminal window and move \\(with the command 'cd') to the directory 'Apollo'. Type: **sh ./apolloinst.bin** and follow instructions choosing 'Apollo' for installation directory.\r\n\n\n  \\(vi) Configure Apollo for Java. Open a terminal window, move to the directory 'Apollo' and type: **pwd**. The displayed line is the Apollo path, for instance '/home/dupont/Applications/Apollo'. In the subdirectory 'conf' of the directory 'Apollo', open the file 'apollo.cfg'. Add a line defining the JavaPath variable as the Apollo path extended with '/jre', for instance add the line: \r\n\n\n**JavaPath**  ==\"/home/dupont/Applications/Apollo/jre\"==   \r\n\n\n**\\(C) For Mac**\r\n\n\n   \\(i) In your user directory, if the directory 'Applications' doesn't exist, create it.\r\n\n\n  \\(ii) In the directory 'Applications', create the subdirectory 'Apollo'.\r\n\n\n \\(iii) Access the download Apollo page at \"http://www.fruitfly.org/annot/apollo/install.html\":http://www.fruitfly.org/annot/apollo/install.html.\r\n\n\n  \\(iv) In the line 'Mac OS X', in the column 'without Java VM', right-click the link 'Download'. In the menu, click 'Save link as...' and save the file in the directory 'Apollo'.\r\n\n\n   \\(v) Double-click the downloaded file 'install', and follow instructions choosing the 'Apollo' directory as installation directory.\r\n\n\n  \\(vi) To be sure Java 1.4 is on your computer, open a terminal window and type: **java -version**. \r\n\n\n   If the displayed message starts with 'java version 1.4', go directly to the step 2.\r\n\n\n \\(vii) Access the download Java page at \"http://www.apple.com/support/downloads/javaupdate142.html\":http://www.apple.com/support/downloads/javaupdate142.html. Click the arrow on the Download line and save the file 'Java142Update2.dmg' in your directory 'Applications'. Double-click 'Java142Update2.dmg' and follow instructions.\r\n\n\n\\(viii) Configure Apollo for Java. Open a terminal window and type:  **which java**. The displayed line is the java executable location, for instance '/usr/bin/java'. In the subdirectory 'conf' of the directory 'Apollo', open the file 'apollo.cfg'. Add a line defining the 'JavaPath' variable to the path before 'bin/java', for example: \r\n\n\n           **JavaPath**  ==\"/usr/\"==\r\n\n\n\r\n\n\n**2| Download and install RNAfold** \\(predict minimum energy secondary structures and pair probabilities) **and RNAeval** \\(evaluate energy of RNA secondary structures) **of the Vienna RNA package\n2\n** \\(programs for RNA Secondary Structure prediction and comparison) **using option A or B depending on the operating system.** \r\n\n\n**\\(A) For Windows**\r\n\n\n   \\(i) Access the download ViennaRNA package page at \"http://www.tbi.univie.ac.at/\nivo/RNA/windoze/\":http://www.tbi.univie.ac.at/\nivo/RNA/windoze/. \r\n\n\n  \\(ii) Below 'Download', right-click the 'RNAfold.exe' link and save the file in the directory 'Apollo'.\r\n\n\n \\(iii) Repeat the step \\(ii) to save the file 'RNAeval.exe'.\r\n\n\n  \\(iv) In the taskbar, click 'Start' then chose 'Control Panel'. In the new window, double click on 'System' or if it does not exist on 'Performance and Maintenance' then on 'System'. In the 'System properties' window, click the 'Advanced' tab, click the 'Environment Variables' button to open the environment variables window \\(**Figure 1a**).\r\n\n\n   \\(v) If the user variable 'Path' exists, select the line of the 'Path' variable, click the 'Edit...' button and add ';' at the end of the value followed by the path of the 'Apollo' directory. For instance, if the path of the 'Apollo' directory is 'C:\\dupont\\Apollo', add text:  **;C:\\dupont\\Apollo**.\r\n\n\nElse, if the user variable 'Path' does not exist, click the 'New...' button. A new window \\(**Figure 1b**) appears that allows to define a new variable named 'Path' with the path of the 'Apollo' directory for value. For instance, if the path of the 'Apollo' directory is 'C:\\dupont\\Apollo', the value to be typed is: **C:\\dupont\\Apollo**.\r\n\n\n**\\(B) For Linux or MAC. CRITICAL STEP with administrator privileges.**\r\n\n\n   \\(i) Access the Vienna RNA package download page at \"http://www.tbi.univie.ac.at/\nivo/RNA/\":http://www.tbi.univie.ac.at/\nivo/RNA/. Click 'source distribution here' link and save the 'ViennaRNA.gz' file in the directory 'Applications'.\r\n\n\n  \\(ii) Open a terminal window and move \\(with the command 'cd') to the directory 'Applications'. To install the Vienna RNA package, type:\r\n\n\n           **tar xzvf ViennaRNA-1.6.2.tar.gz**\r\n\n\n           **cd ViennaRNA-1.6.2**\r\n\n\n           **./configure**\r\n\n\n           **make**\r\n\n\n           **make install**\r\n\n\n\r\n\n\n**3| Download and install ImageMagick** \\(a software suite to create, edit, and compose bitmap images) **using option A or B depending on the operating system. CRITICAL STEP with administrator privileges.**\r\n\n\n**\\(A) For Windows**\r\n\n\n   \\(i) Access the download ImageMagick page at \"http://www.imagemagick.org/script/binary-releases.php#windows\":http://www.imagemagick.org/script/binary-releases.php#windows.\r\n\n\n  \\(ii) In the first line, in the 'HTTP' column, right-click the link 'download'. In the menu, click 'Save link as...' and save the file in the directory 'Applications'.\r\n\n\n \\(iii) Double-click the downloaded file 'ImageMagick-6.3.3-10-Q16-windows-dll.exe' and follow instructions.\r\n\n\n**\\(B) For Linux or MAC**\r\n\n\n   \\(i) Access the download ImageMagick page at \"http://www.imagemagick.org/script/install-source.php\":http://www.imagemagick.org/script/install-source.php.\r\n\n\n  \\(ii) Right-click the link 'ImageMagick.tar.gz'. In the menu, click 'Save link as...' and save the file in the directory 'Applications'.\r\n\n\n \\(iii) Open a terminal window and move to the directory 'Applications'. To install ImageMagick, type:\r\n\n\n           **tar xzvf ImageMagick.tar.gz**\r\n\n\n           **cd ImageMagick-6.3.1**\r\n\n\n           **./configure**\r\n\n\n           **make**\r\n\n\n           **make install**\r\n\n\n\r\n\n\n**4| Download and install GhostScript** \\(an interpreter for the PostScript language and for PDF) **using option A or B depending on the operating system. CRITICAL STEP with administrator privileges.**\r\n\n\n**\\(A) For Windows**\r\n\n\n   \\(i) In the taskbar, click 'Start' then choose 'Control Panel'. In the new window, click 'Add or Remove Programs'. Look for the program 'Ghostscript 8.56' in the list of programs. If the program belongs to the list, go directly to the step 5.\r\n\n\n  \\(ii) Access the download GhostScript page at \"http://www.ghostscript.com/awki\":http://www.ghostscript.com/awki. Click the link 'sourceforge.net'. \r\n\n\n \\(iii) Right-click the link 'gs856w32.exe'. In the menu, click 'Save link as...' and save the file in the directory 'Applications'.\r\n\n\n  \\(iv) Double-click the downloaded file 'gs856w32.exe' and follow the instructions.\r\n\n\n**\\(B) For Linux or MAC**\r\n\n\n   \\(i) Open a terminal window and type: **gs -h**. If the message 'Command not found' is not displayed, go directly to the step 5.\r\n\n\n  \\(ii) Access the download GhostScript page at \"http://www.ghostscript.com/awki\":http://www.ghostscript.com/awki. Click the link 'sourceforge.net'.\r\n\n\n \\(iii) Right-click the link 'ghostscript-8.56.tar.gz'. In the menu, click 'Save link as...' and save the file in the directory 'Applications'.\r\n\n\n  \\(iv) Open a terminal window and move to the directory 'Applications'. To install GhostScript, type:\r\n\n\n           **tar xzvf ghostscript-8.56.tar.gz**\r\n\n\n           **cd ghostscript-8.56**\r\n\n\n           **./configure**\r\n\n\n           **make**\r\n\n\n           **make install**\r\n\n\n\r\n\n\n**5| Download and install ApolloRNA**\r\n\n\n   \\(i) In the directory 'Apollo', rename 'apollo.jar' to 'apollo.jar.save'.\r\n\n\n  \\(ii) Access the ApolloRNA project page at \"http://mulcyber.toulouse.inra.fr/frs/?group_id=47\":http://mulcyber.toulouse.inra.fr/frs/?group_id=47. Right-click the link 'apollo.jar'. In the menu, click 'Save link as...' and save the file in the directory 'Apollo'.\r\n\n\n\r\n\n\n\\[**Alert\\!** See author comment below. The correct link is: \"http://mulcyber.toulouse.inra.fr/gf/project/apollorna/frs/\":http://mulcyber.toulouse.inra.fr/gf/project/apollorna/frs/]\r\n\n\n\r\n\n\n\r\n\n\n**Part 2.  Load and visualize data about _Pyrococcus abyssi_ GE5 genome. TIMING 30 min**\r\n\n\n**6| Download _Pyrococcus abyssi_ GE5 GenBank annotations in GAME XML format**\r\n\n\n   \\(i) Access the ftp NCBI page at  \"ftp://ftp.ncbi.nih.gov/genomes/Bacteria/Pyrococcus_abyssi\":ftp://ftp.ncbi.nih.gov/genomes/Bacteria/Pyrococcus_abyssi. Click the link 'NC_000868.gbk' and copy the whole text.\r\n\n\n  \\(ii) Access to the ApolloRNA convert data page at \"http://carlit.toulouse.inra.fr/ApolloRNA/convert.html\":http://carlit.toulouse.inra.fr/ApolloRNA/convert.html and paste the data in the textarea. In the 'Input format' list, select 'Genbank' and in the 'Output format' list, select 'Game XML'. Click the 'Convert' button.\r\n\n\n \\(iii) Copy the resulting text and paste it in a new file called 'NC_000868.xml'.\r\n\n\n\r\n\n\n**7| Download predicted transcription terminator in GAME XML format**\r\n\n\n   \\(i) Access to the TransTermHP\n3\npage at \"http://transterm.cbcb.umd.edu/cgi-bin/transterm/predictions.pl\":http://transterm.cbcb.umd.edu/cgi-bin/transterm/predictions.pl and click 'Pyrococcus abyssi GE5'. Copy all the displaying text, except the last part \\(terminators of the plasmid) starting by the line:\r\n\n\nSEQUENCE gi|10954552|ref|NC_001773.1| Pyrococcus abyssi GE5 plasmid pGT5, complete sequence\r\n\n\n  \\(ii) Access to the ApolloRNA convert data page and paste the data in the textarea. In the 'Input format' list, select 'TransTermHP', and in the 'Output format' list, select 'Game XML'. In the 'Related genomic sequence coordinates' fields, enter **1** for the beginning and **1765118** for the end. Click the 'Convert' button.\r\n\n\n \\(iii) Copy the resulting text and paste it in a new file called 'NC_000868_TransTermHP.xml'.\r\n\n\n\r\n\n\n**8| Visualizing both information**\r\n\n\n   \\(i) Launch Apollo using option A or B depending on the operating system.\r\n\n\n \\(A) For Windows: In the directory 'Apollo', click the Apollo icon.\r\n\n\n \\(B) For Linux or MAC: Open a terminal window, move to the directory 'Apollo' and type: **bin/Apollo**.\r\n\n\nThe Apollo load data window \\(**Figure 1c**) appears.\r\n\n\n  \\(ii) In the list 'Choose data source', choose 'GAME XML format'. Click the 'Browse...' button: a window appears. Select the file 'NC_000868.xml' and click the 'Open' button. In the Apollo load data window, click the 'Ok' button. When Apollo has loaded data, the Apollo main window appears.\r\n\n\n \\(iii) Open the 'File' menu and click the 'Layer more results or annotations...' item. In the 'Choose data source' list, choose 'GAME XML format'. Click the 'Browse...' button. Select the file 'NC_000868_TransTermHP.xml' and click the 'Open' button. In the Apollo load data window, click the 'Ok' button.\r\n\n\n\r\n\n\n**9| Visualizing a predicted secondary structure, example for a tRNA**\r\n\n\n   \\(i) Click twice on the 'X10' zoom button. The main Apollo window displays both GenBank annotations \\(in the blue parts) and TransTermHP data \\(in the black parts) of _Pyrococcus abyssi_ genome. Click the inorganic polyphosphate/ATP-NAD kinase protein annotation to display \\(**Figure 1d**) more information about the annotation. \r\n\n\n  \\(ii) Open the 'Edit' menu and click the 'Find...' item. A new 'Find' window opens. In the field 'Name', type: **PABt04**. Click the 'Find' button on the line. The Apollo main view zooms on the tRNA PABt04. Click the 'X.1' zoom button to change scale.\r\n\n\n \\(iii) Open the 'RNA' menu and click the 'Secondary structure compute...' item. A new window \\(**Figure 2a**) opens that displays the predicted secondary structure of the tRNA and the associated free energy. Click the 'Close' button.\r\n\n\n\r\n\n\n**10| Visualizing possible RNA/RNA interactions, example for the interaction between a sno C/D RNA  and the 16S rRNA**\r\n\n\n   \\(i) In the opened 'Find' window, in the field 'Name', type now: **PABsnRNA29**. Click the 'Find' button on the line. The Apollo main view zooms on the sno C/D box RNA called 'PABsnRNA29'. \r\n\n\n  \\(ii) Now select the subsequence from 1403702 to 1403711 \\(a subpart of the snoRNA) that is known\n4\nto interact with the 16S rRNA. That is, press the middle mouse button at the position 1403702 immediately above the axis, and drag the mouse to 1403711 surrounding the sequence 'TGTAGCGCGC' \\(**Figure 2b**). A window opens that shows the selected sequence. Close it.\r\n\n\n \\(iii) Open the 'RNA' menu and click the 'Search RNA/RNA interaction' item. A window \\(**Figure 2c**) opens for configuring the interaction search.\r\n\n\n  \\(iv) In the top part of the window, type the genomic positions: **205039** to **206541** \\(the 16S rRNA positions). In the strand list, choose the strand +.\r\n\n\n   \\(v) In the bottom part, click the 'Search' button to launch the search of targets in the specified regions. After a few seconds, a new window \\(**Figure 2d**) opens that lists the predicted targets of the previously selected sequence. The first on the list is the good\n4\none.\r\n\n\n  \\(vi) Click the first interaction picture to visualize the interaction in a new window \\(**Figure 2e**). Click the 'Close' button and then click the 'Close' button on the previous window.\r\n\n\n\r\n\n\n**11| Visualizing graphs**\r\n\n\n   \\(i) Go to the ApolloRNA page \"http://carlit.toulouse.inra.fr/ApolloRNA/apollornauserguide.html\":http://carlit.toulouse.inra.fr/ApolloRNA/apollornauserguide.html, click the link 'NC_000868_mfe150.txt' and save the file on your computer. This file contains the minimum free energy computed on a sliding window of 150 nucleotides.\r\n\n\n  \\(ii) Open the 'Analysis' menu and click the 'Show quantitative variable...' item. A new window \\(**Figure 3a**) opens. \r\n\n\n \\(iii) In the first table of the window, in the first line, click the 'Load...' button. Select the file 'NC_000868_mfe150.txt' and click the 'Open' button. In the column 'Color', click the black rectangle, choose the red color and click the 'OK' button.\r\n\n\n  \\(iv) In the second table of the window, in the third line 'ComputeGC%': click the 'Show' checkbox, in the column 'Color', click the black rectangle and choose the blue color. Click the 'OK' button and then click the 'Close' button.\r\n\n\n   \\(v) In the yet opened 'Find' window, in the field 'Name', type now: **16S**. Click the 'Find' button on the line. Click the 'X.1' zoom button to change scale. Move down the superior vertical scrollbar to see RNA annotations on the direct strand. The Apollo main window \\(**Figure 3b**) displays now two additional graphs that vary on the ribosomal RNAs region."
+        },
+        {
+            "header": "Timing",
+            "content": "The first part can be performed in less than 1h. The second part can be performed in 30mn."
+        },
+        {
+            "header": "Critical Steps",
+            "content": "Steps that require administrator privileges on the computer are emphasized as critical."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "If troubleshooting was encountered in installing Apollo, notes of the page 'Download and Install Apollo' \\( \"http://www.fruitfly.org/annot/apollo/install.html\":http://www.fruitfly.org/annot/apollo/install.html ) could help.\r\n\n\nIf the genome is long or information files voluminous, loading time could be long \\(depending on the characteristics of the computer)."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "In the protocol, the page \"http://carlit.toulouse.inra.fr/ApolloRNA/convert.html\":http://carlit.toulouse.inra.fr/ApolloRNA/convert.html was mentioned to convert GenBank annotation data or TransTermHP predictions of transcription terminator in an Apollo suitable GAME XML format. This page could also be useful for converting data as CRISPRfinder<sup>5</sup> predictions of CRISPR \\(Clustered Regularly Interspaced Short Palindromic Repeats), MOSAIC<sup>6</sup> comparative data of closely related bacterial genomes, PatScan<sup>7</sup> pattern matching data, DARN<sup>8</sup> non-coding RNA detection data. On request, convert capabilities could be extended.\r\n\n\nBeside the individual interest of the environment, we found useful to share in a project a common representation of information. That is achieved by defining how information is displayed \\(color, shape, individual or shared track...). This could then be stored in a type preference file which could be duplicated. Another interesting feature is the ability for several persons to walk along the genome on an inflated video projection of the representation and discuss on particular regions. Finally the software could support interdisciplinary work allowing a common representation. This is put into practice on three genomes: _Pyrococcus abyssi_, _Staphylococcus aureus_ and _Ralstonia solanacearum_. For _S. aureus_, the approach for RNA/RNA interaction prediction was successfully used to predict targets<sup>9</sup> of the RNA III and some small ncRNAs candidates have yet been experimentally validated \\(to be published)."
+        },
+        {
+            "header": "References",
+            "content": "1. Lewis, S.E. et al. Apollo : a sequence annotation editor. _Genome Biol._ **3**, R12, \\(2002). \r\n  2. Hofacker, I.L. Vienna RNA secondary structure server. _Nucleic Acids Res._ **31**, 3429-3431, \\(2003).\r\n  3. Kingsford, C., Ayanbule, K., Salzberg, S.L. Rapid, accurate, computational discovery of Rho-independent transcription terminators illuminates their relationship to DNA uptake. _Genome Biol._ **8**, R22, \\(2007).\r\n  4. Gaspin, C. et al. Archaeal homologs of eukaryotic methylation guide small nucleolar RNAs: lessons from the _Pyrococcus_ genomes. _J. Mol. Biol._ **297**, 895-906, \\(2000).\r\n  5. Grissa, I., Vergnaud, G., Pourcel C. CRISPRFinder: a web tool to identify clustered regularly interspaced short palindromic repeats. _Nucleic Acids Res._ published online on May 31, \\(2007).\r\n  6. Chiapello, H. et al. Systematic determination of the mosaic structure of bacterial genomes: species backbone versus strain-specific loops. _BMC Bioinformatics_ **6**, 171, \\(2005).\r\n  7. Dsouza, M., Larsen, N., Overbeek, R. Searching for patterns in genomic data. _Trends Genet._ **13**, 497-498, \\(1997).\r\n  8. Zytnicki, M., Gaspin, C., Schiex, T. DARN\\! A soft constraint solver for RNA motif localization. _To be published in Constraints_, \\(2007).\r\n  9. Boisset, S. et al. _Staphylococcus aureus_ RNAIII coordinately represses the synthesis of virulence factors and the transcription regulator Rot by an antisense mechanism. _Genes Dev._ **21**, 1353-1366, \\(2007)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 10421,
+                "identity": "9f02af12-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Marie-Jos\u00e9e Cros",
+                "email": "",
+                "orcid": "",
+                "institution": "INRA, France",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Marie-Jos\u00e9e",
+                "middleName": "",
+                "lastName": "Cros",
+                "suffix": ""
+            },
+            {
+                "id": 10422,
+                "identity": "9f02b1f5-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Erika Sallet",
+                "email": "",
+                "orcid": "",
+                "institution": "INRA, France",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Erika",
+                "middleName": "",
+                "lastName": "Sallet",
+                "suffix": ""
+            },
+            {
+                "id": 10423,
+                "identity": "9f02b446-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Annick Moisan",
+                "email": "",
+                "orcid": "",
+                "institution": "INRA, France",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Annick",
+                "middleName": "",
+                "lastName": "Moisan",
+                "suffix": ""
+            },
+            {
+                "id": 10424,
+                "identity": "9f02b62a-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Christine Cierco-Ayrolles",
+                "email": "",
+                "orcid": "",
+                "institution": "INRA, France",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Christine",
+                "middleName": "",
+                "lastName": "Cierco-Ayrolles",
+                "suffix": ""
+            },
+            {
+                "id": 10425,
+                "identity": "9f02b7be-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Christine Gaspin",
+                "email": "",
+                "orcid": "",
+                "institution": "INRA, France",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Christine",
+                "middleName": "",
+                "lastName": "Gaspin",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2010-12-16 22:10:08",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/nprot.2007.285",
+        "doiUrl": "https://doi.org/10.1038/nprot.2007.285",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2607789,
+                "identity": "afb95afb-3c41-4eb5-96cc-20fdc39f0ce9",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:47",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 138359,
+                "visible": true,
+                "origin": "",
+                "legend": "Windows for configuring Windows operating system: (a) and (b) and displayed windows calling Apollo (c) and (d).",
+                "description": "",
+                "filename": "figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-286/v1/figure_1.jpg"
+            },
+            {
+                "id": 2607790,
+                "identity": "4ebcadfe-34d0-407a-9037-09db67fc4c7e",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:47",
+                "extension": "jpg",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 266252,
+                "visible": true,
+                "origin": "",
+                "legend": "Displayed windows looking for a secondary structure: (a) and searching RNA/RNA interactions: (b), (c), (d) and (e).",
+                "description": "",
+                "filename": "figure2.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-286/v1/figure_2.jpg"
+            },
+            {
+                "id": 2607788,
+                "identity": "df079151-0313-49f5-a009-f7a5d6f70541",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:47",
+                "extension": "jpg",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 139513,
+                "visible": true,
+                "origin": "",
+                "legend": "Displayed windows visualizing quantitative variables: (a) and (b).",
+                "description": "",
+                "filename": "figure3.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-286/v1/figure_3.jpg"
+            },
+            {
+                "id": 2607792,
+                "identity": "ac990e4c-7ee0-4f5c-8d5a-2ecafdd5fb9d",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:47",
+                "extension": "doc",
+                "order_by": 4,
+                "title": "Figure 4",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 218114,
+                "visible": true,
+                "origin": "",
+                "legend": "This word file contains larger versions of all the figures associated with this protocol.",
+                "description": "",
+                "filename": "figure4.doc",
+                "url": "https://assets.researchsquare.com/files/nprot-286/v1/figure_4.doc"
+            },
+            {
+                "id": 13464366,
+                "identity": "759b27e5-aa61-4edd-bb6d-1f4963657882",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:43:04",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 384830,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-286/v1/5fd878ed-6cc0-46c9-ab74-bd56133d04dd.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "ncRNA, visualization, annotation",
+        "license": {
+            "name": "None",
+            "url": ""
+        },
+        "manuscriptAbstract": "",
+        "manuscriptTitle": "Visualizing and exploring genomic information for non-protein-coding RNA identification using ApolloRNA",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2007-07-06 10:53:42",
+                "doi": "10.1038/nprot.2007.285",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 6
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9f025a36-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "July 6th, 2007",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 1839,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 1840,
+                "name": "Biochemistry"
+            },
+            {
+                "id": 1841,
+                "name": "Computational biology and bioinformatics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2007-07-06 10:53:42",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

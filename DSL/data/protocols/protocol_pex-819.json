@@ -1,0 +1,219 @@
+{
+    "identity": "pex-819",
+    "title": "<p>Single oocyte/embryo RNASeq data processing</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>This protocol is a bioinformatic data processing protocol that is linked to the associated publication.  </p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>Windows/Mac OS workstation with 12 GB RAM and high end processing power. Alternatively, there can be efficient and faster processing of data if connecting to a computing core using VPN</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "1. For both the single-cell mRNA (151bp PE) and the totalRNA (76bp PE) sequencing the raw data was converted from bcl to fastq format and reads trimmed in BaseSpace.\n2. After download from BaseSpace the raw reads were quality assessed with FastQC\n1\nand Fastq Screen\n2.\n3. Afterwards trimmed using Trimmomatic v0.32\n3\n(mRNA-seq settings: PE ILLUMINACLIP:NexteraPE-PE.fa:2:30:10:1:true HEADCROP:15 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:25; totalRNA-seq settings: PE ILLUMINACLIP:TruSeq2-PE.fa:2:30:10:1:true HEADCROP:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:25).\n4. For mRNASeq libraries, the trimmed reads were aligned to the mm10 genome assembly using STAR\n4\n(v2.5.1a) in two-pass mode and guided by a RefSeq (UCSC,2018/08/05) gene annotation (settings: --sjdbOverhang 135\u00a0--twopassMode Basic --outSAMtype BAM SortedByCoordinate --outSAMattributes All --outSAMunmapped Within --outFilterMismatchNoverLmax 0.1 --outFilterMatchNmin 16 --outFilterMismatchNmax 5).\n5. After mapping, the reads were assigned to genes with featureCounts\n5\n(v1.5.1, settings: --primary -p -B -O -M --fraction -s 0 -J) generating a count table.\n6. Using R (v3.5.1) (https://www.r-project.org), the quality of samples were again estimated using various quantitative and qualitative methods available in the Scater package\n6\n.\n7. One 8-cell MZ mutant sample was excluded from the dataset due to extremely low total gene count (404). the remaining samples had total gene counts in the range 0,5-4,6 mio (mean:2,4 mio).\n8. The DESeq2 (v1.22.1) package\n7\nwas used for statistical analysis of the count data comparing the knockout and wild-type samples within each cell stage. The clusterProfiler package\n8\nwas used to test for under/overrepresentation of genes in various gene sets.\n9. The DBTMEE\n9\ngene-to-cluster annotation (cluster_gene_v2.tsv) was downloaded from\nhttp://dbtmee.hgc.jp/download/download.phpm\n, and non/low expressed genes removed by imposing the filter criteria FPKM>3 for cell stages Oocyte, 1C, 2C and 4C.\n10. Differentially expressed genes from the DeSeq2 analysis were defined as having an absolute log2 fold change >=1 and FDR<=5%.\n11. Using the compareCluster function from the clusterProfiler R-package we looked for over- or underrepresented DBTMEE gene sets in our list of DE genes. From the compareCluster results we derived the observed/expected ratio based on the values of 'GeneRatio' (Obs) and 'BgRatio' (Exp).\n12. The compareCluster results were filtered to only included gene sets with FDR<10% and (DE Gene) Count>3. Furthermore, to simplify the plot we limited the color scale to +1/-1.\n13. For total-RNASeq libraries, we tested for differential expression of repeat elements we first used RepEnrich2 (v0.1)\n10\nto map our totalRNA reads against the RepeatMasker database (mm10,4.0.5,2014013) followed by statistical analysis in R using the edgeR package (v3.24.0)\n11\nas per the authors suggested analysis pipeline.\nSingle Cell RNA seq Data Analysis on 15 Human MII oocytes\n- Human oocytes were processed same as  mouse oocytes in order to prepare cDNA using the SMART-Seq2\n12\nprotocol with subsequent library preparation using the Nextera XT DNA library preparation kit as described previously.\n- Single cell libraries were paired-end sequenced using the Illumina NextSeq500 Instrument to generate 75 base pair reads of the human oocyte libraries.\n- We transformed the per-cycle base call (BCL) file output from the sequencing run of 15 human MII oocytes into per-read FASTQ files using the bcl2fastq2 Conversion Software v2.19 from Illumina.\n- The samples libraries were multiplexed across four sequencing lanes and the FastQ files from each of the four lanes were concatenated to generate one set of paired fastq files per sample.\n- We performed sample QC and filtering of reads to remove low quality (Q < 20) reads and adaptor sequences with AfterQC\n13\non the human samples. One sample, PT979-4, was excluded from downstream analysis due to inadequate library generation.\n- Subsequent to filtering, we used the remaining paired reads for alignment by hisat23 to the human genome GeneCode v.27 release with the paired\u00a0GenCode v.27 gtf file containing gene annotations using \u2018HISAT2 -p 22 --dta -x .gencode.v27\u00a0\u00a0-1 R1.fastq\u00a0\u00a0\u00a0-2 R2.fastq\u00a0\u00a0-S sample.sam\u2019.\n- The resulting sam files were sorted, indexed and transformed to bam files using samtools\n14\n. - We filtered the bam files for mitochondrial reads and Stringtie (using the settings \u2018-G $gtffile -e -A $tsvfile $bamfile\u2019) was applied to merge and assemble reference guided transcripts for gene level quantifications of fragments per million per kilobasepair (FPKM)\n15\n."
+        },
+        {
+            "header": "References",
+            "content": "<p>1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S, Andrews. FastQC: a quality control tool for high throughput sequence data from <a href=\"http://www.bioinformatics.babraham.ac.uk/projects/fastqc.\" rel=\"noopener noreferrer\" target=\"_blank\">http://www.bioinformatics.babraham.ac.uk/projects/fastqc.</a>(2010).</p><p>2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Andrews, S. FastQ Screen (2011).</p><p>3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bolger, A.M., Lohse, M. &amp; Usadel, B. Trimmomatic: a flexible trimmer for Illumina sequence data. <em>Bioinformatics</em> <strong>30</strong>, 2114-2120 (2014).</p><p>4.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dobin, A.<em> et al.</em> STAR: ultrafast universal RNA-seq aligner. <em>Bioinformatics</em> <strong>29</strong>, 15-21 (2013).</p><p>5.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Liao, Y., Smyth, G.K. &amp; Shi, W. featureCounts: an efficient general purpose program for assigning sequence reads to genomic features. <em>Bioinformatics</em> <strong>30</strong>, 923-930 (2014).</p><p>6.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;McCarthy, D.J., Campbell, K.R., Lun, A.T. &amp; Wills, Q.F. Scater: pre-processing, quality control, normalization and visualization of single-cell RNA-seq data in R. <em>Bioinformatics</em> <strong>33</strong>, 1179-1186 (2017).</p><p>7.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Love, M.I., Huber, W. &amp; Anders, S. Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. <em>Genome Biol</em> <strong>15</strong>, 550 (2014).</p><p>8.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yu, G., Wang, L.G., Han, Y. &amp; He, Q.Y. clusterProfiler: an R package for comparing biological themes among gene clusters. <em>OMICS</em> <strong>16</strong>, 284-287 (2012).</p><p>9.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Park, S.J., Shirahige, K., Ohsugi, M. &amp; Nakai, K. DBTMEE: a database of transcriptome in mouse early embryos. <em>Nucleic Acids Res</em> <strong>43</strong>, D771-776 (2015).</p><p>10.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Criscione, S.W., Zhang, Y., Thompson, W., Sedivy, J.M. &amp; Neretti, N. Transcriptional landscape of repetitive elements in normal and cancer human cells. <em>BMC Genomics</em> <strong>15</strong>, 583 (2014).</p><p>11.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Robinson, M.D., McCarthy, D.J. &amp; Smyth, G.K. edgeR: a Bioconductor package for differential expression analysis of digital gene expression data. <em>Bioinformatics</em> <strong>26</strong>, 139-140 (2010).</p><p>12. Picelli, S. et al. Full-length RNA-seq from single cells using Smart-seq2. Nat Protoc 9, 171-81 (2014).</p><p>13. Chen, S. et al. AfterQC: automatic filtering, trimming, error removing and quality control for fastq data. BMC Bioinformatics 18, 80 (2017).</p><p>14. Li, H. et al. The Sequence Alignment/Map format and SAMtools. Bioinformatics 25, 2078-9 (2009).</p><p>15. Pertea, M., Kim, D., Pertea, G.M., Leek, J.T. &amp; Salzberg, S.L. Transcript-level expression analysis of RNA-seq experiments with HISAT, StringTie and Ballgown. Nat Protoc 11, 1650-67 (2016).</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>Rehannah Borup and Mads Lerdrup, University of Copenhagen</p><p><br></p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 318712,
+                "identity": "0e3df628-8561-45f8-aae5-19aebbc9e296",
+                "order_by": 1,
+                "name": "ADITYA SANKAR",
+                "email": "adisankara2000@gmail.com",
+                "orcid": "https://orcid.org/0000-0002-1840-3356",
+                "institution": "University of Copenhagen",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "ADITYA",
+                "middleName": "",
+                "lastName": "SANKAR",
+                "suffix": ""
+            },
+            {
+                "id": 318713,
+                "identity": "63d9ad13-d8bd-44c8-bbac-c6f16911f70e",
+                "order_by": 2,
+                "name": "Jens Vilstrup Johansen",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0001-7094-6801",
+                "institution": "University of Copenhagen",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jens",
+                "middleName": "Vilstrup",
+                "lastName": "Johansen",
+                "suffix": ""
+            },
+            {
+                "id": 402745,
+                "identity": "98e3661e-150f-4cb2-b73e-856ee06a3a5e",
+                "order_by": 3,
+                "name": "Rehannah Borup",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-6947-9094",
+                "institution": "University of Copenhagen",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Rehannah",
+                "middleName": "",
+                "lastName": "Borup",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2020-01-22 18:01:56",
+        "currentVersionCode": 2,
+        "declarations": "",
+        "doi": "10.21203/rs.2.21804/v2",
+        "doiUrl": "https://doi.org/10.21203/rs.2.21804/v2",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13493325,
+                "identity": "b5c5e092-1ac4-452e-8110-3303a5d637c6",
+                "added_by": "auto",
+                "created_at": "2021-09-16 22:35:13",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 146890,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-819/v2/51bac280-7baf-4038-89a5-c47a07e0612a.pdf"
+            }
+        ],
+        "financialInterests": "No",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "developmental epigenetics, single cell RNASeq, SMARTSeq2",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>This protocol details the step-by-step procedures followed to process the single oocyte/embryo mRNASeq and 2-cell embryo Total RNASeq data generated using the SMARTSeq2 technology in the associated publication. A separate section highlights processing of human MII oocytes.</p>",
+        "manuscriptTitle": "Single oocyte/embryo RNASeq data processing",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2020-01-27 20:40:41",
+                "doi": "10.21203/rs.2.21804/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            },
+            {
+                "code": 2,
+                "date": "2020-03-12 18:26:30",
+                "doi": "10.21203/rs.2.21804/v2",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "14be28c6-3320-4815-a333-120623ffcd33",
+        "owner": [],
+        "postedDate": "March 12th, 2020",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 67797,
+                "name": "Computational biology and bioinformatics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2020-03-12 18:26:30",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

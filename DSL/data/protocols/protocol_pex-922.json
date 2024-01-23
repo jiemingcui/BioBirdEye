@@ -1,0 +1,254 @@
+{
+    "identity": "pex-922",
+    "title": "<p>Single-Cell Mapping and 3D Tissue Reconstruction using Cryosection-derived Images and Tissue Mapper software</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>The present protocol was developed as part of the National Institutes of Health SPARC project efforts to construct a comprehensive anatomical, molecular and functional map of the peripheral nervous system at the visceral organs. A key goal is to develop an anatomical framework onto which various data sets can be mapped, e.g., spatial location and distribution of hundreds to thousands of single neurons within a tissue context, molecular profiles of spatially-tracked single neurons, etc.</p><p>The steps below constitute a protocol for constructing a 3D anatomical framework using MBF Bioscience Tissue Mapper software. This approach starts with the block face images of serial sections, obtained during cryosectioning the tissue (<em>For more information see our protocol \u201c Cryosectioning, blockface Imaging and Nissl staining fluorescently labeled pig heart\u201d</em>).&nbsp;In addition, the locations of cells of interest within each section are obtained by analyzing the images of sections stained for specific cellular markers. First, the block face images are assembled into an image stack with an associated annotation file that will be populated in the next steps (Section 1). The individual images in the stack are contoured in a series of steps to construct a contour map (Section 2). In parallel, external to Tissue Mapper software, the block face images are manually aligned to the images obtained from stained tissue sections in order to mark the location of cells of interest on the block face (Section 3). Next, each marker-annotated block face image is compared with the corresponding contoured block face image in Tissue Mapper software to place the corresponding markers in the contoured image (Section 4). This manual transfer of cellular location information is cross-checked at high resolution by using the measurement tool within Tissue Mapper for fine-grain alignment. Lastly, the contours are aligned (Section 5) to enable construction of a 3D stack of the tissue contours and markers of cells of interest, allowing a spatial analysis and visualization of the anatomical data (Section 6). This protocol can be used in conjunction with other protocols for sampling spatially-tracked single neurons using laser capture microdissection and assessed for molecular profiles using transcriptomics approaches. Such integration extends the present protocol to enable 3D visualization of molecular data in conjunction with the anatomical information for spatial transcriptomic analysis.</p><p>In the following steps, the number and identity of sections for contouring depends on the objectives of the experiment. A highly-detailed 3D reconstruction may need hundreds of serial sections to be contoured and annotated, but comes at a high cost of time and effort. For most practical applications, it is not necessary to contour every single section in the image stack. That said, it is convenient to evenly space out the sections that undergo contouring and annotation so that the 3D reconstructed stack is visually appealing.</p><p>The protocol detailed below is illustrated using the imaging data obtained from a pig heart tissue containing the right atrial ganglionic plexus.</p><p><strong>Note:</strong> See supplementary file for a user friendly pdf version of the protocol</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p><strong>Input Files/Software requirements:</strong></p><p>1. Tissue Mapper version 2020.1.1 (64-bit) - MBF Bioscience</p><p>2. PowerPoint - Microsoft</p><p>3. Block face images (.jpg) - User supplied</p><p>4. Tissue section images (.jpg) - User supplied</p><p> </p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p><br></p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "Tissue Mapper Software Installation/Setup\nHave Tissue Mapper installed and licensed on your workstation of choice through an MBF Bioscience representative. After launching Tissue Mapper, set an API key to your profile to pull the ontology list from SciCrunch to annotate your organ of choice with the curated SPARC anatomy terms.\nSee Link for Tissue Mapper guide : ttps://www.mbfbioscience.com/help/tissuemapper/Default.htm\nSECTION 1: IMAGE STACK ASSEMBLY IN TISSUE MAPPER\nThe image stack is assembled from individual block face images (.jpg) taken during the cryosectioning process.\nSTEP 1.1\n: Open the Tissue Mapper program, click FILE -> OPEN -> IMAGE STACK\nSTEP 1.2\n: Locate the block face images and select all images being used to create the image stack and click Open.\nSTEP 1.3\n: A dialog box appears to confirm the order of the images chosen. To rearrange the order, click and drag the corresponding file(s) into place. When done, click OK.\nNote:\nWhen labeling and saving the block face images always use a multiple-digit numbering system to assure proper ordering, e.g., image_001.jpg, and not image_1.jpg.\nSTEP 1.4\n: In the Image Scaling window, the default values will be displayed. Insert the appropriate X, Y and Z scaling values (see link for Tissue Mapper guied above). When done, click on the box at the middle bottom \u201cCreate sections for this stack\u201d and click OK. Click \u201dOverride X and Y scaling\u201d to edit the scaling values. In the section \u201dSource of X and Y Scaling\u201d, the option \u201dUser Specified\u201d should be automatically chosen. Click on the displayed Z value to specify the distance between the images.\nSTEP 1.5\n: The Welcome dialog box will prompt you to select the appropriate items from the drop-downs. Click \u201cBegin\u201d when done.\nNote:\nSubject Information: SPECIES,\u00a0SUBJECT ID,\u00a0SEX, and\u00a0AGE\u00a0are metadata that are stored in the XML annotation file associated with this image stack.\nNote:\nCriteria for anatomic terms:\nORGAN: The organ term list you are interested in annotating with.\nSPECIES: The species you are interested in annotating with.\nPARCELLATION: The atlas parcellation scheme you are interested in annotating with. If you don't see the correct parcellation, select\nSpecies Independent\nfrom the drop down menu.\nNote:\nManually entering information about the tissue sample occurs only once when an empty document is created to annotate the image stack. In the subsequent runs of Tissue Mapper with the generated annotation XML file, the metadata dialog will populate automatically from the annotation information stored in the XML file.\nSTEP 1.6\n: At this point, the first image of the image series is visible, as well as the list of images visible in the Image Organizer, and each section is listed in the Serial Section Manager. Save the image stack as a JPX file, before proceeding further. Click FILE -> SAVE AS -> IMAGE STACK>STACK. Select \u201dMBF JPED2000 stack file (*.jpx,*jpf)\u201d in the \u201dSave as type:\u201d pull down menu. In the Compression, drag the bar all the way to the right towards Lossless.\nNote:\nDo not click any of the blank white boxes at this time.\nSTEP 1.7\n: Create a blank annotation file (XML format) and link it to the JPX image stack. This file will hold all the annotation information, e.g., contours, cell location markings, etc., that is associated with the image stack. Click FILE -> SAVE AS -> DATA FILE in Tissue Mapper, and choose \u201cXML Document File (* .xml)\u201d in the \u201cSave as type:\u201d pull down menu.\nNote:\nThere is an alternative approach to create a blank annotation XML file if the Tissue Mapper program was closed after the JPX file was created and saved in Step 1.6 above. Open Tissue Mapper program and simply drag and drop the JPX file into the black display screen, and return to step 1.7 above to create a blank annotation XML file associated with that JPX image stack.\nSECTION 2: CONTOURING THE BLOCK FACE IMAGES\nSTEP 2.1\n: Drag and drop the annotation XML file into the blank display screen to open the file. Make sure that \u201cLoad Images with Data File\u201d check box is selected so that the corresponding image stack is loaded into Tissue Mapper.\nSTEP 2.2\n: Select \u201cBegin\u201d in the Welcome Screen that shows the Subject information and the Criteria for the anatomic terms that were entered in Step 1.5 above. This information can also be edited at this step. You should see the image stack loaded into Tissue Mapper with the image of the first section displayed along with the list of serial sections.\nSTEP 2.3\n: Select the Trace Tab. Within CONTOURS section of the menu ribbon, click on drop down menu for Contour selection and select the appropriate anatomical term that corresponds to the structure to be contoured.\nSTEP 2.4\n: Within the CONTOURS section of the menu ribbon, select \u201cFreehand\u201d. You are now ready to draw a contour on the image shown. The cursor should change to a \u201c+\u201d sign to confirm that you are in the freehand contouring mode. Right-click on the image and select \u201ccontinuous tracing\u201d. Now you can begin contouring the image.\nSTEP 2.5\n: Left-click and drag the mouse (or use stylus on a touch screen) to draw a contour on the image. After completing the line drawing, select \u201cClose\u201d from the CONTOURS section to close the contour. In the EDIT section, click on \u201cSelect objects\u201d and click on the contour to visualize the points that make up the contour. Any fine adjustments to the contour can be made at this stage, including adding, moving, and deleting points.\nNote:\nRight-clicking on any of the points will bring up a menu for adjusting the point position and other properties. Right-clicking on the contour line will bring up additional menu for fine-grain adjustments including inserting new points, rotating, shrinking, moving, changing color, etc.\nNote:\nThe right-click menu for the contour line is particularly useful for copying the contour and pasting it in the next serial section image to streamline the contouring process across serial sections in the stack.\nSECTION 3: ALIGN BLOCK FACE AND SECTION IMAGES TO MARK SAMPLES ON THE BLOCK FACE IMAGE (EXTERNAL TO TISSUE MAPPER)\nNote:\nThe above steps use block face images and not the actual sectioned and stained tissue/slide image in the Tissue Mapper software. This necessitates the use of an external program to first align the images of the tissue section and the block face (PowerPoint, for example). Such alignment will allow placement of markers corresponding to the cells of interest on the block face image in the approximate area where the cells of interest are located.\nSTEP 3.1\n: Open an image of the sectioned/stained/sampled tissue section using Microsoft PowerPoint.\nSTEP 3.2\n: Insert the corresponding block face image into the same PowerPoint slide.\nNote:\nYou can use your already contoured block face image of that same section in Tissue Mapper, or use the original block face image that has not been contoured yet.\nSTEP 3.3\n: Turn down the transparency of the tissue image and overlay it over the block face image to get a best alignment, possibly by adjusting the image sizes. Once you have an appropriate alignment of the images, you can then use the tissue section image as a reference to begin marking the cells of interest on the block face image.\nNote:\nDepending on the tissue type, tissue mounting, and the subsequent dehydration and staining process, one should expect some distortion that needs to be accounted for when aligning the tissue section image with the block face image.\nSTEP 3.4\n: With the tissue section aligned over top the block face image to the best of your ability, begin to mark the samples directly onto the images.\nIMPORTANT:\nAs stated previously, this will most likely not be an exact match and one should account for any variability. In most cases the block face images will indicate the corresponding structures you see in the stained tissue section to allow for accurate placement.\nSTEP 3.5\n: Move the transparent tissue section behind the block face image and snip the now-marked block face image to use as reference for marking these cells in the Tissue Mapper program.\nNote:\nThe present protocol involves repeating the process of marking the cells of interest on the block face images, once external to Tissue Mapper software, followed by annotation within the Tissue Mapper. This approach is required as, at present, there is no way to align tissue section images with the block face within the Tissue Mapper program.\nSECTION 4: MANUAL MARKING OF SAMPLES ON BLOCK FACE IMAGES WITHIN TISSUE MAPPER\nIMPORTANT:\nThe order of placement of markers can be important to streamline downstream annotation to connect with external data sets corresponding to the cells of interest, e.g., molecular data from spatially-tracked single neurons. To associate the markers with external data, e.g., cell/sample identifiers with molecular information, it is important to start with the order of sample identifiers and place the markers in that order. This leads to an annotation XML file in which the XML code lines for the individual markers are in the order of marker placement. Downstream XML processing can be performed to add marker ID information to the XML code lines. This approach is the workaround to the Tissue Mapper limitation that does not allow labeling the individual markers in the user interface, but will display that information, if present, in the XML annotation file.\nSTEP 4.1\n: Use the annotated block face image with markers from Step 3.5 as a guide to mark these cells of interest directly in the Tissue Mapper program. In the Markers toolbar, select a marker to represent the cells of interest. Pan and zoom the block face image in the Tissue Mapper to identify the region corresponding to the locations of the cells of interest. Click on the location to place a marker at that location, one marker per cell or feature of interest. Repeat this step until all the cells of interest are marked in the corresponding block face images throughout the stack.\nSECTION 5: ALIGNING CONTOURS AND MARKERS\nNote:\nAlignment of the contours has to be done after marker placement in Section 4 above. This is because, the cell location markers are using the tissue context as a reference in Sections 3 and 4 above. Alignment of contours may involve shifting the relative locations of contours across the image stack and hence will lead to erroneous positioning of cell location markers within the contours. This sequencing of marking and contour alignment may not be as critical in cases where the block face image acquisition system is in a stable position relative to the tissue block in the cryostat, minimizing the shift and distortion in the contours across the stack.\nSTEP 5.1\n: In the Serial Section Manager, start from the first section and use \u201cSelect objects\u201d and click and drag the cursor across the image to select all the contours and markers on the image. IMPORTANT: Do NOT press \u201cselect all\u201d in order to do this because doing so will select every contour in the entire stack and moves them all at once in the next step, which is not visible in the user interface and creates an erroneous alignment.\nSTEP 5.2\n: In the Serial Section Manager, select the \u201cShow current section\u201d icon. This will display all the contours within the stack and display them on the current section being viewed.\nSTEP 5.3\n: Right click on the block face image and select \u201cMove selected objects\u201d to shift all the selected data to be in appropriate alignment with the rest of the contours in the stack. This step can be repeated for any particular section that may be out of alignment with the rest of the stack.\nNote:\nThe above steps 5.1 to 5.3 only move the contours and markers and not the actual underlying block face images. This can be seen in the image view of a section whose contours and markers were shifted. In this case, the contours and markers no longer overlay the underlying image (which was likely shifted due to a shift in the position of the image acquisition system). A representative image with shifted contours and markers is shown below.\nNote:\nAn alternative approach is to align the images in the first step using Tissue Maker software and then import that image stack into Tissue Mapper approach. That approach entails different software and computational requirements as every image in the series has to be contoured and aligned in order to build a stack, and may be relatively more complicated than the present approach which focuses on contouring a select of images that may be relevant to downstream data analysis and linking with external data sets such as spatially-tracked molecular data from single cells.\nSECTION 6: 3D STACK VISUALIZATION OF CONTOURS AND SAMPLE MARKERS\nSTEP 6.1\n: Deselect the \u201ceye\u201d icon in the Image Organizer window to hide the images in the 3D view to be constructed. This will allow for a smoother and quicker interaction on regular desktop workstations with limited computational capability. To visualize all the contours and markers in the 3D viewer, press the \"3D Visualize\" icon in the VIEW section. A separate window will open to show the interactive 3D reconstructed model of the tissue contours along with the markers for the cells and features of interest. The 3D viewer can be used to selectively show, hide, and edit specific contours and markers, change colors of these annotation features, create video clips of the data, and export the 3D representations."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": ""
+        },
+        {
+            "header": "Time Taken",
+            "content": ""
+        },
+        {
+            "header": "Anticipated Results",
+            "content": ""
+        },
+        {
+            "header": "References",
+            "content": ""
+        },
+        {
+            "header": "Acknowledgements",
+            "content": ""
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1016/j.isci.2020.101140",
+                "date": "2019-06-05 22:04:06",
+                "title": "A Comprehensive Integrated Anatomical And Molecular Atlas Of Rodent Intrinsic Cardiac Nervous System",
+                "authors": [
+                    "Sirisha Achanta",
+                    "Jonathan Gorky",
+                    "Clara Leung",
+                    "Alison Moss",
+                    "Shaina Robbins",
+                    "Leonard Eisenman",
+                    "Jin Chen",
+                    "Susan Tappan",
+                    "Maci Heal",
+                    "Navid Farahani",
+                    "Todd Huffman",
+                    "Steve England",
+                    "Zixi (Jack) Cheng",
+                    "Rajanikanth Vadigepalli",
+                    "James S. Schwaber"
+                ],
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 547782,
+                "identity": "e6724db3-8ecf-4a56-bd60-78b200be00e2",
+                "order_by": 1,
+                "name": "Shanina Robbins",
+                "email": "shaina.robbins1@gmail.com",
+                "orcid": "https://orcid.org/0000-0002-7885-743X",
+                "institution": "Thomas Jefferson University",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Shanina",
+                "middleName": "",
+                "lastName": "Robbins",
+                "suffix": ""
+            },
+            {
+                "id": 547803,
+                "identity": "337d356b-e3bb-4633-8f20-f4804a4a755c",
+                "order_by": 2,
+                "name": "Rajanikanth Vadigepalli",
+                "email": "Rajanikanth.Vadigepalli@jefferson.edu",
+                "orcid": "https://orcid.org/0000-0002-8405-1037",
+                "institution": "Thomas Jefferson University",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Rajanikanth",
+                "middleName": "",
+                "lastName": "Vadigepalli",
+                "suffix": ""
+            },
+            {
+                "id": 554890,
+                "identity": "9af3217f-335e-4bb7-bdc0-a98c1ec08a6c",
+                "order_by": 3,
+                "name": "James Schwaber",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0003-0598-7345",
+                "institution": "Thomas Jefferson University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "James",
+                "middleName": "",
+                "lastName": "Schwaber",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2020-05-05 15:37:44",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-922/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-922/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13695240,
+                "identity": "f2f29886-5e9c-4232-8ee8-830d3efea46f",
+                "added_by": "auto",
+                "created_at": "2021-09-17 12:56:54",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 290337,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-922/v1/ad7163bb-47b1-408d-b21e-f6ce3384f006.pdf"
+            },
+            {
+                "id": 9597588,
+                "identity": "a1e049ca-039b-4fe7-a46e-0d5a7f86d46e",
+                "added_by": "auto",
+                "created_at": "2021-05-26 09:42:19",
+                "extension": "pdf",
+                "order_by": 1,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 1186329,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "SingleCellMappingandtissuereconstructionTissueMapper.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-922/v1/bb3cd76a67a39704cd56c505.pdf"
+            }
+        ],
+        "financialInterests": "N/A",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "3D Mapping, Single Cell, tissue reconstruction, MBF, cryosection, Laser Capture Microdissection, LCM",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>The present protocol describes the process of using the MBF Bioscience Tissue Mapper software to create a 3D reconstructed stack from contouring the block face images of serial cryosections and mark the individual immunolabeled cells onto the contoured images. The stack of aligned, contoured and annotated images can be visualized as a 3D reconstruction that depicts the tissue shape as it was embedded and cryosectioned, relative positions of various tissue features, and locations of individually marked neurons within the tissue, yielding a 3D anatomical map of the distribution of cells of interest with a tissue. This protocol can be used in conjunction with other protocols for sampling spatially-tracked single neurons using laser capture micro-dissection and assessed for molecular profiles using transcriptomics approaches. Such integration extends the present protocol to enable 3D visualization of molecular data in conjunction with the anatomical information for spatial transcriptomic analysis.</p>",
+        "manuscriptTitle": "Single-Cell Mapping and 3D Tissue Reconstruction using Cryosection-derived Images and Tissue Mapper software",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2021-05-26 09:42:18",
+                "doi": "10.21203/rs.3.pex-922/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "85d4ee1d-c543-4042-9f2b-c18fa894058a",
+        "owner": [],
+        "postedDate": "May 26th, 2021",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 95772,
+                "name": "Biological techniques"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2021-05-26 09:42:18",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

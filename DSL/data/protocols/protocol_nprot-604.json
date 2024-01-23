@@ -1,0 +1,286 @@
+{
+    "identity": "nprot-604",
+    "title": "A bioinformatics protocol for rigorous structure-based sequence alignment of distantly related proteins",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Accurate sequence alignments of distantly related proteins are crucial for the better understanding of proteins at their family/superfamily level. However, such alignments of distantly related proteins are often hard to obtain by automatic multiple sequence alignment programs. Hence, we suggest a protocol that permits the reliable sequence alignment of distantly related proteins whose structural information is available. This protocol employs two stages of structure-based sequence alignments in order to obtain reliable alignments. The method proposed is clearly suited to work for protein structural members with distant relationships. We further propose a novel assessment of the derived alignments using the measurements of the structural variations and the percentage secondary structural equivalences. This structure-based sequence alignment protocol can be employed for a single superfamily or for a large number of structural domain superfamilies in a near-automatic and rapid manner."
+        },
+        {
+            "header": "Reagents",
+            "content": "**Development of the protocol**\r\n\n\nThree dimensional structure is highly conserved in protein evolution1. Since protein structures have a much higher degree of conservation than the sequences2, comparison of protein structures may reveal distant evolutionary relationships that would not be detected from sequence information alone3,4. While, it is possible to align proteins using automatic programs \\(DALI5,6, SSAP7, CE8, 3DCOFFEE9, MUSTANG10, MATRAS11 and FATCAT12) at high amino acid sequence identities \\(? 70%) quite well, obtaining precise alignments for distantly related proteins \\(? 40% sequence identity) may often require extensive manual intervention. We have earlier shown that the large-scale alignments of several protein domain superfamilies are possible by resorting to structure-based sequence alignment methods13-15.\r\n\n\n**Applications of the method**\r\n\n\nThe availability of accurate structure-based sequence alignments of protein families and superfamilies is crucial to inferring their evolutionary relationships, functional properties4 and to understand the structural variances between the different classes of proteins. High quality of sequence alignments are crucial for comparative modeling and docking in computing and for the design of rational experiments. This would also help further refine homology modelling and molecular docking approaches, and better understand the structure-function relationships. Protein structure comparison also helps to improve tools for identifying gene functions in genome databases by defining the essential sequence-structure features of a protein family16. Profiles generated using structure-based sequence alignments of distantly related proteins at the family or superfamily level could be utilized to predict the fold of hypothetical sequences through profile-sequence search method is another success in the structure prediction area. The alignments of protein sequences are required for the organization and assimilation of vast amounts of data. Multiply aligned set of sequences serve as convenient models to depict evolutionary drifts and provide convenient frameworks for mapping allied information such as secondary structures and functionally important residues.\r\n\n\n**Comparison with other methods**\r\n\n\nStructural information, where available, has been employed by several available tools \\(COMPARER17, STAMP18, and GAFIT19), which often recruit structural features such as secondary structural, solvent burial and hydrogen bonding patterns to recognize the structural core and variable regions to guide the presence of gaps and to obtain reliable alignments. Rapid structure-based sequence alignments employ a comparison of the orientations of the secondary structures \\(Murthy20, SSAP7,21, and SEA22 programs) or hexapeptide fragments \\(DALI5,6) to recognize accurate alignments of protein domains that belong to the same superfamilies. Despite the availability of several structure-based sequence alignment procedures \\(DALI5,6, SSAP7, CE8, 3DCOFFEE9, MUSTANG10 etc.) in the public domain, we have observed, from our large-scale construction of aligned protein domain superfamilies13-15 that a huge amount of manual intervention is required for the choice of initial equivalences, in dealing with distantly related multiple members. It is also not possible to align distantly related proteins purely from sequence similarity of rigid-body superposition. Incorporation of variable gap-penalties and differential treatment of outliers are required to ensure high quality of the derived alignments. In this paper, we suggest a reliable protocol for constructing multiple structure-based sequence alignments of distantly related proteins that belong to a superfamily and the assessment procedures that may be useful for quality-check of the alignments. The validation methods will enable the recognition of local errors \\(gap positions) or frameshift errors \\(wrong equivalences) or structural outliers. This strategy is quite convenient to obtain a reliable and acceptable alignment although the structural outliers are still hard to address.\r\n\n\n**Experimental design**\r\n\n\nThe whole alignment procedure for either pairwise or multi-members can be broadly categorized into three phases: \\(i) initial alignment phase, \\(ii) final alignment phase and \\(iii) alignment assessment phase. The initial alignment phase includes building the initial alignment through one of the alignment programs such as MINRMS23, STAMP18, ClustalW24 and MALIGN25. ClustalW or MALIGN could be used when the initial size of the dataset is larger or the structure comparison programs are too slow. But, we recommend structure comparison methods to improve the accuracy of the alignments. The second phase includes deriving the final alignment from the initial alignment using the COMPARER package17 that is well-suited for distantly related proteins and in preserving the equivalence of secondary structures during the alignment. The third phase includes assessment of the final alignment for the extent of structural deviations and secondary structural equivalences. If the structure-based sequence alignment derived from MINRMS or STAMP is of high quality, as exhibited by root mean square values less than 2\u00c5, the final alignment phase of COMPARER may be skipped in favour of proceeding with the final assessment phase \\(Figure 1).\r\n\n\nProtein structures of interest. Three-dimensional coordinates of protein structures of interest, either for the whole protein or for a domain, can be retrieved from RSCB26 and Astral compendium27, respectively. In general, one would expect that the proteins or domains are not closely related and no two proteins in the superfamily share more than 40% sequence identity.\r\n\n\nStructure Comparison tools. STAMP is suggested to be used only for the initial alignment of multimembers. It is possible to use DALI5,6 or MUSTANG10 for initial pairwise and multimember alignments, respectively. These alternative structural comparison programs for the first phase of the structure-based sequence alignment are possible, but may not be highly suitable for multiple entries of distantly related proteins at the superfamily level. Though there are many softwares available for multiple structure comparison, we prefer COMPARER due to its inherent dependence on structural parameters, its robustness and better performance in case of distantly related proteins. COMPARER considers the features, like solvent accessibility, chemical nature and secondary structural assignment for each residue. Annealing is a special feature in COMPARER package which would help in aligning even the part of a domain/protein against the full length domain/protein.\r\n\n\nInitial equivalences. Initial equivalences are non-gap residues of the topologically equivalent regions from a set of aligned protein sequences14. Initial equivalences are very important to superpose two or more structures. The initial equivalences could be derived either using JOY-4v28 package or through our in house script, SSTEQ. The JOY-4v derives all the non-gap regions from the alignment as initial equivalences, where as SSTEQ derives equivalent residues only from the secondary structural region. So, it is left to the user discretion to choose between JOY-4v and SSTEQ program.\r\n\n\nStructure preparation. In instances where the structure was derived using NMR methods, only one best coordinate set should be extracted. If the structure is retrieved from SCOP29, the Meta character \u201c_\u201d \\(underscore) must be replaced with \u201c-\u201d\\(hyphen), which appears in the coordinate filename, since the COMPARER package does not accept the meta-character appearing in the filename. The file name extension must be replaced from \u201cent\u201d to \u201catm\u201d, since the JOY package does not accept the \u201cent\u201d extension.\r\n\n\n\r\n\n\n**MATERIALS**\r\n\n\n**Software**\r\n\n\n**MINRMS23 and ALIGNPLOT30**\r\n\n\nMINRMS is a program for finding minimal root-mean-squared-distance \\(RMSD) alignments between two proteins as a function of the number of matching residue pairs within a heuristically limited search space. The alignment algorithm uses coordinates of alpha-carbon atoms to represent each amino acid residue and requires a total computation time of O \\(m3 n2), where m and n denote the lengths of the protein sequences. A visualization tool, AlignPlot, is available as a part of the CHIMERA visualization software31.\r\n\n\n**ClustalW24**\r\n\n\nClustalW is a general-purpose multiple sequence alignment program for DNA or proteins. It produces biologically meaningful multiple sequence alignments of divergent sequences. It calculates the best match for the selected sequences, and lines them up so that the identities, similarities and differences can be seen. Evolutionary relationships can be seen via claudograms or phylograms.\r\n\n\n**MALIGN25**\r\n\n\nThe multiple alignment procedures implemented in MALIGN are close parallels to those used to search for minimum length claudograms. Alignment topologies are constructed via different sequence additions and improved through branch swapping. Each topology yields a multiple alignment and claudograms are constructed from the same. The most parsimonious claudogram is then assigned as the multiple alignment solution.\r\n\n\n**STAMP18**\r\n\n\nSTAMP is a package for the alignment of protein sequence based on three\u2013dimensional \\(3D) structure, which also provides \u2018best-fit\u2019 superimpositions. The heart of the method is the Argos & Rossmann19 equation, and STAMP makes extensive use of the Smith-Waterman \\(SW) algorithm.\r\n\n\n**JOY package** \\(3.2v, 4.0v and 5.0v)28\r\n\n\nJOY is a program to annotate protein sequence alignments with three-dimensional \\(3D) structural features. It was developed to display 3D structural information in a sequence alignment and to help understand the conservation of amino acids in their specific local environments.\r\n\n\n**COMPARER17**\r\n\n\nCOMPARER is the main multiple sequence alignment program for the alignment of distantly related proteins. The initial module of COMPARER employs PMNFC, pairwise MNYFIT32 to obtain a set of all possible pairwise superposed structures. The program uses a number of different protein features such as secondary structural positions, patterns of hydrogen bonding and solvent burial to guide the positions of gaps using dynamic programming and simulated annealing to derive equivalent residues."
+        },
+        {
+            "header": "Equipment",
+            "content": "Equipment\r\n\n\nSince the nature of programs used in this work can be compiled and executed only in linux and IRIX environments, the said environments are absolutely essential. A 32/64-bit dual processor or a quad core processor with1Gb RAM memory is desirable to run programs such as, MINRMS, JOY-5 and our inhouse programs such as SSTEQ, ASSRMS, ASSRMSALIMAV and Bestalign. The main structure-based sequence alignment program, COMPARER17, can work only in Silicon-Graphics environment, and in future, we will be trying to get a Linux version of the same. The other structure-comparison and alignment program, MINRMS, is computationally intensive and works best in a cluster environment. \r\n\n\n\r\n\n\nInstallation of programs Guidelines for hardware requirements and platform specifications is available at the following URL:  \"http://caps.ncbs.res.in/download/protocols_network/info.html\":http://caps.ncbs.res.in/download/protocols_network/info.html"
+        },
+        {
+            "header": "Procedure",
+            "content": "Detailed steps for the three phases are discussed below \\(please also refer the URL\r\n\n\nhttp://caps.ncbs.res.in/download/protocols_network/steps.html for step-by-step illustrations using examples). All the commands must be executed within the same directory that contains the protein structure of interest, unless specified otherwise.\r\n\n\nInitial alignment phase\r\n\n\n1| Initial alignment of pairwise structure comparison using MINRMS can be obtained using the steps in option A and initial alignment of multiple structure comparison using STAMP using the steps in option B.\r\n\n\n\\(A) Steps to obtain pairwise alignment\r\n\n\n\\(i) /$path/minrms -HS first.pdb second.pdb \r\n\n\nMore details can be found at the following URL: \"http://caps.ncbs.res.in/download/protocols_network/steps.html#minrms\":http://caps.ncbs.res.in/download/protocols_network/steps.html#minrms\r\n\n\nSelect the best alignment using the following steps.\r\n\n\n\\(ii) MINRMS provides a number of aligned MSF files for the user to select the best alignment. These result files can be imported into CHIMERA31 and the user can visualize and choose the best alignment. Usually the best alignment can be identified as the one with the highest log-P value where the longest distance could be met graphically.\r\n\n\n\\(iii) Using the above logic, a script file \u201cbestalign\u201d was used to retrieve the best alignment file automatically without using the graphical viewer and later it was cross-checked using graphical window. We recommend employing the \u201cbestalign\u201d script to retrieve the best alignment file, if the user wishes to examine and employ several pair wise alignments for subsequent analysis.\r\n\n\n\\(iv) The best alignment retrieved through MINRMS, is considered as an initial alignment and seeded in COMPARER in the next step to derive the best final alignment. However, MINRMS is relatively time-consuming and is best used from a cluster environment.\r\n\n\n\\(B) Steps to obtain multiple alignment \\(TROUBLESHOOTING)\r\n\n\nMore details with example can be found at the following URL:\r\n\n\n\"http://caps.ncbs.res.in/download/protocols_network/steps.html#stamp\":http://caps.ncbs.res.in/download/protocols_network/steps.html#stamp\r\n\n\n\\(i) Create an input query file using the command \"/$path/\" with the extension \".database\"\r\n\n\nCRITICAL STEP The first structure listed from the file \u201cfilename.database\u201d is considered as a representative structure for the multimember alignment, and will be used to screen other structures in order to align closely related structure next to each other. The user should choose the best representative structure, which could be without structural loss at the core region as well as not containing the extra length.\r\n\n\n\\(ii) Run STAMP by \"/$path/stamp -l query_file -n 2 -s -slide 5 -prefix query_name -d database_file\". where option 'l' is for the input file and 'n' is for number of fits and 's' makes the scan mode on, 'slide' tells the number of residue in query to slide against the database-query sequence, 'prefix' stands for the prefix of the output file.\r\n\n\n\\(iii) Run SORTTRANS by \"/pathname/sorttrans -f query_name.scan -s Sc 2.0 >query_name.sorted\".\r\n\n\n\\(iv) Run TRANSFORM by \"/pathname/transform -f query_name.sorted -g\". where \"-g\" is for graphical output.\r\n\n\n\\(v) Run POSTSTAMP by \"/pathname/poststamp -f query_name -min 0.5\" to check whether each position in the structural alignment is structurally equivalent across all the members in the alignment and also checks the number of pairwise comparisons with Pij value higher or equal to a cutoff.\r\n\n\n\\(vi) Run STAMP_CLEAN by \"/pathname/stamp_clean query_name.post 3> query_name.clean\" to cleanup nonsensical gaps in the alignment.\r\n\n\n\\(vii) Run ACONVERT by \"/pathname/aconver -in b -out p< query_name.clean >query_name.ali\" to get the INITIAL STRUCTURAL ALIGNMENT in ClustalW or MSF format from the STAMP block file format\r\n\n\nCRITICAL STEP It is important and critical to seed an initial alignment of good quality in order to perform the final alignment properly.\r\n\n\nFinal alignment phase\r\n\n\n2| Accessory files Accessory files containing information, like solvent accessibility, secondary structural data, and H-bonding patterns, can be obtained in separate files using the \u201c/pathname/joy filename.ali\u201d command from the JOY-5 package.\r\n\n\n3| Initial equivalences\r\n\n\n\\(A) JOY-4v. If the user employs JOY-4v package, the command \u201c/pathname/joy -m filename.ali\u201d may be used to obtain the initial equivalences.. The automatically generated result file \u201cfilename.mnt\u201d should be renamed to \u201cmnf1.inp\u201d.\r\n\n\n\\(B) SSTEQ. If the user wishes to employ our in house SSTEQ script, the command should be executed just outside the directory as \u201cperl SSTEQ.pl directory-name\u201d. The result file \u201cmnf1.inp\u201d will be created automatically inside the directory, which is convenient for subsequent steps.\r\n\n\n4| COMPARER \\(TROUBLESHOOTING). The above obtained initial equivalences will be fed as a steering input file to the comparer package with the following steps. More details with example can be found at the following URL:\r\n\n\nhttp://caps.ncbs.res.in/download/protocols_network/steps.html#comparer\r\n\n\n\\(A) First Stage \\(TROUBLESHOOTING). Before running the following steps, the user needs to create two types of files, one file having the list of input structures, which should be named as \u201ccodes.nam\u201d, the second file having the relationship between the input structures and should be named as \u201ccodes.tre\u201d.\r\n\n\n\\(i) PREMNF. Run PREMNF to perform pairwise least-square superimposition by the command \"/pathname/pmnfc mnf1.inp \" with the steering input file mnf2.inp, which can be copied from the example directory where the COMPARER package has been installed.\r\n\n\n\\(ii) MNFC \\(TROUBLESHOOTING). Run the command \"/pathname/mnfc\" with the steering input file, mnfc.inp, which was created as an output file in the previous step.\r\n\n\n\\(iii) HPB2. Run the command \"/pathname/hpb2\" to obtain hydrophobic contacts as an output \u201cfilename.hpc\u201d.\r\n\n\n\\(iv) HBOND. Run \u201c/pathname/hbond filename.pdb\u201d to obtain side chain hydrogen bond with the output file name \u201cfilename.shb\u201d.\r\n\n\n\\(B) Second Stage \\(Simulated annealing)\r\n\n\nCRITICAL STEP Simulated annealing is the critical step in order to obtain the best multiple structural alignments. The performance of this step could be realised when the sequence identities are highly diverged.\r\n\n\n\\(i) PANN9. Run the command \u201c/pathname/pann9\u201d with the input parameter file pann9.inp, which could be copied from the example directory of COMPARER package. This program produces a file for each protein which defines all the relationships of the selected type in this protein \\(what kind of relationships?)\r\n\n\n\\(ii) SPLITTER. Run the command \u201c/pathname/splitter\u201d to produce a separate relationship tables from \u2018mixed relationship\u2019 files optionally.\r\n\n\n\\(iv) PREANN. Run the command \u201c/pathname/preann\u201d to construct the steering data file for the ANN9 program.\r\n\n\n\\(v) ANN9. Run the command \u201c/pathname/ann9\u201d to produce several pairwise alignments.\r\n\n\n\\(vi) POSTANN. Run the command \u201cpathname/postann\u201d to transform filename.ann files into AM13 format.\r\n\n\n\\(C) Third stage \\(final alignment)\r\n\n\n\\(i) PRDGP. Run the command \"/pathname/prdgp\" to obtain gap penalties.\r\n\n\n\\(ii) AM13. Run the command \"/pathname/am13\" to get the final alignment in the COMPARER format, which uses various parameter files and output files from the previous steps\r\n\n\n\\(iv) ALNPAP. Run the command \"/pathname/alnpap\" to get the alignment in PIR format\r\n\n\n5| Final equivalences. The equivalences from the final alignment must be calculated using the same Step 3 procedures.\r\n\n\n6| Superposed coordinates. This could be obtained through JOY-3.2v using the command \u201c/pathname/mnyfit \u2013f\u201d with the steering input file obtained in the previous step.\r\n\n\nAlignment Assessment Phase\r\n\n\nAlignments derived using purely sequence or structure-based properties can be compared for structural deviations after rigid-body superposition and secondary structural equivalence at the level of superfamily relationships.\r\n\n\n7| Mean RMSD. The mean root-mean-square-deviation \\(RMSD) values can be measured one-against-all within a group of structures which was compared. From the analysis of carefully curated alignments of a previous version of the database13 we observe that, despite distant relationships, this value is generally less than 5.5 \u00c5. Therefore, any superfamily member in the derived alignment that shares more than 5.5 \u00c5 mean RMSD. is best removed and treated as an outlier.\r\n\n\n8| Percentage secondary structure equivalences\r\n\n\nThe concept of superfamily level relationships implies high structural similarity and secondary structural equivalences15. Therefore, the number of alignment positions that retain majority equivalent secondary structures \\(in more than 75% of members) normalised over the mean number of non-gap positions over the entire alignment for all the superfamily members can be calculated. From the analysis of carefully curated alignments of a previous version of the database13, we found that this normalized factor of secondary structural equivalence is ? 30%. This threshold can be adopted to recognise superfamily alignments that are significantly poorly aligned, if the value drops less than the threshold."
+        },
+        {
+            "header": "Timing",
+            "content": "May take upto 12 hours for multiple sequence alignment of one protein superfamily"
+        },
+        {
+            "header": "Critical Steps",
+            "content": "B) Steps to obtain multiple sequence alignment\r\n\n\nCRITICAL STEP The first structure listed from the file \u201cfilename.database\u201d is considered as a representative structure for the multimember alignment, and will be used to screen other structures in order to align closely related structure next to each other. The user should choose the best representative structure, which could be without structural loss at the core region as well as not containing the extra length.\r\n\n\n4) COMPARER\r\n\n\nB) Second Stage \\(Simulated annealing)\r\n\n\nCRITICAL STEP Simulated annealing is the critical step in order to obtain the best multiple structural alignments. The performance of this step could be realised when the sequence identities are highly diverged.\r\n\n\nCRITICAL STEP It is important and critical to seed an initial alignment of good quality in order to perform the final alignment properly."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "1. Problem \r\n  Possibility for either more outliers or the alignment is not proper during STAMP\r\n\n\nPossible reasons \r\n\n\ni) Starting with the wrong domain structure when structures are very diverse\r\n\n\nSolution: Select the right representative to scan other domains\r\n\n\nii) Choosing high structural similarity score \\(Sc) \\(5.5  9.8), which always suggests a functional and evolutionary relationship\r\n\n\nSolution: Sc between 2.5 and 5.5 correspond to more distantly related structures, and do not always imply a functional or evolutionary relationship\r\n\n\niii) Considering RMSD alone to choose the structural neighbours\r\n\n\nSolution: RMSD alone is not a very good measure of structural similarity, since low RMSDs can usually be obtained for any two structures if one considers a small collection of residues\r\n\n\niv) number of fitted points\r\n\n\nSolution: It is not advisable to sort members only based on nfit, since number of fitted points neither depends on the length of the protein nor on the sequence identity,\r\n\n\nv) loss of secondary structural equivalences \\(n_sec) \r\n\n\nSolution: User should carefully look at the loss of secondary structural regions at the core level to decide whether to include the structure or not for further analysis, since it will indeed affect the further observations and analysis.\r\n\n\n2. Problem:\r\n  Outliers during COMPARER \r\n\n\nPossible Reason:\r\n\n\nIndel region \r\n\n\nSolution: If there is greater deviation in the length of the members, then structures could be arranged to more than one group based on the indel region if possible and necessary.\r\n\n\n3. Problem:\r\n  Error message appeared as number of fitted points less than 3 while running COMPARER \r\n\n\nPossible reasons:\r\n\n\ni) if the joy program found less than 3 non-gap regions with or without chain break\r\n\n\nSolution: Manually split these non-gap regions into ?3. Since, Joy algorithm would not consider the break in the chain, user will need to make these corrections manually\r\n\n\nii) ?3 non-gap regions with chain break\r\n\n\nSolution: user could employ our new algorithm, SSTEQ\r\n\n\n4. Problem:\r\n  COMPARER will not consider the structure for alignment \r\n\n\nPossible reason:\r\n\n\nPresence of only C? coordinates \r\n\n\nSolution: Possible to solve either by using MaxSprout tool from EBI or available equivalent algorithm to modify it\r\n\n\n5. Problem:\r\n  An appearance of error message, unequal number of atom specified in filename.atm is not matching with filename.psa\r\n\n\nPossible reason:\r\n\n\nlack of any one backbone atom from the coordinate file\r\n\n\nSolution:\r\n\n\nThe user needs to either fix the backbone coordinate or delete the coordinates for the particular residue if found at the end, to resolve this bug."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "Although it is possible to obtain a better structural alignment output for the distant homologous \\(? 40 % sequence identity) through the protocol described here, one would anticipate the following results for the multi-member alignments.\r\n\n\n1. STAMP algorithm may or may not be able to include all the structural members at the initial alignment phase, which could be due to either choosing wrong representative member or choosing a relaxed/stringent value for the parameters such as, structural similarity Score \\(Sc), RMSD, number of fitted points \\(nfit), and Number of equivalent secondary structures \\(n_sec).\r\n  2. JOY and COMPARER packages at the final alignment phase may not be able to include all the structural members and hence either it may produce poor structural alignment or it may produce outliers at the end of final alignment. It could be due to number of possible reasons such as, significant differences in the indel region, number of fitted coordinates less than 3, and wrong in feeding the information about the relationship between the members.\r\n  Illustrative examples are provided as results of pairwise sequence identity, superposition of structures and r.m.s.d. matrix after STAMP and likewise after COMPARER for Protozoan pheromone proteins superfamily and triosephosphate isomerase superfamily in Figure 2 and Figure 3, respectively.\r\n\n\nAn automatic mode of structure-based sequence alignment procedure followed by assessment will be an useful step for the future.\r\n\n\nOutliers or huge structural deviations can be dealt with in an iterative, automatic fashion with the availability of a robust webserver.\r\n\n\nStructure-based sequence alignments of multiple members of a superfamily will be an useful starting point for sequence analysis33 and to establish remote homologies34. It will also be a convenient model to understand evolutionary trends and to design mutagenesis experiments."
+        },
+        {
+            "header": "References",
+            "content": "1. Chothia, C. &amp; Lesk, A.M. The relation between the divergence of sequence and structure in proteins. EMBO J 5, 823-6 \\(1986).\r\n  2. Gibrat, J.F., Madej, T. &amp; Bryant, S.H. Surprising similarities in structure comparison. Curr Opin Struct Biol 6, 377-85 \\(1996).\r\n  3. Koehl, P. Protein structure similarities. Curr Opin Struct Biol 11, 348-53 \\(2001).\r\n  4. Baker, D. &amp; Sali, A. Protein structure prediction and structural genomics. Science 294, 93-6 \\(2001).\r\n  5. Holm, L. &amp; Sander, C. Protein structure comparison by alignment of distance matrices. J Mol Biol 233, 123-38 \\(1993).\r\n  6. Holm, L. &amp; Sander, C. Dali: a network tool for protein structure comparison. Trends Biochem Sci 20, 478-80 \\(1995).\r\n  7. Orengo, C.A. &amp; Taylor, W.R. SSAP: sequential structure alignment program for protein structure comparison. Methods Enzymol 266, 617-35 \\(1996).\r\n  8. Shindyalov, I.N. &amp; Bourne, P.E. Protein structure alignment by incremental combinatorial extension \\(CE) of the optimal path. Protein Eng 11, 739-47 \\(1998).\r\n  9. O'Sullivan, O., Suhre, K., Abergel, C., Higgins, D.G. &amp; Notredame, C. 3DCoffee: combining protein sequences and structures within multiple sequence alignments. J Mol Biol 340, 385-95 \\(2004).\r\n  10. Konagurthu, A.S., Whisstock, J.C., Stuckey, P.J. &amp; Lesk, A.M. MUSTANG: a multiple structural alignment algorithm. Proteins 64, 559-74 \\(2006).\r\n  11. Kawabata, T. MATRAS: A program for protein 3D structure comparison. Nucleic Acids Res 31, 3367-9 \\(2003).\r\n  12. Ye, Y. &amp; Godzik, A. FATCAT: a web server for flexible structure comparison and structure similarity searching. Nucleic Acids Res 32, W582-5 \\(2004).\r\n  13. Sowdhamini, R. et al. CAMPASS: a database of structurally aligned protein superfamilies. Structure 6, 1087-94 \\(1998).\r\n  14. Mallika, V., Bhaduri, A. &amp; Sowdhamini, R. PASS2: a semi-automated database of protein alignments organised as structural superfamilies. Nucleic Acids Res 30, 284-8 \\(2002).\r\n  15. Bhaduri, A., Pugalenthi, G. &amp; Sowdhamini, R. PASS2: an automated database of protein alignments organised as structural superfamilies. BMC Bioinformatics 5, 35 \\(2004).\r\n  16. Holm, L. &amp; Sander, C. Mapping the protein universe. Science 273, 595-603 \\(1996).\r\n  17. Sali, A. &amp; Blundell, T.L. Definition of general topological equivalence in protein structures. A procedure involving comparison of properties and relationships through simulated annealing and dynamic programming. J Mol Biol 212, 403-28 \\(1990).\r\n  18. Russell, R.B. &amp; Barton, G.J. Multiple protein sequence alignment from tertiary structure comparison: assignment of global and residue confidence levels. Proteins 14, 309-23 \\(1992).\r\n  19. Bayerl, T.M., Thomas, R.K., Penfold, J., Rennie, A. &amp; Sackmann, E. Specular reflection of neutrons at phospholipid monolayers. Changes of monolayer structure and headgroup hydration at the transition from the expanded to the condensed phase state. Biophys J 57, 1095-8 \\(1990).\r\n  20. Murthy, M.R.N. A fast method of comparing protein structures. FEBS Letters 168, 97-102 \\(1984).\r\n  21. Taylor, W.R., Flores, T.P. &amp; Orengo, C.A. Multiple protein structure alignment. Protein Sci 3, 1858-70 \\(1994).\r\n  22. Ye, Y., Jaroszewski, L., Li, W. &amp; Godzik, A. A segment alignment approach to protein comparison. Bioinformatics 19, 742-9 \\(2003).\r\n  23. Jewett, A.I., Huang, C.C. &amp; Ferrin, T.E. MINRMS: an efficient algorithm for determining protein structure similarity using root-mean-squared-distance. Bioinformatics 19, 625-34 \\(2003).\r\n  24. Pearson, W.R. &amp; Lipman, D.J. Improved tools for biological sequence comparison. Proc Natl Acad Sci U S A 85, 2444-8 \\(1988).\r\n  25. Wheeler, W.C. MALIGN: A Multiple Sequence Alignment Program. Journal of Heredity 85, 419-420 \\(1994).\r\n  26. Berman, H.M. et al. The Protein Data Bank and the challenge of structural genomics. Nat Struct Biol 7 Suppl, 957-9 \\(2000).\r\n  27. Chandonia, J.M. et al. The ASTRAL Compendium in 2004. Nucleic Acids Res 32, D189-92 \\(2004).\r\n  28. Mizuguchi, K., Deane, C.M., Blundell, T.L., Johnson, M.S. &amp; Overington, J.P. JOY: protein sequence-structure representation and analysis. Bioinformatics 14, 617-23 \\(1998).\r\n  29. Andreeva, A. et al. Data growth and its impact on the SCOP database: new developments. Nucleic Acids Res 36, D419-25 \\(2008).\r\n  30. Huang, C.C. et al. Integrated tools for structural and sequence alignment and analysis. Pac Symp Biocomput, 230-41 \\(2000).\r\n  31. Pettersen, E.F. et al. UCSF Chimera--a visualization system for exploratory research and analysis. J Comput Chem 25, 1605-12 \\(2004).\r\n  32. Sutcliffe, M.J., Haneef, I., Carney, D. &amp; Blundell, T.L. Knowledge based modelling of homologous proteins, Part I: Three-dimensional frameworks derived from the simultaneous superposition of multiple structures. Protein Eng 1, 377-84 \\(1987).\r\n  33. Chakrabarti, S. &amp; Sowdhamini, R. Functional sites and evolutionary connections of acylhomoserine lactone synthases. Protein Eng 16, 271-8 \\(2003).\r\n  34. Sandhya, S., Chakrabarti, S., Abhinandan, K.R., Sowdhamini, R. &amp; Srinivasan, N. Assessment of a rigorous transitive profile based search method to detect remotely similar proteins. J Biomol Struct Dyn 23, 283-98 \\(2005)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "**Conflicts of interest**\r\n\n\n\r\n\n\nThe authors declare that they have no competing financial interests.\r\n\n\n\r\n\n\n\r\n\n\n**Acknowledgements**\r\n\n\n\r\n\n\nR.S. was a Senior Research Fellow of the Wellcome Trust, U.K. K.K. is supported by University Grants Commission, India. The authors would like to thank Prof. Tom Blundell for earlier work on superfamily alignment database. We also thank NCBS \\(TIFR) for infrastructural facilities."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 11304,
+                "identity": "9f69156c-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Karuppiah Kanagarajadurai",
+                "email": "",
+                "orcid": "",
+                "institution": "National Centre for Biological Sciences (TIFR)",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Karuppiah",
+                "middleName": "",
+                "lastName": "Kanagarajadurai",
+                "suffix": ""
+            },
+            {
+                "id": 11305,
+                "identity": "9f691958-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "S Kalaimathy",
+                "email": "",
+                "orcid": "",
+                "institution": "National Centre for Biological Sciences (TIFR)",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "S",
+                "middleName": "",
+                "lastName": "Kalaimathy",
+                "suffix": ""
+            },
+            {
+                "id": 11306,
+                "identity": "9f691b9d-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Paramasivam Nagarajan",
+                "email": "",
+                "orcid": "",
+                "institution": "National Centre for Biological Sciences (TIFR)",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Paramasivam",
+                "middleName": "",
+                "lastName": "Nagarajan",
+                "suffix": ""
+            },
+            {
+                "id": 11307,
+                "identity": "9f691df1-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Ramanathan Sowdhamini",
+                "email": "",
+                "orcid": "",
+                "institution": "National Centre for Biological Sciences (TIFR)",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Ramanathan",
+                "middleName": "",
+                "lastName": "Sowdhamini",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2011-10-21 12:34:48",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/nprot.2009.166",
+        "doiUrl": "https://doi.org/10.1038/nprot.2009.166",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2608051,
+                "identity": "099028f8-a8ad-43f0-90c4-ceac474321d4",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:55",
+                "extension": "pdf",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 198395,
+                "visible": true,
+                "origin": "",
+                "legend": "Protocol flowchart for rigorous structure-based sequence alignment of distantly related proteins   The programs employed in various steps are discussed in the text and the installation notes are provided in the URL:  \"http://caps.ncbs.res.in/download/protocols_network/info.html\":http://caps.ncbs.res.in/download/protocols_network/info.html",
+                "description": "",
+                "filename": "figure1.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-604/v1/figure_1.pdf"
+            },
+            {
+                "id": 2608050,
+                "identity": "7d03854c-0d62-4c36-9465-57e1c04f4e7a",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:55",
+                "extension": "pdf",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 191380,
+                "visible": true,
+                "origin": "",
+                "legend": "Alignment of protozoan pheromone proteins superfamily members through (a) STAMP18 and (b) COMPARER17.    The characters between second to fifth of the SCOP codes (IDs) of protein domains correspond to Protein Data Bank (PDB) codes26, 27. The values of percentage identities and percentage of conserved secondary structures are higher, the pairwise RMSD are also lower when the alignment routed through COMPARER17. ",
+                "description": "",
+                "filename": "figure2.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-604/v1/figure_2.pdf"
+            },
+            {
+                "id": 2608052,
+                "identity": "ed7bc0bf-1a36-4bea-b452-7bbdca21bfc2",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:55",
+                "extension": "pdf",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 237365,
+                "visible": true,
+                "origin": "",
+                "legend": "same as Figure 2, but for the alignment of select triosephosphate isomerase superfamily members.   The characters between second to fifth of the SCOP codes (IDs) of protein domains correspond to Protein Data Bank (PDB) codes26, 27. The values of percentage identities and percentage of conserved secondary structures are higher, the pairwise RMSD are also lower when the alignment routed through COMPARER17. ",
+                "description": "",
+                "filename": "figure3.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-604/v1/figure_3.pdf"
+            },
+            {
+                "id": 13464563,
+                "identity": "bef65a16-84a7-4c33-a3ba-51ee274c2058",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:43:49",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 1174164,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-604/v1/3b7d166f-7cb5-4d2d-8d81-00349df39b31.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "distant relationships, sequence alignment, structural bioinformatics, structure-based sequence alignment, multiple sequence alignment, protein superfamiliies",
+        "license": {
+            "name": "None",
+            "url": ""
+        },
+        "manuscriptAbstract": "",
+        "manuscriptTitle": "A bioinformatics protocol for rigorous structure-based sequence alignment of distantly related proteins",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2009-09-03 05:14:00",
+                "doi": "10.1038/nprot.2009.166",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9f68a279-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "September 3rd, 2009",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 2341,
+                "name": "Computational biology and bioinformatics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2009-09-03 05:14:00",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

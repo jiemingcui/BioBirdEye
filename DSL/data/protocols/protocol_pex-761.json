@@ -1,0 +1,367 @@
+{
+    "identity": "pex-761",
+    "title": "<p>Detection of endogenous and drug-modulated CYP3A activity in cells using LC-MS/MS<span class=\"ql-cursor\">\ufeff</span></p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>The Cytochrome P450 3A (CYP3A) family in humans metabolizes most currently-prescribed drugs<sup>1,2</sup>. Therefore, the need to investigate potential drugs for CYP3A inhibition is paramount to the drug development process. Within this family, the two homologs primarily expressed in adults are CYP3A4 and CYP3A5, which share a large overlap in substrate specificity<sup>3,4</sup>. While biochemical assays using recombinantly-expressed enzymes can give clues regarding which compounds may be CYP3A modulators, they are often not physiologically relevant. This is due to heightened expression levels, optimized enzymatic conditions, and lack of some interacting proteins. Cell lines however represent a much more desirable system of studying CYP3A activity, producing results more representative of physiological systems \u2013 specifically in the context of disease. Additionally, cell models provide the opportunity to look at baseline CYP3A activity between cell types. </p><p>Liquid chromatography with tandem mass spectrometry (LC-MS/MS) is a sensitive means of detecting low levels of metabolites in heterogenous mixtures. When compared against a reference standard, experiments performed using LC-MS/MS can calculate the abundance of a given compound, in units of molarity. This technique has been used to detect 1-hydroxymidazolam (1OH-MDZ)<sup>5-7</sup>, which is the CYP3A-catalytized metabolite of midazolam<sup>8</sup>. With proper data normalization, these results can be used to quantify CYP3A enzymatic activity. Furthermore, the drug-induced modulation of CYP3A activity can be obtained by using test compounds compared to a negative control. </p><p>In this protocol, we describe a stepwise method for determining the effect of a test compound on CYP3A activity in cells. The workflow of our protocol begins with plating/drugging cells and ends with determination of baseline and drug-induced CYP3A modulation (Figure 1). We discuss plate designs, methods of treating cells, and LC-MS/MS operations. We also detail the data normalization process to produce sigmoidal dose-response curves and obtain IC<sub>50</sub> values. We further measure the endogenous CYP3A activity in various cell lines with modulated CYP3A4, CYP3A5, or oxidoreductase (POR) levels to demonstrate the assay works as expected. </p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p>*Note: This protocol is written to be performed in 384-well plates but can be scaled according to need and instrument capabilities.<strong> </strong></p><p><strong><u>Reagents:</u></strong></p><p>1.&nbsp;&nbsp;&nbsp;Cell line of interest (enough to plate 10,000 cells/well or preferred density)</p><p>2.&nbsp;&nbsp;&nbsp;Appropriate cell culture media</p><p>3.&nbsp;&nbsp;&nbsp;384-well, flat-bottomed, opaque, tissue culture-treated microplates (such as Corning 8804BC)</p><p>4.&nbsp;&nbsp;&nbsp;384-well V-bottom or round-bottom spectrometer-compatible microplates (such as Corning CLS3656)</p><p>5.&nbsp;&nbsp;&nbsp;384-well flat-bottom Echo-compatible microplates (such as Labcyte 384PP2.0) if using Echo as liquid handler. </p><p>6.&nbsp;&nbsp;&nbsp;Pure DMSO</p><p>7.&nbsp;&nbsp;&nbsp;Milli Q H<sub>2</sub>O</p><p>8.&nbsp;&nbsp;&nbsp;Midazolam (10 mM)</p><p>9.&nbsp;&nbsp;&nbsp;1-hydroxymidazolam (10 mM)</p><p>10. Acetonitrile (Containing 4 \u00b5g/mL of warfarin as internal standard)</p><p>11. 0.1% formic acid (in Milli Q H<sub>2</sub>O)</p><p>12. 0.1% formic acid (in Acetonitrile)</p><p>13. Stock compound plate containing controls and test compound(s). </p><p><strong> </strong></p><p><strong> Note: </strong>We recommend a stock plate with dose-response concentrations of ketoconazole (CYP3A inhibitor control) and test compound(s) of interest, as well as pure DMSO. This protocol is designed to add 100 nL volumes from the compound plate directly into the assay plate containing cells. </p><p>14. (Optional): Doxycycline dissolved in PBS (if using an inducible expression system)</p><p>15. (Optional): 384-well tissue culture-treated flat-bottomed clear-bottom plates if imaging cells in parallel.&nbsp;</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p><strong><u>Instruments:</u></strong></p><p>1.&nbsp;&nbsp;&nbsp;Centrifuge with microplate adapter, capable of 2,576 x g centrifugation</p><p>2.&nbsp;&nbsp;&nbsp;SCIEX Triple Quad 6500 mass spectrometer (or other comparable high throughput-capable mass spectrometer)</p><p>3.&nbsp;&nbsp;&nbsp;Acquity UPLC system using HSS C18 column (1.8 mm, 2.1 x 50 mm) (or other comparable UPLC system and column)</p><p>4.&nbsp;&nbsp;&nbsp;Valco valve (or other comparable HPLC-compatible desalting valve)</p><p>5.&nbsp;&nbsp;&nbsp;Thermo Fisher Multidrop Combi (or other liquid handler capable of dispensing 30 \u00b5L of cells. Note: If using multidrop combi we recommend small bore tubing)</p><p>6.&nbsp;&nbsp;&nbsp;Thermo Fisher Multidrop Combi nL (or other liquid handler capable of dispensing 100 nL from single conical tube source)</p><p>7.&nbsp;&nbsp;&nbsp;Labcyte Echo 550 (or other liquid handler capable of dispensing 100 nL from stock plates)</p><p>8.&nbsp;&nbsp;&nbsp;Bravo automated liquid handling platform (or other liquid handler capable of aspirating/dispensing 30 \u00b5L volumes between 384-well plates)</p><p>9.&nbsp;&nbsp;&nbsp;(Optional) Lionheart FX live cell imager (if imaging cells in parallel). </p><p><strong><u>Software:</u></strong></p><p>1.&nbsp;&nbsp;&nbsp;LC-MS data acquisition software (such as SCIEX Analyst 1.6.3)</p><p>2.&nbsp;&nbsp;&nbsp;LC-MS data processing software (such as SCIEX MultiQuant 2.1.1)</p><p>3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Post-processing software capable of capable of generating dose-response curves and extrapolating IC<sub>50</sub> values (such as GraphPad Prism 8.2.1)</p><p><br></p><p>4.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Microsoft Excel (or similar spreadsheet software)</p><p><br></p><p><br></p><p>5.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Optional): Lionheart FX software version 3.05.11 (or other suitable image analysis software capable of producing cell confluence values).&nbsp;</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "*This protocol provides an example of testing 2 compounds for CYP3A inhibition, each in multiple concentrations ranging from 0.0030 \u00b5M to 10 \u00b5M. The first is ketoconazole (pan-CYP3A inhibitor) and the second is a compound of unknown CYP3A inhibition. Number of compounds, doses, and cell lines can be scaled according to experimental goals.\nPrepare compound source plate:\n1.\u00a0\u00a0\u00a0Make a source plate containing DMSO, ketoconazole, and test compound(s) of interest. From this plate, 100 nL will be added to the assay plate containing cells. We recommend designing the source plate to be \u2018stamped\u2019 to the destination plates (See our template in Figure 2).\nDrug cells and collect samples:\nDay 1\n1.\u00a0\u00a0\u00a0Obtain cells at a concentration of 333,333 cells/mL in enough total volume to dispense 30 \u00b5L/well. This will result in a plating density of 10,000 cells/well.\nNote: be sure to account for \u2018dead volume\u2019 of cells lost in the plating step.\n2.\u00a0\u00a0\u00a0(Optional) add doxycycline to inducible cell lines at this stage, if applicable.\n3.\u00a0\u00a0\u00a0Plate cells. We recommend dispensing the 30 \u00b5L volumes using the Thermo Fisher multidrop combi with small bore tubing.\nNote: For each cell line being tested, a total of 112 wells will be used per plate (See our assay plate template in Figure 3).\n4.\u00a0\u00a0\u00a0(Optional) Plate cells into clear-bottom microplates in parallel if imaging cells in addition to LC-MS/MS (to measure cell growth resulting from CYP3A inhibition, for example).\n5.\u00a0\u00a0\u00a0Incubate cells at 37\u00b0C for 24 hours to allow for attachment.\nDay 2\n6.\u00a0\u00a0\u00a0Briefly centrifuge compound source plate and assay plate.\n7.\u00a0\u00a0\u00a0Dispense 100 nL from the compound plate into appropriate wells of the assay plate according to template (Figure 3). We recommend using the Labcyte Echo 550 for the transfer.\n8.\u00a0\u00a0\u00a0From a 1.5 mM stock of midazolam, add 100nL into all wells of the assay plate (to yield a final concentration of 5 \u00b5M). We recommend using the Thermo Fisher multidrop combi nL for this dispense.\n9.\u00a0\u00a0\u00a0Return cells to incubator for 24 hours.\nDay 3\n10. Make a standard plate of midazolam and 1-hydroxymidazolam (1OH-MDZ) to be used as calibration standards for the quantitative analysis. Standards should be prepared in the same media which cells are cultured in and using a same final DMSO concentration as the assay plate. (See our template and standard plate instructions in Figure 4).\n11. Remove assay plate from incubator and briefly centrifuge along with standard plate.\n12. (Optional): If cells were plated in parallel for imaging, measure confluence at this step to obtain any effects on cell growth caused by CYP3A inhibition. Discard plates after imaging.\n13. Quench the reactions by adding 60 \u00b5L of acetonitrile (containing 4 \u00b5g/mL Warfarin) to the assay and standard plates.\nNote: Adding the acetonitrile will bring the final plate volumes to 90 \u00b5L. We recommend carefully adding the 60 \u00b5L by using multichannel pipettes or preferably liquid handler on a slow dispense setting.\n14. Seal the assay and standard plates and centrifuge at 4,000 RPM for 20 minutes.\nThe plates must be sealed tightly before centrifuging to avoid evaporation. Be sure to include dummy plates as balances where appropriate.\n15. While the assay and standard plates are centrifuging, prepare corresponding mass spec appropriate plates (typically v-bottom or round-bottom plates). Label the plates with corresponding names (\u201cStandard\u201d, \u201cPlate 1\u201d, \u201cPlate 2\u201d, etc.)\n16. Into the empty mass spec plates, add 30 \u00b5L of Milli Q H\n2\nO to all wells.\n17. Briefly centrifuge the mass spec plates.\n18. Once the assay plates are finished centrifuging, transfer 30 \u00b5L of the supernatant into the 30 \u00b5L of Milli Q H\n2\nO of the mass spec plates. We recommend using the Bravo automated liquid handling system to aspirate 30 \u00b5L from assay plates and dispense into the mass spec plates.\n19. Seal the resulting mass spec plates (which at this point contain 60 \u00b5L of volume).\n20. Continue with LC-MS/MS analysis immediately\nor\nfreeze at -20\u00b0C until ready.\nNote: In our experience freezing the diluted samples has no effect on results and provides a convenient way to conduct the experiment in batch and subsequently load plates onto the spectrometer as the instrument becomes available.\nAnalysis of samples by LC-MS/MS:\n1.\u00a0\u00a0\u00a0Thaw plates (if applicable) and centrifuge briefly.\n2.\u00a0\u00a0\u00a0For each unknown sample and calibration sample,\ninject 10\n\u00b5L into a UPLC HSS C18 column (or other similar UPLC system).\n3.\u00a0\u00a0\u00a0Prepare two solvents for gradient elution: 0.1% formic acid-water (Solvent A), and 0.1% formic acid-acetonitrile (Solvent B).\n4.\u00a0\u00a0\u00a0Use a Valco Valve to desalt the eluant to waste for the first 0.5 minutes.\n5.\u00a0\u00a0\u00a0Perform the chromatographic separation by gradient elution using a constant flow rate of 1 mL min\n-1\nfor 2 minutes. The gradient applied should be as follows: 0.0 min, 90% A\u201310% B; 0.3 min, 80% A\u201320% B, 1.35 min, 80% A\u201320% B; 1.65 min, 5% A\u201395% B; 1.95 min, 10% A\u201395% B; and 2.00 min, 90% A-10% B.\n6.\u00a0\u00a0\u00a0Direct the remaining eluates to the triple quadrupole mass spectrometer equipped with an electrospray ionization source (we used SCIEX 6500 triple quadrupole spectrometer).\n7.\u00a0\u00a0\u00a0Perform the LC-MS/MS using the following settings: Positive polarity at 3000V, source temperature at 650\u00b0C, Gas 1 and gas 2 settings for nitrogen at 60, curtain gas at 20, and collision gas at 10.\n8.\u00a0\u00a0\u00a0Monitor the reactions using the following m/z transitions: 326 to 291 for midazolam, 342 to 324 for 1OH-MDZ, and 309 to 163 for the internal standard Warfarin.\n9.\u00a0\u00a0\u00a0Set the declustering potentials, entrance potentials, collision energy, and collision cell exit potential as follows: 120 V, 12 V, 35V, and 27 V for MDZ; 70 V, 12 V, 30V, and 40 V for 1-OH MDZ; 57 V, 12V, 44V, and 20 V for the internal standard.\n10. Acquire the data with Analyst 1.6.3 and perform data processing with MultiQuant 2.1.1 software (or a similar set of software for data acquisition and processing).\nData analysis and determination of CYP3A inhibition:\n1.\u00a0\u00a0\u00a0Load the LC-MS/MS results into a spreadsheet (using software such as Microsoft Excel). The format of results should be the abundance of 1OH-MDZ in units of nM for each compound tested and for each cell line tested.\n2.\u00a0\u00a0\u00a0Using GraphPad Prism software, create an XY data table. Be sure to select 3 in the Y-axis option \u201cEnter __ replicate values in side-by-side subcolumns\u201d to represent the triplicate measurements.\n3.\u00a0\u00a0\u00a0Referencing the Excel results spreadsheet, load the concentration range in the \u2018X\u2019 column of Prism. \u2018Group A\u2019, \u2018Group B\u2019, etc., should have the results from test compound(s) and ketoconazole (Figure 5).\n4.\u00a0\u00a0\u00a0Transform compound concentrations to a Log10 scale by selecting analyze and then transform.\n5.\u00a0\u00a0\u00a0Normalize the data by selecting analyze and then normalize. For defining 0%, set Y = 0. (This is appropriate because 0% of CYP3A activity is equivalent to 0 nM 1OH-MDZ). For defining 100%, reference the results spreadsheet and take the average of the DMSO column, then paste in that value (For our example Y = 2.5, which is the average of the DMSO columns in nM of 1OH-MDZ).\n6.\u00a0\u00a0\u00a0Fit the data with a curve by selecting \u2018fit a curve with nonlinear regression\u2019 from the normalized data. Select the equation \u2018log(inhibitor) vs. response \u2013 Variable slope (four parameters)\u2019. This will take the data from normalized values and generate a sigmoidal curve (Figure 6b).\n7.\u00a0\u00a0\u00a0Find the IC\n50\nvalues for each compound by clicking on the \u2018Nonlin fit\u2019 table of results. This value represents the concentration (in \u00b5M) at which 50% of CYP3A activity is inhibited.\n8.\u00a0\u00a0\u00a0If interested in the endogenous CYP3A activity relative to other samples, take the imported data (1OH-MDZ abundance in nM) and plot a bar graph of each sample, only using the DMSO treatments (Figure 6c)."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p><strong>Cell treatments and sample collection:</strong></p><p><strong>1.&nbsp;&nbsp;&nbsp;<u>Issues with plating cells</u>: </strong>Using liquid handlers to dispense from single containers of cells (such as 50 mL conical tubes or 150 mL flasks) requires careful consideration of dead volume (the wasted volume lost in plating). We find that dispensing cells from conical tubes works best, as there is less surface area at the bottom and thus less volume required. If dispensing cells into many plates at once, occasionally cap and invert the tube so that cells are still in a homogenous solution. </p><p><strong>2.&nbsp;&nbsp;&nbsp;<u>Not enough cells to plate</u>: </strong>If after counting cells there are not enough to plate, it may be tempting to decrease volumes of the assay. However, the assay volumes, quenching volumes, and supernatant dilution volumes are important for downstream calculation of metabolite abundance. Instead of plating less volume of cells, we recommend plating cells at a lower (reasonable) density, but with the original assay volume of 30 \u00b5L. </p><p><strong>3.&nbsp;&nbsp;&nbsp;<u>Assay plates have bubbles</u>: </strong>For drugging steps, the compounds should be delivered into wells which are free of bubbles. Otherwise, the cells may not receive the compounds and the data will be problematic. Briefly centrifuge plates before unsealing them and apply a slow and even pressure when unsealing the plates (or use a plate unsealer). </p><p><strong>4.&nbsp;&nbsp;&nbsp;<u>Compound to Assay plate transfer issues:</u> </strong>Liquid handlers such as the Labcyte Echo 550 can use a DMSO backfill step to ensure final DMSO concentrations being the same. However, this results in different wells of the compound plate have unequal final volumes. We recommend designing the compound plate so that it can be stamped into the assay plate \u2013 and the stamping doesn\u2019t have to be entire plate to entire plate. It is straightforward to design the compound plate to be stamped multiple times into the assay plate. See our compound plate template in Figure 2.</p><p>Note: if using the Labcyte Echo 550, the assay plate (containing cells) is inverted for the duration of the compound transfer. It is critical to take the following measures: 1) to centrifuge the assay plates before being loaded onto the machine, 2) to avoid any condensation on the lid of the plates by removing the lids at least 10 minutes in advance of transfer and 3) to not exceed 30-40 \u00b5L of cells. Any deviation can cause cells to fall out of the plates and destroy the experiment (based on our experience). </p><p><strong>5.&nbsp;&nbsp;&nbsp;<u>Quenching reactions causes spillover: </u></strong>In the protocol we recommend adding the acetonitrile quenching reagent to the cells slowly. The resulting final volume will be 90 \u00b5L and the well volumes will spill over if careful precautions are not taken. We recommend centrifuging the assay plates before quenching. After centrifugation, check the plates visually to make sure no air bubbles exist. We also recommend performing a test run before hand with water and quenching reagent. Liquid handlers with quick or high pressure dispense will cause the volume to spillover. Lower the dispense speed to avoid. </p><p><strong>6.&nbsp;&nbsp;&nbsp;<u>Solvent evaporation during centrifuging step:</u> </strong>Acetonitrile evaporates rapidly. After the plate quenching step, quickly seal the plates (preferably using a plate sealer, not manually). Press over the seal with a flat-edge non-sharp object to ensure it is on tight. Centrifuging the plates at high speed for 20 minutes with any gap in the seal will cause a total evaporation of the quenching reagent and ruin the experiment. </p><p><strong>7.&nbsp;&nbsp;&nbsp;<u>Difficulty transferring supernatant for dilution:</u> </strong>Our protocol instructs diluting the supernatant of the assay plates into an equal volume of H<sub>2</sub>O in the mass spec plates. Depending on sample content and time the plates are set out post-centrifugation, a supernatant may not be apparent. We haven\u2019t noticed any issues with aspirating from the bottom of the assay plate rather than the top 1/3<sup>rd. </sup>However, we recommend ensuring that a full 30 \u00b5L is transferred from every well of the assay plate to every well of the compound plate, and at the same aspiration height. If this step is attempted manually, there is a chance that human error may cause assay plate samples to be aspirated at different heights and may result in final data not being directly comparable between samples. If manual aspiration is the only option, aspirate from the bottom of the assay plate.</p><p><strong>LC-MS/MS analysis:</strong></p><p>1.&nbsp;&nbsp;&nbsp;<strong><u>The ratio of organic solvent to water in the sample effects the peak shape of the interest</u>:</strong> High amount of organic solvent in the samples causes shoulder peak(s) when performing samples in the Sciex triple Quadruple mass spectrometry. The ratio of organic solvent (or quenching solvent) to water was tested and confirmed during the method development and validation procedure. We recommend using the water content as low as possible to pursuit the lowest limit of detection. </p><p><strong>2.&nbsp;&nbsp;&nbsp;<u>Carry over issue on LC-MS/MS</u>: </strong>Our UPLC-MS/MS condition is not experiencing carryover issues when doing target profiling (MRM). However, the carry over problem is a typical issue when developing the UPLC MS method. We recommend the very strong needle wash solvent containing 20% acetonitrile, 20% ethanol alcohol, 20% isopropanol, 20% methanol, 19.5% water and 0.5% formic acid if using Waters Acquity UPLC system. </p><p><strong>3.&nbsp;&nbsp;&nbsp;<u>Peak of interests elute late on the chromatograms</u>: </strong>The peaks of MDZ, 1OH-MDZ and Warfarin were eluted after 1 minutes during the 2 minutes run. The high content of aqueous mobile phase (990%-80% A), holding up to 1.35 minutes, in the gradient method is the key aspect to successfully separate the MDZ (rt=1.350) and 1OH-MDZ (rt=1.256).&nbsp;(Figure 7a and 7b)</p><p>4.&nbsp;&nbsp;&nbsp;<u>Variable integration by the data process software</u>: To generate high quality quantitative data, correct data processing is the key step. Predefined acceptance criteria are the fundamental steps to achieve the consistent integration. The analyte to internal standard peak area ratio is generally applied to build the calibration curve, quantify the unknows, and obtain the repeatable data. Besides that, each chromatogram should be inspected individually to confirm the correct baseline drawing and separate from any close eluting peaks. The variable integration by the automated algorithms should be corrected manually if peak of interest is not recognized due to lower than the detection threshold or other obviously incorrect process.</p><p><strong>Analyzed Results:</strong></p><p><strong>1.&nbsp;&nbsp;&nbsp;<u>Results did not produce sigmoidal curve:</u> </strong>One possible reason for the results not producing a sigmoidal curve is that the CYP3A activity is low or nonexistent in the tested cells. We recommend attempting a test run of the protocol with cells having CYP3A4 or CYP3A5 (or both) expression. </p><p>We recommend always using ketoconazole and DMSO as the controls and keeping ketoconazole in the same range of concentrations as the test compound. Lack of a dose-response curve resulting from tested compound(s) cannot be interpreted as no CYP3A inhibition unless the ketoconazole group successfully produced a curve. </p><p>Check the imported (non-normalized) data to make sure that the tested groups are producing detectable levels of 1OH-MDZ. The DMSO group should be the first checked, as it is usually the group containing the highest level. </p><p>2.&nbsp;&nbsp;&nbsp;<strong><u>Increase in CYP3A activity:</u> </strong>While we expect most compounds to inhibit CYP3A activity or cause no effect, it is possible to observe a curve indicating higher than baseline (DMSO-treated) activity. We have seen this as a result of an enzymatic activator, whereby the compound binds to the protein and causes faster midazolam turnover. Another possibility to consider is that the compound binds to a transcription factor upstream of CYP3A4 or CYP3A5 (For example, PXR in the case of CYP3A4.). This may cause unexpected effects if the compound induces the expression of CYP3A. </p><p>3.&nbsp;&nbsp;&nbsp;<u>There is no correlation between MDZ depletion and 1OH-MDZ:</u> Our assay is designed to detect modulations in CYP3A activity by measuring the formation (or lack thereof) of 1OH-MDZ. It may therefore be desirable to look at depletion of midazolam as well and potentially correlate this with metabolite formation. However, midazolam depletion results are not specific to CYP3A activity. This is due to several other proteins in the cell capable of metabolizing midazolam in other ways (glucuronidation, for example). However, the hydroxylation is CYP3A-specific and should be used as the sole indicator of CYP3A activity.&nbsp;</p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p><strong><u>Drug cells and collect samples:</u></strong></p><p>Day1</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Harvesting, counting, and plating cells: 1.5 hours per plate. (Each assay plate can contain 3 different cell lines \u2013 see Figure 3). </p><p>Day 2</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Drugging cells with midazolam: 5 minutes per plate</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Drugging cells with test compounds: 20 minutes per plate</p><p>Day 3</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Preparing standard plate of midazolam and 1OH-MDZ references: 1 hour</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Quenching reactions: 10 minutes per plate</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Centrifuging assay plates and preparing mass spec plates: 45 minutes</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Diluting supernatants: 5 minutes per plate</p><p><strong><u>LC-MS/MS of samples:</u></strong></p><p><strong>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Starting up the instrument (including purging tubing): 15 minutes</strong></p><p><strong>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Editing sample list: 10 minutes per plate</strong></p><p><strong>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Acquiring sample from injection to injection: 3 minutes per well, 19.2 hours per 384 well plate</strong></p><p><strong>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Integrating the peak area, establishing the standard curve, and calculating the concentration of MDZ and metabolites: 30 minutes per plate </strong></p><p><strong><u>Post-processing and data analysis:</u></strong></p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Importing, transforming, and normalizing data to generate </strong>IC<sub>50</sub> values : 1 hour</p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p><strong><u>LCMSMS data:</u></strong></p><p>Once the samples have been acquired by the liquid chromatography mass spectrometry, the following data should be output from the processing software:</p><p>1.&nbsp;&nbsp;&nbsp;<strong>Explore the extracted ion chromatogram</strong>: mass spectrometer response of parent compound (MDZ), metabolite (1OH-MDZ), and internal standard (Warfarin) should be shown in the exact ion chromatograms. (Figure 7)</p><p><strong>2.&nbsp;&nbsp;&nbsp;Calibration curve of 1OH-MDZ: </strong>Calibration curve was obtained with the quantitative standards of 1OH-MDZ. The linear regression coefficient was greater than 0.99.</p><p>3.&nbsp;&nbsp;&nbsp;<strong>Concentration of unknow samples: </strong>A text file should be exported containing the concentrations of 1OH-MDZ as well as other customized requisition parameters and sample information.</p><p><strong><u>Analysis results \u2013 determining CYP3A inhibition:</u></strong></p><p>Once the data have been acquired and loaded into GraphPad prism software, the following sheets should be present if all steps were performed correctly:</p><p>1.&nbsp;&nbsp;&nbsp;<strong>Results_Sheet</strong>: the imported data containing concentrations of 1OH-MDZ for all wells of each tested sample. </p><p>2.&nbsp;&nbsp;&nbsp;<strong>Transform of X of Results_Sheet</strong>:<strong> </strong>The same data as the original file but with Log10 transformed concentration values. </p><p>3.&nbsp;&nbsp;&nbsp;<strong>Normalized of Transform X of Results_Sheet</strong>: This file is what should appear after the normalization step. At this stage data should be in values roughly contained within the 0-100 range.<strong> </strong></p><p>4.&nbsp;&nbsp;&nbsp;<strong>Nonlin fit of Normalize of Transform X of Results_Sheet</strong>: The file which appears after the nonlinear curve was fit to the data and should contain IC<sub>50</sub> values.</p><p>The sheets for both imported and transformed/normalized data should look similar to Figure 5.</p><p>If interested in the drug-induced metabolite abundances (which are non-normalized values), they can be plotted as bar graphs for any tested concentration. We recommend taking a concentration and plotting the test compound(s) alongside the same concentration of ketoconazole and DMSO (Figure 6a). </p><p>For normalized CYP3A activity, ketoconazole should provide a sigmoidal dose-response curve which reaches both 100% and 0% (Figure 6b). This assumes the tested cell lines have functional CYP3A activity (note: many cell lines express CYP3A4 or CYP3A5 in drastically different quantities). </p><p>To obtain an understanding of endogenous CYP3A activity between cell lines, the abundance of 1OH-MDZ can be plotted as a bar graph, only using DMSO-treated samples as input. If all cell lines were processed the same, the results should indicate which cell lines have the highest and lowest CYP3A activity. As proof of concept, we measured the endogenous (DMSO-treated) production of 1OH-MDZ in cells with differing CYP3A levels. We used HepG2 cells which highly express CYP3A4, and HepG2\u0394POR which have nonfunctional oxidoreductase and prohibit CYPs from functioning. We also tested AsPC-1 cells which have high CYP3A5 levels, and modulated CYP3A levels by deleting (with CRISPR/Cas9) or over-expressing CY3PA4 and CYP3A5 (Figure 6c). </p><p><br></p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Liu, Y. T., Hao, H. P., Liu, C. X., Wang, G. J. &amp; Xie, H. G. Drugs as CYP3A probes, inducers, and inhibitors. <em>Drug Metab Rev</em> <strong>39</strong>, 699-721, doi:10.1080/03602530701690374 (2007).</p><p>2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Guengerich, F. P. Cytochrome p450 and chemical toxicology. <em>Chem Res Toxicol</em> <strong>21</strong>, 70-83, doi:10.1021/tx700079z (2008).</p><p>3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Achour, B., Barber, J. &amp; Rostami-Hodjegan, A. Expression of hepatic drug-metabolizing cytochrome p450 enzymes and their intercorrelations: a meta-analysis. <em>Drug Metab Dispos</em> <strong>42</strong>, 1349-1356, doi:10.1124/dmd.114.058834 (2014).</p><p>4.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shimada, T., Yamazaki, H., Mimura, M., Inui, Y. &amp; Guengerich, F. P. Interindividual variations in human liver cytochrome P-450 enzymes involved in the oxidation of drugs, carcinogens and toxic chemicals: studies with liver microsomes of 30 Japanese and 30 Caucasians. <em>J Pharmacol Exp Ther</em> <strong>270</strong>, 414-423 (1994).</p><p>5.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Blobaum, A. L.<em> et al.</em> Heterotropic activation of the midazolam hydroxylase activity of CYP3A by a positive allosteric modulator of mGlu5: in vitro to in vivo translation and potential impact on clinically relevant drug-drug interactions. <em>Drug Metab Dispos</em> <strong>41</strong>, 2066-2075, doi:10.1124/dmd.113.052662 (2013).</p><p>6.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;41&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Paulson, S. K.<em> et al.</em> The Pharmacokinetics of the CYP3A Substrate Midazolam After Steady-state Dosing of Delafloxacin. <em>Clin Ther</em> <strong>39</strong>, 1182-1190, doi:10.1016/j.clinthera.2017.04.009 (2017).</p><p>7.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;42&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mooiman, K. D.<em> et al.</em> Development and validation of a LC-MS/MS method for the in vitro analysis of 1-hydroxymidazolam in human liver microsomes: application for determining CYP3A4 inhibition in complex matrix mixtures. <em>Biomed Chromatogr</em> <strong>27</strong>, 1107-1116, doi:10.1002/bmc.2913 (2013).</p><p>8.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Administration, U. S. F. a. D. <em>Drug Development and Drug Interactions : Table of Substrates, Inhibitors, and Inducers</em>, &lt;https://www.fda.gov/drugs/drug-interactions-labeling/drug-development-and-drug-interactions-table-substrates-inhibitors-and-inducers&gt; (2017).</p><p><br></p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>We thank the analytical technology center (ATC, St. Jude Children\u2019s Research Hospital) and high throughput bioscience center (HTB, St Jude Children\u2019s Research Hospital) for assistance with spectrometry and liquid handling equipment, respectively. We also thank other members of the Chen research laboratory for valuable discussions and help.&nbsp;</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 192324,
+                "identity": "f34ebea4-bb47-44b7-a0ee-527d1b669e68",
+                "order_by": 1,
+                "name": "William C. Wright",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-2274-9966",
+                "institution": "St. Jude Children's Research Hospital",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "William",
+                "middleName": "C.",
+                "lastName": "Wright",
+                "suffix": ""
+            },
+            {
+                "id": 192325,
+                "identity": "f630aaad-a84f-4474-aeb4-32a5253c1020",
+                "order_by": 2,
+                "name": "Lei Yang",
+                "email": "",
+                "orcid": "",
+                "institution": "St. Jude Children's Research Hospital",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Lei",
+                "middleName": "",
+                "lastName": "Yang",
+                "suffix": ""
+            },
+            {
+                "id": 192326,
+                "identity": "6017b23b-9fc1-4a7f-a8c7-17a8e8acdf7b",
+                "order_by": 3,
+                "name": "Taosheng Chen",
+                "email": "taosheng.chen@stjude.org",
+                "orcid": "https://orcid.org/0000-0001-6420-3809",
+                "institution": "St. Jude Children's Research Hospital",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Taosheng",
+                "middleName": "",
+                "lastName": "Chen",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2019-10-16 19:35:13",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.2.16299/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.2.16299/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 328491,
+                "identity": "27ce80ce-8c83-4d2d-8c1a-4de3a1f6c288",
+                "added_by": "auto",
+                "created_at": "2020-01-06 13:53:21",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 166190,
+                "visible": true,
+                "origin": "",
+                "legend": "The workflow of our protocol. We outline methods to start from cultured cells and end with normalized % CYP3A inhibition.",
+                "description": "",
+                "filename": "Figure1.PNG",
+                "url": "https://assets.researchsquare.com/files/378e839d-55a0-49f0-8bd4-e661a21f2d0e/v1/Figure_1.PNG"
+            },
+            {
+                "id": 328492,
+                "identity": "1edc5f6a-38d2-475d-9ac9-a2f1b6574951",
+                "added_by": "auto",
+                "created_at": "2020-01-06 13:53:21",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 55814,
+                "visible": true,
+                "origin": "",
+                "legend": "Example compound source plate template",
+                "description": "",
+                "filename": "Figure2.PNG",
+                "url": "https://assets.researchsquare.com/files/378e839d-55a0-49f0-8bd4-e661a21f2d0e/v1/Figure_2.PNG"
+            },
+            {
+                "id": 328493,
+                "identity": "4f45f230-f3f0-4d62-9de1-090ec481613e",
+                "added_by": "auto",
+                "created_at": "2020-01-06 13:53:21",
+                "extension": "png",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 80281,
+                "visible": true,
+                "origin": "",
+                "legend": "Example assay plate template",
+                "description": "",
+                "filename": "Figure3.PNG",
+                "url": "https://assets.researchsquare.com/files/378e839d-55a0-49f0-8bd4-e661a21f2d0e/v1/Figure_3.PNG"
+            },
+            {
+                "id": 328494,
+                "identity": "81bc0811-1299-46b0-85b3-3007feb5cc46",
+                "added_by": "auto",
+                "created_at": "2020-01-06 13:53:21",
+                "extension": "png",
+                "order_by": 4,
+                "title": "Figure 4",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 39811,
+                "visible": true,
+                "origin": "",
+                "legend": "Example template containing calibration standards",
+                "description": "",
+                "filename": "Figure4.PNG",
+                "url": "https://assets.researchsquare.com/files/378e839d-55a0-49f0-8bd4-e661a21f2d0e/v1/Figure_4.PNG"
+            },
+            {
+                "id": 328495,
+                "identity": "aadecd06-5922-4a05-b676-3ab35cb6b618",
+                "added_by": "auto",
+                "created_at": "2020-01-06 13:53:21",
+                "extension": "png",
+                "order_by": 5,
+                "title": "Figure 5",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 170862,
+                "visible": true,
+                "origin": "",
+                "legend": "The general post-acquisition data analysis procedure",
+                "description": "",
+                "filename": "Figure5.PNG",
+                "url": "https://assets.researchsquare.com/files/378e839d-55a0-49f0-8bd4-e661a21f2d0e/v1/Figure_5.PNG"
+            },
+            {
+                "id": 328496,
+                "identity": "f404872a-2f2d-4822-be3f-2df02eb60516",
+                "added_by": "auto",
+                "created_at": "2020-01-06 13:53:21",
+                "extension": "png",
+                "order_by": 6,
+                "title": "Figure 6",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 80687,
+                "visible": true,
+                "origin": "",
+                "legend": "Various applications of our protocol. (a) the measurement of metabolite abundance from drug-treated samples, showing two different concentrations. (b) the transformation to normalized % CYP3A activity and plotting of dose-response curves. (c) measuring metabolite abundance in various untreated cell lines to assess relative endogenous CYP3A activity. We demonstrate the effectiveness of our protocol by using various cell lines, including the mutant oxidoreductase cells HepG2-\u0394POR.",
+                "description": "",
+                "filename": "Figure6.PNG",
+                "url": "https://assets.researchsquare.com/files/378e839d-55a0-49f0-8bd4-e661a21f2d0e/v1/Figure_6.PNG"
+            },
+            {
+                "id": 328497,
+                "identity": "495fd8a9-bb8e-405c-b544-3579586d577d",
+                "added_by": "auto",
+                "created_at": "2020-01-06 13:53:22",
+                "extension": "png",
+                "order_by": 7,
+                "title": "Figure 7",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 49028,
+                "visible": true,
+                "origin": "",
+                "legend": "Extracted ion chromatograms of 1OH-MDZ (a), MDZ (b), and Warfarin (c).",
+                "description": "",
+                "filename": "Figure7.PNG",
+                "url": "https://assets.researchsquare.com/files/378e839d-55a0-49f0-8bd4-e661a21f2d0e/v1/Figure_7.PNG"
+            },
+            {
+                "id": 13484710,
+                "identity": "9096fb70-f19f-403a-95f8-9533e844a63c",
+                "added_by": "auto",
+                "created_at": "2021-09-16 21:59:00",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 1900617,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-761/v1/7b6a9565-b5c8-47bc-b1ae-069bf4d39b7e.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "CYP3A, CYP3A4, CYP3A5, midazolam, drug development, cell-based, screening, high throughput, mass spectrometry",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>Most currently-prescribed drugs are metabolized by the Cytochrome P450 3A (CYP3A) family. It is therefore critical to know whether drugs or compounds of interest inhibit these enzymes (primarily CYP3A4 and CYP3A5). Here, we describe an LC-MS/MS based method to measure CYP3A catalytic activity in cells. Our method allows for highly sensitive detection of drug-induced modulations in CYP3A activity, as well as endogenous (non-treated) activity. This is accomplished by exploiting the CYP3A-catalyzed hydroxylation of midazolam. We include DMSO and inhibitor controls to obtain a signal window capable of producing normalized dose-response curves. We also obtain tight error bars suitable for statistical interpretation, which highlights the reproducibility of the assay between replicates. While our method is performed in 384-well plates and is amenable to high-throughput screening \u2013 an optional plate freezing step allows for storage of samples before metabolite detection, making our protocol suitable for lower throughputs as well. We present a stepwise protocol starting from treatment of cells with a compound of interest to obtaining its IC<sub>50 </sub>value and determining CYP3A inhibition.&nbsp;</p>",
+        "manuscriptTitle": "Detection of endogenous and drug-modulated CYP3A activity in cells using LC-MS/MS\ufeff",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2020-01-06 13:53:20",
+                "doi": "10.21203/rs.2.16299/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "49b9d26c-1575-474c-b843-7e1af860fd91",
+        "owner": [],
+        "postedDate": "January 6th, 2020",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 35241,
+                "name": "Biochemistry"
+            },
+            {
+                "id": 35242,
+                "name": "Cancer"
+            },
+            {
+                "id": 35243,
+                "name": "Cell Biology"
+            },
+            {
+                "id": 35244,
+                "name": "Chemical biology"
+            },
+            {
+                "id": 35245,
+                "name": "Drug discovery"
+            },
+            {
+                "id": 35246,
+                "name": "Molecular biology"
+            },
+            {
+                "id": 35247,
+                "name": "Medicinal chemistry"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2020-01-06 13:53:20",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

@@ -1,0 +1,267 @@
+{
+    "identity": "pex-1300",
+    "title": "<p>CoTECH for single-cell joint detection of transcriptome and chromatin occupancy</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>Single-cell transcriptome sequencing (scRNA-seq) has revolutionized our understanding of cellular heterogeneity in physiological and pathological biological processes <sup>1-7</sup>. The transcriptome and cell identities of different cell types/states with the same DNA are determined by multilayers of epigenetic information. Recently, technologies for single-cell profiling of multi-dimensional chromatin states have been developed, such as various scChIP-seq techniques for DNA-binding proteins and histone modifications <sup>8-12</sup>, scATAC-seq for chromatin accessibility <sup>13</sup>, MNase-seq for nucleosome positioning <sup>14</sup>, scBS-seq for DNA methylome <sup>15</sup> and scHiC for higher-order chromatin structure <sup>16</sup>. Although these methods measure multiple modalities of single cells, each provides only specific layers of cellular heterogeneities. To build connections across these layers in single cells, innovative computational platforms emerge to integrate unpaired single-cell omics datasets and project different molecular information into a common latent space <sup>17,18</sup>. However, existing strategies require priori knowledge-based correspondence across multimodal omics datasets from different</p><p>experiments, limiting the ability to reconstruct an accurate view of functional relationship between different modalities of epigenomic features and gene expression as well as the crosstalk between different epigenetic layers.</p><p>More recently, unlike those profiling molecular layers one at a time, new approaches have been developed to experimentally link the transcriptome and epigenome by simultaneously measuring multi-omics in the same single cells, making it possible to precisely analyze single-cell-resolved epigenomic regulation of gene expression and cell fate decisions. For example, several various single-cell co-assays (combined scATAC-and scRNA-seq) for joint analysis of accessible chromatin and gene expression have been developed, permitting inference of the correlation between cis-regulatory elements and putative target genes <sup>19-22</sup>.</p><p>Apart from chromatin accessibility, other important molecular layers of the epigenome are covalent modifications to histones and chromatin occupancy of DNA binding proteins, providing a critical guidance for determining transcriptional outcomes<sup>23</sup>. Two elegant studies demonstrated the proof-of-concept application of simultaneously quantifying of protein\u2013DNA interactions and transcriptome in single cells by scDam&amp;T-seq and scCC <sup>24,25</sup>. Both methods rely on a transgene expressing transcription factors or chromatin binding proteins tethered to Escherichia coli DNA adenine methyltransferase (Dam) or piggyBac transposase for scDam&amp;T-seq and scCC, respectively, limiting the likelihood of wide adoption and the potential implementations, in particular for studying clinical human samples. Moreover, the same strategy cannot measure various histone modifications in single cells. Here, we develop a high-throughput method for single-cell joint detection of chromatin occupancy and transcriptome. This approach, named CoTECH (combined</p><p>assay of transcriptome and enriched chromatin binding), adopts a combinatorial indexing strategy <sup>9,26</sup> to enrich chromatin fragments of interest as reported in CoBATCH in combination with a modified Smart-seq2 procedure <sup>27</sup> to simultaneously capture the 3\u2019 mRNA profiles in the same single cells. To demonstrate the utility of CoTECH, we used it to study the relationship between multiple histone modifications and gene expression in mouse embryonic stem cells (mESCs) and the regulatory basis of endothelial-to-hematopoietic transition (EHT) in two waves of hematopoietic cells. Experimentally linking chromatin occupancy to transcriptional outputs and inferred molecular association between multimodal omics datasets made possible by CoTECH enables reconstructions of higher dimensional epigenomic landscape, providing new insights into epigenome-centric gene regulation and cellular heterogeneity in many biological processes.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p>Phosphate Buffered Saline (PBS) (Hyclone, SH30256.01)</p><p>Sodium butyrate (SIGMA, 303410-100G)</p><p>Trypsin (Gibco, 27250-018)</p><p>HEPES free acid (AMRESCO, 0511-1KG)</p><p>Glycerol (SIGMA, 49767-100ML)</p><p>Triton X-100 (SIGMA, T8787-50ML)</p><p>EDTA-free Protease Inhibitor Cocktail (Roche, 04693132001)</p><p>Phenyl Methane Sulfonyl Fluoride (PMSF) (AMRESCO, 0754-5G)</p><p>Dithiothreitol (DTT) (INALCO, 1758-9030)</p><p>TRIS (AMRESCO, 0497-5KG)</p><p>TAPS (SIGMA, T-5130)</p><p>Magnesium chloride solution (MgCl<sub>2</sub>) (SIGMA, 68475-100ML)</p><p>Potassium chloride (KCl) (XiLong SCIENTIFIC, 7447-40-7)</p><p>Potassium hydroxide (KOH) (XiLong SCIENTIFIC, 1310-58-3)</p><p>Calcium chloride dihydrate (CaCl<sub>2</sub>) (XiLong SCIENTIFIC, 10035-04-8)</p><p>Sodium chloride (NaCl) (SIGMA, 303410-100G)</p><p>Spermidine (Sigma, S2501-1G)</p><p>Concanavalin A coated beads (Bangs Laboratories,  BP531)</p><p>Manganese (II) chloride tetrahydrate (MnCl<sub>2</sub>) (XiLong SCIENTIFIC, 13446-34-9)</p><p>Digitonin (Sigma, Cat# D141-500MG)</p><p>Bovine Serum Albumin (Sigma, A1933-100G)</p><p>dNTP mix (Fermentas, R0192)</p><p>SuperScript IV reverse transcriptase (Invitrogen, 18090200)</p><p>Exonuclease I (NEB, M0293L)</p><p>Recombinant RNase inhibitor (Takara, 2313B)</p><p>Betaine (Sigma, B3501)</p><p>DAPI (Invitrogen, S36942)</p><p>PEG 8000 (Sigma, 89510-250g-F)        </p><p>N,N-Dimethylformamide (DMF) (SIGMA, D4551-250ML)</p><p>SODIUM DODECYL SULFATE (SDS) (AMRESCO, 0227-1KG)</p><p>Proteinase K (AMRESCO, 0706-100MG)</p><p>KAPA HiFi DNA polymerase (BIOSYSTEMS, KK2102)</p><p>AMPure XP (BECKMAN COULTER, A63881)</p><p>H3K27me3 antibody (Millipore, Cat.No: 07-449)</p><p>H3K27ac antibody (Abcam, Cat.No: ab4729)</p><p>H3K4me3 antibody (Millipore, Cat.No: 04-745)</p><p>PE/Cy7 anti-mouse CD31 antibody (BioLegend, Cat.No: 102524)</p><p>Rabbit Control IgG antibody&nbsp;(Abclonal, Cat.No: AC005)</p><p>Donkey anti-Rabbit-555 antibody (Invitrogen, Cat.No: A31572)</p><p>TIANquick Mini Purification Kit (TIANGEN, DP203-02)</p><p>QIAquick Gel Extraction kit (Qiagen, 28706)</p><p>   </p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>1.5 ml tube&nbsp;(Axygen, MCT-150-C)</p><p>0.2 ml 8-strip PCR tube&nbsp;(Axygen, PCR-0208-C)</p><p>DynaMag\u2122-PCR Magnet</p><p>Qubit 2.0 Fluorometer&nbsp;(Thermo Fisher Scientific)</p><p>Centrifuge&nbsp;(Eppendorf)</p><p>Thermal cycler&nbsp;(Eppendorf)</p><p>ThermoMixer</p><p>CFX96 Real-Time System</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "Sample preparation\n1.\u00a0\u00a0\u00a0\u00a0\u00a0Harvest cells (from tissues or cultured cell line), digest cells into single-cell suspension, wash and resuspend cells by PBS or 1%BSA/PBS. Fix cells by adding -20\u00b0C methanol (Sigma) drop by drop to a final concentration of 90%. The prepared sample can be stored at -80\u00b0C for later use.\nAttention: Buffers and reagents used below are RNase free.\nBinding cells to Concanavalin A beads\n2.\u00a0\u00a0\u00a0\u00a0\u00a0ConA beads activation: Wash 5-20 \u00b5l Concanavalin A (ConA) beads with 1 ml Binding Buffer (20 mM HEPES pH 7.9, 4 mM KCl, 0.4 mM CaCl\n2\nand 0.4 mM MnCl\n2\n) twice. Resuspend beads with 5-20 \u00b5l Binding Buffer before apply them to the cell mixture.\nAttention: Wash tubes with 1% BSA/PBS prior to use and use low-retention tubes if possible. This operation can prevent cell/beads loss.\n3.\u00a0\u00a0\u00a0\u00a0\u00a0Centrifugate the cells at 1000 G, 4\u00b0C for 5 min. Resuspend the cells with 1 ml Wash Buffer (20 mM HEPES pH 7.5, 300 mM NaCl, 0.5 \u00b5M spermidine and 10 mM sodium butyrate) and add 5~20 \u00b5l activated ConA beads to the cell suspension.\n4.\u00a0\u00a0\u00a0\u00a0\u00a0Incubate the cells-beads mixture at RT for 10-20 min.\nBinding antibody\n5.\u00a0\u00a0\u00a0\u00a0\u00a0Collect cells by magnetic stand. Wash cells by 1 ml Wash Buffer once, put the tube on the magnetic stand and pull off all liquid.\n6.\u00a0\u00a0\u00a0\u00a0\u00a0Resuspend cells with 100 \u00b5l Antibody buffer (supplied 2 mM EDTA, 0.01% Digitonin, 0.05% TX-100, 2% proteinase inhibitor cocktail (Roche), 1% recombinant RNase inhibitor (TAKARA) in Wash Buffer). Add 0.5 \u00b5l antibody against protein of interest, and incubate the cell suspension at 4\u00b0C for ~3h.\nAttention: (Optional) Binding a 2\nnd\nantibody is recommended if 1\nst\nantibody has low affinity against protein A.\nBinding PAT\n7.\u00a0\u00a0\u00a0\u00a0\u00a0Wash cells twice with 180 \u00b5l Dig-Wash Buffer without TX-100 (Wash Buffer supplemented with 0.01% Digitonin) and resuspend cells with 500 \u00b5l 1% BSA / PBS.\n8.\u00a0\u00a0\u00a0\u00a0\u00a0Prepare PAT incubation plate: Add 70 \u00b5l Dig-Wash buffer to each well which contains individual combinatorial barcoded 6 \u00b5g/ml PAT-T5 and 6 \u00b5g/ml PAT-T7.\nAttention: Dilute 37.5 \u00b5M stocked barcoded PAT by Dig Wash Buffer (Wash Buffer supplemented with 0.01% Digitonin, 0.05% TX-100, 2% proteinase inhibitor cocktail (Roche), 1% recombinant RNase inhibitor (TAKARA) and 1 mM DTT) at 1:445 to a final concentration of 6 \u00b5g/ml. Add 35 \u00b5l diluted PAT-T5 and 35 \u00b5l diluted PAT-T7 to each well.\n9.\u00a0\u00a0\u00a0\u00a0\u00a0FACS or pipette 500-2,000 cells into each well.\nAttention: Cell number in each well should be equivalent, which can be scaled from 500/well to 2,000/well\n10.\u00a0\u00a0Place the plate on a rotator and incubate at 4\u00b0C for 1 h.\n11.\u00a0\u00a0Put the plate on a 96-well magnetic stand and pull off all liquid. Wash cells twice by 180 \u00b5l Dig-Wash buffer (Wash Buffer supplemented with 0.01% Digitonin and 0.05% TX-100).\nAttention: Change tips every pipetting to prevent barcode contamination.\nTargeted tagmentation\n12.\u00a0\u00a0Resuspend cells with 10 \u00b5l cold Reaction Buffer (10 mM TAPS-NaOH pH 8.3, 5 mM MgCl\n2\n, 2% proteinase inhibitor cocktail, 1% Recombinant RNase inhibitor, 1 mM DTT and 10 mM sodium butyrate) by pipetting.\n13.\u00a0\u00a0Tagmentation: Incubate the plate at 25\u00b0C for 1 h in a thermal cycler. The reaction system is gently mixed once after 30-min incubation.\n14.\u00a0\u00a0Add 10 \u00b5l 40 mM EDTA to each well and mix well. Incubate the plate at 4\u00b0C for 15 min.\n15.\u00a0\u00a0Add 1 \u00b5l 250 mM MgCl\n2\nto each well and incubate the plate at 4\u00b0C for 5 min.\n16.\u00a0\u00a0Collect cells by magnetic stand. Briefly wash cells by 100 \u00b5l 1% BSA/PBS and discard all liquid.\nReverse transcription\n17.\u00a0\u00a0Add 2 \u00b5l barcoded RT-lysis Buffer (1.2 \u00b5l PBS, 0.5 \u00b5l 10 mM dNTP mix, 0.05 \u00b5l RNase inhibitor (Takara), 0.25 \u00b5l 5 \u00b5M barcoded oligo dT, and 0.01% Digitonin) to each well, and gently pipette.\nAttention: RT lysis Buffer should be prepared before the experiment. One kind of barcoded oligo dT primer is added to one well individually, which makes all 96-wells carrying different barcoded oligo dT. Carefully note the corresponding PAT-barcode and oligo dT-barcode for each well.\n18.\u00a0\u00a0Incubate the plate at 55\u00b0C for 5 min and immediately put the plate onto a cold block to cool down.\n19.\u00a0\u00a0Add 2.85 \u00b5l RT-mix (0.20 \u00b5l SuperScript IV reverse transcriptase (Thermo Fisher), 0.125 \u00b5l RNase inhibitor (Takara), 1 \u00b5l 5 x SuperScript IV first-strand buffer (Thermo Fisher), 0.25 \u00b5l 100 mM DTT, 1 \u00b5l 5M Betaine (Sigma), 0.05 \u00b5l 100 \u00b5M TSO (Table S1) and 0.195 \u00b5l PBS, 0.03 \u00b5l 1M MgCl\n2\n, and 0.01% Digitonin) to each well. Perform reverse transcription as below: 4\u00b0C 2 min, 10\u00b0C 2 min, 20\u00b0C 2 min, 30\u00b0C 2 min, 42\u00b0C 10 min, 50\u00b0C 2 min 55\u00b0C 5 min, and hold at 4\u00b0C.\n20.\u00a0\u00a0Add 5 \u00b5l cold Sorting Buffer (PBS supplemented with 2% BSA and 2 mM EDTA) to each well. Combine all cells from 96 wells into a 1.5 ml tube. Wash cells with 1 ml 1% BSA/PBS.\n21.\u00a0\u00a0Add DAPI(Thermo) to a final concentration of 1.2 \u00b5g/ml and stain cells on ice for 15 min.\nRedistributing cells and Releasing DNA\n22.\u00a0\u00a0Filter the cells through a 70 \u00b5m cell strainer to remove cell clumps, and sort 20~25 cells into each well of a new 96-well plate which contains 3 \u00b5l Lysis Buffer (10 mM Tris-HCl pH 8.5, 0.05 % SDS, 0.1 mg/ml proteinase K)in each well.\n23.\u00a0\u00a0Incubate the plate at 55\u00b0C for 60 min.\n24.\u00a0\u00a0Add 1 \u00b5l 1.8% Triton X-100 together with 1\u00b5l 10 mM PMSF to each well, and incubate the plate at 55\u00b0C for 5 min to quench SDS.\nPre-amplification\n25.\u00a0\u00a0Add 20 \u00b5l PCR mix (5 \u00b5l 5 x KAPA HiFi Buffer, 0.5 \u00b5l 10 mM dNTP Mix, 0.75 \u00b5l 10 \u00b5M IS primer (AAGCAGTGGTATCAACGCAGAGT), 0.75 \u00b5l 10 \u00b5M 3\u2019P2 primer (GTGACTGGAGTTCAGACGTGTGCTCTTCCGATC), 0.25 \u00b5l 1 U/\u00b5l KAPA HiFi DNA Polymerase (KK2102), 0.5 \u00b5l 25 mM MgCl\n2\nand 12.25 \u00b5l ddH\n2\nO) to each well. The PCR enrichment was performed as below: 1 cycle of 72\u00b0C 5 min; 1 cycle of 95\u00b0C 3 min; 4 cycles of: 98\u00b0C 20 s, 65\u00b0C for 30 s,72\u00b0C for 5 min; 7 cycles of: 98\u00b0C 20 s, 67\u00b0C 15 s, 72\u00b0C for 5 min; hold at 4\u00b0C. Immediately add 0.5 \u00b5l total 10 \u00b5M connector A/B primer mix(connector A: TCGTCGGCAGCGTCTCCACGC; connector B: GTCTCGTGGGCTCGGCTGTCC) to each well followed by: 5 cycles of: 98\u00b0C 20 s, 67\u00b0C 15 s, 72\u00b0C for 5 min; 1 cycle of 72\u00b0C for 5 min; hold at 4\u00b0C.\n26.\u00a0\u00a0Prepare custom 1:10 diluted AMPure XP beads: Pipette 100 \u00b5l original AMPure XP beads to a new tube, put it on magnetic stand, and resuspend beads in 1000 \u00b5l AMPure binding buffer (20% PEG 8000, 2.5 M NaCl, 10 mM Tris-HCl pH 8.0, 1 mM EDTA and 0.05% Tween 20).\n27.\u00a0\u00a0Add 0.8X (20 \u00b5l) custom XP beads to each well and vortex thoroughly. DNA was purified and eluted with 10.5 \u00b5l ddH\n2\nO. Transfer 5 \u00b5l DNA elution to a new plate for DNA-partition library preparation and 5 \u00b5l DNA elution for RNA-partition library preparation.\nDNA-part library preparation\n28.\u00a0\u00a0Add 15 \u00b5l PCR mix (0.2 \u00b5l KAPA HiFi (not HotStrat) DNA Polymerase, 4 \u00b5l 5 x KAPA High-GC Buffer, 1 \u00b5l 10 mM dNTP Mix, 0.4 \u00b5l 25 mM MgCl\n2\n, 8.9 \u00b5l ddH\n2\nO and 0.5 \u00b5l total 50 \u00b5M primer mix (forward: ACACTCTTTCCCTACACGACGCTCTTCCGATCTTCGTCGGCAGCGTCTCCACGC; reverse: GACTGGAGTTCAGACGTGTGCTCTTCCGATCTGTCTCGTGGGCTCGGCTGTCCC) to each well. The PCR enrichment was performed as below: 1 cycle of 95\u00b0C 3 min; 8 cycles of: 98\u00b0C 20 s, 65\u00b0C for 30 s,72\u00b0C for 1 min; 1 cycle of 72\u00b0C 5 min; hold at 4\u00b0C.\n29.\u00a0\u00a0Add 2 \u00b5l 1:8 diluted ExoI (NEB) to each well and incubate the plate at 37\u00b0C for 60 min followed by 72\u00b0C for 20 min.\n30.\u00a0\u00a0Add 10 \u00b5l PCR mix (0.2 \u00b5l KAPA HiFi HotStart DNA Polymerase, 2 \u00b5l 5 x KAPA High-GC Buffer, 0.2 \u00b5l 25 mM MgCl\n2\n, 5.6 \u00b5l ddH\n2\nO, 1 \u00b5l 10 mM Truseq index i5 and 1 \u00b5l Truseq index i7) to each well. PCR enrichment was performed as below: 1 cycle of 95\u00b0C 3min; 5 cycles of: 98\u00b0C for 20 s, 65\u00b0C for 30 s, 72\u00b0C for 1 min; 1 cycle of 72\u00b0C for 5 min; hold at 4\u00b0C.\n31.\u00a0\u00a0Combine all the PCR product into a 50 ml tube, purify DNA by TIANquick Mini Purification Kit (TIANGEN), and elute DNA in 60 \u00b5l ddH\n2\nO.\n32.\u00a0\u00a0Purify the library once with 0.8X AMPure XP beads.\n33.\u00a0\u00a0Size selection: Perform gel extraction for the fragments at the size of 400-1,000 bp on 1.5% agarose gel. Finally purify DNA by 0.8 \u00d7 AMPure XP beads (Beckmann) and elute with 20 \u00b5l ddH\n2\nO.\n34.\u00a0\u00a0Sequence the libraries with paired-end 150-bp reads on Novaseq 6000 platform (Illumina).\nRNA-part library preparation\n35.\u00a0\u00a0Add 2.5 \u00b5l tagmentation mix (0.75 \u00b5l 10X TAPS-MgCl2, 0.75 \u00b5l DMF and 1 \u00b5l Tn5-MEA (25 nM)) to each well, and incubate the plate at 55\u00b0C for 5 min in a thermal cycler.\n36.\u00a0\u00a0Add 1 \u00b5l 0.2% SDS and 0.4 \u00b5l BSA (NEB) to each well, and incubate the plate at 55\u00b0C for 5 min.\n37.\u00a0\u00a0Add 1 \u00b5l 1.8% TX-100 to each well to quench SDS, and incubate the plate at 55\u00b0C for 5 min.\n38.\u00a0\u00a0Add 28.1 \u00b5l PCR mix (0.4 \u00b5l KAPA HiFi (not HotStart) DNA Polymerase, 8 \u00b5l 5 x KAPA High-GC Buffer, 1 \u00b5l 10 mM dNTP Mix, 0.8 \u00b5l 25 mM MgCl\n2\nand 17.9 \u00b5l H\n2\nO), 1 \u00b5l 10 mM Nextera index i5 primer and 1 \u00b5l Truseq index i7 primer separately to each well. PCR enrichment was performed as below: 1 cycle of 72\u00b0C for 5 min; 1 cycle of 95\u00b0C for 3 min; 11 cycles of: 98\u00b0C for 20 s, 65\u00b0C for 30 s, 72\u00b0C for 1 min; 1 cycle of 72\u00b0C for 5 min; hold at 4\u00b0C.\n39.\u00a0\u00a0Combine all the PCR product into a 50 ml tube; purify DNA by TIANquick Mini Purification Kit (TIANGEN); elute DNA in 60 \u00b5l ddH\n2\nO.\n40.\u00a0\u00a0Purify the library once with 0.8X (48 \u00b5l) AMPure XP beads.\n41.\u00a0\u00a0Size selection: Perform gel extraction for the fragments at the size of 400-1,000 bp on 1.5% agarose gel. Finally purify DNA by 0.8 \u00d7 AMPure XP beads (Beckmann) and elute with 20 \u00b5l ddH\n2\nO.\n42.\u00a0\u00a0Sequence the libraries with paired-end 150-bp reads on Novaseq 6000 platform (Illumina)."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": ""
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p><strong>Day 1:</strong></p><p><u>Cell treatment (0.5 h)</u></p><p><u>Binding cells to Concanavalin A beads (1 h)</u></p><p><u>Binding antibody (4 h)</u></p><p><u>Binding PAT (1.5 h)</u></p><p><u>Targeted tagmentation (1.5 h)</u></p><p><u>Reverse transcription (1 h)</u></p><p><u>Redistributing cells and Releasing DNA (1.5 h)</u></p><p><br></p><p><strong>Day 2:</strong></p><p><u>Pre-amplification (3.5 h)</u></p><p><u>DNA-partition library preparation (step 28-30)(3.5 h)</u></p><p><u>RNA-partition library preparation (step 35-38)(2 h)</u></p><p><br></p><p><strong>Day 3:</strong></p><p><u>DNA-partition library preparation (step 31-34) and RNA-partition library preparation (step 39-42)(8 h)</u></p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>1. The DNA partition library exhibits good ChIP-qPCR enrichment before sequence.</p><p>2. Highly expressed genes can be enriched in pre-amplification products detected by qPCR </p><p>3. Size of library fragments should be around 300-1000 bp</p><p>4. Sequence results shows good enrichment of positive signals</p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>1 Tang, F. et al. mRNA-Seq whole-transcriptome analysis of a single cell. Nat Methods 6, 377-382 (2009).</p><p>2 Macosko, E. Z. et al. Highly Parallel Genome-wide Expression Profiling of Individual Cells Using Nanoliter Droplets. Cell 161, 1202-1214 (2015).</p><p>3 Tabula Muris, C. et al. Single-cell transcriptomics of 20 mouse organs creates a Tabula Muris. Nature 562, 367-372 (2018).</p><p>4 Bowling, S. et al. An Engineered CRISPR-Cas9 Mouse Line for Simultaneous Readout of Lineage</p><p>Histories and Gene Expression Profiles in Single Cells. Cell 181, 1693-1694(2020).</p><p>5 Spanjaard, B. et al. Simultaneous lineage tracing and cell-type identification using CRISPR-Cas9-induced genetic scars. Nat Biotechnol 36, 469-473 (2018).</p><p>6 Pijuan-Sala, B. et al. A single-cell molecular map of mouse gastrulation and early organogenesis. Nature 566, 490-495 (2019).</p><p>7 Cao, J. et al. The single-cell transcriptional landscape of mammalian organogenesis. Nature 566, 496-502 (2019).</p><p>8 Rotem, A. et al. Single-cell ChIP-seq reveals cell subpopulations defined by chromatin state. Nat Biotechnol 33, 1165-1172 (2015).</p><p>9 Wang, Q. et al. CoBATCH for High-Throughput Single-Cell Epigenomic Profiling. Mol Cell 76, 206-216 e207 (2019).</p><p>10 Ai, S. et al. Profiling chromatin states using single-cell itChIP-seq. Nat Cell Biol 21, 1164-1172 (2019).</p><p>11 Ku, W. L. et al. Single-cell chromatin immunocleavage sequencing (scChIC-seq) to profile histone modification. Nat Methods 16, 323-325 (2019).</p><p>12 Kaya-Okur, H. S. et al. CUT&amp;Tag for efficient epigenomic profiling of small samples and single cells. Nat Commun 10, 1930 (2019).</p><p>13 Buenrostro, J. D. et al. Single-cell chromatin accessibility reveals principles of regulatory variation. Nature 523, 486-490 (2015).</p><p>14 Lai, B. et al. Principles of nucleosome organization revealed by single-cell micrococcal nuclease sequencing. Nature 562, 281-285 (2018).</p><p>15 Guo, F. et al. The Transcriptome and DNA Methylome Landscapes of Human Primordial Germ Cells. Cell 161, 1437-1452 (2015).</p><p>16 Nagano, T. et al. Single-cell Hi-C reveals cell-to-cell variability in chromosome structure. Nature 502, 59-64,  (2013).</p><p>17 Efremova, M. &amp; Teichmann, S. A. Computational methods for single-cell omics across modalities. Nat Methods 17, 14-17 (2020).</p><p>18 Stuart, T. et al. Comprehensive Integration of Single-Cell Data. Cell 177, 1888-1902 e1821 (2019).</p><p>19 Cao, J. et al. Joint profiling of chromatin accessibility and gene expression in thousands of single cells. Science 361, 1380-1385 (2018).</p><p>20 Chen, S., Lake, B. B. &amp; Zhang, K. High-throughput sequencing of the transcriptome and chromatin accessibility in the same cell. Nat Biotechnol 37, 1452-1457 (2019).</p><p>21 Zhu, C. et al. An ultra high-throughput method for single-cell joint analysis of open chromatin and transcriptome. Nat Struct Mol Biol 26, 1063-1070 (2019).</p><p>22 Clark, S. J. et al. scNMT-seq enables joint profiling of chromatin accessibility DNA methylation and transcription in single cells. Nat Commun 9, 781 (2018).</p><p>23 Park, P. J. ChIP-seq: advantages and challenges of a maturing technology. Nat Rev Genet 10, 669-680 (2009).</p><p>24 Rooijers, K. et al. Simultaneous quantification of protein-DNA contacts and transcriptomes in single cells. Nat Biotechnol 37, 766-772 (2019).</p><p>25 Moudgil, A. et al. Self-Reporting Transposons Enable Simultaneous Readout of Gene Expression and Transcription Factor Binding in Single Cells. Cell 182, 992-1008 e1021 (2020).</p><p>26 Cusanovich, D. A. et al. Multiplex single cell profiling of chromatin accessibility by combinatorial cellular indexing. Science 348, 910-914 (2015).</p><p>27 Picelli, S. et al. Full-length RNA-seq from single cells using Smart-seq2. Nat Protoc 9, 171-181 (2014).</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p> A.H. was supported by the National Basic Research Program of China (2019YFA0801802 and 2017YFA0103402), the National Natural Science Foundation of China (31571487, 31771607 and 31327901), the Peking-Tsinghua Center for Life Sciences, and the 1000 Youth Talents Program of China.</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41592-021-01129-z",
+                "date": "2021-05-06 16:03:37",
+                "title": "Single-cell joint detection of chromatin occupancy and transcriptome enables higher-dimensional epigenomic reconstructions",
+                "authors": [
+                    "Haiqing Xiong",
+                    "Yingjie Luo",
+                    "Qianhao Wang",
+                    "Xianhong Yu",
+                    "Aibin He"
+                ],
+                "journal": "Nature Methods",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 6498103,
+                "identity": "5a278056-5ef7-4c25-a584-f8e2828cd9a7",
+                "order_by": 0,
+                "name": "Yingjie Luo",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-0784-3946",
+                "institution": "Beijing Key Laboratory of Cardiometabolic Molecular Medicine,  Peking-Tsinghua Center for Life Sciences, Peking University, Beijing 100871, China",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Yingjie",
+                "middleName": "",
+                "lastName": "Luo",
+                "suffix": ""
+            },
+            {
+                "id": 6498102,
+                "identity": "e38a7747-d437-4fe0-97d0-c815da57e825",
+                "order_by": 1,
+                "name": "Haiqing Xiong",
+                "email": "",
+                "orcid": "",
+                "institution": "Beijing Key Laboratory of Cardiometabolic Molecular Medicine, Peking-Tsinghua Center for Life Sciences, Peking University, Beijing 100871, China",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Haiqing",
+                "middleName": "",
+                "lastName": "Xiong",
+                "suffix": ""
+            },
+            {
+                "id": 6498104,
+                "identity": "18a61c56-9159-4b83-92e3-c63f0b3db01f",
+                "order_by": 2,
+                "name": "Qianhao Wang",
+                "email": "",
+                "orcid": "",
+                "institution": "Beijing Key Laboratory of Cardiometabolic Molecular Medicine, Institute of Molecular Medicine, Peking University, Beijing 100871, China",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Qianhao",
+                "middleName": "",
+                "lastName": "Wang",
+                "suffix": ""
+            },
+            {
+                "id": 6498105,
+                "identity": "23b5d350-6059-4174-a494-9871fe59a411",
+                "order_by": 3,
+                "name": "Xianhong Yu",
+                "email": "",
+                "orcid": "",
+                "institution": "Beijing Key Laboratory of Cardiometabolic Molecular Medicine, Peking-Tsinghua Center for Life Sciences, Peking University, Beijing 100871, China",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Xianhong",
+                "middleName": "",
+                "lastName": "Yu",
+                "suffix": ""
+            },
+            {
+                "id": 6498101,
+                "identity": "ac37d9ee-9f31-4997-b710-d54f59f3fbb3",
+                "order_by": 4,
+                "name": "Aibin He",
+                "email": "ahe@pku.edu.cn",
+                "orcid": "",
+                "institution": "Beijing Key Laboratory of Cardiometabolic Molecular Medicine, Institute of Molecular Medicine, Peking-Tsinghua Center for Life Sciences, Peking University, Beijing 100871, China",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Aibin",
+                "middleName": "",
+                "lastName": "He",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2020-12-15 03:03:25",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1300/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1300/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13691438,
+                "identity": "569075dd-0a0c-41c3-974f-a9b8273848c1",
+                "added_by": "auto",
+                "created_at": "2021-09-17 12:38:43",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 233477,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1300/v1/5051bf69-aad1-4bd6-9d02-456fbabe5e22.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "chromatin state ,transcriptome, histone modification, epigenetic heterogeneity, single-cell multi-omics",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>Here we present CoTECH, a high-throughput co-aasay that measures chromatin occupancy and transcriptome in single cells. The CoTECH method adopts a combinatorial indexing strategy to enrich chromatin fragments of interest as reported in CoBATCH in combination with a modified Smart-seq2 procedure to simultaneously capture the 3\u2019 mRNA profiles in the same single cells. The whole experimental procedure can be handled within three days.The CoTECH acquires data quality of 1000-9000 unique mapped reads (DNA partition) and 1500-4000 expressed genes (RNA partition) per cell. Experimentally linking chromatin occupancy to transcriptional outputs and inferred molecular association between multimodal omics datasets made possible by CoTECH enables reconstructions of higher dimensional epigenomic landscape, providing new insights into epigenome-centric gene regulation and cellular heterogeneity in many biological processes. This step-by-step protocol is related to the publication \u201cSingle-cell joint detection of chromatin occupancy and transcriptome enables higher-dimensional epigenomic reconstructions\u201d in Nature Methods.</p>",
+        "manuscriptTitle": "CoTECH for single-cell joint detection of transcriptome and chromatin occupancy",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2021-05-10 06:34:41",
+                "doi": "10.21203/rs.3.pex-1300/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "de00fdec-5acd-4e6d-96bd-61efd5aed140",
+        "owner": [],
+        "postedDate": "May 10th, 2021",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 1549410,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 1549411,
+                "name": "Developmental biology"
+            },
+            {
+                "id": 1549412,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 1549413,
+                "name": "Molecular biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2021-05-10 06:34:41",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

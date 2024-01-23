@@ -1,0 +1,347 @@
+{
+    "identity": "pex-751",
+    "title": "<p>Reprocessing of RNA-sequencing samples from publicly-available data to yield normalized and comparable expression results.</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>RNA-sequencing (RNA-Seq) data is useful for answering a plethora of questions in the field of gene expression. Collections of these datasets provide mountainous quantities of data but can rarely be directly comparable<sup>1</sup>. This is due to various discrepancies related to batch effects, different sequencing technology, different starting materials, different processing tools, etc. However, The Cancer Genome Atlas (TCGA) has sequenced a large (&gt;10,000) collection of tumor samples using similar methods in their Pan-Cancer (PanCan) analysis initiative<sup>2</sup>. These samples are non-redundant and give researchers a wealth of knowledge which can be used to study patterns across cancer types. The results have been further processed downstream by the UCSC Toil recompute initiative<sup>3</sup>, which used the exact same analysis pipeline for all samples to produce gene counts.</p><p>Use of gene counts alone is insufficient to make comparisons between samples; the counts are affected by various factors such as total number of reads and transcript length<sup>4</sup>. Instead, the data need to be normalized to make useful interpretations. While several methods exist, trimmed mean of M values (TMM) normalization is among the most appropriate ways to handle samples derived from the same source<sup>5</sup>. Furthermore, the results need to be processed into normalized units of expression such as Fragments per Kilobase Million (FPKM), Transcripts per Million (TPM), or Counts per Million (CPM).</p><p>In this protocol we obtain processed gene counts from all cohorts of the TCGA PanCan project. We simultaneously normalize the entire dataset, and provide expression results across all cohorts and genes as Log2(Normalized CPM+1). We make use of the popular limma-voom method for estimating mean-variance relationships of log counts, generating observations weights, and performing empirical Bayes smoothening<sup>6</sup>. We provide step-wise instructions for how to extract expression for a single gene of interest, and examples of how to plot results. Our protocol is performed using freely-available software and packages. Furthermore, it is amenable for use with similar (non-TCGA) datasets and can be scaled up or down according to input size and computational resources.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p><strong><u>Starting Dataset</u></strong><u>:</u></p><p>1. A gene or transcript counts file of samples which have been sequenced using the same methodology. Here we used RNA-Seq data from TCGA PanCan, processed by UCSC Toil recompute to get gene counts. Files are hosted at <a href=\"https://xenabrowser.net/datapages/?dataset=tcga_RSEM_Hugo_norm_count&amp;host=https%3A%2F%2Ftoil.xenahubs.net&amp;removeHub=https%3A%2F%2Fxena.treehouse.gi.ucsc.edu%3A443\" target=\"_blank\">UCSC Xena</a>. The dataset used in this protocol is attached as the supplementary file tcga_RSEM_Hugo_norm_count.gz</p><p>2. Metadata file corresponding to gene counts, which maps the sample IDs to cancer cohort (or other descriptor). This information can also be obtained from the Xena hub in our example and formatted separately to work with downstream processing. We provide metadata specific to this protocol (TCGA PanCan) as the supplementary file metadata.csv</p><p><br></p><p><strong><u>Software and Packages:</u></strong></p><p>1. R/Rstudio (Version 3.5.2 or higher)</p><p>2. edgeR package</p><p>3. limma package</p><p>4. forcats package</p><p>5. ggplot2 package</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>1. Computer with requisite software and packages</p><p>(<strong>Note</strong>: we recommend performing the protocol using an Rstudio server or computer with large memory capability if processing data with magnitudes comparable to that of the PanCan dataset we use here.</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "*Note that all code within this protocol is\nitalicized\nand has been written so it can be directly pasted into RStudio\nLoad necessary packages:\nlibrary(edgeR)\nlibrary(limma)\nlibrary(forcats)\nlibrary(ggplot2)\n\ufeff\n\ufeff\nImport the files:\n1. Set the RStudio working directory to the location of the gene counts and metadata files.\n2. Import the gene counts file.\nNote:\nIn the case of large datasets like the one used here, we recommend importing the gzipped (.gz) file. The software can unzip the file as it is imported, saving memory. Avoid viewing after opening the file and instead use the following to import :\nlibrary(readr)\ntcga_RSEM_Hugo_norm_count <- read_delim(\"tcga_RSEM_Hugo_norm_count.gz\",\n\"\\t\", escape_double = FALSE, trim_ws = TRUE)\n3. Import the metadata file:\nlibrary(readr)\nmetadata <- read_csv(\"metadata.csv\")\nView(metadata)\nPrepare counts dataframe:\n1. Make a dataframe of the counts:\ndf <- as.data.frame(tcga_RSEM_Hugo_norm_count)\n2. Set the rownames equal to the first column, then delete the first column:\nrow.names(df) <- df$sample\ndf$sample<-NULL\n3. Back-transform the data. Gene counts are in units of Log2(counts+1) and we need just 'counts' as input for the downstream normalization:\ndf2 <- 2^df\ndf3 <- df2-1\ndf <- df3\nremove(df2)\nremove(df3)\n4. Check to ensure that the number of variables in the counts dataframe is equal to the number of observations in the metadata. It is critical these numbers are the same (here that number is 10,535 for each).\n\ufeff\nPerform TMM normalization and Voom transformation:\n\ufeff\ndge <- DGEList(counts=df, group=metadata$Cohort)\nkeep <- rowSums(cpm(dge)>1) >= 3\ndge <- dge[keep, keep.lib.sizes=FALSE]\nGD <- factor(metadata$Cohort)\ndesign <- model.matrix(~0+GD)\ufeff\ndge <- calcNormFactors(dge)\nv <- voom(dge,design,plot=TRUE)\nfit <- lmFit(v, design)\n*Note: these commands will generally have long (~5 minute) run times for a dataset of this magnitude. The steps will run more quickly if working with smaller data (a single cohort for example).\nGenerate results as Log2(Normalized CPM+1):\n1. Generate the normalized counts per million (CPM):\nTCGA_PanCan_CPM <- cpm(dge)\n2. Add pseudocount of +1:\ncpm_plus1 <- TCGA_PanCan_CPM+1\n3. Transform to Log2 scale:\nLog2CPM_plus1_TCGA_PanCan <- log2(cpm_plus1)\nLog2CPM_plus1_TCGA_PanCan <- as.data.frame(Log2CPM_plus1_TCGA_PanCan)\nExport the results:\nwrite.csv(Log2CPM_plus1_TCGA_PanCan, \"Log2CPM_plus1_TCGA_PanCan.csv\")\n*Note: This will export a file approximately 5GB in size. To simply obtain the expression of a single gene of interest this step can be skipped and the protocol can be resumed at the next section.\nObtain normalized expression of a single gene of interest across all cohorts:\n*Note: Ensure the row names are the same identifier type as gene of interest's input. (Gene symbol, Ensembl identifier, etc.) Here we use the gene CYP3A5 as an example.\n\ufeff\nLog2CPM1_CYP3A5 <- Log2CPM_plus1_TCGA_PanCan[\"CYP3A5\",]\nTranspose and reformat to obtain a final dataframe having Sample ID, Expression, and Cohort:\nLog2CPM1_CYP3A5 <- t(Log2CPM1_CYP3A5)\nID <- row.names(Log2CPM1_CYP3A5)\nLog2CPM1_CYP3A5 <- cbind(Log2CPM1_CYP3A5,ID)\ncolnames(Log2CPM1_CYP3A5)[colnames(Log2CPM1_CYP3A5)==\"CYP3A5\"] <- \"Log2CPM1_CYP3A5\"\nmerged <- as.data.frame(merge(Log2CPM1_CYP3A5, metadata, by.x=\"ID\", by.y=\"ID\", all.x=TRUE))\nChange the expression values to numeric instead of a factor (to work correctly with plotting results):\nvalues_numeric <- as.numeric(levels(merged$Log2CPM1_CYP3A5))[merged$Log2CPM1_CYP3A5]\nmerged <- as.data.frame(cbind(merged, values_numeric))\ncolnames(merged)[colnames(merged)==\"values_numeric\"]<-\"Log2CPM1_CYP3A5\"\nmerged$Log2CPM1_CYP3A5<-NULL\nmerged_CYP3A5 <- merged\nExport the expression results of GeneX across all cohorts:\nwrite.csv(merged_CYP3A5, \"merged_CYP3A5.csv\")\nPlot the results ranked by median expression:\nggplot(merged_CYP3A5, aes(x = fct_reorder(Cohort, Log2CPM1_CYP3A5, .fun = median, .desc =FALSE,na.rm=TRUE), y = Log2CPM1_CYP3A5)) + geom_boxplot(color=\"steelblue4\", fill=\"steelblue4\",outlier.size=0.8, alpha=0.1, lwd=0.6, fatten=1) + theme(axis.text.x=element_text(angle=0, hjust=1, face=\"bold\", size=10), axis.text.y=element_text(face=\"bold\", size=10)) + geom_point(color=\"steelblue4\", size=0.8, alpha=0.1)+ theme_bw()+ coord_flip() + xlab(\"TCGA Cohort\")\n*Note: Plots can be easily exported as high-quality SVG images from the RStudio interface."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p>*In this section, possible problems that may arise are broken down by protocol step, and troubleshooting tips follow.</p><p><strong><u>Load necessary packages:</u></strong></p><p>Usually errors along the lines of \"Error : (package) was built under R version x.x.x\" are okay. If an 'object not found' error is presented when installing/calling a specific package, check to ensure your R installation is version 3.5.2 or higher.</p><p><strong><u>Import the files:</u></strong></p><p>Sometimes when importing zipped count files of this size, R will seem to stall. It often takes several minutes for a progress bar to show up. If after 15 minutes there is no visible progress status, it is possible the machine lacks memory. You can then try breaking the file down separately (from all cohorts into groups of 5 for example).</p><p><strong><u>Prepare counts dataframe:</u></strong></p><p>The combination of operations in this step can yield RAM errors in R when executed all at once (transposing, back-transforming). If this occurs, try pasting in the lines one-by-one, taking care not to perform any tasks in R while the \"stop\" icon is present.</p><p><strong><u>Perform TMM normalization and Voom transformation:</u></strong></p><p>The first thing to check if presented with an error during this step is the counts dataframe matching the metadata. It is critical that the number of variables of the dataframe matches the number of observations in the metadata. For example, if the counts dataframe displays in the Environment tab as \"58581 obs. of 10535 variables\" , and the metadata as \"10535 obs. of 2 variables\" this is a match. If this number (here 10535) is different, it will interfere with processing. If this occurs, it is possible to use your preferred method to ensure they are the same (for example, using a VLOOKUP command in Excel to ensure that all IDs in the metadata have a corresponding expression value in the counts file).</p><p>This is also one of the longest steps of the protocol, and for us took 17 minutes. Allow for time to process, especially if pasting all code in this section into the interface at once.</p><p><strong><u>Generate results as Log2(Normalized CPM+1):</u></strong></p><p>If any error occurs here, make sure you've correctly followed the steps in the section <strong>\"</strong>Prepare counts dataframe\". If pseudocounts were not added, the command will attempt to take the Log2 value of 0 in cases where the expression value is 0, rendering an error.</p><p><strong><u>Export the results:</u></strong></p><p>Exporting the results as the entire dataset is the longest step of the protocol and produces a file of ~5GB in our example. It is possible that a memory error (\"cannot allocate memory\") will occur. If this occurs on an RStudio server, contact the server administrator and ask to see if it is feasible to be granted more memory. Another approach is to clear out files located in the working directory to free up memory.</p><p>If memory errors occur on a local RStudio installation, try repeating the protocol starting from a smaller dataset. It is possible to utilize this protocol on cohorts of interest rather than all cohorts.</p><p>*Note that this step is only for exporting the tabular results, and is unnecessary if the goal is just to obtain a plot of a single gene of interest.</p><p><strong><u>Obtain normalized expression of a single gene of interest across all cohorts:</u></strong></p><p>The most common reason for an error is that the gene of interest identifier does not match that of the results. To troubleshoot this, check that the gene identifier is in the same format (gene symbol, Ensembl ID etc). If you try to pull out expression results for GAPDH but the expression file lists this gene identifier as \"ENSG00000111640\" an error will occur. Query the correct identifier (or change all identifiers to match using a conversion tool such as <a href=\"http://www.ensembl.org/biomart/martview/f359c5bf9114ed3050d8e3336a1338f3\" target=\"_blank\">Ensembl martview</a>).</p><p>*Note: the query must <u>exactly</u> match the results file in order to pull out your gene of interest. This can be particularly problematic with Ensembl gene identifiers having 'versions' appended to them. GADPH, ENSG00000111640, and ENSG00000111640.15 all represent the same gene but do not match up in value and will cause an error unless identifier type is changed.</p><p><strong><u>Plot the results ranked by median expression:</u></strong></p><p>It is important that the expression column of the resulting dataframe is classified as numeric. Otherwise it will interfere with plotting. If the section \"Change the expression values to numeric instead of a factor\" was correctly followed, the column \"ID\" should be a factor, \"Cohort\" should be a Character, and \"Log2CPM1_CYP3A5\" should be numeric (See Figure 3).</p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>*Note that benchmarking of run times was performed on a RStudio server with large RAM. In cases where only standard equipment is available the run times will be longer, although still reasonable.</p><p><br></p><p><strong>*Total time is approximately 50 minutes</strong></p><p><br></p><p><strong><u>Load necessary packages:</u></strong></p><p>&lt;1 minute</p><p><strong><u>Import the files:</u></strong></p><p>3 minutes, 20 seconds</p><p><strong><u>Prepare counts dataframe:</u></strong></p><p>1 minute</p><p><strong><u>Perform TMM normalization and Voom transformation:</u></strong></p><p>17 minutes</p><p><strong><u>Generate results as Log2(Normalized CPM+1):</u></strong></p><p>1 minute</p><p><strong><u>Export the results:</u></strong></p><p>20 minutes</p><p><strong><u>Obtain normalized expression of a single gene of interest across all cohorts:</u></strong></p><p>&lt;1 minute</p><p><strong><u>Transpose and reformat to obtain a final dataframe having Sample ID, Expression, and Cohort:</u></strong></p><p>&lt;1 minute</p><p><strong><u>Change the expression values to numeric instead of a factor (to work correctly with plotting results):</u></strong></p><p>&lt;1 minute</p><p><strong><u>Export the expression results of GeneX across all cohorts:</u></strong></p><p>&lt;1 minute</p><p><strong><u>Plot the results ranked by median expression:</u></strong></p><p>&lt;1 minute</p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>During the protocol, the mean-variance trend plot (produced by voom) will be shown. If interested in interpretation of results, please see the <a href=\"https://genomebiology.biomedcentral.com/articles/10.1186/gb-2014-15-2-r29\" target=\"_blank\">voom manuscript</a>.</p><p>Upon protocol completion, the normalized expression results and their corresponding sample IDs and cohorts should be exported in tabular format. An example of the results for a gene of interest (CYP3A5) is shown in Figure 1. To follow the protocol example and check results, the entire CYP3A5 results are available in the Supplementary File ExpressionResults_CYP3A5.csv. Note that these files (especially for multiple genes) will be large. If this data has been successfully plotted, it should look like Figure 2. If the data cannot be plotted, the first thing to check is that all column types are correct (shown in Figure 3, discussed in Troubleshooting). It is also possible to query the expression of several genes of interest one-by-one (Figure 4). This is easily achieved by simply changing the gene name (here \"CYP3A5\") in all appropriate commands and re-executing them. </p><p>Results can be plotted according to preference. Orientation, colors, transparency, dot size, etc., can all be easily manipulated by changing parameters within the plotting code (Figure 5). </p>"
+        },
+        {
+            "header": "References",
+            "content": "<p><br></p><p>1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wang Q, Armenia J, Zhang C, et al. Unifying cancer and normal RNA sequencing data from different sources.&nbsp;<em>Sci Data</em>. 2018;5:180061. Published 2018 Apr 17. doi:10.1038/sdata.2018.61</p><p>2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Weinstein JN, Collisson EA, et al. The Cancer Genome Atlas Pan-Cancer analysis project.&nbsp;<em>Nat Genet</em>. 2013;45(10):1113\u20131120. doi:10.1038/ng.2764</p><p>3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vivian J, Rao AA, Nothaft FA, et al. Toil enables reproducible, open source, big biomedical data analyses.&nbsp;<em>Nat Biotechnol</em>. 2017;35(4):314\u2013316. doi:10.1038/nbt.3772</p><p>4.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Conesa A, Madrigal P, Tarazona S, et al. A survey of best practices for RNA-seq data analysis [published correction appears in Genome Biol. 2016;17(1):181].&nbsp;<em>Genome Biol</em>. 2016;17:13. Published 2016 Jan 26. doi:10.1186/s13059-016-0881-8</p><p>5.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Robinson MD, Oshlack A. A scaling normalization method for differential expression analysis of RNA-seq data.&nbsp;<em>Genome Biol</em>. 2010;11(3):R25. doi:10.1186/gb-2010-11-3-r25</p><p>6.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Law CW, Chen Y, Shi W, Smyth GK. voom: Precision weights unlock linear model analysis tools for RNA-seq read counts.&nbsp;<em>Genome Biol</em>. 2014;15(2):R29. Published 2014 Feb 3. doi:10.1186/gb-2014-15-2-r29</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>We thank Drs. Gang Wu and Ti-Cheng Chang (Center for Applied Bioinformatics, St. Jude Children's Research Hospital) for assistance with our analysis. We also thank other members of the Chen laboratory for valuable discussions and help. </p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 183931,
+                "identity": "27eeb231-9e8f-4ed4-98d7-a0919c5c3ac1",
+                "order_by": 1,
+                "name": "William C. Wright",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-2274-9966",
+                "institution": "St. Jude Children's Research Hospital",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "William",
+                "middleName": "C.",
+                "lastName": "Wright",
+                "suffix": ""
+            },
+            {
+                "id": 183932,
+                "identity": "681620f5-6bb2-4d88-920d-a7d66a0f6d68",
+                "order_by": 2,
+                "name": "Taosheng Chen",
+                "email": "taosheng.chen@stjude.org",
+                "orcid": "https://orcid.org/0000-0001-6420-3809",
+                "institution": "St. Jude Children's Research Hospital",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Taosheng",
+                "middleName": "",
+                "lastName": "Chen",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2019-10-09 19:58:56",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.2.16081/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.2.16081/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 129603,
+                "identity": "8dc414fb-6741-495d-874b-8dd7d9a02145",
+                "added_by": "auto",
+                "created_at": "2019-10-16 16:55:53",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 16618,
+                "visible": true,
+                "origin": "",
+                "legend": "Normalized expression results for a single gene of interest. Sample ID, Expression, and Cohort all corresponding to CYP3A5.",
+                "description": "",
+                "filename": "ExpressionResultsCYP3A5.png",
+                "url": "https://assets.researchsquare.com/files/c29abc9e-c442-4a47-b4c7-35d26ddb9930/v1/Expression_Results_CYP3A5.png"
+            },
+            {
+                "id": 129605,
+                "identity": "4adeddba-bc5a-4f4b-b87b-736e8208c12b",
+                "added_by": "auto",
+                "created_at": "2019-10-16 16:55:53",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 77344,
+                "visible": true,
+                "origin": "",
+                "legend": "Plot of normalized CYP3A5 expression across all cohorts.",
+                "description": "",
+                "filename": "ResultsCYP3A5.png",
+                "url": "https://assets.researchsquare.com/files/c29abc9e-c442-4a47-b4c7-35d26ddb9930/v1/Results_CYP3A5.png"
+            },
+            {
+                "id": 129607,
+                "identity": "2e20c51c-6f15-4a36-b7e1-ea35dda3dce1",
+                "added_by": "auto",
+                "created_at": "2019-10-16 16:56:05",
+                "extension": "png",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 55589,
+                "visible": true,
+                "origin": "",
+                "legend": "Column types if protocol has been properly executed. Column types can be checked within the RStudio environment by hovering over with cursor.",
+                "description": "",
+                "filename": "ColumnTypes.png",
+                "url": "https://assets.researchsquare.com/files/c29abc9e-c442-4a47-b4c7-35d26ddb9930/v1/Column_Types.png"
+            },
+            {
+                "id": 129608,
+                "identity": "1478b0d6-4495-462a-91e3-277471efb794",
+                "added_by": "auto",
+                "created_at": "2019-10-16 16:56:05",
+                "extension": "png",
+                "order_by": 4,
+                "title": "Figure 4",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 544332,
+                "visible": true,
+                "origin": "",
+                "legend": "Plot of normalized results using several examples. GFAP is a known brain-specific gene; GADPH is a known evenly-expressed gene.",
+                "description": "",
+                "filename": "AllResults.png",
+                "url": "https://assets.researchsquare.com/files/c29abc9e-c442-4a47-b4c7-35d26ddb9930/v1/All_Results.png"
+            },
+            {
+                "id": 129609,
+                "identity": "b974ee02-de33-4e94-b0de-ab80cca390a0",
+                "added_by": "auto",
+                "created_at": "2019-10-16 16:56:05",
+                "extension": "png",
+                "order_by": 5,
+                "title": "Figure 5",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 347605,
+                "visible": true,
+                "origin": "",
+                "legend": "Results can be plotted in various ways by changing orientation, color, dot size, etc.",
+                "description": "",
+                "filename": "Resultshorizontal.png",
+                "url": "https://assets.researchsquare.com/files/c29abc9e-c442-4a47-b4c7-35d26ddb9930/v1/Results_horizontal.png"
+            },
+            {
+                "id": 13477134,
+                "identity": "b7732efd-60a7-4d8e-a2b0-61467f77668a",
+                "added_by": "auto",
+                "created_at": "2021-09-16 21:30:06",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 1210198,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-751/v1/1892ff4d-9dd8-42ef-8f64-b103bb6fdb63.pdf"
+            },
+            {
+                "id": 129610,
+                "identity": "1340c803-a165-4be7-be21-c1be194937d0",
+                "added_by": "auto",
+                "created_at": "2019-10-16 16:56:05",
+                "extension": "csv",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 644281,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "ExpressionResultsCYP3A5.csv",
+                "url": "https://assets.researchsquare.com/files/c29abc9e-c442-4a47-b4c7-35d26ddb9930/v1/ExpressionResults_CYP3A5.csv"
+            },
+            {
+                "id": 129606,
+                "identity": "3cb6e727-f535-494a-8e44-5db077671a23",
+                "added_by": "auto",
+                "created_at": "2019-10-16 16:56:04",
+                "extension": "gz",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 935272500,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "tcgaRSEMHugonormcount.gz",
+                "url": "https://assets.researchsquare.com/files/c29abc9e-c442-4a47-b4c7-35d26ddb9930/v1/tcga_RSEM_Hugo_norm_count.gz"
+            },
+            {
+                "id": 129604,
+                "identity": "54e33de7-509c-4302-a21c-4332785bccdd",
+                "added_by": "auto",
+                "created_at": "2019-10-16 16:55:53",
+                "extension": "csv",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 449510,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "metadata.csv",
+                "url": "https://assets.researchsquare.com/files/c29abc9e-c442-4a47-b4c7-35d26ddb9930/v1/metadata.csv"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests. ",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "RNA-Seq, TCGA, Expression, Cancer, Data Analysis, Normalization, CYP3A5, PXR, NR1I2",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>Here we obtained RNA-sequencing data from the publicly-available Pan-Cancer analysis project performed by The Cancer Genome Atlas (TCGA). Data within this project were processed the same experimentally, and analyzed downstream by the UCSC Toil recompute project. We reprocessed the resulting gene count files in batch to obtain normalized expression, which is a step critical for proper and comparable interpretation. We describe the linear modeling and normalization protocol, and provide an example of plotting the results using a gene of interest. We perform the entire protocol using freely available packages within the R framework.</p>",
+        "manuscriptTitle": "Reprocessing of RNA-sequencing samples from publicly-available data to yield normalized and comparable expression results.",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2019-10-16 16:55:52",
+                "doi": "10.21203/rs.2.16081/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "49b9d26c-1575-474c-b843-7e1af860fd91",
+        "owner": [],
+        "postedDate": "October 16th, 2019",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 30801,
+                "name": "Computational biology and bioinformatics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2019-10-16 16:55:52",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

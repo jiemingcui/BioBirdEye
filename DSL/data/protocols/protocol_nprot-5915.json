@@ -1,0 +1,287 @@
+{
+    "identity": "nprot-5915",
+    "title": "Parallel positive selections, deep sequencing and analysis for reprogramming aminoacyl-tRNA synthetase specificity",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Genetic code expansion, using orthogonal aminoacyl-tRNA synthetase/tRNA pairs, forms the basis of powerful approaches for synthesizing proteins bearing defined post-translational modifications and complements protein semi-synthesis.\r\n\n\nSerial rounds of positive and negative selection are currently used to discover synthetases with altered specificity. Despite the clear utility of current approaches, they have certain limitations: i) it is not possible to follow the enrichment of individual clones through the selection to identify when substantial enrichment has taken place or which clones are substantially enriched, ii) the activity and specificity of isolated synthetase clones is restricted by the dynamic range of the negative selection; indeed, it is possible that the most active clones are deleted from the gene pool by negative selection, even though the activity of the synthetase they encode in the presence of an added unnatural amino acid may be sufficient to outcompete endogenous amino acid incorporation; iii) it is not possible to directly identify variants of a synthetase that have specificity with respect to many other unnatural substrates, and iv) the individual clones isolated at the end of the selection are picked randomly without regard to their relative enrichment or sequence.  Our ability to find hits is a function of the number of clones we examine and the frequency of the hit in the library following selection.  This is in turn is a function of the library size, the power of the selection steps to enrich the desired hits, the unknown frequency of hits in the library, and stochastic events.\r\n\n\nTo address the limitations of current selection approaches we proposed selecting synthetases using parallel positive selections in the presence and absence of an non-natural amino acid, coupled to deep sequencing and statistical analyses that compare sequencing read counts for each synthetase clone in the presence and absence of a non-natural amino acid. Here we describe a protocol, which details the process to selected aminoacyl synthetase/tRNACUA pairs that incorporate N\u03b5-\\(\\(1-\\(6-nitrobenzo\\[d]\\[1,3]dioxol-5-yl)ethoxy)carbonyl)-L- lysine \\(photocaged lysine, PCK), an amino acid that has been extensively used to optically control diverse protein functions."
+        },
+        {
+            "header": "Reagents",
+            "content": "\u2022 PrimeSTAR Max Mix \\(2x) \\(Clontech, R045A)\r\n\n\n\u2022 All DNA primers are ordered from Sigma Custom DNA Oligos\r\n\n\n\u2022 Gel Loading Dye, Purple \\(6x) \\(NEB, B7024S)\r\n\n\n\u2022 TAE Buffer \\(50x) \\(Thermo Fisher, B49)\r\n\n\n\u2022 SYBR Safe DNA Gel Stain \\(Thermo Fisher, S33102)\r\n\n\n\u2022 QIAquick Gel Extraction Kit \\(Qiagen, 28704)\r\n\n\n\u2022 Qiaprep Spin Miniprep Kit \\(Qiagen, 27106)\r\n\n\n\u2022 QIAGEN Plasmid plus Midi kit \\(Qiagen, 12945)\r\n\n\n\u2022 All restrictive endonucleases are purchased from NEB\r\n\n\n\u2022 T4 DNA Ligase \\(NEB, M0202S)\r\n\n\n\u2022 MegaX DH10B Electrocomp Cells \\(Thermo Fisher, C640003)\r\n\n\n\u2022 KAPA HiFi HotStart ReadyMix \\(Kapa Biosystems, KK2502)\r\n\n\n\u2022 E-Gel SizeSelect Agarose Gel 2% \\(Thermo Fisher, G661002)\r\n\n\n\u2022 KAPA Library Quantification Kits \\(Kapa Biosystems, KK4824)\r\n\n\n\u2022 PhiX Control Kit v3 \\(illumina, FC-110-3001)\r\n\n\n\u2022 MiSeq Reagent Kit v2 \\(300 cycle) \\(illumina, MS-102-2002)\r\n\n\n\u2022 Ni-NTA Agarose \\(Qiagen, 30210)\r\n\n\n\u2022 BugBuster Protein Extraction Reagent \\(Millipore, 70854-1000ML)\r\n\n\n\u2022 All the other chemicals and reagents are purchased from Sigma-Aldrich\r\n\n\n\u2022 qPCR Dilution Buffer:\r\n\n\n200 ml consist of: 2 ml Tris-Cl pH = 8.0, 100 \u00b5l Tween20, 200 \u00b5l 4M NaOH\r\n\n\n\u2022 His-tag Lysis Buffer:\r\n\n\nTo 100 ml BugBuster protein extraction reagent\r\n\n\nAdd 2 ml 1 M Tris-HCl pH = 8.0, \r\n\n\n      10 ml 5 M NaCl,\r\n\n\n      20 mM imidazole\r\n\n\n      1 mM \u03b2-mercaptoethanol\r\n\n\n\u2022 His-tag Washing Buffer:\r\n\n\n50 mM Tris-HCl pH = 8.0\r\n\n\n500 mM NaCl\r\n\n\n20 mM imidazole\r\n\n\n1 mM \u03b2-mercaptoethanol\r\n\n\n\u2022 His-tag Eluting Buffer:\r\n\n\n50 mM Tris-HCl pH = 8.0\r\n\n\n50 mM NaCl\r\n\n\n300 mM imidazole\r\n\n\n1 mM DTT"
+        },
+        {
+            "header": "Equipment",
+            "content": "\u2022 Tprofessional Thermo Cycler \\(Biometra TRIO)\r\n\n\n\u2022 Mupid One Electrophoresis System \\(Clontech, AD160)\r\n\n\n\u2022 Dark Reader Transilluminator \\(Clarechemical)\r\n\n\n\u2022 Avanti J-26 XP Centrifuge \\(Beckman Coulter)\r\n\n\n\u2022 Eppendorf Centrifuge 5424 \\(Eppendorf)\r\n\n\n\u2022 Gene Pulser\u00ae/MicroPulser\u2122 Electroporation Cuvettes, 0.2 cm gap \\(Bio-rad, #1652086)\r\n\n\n\u2022 Eppendorf\u00ae Electroporator 2510 \\(Sigma, Z618969)\r\n\n\n\u2022 Eppendorf BioPhotometer Plus \\(Eppendorf)\r\n\n\n\u2022 E-Gel\u00ae iBase\u2122 Power \\(Thermo Fisher, G6400UK)\r\n\n\n\u2022 ViiA7 Real-Time PCR system \\(Thermo Fisher)\r\n\n\n\u2022 MiSeq Sequencer \\(illumina)\r\n\n\n\u2022 Phenomenex Jupiter C4 column \\(150 \u00d7 2 mm, 5 \u03bcm)\r\n\n\n\u2022 Agilent 1200 LC-MS system coupled with a 6130 Quadrupole spectrometer"
+        },
+        {
+            "header": "Procedure",
+            "content": "Library construction\r\n\n\n1. To randomize codons coding for M. barkeri PylS residues A267, Y271, and L274, order forward PCR primers from Sigma with degenerative nucleotides NNK for the codon 267, 271, and 274\r\n  2. Setup PCR reactions \r\n  PrimeSTAR Max mix \\(2x) 500 \u03bcl\r\n\n\npKW-PylS \\(50 ng/\u03bcl) 1 \u03bcl\r\n\n\nForward primer \\(50 \u03bcM) 10 \u03bcl\r\n\n\nReverse primer \\(50 \u03bcM) 10 \u03bcl\r\n\n\nH2O 479 \u03bcl\r\n\n\nTotal 1000 \u03bcl\r\n\n\n3. Distribute the PCR mixture into 20 x 50 \u03bcl reactions, and run PCR reactions \\(25 cycles)\r\n  98 \u00b0C 30 sec\r\n\n\n98 \u00b0C 10 sec\r\n\n\n55 \u00b0C 15 sec\r\n\n\n72 \u00b0C\r\n\n\n72 \u00b0C 5 min\r\n\n\n10 min\r\n\n\n4 \u00b0C \u221e\r\n\n\n4. Pool the PCR reactions, add 200 \u03bcl 6x DNA loading dye, and mix thoroughly. Prepare 1% agarose gel in 0.5% TAE buffer and add SYBR Safe DNA dye to a final concentration of 0.01%.  Separate the PCR products by electrophoresis at 90V for 25 min\r\n  5. With the aid of blue light transilluminator, cut the gel containing the desired PCR products, and extract the DNA using QIAquick Gel Extraction Kit following the manufacturer\u2019s instructions. Elute the DNA with 10% EB buffer diluted in H2O\r\n  6. Setup restriction digestion reaction and incubate at 37 \u00b0C for 4 hrs\r\n  NEB Cutsmart buffer \\(10x) 100 \u03bcl\r\n\n\nDNA from Step 5 600 \u03bcl\r\n\n\nBsaI-HF  30 \u03bcl\r\n\n\nDpnI-HF 10 \u03bcl\r\n\n\nH2O 260 \u03bcl\r\n\n\nTotal 1000 \u03bcl\r\n\n\n7. Add 5 ml PB buffer into the restrictive digestion reaction, mix well, and purify using QIAprep Spin Miniprep Columns. Elute the DNA with a total of 120 \u03bcl 10% EB \\(diluted in H2O)\r\n  8. Setup T4 ligation reaction and incubate at 16\u00b0C for 16 hrs\r\n  T4 ligase buffer \\(10x) 100 \u03bcl\r\n\n\nColumn purified DNA from step 7 120 \u03bcl\r\n\n\nT4 DNA ligase  10 \u03bcl\r\n\n\nH2O 770 \u03bcl\r\n\n\nTotal 1000 \u03bcl\r\n\n\n9. Add 100 \u03bcl 3M sodium acetate \\(pH = 5.2) into the DNA ligation reaction; add 3 ml 100% ethanol into the reaction, mix thoroughly\r\n  10. Incubate for 4 hrs at RT, and further incubate for 16 hrs at -20\u00b0C\r\n  11. Centrifuge at 20,000 g for 30 min, and carefully decant the supernatant; centrifuge briefly again and use pipette to remove the remaining liquid. Resuspend the DNA pellet in 10% EB \\(diluted in H2O)\r\n  12. Snap freeze the resuspended DNA in liquid nitrogen and concentrate by lyophilization to 20 \u03bcl\r\n  13. Transform the concentrated DNA into MegaX DH10B electrocompetent cells by electroporation and recover in pre-warmed SOC medium for 70 min at 37\u00b0C\r\n  14. Transfer the recovered cells into fresh 250 ml LB medium containing 50 \u03bcg/ml kanamycin. Incubate the culture at 37\u00b0C for 6 hrs\r\n  15. Centrifuge at 7,000 g for 10 min to pellet the cells \r\n  16. Extract the plasmids by QIAGEN Plasmid Plus Midi Kit following the manufacturer\u2019s instructions\r\n  17.  To randomize codons coding for M. barkeri PylS residue C313, order forward PCR primers from Sigma with degenerate nucleotides NNK for the codon 313. \r\n  18. Setup PCR reactions \r\n  PrimeSTAR Max mix \\(2x) 500 \u03bcl\r\n\n\nPlasmid from Step 16 \\(50 ng/\u03bcl) 1 \u03bcl\r\n\n\nForward primer \\(50 \u03bcM) 10 \u03bcl\r\n\n\nReverse primer \\(50 \u03bcM) 10 \u03bcl\r\n\n\nH2O 479 \u03bcl\r\n\n\nTotal 1000 \u03bcl\r\n\n\n19.  Repeat Step 3-16 for the randomization of codon 313\r\n  20. To randomize codons coding for M. barkeri PylS residue M241, order forward PCR primers from Sigma with degenerative nucleotides NNK for the codon 241\r\n  21. Setup PCR reactions \r\n  PrimeSTAR Max mix \\(2x) 500 \u03bcl\r\n\n\nPlasmid from Step 19 \\(50 ng/\u03bcl) 1 \u03bcl\r\n\n\nForward primer \\(50 \u03bcM) 10 \u03bcl\r\n\n\nReverse primer \\(50 \u03bcM) 10 \u03bcl\r\n\n\nH2O 479 \u03bcl\r\n\n\nTotal 1000 \u03bcl\r\n\n\n22. Repeat Step 3-16 for the randomization of codon M241. The plasmids extracted at the end is the PylS library used in the following selection steps\r\n  Parallel positive selection\r\n\n\n23. To transform pREP_PylT_CAT\\(112TAG) into DH10B cells, aliquot 50 \u03bcl ice-cold MegaX DH10B electrocompetent cells into 2 mm electroporation cuvette. Add 0.5 \u03bcl pREP_PylT_CAT\\(112TAG) \\(50 ng/\u03bcl) into the cells and electroporate with the setting of 2,500 V. Immediately add 1 ml SOC into the cuvette and incubate at 37\u00b0C for 60 min with constant shaking at 220 rpm\r\n  24. Plate 30 \u03bcl recovered cells onto LB agar plate containing 25 \u03bcg/ml tetracyclin. Air-dry the plate and incubate the plate at 37\u00b0C overnight\r\n  25. Pick a single colony from the plate and inoculate into 5 ml LB medium containing 25 \u03bcg/ml tetracyclin. Incubate at 37\u00b0C overnight with constant shaking at 220 rpm\r\n  26. Dilute the overnight culture into 1 L fresh LB medium with 25 \u03bcg/ml tetracyclin and incubate at 37\u00b0C with constant shaking at 220 rpm. Monitor the OD600 by spectrophotometer\r\n  27. When cell density reaches around OD600 = 0.5-0.6, transfer the flask into ice water and cool down for 20 min. Pre-cool the centrifuge to 4\u00b0C at the same time. Keep the cells below 4\u00b0C from now on\r\n  28. Centrifuge at 4,000 g for 12 min, and carefully decant the supernatant LB medium without disturbing the cell pellet. Resuspend the cells with 1 L ice-cold water\r\n  29. Centrifuge at 4,000 g for 12 min, carefully decant the supernatant, and resuspend the cells with 1 L ice-cold 10% glycerol\r\n  30. Centrifuge at 4,000 g for 12 min, carefully decant the supernatant, and resuspend the cells in 50 ml ice-cold 10% glycerol\r\n  31. Centrifuge at 4,000 g for 12 min, carefully decant the supernatant, and resuspend the cells in 1 ml ice-cold 10% glycerol\r\n  32. Aliquot 3 x 90 \u03bcl cells into 2 mm electroporation cuvette. Add 2 \u03bcl PylS library from Step 22 \\(200 ng/\u03bcl) into each cuvette and electroporate with the setting of 2,500 V. Immediately add 1 ml SOC into each cuvette and incubate at 37\u00b0C for 60 min with constant shaking at 220 rpm. Snap freeze the rest of the competent cells in liquid nitrogen. These cells can maintain their competency for at least 6 months at -80\u00b0C\r\n  33. After incubation, transfer the recovered cells from each cuvette into three flasks of 250 ml fresh LB medium containing 50 \u03bcg/ml kanamycin and 25 \u03bcg/ml tetracyclin. incubate the three cultures at 37\u00b0C overnight with constant shaking at 220 rpm\r\n  34. From each of the three overnight cultures \\(#1, #2, and #3), take 5 ml and pellet the cells by centrifuging at 4,000 g for 12 min. Extract the plasmids from each cell pellet using Qiagen Miniprep Kit following the manufacturer\u2019s instructions. Label them as Pre-1, Pre-2, and Pre-3.\r\n  35. Prepare six 200 ml fresh LB medium with 50 \u03bcg/ml kanamycin and 25 \u03bcg/ml tetracyclin. Add 1 mM photo-caged lysine \\(PCK) into three of the cultures \\(+1, +2, and +3). Label the rest three cultures as -1, -2, and -3. \r\n  36. Transfer 2 ml overnight culture #1 into either +1 culture and -1 culture. Do the same dilution also for culture #2 and #3. Incubate at 37\u00b0C with constant shaking at 220 rpm. Monitor the OD600 by spectrophotometer\r\n  37. Prepare six LB agar plate \\(25 cm x 25 cm square plate) containing 25 \u03bcg/ml kanamycin, 12.5 \u03bcg/ml tetracyclin, and 100 \u03bcg/ml chloramphenicol. Add 1 mM PCK into three LB agar plates. Label six plates as -1, -2, -3, +1, +2, and +3 accordingly\r\n  38. When the cultures in Step 36 reach around OD600 = 0.6, pipette 2 ml culture and spread evenly onto the corresponding LB plate. Air-dry the plates and incubate at 37\u00b0C for 40 hrs\r\n  39. To collect cells from each plate, add 50 ml PBS to each plate, use L-shape plastic spreader to carefully dissociate the colonies. Transfer the dissociated cells into 50-ml tubes and pellet cells by centrifugation at 7,000 g for 10 min\r\n  40. Extract the plasmids from each cell pellet using QIAGEN Plasmid Plus Midi Kit following the manufacturer\u2019s instructions. Label the six plasmid extracts as Post -1, Post -2, Post -3, Post +1, Post +2, and Post +3, respectively\r\n  Sample preparation for deep sequencing\r\n\n\n41. Order DNA primers to amplify the target region on the PylS plasmid for deep sequencing. From 5\u2019 to 3\u2019 both the forward and the reverse primer consisted of the following: 1) Illumina adapter \\(forward \u2018P5\u2019 primer sequence: AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCT, reverse \u2018P7\u2019 primer sequence: CAAGCAGAAGACGGCATACGAGATCGGTCTCGGCATTCCTGCTGAACCGCTCTTCCGATCT), 2) four degenerate nucleotides \\(NNNN), 3) hexanucleotide barcode sequence to allow for sample multiplexing 1 \\(the following table), and 4) primer binding sites specific to the sequences flanking the library sites \\(F: CGGCGGAATATGTGGAAC, R: CAGCCGCTGCCCATT)\r\n  Barcode ID Sequence\r\n\n\nFwd1 ACCTCA\r\n\n\nFwd2 CCTTCT\r\n\n\nFwd3 CTACCT\r\n\n\nFwd4 CTCACA\r\n\n\nFwd5 CTCGAA\r\n\n\nFwd6 GGAGAA\r\n\n\nFwd7 GGATCT\r\n\n\nFwd8 TCGACT\r\n\n\nFwd9 AACACC\r\n\n\nFwd10 GAGTCA\r\n\n\nFwd11 GTAACC\r\n\n\nRev1 ATGTCC\r\n\n\nRev2 CAACTC\r\n\n\nRev3 CACAGT\r\n\n\nRev4 CGTAGA\r\n\n\n\r\n\n\n42. Setup PCR reactions to amplify the region of interest on PylS plasmid\r\n  KAPA HiFi HotStart ReadyMix \\(2x) 10 \u03bcl\r\n\n\nPlasmid extracted from Step 34 and 40  1 \u03bcl\r\n\n\nForward primer \\(50 \u03bcM) 0.3 \u03bcl\r\n\n\nReverse primer \\(50 \u03bcM) 0.3 \u03bcl\r\n\n\nH2O 8.4 \u03bcl\r\n\n\nTotal 20 \u03bcl\r\n\n\n     Use primers with different barcode \\(listed in step 41) combinations for different sample amplification:\r\n\n\nSample Forward barcode Reverse Barcode\r\n\n\nPre 1 Fwd1 Rev1\r\n\n\nPre 2 Fwd2 Rev1\r\n\n\nPre 3 Fwd3 Rev1\r\n\n\nPost -1 Fwd4 Rev1\r\n\n\nPost -2 Fwd5 Rev1\r\n\n\nPost -3 Fwd6 Rev1\r\n\n\nPost +1 Fwd7 Rev1\r\n\n\nPost +2 Fwd8 Rev1\r\n\n\nPost +3 Fwd9 Rev1\r\n\n\n\r\n\n\n43. Run PCR reactions  \\(18 cycles)\r\n  95 \u00b0C 3 min\r\n\n\n95 \u00b0C 20 sec\r\n\n\n60 \u00b0C 15 sec\r\n\n\n72 \u00b0C\r\n\n\n72 \u00b0C 1 min\r\n\n\n10 min\r\n\n\n4 \u00b0C \u221e\r\n\n\n44. Purify PCR products by gel extraction using the E-Gel SizeSelect Agarose Gel 2% kit following the manufacturer\u2019s instructions. In brief, insert the gel into the E-Gel iBase Power System, load PCR reactions into wells and start electrophoresis using the built-in power supply. Monitor the DNA migration using the built-in blue light transilluminator. Pause the run when the desired bands migrate into the wells for extraction. Transfer the well contents to eppendorf tubes.\r\n  45. Dilute the extracted PCR products 1 in 106 in qPCR Dilution Buffer. Perform sequential dilution by diluting 10 \u00b5l extracted PCR products in 990 \u00b5l buffer. Repeat the dilution twice more. Keep the diluted DNA samples on ice and use within two hours\r\n  46. Setup qPCR reactions with Kapa Illumina Complete Kit Universal\r\n  KAPA SYBR Fast qPCR Master Mix \\(2x) 5 \u03bcl\r\n\n\nDiluted template DNA \\(from Step 45) 4 \u03bcl\r\n\n\nROX Low 0.2 \u03bcl\r\n\n\nH2O 0.8 \u03bcl\r\n\n\nTotal 10 \u03bcl\r\n\n\n    Setup triplicates reactions for each template DNA sample. Also setup reactions for DNA standards provided in the kit. \r\n\n\n47. Run qPCR reactions \\(40 cycles)\r\n  95 \u00b0C 5 min\r\n\n\n95 \u00b0C 30 sec\r\n\n\n60 \u00b0C 45 sec\r\n\n\n48. Fit CT values against log-transformed DNA standard concentrations. Use the resulting the linear regression function to infer the concentrations of the other DNA samples with the respective CT values.\r\n  49. Use water to dilute each DNA sample to a final concentration of 2 nM.\r\n  50. Mix same volume of 2 nM DNA from each sample. Freeze and keep at -20\u00b0C before use\r\n  Deep Sequencing Setup\r\n\n\n51. Follow the Illumina MiSeq Reagent Kit v2 \\(300-cycle) instructions to prepare 2 nM DNA adapter-tagged DNA for next-generation sequencing. In brief, mix 10 \u03bcl DNA sample \\(pooled 2 nM sample from Step 50) with 10 \u03bcl freshly prepared 0.2 N NaOH. Briefly vortex and centrifuge at 250 g for 1 min. Incubate for 5 min at RT\r\n  52. Add 10 \u03bcl 200 mM Tris-HCl pH = 7. Briefly vortex and centrifuge at 250 g for 1 min\r\n  53. Dilute with 970 \u03bcl HT buffer to a final DNA concentration of 20 pM\r\n  54. Mix 600 \u03bcl DNA sample from Step 53 with 400 \u03bcl HT buffer to further dilute DNA to 12 pM\r\n  55. For PhiX control prepration, dilute the 10 nM PhiX Sequencing Control v3 to 2 nM in H2O. Perform Step 51-54 to further prepare the 12 pM PhiX control.\r\n  56. Spike in 10% PhiX by mixing 900 \u03bcl 12 pM DNA sample from Step 54 with 100 \u03bcl 12 pM PhiX control from Step 55. Load the combined 1 ml sample into MiSeq Reagent Kit v2 \\(300-cycle). Set up the rest of deep sequencing run according to manufacturer\u2019s instructions. Perform deep sequencing on a MiSeq Sequencer.\r\n  Data Analysis\r\n\n\n57. Process raw deep sequencing reads using bespoke scripts written in the programming language Python. Each paired end read was first trimmed to 141 nucleotides. Paired end read 1 was concatenated with the reverse-complement of paired end read 2. The assembly was matched using regular expressions against a pattern specifying the expected sequence string with degeneracy specified for the sequence barcode and for each library site. For matching sequences, the degenerate sites were extracted and collected into a comma-separated file together with the detected barcode ID\r\n  58. Construct an m x n counts table N of m unique mutants in n conditions. Each entry kij corresponded to mutant i in condition j. To identify the m mutants and their corresponding read counts, all unique rows in the comma-separated file were collected and their occurrences were counted. \r\n  59. Implement the DESeq algorithm 2 in the Matlab R2014a \\(Mathworks) software using instructions provided online \\(http://uk.mathworks.com/help/bioinfo/examples/identifying-differentially-expressed-genes-from-rna-seq-data.html). Use the DESeq algorithm to identify sequences that are enriched in Post +1/+2/+3 relative to Post -1/-2/-3. Correct the resulting p-values for multiple testing using the procedure by Benjamini and Hochberg, yielding the False Discovery Rate \\(FDR) 3.\r\n  \r\n\n\nPhenotypic validation\r\n\n\n 60. For validation of the hits, order DNA primers to mutate codon 267/271/274 on the wild type PylS sequence to the mutant sequences that are statistically significant. Setup PCR reactions\r\n\n\nPrimeSTAR Max mix \\(2x) 25 \u03bcl\r\n\n\npKW-PylS-PylT \\(50 ng/\u03bcl) 0.5 \u03bcl\r\n\n\nForward primer \\(50 \u03bcM) 0.5 \u03bcl\r\n\n\nReverse primer \\(50 \u03bcM) 0.5 \u03bcl\r\n\n\nH2O 23.5 \u03bcl\r\n\n\nTotal 50 \u03bcl\r\n\n\n61. Repeat step 3-8 to purify, digest, and ligate the PCR products\r\n  62. Transform the concentrated DNA to MegaX DH10B electrocompetent cells by electroporation and recover in pre-warmed SOC medium for 60 min at 37\u00b0C\r\n  63. Spread 60 \u03bcl recovered cells onto LB agar plate containing 50 \u03bcg/ml kanamycin and incubate the plates at 37\u00b0C overnight\r\n  64. Pick three colonies from each plate and inoculate individually into 5 ml fresh LB medium containing 50 \u03bcg/ml kanamycin and incubate at 37\u00b0C overnight with constant shaking at 220 rpm\r\n  65. Pellet the cells by centrifuging at 4,000 g for 12 min. Extract the plasmids from each cell pellet using Qiagen Miniprep Kit following the manufacturer\u2019s instructions\r\n  66. Confirm the mutation by sequencing the plasmid\r\n  67. Repeat Steps 60-66 to introduce mutations on codon 241 and codon 313 if necessary\r\n  68.Transform pBAD_sfGFP\\(150TAG)-His6 to MegaX DH10B electrocompetent cells by electroporation and recover in pre-warmed SOC medium for 60 min at 37\u00b0C\r\n\n\n69. Spread 30 \u03bcl recovered cells onto LB agar plate containing 25 \u03bcg/ml tetracycline and incubate the plates at 37\u00b0C overnight\r\n  70. Pick a single colony and inoculate into 5 ml LB medium containing 25 \u03bcg/ml tetracycline and incubate at 37\u00b0C overnight with constant shaking at 220 rpm\r\n  71. Dilute the overnight culture into fresh 1 L LB medium. Prepare electrocompetent DH10B cells by repeating steps 27-31\r\n  72. Aliquot 50 \u03bcl competent cells into 2 mm electroporation cuvette. Add 1 \u03bcl PylS plasmid containing wild type or mutated sequence from Step 66 into each cuvette and electroporate with the setting of 2,500 V. Immediately add 1 ml SOC into each cuvette and incubate at 37\u00b0C for 60 min with constant shaking at 220 rpm. Snap freeze the rest of the competent cells in liquid nitrogen. These cells can maintain their competency for at least 6 months at -80\u00b0C\r\n  73. After incubation, spread 60 \u03bcl recovered cells onto an LB agar plate containing 25 \u03bcg/ml tetracycline and 50 \u03bcg/ml kanamycin.  Incubate the plates at 37\u00b0C overnight\r\n  74. Pick a single colony from each plate and inoculate into 5 ml fresh LB medium containing 25 \u03bcg/ml tetracycline and 50 \u03bcg/ml kanamycin.  Incubate at 37\u00b0C overnight with constant shaking at 220 rpm\r\n  75. Dilute 500 \u03bcl overnight culture into 25 ml fresh LB medium containing 10 \u03bcg/ml tetracycline, 25 \u03bcg/ml kanamycin, 0.2% \\(w/v) L-Arabinose, and 1 mM PCK.  Incubate at 37\u00b0C for 16hrs with constant shaking at 220 rpm\r\n  76. Pellet down cells by centrifugation at 7,000 g for 10 min\r\n  77. Resuspend cells in 1 ml His-tag Lysis Buffer and transfer to 1.7 ml eppendorf tube. Rotate end-by-end for 15 min at RT\r\n  78. Centrifuge at 20,000 g for 20 min\r\n  79. Transfer the supernatant to a new tube, add 30 \u03bcl Ni-NTA resin pre-washed three times with His-tag Lysis Buffer. Rotate end-by-end for 10 min at RT\r\n  80. Centrifuge at 1,000 g for 1 min. Carefully remove supernatant without disturbing the resin\r\n  81. Resuspend resin with 1 ml His-tag washing Buffer. Rotate end-by-end a few times by hand\r\n  82. Repeat Step 80-81 for four more times\r\n  83. Centrifuge at 1,000 g for 1 min. Carefully remove supernatant without disturbing the resin. Resuspend resin with 100 \u03bcl His-tag Elution Buffer. Rotate end-by-end a few times by hand. Centrifuge again at 1,000 g for 1 min.\r\n  84. Transfer the supernatant to a new tube. Estimate the protein concentration by Nanodrop.\r\n  85. Dilute the protein to the final concentration of 0.1 mg/ml with H2O and inject 5 \u03bcl to electrospray ionization mass spectrometer. Use 0.2 % formic acid in H2O as buffer A, and 0.2 % formic acid in acetonitrile \\(MeCN) as buffer B. Samples were injected into Phenomenex Jupiter C4 column \\(150 \u00d7 2 mm, 5 \u03bcm) and subsequently into the mass spectrometer using a fully automated system.\r\n  86. Theoretical average molecular weight of proteins with unnatural amino acids was calculated by first computing the theoretical molecular weight of wild-type protein using an online tool \\(http://www.peptidesynthetics.co.uk/tools/), and then manually correcting for the theoretical molecular weight of unnatural amino acids."
+        },
+        {
+            "header": "References",
+            "content": "1. Faircloth, B. C. & Glenn, T. C. Not all sequence tags are created equal: designing and validating sequence identification tags robust to indels. PLoS ONE 7, e42543 \\(2012).\r\n  2. Anders, S. & Huber, W. Differential expression analysis for sequence count data. Genome Biol. 11, R106 \\(2010).\r\n  3. Benjamini, Y. & Hochberg, Y. Controlling the false discovery rate: a practical and powerful approach to multiple testing. Journal of the royal statistical society Series B \\( \u2026 \\(1995). doi:10.2307/2346101"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nmeth.4302",
+                "date": "2017-05-30 11:18:00",
+                "title": "Biosynthesis and genetic encoding of phosphothreonine through parallel selection and deep sequencing",
+                "authors": [
+                    "Michael Shaofei Zhang",
+                    "Simon F Brunner",
+                    "Nicolas Huguenin-Dezot",
+                    "Alexandria Deliz Liang",
+                    "Wolfgang H Schmied",
+                    "Daniel T Rogerson",
+                    "and Jason W Chin"
+                ],
+                "journal": "Nature Methods",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 14747,
+                "identity": "a10bd32b-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Jason Chin",
+                "email": "chin@mrc-lmb.cam.ac.uk",
+                "orcid": "",
+                "institution": "MRC Laboratory of Molecular Biology",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Jason",
+                "middleName": "",
+                "lastName": "Chin",
+                "suffix": ""
+            },
+            {
+                "id": 14741,
+                "identity": "a10bc67c-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Michael Shaofei Zhang",
+                "email": "",
+                "orcid": "",
+                "institution": "MRC Laboratory of Molecular Biology",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Michael",
+                "middleName": "Shaofei",
+                "lastName": "Zhang",
+                "suffix": ""
+            },
+            {
+                "id": 14742,
+                "identity": "a10bc925-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Simon Brunner",
+                "email": "",
+                "orcid": "",
+                "institution": "MRC Laboratory of Molecular Biology",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Simon",
+                "middleName": "",
+                "lastName": "Brunner",
+                "suffix": ""
+            },
+            {
+                "id": 14743,
+                "identity": "a10bcba2-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Nicolas Huguenin-Dezot",
+                "email": "",
+                "orcid": "",
+                "institution": "MRC Laboratory of Molecular Biology",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Nicolas",
+                "middleName": "",
+                "lastName": "Huguenin-Dezot",
+                "suffix": ""
+            },
+            {
+                "id": 14744,
+                "identity": "a10bcd3b-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Alexandria Deliz Liang",
+                "email": "",
+                "orcid": "",
+                "institution": "MRC Laboratory of Molecular Biology",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Alexandria",
+                "middleName": "Deliz",
+                "lastName": "Liang",
+                "suffix": ""
+            },
+            {
+                "id": 14745,
+                "identity": "a10bce9c-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Wolfgang Schmied",
+                "email": "",
+                "orcid": "",
+                "institution": "MRC Laboratory of Molecular Biology",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Wolfgang",
+                "middleName": "",
+                "lastName": "Schmied",
+                "suffix": ""
+            },
+            {
+                "id": 14746,
+                "identity": "a10bd14f-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Daniel Rogerson",
+                "email": "",
+                "orcid": "",
+                "institution": "MRC Laboratory of Molecular Biology",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Daniel",
+                "middleName": "",
+                "lastName": "Rogerson",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2017-04-18 15:37:00",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2017.046",
+        "doiUrl": "https://doi.org/10.1038/protex.2017.046",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13465045,
+                "identity": "0d23a071-dc8f-4ff7-a3f7-0014b9f1abfd",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:45:25",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 179743,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-5915/v1/56b8de78-304c-41db-82a7-000e56d691d9.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interest.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "non-natural amino acids, genetic code expansion, parallel positive selection, deep sequencing, aminoacyl-tRNA synthetase",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "Site-specific incorporation of non-natural amino acids into proteins, via genetic code expansion, forms the basis of powerful approaches to get access to proteins with site-specific modifications both in vitro and in vivo. The current methods for discovering aminoacyl-tRNA synthetase/tRNA pairs depend on several rounds of positive and negative selections, which have certain limitations. Here we describe a protocol to address the problem by combining parallel positive selections with deep sequencing and analytical methods from differential expression analysis to create a scalable approach for synthetase discovery.",
+        "manuscriptTitle": "Parallel positive selections, deep sequencing and analysis for reprogramming aminoacyl-tRNA synthetase specificity",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2017-05-30 11:19:41",
+                "doi": "10.1038/protex.2017.046",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a10b6a22-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "May 30th, 2017",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3914,
+                "name": "Biochemistry"
+            },
+            {
+                "id": 3915,
+                "name": "Genetics"
+            },
+            {
+                "id": 3916,
+                "name": "Molecular Biology"
+            },
+            {
+                "id": 3917,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 3918,
+                "name": "Synthetic chemistry"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2017-05-30 11:19:41",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

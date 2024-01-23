@@ -1,0 +1,413 @@
+{
+    "identity": "nprot-6537",
+    "title": "**MicroRNome by methylation-dependent sequencing \\(mime-seq)**",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Mime-seq relies on the cell-specific 3\u00b4 terminal methylation of animal miRNAs by selective expression of the small RNA duplex-specific methyltransferase HEN1, which is responsible for miRNA methylation in plants. Because methylated miRNAs are resistant to chemical ribose oxidation, tissue-specific animal miRNAs can be recovered by established methylation-specific cloning protocols, followed by high-throughput sequencing. See \"Figure 1\":http://www.nature.com/protocolexchange/system/uploads/6331/original/Figure_1.png"
+        },
+        {
+            "header": "Reagents",
+            "content": "**Reagents**\r\n\n\n\u2022 10 cm and 15 cm peptone agar plates: \\(www.wormbook.org/chapters/www_transformationmicroinjection/transformationmicroinjection.html#d0e878)\r\n\n\n\u2022 Sodium hypochlorite solution 10% \\(Honeywell Fluka, 71696) \r\n\n\n\u2022 Sodium hydroxide \\(NaOH, Sigma, S5881)\r\n\n\n\u2022 Standard _Drosophila_ maintenance medium: cornmeal/yeast/agar base supplemented with various carbohydrates and preservatives\r\n\n\n\\(http://flystocks.bio.indiana.edu/Fly_Work/media-recipes/media-recipes.htm)\r\n\n\n\u2022 Streptomycin Sulfate \\(Amresco, 0382)\r\n\n\n\u2022 TRIzol<sup>TM</sup> Reagent \\(Ambion, Life Technologies, cat. no. 15596018) \r\n\n\n\u2022 Chloroform \\(Amresco, 0757)\r\n\n\n\u2022 Acid phenol chloroform \\(5:1 solution, pH=4.5, Ambion)\r\n\n\n\u2022 2-Propanol \\(Sigma-Aldrich, cat. no. 59300) \r\n\n\n\u2022 Glycogen \\(20 mg/ml, G1767-1VL Sigma)\r\n\n\n\u2022 Ethanol absolute \\(VWR Chemicals, cat. no 20821.321)\r\n\n\n\u2022 DEPC-treated water \\(Ambion, AM9920)\r\n\n\n\u2022 Ultra-Pure SequaGel UreaGel System \\(National Diagnostic, cat. no. EC-833)\r\n\n\n\u2022 Ammonium Persulfate \\(APS, Sigma, A3678)\r\n\n\n\u2022 N,N,N\u2032,N\u2032-Tetramethylethylenediamine \\(TEMED, Sigma, T9281)\r\n\n\n\u2022 Gel loading buffer II \\(Ambion, AM8547)\r\n\n\n\u2022 18-mer \\(Integrated DNA Technologies, IDT, see \"Table 7\":https://www.nature.com/protocolexchange/system/uploads/6349/original/Table_7.pdf for the sequence)\r\n\n\n\u2022 30-mer \\(Integrated DNA Technologies, IDT, see \"Table 7\":https://www.nature.com/protocolexchange/system/uploads/6349/original/Table_7.pdf for the sequence)\r\n\n\n\u2022 60-mer \\(see \"Table 7\":https://www.nature.com/protocolexchange/system/uploads/6349/original/Table_7.pdf for the sequence)\r\n\n\n\u2022 SYBR gold nucleic acid gel stain \\(Life Technologies, S11494)\r\n\n\n\u2022 Standard transparent heavyweight \u2028sheet protector\r\n\n\n\u2022 DNA LoBind tubes 1.5 mL \\(Eppendorf, G172215J)\r\n\n\n\u2022 Borax \\(or Sodium tetraborate) powder \\(Sigma, 71997)\r\n\n\n\u2022 Boric acid powder \\(Sigma, B6768)\r\n\n\n\u2022 Sodium periodate \\(Sigma, 311448)\r\n\n\n\u2022 3M Sodium Acetate pH=5.5 \\(Ambion, AM9740)\r\n\n\n\u2022 10x T4 RNA Ligase Reaction Buffer \\(NEB, B0216S)\r\n\n\n\u2022 3\u00b4 linker Solexa \\(Integrated DNA Technologies, IDT, see \"Table 7\":https://www.nature.com/protocolexchange/system/uploads/6349/original/Table_7.pdf), gel purified on 15% urea-acrylamide gels \\(0.4 mm thickness), resuspended to 50 \u00b5M in DEPC water\r\n\n\n\u2022 5\u00b4 linker Solexa \\(Integrated DNA Technologies, IDT, see \"Table 7\":https://www.nature.com/protocolexchange/system/uploads/6349/original/Table_7.pdf), gel purified on 15% urea-acrylamide gels \\(0.4 mm thickness), resuspended to 100 \u00b5M in DEPC water\r\n\n\n\u2022 T4 RNA Ligase 2, Truncated K227Q \\(NEB, M0351L)\r\n\n\n\u2022 T4 RNA Ligase 1 \\(ssRNA Ligase) \\(NEB, M0204L)\r\n\n\n\u2022 Polyethylene glycol \\(PEG) 8000 50% \\(NEB, B1004A)\r\n\n\n\u2022 Sodium chloride \\(NaCl, Merk, cat. no. 106404)\r\n\n\n\u2022 20% Sodium Dodecyl Sulfate \\(SDS) solution Ultrapure MB Grade \\(Affymetrix, 75832)\r\n\n\n\u2022 ATP 10mM \\(NEB, P0756S)\r\n\n\n\u2022 Century RNA Marker \\(1mg/ml; Ambion, AM7140) \r\n\n\n\u2022 10x RT buffer \\(Invitrogen, 53032)\r\n\n\n\u2022 10 mM dNTP solution mix \\(NEB, N0447S)\r\n\n\n\u2022 Magnesium chloride \\(MgCl<sub>2</sub>, Thermo Fisher, 00313561)\r\n\n\n\u2022 Small RNA seq RT primer \\(see \"Table 7\":https://www.nature.com/protocolexchange/system/uploads/6349/original/Table_7.pdf for the sequence)\r\n\n\n\u2022 Superscript III reverse transcriptase \\(Invitrogen, 56575). 0.1 M DTT is provided together with the enzyme \\(Invitrogen, y00147)\r\n\n\n\u2022 KAPA Real Time Library Amplification Kit \\(KAPA BIOSYSTEM, KK2702)\r\n\n\n\u2022 Truseq Universal Adapter \\(Solexa_PCR_fwd primer, see \"Table 7\":https://www.nature.com/protocolexchange/system/uploads/6349/original/Table_7.pdf for the sequence)\r\n\n\n\u2022 Trueseq Index reverse primers \\(Solexa_IDX_rev, see \"Table 7\":https://www.nature.com/protocolexchange/system/uploads/6349/original/Table_7.pdf for the sequence)\r\n\n\n\u2022 Optical Flat 8-Cap strips \\(BioRad, TCS0803)\r\n\n\n\u2022 Individual PCR Tubes 8-Tube strip, clear \\(BioRad, TLS0801)\r\n\n\n\u2022 Certified<sup>TM</sup> Low Range Ultra Agarose \\(BioRad, cat. no 1613107)\r\n\n\n\u2022 GeneRuler 50 bp DNA Ladder \\(Thermo Scientific, SM0373)\r\n\n\n\u2022 Zymoclean<sup>TM</sup> Gel DNA Recovery Kit \\(ZYMO RESEARCH, Catalog nos. D4001, D4002, D4007 & D4008)\r\n\n\n\r\n\n\n**Buffers**\r\n\n\n\u2022 1x M9 buffer: 3 g KH<sub>2</sub>PO<sub>4</sub>, 6 g Na<sub>2</sub>HPO<sub>4</sub>, 5 g NaCl, H<sub>2</sub>O to 1 liter. Sterilize by autoclaving. Add 1 ml of sterile 1 M MgSO<sub>4</sub>\r\n\n\n\u2022 Bleaching solution: for 10 mL combine 1 mL of 10% sodium hypochlorite solution, 1 mL of NaOH 10 M, 8 mL water\r\n\n\n\u2022 5x Borate Buffer \\(pH=8.6): 150 mM borax, 150 mM boric acid\r\n\n\n\u2022 Elution buffer: 0.3 M NaCl, 0.1% SDS"
+        },
+        {
+            "header": "Equipment",
+            "content": "\u2022 Standard molecular biology lab equipment \\(such as centrifuge, microscope, thermocycler, qPCR machine)\r\n\n\n\u2022 gel electrophoresis apparatus\r\n\n\n\u2022 Illumina high-throughput sequencing machine \\(such as Illumina HiSeqV4 SR50)"
+        },
+        {
+            "header": "Procedure",
+            "content": "**Growing and harvesting of worms and flies**\r\n\n\nFor all mime-seq experiments using _C. elegans_, we profiled synchronized first larval stage \\(L1) animals. Specifically, large populations of L1-stage animals \\(2-5 millions) were obtained by culturing on solid 15 cm peptone agar plates seeded with 3 ml of concentrated, streptomycin resistant _E. coli_ strain HB101. Obtaining such numbers of animals typically required expansion for three generations starting from a few small plates. Worms were synchronized at the L1 stage at every generation using the standard bleaching protocol \\(Sulston, J. E. & Hodgkin, J., 1988).\r\n\n\nImportant numbers for _C. elegans_ experiments:  \r\n\n\n\u2022 Plate 80,000-90,000 L1s on each 15 cm peptone agar plate seeded with 3ml of concentrated HB101.\r\n\n\n\u2022 It takes 3 days at 20\u02daC after plating L1s to obtain gravid adults for the next round of bleaching.\r\n\n\n\u2022 Aim to harvest 2-5 million L1s \\(from roughly 10-15 15 cm plates) by centrifugating, removing all water, resuspending in 600 \u03bcl TRizol and flash freezing in liquid N\n2\n. Proceed to RNA isolation or store at -80\u02daC.\r\n\n\n\r\n\n\nFor mime-seq experiments using _Drosophila melanogaster_, fly lines were maintained by periodically transferring new adult flies to fresh media. Flies were kept in an incubator at 25\u02daC with constant humidity. In order to collect flies for the experiments:\r\n\n\n\u2022 Specific crosses were set up between muscle Gal-4 driver stocks and UAS::Ath-HEN1 stocks. At the same time, the control fly lines were transferred to fresh medium to ensure hatching at the same time as crosses. \r\n\n\n\u2022 After 3 days, the F\n0\nflies were removed from the cross-vials. The eclosed F\n1\nflies were collected over 3 days and placed into fresh vials to be aged for 2 days. The flies were sexed and genotyped at the same time. \r\n\n\n\r\n\n\n\r\n\n\n**Total RNA isolation**\r\n\n\n- Extract total RNA from S2 cells, flies and worms using TRIzol Reagent. For flies, collect 2-5 days old flies, snap-freeze them in liquid N\n2\nand separate heads from the bodies using metal sieves \\(keeping all tools cooled by liquid nitrogen). Upon addition of TRIzol reagent to the tube containing snap-frozen fly bodies \\(1 ml TRIzol per 20 fly bodies), disrupt the fly tissues using pestle tool. For _C. elegans_ L1s previously harvested in 600 \u03bcl TRIzol, freeze-crack 3 to 4 times \\(by freezing in liquid N\n2\nand thawing to room temperature) and vortex to dissolve the cuticle \r\n\n\n- Add 200 \u03bcl of chloroform per 1 ml of TRIzol, agitate samples vigorously and centrifuge at full speed \\(14,000 rpm) for 15 min at 4\u00b0C. The mixture separates into lower, red, phenolchloroform phase, an interphase, and a colorless aqueous phase \r\n\n\n- Carefully transfer the upper aqueous phase to a fresh tube \r\n\n\n- Perform an extra cleaning step by adding 1 volume of acid phenol chloroform \\(5:1 solution, pH=4.5), vortexing and centrifugating for 3 minutes at full speed at 4\u00b0C\r\n\n\n- Transfer upper, aqueous phase to a new tube \r\n\n\n- Precipitate RNA by adding 1 \u03bcl of glycogen \\(20 mg/ml) and 1 volume of isopropyl alcohol \r\n\n\n- Incubate at room temperature for 10 minutes and centrifuge at full speed for at least 30 minutes at 4\u02daC; RNA will form a gel-like pellet on the side and bottom of the tube\r\n\n\n- Decant supernatant \r\n\n\n- Wash by adding 300 \u03bcl of 80% cold ethanol, vortex and centrifuge 10 minutes at full speed at 4\u00b0C \r\n\n\n- Decant supernatant, collect remaining ethanol by quick centrifugation and pipette all remaining liquid \r\n\n\n- Dissolve RNA pellet in 20 \u03bcl \\(or more, depending on the pellet size) of DEPC-treated water, to obtain a target RNA concentration above 1 \u03bcg/\u03bcl\r\n\n\n- At least 20 \u03bcg of total RNA are used for small RNA library preparation \\(Ghildiyal, M. et al., 2008).\r\n\n\n\r\n\n\n**Small RNA library preparation and sodium periodate-mediated oxidation** \r\n\n\n\r\n\n\n**Day 1: 18-30 nt RNA size selection**\r\n\n\n- Prepare a 15% denaturing urea polyacrylamide gel \\(SequaGel; 20 cm x 16 cm x 1.5 mm, length x width x thickness): 33 ml concentrate, 16.5 ml diluent, 5.5 ml buffer, 350 \u03bcl APS 10% and 35 \u03bcl TEMED; use combs for wells that accommodate 40 \u03bcl of sample \r\n\n\n- Pre-run the gel in 0.5x TBE buffer at a constant power of 40-50 W for approximately 30 minutes until the surface temperature of the gel reaches 45\u201355\u00b0C\r\n\n\n- In the meantime, aliquot samples starting from at least 20 \u03bcg total RNA each \\(in no more than 20 \u03bcl volume) and add an equal volume of gel loading buffer II\r\n\n\n- In parallel, prepare the size markers by mixing 10 pmoles of each the 18-mer and 30-mer RNA oligos \\(2 \u03bcl each from 5 \u03bcM stock + 30 \u03bcl of gel loading buffer II)\r\n\n\n- Denature all samples and markers by incubating 4 min at 95\u00baC, spin briefly at room temperature and load into wells pre-washed with running buffer to remove accumulated urea and fragments of gel. IMPORTANT: ideally, we run one sample per gel to avoid cross contamination, otherwise maximize space between two samples \r\n\n\n- Run gel at a constant power of 45-55 W until the bromophenol blue is about half way down the gel \r\n\n\n- Remove the top glass plate and with the gel still on the bottom plate, pour 10-15 ml of SYBR gold in 0.5x TBE \\(for 50 ml use 5 \u03bcl of SYBR gold) and stain for 3-4 minutes\r\n\n\n- Carefully transfer the gel by holding it at the bottom side onto a transparent sheet protector \r\n\n\n- Visualize RNA on a UV transilluminator \\(take a photograph if desired, without exposing longer than necessary) and cut out small RNAs between 30-mer and 18-mer markers\r\n\n\n- Cut bigger gel pieces into multiple small parts and collect in 1.5 ml LoBind tubes\r\n\n\n- Add 800 \u00b5l 0.3 M NaCl + 0.1% SDS and allow RNA to elute overnight at room temperature, while rotating.\r\n\n\n\r\n\n\n**Day 2: sodium periodate-mediated oxidation and 3\u00b4 linker ligation**\r\n\n\n- Precipitate each sample by transferring to two fresh tubes \\(without transferring gel pieces) and adding to each 400 \u00b5l aliquot, 1 \u00b5l glycogen \\(20 mg/mL) and 1 ml of 100% ethanol; incubate samples for 1.5-2 hours at -20\u02daC\r\n\n\n- Centrifuge 40 minutes at full speed \\(14000 rpm) at 4\u02daC, decant supernatant and wash the pellet with 300 \u00b5l of 80% cold ethanol as before. Centrifuge again 10 minutes at 4\u02daC, remove the supernatant completely, perform an extra round of centrifugation for 2 minutes and pipette out all residual ethanol \r\n\n\n- Without air-drying the pellet, resuspend it in a final volume of 55 \u00b5l DEPC-treated water; samples are ready for the oxidation step.\r\n\n\n\r\n\n\n_Small RNA oxidation:_\r\n\n\n- Set up the reaction for each sample \\(final volume = 40 \u00b5l) as in \"Table 1\":http://www.nature.com/protocolexchange/system/uploads/6337/original/Table_1.png.\r\n\n\n\r\n\n\nIMPORTANT: this step is key to the success of the experiment. To ensure efficient oxidation, prepare the sodium periodate solution fresh, just before use, by dissolving 10.69 mg sodium periodate in 1 ml water. In addition, the pH of the Borate Buffer is crucial for optimal reaction conditions and to minimize RNA hydrolysis. When optimizing this step, we recommend adding a pre-methylated, spike-in RNA to ensure efficient recovery and enrichment over unmethylated RNA.\r\n\n\n\r\n\n\n- Incubate samples at room temperature for 30 minutes \\(longer oxidation time should be avoided) \r\n\n\n- Precipitate samples by adding 229 \u03bcl of water, 30 \u03bcl of 3 M Sodium acetate \\(pH 5.5) and 1 \u03bcl glycogen to each tube. Vortex briefly to mix, spin briefly to collect the solution on the bottom of the tube and add 900 \u03bcl \\(3 volumes) of 100% ethanol to each tube. Again, vortex briefly to mix and incubate 1.5-2 hours at -20\u00baC \r\n\n\n- Centrifuge 40 minutes at full speed \\(14,000 rpm) at 4\u02daC, decant supernatant and wash the pellet with 300 \u00b5l of 80% cold ethanol as before. Centrifuge again 10 minutes at 4\u02daC, remove the supernatant completely, perform an extra round of centrifugation for 2 minutes and pipette out all residual ethanol \r\n\n\n- Without air-drying the pellet, resuspend it in a final volume of 6 \u00b5l DEPC-treated water; samples are ready for the 3\u00b4 ligation step.\r\n\n\n\r\n\n\n_Small RNA 3\u00b4 linker ligation:_\r\n\n\n- Prepare the master mix \\(volumes are calculated for one sample) as in \"Table 2\":http://www.nature.com/protocolexchange/system/uploads/6339/original/Table_2.png.\r\n\n\n- Add 4 \u00b5l of master mix to each 6 \u00b5l of sample, mix and spin\r\n\n\n- Add 10 \u00b5l of PEG \\(8000) 50% \\(final volume 20 \u00b5l) and incubate on ice in the cold room, overnight\r\n\n\n- In addition to the samples, prepare also a ligation reaction with both the 18-mer and 30-mer markers: 2 \u00b5l each from 5 \u03bcM stock + 2 \u00b5l water \\(these will serve as controls that the ligation worked, but also as markers for products of the correct size, as they will shift in size by the same amount as the samples).\r\n\n\n\r\n\n\n**Day 3: gel purification of 3\u00b4-ligated small RNAs**\r\n\n\n- To size select 3\u00b4-ligated small RNAs, prepare two 15% denaturing urea polyacrylamide gels per sample, as described in Day 1 \\(one for the oxidized sample and another one for the unoxidized)\r\n\n\n- Add an equal volume of gel loading buffer II \\(20 \u00b5l) to the ligated samples. For the markers, add 40 \u00b5l of gel loading buffer II to reach a final volume of 60 \u00b5l, and load half of that volume \\(30 \u00b5l) per gel\r\n\n\n- After pre-running the gel and sample/marker denaturation at 95\u00baC, gently load the samples into pre-washed wells and run until the bromophenol blue reaches the end of the gel \r\n\n\n- Stain the gel as previously described and size select 3\u00b4-ligated small RNAs by cutting the area between the ligated 18- and 30-mer markers \r\n\n\n- Elute RNA overnight in 800 \u00b5l 0.3 M NaCl + 0.1% SDS at room temperature, while rotating.\r\n\n\n\r\n\n\n**Day 4: 5\u00b4 linker ligation**\r\n\n\n- Precipitate each sample by transferring to two fresh tubes \\(without transferring gel pieces) and adding to each 400 \u00b5l aliquot, 1 \u00b5l glycogen \\(20 mg/mL) and 1 ml of 100% ethanol; incubate samples for 1.5-2 hours at -20\u02daC\r\n\n\n- Centrifuge 40 minutes at full speed \\(14,000 rpm) at 4\u02daC, decant supernatant and wash the pellet with 300 \u00b5l of 80% cold ethanol as before. Centrifuge again 10 minutes at 4\u02daC, remove the supernatant completely, perform an extra round of centrifugation for 2 minutes and pipette out all residual ethanol \r\n\n\n- Without air-drying the pellet, resuspend it in a final volume of 7.5 \u00b5l DEPC-treated water; samples are ready for the 5\u00b4 ligation step.\r\n\n\n\r\n\n\n_Small RNA 5\u00b4 linker ligation_\r\n\n\n- Prepare the master mix \\(volumes are calculated for one sample) as in \"Table 3\":http://www.nature.com/protocolexchange/system/uploads/6341/original/Table_3.png.\r\n\n\n- Add 7.5 \u00b5l of master mix to each sample, mix and spin \r\n\n\n- Add 5 \u00b5l of PEG \\(8000) 50%, to a final volume of 20 \u00b5l, and incubate on ice in the cold room, overnight.\r\n\n\n\r\n\n\n**Day 5: gel purification of 5\u00b4-ligated \\(and 3\u00b4-ligated) small RNAs**\r\n\n\n- To size select small RNAs with both adaptors, prepare 10% denaturing urea polyacrylamide gels \\(SequaGel; 20 cm x 16 cm x 1.5 mm, length x width x thickness): 22 ml concentrate, 27.5 ml diluent, 5.5 ml buffer, 350 \u03bcl APS 10% and 35 \u03bcl TEMED.\r\n\n\n- Pre-run the gel in 0.5x TBE buffer at a constant power of 40 W for approximately 30 minutes until the surface temperature of the gel reaches 45\u201355\u00b0C \r\n\n\n- Meanwhile, prepare the marker by mixing 1\u03bcl \\(10 pmol) of the 60-mer, _in vitro_ transcribed marker, with 0.5 \u00b5l of Century RNA Marker \\(1mg/ml) in 20 \u00b5l of gel loading buffer II. This is sufficient for one gel\r\n\n\n- After sample/marker denaturation at 95\u00baC, gently load samples into pre-washed wells and run the gel until the bromophenol blue reaches the end of the gel \r\n\n\n- Stain the gel as previously described and size select 3\u00b4- and 5\u00b4- ligated small RNAs by cutting the gel above the 60-mer band and below the lowest Century marker band \\(100 nt) \r\n\n\n- Elute RNA overnight in 800 \u00b5l 0.3 M NaCl + 0.1% SDS at room temperature, while rotating.\r\n\n\n\r\n\n\n**Day 6: Reverse Transcription and qPCR amplification**\r\n\n\n- Precipitate each sample by transferring to two fresh tubes \\(without transferring gel pieces) and adding to each 400 \u00b5l aliquot, 1 \u00b5l glycogen \\(20 mg/mL) and 1 ml of 100% ethanol; incubate samples for 1.5-2 hours at -20\u02daC\r\n\n\n- Centrifuge 40 minutes at full speed \\(14,000 rpm) at 4\u02daC, decant supernatant and wash the pellet with 300 \u00b5l of 80% cold ethanol as before. Centrifuge again 10 minutes at 4\u02daC, remove the supernatant completely, perform an extra round of centrifugation for 2 minutes and pipette out all residual ethanol \r\n\n\n- Without air-drying the pellet, resuspend it in a final volume of 17 \u00b5l DEPC-treated water. Samples are ready for the Reverse Transcription reaction.\r\n\n\n\r\n\n\n_Reverse Transcription \\(RT)_\r\n\n\n- Prepare the RT mix \\(volumes are calculated for one sample but we recommend calculating two reactions per sample to perform reactions with and without reverse transcriptase) as in \"Table 4\":http://www.nature.com/protocolexchange/system/uploads/6343/original/Table_4.png.\r\n\n\n- Add 1 \u00b5l \\(100 \u00b5M) small RNA seq RT primer to each sample \\(17 \u00b5l 5\u00b4 ligation product) and incubate at 72\u02daC for 2 minutes. Spin at 20,000 x g for 1 minute at room temperature and cool on ice for 2 minutes\r\n\n\n- Add 18 \u00b5l of RT mix to each sample, for a total 36 \u00b5l reaction and split them into two tubes \\(18 \u00b5l each), in order to generate for each sample the \u201c+RT\u201d tube and the control \u201c-RT\u201d tube. For that, add either 2 \u00b5l Superscript III reverse transcriptase \\(+RT) or water \\(-RT); final volume per sample is 20 \u00b5l\r\n\n\n- Incubate each tube at 50\u02daC for 1 hour, heat inactivate RT enzyme for 15 minutes at 70\u02daC and store samples at -20\u02daC; they are ready to undergo qPCR amplification step, either directly or on the following day.\r\n\n\n\r\n\n\n_qPCR amplification_\r\n\n\n- To amplify the cDNA libraries, use the KAPA Real Time Library Amplification Kit \r\n\n\n- PCRs are performed using the TruSeq Universal Adapter primer \\(Solexa_PCR_fwd; see \"Table 7\":https://www.nature.com/protocolexchange/system/uploads/6349/original/Table_7.pdf) and TruSeq Index reverse primers \\(Solexa_IDX_rev; see \"Table 7\":https://www.nature.com/protocolexchange/system/uploads/6349/original/Table_7.pdf). The latter include barcodes that can be assigned to different samples for multiplexing\r\n\n\n- Mix 10 \u00b5l of each RT reaction \\(half of the volume) with 1 \u00b5l of 25 \u00b5M TruSeq Index reverse primer \\(Solexa_IDX_rev) to each one; assign a unique barcode per sample \r\n\n\nIMPORTANT: work in individual PCR tubes with optical flat caps suitable for qPCR\r\n\n\n- Set up a master mix \\(add the 25 \u00b5l of 2x KAPA HiFi HS RM last and mix gently) as in \"Table 5\":http://www.nature.com/protocolexchange/system/uploads/6345/original/Table_5.png.\r\n\n\n- Add 39 \u00b5l to each sample for a final volume of 50 \u00b5l, mix and collect by centrifugation\r\n\n\n- Prepare also tubes with 50 \u00b5l of each fluorescent standard \\(standards 3 and 4) in triplicate\r\n\n\n- Run the qPCR program as in \"Table 6\":http://www.nature.com/protocolexchange/system/uploads/6347/original/Table_6.png, until the libraries reach the fluorescence level of standards 3-4 \\(assessed from the image acquired by the PCR machine in each cycle; no more than 16-17 cycles should be required, even for low concentrated samples).\r\n\n\n- When a sample reaches a level between standards 3 and 4 \\(close to standard 4), pause the program during the 10 sec step and remove respective tubes from the PCR machine; continue cycling until all samples have reached the desired amount. \"Figure 2\":http://www.nature.com/protocolexchange/system/uploads/6333/original/Figure_2.png is an example of few samples that were taken out from the qPCR machine as soon as they reached the desired target. Unoxidized samples contain more material than oxidized ones and will reach the target in fewer cycles \\(typically 7-10 for unoxidized and 9-16 for oxidized).\r\n\n\n\r\n\n\n_Gel purification of amplified cDNA_\r\n\n\n- Prepare a 2% Low-Range Ultra agarose gel according to the manufacturer\u2019s instructions \\(swirl the flask often during heating procedure), with 1x SYBR safe \r\n\n\n- Load 6 \u00b5l of GeneRuler 50 bp DNA Ladder and the amplified cDNA after addition of 10 \u00b5l of Orange G loading dye 6x \\(total volume 60 \u00b5l)\r\n\n\n- Run the gel at constant 80-100 V until the Orange G loading dye band is at 3/4 of the gel length\r\n\n\n- Visualize the gel on a long wave UV transilluminator and excise the DNA band between 150-200 bp with a clean scalpel or razor blade and place in a clean tube, as shown in \"Figure 3\":http://www.nature.com/protocolexchange/system/uploads/6335/original/Figure_3.png\r\n\n\nIMPORTANT: there will be a strong lower band of ~120 bp that corresponds to adaptor dimers, avoid cutting into it\r\n\n\n- Dissolve gel by adding 3 volumes \\(~800-900 \u00b5l) of ADB buffer \\(Zymoclean\nTM\nGel DNA Recovery Kit) and incubating samples at 55\u00baC for 10 minutes or until the gel slice is completely dissolved; mix and collect by centrifugation\r\n\n\n- Transfer the melted agarose solution to a Zymo-Spin\nTM\nColumn in a collection tube, centrifuge 1 minute at 10,000 rpm and discard the flow-through \r\n\n\n- Add 200 \u00b5l of DNA Wash Buffer to the column, centrifuge 1 minute and discard the flow-through; repeat the wash step once more \r\n\n\n- Add 15-20 \u00b5l of water directly to the column matrix, place the column into a 1.5 ml tube and centrifuge for 1 minute to elute DNA; purified DNA is now ready for quality control and deep sequencing \\(HiSeqV4 SR50).\r\n\n\n\r\n\n\n**Bioinformatics and data analysis**\r\n\n\nSmall RNA-library reads were recovered by adapter clipping: The adapter was cut once with cutadapt v1.12.0 \\(Martin, M., 2011). Adapter-derived random 4mers on the 5\u00b4 and 3\u00b4 ends of recovered reads were removed with custom scripts. Processed reads were size-selected \\(i.e. 18-30-nt). Mapping of sequencing libraries to _Drosophila_ genome \\(dm3), the _mus musculus_ genome \\(mm10), or the _C. elegans_ genome \\(WBcel235) was performed as described \\(Reim\u00e3o-Pinto, M. M. et al., 2015). Annotations were derived from FlyBase \\(r5.57) and mirBase \\(v21). Reads were assigned to miRNA arms with htseq-count \\(v0.6.1p1, Anders, S. et al., 2015). Multimapping reads were counted only as fraction \\(1/number of mapped locations). The Nextflow \\(Di Tommaso, P. et al., 2017) pipeline developed for this analysis, as well as the R script used for further analysis \\(see below) can be found at: https://gitlab.com/tburk/smallRNA-meth\r\n\n\nTo identify the tissue- or cell-type- specific miRNAs for both _C. elegans_ and _Drosophila_, we calculated the enrichment for every miRNA by comparing the oxidation treated with untreated samples using DESeq2 \\(v1.16.1). \r\n\n\nFor all _C. elegans_ samples, we first removed spuriously expressed miRNAs by requiring an average cpm \\(counts per millions) >10 over all untreated samples analyzed in this study. All miRNA arms above that cutoff were used for a robust estimation of the dispersion parameters of the negative binomial distributions employed by DESeq2. However, beyond this step, the miRNA arms that showed higher expression in more than half of the samples without oxidation treatment were retained, and the lower expressed miRNA* arms were discarded. By comparing the respective pairs of treated and untreated samples, we obtained the fold changes \\(in log2 scale) and enrichment scores \\(i.e. p-values) from DESeq2. For experiments conducted in the wild-type background, where the endogenous methyltransferases \\(Cel-HENN-1 or Dme-HEN1) are still present, we had to subtract the background methylation that occurs on some miRNAs. In order to do this, we included an interaction term between genotypes \\(e.g. ASE::Ath-HEN1 and non-transgenic N2, and similarly for the muscle experiment done in both backgrounds) and treatments in the design formula of DESeq2 to obtain miRNAs that are not only enriched due to treatment but also show higher enrichment than in the background methylation."
+        },
+        {
+            "header": "References",
+            "content": "1. Sulston, J. E. & Hodgkin, J. _The Nematode Caenorhabditis elegans._ 587\u2013606 \\(Cold Spring Harbor Laboratory Press, 1988).\r\n  2. Ghildiyal, M. et al. Endogenous siRNAs derived from transposons and mRNAs in Drosophila somatic cells. _Science_ **320**, 1077\u20131081 \\(2008).\r\n  3. Martin, M. Cutadapt removes adapter sequences from high-throughput sequencing reads. _EMBnet.journal_ **17**, 10 \\(2011).\r\n  4. Reim\u00e3o-Pinto, M. M. et al. Uridylation of RNA Hairpins by Tailor Confines the Emergence of MicroRNAs in Drosophila. _Molecular Cell_ **59**, 203\u2013216 \\(2015).\r\n  5. Anders, S., Pyl, P. T. & Huber, W. HTSeq\u2014a Python framework to work with high-throughput sequencing data. _Bioinformatics_ **31**, 166\u2013169 \\(2015).\r\n  6. Di Tommaso, P. et al. Nextflow enables reproducible computational workflows. _Nat Biotechnol_ **35**, 316\u2013319 \\(2017)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "We thank all laboratory members from Cochella and Ameres labs for constant support and fruitful discussions. High-throughput sequencing was performed at the VBCF NGS Unit \\(www.vbcf.ac.at). This work was supported by FP7/2007-2013 grants from the European Research Council to L.C. \\(ERC-StG-337161) and S.L.A. \\(ERC-StG-338252) and from the Austrian Science Fund to L.C. \\(W-1207-B09 and SFB F43-23) and S.L.A. \\(Y-733-B22 START, W-1207-B09 and SFB F43-22). Basic research at the IMP is supported by Boehringer Ingelheim GmbH."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nmeth.4610",
+                "date": "2018-02-21 15:18:54",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 15365,
+                "identity": "a14c7c99-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Stefan L. Ameres",
+                "email": "stefan.ameres@imba.oeaw.ac.at",
+                "orcid": "",
+                "institution": "Institute of Molecular Biotechnology, IMBA, Vienna, Austria",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Stefan",
+                "middleName": "L.",
+                "lastName": "Ameres",
+                "suffix": ""
+            },
+            {
+                "id": 15366,
+                "identity": "a14c7ee7-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Luisa Cochella",
+                "email": "cochella@imp.ac.at",
+                "orcid": "",
+                "institution": "Research Institute of Molecular Pathology, IMP Vienna, Austria",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Luisa",
+                "middleName": "",
+                "lastName": "Cochella",
+                "suffix": ""
+            },
+            {
+                "id": 15364,
+                "identity": "a14c76fd-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Chiara Alberti",
+                "email": "",
+                "orcid": "",
+                "institution": "Research Institute of Molecular Pathology, IMP Vienna, Austria",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Chiara",
+                "middleName": "",
+                "lastName": "Alberti",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2018-02-12 13:44:15",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2017.171",
+        "doiUrl": "https://doi.org/10.1038/protex.2017.171",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2610020,
+                "identity": "5f4dd7ff-1bc7-4c06-8782-a7d715793057",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:21",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 353595,
+                "visible": true,
+                "origin": "",
+                "legend": "mime-seq   Workflow associated with miRNome by methylation-dependent sequencing (mime-seq). The protocol relies on a well-established small RNA cloning protocol combined with cell-specific miRNA methylation by the genetically-encoded HEN1 from _Arabidopsis thaliana_ (Ath-HEN1) and a chemoselective step where unmethylated RNAs are rendered unclonable by periodate-mediated oxidation.",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-6537/v1/figure_1.png"
+            },
+            {
+                "id": 2610018,
+                "identity": "d681c74c-2545-4418-b6a0-324901908ca3",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:21",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 372749,
+                "visible": true,
+                "origin": "",
+                "legend": "Example of qPCR amplification plot for unoxidized and oxidized samples   Each sample requires a certain number of cycles (x axis) to reach the desired amount (fluorescence level in y axis), depending on the amount of starting material.",
+                "description": "",
+                "filename": "figure2.png",
+                "url": "https://assets.researchsquare.com/files/nprot-6537/v1/figure_2.png"
+            },
+            {
+                "id": 2610026,
+                "identity": "1a02a222-6942-4823-be4f-8224cca8e39a",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:21",
+                "extension": "png",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 961620,
+                "visible": true,
+                "origin": "",
+                "legend": "Example of 2% low-melt agarose gel, before and after DNA band excision   An unoxidized (-Ox) sample was loaded on the left side of the GeneRuler 50 bp DNA Ladder, while an oxidized (+Ox) sample can be seen on the right side. Please, notice that the desired upper band can be very faint in case of oxidized sample. Even in those cases, cut above the strong band of adaptor dimers and proceed with DNA extraction.",
+                "description": "",
+                "filename": "figure3.png",
+                "url": "https://assets.researchsquare.com/files/nprot-6537/v1/figure_3.png"
+            },
+            {
+                "id": 2610021,
+                "identity": "4a80dc01-fc57-41d4-8560-5654c60df08f",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:21",
+                "extension": "png",
+                "order_by": 4,
+                "title": "Figure 4",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 65152,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 1   Reaction setup for small RNA oxidation",
+                "description": "",
+                "filename": "figure4.png",
+                "url": "https://assets.researchsquare.com/files/nprot-6537/v1/figure_4.png"
+            },
+            {
+                "id": 2610022,
+                "identity": "1103e5d5-1bf1-4efd-a089-33e554184be7",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:21",
+                "extension": "png",
+                "order_by": 5,
+                "title": "Figure 5",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 42922,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 2   Reaction setup for small RNA 3\u00b4 linker ligation",
+                "description": "",
+                "filename": "figure5.png",
+                "url": "https://assets.researchsquare.com/files/nprot-6537/v1/figure_5.png"
+            },
+            {
+                "id": 2610024,
+                "identity": "265a5049-4fba-4015-8b64-254fcfb2fe03",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:21",
+                "extension": "png",
+                "order_by": 6,
+                "title": "Figure 6",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 42529,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 3   Reaction setup for small RNA 5\u00b4 linker ligation",
+                "description": "",
+                "filename": "figure6.png",
+                "url": "https://assets.researchsquare.com/files/nprot-6537/v1/figure_6.png"
+            },
+            {
+                "id": 2610023,
+                "identity": "dd5f25ac-58cf-45dc-afc8-1476c6a4faf0",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:21",
+                "extension": "png",
+                "order_by": 7,
+                "title": "Figure 7",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 33758,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 4   Reaction setup for reverse transcription",
+                "description": "",
+                "filename": "figure7.png",
+                "url": "https://assets.researchsquare.com/files/nprot-6537/v1/figure_7.png"
+            },
+            {
+                "id": 2610025,
+                "identity": "3bddae89-3181-412e-8a98-91790d28bde3",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:21",
+                "extension": "png",
+                "order_by": 8,
+                "title": "Figure 8",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 36981,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 5   Reaction setup for qPCR amplification",
+                "description": "",
+                "filename": "figure8.png",
+                "url": "https://assets.researchsquare.com/files/nprot-6537/v1/figure_8.png"
+            },
+            {
+                "id": 2610028,
+                "identity": "95d4f43c-7aa0-4416-83b1-902cc4907c88",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:21",
+                "extension": "png",
+                "order_by": 9,
+                "title": "Figure 9",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 93231,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 6   Cycling conditions for qPCR amplification",
+                "description": "",
+                "filename": "figure9.png",
+                "url": "https://assets.researchsquare.com/files/nprot-6537/v1/figure_9.png"
+            },
+            {
+                "id": 13465716,
+                "identity": "ea59f894-d372-4b34-840e-96021ca9d2a3",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:47:55",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 1521274,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-6537/v1/6fdc9401-55e2-41c5-91d1-d0146fec07a2.pdf"
+            },
+            {
+                "id": 2610027,
+                "identity": "22143a81-803e-4dd8-8ec0-fa5f29af4022",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:21",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 44020,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 7   List of primers, linkers and markers used in this protocol",
+                "description": "",
+                "filename": "supplement0.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-6537/v1/supplement_0.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "miRNAs, small RNA methylation, HEN1, periodate oxidation, small RNA cloning, cell-specific miRNA profiling",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "The description of precise miRNA expression patterns is crucial to understand what these small RNAs contribute to animal development and physiology. High-throughput sequencing of miRNAs from individual developmental stages has provided insight into temporal regulation but often lacks the cellular resolution to link miRNA-function to the biology of distinct cell types within complex tissues. Here, we provide a protocol for _microRNome by methylation-dependent sequencing_ \\(mime-seq), a chemical small RNA-tagging approach followed by chemoselective, high-throughput sequencing that enables the identification of tissue- and cell type-specific miRNA profiles in animals in a sensitive and reproducible manner. Using this strategy, we have uncovered the miRNA composition of specific cells and tissues within _C. elegans_ and _Drosophila_, providing insights into miRNA spatial distribution at high resolution. This protocol accompanies Alberti et al \\(Nature Methods, published online February 26, 2017; 10.1038/nmeth.4610)",
+        "manuscriptTitle": "MicroRNome by methylation-dependent sequencing (mime-seq)",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2018-03-12 11:02:30",
+                "doi": "10.1038/protex.2017.171",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a14be3cb-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "March 12th, 2018",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 4165,
+                "name": "Biochemistry"
+            },
+            {
+                "id": 4166,
+                "name": "Developmental biology"
+            },
+            {
+                "id": 4167,
+                "name": "Genetics"
+            },
+            {
+                "id": 4168,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 4169,
+                "name": "Molecular Biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2018-03-12 11:02:30",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

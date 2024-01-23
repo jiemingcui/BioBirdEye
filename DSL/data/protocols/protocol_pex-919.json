@@ -1,0 +1,435 @@
+{
+    "identity": "pex-919",
+    "title": "<p>Single cell high-throughput qRT-PCR protocol</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>This protocol has been developed over the past decade in our lab to enable reliable high-throughput detection of gene expression by qRT-PCR in low input samples starting from 10 pg total RNA (single cells). We have used this protocol to measure gene expression in a wide variety of samples types, tissue treatments and disease contexts (<em>See associated publications</em>). The present version of this protocol was developed as part of the National Institutes of Health SPARC project efforts to construct a comprehensive anatomical, molecular and functional map of the peripheral nervous system at the visceral organs. A key goal is to develop an anatomical framework onto which various data sets can be mapped, e.g., spatial location and distribution of hundreds to thousands of single neurons within a tissue context, molecular profiles of spatially-tracked single neurons, etc.</p><p>Primarily designed to process single cells captured using Laser Capture Microdissection (LCM) from fresh frozen tissue, it can be adapted to other low input samples such as cell culture samples (1-1000 cells), and extracted RNA (10 pg-1 ng). The workflow is comprised of four steps \u2013 cell lysis, reverse transcription, pre-amplification and qPCR.</p><p>Single cell samples are processed for reverse transcription (RT) directly from lysis without RNA extraction. This enables sample processing with no RNA loss due to the extraction process. Post RT, samples are pre-amplified with PCR primers (1-400 primers). This step selectively amplifies cDNA molecules to detectable levels for qPCR.&nbsp;Samples processed can be quantified on a traditional qPCR instrument using EvaGreen/Sybr green. Alternatively samples can be measured for the primers in pre-amplified cDNA using BioMark HD system (Fluidigm), a high-throughput qRT-PCR platform that enables detection of 96 samples with 96 genes/primers generating close to ten thousand data points per chip run.</p><p>For sample processing using BioMark HD system (Fluidigm) multiple sets of 96 or 48 samples (including positive and negative controls) can be processed through this protocol with multiple sets of 48 or 96 primers based on the type of BioMark Chip used (48.48 Chip, 96.96 Chip). For example; 2 x 96 =192 samples can be pre-amplified for 3 x 96 =288 genes and run on 6 BioMark 96.96 Chips (96 samples and 96 genes each) generating a data set of 55,296 points.</p><p>Standard qPCR training with robust pipetting skills is adequate to use this protocol for sample processing on a traditional qPCR instruments. For sample processing on BioMark HD system, training will be required to load samples on chips and on using BioMark instrument and software.</p><p>Pre-amplification of low input samples prior to qPCR enables robust detection of several hundred transcripts in a single cell. However, this step also limits the number of genes that can be detected to the set of primers used for pre-amplification. Transcripts that are not amplified during the pre-amplification process cannot be detected post processing. Additionally, this step involves PCR reaction where several hundred primers (primers in pre-amplification) interact with the same sample during pre-amplification. This enables dimer formation not only with a single primers forward and reverse sequences but with all the forward and reverse sequences for that experiment. Therefore, primer testing should be done post pre-amplification of positive controls to circumvent this issue.</p><p>The steps detailed below can be applied towards single cell samples obtained using LCM, cell culture samples and extracted RNA. Samples processed through the pre-amplification (Procedure 1.1) can be quantified using traditional qPCR (Procedure 1.2) or BioMark High-throughput qPCR (Procedure 1.3).</p><p><strong>Note:</strong> See supplementary file for a user friendly pdf version of the protocol.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p>MATERIALS</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CapSure HS caps&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Life Technologies&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LCM0214, LCM0215</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CellsDirect Resuspension and Lysis Buffer&nbsp;&nbsp;&nbsp;&nbsp;Life Technologies&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11739010</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Superscript VILO cDNA synthesis kit&nbsp;Life Technologies&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11754-250, 11754050</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T4 Gene 32 Protein&nbsp;&nbsp;&nbsp;New England Bio Labs M0300S, M0300L</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TaqMan\u2122 PreAmp Master Mix&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Life Technologies&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4391128</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Exonuclease I (E.coli) - 3,000 units&nbsp;&nbsp;&nbsp;&nbsp;New England BioLabs M0293S, M0293L</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DNA Suspension Buffer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fisher Scientific/Teknova&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;50-843-204</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TE Buffer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fisher Scientific/Teknova&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;50-843-201</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2X SsoFast EvaGreen Supermix with low ROX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bio-Rad&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1725211</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2X Assay Loading Reagent&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fluidigm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100-7611 </p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20X DNA Binding Dye Sample Loading Reagent&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fluidigm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100-7609&nbsp;</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Control Line Fluid Kit-96.96&nbsp;&nbsp;&nbsp;Fluidigm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;89000021&nbsp;</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Control Line Fluid Kit-48.48&nbsp;&nbsp;&nbsp;Fluidigm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;89000020&nbsp;</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;48.48 Dynamic Array\u2122 IFC for Gene Expression&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fluidigm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BMK-M-48.48 </p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;96.96 Dynamic Array\u2122 IFC for Gene Expression&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fluidigm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BMK-M-96.96 </p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TaqMan Universal PCR Master Mix&nbsp;&nbsp;&nbsp;Thermo Fisher 4364338</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Primer Pairs (200 \u03bcM) IDT&nbsp;&nbsp;&nbsp;&nbsp;</p><p>Other required materials:</p><p>o&nbsp;&nbsp;Pipettes, pipette tips</p><p>o&nbsp;&nbsp;96-well qPCR plates</p><p>o&nbsp;&nbsp;PCR plate seals</p><p>o&nbsp;&nbsp;1, 0.5, 0.2 ml molecular grade tubes</p><p>o&nbsp;&nbsp;Molecular grade water</p><p><br></p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>EQUIPMENT</p><p>1.&nbsp;&nbsp;&nbsp;&nbsp;Plate centrifuge</p><p>2.&nbsp;&nbsp;&nbsp;&nbsp;Thermocyclers</p><p>3.&nbsp;&nbsp;&nbsp;&nbsp;Heating Block</p><p>\t4.&nbsp;&nbsp;&nbsp;&nbsp;IFC Controllers \u2013 Fluidigm </p><p>\t5.&nbsp;&nbsp;&nbsp;&nbsp;BioMark HD System \u2013 Fluidigm</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "REAGENT SETUP:\nPrimer Dilutions\n- Forward and reverse primers need to be ordered at a stock concentration of 400\u00b5M to obtain a forward reverse mix concentration of 200\u00b5M. Two additional working dilutions of 100 \u00b5M and 20 \u00b5M (forward and reverse primer mix).\na.\u00a0\u00a0\u00a0\u00a0200 \u00b5M, 100 \u00b5M (forward and reverse primer mix) \u2013 Used in the Pre-amplification step (1.1 STEP 3)\nb.\u00a0\u00a0\u00a0\u00a020 \u00b5M (forward and reverse primer mix) \u2013 Used for BioMark Chip loading (1.3 STEP 2)\nc.\u00a0\u00a0\u00a0\u00a0\u00a02 \u00b5M (forward and reverse primer mix)- Used for traditional qPCR (1.2)\nLysis Buffer\n- Mix the following components based on the number of samples in the experiment. Calculation shown for 1 and 96 samples with overage :\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0For one sample: 0.5 \u03bcl of Lysis enhancer (CellDirect kit) + 5 \u03bcl of Resuspension buffer (CellDirect kit) for a total of 5.5 \u03bcl\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0For 96 samples with overage 110 samples: 55 \u03bcl of Lysis enhancer (CellDirect kit) + 550 \u03bcl of Resuspension buffer (CellDirect kit) for a total of 605\u03bcl\nRNA Dilution series\n- This is used as a positive control for the experiment and must contain known amounts of RNA obtained from whole tissue and include all conditions tested in the experiment. This is to ensure that the positive control has expression of all the genes measured. Dilution series is also used as a metric to test primer efficiency. For example in a 2X dilution series each point contains two times the starting material as the previous point, therefore if the primer scales accurately there should be 1 Ct delta between 2 dilution points.\nPrepare 2X or 3X RNA dilution series for 6-8 dilution points. The mean sample input should correspond to the middle points in the dilution series.\nFor example for a single cell experiment we consider a cell to contain approximately 10pg of RNA:\n2X dilution series \u2013 2pg/ \u03bcl, 4pg/ \u03bcl, 8pg/ \u03bcl, 16pg/ \u03bcl, 32pg/ \u03bcl and 64pg/ \u03bcl.\nRT Mix-\nTo be prepared immediately prior to use in STEP 3.\nMix the following components based on the number of samples in the experiment. Calculation shown for 96 samples with overage :\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0For one sample: 0.30 \u03bcl 10X Superscript III Mix (VILO kit) + 0.2 \u03bcl of T4 Gene 32 Protein + 1 \u03bcl of DNA Suspension Buffer for a total of 1.5 \u03bcl\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0For 96 samples with overage 110 samples: 33 \u03bcl 10X Superscript III Mix (VILO kit) + 22 \u03bcl of T4 Gene 32 Protein + 110 \u03bcl of DNA Suspension Buffer for a total of 165 \u03bcl\n500nM Primer pool-\nPrimer pool can be generated and used for multiple experiments. Store at -20\u2070C for a year. With 200 \u03bcM stock primers up to 400 primer pairs can be included. For generating primer pools with greater than 400 primer pairs primers will have to be ordered at a higher concentration. Below is the description for generating primer pools for 1-200 primers and 201-400 primers.\n1.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a01-200 primers \u2013 use primers at 100 \u03bcM concentration\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Combine 1 \u03bcl of each primer in a tube. Bring the volume up to 200 \u03bcl with DNA Suspension Buffer. For a primer pool of 96 primers; 96 \u03bcl of combined primer volume + 104 \u03bcl of DNA Suspension Buffer = 200 \u03bcl of primer pool at 500nM concentration.\n2.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0201-400 primers \u2013 use primers at 200 \u03bcM concentration\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Combine 1 \u03bcl of each primer in a tube. Bring the volume up to 400 \u03bcl with DNA Suspension Buffer. For a primer pool of 300 primers; 300 \u03bcl of combined primer volume + 100 \u03bcl of DNA Suspension Buffer = 400 \u03bcl of primer pool at 500nM concentration.\nPreAmp Mix-\nTo be prepared immediately prior to use in STEP 4.\nMix the following components based on the number of samples in the experiment. Calculation shown for 96 samples with overage :\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0For one sample: 10 \u03bcl of TaqMan PreAmp Master Mix of + 1.6 \u03bcl of 500 nM primer pool for a total of 11.6\u03bcl\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0For 96 samples with overage 110 samples: 1100 \u03bcl of TaqMan PreAmp Master Mix + 176 \u03bcl of 500 nM primer pool\u00a0for a total of\nExonuclease Mix\nTo be prepared immediately prior to use in STEP 5. Mix the following components based on the number of samples in the experiment. Calculation shown for 96 samples with overage :\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0For one sample: 0.8 \u03bcl of Exonuclease I reaction buffer 10X + 1.6 \u03bcl of Exonuclease I + 5.6 \u03bcl of DNA Suspension Buffer for a total of 8 \u03bcl\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0For 96 samples with overage 110 samples: 88 \u03bcl of Exonuclease I reaction buffer 10X + 176 \u03bcl of Exonuclease I + 616 \u03bcl of DNA Suspension Buffer for a total of 880 \u03bcl\nNote:\nCatalyzes the removal of nucleotides from linear single-stranded DNA in the 3' to 5' direction. It is used for sample cleanup post pre-amplification to remove unincorporated primers and other single stranded cDNA.\nEQUIPMENT SETUP:\n1-\u00a0\u00a0\u00a0\u00a0Thermocyclers settings\na.\u00a0\u00a0\u00a0\u00a0VILO activation\n65\no\nC \u2013 1 minute 30 seconds\n4\no\nC \u2013 \u221e\nb.\u00a0\u00a0\u00a0\u00a0RT\n25\no\nC \u2013 5 minutes\n50\no\nC \u2013 30 minutes\n55\no\nC \u2013 25 minutes\n60\no\nC \u2013 5 minutes\n70\no\nC \u2013 10 minutes\n4\no\nC \u2013 \u221e\nc.\u00a0\u00a0\u00a0\u00a0\u00a0Pre-amp 22 cycles\n95\no\nC \u2013 10 minutes\n22 cycles of:\n96\no\nC \u2013 5 seconds\n60\no\nC \u2013 4 minutes\n4\no\nC \u2013 \u221e\nd.\u00a0\u00a0\u00a0\u00a0Exonuclease\n37\no\nC \u2013 30 minutes\n80\no\nC \u2013 15 minutes\n4\no\nC \u2013 \u221e\nPROCEDURE\n1.1 PROCEDURE FOR SAMPLE PRE-AMPLIFICATION:\nRequired for low input/single cell samples to selectively amplify cDNA to detectable levels for PCR.\nSTEP 1: Cell Lysis\no\u00a0\u00a0Add 5.5 \u03bcl lysis buffer (\nReagent Preparation\n) to the capture surface on the LCM Cap\no\u00a0\u00a0Cover the cap with a 0.2 ml tube, ensure tight seal\no\u00a0\u00a0Incubate at 75\no\nC on a heat block (Cap surface in contact with the heating block)\u00a0for 15 min\no\u00a0\u00a0Cool Cap and tube on ice for 5 minutes\no\u00a0\u00a0Spin down and transfer cell lysate to PCR tube or plate\nNote:\nThis step is for processing samples collected using LCM. For cell culture samples lyse cells in tubes instead of LCM cap.\nSTEP 2: Sample plate setup\nNote:\nThis step is performed on ice\na.\nUnknown samples:\nTransfer lysed cells from LCM caps to PCR plate. If using extracted RNA transfer 1 \u03bcl of RNA from sample (10-100pg) add 4.5 \u03bcl of lysis buffer (\nreagent preparation\n).\nb.\nPositive control:\nTransfer 1 \u03bcl of RNA standard (\nReagent preparation\n) to PCR plate and add 4.5 \u03bcl of lysis buffer.\nc.\nNegative control:\nAdd 1 \u03bcl of molecular grade water to a single well on the PCR plate and add 4.5 \u03bcl of lysis buffer.\nSTEP 3: Reverse Transcription\nNote:\nThis step is performed on ice\no\u00a0\u00a0Add 1.8 \u03bcl of 5X VILO Reaction Mix (\nComponent of Superscript VILO cDNA synthesis kit\n) to each sample (unknown sample, positive control and negative control).\no\u00a0\u00a0Spin down for 2 minutes at 2000 rpm and proceed to Thermocycler\no\nThermocycler : VILO activation\no\u00a0\u00a0Add 1.5 \u03bcl of RT mix to each sample (\nreagent preparation\n)\no\u00a0\u00a0Spin down for 2 minutes at 2000 rpm and proceed to Thermocycler\no\nThermocycler : RT\no\u00a0\u00a0Spin down for 2 minutes at 2000 rpm and place on ice\nNote:\nThis is an optional stopping point. Samples can be stored overnight at 4\u2070C or stored at -20\u2070C for a year.\nSTEP 4: Pre-amplification\nNote:\nThis step is performed on ice\no\u00a0\u00a0Add 11.6 \u03bcl of PreAmp Mix (\nreagent preparation\n) to each sample\no\u00a0\u00a0Spin down for 2 minutes at 2000 rpm and proceed to Thermocycler\no\nThermocycler : PreAmp22\no\u00a0\u00a0Spin down for 2 minutes at 2000 rpm and place on ice\nNote:\nThis is an optional stopping point. Samples can be stored overnight at 4\u2070C.\nNote:\nWe consider 22 cycles of pre-amp optimal for single cells collected using LCM. We do not recommended to pre-amplification of samples over 22 cycles due to observed increase in production of non-specific PCR fragments and primer-dimers.\nSTEP 5: Exonuclease treatment\no\u00a0\u00a0Add 8 \u03bcl of Exonuclease Mix (\nreagent preparation\n) to each sample\no\u00a0\u00a0Spin down for 2 minutes at 2000 rpm and proceed to Thermocycler\no\nThermocycler : Exonuclease\no\u00a0\u00a0Spin down for 2 minutes at 2000 rpm and place on ice\no\u00a0\u00a0Add 54 \u03bcl of TE buffer to each sample\nNote:\nThis is an optional stopping point. Samples can be stored overnight at 4\u2070C or stored at -20\u2070C for a year.\n1.2 PROCEDURE FOR TRADITIONAL QPCR:\no\u00a0\u00a0Samples can be measured using a traditional qPCR instrument using the following reaction mix for a 20 \u03bcl qPCR reaction:\n2 \u03bcl of Pre-amplified and Exonuclease treated sample + 2 \u03bcl of Primer pair (2\u03bcM) + 10 \u03bcl of TaqMan Universal PCR Master Mix + 6 \u03bcl of Molecular grade water for a total of 20 \u03bcl.\no\u00a0\u00a0Run a standard 30-35 cycle PCR for gene expression.\n1.3 PROCEDURE FOR RUNNING A BIOMARK CHIP:\nSTEP 1: Chip sample plate preparation\nNote:\nPrepare Chip Sample plate on the day of Chip run\no\u00a0\u00a0Prepare Sample Mix\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0For one Sample: \u00a04 \u03bcl of 2X SsoFast EvaGreen Supermix with Low ROX + 0.4 \u03bcl of 20X DNA Binding Dye Sample Loading Reagent\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0For a 48.48 IFC Biomark chip with overage for 55 samples: 220 \u03bcl of 2X SsoFast EvaGreen Supermix with Low ROX + 22 \u03bcl of 20X DNA Binding Dye Sample Loading Reagent\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0\u00a096.96 IFC Biomark chip with overage for 110 samples: 440 \u03bcl of 2X SsoFast EvaGreen Supermix with Low ROX + 44 \u03bcl of 20X DNA Binding Dye Sample Loading Reagent\no\u00a0\u00a0In a new PCR plate aliquot 4.4ul of the above \u00a0Sample mix into sample wells in the following order\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0\u00a096.96 IFC \u2013 fill wells A1 to H12 (all the wells)\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0\u00a048.48 IFC \u2013 fill wells 1 to 6 in each row (A1-A6, B1-B6\u2026.H1-H6)\no\u00a0\u00a0Add 3.6 \u03bcl of Exonuclease treated sample to the plate with the above reagents\no\u00a0\u00a0Spin down for 2 minutes at 2000 rpm and place on ice\nSTEP 2: Chip assay plate preparation\nNote:\nChip assay plate can be prepared a day before chip run and stored at 4\u2070C.\no\u00a0\u00a0In a new PCR plate aliquot 4 \u03bcl 2X Assay Loading Reagent into 48 or 96 wells for a 48.48 or 96.96 IFC Biomark chip using the corresponding layout as described in step 1 for the two types of IFC BioMark Chips.\no\u00a0\u00a0Add 4 \u03bcl of corresponding primer pairs at 20\u03bcM concentration to the wells.\no\u00a0\u00a0Spin down for 2 minutes at 2000 rpm and place on ice\nNote:\nThe final concentration of each primer pair is 5 \u03bcM in the inlet and 500 nM in the reaction chamber.\nSTEP 3: Priming and Loading BioMark Chip\no\u00a0\u00a0Inject control line fluid into each accumulator on the chip (see Figure 1).\no\u00a0\u00a0Place the chip into the IFC Controller MX (for the 48.48 Chip) or the IFC Controller HX (for the 96.96 Chip), then run the\nPrime (113x)\nscript (for the 48.48 Chip) or the\nPrime (136x)\nscript (for the 96.96 Chip).\no\u00a0\u00a0When the\nPrime\nscript has finished, press\nEject\nto remove the primed chip from the IFC Controller.\no\u00a0\u00a0Pipette 5 \u03bcL of each assay and 5 \u03bcL of each sample into their respective inlets on the chip (see Figure 1).\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Using an 8 channel pipette load column 1 (A1, B1..H1) in the alternate wells starting with the top left well. Similarly load the next 5 columns for 96.96 chip and next 2 for 48.48 chip. For the seventh( 96.96) or the fourth (48.48 chip) column load starting with second from the top on the chip.\no\u00a0\u00a0Return the chip to the IFC Controller.\no\u00a0\u00a0Using the IFC Controller software, run the\nLoad Mix (113x)\nscript (for the 48.48 Chip) or\nLoad Mix (136x\n)\nscript\n(\nfor the 96.96 Chip) to load the samples and assays into the chip chambers.\no\u00a0\u00a0When the\nLoad Mix\nscript has finished, remove the loaded chip from the IFC Controller.\no\u00a0\u00a0Remove any dust particles or debris from the chip surface using scotch tape.\nSTEP 4: Data collection software for BioMark HD System\no\u00a0\u00a0Double-click the Data Collection Software icon on the desktop to launch the software.\no\u00a0\u00a0Click\nStart a New Run\n.\no\u00a0\u00a0Check the status bar to verify that the lamp and the camera are ready. Make sure both are green before proceeding.\no\u00a0\u00a0Remove and discard the blue protective film from the bottom of the chip. Place the chip into the reader. Click\nLoad\n.\no\u00a0\u00a0Verify chip barcode and chip type. Click\nNext\n.\no\u00a0\u00a0Chip Run file: Select\nNew\n. Browse to a file location for data storage. Click\nNext\n.\no\u00a0\u00a0Application, Reference, Probes:\no\u00a0\u00a0Select Application Type--\nGene Expression\nfor version 3.1.2 or higher software (for all earlier versions, contact Fluidigm Technical Support).\no\u00a0\u00a0Select Passive Reference:\nROX\n.\no\u00a0\u00a0Select Probe--\nSingle probe\n.\no\u00a0\u00a0Select probe type:\nEvaGreen\n. Click\nNext\n.\no\u00a0\u00a0Click\nBrowse\nto find the thermal cycling protocol file.\nFor BioMark HD:\n\u2022 GE Fast 48x48 PCR+Melt v2.pcl\n\u2022 GE Fast 96x96 PCR+Melt v2.pcl"
+        },
+        {
+            "header": "Troubleshooting",
+            "content": ""
+        },
+        {
+            "header": "Time Taken",
+            "content": ""
+        },
+        {
+            "header": "Anticipated Results",
+            "content": ""
+        },
+        {
+            "header": "References",
+            "content": ""
+        },
+        {
+            "header": "Acknowledgements",
+            "content": ""
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.3791/60612",
+                "date": "2020-03-09 00:00:18",
+                "title": "Combining Laser Capture Microdissection and Microfluidic qPCR to Analyze Transcriptional Profiles of Single Cells: A Systems Biology Approach to Opioid Dependence",
+                "authors": [
+                    "Sean J. O'Sullivan",
+                    "Beverly A.S. Reyes",
+                    "Rajanikanth Vadigepalli",
+                    "Elisabeth J. Van Bockstaele",
+                    "James S. Schwaber"
+                ],
+                "journal": "Journal of Visualized Experiments",
+                "logo": ""
+            },
+            {
+                "doi": "10.3389/fnins.2019.00665",
+                "date": "2019-07-03 11:00:17",
+                "title": "Single-Cell Glia and Neuron Gene Expression in the Central Amygdala in Opioid Withdrawal Suggests Inflammation With Correlated Gut Dysbiosis",
+                "authors": [
+                    "Sean J. O\u2019Sullivan",
+                    "Evangelia Malahias",
+                    "James Park",
+                    "Ankita Srivastava",
+                    "Beverly A. S. Reyes",
+                    "Jon Gorky",
+                    "Rajanikanth Vadigepalli",
+                    "Elisabeth J. Van Bockstaele",
+                    "James S. Schwaber"
+                ],
+                "journal": "Frontiers in Neuroscience",
+                "logo": ""
+            },
+            {
+                "doi": "10.1186/s12918-018-0605-7",
+                "date": "2018-10-03 11:29:26",
+                "title": "Cellular network modeling and single cell gene expression analysis reveals novel hepatic stellate cell phenotypes controlling liver regeneration dynamics",
+                "authors": [
+                    "Daniel Cook",
+                    "Sirisha Achanta",
+                    "Jan B. Hoek",
+                    "Babatunde A. Ogunnaike",
+                    "Rajanikanth Vadigepalli"
+                ],
+                "journal": "BMC Systems Biology",
+                "logo": ""
+            },
+            {
+                "doi": "10.3727/105221618X15361728786767",
+                "date": "2018-09-06 21:09:05",
+                "title": "Single-Cell Gene Expression Analysis Identifies Chronic Alcohol-Mediated Shift in Hepatocyte Molecular States After Partial Hepatectomy",
+                "authors": [
+                    "Sirisha Achanta",
+                    "Aalap Verma",
+                    "Ankita Srivastava",
+                    "Harshavardhan Nilakantan",
+                    "Jan B. Hoek",
+                    "Rajanikanth Vadigepalli"
+                ],
+                "journal": "Gene Expression",
+                "logo": ""
+            },
+            {
+                "doi": "10.3389/fncel.2017.00233",
+                "date": "2017-08-14 03:58:35",
+                "title": "Novel Influences of IL-10 on CNS Inflammation Revealed by Integrated Analyses of Cytokine Networks and Microglial Morphology",
+                "authors": [
+                    "Warren D. Anderson",
+                    "Andrew D. Greenhalgh",
+                    "Aditya Takwale",
+                    "Samuel David",
+                    "Rajanikanth Vadigepalli"
+                ],
+                "journal": "Frontiers in Cellular Neuroscience",
+                "logo": ""
+            },
+            {
+                "doi": "10.1371/journal.pcbi.1005627",
+                "date": "2017-07-21 17:34:56",
+                "title": "A data-driven modeling approach to identify disease-specific multi-organ networks driving physiological dysregulation",
+                "authors": [
+                    "Warren D. Anderson",
+                    "Danielle DeCicco",
+                    "James S. Schwaber",
+                    "Rajanikanth Vadigepalli"
+                ],
+                "journal": "PLOS Computational Biology",
+                "logo": ""
+            },
+            {
+                "doi": "10.3389/fnins.2016.00481",
+                "date": "2016-10-25 13:09:35",
+                "title": "Single-Cell Transcriptional Analysis Reveals Novel Neuronal Phenotypes and Interaction Networks Involved in the Central Circadian Clock",
+                "authors": [
+                    "James Park",
+                    "Haisun Zhu",
+                    "Sean O'Sullivan",
+                    "Babatunde A. Ogunnaike",
+                    "David R. Weaver",
+                    "James S. Schwaber",
+                    "Rajanikanth Vadigepalli"
+                ],
+                "journal": "Frontiers in Neuroscience",
+                "logo": ""
+            },
+            {
+                "doi": "10.1038/srep31623",
+                "date": "2016-08-17 09:27:42",
+                "title": "Integrated live imaging and molecular profiling of embryoid bodies reveals a synchronized progression of early differentiation",
+                "authors": [
+                    "Jonathan Boxman",
+                    "Naor Sagy",
+                    "Sirisha Achanta",
+                    "Rajanikanth Vadigepalli",
+                    "Iftach Nachman"
+                ],
+                "journal": "Scientific Reports",
+                "logo": ""
+            },
+            {
+                "doi": "10.1007/s10827-015-0589-x",
+                "date": "2016-01-20 21:44:36",
+                "title": "Erratum to: Molecular variability elicits a tunable switch with discrete neuromodulatory response phenotypes",
+                "authors": [
+                    "Warren D. Anderson",
+                    "Hirenkumar K. Makadia",
+                    "Rajanikanth Vadigepalli"
+                ],
+                "journal": "Journal of Computational Neuroscience",
+                "logo": ""
+            },
+            {
+                "doi": "10.1152/physiolgenomics.00047.2015",
+                "date": "2015-07-01 06:15:26",
+                "title": "MicroRNA network changes in the brain stem underlie the development of hypertension",
+                "authors": [
+                    "Danielle DeCicco",
+                    "Haisun Zhu",
+                    "Anthony Brureau",
+                    "James S. Schwaber",
+                    "Rajanikanth Vadigepalli"
+                ],
+                "journal": "Physiological Genomics",
+                "logo": ""
+            },
+            {
+                "doi": "10.1016/j.pbiomolbio.2014.11.004",
+                "date": "2014-11-27 01:36:32",
+                "title": "Identifying functional gene regulatory network phenotypes underlying single cell transcriptional variability",
+                "authors": [
+                    "James Park",
+                    "Babatunde Ogunnaike",
+                    "James Schwaber",
+                    "Rajanikanth Vadigepalli"
+                ],
+                "journal": "Progress in Biophysics and Molecular Biology",
+                "logo": ""
+            },
+            {
+                "doi": "10.1101/gr.161802.113",
+                "date": "2014-03-26 20:17:52",
+                "title": "Inputs drive cell phenotype variability",
+                "authors": [
+                    "J. Park",
+                    "A. Brureau",
+                    "K. Kernan",
+                    "A. Starks",
+                    "S. Gulati",
+                    "B. Ogunnaike",
+                    "J. Schwaber",
+                    "R. Vadigepalli"
+                ],
+                "journal": "Genome Research",
+                "logo": ""
+            },
+            {
+                "doi": "10.1016/j.isci.2020.101140",
+                "date": "",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 545895,
+                "identity": "3e4d1dda-b7cd-49d2-a8fa-da62d927db91",
+                "order_by": 1,
+                "name": "Sirisha Achanta",
+                "email": "sirisha7achanta@gmail.com",
+                "orcid": "https://orcid.org/0000-0003-3833-5714",
+                "institution": "Thomas Jefferson University",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Sirisha",
+                "middleName": "",
+                "lastName": "Achanta",
+                "suffix": ""
+            },
+            {
+                "id": 554694,
+                "identity": "efd78a52-0f96-4b64-9303-ce92869300a0",
+                "order_by": 2,
+                "name": "Rajanikanth Vadigepalli",
+                "email": "Rajanikanth.Vadigepalli@jefferson.edu",
+                "orcid": "https://orcid.org/0000-0002-8405-1037",
+                "institution": "Thomas Jefferson University",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Rajanikanth",
+                "middleName": "",
+                "lastName": "Vadigepalli",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2020-05-04 22:25:47",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-919/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-919/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 9597593,
+                "identity": "e5dcb093-d9ab-4628-9974-607c9ec03e54",
+                "added_by": "auto",
+                "created_at": "2021-05-26 09:43:20",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 161829,
+                "visible": true,
+                "origin": "",
+                "legend": "BioMark Loading Map : Figure showing loading map for 96.96 chip (top panel) and 46.46 chip (bottom panel).",
+                "description": "",
+                "filename": "Figure1.png",
+                "url": "https://assets.researchsquare.com/files/pex-919/v1/c382c276c52c8a604a0c1bd1.png"
+            },
+            {
+                "id": 13636484,
+                "identity": "17df0723-ff7e-4c47-a5ac-10b5632f1f6a",
+                "added_by": "auto",
+                "created_at": "2021-09-17 08:42:01",
+                "extension": "pdf",
+                "order_by": 1,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 623163,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "SingleCellqRTPCRprotocol.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-919/v1_covered.pdf"
+            },
+            {
+                "id": 9597594,
+                "identity": "84240dde-0c7c-4cb5-b51b-4863b124f40f",
+                "added_by": "auto",
+                "created_at": "2021-05-26 09:43:31",
+                "extension": "pdf",
+                "order_by": 1,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 619558,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "SingleCellqRTPCRprotocol.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-919/v1_covered.pdf"
+            },
+            {
+                "id": 9597472,
+                "identity": "223dd23f-bbc3-4121-877b-1349cc341779",
+                "added_by": "auto",
+                "created_at": "2021-05-26 09:40:19",
+                "extension": "pdf",
+                "order_by": 1,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 429737,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "SingleCellqRTPCRprotocol.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-919/v1/233d78f4959427b47b517d02.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": true,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Single cell, qPCR, BioMark, Laser Capture Micro-dissection, high-throughput qRT-PCR,",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>Single cell high-throughput qRT-PCR protocol combines high sensitivity technique of single cell qPCR with high-throughput qPCR technology that can generate data from 96 samples and 96 genes in a single experiment. It can be adapted for various sample types- cell culture, tissue samples and extracted RNA (10 pg) and measured on traditional qPCR and high-throughput qPCR platforms. The workflow is comprised of four steps \u2013 cell lysis, reverse transcription, pre-amplification and qPCR. Key features of this protocol are; processing low input samples directly to reverse transcription without RNA extraction which minimizes sample loss, pre-amplification enables amplification of cDNA from single cells to detectable levels for qPCR and&nbsp;measuring up to 400 genes from a single cell sample/10 pg of RNA (starting material). Robust, reproducible and versatile this protocol can be adapted to several upstream and downstream techniques.</p><p><br></p>",
+        "manuscriptTitle": "Single cell high-throughput qRT-PCR protocol",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2021-05-26 09:40:18",
+                "doi": "10.21203/rs.3.pex-919/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "85d4ee1d-c543-4042-9f2b-c18fa894058a",
+        "owner": [],
+        "postedDate": "May 26th, 2021",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 4585224,
+                "name": "Biological techniques"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2021-05-26 09:40:18",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

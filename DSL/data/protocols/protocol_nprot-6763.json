@@ -1,0 +1,270 @@
+{
+    "identity": "nprot-6763",
+    "title": "Creating a screening set of potential anthelmintic compounds using ChEMBL",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Many existing anthelmintic compounds are compromised by low efficacy, serious side-effects and/or rising resistance in parasite populations. Thus, to reveal potential new anthelmintic drug targets and drugs, we describe a protocol to identify the most promising nematode/flatworm targets, and compounds likely to interact with them from the ChEMBL database \\(Gaulton _et al._ 2017), includes both targets of known drugs and of other biologically active compounds. Thus, this provides a potential screening set of drug-like compounds that can be tested for anthelmintic activity.\r\n\n\n\r\n\n\nOur protocol \\(Figure 1) starts by using predicted proteins from nematode and platyhelminth genomes to search using BLASTP \\(E \u2264 1e-10) \\(Altschul _et al._ 1997) against single-protein targets from ChEMBL. To remove redundant hits, the nematode and platyhelminth proteins with significant BLAST hits are collapsed by gene family using an in-house database of gene families \\(e.g. built the Ensembl Compara pipeline; Vilella _et al._ 2009). Then, a \u2018target score\u2019 is calculated for each worm gene, taking into account similarity to known drug targets; lack of human homologues; and whether _C. elegans_ and _D. melanogaster_ homologues have lethal phenotypes, amongst other factors.\r\n\n\n\r\n\n\n<a href=\"https://www.nature.com/protocolexchange/system/uploads/6593/original/Figure1.gif?1523716990\"><img src=\"https://www.nature.com/protocolexchange/system/uploads/6593/original/Figure1.gif?1523716990\"></a>\r\n\n\n\r\n\n\n**Figure 1. Flowchart of the methods used for identifying potential new anthelmintic targets and drugs using ChEMBL.** The following images were used from Openclipart: \u2018prescription-bottle-and-pills\u2019 \\(by algotruneman), \u2018famous-and-infamous-molecules-13\u2019 \\(by Firkin) and \u2018worm-gusano\u2019 \\(by ainara14).\r\n\n\n\r\n\n\nNext, ChEMBL is used to identify hundreds of thousands of compounds with activities against ChEMBL targets to which worm proteins had BLAST matches. To calculate \u2018compound scores\u2019 for those compounds, we prioritise compounds in high clinical development phases, oral/topical administration, crystal structures, properties consistent with oral drugs, and lacking toxicity. At this stage, we focus on the compounds for the top 15% of highest-scoring worm targets, as these are the most promising novel targets. The set of compounds is filtered by selecting compounds that co-appear in a PDBe \\(Velankar _et al._) structure with the ChEMBL target; or have high median pChEMBL score, reflecting high potency/affinity for the ChEMBL target. \r\n\n\n\r\n\n\nLastly, the candidates are placed into chemical classes, based on molecular fingerprints. Then they are further filtered by \\(i) checking availability for purchase in ZINC 15 \\(Sterling _et al._ 2015); and \\(ii) for each worm target, taking the highest-scoring compound from each chemical class.\r\n\n\n\r\n\n\nThis gives a relatively small diverse screening set of a few thousand compounds.\r\n\n\n\r\n\n\nMany previous analyses of nematode and platyhelminth genomes have identified potential novel drug targets among their predicted proteins, and prioritised these based on factors such as lethal knockout phenotypes. However, relatively few previous studies have identified compounds predicted to target those nematode/platyhelminth proteins, and those that have done so \\(e.g. Berriman _et al._ 2009) have generally been limited to small numbers of compounds. By analysing the huge wealth of data in the ChEMBL database, this protocol produces much larger sets of compounds to screen for anthelmintic activity."
+        },
+        {
+            "header": "Reagents",
+            "content": "<a href=\"https://www.ebi.ac.uk/chembl\">ChEMBL database website</a>\r\n\n\n\r\n\n\n<a href=\"http://www.ebi.ac.uk/pdbe/\">PDBe database website</a>\r\n\n\n\r\n\n\n<a href=\"http://zinc15.docking.org\">ZINC15 database website</a>\r\n\n\n\r\n\n\n<a href=\"https://www.ensembl.org/info/docs/webcode/mirror/index.html\">Ensembl Compara pipeline</a>\r\n\n\n\r\n\n\n<a href=\"http://www.ebi.ac.uk/ena\">European Nucleotide Archive website</a>\r\n\n\n\r\n\n\n <a href=\"https://www.ebi.ac.uk/arrayexpress\">ArrayExpress website</a>\r\n\n\n\r\n\n\n<a href=\"https://pubchem.ncbi.nlm.nih.gov\">PubChem database website</a>\r\n\n\n\r\n\n\n<a href=\"http://www.genome.jp/kegg/drug\">KEGG Drugs database website</a>\r\n\n\n\r\n\n\n<a href=\"https://www.drugbank.ca\">DrugBank database website</a> \r\n\n\n\r\n\n\n<a href=\"https://www.ebi.ac.uk/chebi\">ChEBI database website</a>\r\n\n\n\r\n\n\n<a href=\"https://www.wormbase.org\">WormBase database website</a>\r\n\n\n\r\n\n\n<a href=\"http://flybase.org\">FlyBase database website</a>"
+        },
+        {
+            "header": "Equipment",
+            "content": "Computer cluster."
+        },
+        {
+            "header": "Procedure",
+            "content": "**Step A: identifying potential nematode/platyhelminth drug targets**\r\n\n\n\r\n\n\nThe inputs for Step A are gene predictions for a set of nematode/platyhelminth genome assemblies \\(as well as the corresponding predicted proteins), and the protein sequences for single-protein targets from the ChEMBL database \\(Gaulton _et al._ 2017). \r\n\n\n\r\n\n\n1. To identify potential drug targets in ChEMBL, use BLASTP \\(Altschul _et al._ 1997) to search all predicted nematode/platyhelminth proteins against the sequences of single-protein targets from the ChEMBL database. \r\n  \r\n\n\n2. Take the top BLASTP hit \\(with E-value \u2264 1e-10) for each putative nematode/platyhelminth gene \\(including isoforms of the same nematode/platyhelminth gene). \r\n  \r\n\n\nThe output for Step A is a set of nematode/platyhelminth genes with BLASTP hits to single-protein ChEMBL targets. \r\n\n\n\r\n\n\n**Step B: ranking potential nematode/platyhelminth drug targets**\r\n\n\n\r\n\n\nThe input for Step B is set of nematode/platyhelminth genes with BLASTP hits to single-protein ChEMBL targets \\(output from Step A); a database of gene families containing all the genes from all those nematode/platyhelminth species and also human genes \\(e.g. built using the Compara pipeline, Vilella _et al._ 2009); and a set of chokepoint enzymes predicted in the nematode/platyhelminth genomes \\(e.g. using the approach of Tyagi _et al._ 2018).\r\n\n\n\r\n\n\nIn Step B, to rank potential nematode/platyhelminth targets, target properties are considered that would be most attractive in a potential new drug target, including:\r\n\n\n\u2022 Similarity to a known drug target in any species;\r\n\n\n\u2022 Lack of a human homologue, to avoid toxicity issues in humans;\r\n\n\n\u2022 Whether _C. elegans_ or _D. melanogaster_ homologues have lethal or sterile phenotypes when disrupted.\r\n\n\n\r\n\n\nThus, each of the nematode/platyhelminth genes \\(output from Step A) is assigned an overall target score, by following these steps:\r\n\n\n\r\n\n\n1.  A _BLAST score_ is set to 1 for high sequence similarity hits to ChEMBL \\(E \u2264e-85, and \u226580% of the residues in the ChEMBL protein covered by the BLAST match), otherwise it is set to zero. Typically, ~15% of the nematode/platyhelminth genes have BLAST score of 1.\r\n  \r\n\n\n2. A _ChEMBL non-human score_ of 1 is applied to nematode/platyhelminth proteins that only match non-human targets within ChEMBL, because for these targets, developing drug selectivity to avoid toxicity issues in humans should be easier. The human proteins in the in-house Compara database are searched against ChEMBL 21 proteins using BLASTP. Where the top ChEMBL BLAST hit of a helminth gene has itself a match with human \\(with E \u22640.05) or belongs to a Compara family containing a human member, it is assigned a score of zero; otherwise 1. Typically, ~0.3% of nematode/platyhelminth genes have a ChEMBL non-human score of 1.\r\n  \r\n\n\n3. A _phenotype score_ is calculated. Large-scale mutant phenotype data are not available for parasitic worms so essentiality is inferred from model organisms. A list of _C. elegans_ genes with \u2018lethal\u2019, \u2018sterile\u2019, \u2018L3 arrest\u2019, \u2018molt defect\u2019, or \u2018paralysed\u2019 phenotypes \\(based on knockouts/knockdowns/variants) is downloaded from WormBase \\(Howe _et al._ 2016). In addition, a list of _D. melanogaster_ genes with \u2018lethal\u2019, \u2018sterile\u2019 or \u2018paralytic\u2019 \\(paralysed) phenotypes is downloaded from FlyBase \\(Millburn _et al._ 2016). \r\n  Lethal phenotypes are weighted more heavily than other phenotypes. If a nematode/platyhelminth gene belongs to a Compara family containing both _C. elegans_ and _Drosophila_ genes with lethal phenotypes it is assigned a phenotype score of 1. Otherwise, nematode genes that belong to families with _C. elegans_ genes that have lethal phenotypes score 0.9 and those in families with essential _Drosophila_ \\(but not _C. elegans_) genes score 0.8. Platyhelminth genes belonging to families with essential _C. elegans_ or _Drosophila_ genes score 0.8. If a nematode/platyhelminth gene belongs to a Compara family containing both _C. elegans_ and _Drosophila_ genes that both have \u2018sterile\u2019 phenotypes, or both have \u2018paralysed\u2019 phenotypes, it is assigned a score of 0.7. Otherwise, for a nematode gene, if it belongs to a family with a _C. elegans_ gene with a paralysed/sterile/L3 arrest/molt defect phenotype, it is assigned 0.6; and if it belongs to a family with a fly \\(but no _C. elegans_) gene of paralysed/sterile phenotype, it is assigned 0.5. A platyhelminth gene that belongs to a family with a _C. elegans_ or _Drosophila_ gene of paralysed/sterile/L3 arrest/molt defect phenotype is assigned 0.5. The distribution of phenotype scores for nematode/platyhelminth genes is typically something like this: 1:5%, 0.9:22%, 0.8:8%, 0.7:0.5%, 0.6:7%, and 0.5:4%.\r\n\n\n\r\n\n\n4. A _chokepoint score_ is set to 1 for nematode/platyhelminth genes predicted to encode chokepoint enzymes and belonging to Compara families with \u22653 predicted chokepoints. Because chokepoint predictions are not very accurate, predicted chokepoints that do not belong to such families are assigned a score of 0.1. Non-chokepoint enzymes are assigned a zero score. The score distribution is typically something like this: 1:10%, 0.1:0.4%, 0:90%. \r\n  \r\n\n\n5. A _multi-species score_. To penalise species-specific nematode/platyhelminth gene predictions that could include residual unfiltered contamination \\(e.g. from bacteria), this score is set to zero for nematode/platyhelminth genes belonging to Compara families with only a single species, but otherwise set to 1. The reason for including this score is that typically 99% of the nematode/platyhelminth genes have multi-species scores of 1.\r\n  \r\n\n\n6. An _expression score_. For the majority of nematode/platyhelminth species, including filarial species, drugs should target the adult stage. However, for some species, targeting other stages is important, for instance: the metacestode stage for cestodes, larvae of _Trichuris_ and _Strongyloides_, and somules of _Schistosoma_. In the absence of expression data for many stages from many species, adult and metacestode \\(for cestodes) expression data are used here. For each nematode/platyhelminth gene, expression data from the most closely related \u2018reference\u2019 species is used: _H. contortus_ for clade V; _A. suum_ for Ascaridomorpha; _B. malayi_ and _O. volvulus_ for Spiruromorpha and Oxyuridomorpha; _T. muris_ for clade I; _S. ratti_ for clade IV; _H. microstoma_ for cestodes except _E. multilocularis_ for _Taenia_ species; and _S. mansoni_ for trematodes. If the expression level of any corresponding \u2018reference\u2019 gene is \u2265 5.0 RPKM in adults or metacestodes, an expression score of 1 is assigned, otherwise zero is used. Typically, ~70% of the nematode/platyhelminth genes have expression scores of 1. \r\n  \r\n\n\nRNASeq studies and samples of interest are obtained from the European Nucleotide Archive \\(\n/www.ebi.ac.uk/ena\n) and ArrayExpress \\(\nwww.ebi.ac.uk/arrayexpress\n): _H. contortus_ \\(run accession SRR928055, SRR928056), _A. suum_ \\(SRR504556, SRR504557, SRR504558, SRR504559, SRR504560, SRR504561), _B. malayi_ \\(ERR048961, ERR048962, ERR048970, ERR048972), _O. volvulus_ \\(ERR225734, ERR485009), _T. muris_ \\(ERR279677, ERR279678, ERR279676), _S. ratti_ \\(ERR299169, ERR299175, ERR299168, ERR299174, ERR299170, ERR299176), _H. microstoma_ \\(adult: ERR225730, ERR225728, ERR225729; metacestode: ERR337915, ERR337928, ERR337940, ERR337952, ERR337964, ERR337976), _E. multilocularis_ \\(metacestode: ERR337932, ERR337944, ERR337956, ERR337968, ERR337906, ERR337919), and _S. mansoni_ \\(ERR022873). The analysis of each sequencing run is performed by the iRAP pipeline of the EMBL-EBI Gene Expression Team and downloaded from their RNA-seq Analysis API \\(\nwww.ebi.ac.uk/fg/rnaseq/api/doc\n). This pipeline aligns quality-filtered reads to reference genomes from WormBase ParaSite \\(Howe _et al._ 2017) using TopHat 2 \\(Trapnell _et al._ 2012); and then quantifies expression of genes and exons in the corresponding GTF file from WormBase ParaSite using HTSeq \\(Anders _et al._ 2015) \\(intersection-non-empty mode) and DEXSeq \\(Anders _et al._ 2012) respectively. \r\n\n\n\r\n\n\n7. A _species-distribution score_ is calculated. To give greater preference to potential nematode/platyhelminth targets that are found in multiple species \\(so that the same drug may target multiple species), a score of 1 is assigned if a nematode/platyhelminth gene is present in a Compara family containing \u226590% of the species from a major group of helminths. The major groups were defined as \\(in order of preference): all nematodes and platyhelminths, just nematodes, just platyhelminths, cestodes, filaria, trematodes, or schistosomatids. Otherwise, it is assigned a score of 0. Typically, ~90% of the nematode and platyhelminth genes have a species distribution score of 1.\r\n  \r\n\n\n8. An _invertebrate biology score_ is calculated. If the ChEMBL BLAST hit is from a closely related animal, it is more likely that the nematodes/platyhelminths have conserved biology, for example, nematodes/platyhelminths may share processes involved in moulting and life cycle control with arthropods. Therefore, if the top ChEMBL BLAST hit of a nematode/platyhelminth gene is to a UniProt protein from a non-chordate metazoan, it is assigned an \u2018invertebrate biology score\u2019 of 1, otherwise 0. We do not assign a score of 1 for matches to chordate proteins, in order to downweight targets that may be shared with the vertebrate hosts of nematodes/platyhelminths. Typically ~3% of the nematode/platyhelminth genes have an invertebrate biology score of 1.\r\n  \r\n\n\n9. A _singleton score_ is calculated. Developing drugs against simple single-copy targets is likely to be easier than developing drugs for multigene families. The score is therefore set to 1 for nematode/platyhelminth genes that lack within-species paralogues \\(according to the Compara database), otherwise zero score is applied. Typically ~53% of the nematode/platyhelminth genes have singleton scores of 1.\r\n  \r\n\n\n10. A _PDB score_ of 1 is assigned to helminth proteins that match ChEMBL targets with available structures in the PDBe \\(Velankar _et al._ 2016). This is to reflect the possibility of structure-aided drug development. Typically ~51% of nematode/platyhelminth genes have a PDB score of 1.\r\n  \r\n\n\n11. An _alignment conservation score_ is calculated. Drugs that act against multiple species are highly desirable and this is more likely to occur if the target is sufficiently conserved between nematode/platyhelminth species. Across each column of the alignment, for each Compara family, a score is calculated using the approach of Capra & Singh \\(2007) using the Jensen-Shannon divergence, with a window size of 3 \\(on either side of the residue) and the BLOSUM62 background distribution. The overall score for a family is taken as the median of the scores for all columns that have scores of > -1000. If a nematode/platyhelminth gene belongs to a family with an alignment score of \u22650.68, it is assigned an \u2018alignment conservation score\u2019 of 1, and otherwise 0. Typically, ~5% of nematode/platyhelminth genes have alignment conservation scores of 1.\r\n  \r\n\n\n12. Thus, each of the nematode/platyhelminth genes \\(output from Step A) is assigned an overall target score based on the sum of scores above, weighted as follows: \r\n  \\(50 x BLAST score) + \\(40 x ChEMBL non-human score) + \\(30 x phenotype score) + \r\n\n\n\\(15 x chokepoint score) + \\(10 x multi-species score) + \\(10 x expression score) + \r\n\n\n\\(10 x species-distribution score) + \\(10 x invertebrate-biology score) + \\(5 x singleton score) +\r\n\n\n\\(5 x PDB score) + \\(5 x alignment-conservation score) \r\n\n\n\r\n\n\nThe output from Step B is a \u2018target score\u2019 for each of the nematode/platyhelminth genes with BLASTP hits to single-protein ChEMBL targets \\(output from Step A). \r\n\n\n\r\n\n\n**Step C: collapsing the list of potential helminth drug targets by gene family**\r\n\n\n\r\n\n\nThe input for Step C is the set of nematode/platyhelminth genes with BLASTP hits to single-protein targets, along with their target scores from Step B.\r\n\n\n\r\n\n\nThese nematode/platyhelminth proteins usually include many with BLAST matches to the same ChEMBL protein, so the following steps are taken to reduce redundancy.\r\n\n\n\r\n\n\n1. The list is collapsed to just take the top-scoring nematode/platyhelminth protein \\(using the \u2018target score\u2019; see above) matching each ChEMBL protein, leaving fewer nematode/platyhelminth proteins. \r\n  \r\n\n\n2. The list of nematode/platyhelminth proteins usually still contains redundancy, since many nematode/platyhelminth proteins are from the same Compara family and match homologous ChEMBL proteins \\(e.g., from human, mouse, rat). The list is further collapsed to just the highest-scoring nematode/platyhelminth protein from each Compara family.\r\n  \r\n\n\nThe output from Step C is a reduced list of nematode/platyhelminth proteins with BLASTP matches to single-protein ChEMBL targets \\(_n_ nematode/platyhelminth proteins matching _n_ ChEMBL targets).\r\n\n\n\r\n\n\n**Step D: identifying potential new anthelmintic drugs in ChEMBL**\r\n\n\n\r\n\n\nThe input to Step D is the reduced list of nematode/platyhelminth proteins with BLASTP matches to single-protein ChEMBL targets, from Step C.\r\n\n\n\r\n\n\nIn Step D, The ChEMBL database \\(Gaulton _et al._ 2017) is first used to identify compounds \\(including approved drugs, compounds in clinical development and bioactive compounds from the medicinal chemistry literature) that have activities against ChEMBL single-protein targets to which our nematode/platyhelminth proteins have significant \\(E \u2264 1e-10) BLAST matches \\(ie. the helminth proteins from Step C). For each of the nematode/platyhelminth genes in the reduced list \\(from Step C), we take the compounds with activities to its best ChEMBL BLAST hit and also the corresponding compounds for all nematode/platyhelminth genes in the same Compara family \\(including those that were discarded by Step C and/or have a different top BLAST hit in ChEMBL).\r\n\n\n\r\n\n\nTo assess the likely suitability of each compound as a potential new anthelmintic drug, an overall \u2018compound score\u2019 is generated. Compound properties considered are those that would be most advantageous for a neglected disease drug \\(Oprea & Overington 2015) including:\r\n\n\n\u2022 Compounds that could be more quickly and cheaply developed into drugs: we prioritise compounds in high clinical development phases and those where a crystal structure is available to help inform molecule design;\r\n\n\n\u2022 Compound properties: by focussing on compounds with properties consistent with those of oral drugs \\(Quantitative Estimate of Drug-likeness) and lacking known toxicity issues using Black Box warning information and toxic effect predictors;\r\n\n\n\u2022 Preferred route of administration for the ideal anthelmintic: compounds with oral or topical administration are considered most desirable. \r\n\n\n\r\n\n\nThus, each of the ChEMBL compounds with activities against the ChEMBL targets to which our nematode/platyhelminth proteins \\(output from Step C) have BLAST matches is assigned an overall compound score, by following these steps:\r\n\n\n\r\n\n\n1. The _Quantitative Estimate of Drug-likeness_ \\(QED, Bickerton _et al._ 2012) is retrieved from the ChEMBL database. QED values can range from 0-1, and the closer a QED value is to 1, the more oral-drug-like is the compound under consideration. Typically here QED values range from 0.01-0.95.\r\n  \r\n\n\n2. The _maximum development phase score_ for a compound is set equal to its maximum development phase taken from the ChEMBL database. Typically here the distribution of scores is: 0:99.7%, I:0.02%, II:0.03%, III:0.05%, and IV:0.22%.\r\n  \r\n\n\n3. A _route of administration score_ is calculated based on the route of administration, based on information obtained from the FDA orange book, and retrieved here from the ChEMBL database. Compounds with oral or topical routes are given a score of 1. Typically ~0.17% of compounds have a route of administration score of 1.\r\n  \r\n\n\n4. A _black box warning score_ is calculated based on Black Box Warnings. The FDA provides Black Box Warnings for approved drugs where use of the drug is associated with serious or life threatening side effects. Here Black Box Warnings are retrieved from the ChEMBL database, and a score of -1 is used to penalise any compounds with Black Box Warnings. Typically ~0.07% of compounds have a black box warning score of -1.\r\n  \r\n\n\n5. A _molecule structural information availability score_ is calculated. A score of 1 is assigned to compounds with at least one structure deposited in the Protein Data Bank in Europe \\(PDBe) \\(\nwww.ebi.ac.uk/pdbe\n), using PDBe information retrieved from the ChEMBL database. Typically here ~0.8% of compounds have a molecule structural information availability score of 1.\r\n  \r\n\n\n6. A _toxicology target interaction prediction score_ is calculated based on predictions \\(retrieved from the ChEMBL database) of compounds predicted to interact with known toxicology targets. These predictions originate from the ChEMBL toxicology target prediction pipeline, with prediction models created using activity information in the database collected as part of the HeCatos project \\(\nwww.hecatos.eu\n). Compounds predicted to interact with known toxicology targets are penalised with a score of -1. Typically here ~0.004% of compounds have toxicology target interaction scores of -1.\r\n  \r\n\n\n7. The overall compound score is calculated as the weighted score: \r\n  \\(5 x QED) + \\(5 x Maximum development phase) + \\(5 x Route of administration) + \\(5 x Black box warning information) + \\(5 x Molecule structural information availability) + \\(2.5 x Toxicology target interaction prediction)\r\n\n\n\r\n\n\nThe output from Step D is the nematode/platyhelminth proteins with BLASTP matches to single-protein ChEMBL targets \\(from Step C) and corresponding compounds from ChEMBL that have activities against those ChEMBL targets, and a \u2018compound score\u2019 for each of those compounds. \r\n\n\n\r\n\n\n**Step E: filtering the list of compound-target pairs, by target score**\r\n\n\n\r\n\n\nThe input to step E is the list of ChEMBL compound-target pairs output from Step D. \r\n\n\n\r\n\n\nTo reduce down the number of compounds and targets considered, this list is now filtered to just retain the top 15% of highest-scoring nematode/platyhelminth targets \\(using the target scores from Step B). \r\n\n\n\r\n\n\nThe output from Step E is a reduced list of ChEMBL compound-target pairs. \r\n\n\n\r\n\n\n**Step F: filtering the list of compounds, using information on compound-target pairs**\r\n\n\n\r\n\n\nThe input to step F is the reduced list of ChEMBL compound-target pairs output from Step E. \r\n\n\n\r\n\n\nIn Step F, to filter these ChEMBL compound-target pairs, two additional parameters were retrieved from ChEMBL and used for filtering. The first is pCHEMBL, a parameter calculated by ChEMBL that provides a consistent measure of the affinity of a compound for its \\(ChEMBL) target and is defined as: \u2212log10 \\(molar IC50, XC50, EC50, AC50, Ki, Kd or Potency). For example, pChEMBL of 5 corresponds to an activity of 10 \u03bcM. The second is whether the compound and target co-appear in a structure: where possible, structures are retrieved from the Protein Data Bank in Europe \\(PDBe) \\(\nwww.ebi.ac.uk/pdbe\n) that contained both the compound and a ChEMBL target. \r\n\n\n\r\n\n\nThe compounds \\(from Step E) are filtered by selecting compounds that \\(i) co-appear in a PDBe \\(Velankar _et al._ 2016) structure with the ChEMBL target; or \\(ii) have a high pChEMBL score \\(median >5), reflecting high potency/affinity for the ChEMBL target). \r\n\n\n\r\n\n\nThe output from step F is a further reduced list of compound-target pairs.\r\n\n\n\r\n\n\n**Step G: curating a list of known anthelmintic drugs and compounds**\r\n\n\n\r\n\n\nIn order to collapse the list of compounds output from Step F by chemical class \\(see below), we first curate a list of known anthelmintic drugs and compounds. \r\n\n\n\r\n\n\nA list of known anthelmintic drugs \\(human and veterinary) and compounds, including nematicidal compounds is collated by:\r\n\n\n\r\n\n\n\\(a). listing compounds with WHO ATC \\(Anatomical Therapeutic Chemical) code P02 \\(anthelmintics);\r\n\n\n\r\n\n\n\\(b). listing compounds with WHO ATCvet code QP52 \\(anthelmintics) or QP54 \\(avermectins and milbemycins). Note that halodone is listed as a veterinary anthelmintic, but we do not find any other evidence of that, so we exclude it; \r\n\n\n\r\n\n\n\\(c). finding compounds listed with anthelmintic activity in \u2018The use of stems in the selection of International Nonproprietary Names \\(INN) for pharmaceutical substances\u2019 \\(WHO, 2013,\nwww.who.int/medicines/services/inn/stembook/e\n);\r\n\n\n\r\n\n\n\\(d). finding compounds described as anthelmintic in the Merck Medical Manual or Merck Veterinary Manual \\(\nwww.merckmanuals.com\n);\r\n\n\n\r\n\n\n\\(e). listing compounds described as anthelmintic drugs or compounds for human or veterinary use from the scientific literature \\(Mehlhorn 2008; Anand & Sharma 1997; Elks 1990; Marr & Komuniecki 2003; Moffat _et al._ 2011; Lewis 1998; Oliver-Bever 1983; Grieve 2015; Allegretti 2012; Holden-Dye & Walker 2014);\r\n\n\n\r\n\n\n\\(f). listing compounds tagged with MeSH categories 'anthelmintic', \u2018anticestodal\u2019 or \u2018antinematodal\u2019 in PubChem \\(Kim _et al._ 2016);\r\n\n\n\r\n\n\n\\(g). finding compounds listed as having \u2018anthelmintic\u2019, \u2018anticestodal\u2019, \u2018antischistosomal\u2019, \u2018antitrematodal\u2019, or \u2018fasciolicide\u2019 activity in KEGG Drugs \\(Kanehisa _et al._ 2013);\r\n\n\n\r\n\n\n\\(h). finding compounds listed as \u2018anthelmintic\u2019 in the ChEBI database \\(Hastings _et al._ 2016);\r\n\n\n\r\n\n\n\\(i). finding compounds listed in ChEMBL \\(Gaulton _et al._ 2017) with the keywords \u2018anthelmintic\u2019 OR \u2018anthelminthic\u2019 in any of the following fields: ATC code description, mechanism of action, USAN \\(United States Adopted Name) stem definition, or indication class;\r\n\n\n\r\n\n\n\\(j). finding compounds tagged with MeSH categories 'anthelmintics\u2019, \u2018antinematodal\u2019, \u2018filaricides\u2019, \u2018antiplatyhelmintic\u2019 or \u2018schistosomicides\u2019 in DrugBank \\(Law _et al._ 2014), or identified by a text search for \u2018anthelmintic OR antihelminthic OR antinematodal OR antitrematodal\u2019 in DrugBank;\r\n\n\n\r\n\n\n\\(k). finding compounds from PubChem identified by searching for \u2018anthelmintics OR anthelmintic OR nematocide OR nematicide\u2019, and with low structural similarity to the list of compounds from \\(a)\u2013\\(j) above \\(similarity \u22640.4 when calculated using the Tanimoto coefficient of ECPF4 fingerprints as implemented in the RDKit toolkit \\(\nwww.rdkit.org\n)). \r\n\n\n\r\n\n\nWhere the source \\(see \\(a)-\\(k) above) only gives a name \\(not structure) for the compound, the OPSIN software \\(Lowe _et al._ 2011) is used to convert IUPAC names to SMILES strings that are then used to search PubChem and ChEMBL for specific compounds. The resulting list of anthelmintic drugs \\(human and veterinary) and compounds typically includes >260 compounds. \r\n\n\n\r\n\n\nThe output from Step G is a curated list of known anthelmintic compounds and their corresponding SMILES strings.\r\n\n\n\r\n\n\n**Step H: classifying known anthelmintic compounds into clusters**\r\n\n\n\r\n\n\nThe input for Step H is the curated list of known anthelmintic compounds from Step G, and their SMILES strings.\r\n\n\n\r\n\n\nTo classify these compounds into clusters:\r\n\n\n\r\n\n\n1. To calculate a dendrogram of known anthelmintic compounds, the SMILES strings for known anthelmintic compounds are used. For several compounds, multiple SMILES may be used \\(for example, because of different stereoisomers). The pairwise similarity between the SMILES strings in this data set is calculated based on ECFP4 fingerprints of length 16384 as implemented in RDKit 2016.09.4 \\(\nrdkit.org\n). The Tanimoto similarity between pairs of fingerprints is calculated using ChemFP 1.1 \\(Dalke 2011).\r\n  \r\n\n\n2. The similarities have range 0.0-1.0, and are converted to distances using 1.0 - similarity. The distance matrix is read into R, and hierarchical clustering performed using Ward's minimum variance method \\(using \u2018ward.D\u2019 in the \u2018hclust\u2019 function). The dendrogram is cut at a height which separates the well known chemical classes of anthelmintic compounds avermectins, milbemycins, and imidazothiazoles from other compounds. If the members of the clusters defined in this way have little in common with respect to chemical structure, the cluster is further split up. This typically results in ~44 chemical classes. \r\n  \r\n\n\nThe output from Step H is a chemical class for each of the known anthelmintic compounds. \r\n\n\n\r\n\n\n**Step I: classifying the top drug candidates into chemical classes**\r\n\n\n\r\n\n\nTo create a \u2018diverse screening set\u2019, we perform a diversity analysis to classify the compounds from Step F \\(which we refer to as our 'top drug candidates') into chemical classes.\r\n\n\n\r\n\n\nThe data set consisted of the compounds from Step F for which a SMILES string is available in ChEMBL22 or CHEMBL16, along with the SMILES strings for known anthelmintic compounds used for the dendrogram of anthelmintic compounds \\(Step H). ChEMBL16 is used to obtain SMILES strings for some metal-containing compounds that are lacking SMILES strings in ChEMBL22. There are typically a small number \\(usually <100) of the \u2018top drug candidate\u2019 compounds \\(for example, polymers) for which there are no SMILES in ChEMBL, so these are not included in the diversity analysis. \r\n\n\n\r\n\n\nThe pairwise similarity between the SMILES strings is calculated, and the similarities converted to distances, as for the dendrogram of known anthelmintic compounds \\(Step H). This number of compounds is too large to construct a dendrogram using hierarchical clustering. Instead, by manually examining the clusters in the dendrogram of known anthelmintic compounds \\(from Step H), we find that compounds in the same cluster generally have distances of \u2264 _x_ \\(e.g. 0.65) from each other, and those in different clusters usually have distances of > _x_. Thus, a set of clusters is found by first constructing a graph in which each compound is represented by a node, and each pair of nodes is joined if the distance between the compounds is \u2264 _x_; and finding connected components in this graph.\r\n\n\n\r\n\n\nSome of the connected components in this graph may be very large and include  relatively dissimilar compounds among the known anthelmintic compounds. Therefore, we further split the connected components by using a community \\(cluster) detection algorithm to find clusters within the subgraph corresponding to each connected component. To find the communities, we use the \u2018community\u2019 Python module \\(Aynaud 2009) to find optimal communities in terms of the modularity measure \\(as described previously by Blondel _et al._ 2008), using the similarities between compounds as the edge weights. When the community detection algorithm is applied to the connected components in the graph of top drug candidates and anthelmintic compounds, it splits the components into smaller communities \\(clusters). Upon manual examination, it is usually found that some of these  clusters still contains relatively dissimilar compounds among the known anthelmintic compounds. Therefore, for each cluster, we perform hierarchical clustering in R using Ward's minimum variance method, and cut the dendrogram at a height of _y_ \\(e.g. 0.85). The value of _y_ is chosen by trying various heights, and finding the height at which anthelmintic compounds known to have similar structures \\(based on Step H) are placed in the same cluster. \r\n\n\n\r\n\n\nWe consider that the resultant clusters represent the chemical classes to which the top candidate compounds belong.\r\n\n\n\r\n\n\n**Step J: further filtering the list of compounds, using information on compound-target pairs**\r\n\n\n\r\n\n\nAt this stage, some of the 'top drug candidates\u2019 are further filtered, by discarding the medicinal chemistry compounds that do not co-appear in a PDBe structure with the ChEMBL target or have a median pCHEMBL score of >7, which leaves a smaller number of top drug candidates. \r\n\n\n\r\n\n\nThe same chemical classes identified above for the  compounds in Step I are still used for the smaller set of  candidates from Step J.\r\n\n\n\r\n\n\n**Step K: further filtering the list of compounds, using information on availability for purchase, and chemical class**\r\n\n\n\r\n\n\nThis set of candidates is further filtered by:\r\n\n\n\r\n\n\n\\(a). just taking compounds listed as available for purchase in ZINC \\(see below), and \r\n\n\n\\(b). for each nematode/platyhelminth target, just taking the highest-scoring compound \\(according to our compound score; see Step D above) from each chemical class.\r\n\n\n\r\n\n\nZINC 15 \\(Sterling & Irwin 2015) is used to identify compounds available for purchase in the data set. The subset of ZINC 15 with the highest level of availability \\(\u2018in stock\u2019) is used. Identity-matching should use the parent compound \\(a single largest component) and standard InChIs, first directly and then after removing the charge and atom-based stereochemistry layers. \r\n\n\n\r\n\n\nThis gives the final \u2018diverse screening set\u2019 \\(typically several thousand compounds)."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "The output from the procedure is a diverse screening set of several thousand compounds from ChEMBL \\(including both approved drugs and medicinal chemistry compounds), and their putative targets in nematodes/platyhelminths."
+        },
+        {
+            "header": "References",
+            "content": "Allegretti, S. M. _et al._ The Use of Brazilian Medicinal Plants to Combat _Schistosoma mansoni_. In _Schistosomiasis_, InTech. \\(2012).\r\n\n\n\r\n\n\nAltschul, S.F. _et al._ Gapped BLAST and PSI-BLAST: a new generation of protein database search programs. _Nucleic acids res._ **25**, 3389-3402 \\(1997).\r\n\n\n\r\n\n\nAnand, N. and S. Sharma, Eds. _Approaches to Design and Synthesis of Antiparasitic Drugs_, Elsevier Science \\(1997).\r\n\n\n\r\n\n\nAnders, S. _et al._ Detecting differential usage of exons from RNA-seq data. _Genome res._ **22**, 2008-2017 \\(2012).\r\n\n\n\r\n\n\nAnders, S. _et al._ HTSeq--a Python framework to work with high-throughput sequencing data. _Bioinformatics_ **31**, 166-169 \\(2015).\r\n\n\n\r\n\n\nAynaud, T. Community detection for NetworkX\u2019s documentation, <a href=\"http://perso.crans.org/aynaud/communities/index.html\">perso.crans.org/aynaud/communities/index.html</a> \\(2009).\r\n\n\n\r\n\n\nBerriman _et al._ The genome of the blood fluke _Schistosoma mansoni_. _Nature_. **460**, 352-358 \\(2009).\r\n\n\n\r\n\n\nBickerton, G.R. _et al._ Quantifying the chemical beauty of drugs. _Nat Chem._ **4**, 90-98 \\(2012).\r\n\n\n\r\n\n\nBlondel, V. D. _et al._ Fast unfolding of communities in large networks. _J. Stat. Mechanics-Theory and Experiment_ **2008 \\(10)**, P10008 \\(2008).\r\n\n\n\r\n\n\nCapra, J.A. & Singh, M. Predicting functionally important residues from sequence conservation. _Bioinformatics_ **23**, 1875-1882 \\(2007).\r\n\n\n\r\n\n\nDalke, A. chemfp - fast and portable fingerprint formats and tools. _Journal of Cheminformatics_ **3\\(Suppl 1)** \\(2011).\r\n\n\n\r\n\n\nElks, J., Ed. _The Dictionary of Drugs: Chemical Data_, Springer US \\(1990).\r\n\n\n\r\n\n\nGaulton, A. _et al_. The ChEMBL database in 2017. _Nucleic acids res._ **45**, D945-D954 \\(2017).\r\n\n\n \r\n\n\nGrieve, M. _A Modern Herbal: The Complete Edition_, Stone Basin Books \\(2015).\r\n\n\n\r\n\n\nHastings, J. _et al._ ChEBI in 2016: Improved services and an expanding collection of metabolites. _Nucleic acids res._ **44**, D1214-D1219 \\(2016).\r\n\n\n\r\n\n\nHolden-Dye, L. & Walker, R.J. Anthelmintic drugs and nematicides: studies in _Caenorhabditis elegans._ _WormBook_, 1-29 \\(2014).\r\n\n\n\r\n\n\nHowe, K.L. _et al._ WormBase 2016: expanding to enable helminth genomic research. _Nucleic acids res._ **44**, D774-D780 \\(2016).\r\n\n\n\r\n\n\nHowe, K.L. _et al._ WormBase ParaSite - a comprehensive resource for helminth genomics. _Molecular and biochemical parasitology_ **215**, 2-10 \\(2017).\r\n\n\n\r\n\n\nKanehisa, M. Molecular network analysis of diseases and drugs in KEGG. _Methods Mol. Biol._ **939**, 263-275 \\(2013).\r\n\n\n\r\n\n\nKim, S. _et al._ PubChem Substance and Compound databases. _Nucleic acids res._ **44**, D1202-1213 \\(2016).\r\n\n\n\r\n\n\nLaw, V. _et al._ DrugBank 4.0: shedding new light on drug metabolism. _Nucleic acids res._ **42**, D1091-1097 \\(2014).\r\n\n\n\r\n\n\nLewis, R. A. _Lewis\u2019 Dictionary of Toxicology_, CRC Press \\(1998).\r\n\n\n\r\n\n\nLowe, D.M. _et al._ Chemical Name to Structure: OPSIN, an Open Source Solution. _Journal of Chemical Information and Modeling_ **51**, 739-753 \\(2011).\r\n\n\n\r\n\n\nMarr, J. J. _et al._, Eds.  _Molecular Medical Parasitology_, Academic Press \\(2003).\r\n\n\n\r\n\n\nMehlhorn, H., Ed. _Encyclopedia of Parasitology_, Springer \\(2008).\r\n\n\n \r\n\n\nMillburn, G.H. _et al._ FlyBase portals to human disease research using _Drosophila_ models. _Dis. Model Mech._ **9**, 245-252 \\(2016).\r\n\n\n\r\n\n\nMoffat, A. _et al._, Eds. _Clarke's Analysis of Drugs and Poisons_, Pharmaceutical Press \\(2011).\r\n\n\n\r\n\n\nOliver-Bever, B. Medicinal plants in tropical West Africa. III. Anti-infection therapy with higher plants. _J. Ethnopharmacol._ **9**, 1-83 \\(1983).\r\n\n\n\r\n\n\nOprea, T.I. & Overington, J.P. Computational and Practical Aspects of Drug Repositioning. _Assay Drug Dev. Technol._ **13**, 299-306 \\(2015).\r\n\n\n\r\n\n\nSterling, T. & Irwin, J. J. ZINC 15--Ligand Discovery for Everyone. _J. Chem. Inf. Model._ **55**, 2324-2337 \\(2015).\r\n\n\n\r\n\n\nTrapnell, C. _et al._ Differential gene and transcript expression analysis of RNA-seq experiments with TopHat and Cufflinks. _Nat. Protoc._ **7**, 562-578 \\(2012).\r\n\n\n\r\n\n\nTyagi, R. _et al._ Comparative analysis of metabolism in parasitic worms. _Protocol Exchange_ \\(2018).\r\n\n\n\r\n\n\nVelankar, S. _et al._ PDBe: improved accessibility of macromolecular structure data from PDB and EMDB. _Nucleic acids res._ **44**, D385-395 \\(2016).\r\n\n\n\r\n\n\nVilella, A.J. _et al._ EnsemblCompara GeneTrees: Complete, duplication-aware phylogenetic trees in vertebrates. _Genome res._ **19**, 327-335 \\(2009)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "We would like to thank the WTSI Pathogen Informatics team, especially Jacqueline Keane and Andrew Page."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 15668,
+                "identity": "a16cdde5-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Matthew Berriman",
+                "email": "mb4@sanger.ac.uk",
+                "orcid": "",
+                "institution": "Berriman Lab Group, Sanger Institute",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Matthew",
+                "middleName": "",
+                "lastName": "Berriman",
+                "suffix": ""
+            },
+            {
+                "id": 15663,
+                "identity": "a16cd3a1-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Avril Coghlan",
+                "email": "",
+                "orcid": "",
+                "institution": "Berriman Lab Group, Sanger Institute",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Avril",
+                "middleName": "",
+                "lastName": "Coghlan",
+                "suffix": ""
+            },
+            {
+                "id": 15664,
+                "identity": "a16cd62d-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Prudence Mutowo",
+                "email": "",
+                "orcid": "",
+                "institution": "European Bioinformatics Institute",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Prudence",
+                "middleName": "",
+                "lastName": "Mutowo",
+                "suffix": ""
+            },
+            {
+                "id": 15665,
+                "identity": "a16cd857-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Noel O'Boyle",
+                "email": "",
+                "orcid": "",
+                "institution": "NextMove Software",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Noel",
+                "middleName": "",
+                "lastName": "O'Boyle",
+                "suffix": ""
+            },
+            {
+                "id": 15666,
+                "identity": "a16cd9f7-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Jane Lomax",
+                "email": "",
+                "orcid": "",
+                "institution": "Berriman Lab Group, Sanger Institute",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jane",
+                "middleName": "",
+                "lastName": "Lomax",
+                "suffix": ""
+            },
+            {
+                "id": 15667,
+                "identity": "a16cdc74-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Andrew R. Leach",
+                "email": "",
+                "orcid": "",
+                "institution": "European Bioinformatics Institute",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Andrew",
+                "middleName": "R.",
+                "lastName": "Leach",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2018-04-15 09:33:59",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2018.053",
+        "doiUrl": "https://doi.org/10.1038/protex.2018.053",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2610114,
+                "identity": "9507394b-f90c-489b-8e77-fdb76e96a72b",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:25",
+                "extension": "gif",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 94063,
+                "visible": true,
+                "origin": "",
+                "legend": "Workflow",
+                "description": "",
+                "filename": "figure1.gif",
+                "url": "https://assets.researchsquare.com/files/nprot-6763/v1/figure_1.gif"
+            },
+            {
+                "id": 13465809,
+                "identity": "36659f63-01ae-4b9f-8f80-40c90d09c0d5",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:48:16",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 292567,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-6763/v1/58ecd675-ad30-4c92-b99b-47f7d99fe49e.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "drug discovery, drugs, anthemintic, helminths, nematodes, flatworms, parasites, parasitic worms, platyhelminths, Nematoda, Platyhelminthes, compounds, anthelminthic, ChEMBL",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "Many existing anthelmintic compounds are compromised by low efficacy, serious side-effects and/or rising resistance in parasite populations. Thus, to reveal potential new drug targets and drugs, we describe a protocol to identify the most promising nematode/flatworm targets, and compounds likely to interact with them from the ChEMBL database \\(which includes both targets of known drugs and of other biologically active compounds). This provides a potential screening set of drug-like compounds.",
+        "manuscriptTitle": "Creating a screening set of potential anthelmintic compounds using ChEMBL",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2018-05-15 03:03:50",
+                "doi": "10.1038/protex.2018.053",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a15cc705-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "May 15th, 2018",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 4257,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 4258,
+                "name": "Biotechnology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2018-05-15 03:03:50",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

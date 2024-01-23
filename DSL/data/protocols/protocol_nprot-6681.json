@@ -1,0 +1,282 @@
+{
+    "identity": "nprot-6681",
+    "title": "Identification of lineage-specific gene family expansions in a database of gene families",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Gene families specific to, or with significantly changed membership in, particular lineages compared to outgroups may reflect important lineage-specific changes in biology. Here we describe a computational protocol to identify gene families that vary greatly in gene count across a species tree. This protocol can be used to analyse families from an in-house database of gene families \\(e.g. built using the Ensembl Compara pipeline, Vilella _et al_ 2009).\r\n\n\n\r\n\n\nTo identify gene families that vary greatly in gene count across a species tree, we use three metrics to capture aspects of this variability. However, to control for differences in gene counts due to fragmented assemblies \\(e.g. genes split across multiple contigs), we use summed protein length per species in a family as a proxy for gene counts in these metrics. The first metric, coefficient of variation \\(_C<sub>v</sub>_), simply measures the variability in summed protein length \\(per species) in a family. The other two metrics, Z-score \\(_Z<sub>max</sub>_) and enrichment coefficient \\(_E<sub>max</sub>_), reflect whether there is a gene family expansion in a particular group of species, relative to the rest of the species tree. For this, species are classified into a set of non-overlapping species groups of interest that ideally correspond to monophyletic clades of the species tree \\(e.g. nematodes, flatworms, and arthropods in a species tree of animals). \r\n\n\n\r\n\n\nThe three metrics are defined as follows: \r\n\n\n\\(i) coefficient of variation, \r\n\n\n\r\n\n\n<a href=\"#figures\" data-url=\"https://www.nature.com/protocolexchange/system/uploads/6525/original/Figure1.png?1521467167\">See figure in Figures section.</a>\r\n\n\n\r\n\n\nwhere the numerator \\(_s_) is the standard deviation in the summed protein length per species in the family, and the denominator is the mean of the summed protein length per species in the family. \r\n\n\n\r\n\n\n\\(ii) maximum Z-score, \r\n\n\n\r\n\n\n<a href=\"#figures\" data-url=\"https://www.nature.com/protocolexchange/system/uploads/6527/original/Figure2.png?1521466958\">See figure in Figures section.</a>\r\n\n\n\r\n\n\nwhere _T_ is the set of non-overlapping species groups, _c_ is a species group in the set _T_. For each species group _c_ in the set _T_, we calculate _Z_ as the difference between the mean summed protein length \\(per species) in that species group _c_ and the overall mean \\(the numerator), divided by the standard deviation in summed protein length per species among the species outside group _c_ \\(the denominator). _Z<sub>max</sub>_ is the maximum of these _Z_ values over all tested species groups. Note that the standard deviation used here is for the species outside species group _c_, so that it is not affected by any gene family expansion that occurred in the family within the species group _c_.\r\n\n\n\r\n\n\n\\(iii) maximum enrichment coefficient, \r\n\n\n\r\n\n\n<a href=\"#figures\" data-url=\"https://www.nature.com/protocolexchange/system/uploads/6529/original/Figure3.png?1521467064\">See figure in Figures section.</a>\r\n\n\n\r\n\n\nThat is, for each species group in the set _T_, we calculate _E_ as the ratio between the mean of the summed protein length \\(per species) in that species group and the mean summed protein length outside that species group. _E<sub>max</sub>_ is the maximum of these _E_ values over all tested species groups.\r\n\n\n\r\n\n\nHigh values of the three metrics may be used to detect families with different patterns of variability. High values of _Z<sub>max</sub>_ and _E<sub>max</sub>_ may indicate a gene family expansion in a particular clade of the species tree, but high values of _C<sub>v</sub>_ may highlight cases that they miss, such as a gene family that has independently expanded in different clades of the species tree. In addition, a gene family that has expanded in a particular clade of the species tree can only have high values of _Z<sub>max</sub>_ and _E<sub>max</sub>_ if the gene family also includes genes from species outside this clade, whereas high values of _C<sub>v</sub>_ can be used to detect large variability within a single clade even if the family lacks members from outside that clade.\r\n\n\n\r\n\n\nThe protocol has two steps. In Step A, the set of all input gene families is filtered to remove likely transposable element families, assuming that these are not of interest to most users, since expansions of transposable element gene families are relatively unlikely to contribute to lineage-specific changes in biology. \r\n\n\n\r\n\n\nIn Step B, we define a set of non-overlapping species groups, which are ideally monophyletic clades of the species tree \\(e.g. nematodes, flatworms), in which we wish to identify lineage-specific expansions \\(e.g. nematode-specific expansions, flatworm-specific expansions). In Step B, we also define a subset of the species as having high-quality assemblies. Then, the three metrics _C<sub>v</sub>_, _E<sub>max</sub>_ and _Z<sub>max</sub>_ are calculated for each family in an in-house database of gene families. Families with high values of each metric are good candidates for families with lineage-specific expansions, and can be manually examined in follow-up analyses. \r\n\n\n\r\n\n\nOur protocol controls for differences in gene counts due to fragmented assemblies, firstly by using summed protein length per species in a family as a proxy for gene count, and also by calculating the three metrics based only on those species that have high-quality assemblies \\(as defined in Step B).\r\n\n\n\r\n\n\nA related approach for finding lineage-specific gene family expansions is to identify Pfam \\(Finn _et al_ 2014) domains that are enriched in a certain species group compared to the rest of the species tree, and then to identify the expanded gene families containing that domain \\(e.g. see Tsai _et al_ 2013). In contrast, our current protocol does not require that the genes in an expanded family have any predicted protein domains, so can detect expansions in uncharacterised or relatively poorly characterised gene families.\r\n\n\n\r\n\n\nA more similar approach to the current protocol was used to identify _Spirometra_ lineage-specific expansions by Bennett _et al_ 2014, by ranking gene families by the ratio of the total cumulative length of encoded _Spirometra erinaceieuropaei_ genes in a family to the cumulative length of the corresponding _Echinococcus multilocularis_ genes in the same family. This is a very similar idea to _E<sub>max</sub>_, but _E<sub>max</sub>_ for a family is extended to be a ratio between the mean summed protein length in a species group, compared to the mean summed protein length outside that species group. This should be a more accurate metric for detecting expansions because it can include information from more species \\(e.g. several _Spirometra_-lineage species and several _Echinococcus_-lineage species)."
+        },
+        {
+            "header": "Reagents",
+            "content": "<a href=\"http://www.ensembl.org\" >Ensembl Compara pipeline software</a> \r\n\n\n\r\n\n\n<a href=\"http://pfam.xfam.org\" >Pfam</a> \r\n\n\n\r\n\n\n<a href=\"http://www.ebi.ac.uk/interpro/interproscan.html\" >InterProScan</a>"
+        },
+        {
+            "header": "Equipment",
+            "content": "Computer cluster."
+        },
+        {
+            "header": "Procedure",
+            "content": "**Step A: filtering gene sets and gene families for transposable element genes**\r\n\n\n\r\n\n\nThe input to Step A is a gene prediction set \\(and the corresponding predicted protein sequences) for each species of interest; and a database of gene families containing all the genes from all those species, e.g. built using the Compara pipeline \\(Vilella _et al_ 2009).\r\n\n\n\r\n\n\n1. Interproscan 5 \\(Jones _et al_ 2014) is used to identify predicted proteins with Pfam \\(Finn _et al_ 2014) domains associated with transposable elements \\(using a list from Foth _et al_ 2014): PF12762, integrase; PF03221, DNA-binding; PF03184, endonuclease; PF00078, reverse transcriptase; PF03564, DUF1759; PF05380, Pao retrotransposon peptidase; PF10551, transposase; PF00077, retroviral aspartyl protease; PF13456, reverse transcriptase-like; PF00665, integrase; PF14227, Gag-polypeptide of LTR copia-type; PF03732, retrotransposon gag protein; PF01541, GIY-YIG catalytic domain; PF00680, RNA dependent RNA polymerase; PF07727, reverse transcriptase; PF13961, DUF4219; PF01359, transposase; PF08284, retroviral aspartyl protease; PF13976, GAG-pre-integrase; PF14223, Gag-polypeptide of LTR copia-type; and PF14244, Gag-polypeptide of LTR copia-type. \r\n  \r\n\n\n2. Gene families are identified that have at least one transposon Pfam domain assigned to at least one member. We consider a family as \u2018transposon-related\u2019 if \u226520% of its genes \\(with or without any Pfam annotation) have a transposon-associated Pfam domain, and if \u226580% of the genes with at least one Pfam annotation have a transposon-associated Pfam domain. The identified gene families are subsequently excluded from further analyses of gene family expansions.\r\n  \r\n\n\nThe output from Step A is the set of gene families from which likely transposable element gene families have been removed. \r\n\n\n\r\n\n\n**Step B: calculating metrics for identifying highly variable gene families**\r\n\n\n\r\n\n\nThe input to Step B is the set of non-transposable element gene families output from Step A above, and a species tree for the full set of species.\r\n\n\n\r\n\n\n1. The set of all species is classified into a set of non-overlapping subsets. We refer to these subsets as \u2018species groups\u2019, and they are the subsets in which we wish to identify gene family expansions. For example, if the full list of all our species is \\{\u2018A\u2019, \u2018B\u2019, \u2018C\u2019, \u2018D\u2019, \u2018E\u2019}, the set of non-overlapping subsets could be \\{\\{\u2018A\u2019, \u2018C\u2019, \u2018D\u2019}, \\{\u2018B\u2019, \u2018E\u2019}}. Ideally each species group corresponds to a monophyletic clade of the species tree. \r\n  \r\n\n\n2. If the set of all species includes some species with relatively high-quality assemblies and some species with much more fragmented assemblies, then a subset of species that have high-quality assemblies, and span the major clades of the species tree, are designated \u2018tier 1\u2019 species. The tier 1 species should ideally be those with relatively contiguous assemblies \\(e.g. N50/scaffold-count > 5) and relatively complete proteomes \\(e.g. CEGMA \\(Parra _et al_ 2007) partial score > 85%).\r\n  \r\n\n\n3. The metrics _C\nv\n_, _Z\nmax\n_ and _E\nmax\n_ are calculated for each of the gene families. To increase the reliability of these metrics, only the tier 1 species are considered, since these species have the highest quality assemblies, and therefore most complete proteomes and fewest artefactual gene splits and merges. When calculating the means and standard deviations that contribute to these metrics, the \u2018tier 1\u2019 species that lack any genes \\(in a family) are taken into account, as follows. First, to calculate the mean and standard deviation for a whole family \\(e.g. for _C\nv\n_), we identify the node of the species tree corresponding to the root of the gene tree for the family. Then, for each tier 1 descendent species that is present on the species tree but not in the current gene family, we count its summed protein length as zero when calculating the mean and standard deviation. Similarly, when calculating the means and standard deviations for a particular clade \\(for _Z\nmax\n_ or _E\nmax\n_), the node of the species tree corresponding to the root of the clade is identified, and all tier 1 species that descend from that node of the species tree are taken into account.\r\n  \r\n\n\nThe code for calculating metrics is tied to our in-house infrastructure, but is available for perusal at\ntinyurl.com/comparaFamiliesAnalysis-py\nThe output from Step B is the _C\nv\n_, _Z\nmax\n_ and _E\nmax\n_ values for each of the families."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "Because at least two genes are needed to calculate the _C<sub>v</sub>_, _Z<sub>max</sub>_ and _E<sub>max</sub>_ metrics for a family, and only tier 1 species are considered when calculating them, these metrics are undefined for families containing less than two genes from tier 1 species. Furthermore, in very small families, the estimates of _C<sub>v</sub>_, _Z<sub>max</sub>_ and _E<sub>max</sub>_ are very noisy \\(because the underlying estimates of mean and standard deviation are noisy), so we recommend discarding families having few \\(e.g. <10 genes) from tier 1 species.\r\n\n\n\r\n\n\nIt is possible that some of the families with relatively high values of _C<sub>v</sub>_, _Z<sub>max</sub>_ or _E<sub>max</sub>_ may turn out to be undetected transposable element genes; or families that have gene counts that are equally as high \\(or nearly as high) in outgroup species as in the species group of interest. Expansions of transposable element gene families, or expansions specific to outgroup species, are unlikely to be interesting to the user, so we suggest that users manually examine the families with high values of _C<sub>v</sub>_, _Z<sub>max</sub>_ or _E<sub>max</sub>_ to discover and possibly discard such cases.\r\n\n\n\r\n\n\nIn Step B, species are classified into a set of non-overlapping species groups of interest in which we want to find lineage-specific expansions \\(e.g. nematodes, flatworms). These ideally correspond to monophyletic clades of the species tree. In order to detect lineage-specific expansions that occurred in narrower phylogenetic groups, the user may want to run the protocol again with narrower species group definitions \\(e.g. nematode clades I, II, III, IV, V, and cestode flatworms, trematode flatworms)."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "The output from the protocol is the _C<sub>v</sub>_, _Z<sub>max</sub>_ and _E<sub>max</sub>_ values for each of the families. In order to filter the list of families to identify those families that have the most striking patterns of variability, we suggest taking the union of the top 500 highest-scoring families according each of the metrics \\(_C<sub>v</sub>_, _Z<sub>max</sub>_ and _E<sub>max</sub>_), and then plotting phylogenetic trees for each of these families, and examining the plots by eye. The cutoff of 500 suggested here is arbitrary and users should investigate the effect of varying this cutoff."
+        },
+        {
+            "header": "References",
+            "content": "Bennett, H.M. _et al._ The genome of the sparganosis tapeworm _Spirometra erinaceieuropaei_ isolated from the biopsy of a migrating brain lesion. _Genome Biol._ **15**, 510 \\(2014).\r\n\n\n\r\n\n\nJones, P. _et al._ InterProScan 5: genome-scale protein function classification. _Bioinformatics_ **30**, 1236-1240 \\(2014).\r\n\n\n\r\n\n\nFinn, R.D. _et al._ Pfam: the protein families database. _Nucleic acids research_ **42**, D222-230 \\(2014).\r\n\n\n\r\n\n\nFoth, B.J. _et al._ Whipworm genome and dual-species transcriptome analyses provide molecular insights into an intimate host-parasite interaction. _Nat Genet._ **46**, 693-700 \\(2014).\r\n\n\n\r\n\n\nParra, G. _et al._ CEGMA: a pipeline to accurately annotate core genes in eukaryotic genomes. _Bioinformatics_ **23**, 1061-1067 \\(2007).\r\n\n\n\r\n\n\nTsai, I.J. _et al._ The genomes of four tapeworm species reveal adaptations to parasitism. _Nature_ **496**, 57-63 \\(2013).\r\n\n\n\r\n\n\nVilella, A.J. _et al._ EnsemblCompara GeneTrees: Complete, duplication-aware phylogenetic trees in vertebrates. _Genome Res._ **19**, 327-335 \\(2009)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "We would like to thank the WTSI Pathogen Informatics team, especially Jacqueline Keane."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 15521,
+                "identity": "a1613779-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Matthew Berriman",
+                "email": "mb4@sanger.ac.uk",
+                "orcid": "",
+                "institution": "Berriman Lab Group, Sanger Institute",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Matthew",
+                "middleName": "",
+                "lastName": "Berriman",
+                "suffix": ""
+            },
+            {
+                "id": 15518,
+                "identity": "a1612345-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Diogo Ribeiro",
+                "email": "",
+                "orcid": "",
+                "institution": "Berriman Lab Group, Sanger Institute",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Diogo",
+                "middleName": "",
+                "lastName": "Ribeiro",
+                "suffix": ""
+            },
+            {
+                "id": 15519,
+                "identity": "a1612ef9-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Avril Coghlan",
+                "email": "",
+                "orcid": "",
+                "institution": "Berriman Lab Group, Sanger Institute",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Avril",
+                "middleName": "",
+                "lastName": "Coghlan",
+                "suffix": ""
+            },
+            {
+                "id": 15520,
+                "identity": "a1613364-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Bhavana Harsha",
+                "email": "",
+                "orcid": "",
+                "institution": "Berriman Lab Group, Sanger Institute",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Bhavana",
+                "middleName": "",
+                "lastName": "Harsha",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2018-03-19 14:01:20",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2018.057",
+        "doiUrl": "https://doi.org/10.1038/protex.2018.057",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2610094,
+                "identity": "97638ace-51df-44f3-b07b-4441b721eb93",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:25",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 751,
+                "visible": true,
+                "origin": "",
+                "legend": "Definition of Cv",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-6681/v1/figure_1.png"
+            },
+            {
+                "id": 2610096,
+                "identity": "c8e42c7e-2ce2-4264-baea-ebe483e4d6a5",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:25",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 1949,
+                "visible": true,
+                "origin": "",
+                "legend": "Definition of Zmax",
+                "description": "",
+                "filename": "figure2.png",
+                "url": "https://assets.researchsquare.com/files/nprot-6681/v1/figure_2.png"
+            },
+            {
+                "id": 2610097,
+                "identity": "a392e5f9-ac1d-40ea-ad47-8b69ebc0fe3f",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:25",
+                "extension": "png",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 2037,
+                "visible": true,
+                "origin": "",
+                "legend": "Definition of Emax",
+                "description": "",
+                "filename": "figure3.png",
+                "url": "https://assets.researchsquare.com/files/nprot-6681/v1/figure_3.png"
+            },
+            {
+                "id": 13465729,
+                "identity": "e249d6f0-4b0b-40fb-bc8e-7b29865a5faf",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:47:57",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 169965,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-6681/v1/e38e124d-2488-45bc-be8a-c973d8631c98.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Gene families, gene family expansions, Compara, lineage-specific expansions, Ensembl",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "Gene families specific to, or with significantly changed membership in, particular lineages compared to outgroups may reflect important lineage-specific changes in biology. Here we describe a computational protocol to identify gene families that vary greatly in gene count across a species tree. This protocol uses three different metrics to capture aspects of this variability, and calculates them for each family in an in-house database of gene families \\(e.g. built using the Ensembl Compara pipeline). One metric \\(_C<sub>v</sub>_) identifies families that vary a lot in gene count across the species tree, and the other two \\(_E<sub>max</sub>_, _Z<sub>max</sub>_) identify families that have an elevated gene count in a certain clade of the species tree. Our protocol controls for differences in gene counts due to fragmented assemblies.",
+        "manuscriptTitle": "Identification of lineage-specific gene family expansions in a database of gene families",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2018-05-15 02:33:35",
+                "doi": "10.1038/protex.2018.057",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a15cc705-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "May 15th, 2018",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 4221,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 4222,
+                "name": "Biotechnology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2018-05-15 02:33:35",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

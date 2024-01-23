@@ -1,0 +1,258 @@
+{
+    "identity": "pex-1499",
+    "title": "<p>Profiling the binding sites of RNA-binding protein by LACE-seq</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>\tThe human genome encodes over 1,500 RNA-binding proteins (RBPs) that play crucial roles in the development or differentiation of somatic cells, germ cells, and early embryonic cells<sup>1-3</sup>. RBPs achieve such regulatory functions by directly interacting with various target RNAs via specific motifs or structural elements<sup>1</sup>. As a well-accepted working rule, RBPs usually regulate gene expressions in a position-dependent manner<sup>4</sup>. For example, the preferable bindings of RBPs at intronic regions usually suggest potential regulations in alternative splicing, while their bindings at 3\u2019UTR tend to participate in regulating mRNA stability or translation<sup>5-7</sup>. As an emerging theme, many RBPs are intimately involved in transcriptional regulation by interacting with promoter and enhancer noncoding RNAs<sup>7-9</sup>. Such position effects and regulatory rules highlight the value of developing transcriptome-wide methods for mapping the precise binding positions of a defined RBP. </p><p>\tMethods currently available for profiling RBP binding landscapes in living cells include CLIP-seq (cross-linking and immunoprecipitation sequencing, also known as HITS-CLIP), iCLIP, and eCLIP<sup>10-13</sup>. These three state-of-the-art approaches use a specific antibody to pull down defined RBP-associated RNA fragments from millions of cells and sequence them unbiasedly. Conceptually different from CLIP-based methods, an elegant technique called TRIBE fuses the catalytic domain of adenosine deaminases ADAR with individual RBP and deduces RBP targets by directly calculating the <em>in vivo</em> RNA editing sites<sup>14</sup>. Though TRIBE can map RBP targets from hundreds of cells, significant challenges arose from the low editing efficiency and duplex bias of the ADARcd domain<sup>15</sup>, which tends to cause frequent A-to-I editing at distal positions far from the bonafide RBP binding sites. Moreover, ectopically expressed RBPs may perturb native RNA interaction networks. Therefore, mapping protein-RNA interactions in fewer cells under native conditions still represents a significant challenge.</p><p>        To address this technical challenge, we have developed a LACE-seq method for unbiased mapping of precise RBP-binding positions in fewer cells or even single oocytes under native conditions. In brief, LACE-seq includes the following steps: (1) cells are cross-linked with UV-C light, and the interested RBP-RNA complexes are immunoprecipitated from cell lysate and fragmented on the beads with micrococcal nuclease; (2) The 3\u2019 ends of fragmented RNAs are dephosphorylated and ligated with a 5\u2019 pre-adenylated linker containing four randomized nucleotides; (3) reverse transcription is performed on beads with a biotinylated primer containing the T7 promoter sequence; (4) the cDNA terminated at intact RBP-RNA cross-linking sites are poly (A) tailed and enriched for PCR amplification and subsequent <em>in vitro</em> transcription; (5) the linearly amplified RNAs are converted into libraries for single-end deep sequencing. Of note, the IVT steps can be omitted if starting with millions of cells. We have recently demonstrated the power of LACE-seq methods in determining the target repertoire and regulatory mechanisms of multiple RBPs in mouse oocytes<sup>16</sup>. </p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p><strong>Basic reagents</strong></p><p>1.&nbsp;10 \u00d7 PBS buffer, pH 7.4 (Thermo Scientific, AM9624)</p><p>2.&nbsp;Protein A/G magnetic beads (Thermo Scientific, 26162)</p><p>3.&nbsp;SUPERase-In RNase Inhibitor (Thermo Scientific, AM2696)</p><p>4.&nbsp;RQ1 RNase-Free DNase (Promega, M6101)</p><p>5.&nbsp;Micrococcal Nuclease (Thermo Scientific, EN0181)</p><p>6.&nbsp;FastAP Thermosensitive Alkaline Phosphatase (Thermo Scientific, EF0651)</p><p>7.&nbsp;T4 RNA ligase 2, truncated (NEB, M0242)</p><p>8.&nbsp;Superscript II Reverse Transcriptase (Thermo Scientific, 18064014)</p><p>9.&nbsp;RiboLock RNase inhibitor (Thermo Scientific, EO0381)</p><p>10.&nbsp;Exonuclease I (E. coli) (NEB, M0293)</p><p>11.&nbsp;RNase H (Thermo Scientific, EN0202)</p><p>12.&nbsp;Dynabeads MyOne Streptavidin C1 (Thermo Scientific, 650002)</p><p>13.&nbsp;Terminal transferase (NEB, M0315)</p><p>14.&nbsp;KAPA HiFi HotStart ReadyMix PCR&nbsp;Kit (KAPA Biosystems, KK2601)</p><p>15.&nbsp;Ampure XP beads (Beckman Coulter, A63881)</p><p>16.&nbsp;T7 RNA Polymerase (NEB, M0251)</p><p>17.&nbsp;TURBO DNase (Thermo Scientific, AM2238)</p><p>18.&nbsp;Agencourt RNAClean beads (Beckman Coulter, A63987)</p><p>19.&nbsp;Platinum Pfx DNA Polymerase (Thermo Scientific, C11708021)</p><p>20.&nbsp;MinElute Gel Extraction Kit (Qiagen, 28604)</p><p>21.&nbsp;Qubit RNA HS Assay Kit (Thermo Scientific, Q32852)</p><p>22.&nbsp;Qubit dsDNA HS Assay Kit (Thermo Scientific, Q32851)</p><p>23.&nbsp;dNTP Solution Mix (NEB, N0447)</p><p>24.&nbsp;Ribonucleotide Solution Mix (NEB, N0466)</p><p>25.&nbsp;dATP Solution (NEB, N0440)</p><p><strong>Buffers</strong></p><p>1.&nbsp;Blocking buffer (1 \u00d7 PBS, 0.2 mg/ml glycogen, 0.2 mg/ml BSA)</p><p>2.&nbsp;Wash buffer (1 \u00d7 PBS, 0.1% SDS, 0.5% NP-40, 0.5% sodium deoxycholate)</p><p>3.&nbsp;High-salt wash buffer (5 \u00d7 PBS, 0.1% SDS, 0.5% NP-40, 0.5% sodium deoxycholate)</p><p>4.&nbsp;PNK buffer (50 mM Tris-HCl, pH 7.4, 10 mM MgCl<sub>2</sub>, 0.5% NP-40)</p><p>5.&nbsp;1 \u00d7 MN reaction buffer (50 mM Tris-HCl, pH 8.0, 5 mM CaCl<sub>2</sub>)</p><p>6.&nbsp;1 \u00d7 PNK + EGTA buffer (50 mM Tris-HCl, pH 7.4, 20 mM EGTA, 0.5% NP-40)</p><p>7.&nbsp;1 \u00d7 B &amp; W buffer (5 mM Tris-HCl, pH 7.5, 0.5 mM EDTA, 1 M NaCl)</p><p>8.&nbsp;0.1 M Na-phosphate buffer, pH 8.0 (93.2 mM Na<sub>2</sub>HPO<sub>4</sub>, 6.8 mM NaH<sub>2</sub>PO<sub>4</sub>, 0.05% tween 20)</p><p>9.&nbsp;6 \u00d7 Orange G dye (10 mM Tris-HCl, pH 7.6, 0.15% orange G, 60% glycerol, 60 mM EDTA)</p><p><strong>Oligos</strong></p><p>1.&nbsp;3\u2019 linker:</p><p>/5rApp/NNNNAGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT/3ddC/ (5rApp devotes pre-adenylated 5\u2019 nucleotides, N represents randomized nucleotide, and 3ddC indicates 3\u2019-dideoxycytidine)</p><p>2.&nbsp;T7-RT primer:</p><p>/Biotin/GATCACTAATACGACTCACTATAGGGACACTCTTTCCCTACACGACGCTCTTCCGATCT</p><p>3.&nbsp;Second-strand primer:</p><p>CAAGCAGAAGACGGCATACGAGATTTTTTTTTTTTTTTTTTTTTVN</p><p>4.&nbsp;Primer A:</p><p>GATCACTAATACGACTCACTATAGG</p><p>5.&nbsp;P7 primer:</p><p>CAAGCAGAAGACGGCATACGAGAT</p><p>6.&nbsp;P5 index primer:</p><p>AATGATACGGCGACCACCGAGATCTACACNNNNNACACTCTTTCCCTACACGACGCTCTTCCGATCT (NNNNN devotes index nucleotides)</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>1.&nbsp;CL-1000 ultraviolet crosslinker (UVP)</p><p>2.&nbsp;1.5 ml DNA LoBind tubes (Eppendorf, 022431021)</p><p>3.&nbsp;2 ml DNA LoBind tubes (Eppendorf, 022431048)</p><p>4.&nbsp;LP Vortex Mixer (Thermo Scientific)</p><p>5.&nbsp;Tube Revolver (Crystal Industries, HYQ-2231)</p><p>6.&nbsp;ThermoMixer C (Eppendorf)</p><p>7.&nbsp;DynaMag-96 side magnet (Thermo Scientific)</p><p>8.&nbsp;DynaMag-2 magnet (Thermo Scientific)</p><p>9.&nbsp;Qubit fluorometer (Thermo Scientific)</p><p>10.&nbsp;Mini G centrifuge (IKA)</p><p>11.&nbsp;Cell lifter (Corning, 3008)</p><p>12.&nbsp;Thermal cycler (Bio-Rad, T100)</p><p>13.&nbsp;Sorvall ST16R centrifuge (Thermo Scientific)</p><p>14.&nbsp;Fusion FX (Vilber)</p><p>15.&nbsp;Ultra-low temperature freezer (Thermo Scientific,&nbsp;Forma 900 Series)</p><p>16.&nbsp;Blue light gel imager (Bio-Friend, BD-BGC1)</p><p>17.&nbsp;10 cm Petri dishes (NEST, 752001)</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "A.\u00a0For low-input cells or single oocytes\n1.\u00a0UV cross-linking of cells\n1)\u00a0Resuspend HeLa cells, K562 cells, or mouse oocytes in PBS and pick a specific number of cells to a 1.5 ml LoBind microcentrifuge tube using needles under a microscope.\n2)\u00a0Spin down the cells to the bottom with an IKA mini G centrifuge and quickly put the tube on ice.\n3)\u00a0Irradiate cells at 400 mJ with UV-C light on ice for two times. The cross-linked samples can be stored at -80 \u00b0C for two weeks until use or directly proceeded to the next step. (see\nNote 1\n)\n2.\u00a0Magnetic beads preparation\n4)\u00a0Mix the protein A/G magnetic beads thoroughly before use. Place 10 \u00b5l of beads for each sample into a 1.5 ml microcentrifuge tube.\n5)\u00a0Wash beads twice with 200 \u00b5l of BSA/PBS solution (0.1% BSA in 1\u00d7PBS) and block with 200 \u00b5l of blocking buffer at room temperature (RT) for 1 h by rotating at 20 rpm.\n6)\u00a0Place the microcentrifuge tube into a magnetic stand for 1 min and discard the supernatant. Wash the blocked beads once with 200 \u00b5l of Na-phosphate buffer and resuspend with 40 \u00b5l of Na-phosphate buffer containing 2 \u00b5g specific antibody. Rotate the tube at 20 rpm for 1 h at RT. (See\nNote 2\nand\nNote 3\n)\n7)\u00a0Spin down the beads to the bottom of the microcentrifuge tube with an IKA mini G centrifuge for 5 s. Place the tube into a magnetic stand for 1 min and discard the supernatant.\n8)\u00a0Wash beads twice with 200 \u00b5l of wash buffer and resuspend in 10 \u00b5l of wash buffer for each sample. Leave the beads on ice for the following addition to the cross-linked lysate.\n3.\u00a0RNA immunoprecipitation and fragmentation\n9)\u00a0Lyse cross-linked cells with 50 \u00b5l of wash buffer on ice for 10 min.\n10)\u00a0Add 1 \u00b5l of SUPERase\u00b7In RNase inhibitor and 4 \u00b5l of RQ1 DNase to the cell lysate and digest genomic DNA at 37 \u00b0C for 3 min in ThermoMixer C. Then snap-chill the tube on ice for 3 min.\n11)\u00a0Aliquot 10 \u00b5l of antibody-coupled beads from Step 8 into cell lysate prepared at Step 10 and rotate at 20 rpm for 1 h at 4 \u00b0C.\n12)\u00a0Spin briefly and place the tube into a magnetic stand for 1 min. Discard the supernatant and wash the beads three times with 200 \u00b5l of ice-cold wash buffer, once with 200 \u00b5l of high-salt wash buffer, and once with 200 \u00b5l of PNK buffer.\n13)\u00a0Dilute MNase 1:1000 by mixing 0.5 \u03bcl of MNase with 499.5 \u03bcl of 1 \u00d7 MN buffer. Sequentially dilute MNase 1:3000 to 1:6000 by mixing 0.5 \u03bcl of diluted MNase with corresponding volumes of 1 \u00d7 MN buffer. Add 10 \u00b5l of the diluted MNase to the beads and incubate at 37 \u00b0C for 3 min. (See\nNote 4\n)\n14)\u00a0Add 200 \u00b5l of 1 \u00d7 PNK + EGTA buffer directly to the tube and place into a magnetic stand for 1 min. Discard the supernatant and wash the beads once more with 1 \u00d7 PNK + EGTA buffer, twice with 200 \u00b5l of wash buffer, and twice with 200 \u00b5l of PNK buffer.\n4.\u00a0RNA dephosphorylation and 3\u2019 linker ligation\n15)\u00a0Resuspend the beads from Step 14 in 20 \u00b5l of FastAP mixture (2 \u00b5l 10 \u00d7 FastAP buffer, 1 \u00b5l FastAP alkaline phosphatase, 17 \u00b5l water) and incubate at 37 \u00b0C for 10 min in ThermoMixer C with intermittent mixing for 15 s at 1000 rpm every 3 min.\n16)\u00a0Discard the supernatant and wash the beads twice with 200 \u00b5l of 1 \u00d7 PNK + EGTA buffer, twice with 200 \u00b5l of PNK buffer, and twice with 200 \u00b5l of BSA solution (0.2 mg/ml BSA in DEPC-treated water).\n17)\u00a0Resuspend the beads in 20 \u00b5l of ligation mixture (12.5 \u00b5l water, 2 \u00b5l 10 \u00d7 ligation buffer, 0.5 \u00b5l 3\u2019 linker (1 \u00b5M), 1 \u00b5l T4 RNA ligase 2, 4 \u00b5l 50% PEG8000) and incubate at 25 \u00b0C for 2.5 h in ThermoMixer C with intermittent vortexing at 500 rpm for 15 s every 3 min.\n18)\u00a0Place the tube on a magnetic stand for 1 min and discard the supernatant. Wash beads three times with 200 \u00b5l of PNK buffer.\n5.\u00a0Reverse transcription on beads\n19)\u00a0Resuspend the beads in 8.5 \u00b5l of DEPC-treated water and 1 \u00b5l of T7-RT primer (0.5-100 nM). The amount of T7-RT primer is determined by the starting cell numbers. For example, we typically use 1 \u00b5l T7-RT primer with concentration of 0.5 nM for single cell, while 100 nM for dozens of cells. (see\nNote 5\n)\n20)\u00a0Transfer the 9.5 \u00b5l beads mixture to a new PCR tube, heat at 65 \u00b0C for 5min, and snap-chill on ice for 2 min.\n21)\u00a0Add RT mixture (3 \u00b5l of 5 \u00d7 first-strand buffer, 0.5 \u00b5l of 0.1 M DTT, 0.5 \u00b5l of Superscript II, 0.5 \u00b5l of RNase inhibitor, 1 \u00b5l of dNTP mix (10 mM)) to the PCR tube and mix by pipetting up and down for 20 times.\n22)\u00a0Incubate the PCR tube at 42 \u00b0C for 50 min, 70 \u00b0C for 15 min, and hold at 12 \u00b0C in a thermal cycler.\n23)\u00a0Add 2 \u00b5l of 10 \u00d7 Exonuclease I buffer and 3 \u00b5l of Exonuclease I mixture directly into the tube. Mix and incubate at 37 \u00b0C for 1 h, 80 \u00b0C for 20 min.\n6.\u00a0First-strand cDNA capture by streptavidin beads\n24)\u00a0Release the first-strand cDNA from Protein A/G beads by adding 10 \u00b5l of RNase H reaction mixture (3 \u00b5l of 10 \u00d7 RNase H buffer, 1 \u00b5l of RNase H, 6 \u00b5l of water) to the PCR tube from Step 23. Mix briefly and incubate the mixture at 37 \u00b0C for 30 min, 65 \u00b0C for 20 min in a thermal cycler.\n25)\u00a0Place the PCR tube on a magnetic stand for 1 min and transfer the supernatant to a new 1.5 ml LoBind microcentrifuge tube. Keep the tube on ice and waiting for the addition of Streptavidin beads.\n26)\u00a0Transfer 5 \u00b5l of Streptavidin beads to a new 1.5 ml tube per sample and wash three times with 100 \u00b5l of 1 \u00d7 B & W buffer.\n27)\u00a0Resuspend Streptavidin beads in 5 \u00b5l of 1 \u00d7 B & W buffer and transfer them to the supernatant from Step 25. Incubate the tube at RT for 30 min by occasionally mixing every 5 min.\n28)\u00a0Place the tube into a magnetic stand for 1 min and discard the supernatant.\n29)\u00a0Wash beads twice with 200 \u00b5l of 1 \u00d7 B & W buffer and once with 200 \u00b5l of BSA solution.\n7.\u00a0\u00a0Poly(A) tailing and pre-PCR\n30)\u00a0Resuspend Streptavidin beads in 9 \u03bcl of nuclease-free water and transfer to a new PCR tube.\n31)\u00a0Add 3.5 \u03bcl of TdT mixture (1.25 \u03bcl of 10 \u00d7 Terminal transferase Buffer, 1.25 \u03bcl of CoCl\n2\n, 0.5 \u03bcl of Terminal transferase, 0.5 \u03bcl of dATP (0.2 \u03bcM)) directly to the PCR tube and incubate at 37 \u00b0C for 8 min, 70 \u00b0C for 10 min in a thermal cycler. (See\nNote 6\n)\n32)\u00a0Add 0.5 \u03bcl of 10 \u03bcM second strand primer, 0.5 \u03bcl of 10 \u03bcM primer A, 12.5 \u03bcl of 2 \u00d7 KAPA HiFi HotStart ReadyMix directly to the PCR tube and mix by pipetting up and down for 20 times.\n33)\u00a0Run PCR program: 98 \u00b0C for 3 min; 98 \u00b0C for 15 s, 50 \u00b0C for 20 s, and 72 \u00b0C for 30 s, 14-18 cycles; 72 \u00b0C for 5 min.\n34)\u00a0Place the PCR tube into a magnetic stand for 2 min and transfer the supernatant to a 1.5 ml LoBind microcentrifuge tube.\n35)\u00a0Add 46.8 \u03bcl of Ampure XP beads (1.8: 1 ratio) to the LoBind tube. Pipette samples up and down 20-30 times and incubate at RT for 5 min.\n36)\u00a0Place the tube into a magnetic stand for 5 min and discard the supernatant. Wash Ampure XP beads twice with 200 \u03bcl of freshly prepared 80% ethanol.\n37)\u00a0Discard the supernatant and resuspend beads in 13 \u03bcl of nuclease-free water and pipette samples up and down 20-30 times. Incubate at RT for 5 min.\n38)\u00a0Place the tube into a magnetic stand for 5 min and transfer the supernatant to a new PCR tube.\n8.\nIn vitro\ntranscription (IVT) and RNA purification\n39)\u00a0Add IVT reaction mixture (2 \u03bcl of 10 \u00d7 Reaction buffer, 2 \u03bcl of NTP mix (25 mM), 1 \u03bcl of 0.1 M DTT, 0.5 \u03bcl of RNase Inhibitor, 2 \u03bcl of T7 Polymerase) to the PCR tube and incubate at 37 \u00b0C for 24 h.\n40)\u00a0Add DNase \u2160 mixture (3 \u03bcl of 10 \u00d7 TURBO buffer, 1 \u03bcl of TURBO enzyme, 6 \u03bcl of water) to the IVT solution and incubate at 37 \u00b0C for 30 min. Transfer the reaction mixture to a new 1.5 ml LoBind tube.\n41)\u00a0Add 66 \u03bcl of Agencourt RNA Clean beads (2.2: 1 ratio) to the 1.5 ml tube. Pipette samples up and down 20-30 times and incubate at RT for 5 min.\n42)\u00a0Place the tube into a magnetic stand for 5 min and discard the supernatant. Wash RNA Clean beads twice with 200 \u03bcl of freshly prepared 80% ethanol.\n43)\u00a0Resuspend RNA Clean beads in 13 \u03bcl of nuclease-free water, pipette samples up and down 20-30 times, and incubate at RT for 5 min.\n44)\u00a0Place the LoBind tube into a magnetic stand for 5 min and transfer the supernatant to a new PCR tube.\n45)\u00a0Take 1 \u03bcl of sample for RNA quantification using Qubit RNA HS Assay Kit.\n9. Reverse transcription, PCR barcoding, and deep sequencing\n46)\u00a0Add 1 \u03bcl of 10 \u03bcM P7 primer to the PCR tube and heat at 65\u00b0C for 5min. Snap-chill it on ice for 2 min.\n47)\u00a0Add RT mixture (4 \u03bcl of 5 \u00d7 first strand buffer, 1 \u03bcl of 0.1 M DTT, 0.5 \u03bcl of Superscript II, 0.5 \u03bcl of RNase inhibitor, and 1 \u03bcl of dNTP mix (10 mM)) to the PCR tube.\n48)\u00a0Incubate at 42 \u00b0C for 50 min, 70 \u00b0C for 15 min, and hold at 12 \u00b0C.\n49)\u00a0Add PCR mixture (1 \u03bcl of 10 \u03bcM P7 primer, 1 \u03bcl of 10 \u03bcM P5 index primer, 3 \u03bcl of 10 \u00d7 Pfx Buffer, 1 \u03bcl of 50 mM MgSO\n4\n, 0.6 \u03bcl of dNTP (25 mM each), 0.8 \u03bcl of Pfx enzyme, 2.6 \u00b5l of water) to cDNA product.\n50)\u00a0Run PCR program: 94 \u00b0C for 3 min; 94 \u00b0C for 15 s, 62 \u00b0C for 30 s, and 72 \u00b0C for 30 s, 8-12 cycles; 72 \u00b0C for 10 min. (see\nNote 7\n)\n51)\u00a0Fractionate PCR product on a 2% agarose gel at 120 V for 2 h, until the Orange G dye reaches the bottom of the gel.\n52)\u00a0Cut out the fragments between 130 bp and 300 bp from the gel and transfer them to a new 2 ml LoBind microcentrifuge tube.\n53)\u00a0Extract DNA with Gel Extraction Kit (Qiagen) and elute in 16 \u00b5l of elution buffer.\n54)\u00a0Quantify the library by Qubit dsDNA HS Assay Kit.\n55)\u00a0Sequence the LACE-seq library with Illumina HiSeq 2500 or NextSeq500 using single-end mode.\nB.\u00a0For large amounts of cells (> 10\n6\ncells)\nPlease note that this is a modified protocol suitable for large amounts of cells, for which IVT is not necessary.\n1.\u00a0UV cross-linking of cells\n1)\u00a0Grow cells in 10 cm Petri dishes to reach 80% confluence, rinse twice with 5 ml of ice-cold 1 \u00d7 PBS.\n2)\u00a0Place the dish on ice with the cover off, irradiate cells with UV-C light at 400 mJ two times.\n3)\u00a0Scrape the cells off from the dish into 5 ml of 1 \u00d7 PBS, transfer cell suspension to a 50 ml centrifugation tube, and centrifugation at 500 g for 5 min at 4 \u00b0C.\n4)\u00a0Discard the supernatant. The cross-linked samples can be stored at -80 \u00b0C for six months until use or directly proceed to the next step.\n2.\u00a0Magnetic beads preparation\n5)\u00a0Mix the protein A/G magnetic beads thoroughly before use. Place 40 \u00b5l of beads for each sample into a 1.5 ml microcentrifuge tube.\n6)\u00a0Wash beads twice with 200 \u00b5l of BSA/PBS solution (0.1% BSA in 1\u00d7PBS) and block with 500 \u00b5l of blocking buffer at room temperature (RT) for 1 h by rotating at 20 rpm.\n7)\u00a0Place the microcentrifuge tube into a magnetic stand for 1 min and discard the supernatant. Wash the blocked beads once with 500 \u00b5l of Na-phosphate buffer and resuspend with 200 \u00b5l of Na-phosphate buffer containing 10-15 \u00b5g specific antibody. Rotate at 20 rpm for 1 h at RT.\n8)\u00a0Spin down the beads to the bottom of the microcentrifuge tube with an IKA mini G centrifuge for 5 s. Place the tube into a magnetic stand for 1 min and discard the supernatant.\n9)\u00a0Wash beads twice with 500 \u00b5l of wash buffer and resuspend in 40 \u00b5l of wash buffer per sample. Leave the beads on ice for the following addition to the cross-linked lysate.\n3.\u00a0RNA immunoprecipitation and fragmentation\n10) Lyse cross-linked cells on ice using 500 \u00b5l of wash buffer for 10 min.\n11) Add 10 \u00b5l of SUPERase\u00b7In RNase inhibitor and 50 \u00b5l of RQ1 DNase to the cell lysate for digesting genomic DNA at 37 \u00b0C for 3 min in ThermoMixer C. Snap-chill the tube on ice for 3 min.\n12) Aliquot 40 \u00b5l of antibody-coupled beads from Step 9 into cell lysate prepared at Step 11 and rotate at 20 rpm/min for 1 h at 4 \u00b0C.\n13) Spin briefly and place the tube into a magnetic stand for 1min. Discard the supernatant and wash the beads three times with 500 \u00b5l of ice-cold wash buffer, once with 500 \u00b5l of high-salt wash buffer, and once with 500 \u00b5l of PNK buffer.\n14) Dilute MNase 1:1000 by mixing 0.5 \u03bcl of MNase with 499.5 \u03bcl of 1 \u00d7 MN buffer. Add 1 \u00b5l of the diluted MNase and 499 \u03bcl of 1 \u00d7 MN buffer to the thoroughly washed beads and incubate at 37 \u00b0C for 10 min in ThermoMixer C with intermittent mixing for 15 s at 1000 rpm every 3 min.\n15) Place the tube into a magnetic stand for 1 min and discard the supernatant. Wash the beads twice with 500 \u00b5l of 1 \u00d7 PNK + EGTA buffer, twice with 500 \u00b5l of wash buffer, and twice with 500 \u00b5l of PNK buffer.\n4.\u00a0RNA dephosphorylation and 3\u2019 linker ligation\n16) Resuspend the thoroughly washed beads in 100 \u00b5l of FastAP mixture (10 \u00b5l of 10 \u00d7 FastAP buffer, 8 \u00b5l of FastAP alkaline phosphatase, 2 \u00b5l of RNase inhibitor, 80 \u00b5l of water) and incubate at 37 \u00b0C for 10 min in ThermoMixer C with intermittent mixing for 15 s at 1000 rpm every 3 min.\n17) Discard the supernatant and wash the beads twice with 500 \u00b5l of 1 \u00d7 PNK + EGTA buffer, twice with 500 \u00b5l of PNK buffer, and twice with 500 \u00b5l of BSA solution (0.2 mg/ml BSA in DEPC-treated water).\n18) Resuspend the beads in 30 \u00b5l of ligation mixture (16 \u00b5l of water, 3 \u00b5l of 10 \u00d7 ligation buffer, 1 \u00b5l of 3\u2019 linker (10 \u00b5M), 1 \u00b5l T4 RNA ligase 2, 1 \u00b5l of RNase inhibitor, 8 \u00b5l 50% PEG8000) and incubate at 25 \u00b0C for 2.5 h in ThermoMixer C with intermittent vortexing at 500 rpm for 15 s every 3 min.\n19) Place the tube on a magnetic stand for 1 min and discard the supernatant. Wash beads three times with 500 \u00b5l of PNK buffer.\n5.\u00a0Reverse transcription on beads\n20) Resuspend the beads in 20 \u00b5l of nuclease-free water and 1 \u00b5l of 10 \u00b5M T7-RT primer.\n21) Transfer the 21 \u00b5l beads mixture to a new PCR tube, heat at 65 \u00b0C for 5min, and snap-chill on ice for 2 min.\n22) Add RT mixture (6 \u00b5l of 5 \u00d7 first-strand buffer, 0.5 \u00b5l of 0.1 M DTT, 1 \u00b5l of Superscript II, 0.5 \u00b5l of RNase inhibitor, 1 \u00b5l of dNTP mix (10 mM)) to the PCR tube and mix by pipetting up and down for 20 times.\n23) Incubate the PCR tube at 42 \u00b0C for 50 min, 70 \u00b0C for 15 min, and hold at 12 \u00b0C in a thermal cycler.\n24) Add 4 \u00b5l of 10 \u00d7 Exonuclease I buffer, 3 \u00b5l of Exonuclease I, and 3 \u00b5l of nuclease-free water mixture directly into the tube. Mix and incubate at 37 \u00b0C for 1 h, 80 \u00b0C for 20 min.\n6.\u00a0First-strand cDNA capture by streptavidin beads\n25) Release the first-strand cDNA from Protein A/G beads by adding 10 \u00b5l of RNase H reaction mixture (5 \u00b5l of 10 \u00d7 RNase H buffer, 2 \u00b5l of RNase H, 3 \u00b5l of nuclease-free water) to the PCR tube from Step 24. Mix briefly and incubate at 37 \u00b0C for 30 min, 65 \u00b0C for 20 min in a thermal cycler.\n26) Place the PCR tube on a magnetic stand for 1 min and transfer the supernatant to a new 1.5 ml LoBind microcentrifuge tube. Keep the tube on ice and waiting for the addition of Streptavidin beads.\n27) Transfer 10 \u00b5l of Streptavidin beads to a new 1.5 ml tube per sample and wash three times with 200 \u00b5l of 1 \u00d7 B & W buffer.\n28) Resuspend Streptavidin beads in 10 \u00b5l of 1 \u00d7 B & W buffer and transfer them to the supernatant from Step 26. Incubate at RT for 30 min by occasionally mixing every 5 min.\n29) Place the tube into a magnetic stand for 1 min and discard the supernatant.\n30) Wash beads twice with 200 \u00b5l of 1 \u00d7 B & W buffer and once with 200 \u00b5l of BSA solution.\n7.\u00a0Poly(A) tailing and pre-PCR\n31) Resuspend Streptavidin beads in 14.5 \u03bcl of nuclease-free water and transfer to a new PCR tube.\n32) Add 5.5 \u03bcl of TdT mixture (2 \u03bcl of 10 \u00d7 Terminal transferase Buffer, 2 \u03bcl of CoCl\n2\n, 1 \u03bcl of Terminal transferase, 0.5 \u03bcl of dATP (1 mM)) directly to the PCR tube and incubate at 37 \u00b0C for 10 min, 70 \u00b0C for 10 min in a thermal cycler.\n33) Add 1 \u03bcl of 10 \u03bcM second strand primer, 1 \u03bcl of 10 \u03bcM P5 index primer, 20 \u03bcl of 2 \u00d7 KAPA HiFi HotStart ReadyMix directly to the PCR tube and mix by pipetting up and down for 20 times.\n34) Run PCR program as below: 98 \u00b0C for 3 min; 98 \u00b0C for 15 s, 55 \u00b0C for 20 s, and 72 \u00b0C for 30 s, 10-14 cycles; 72 \u00b0C for 5 min.\n35) Fractionate PCR product on a 2% agarose gel at 120 V for 2 h, until the Orange G dye reaches the bottom of the gel.\n36) Cut out the fragments between 130 bp and 300 bp from the gel and transfer them to a new 2 ml LoBind microcentrifuge tube.\n37) Extract DNA with Gel Extraction Kit (Qiagen) and elute in 16 \u00b5l of elution buffer.\n38) Quantify the library by Qubit dsDNA HS Assay Kit.\n39) Sequence the LACE-seq library with Illumina HiSeq 2500 or NextSeq500 using single-end mode."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p><strong>Notes:</strong></p><p>1.&nbsp;The concentration and complexity of LACE-seq library usually are higher if starting with freshly prepared cells rather than frozen cells stocked at -80 \u00b0C over two weeks.</p><p>2.&nbsp;The antibody usage is dependent on the expression level of specific RBP and the input cell numbers. Users should also consider the immunoprecipitation efficiency when determining the antibody amounts to add.&nbsp;</p><p>3.&nbsp;A successful&nbsp;LACE-seq library construction strictly depends on the specificity and quality of the chosen antibody. We highly recommend to use the antibody suitable for immunoprecipitation. </p><p>4.&nbsp;The appropriate concentration of Micrococcal nuclease is critical for LACE-seq library construction. The protein-associated RNA fragments will be too short to be ligated with adaptors if the concentration of MNase is too high. In contrast, the fragment size will be too long to discern the cDNA termination sites if its concentration is too low. The dilution factor titrated in our hand is suitable for low-input cells and single oocytes.</p><p>5.&nbsp;We found that 0.5-100 fmol T7-RT primers are suitable for constructing LACE-seq library started from dozens of cells. Exonuclease I digestion cannot completely remove the T7-RT primer. If an overdose of primer is used, the residual T7-RT primers will be poly(A) tailed and form primer dimers in the constructed library.</p><p>6.&nbsp;The poly (A) tail length should be strictly controlled since a long stretch of A may lead to failure in sequencing. We have systematically tested the reaction time and dATP concentration to ensure the optimal length of the poly (A) tail.</p><p>7.&nbsp;The cycle numbers of barcoding PCR strictly depend on the concentration of transcribed RNA at the IVT step, which typically can produce approximately 120 ng total RNA if start with 1-50 oocytes. Over amplification usually introduce too many PCR duplicates, thus decreasing the library complexity. </p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>A LACE-seq library typically can be constructed within 2.5 days:</p><p>Day 1</p><p>UV cross-linking of cells typically takes 10 min, while magnetic beads preparation, RNA immunoprecipitation, and fragmentation steps usually need 4 h. In subsequent phases, RNA dephosphorylation and 3\u2019 linker ligation can be completed within 3 h. In comparison, the reverse transcription on beads requires 2.5 h, first-strand cDNA capture by streptavidin beads needs 1.5 h, and poly(A) tailing and pre-PCR can be finished within 1.5 h.</p><p>Day2</p><p>In vitro transcription and RNA purification usually need 24 h.</p><p>Day 3</p><p>Reverse transcription, PCR barcoding, and size selection typically can be completed within 5 h.</p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>If a LACE-seq library construction is successful, we expect to see a smeared band ranged from 130 bp to 400 bp and peaked at 180 bp. After gel extraction, we typically will get 50-200 ng of PCR products at a final concentration of 5-10 ng/\u03bcl. As reverse transcription termination sites are a critical feature for deducing the precise RBP binding positions and prioritizing the targets, among a successful LACE-seq library, the percentage of cDNA end containing reads should be higher than 60%. </p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>1.&nbsp;Hentze, M. W., Castello, A., Schwarzl, T. &amp; Preiss, T. A brave new world of RNA-binding proteins. <em>Nature reviews. Molecular cell biology</em> <strong>19</strong>, 327-341 (2018).</p><p>2.&nbsp;Christou-Kent, M., Dhellemmes, M., Lambert, E., Ray, P. F. &amp; Arnoult, C. Diversity of RNA-Binding Proteins Modulating Post-Transcriptional Regulation of Protein Expression in the Maturing Mammalian Oocyte. <em>Cells</em> <strong>9</strong> (2020).</p><p>3.&nbsp;Khalaj, K.<em> et al.</em> RNA-Binding Proteins in Female Reproductive Pathologies. <em>The American journal of pathology</em> <strong>187</strong>, 1200-1210 (2017).</p><p>4.&nbsp;Fu, X. D. &amp; Ares, M., Jr. Context-dependent control of alternative splicing by RNA-binding proteins. <em>Nature reviews. Genetics</em> <strong>15</strong>, 689-701 (2014).</p><p>5.&nbsp;Xue, Y.<em> et al.</em> Direct conversion of fibroblasts to neurons by reprogramming PTB-regulated microRNA circuits. <em>Cell</em> <strong>152</strong>, 82-96 (2013).</p><p>6.&nbsp;Xue, Y.<em> et al.</em> Genome-wide analysis of PTB-RNA interactions reveals a strategy used by the general splicing repressor to modulate exon inclusion or skipping. <em>Molecular cell</em> <strong>36</strong>, 996-1006 (2009).</p><p>7.&nbsp;Chen, J.<em> et al.</em> The RNA-binding protein ROD1/PTBP3 cotranscriptionally defines AID-loading sites to mediate antibody class switch in mammalian genomes. <em>Cell research</em> <strong>28</strong>, 981-995 (2018).</p><p>8.&nbsp;Cai, Z.<em> et al.</em> RIC-seq for global in situ profiling of RNA-RNA spatial interactions. <em>Nature</em> <strong>582</strong>, 432-437 (2020).</p><p>9.&nbsp;Ye, R., Cao, C. &amp; Xue, Y. Enhancer RNA: biogenesis, function, and regulation. <em>Essays Biochem</em> <strong>64</strong>, 883-894 (2020).</p><p>10.&nbsp;Ule, J.<em> et al.</em> CLIP identifies Nova-regulated RNA networks in the brain. <em>Science</em> <strong>302</strong>, 1212-1215 (2003).</p><p>11.&nbsp;Van Nostrand, E. L.<em> et al.</em> Robust transcriptome-wide discovery of RNA-binding protein binding sites with enhanced CLIP (eCLIP). <em>Nature methods</em> <strong>13</strong>, 508-514 (2016).</p><p>12.&nbsp;Konig, J.<em> et al.</em> iCLIP reveals the function of hnRNP particles in splicing at individual nucleotide resolution. <em>Nature structural &amp; molecular biology</em> <strong>17</strong>, 909-915 (2010).</p><p>13.&nbsp;Licatalosi, D. D.<em> et al.</em> HITS-CLIP yields genome-wide insights into brain alternative RNA processing. <em>Nature</em> <strong>456</strong>, 464-469 (2008).</p><p>14.&nbsp;McMahon, A. C.<em> et al.</em> TRIBE: Hijacking an RNA-Editing Enzyme to Identify Cell-Specific Targets of RNA-Binding Proteins. <em>Cell</em> <strong>165</strong>, 742-753 (2016).</p><p>15.&nbsp;Lin, C. &amp; Miles, W. O. Beyond CLIP: advances and opportunities to measure RBP-RNA and RNA-RNA interactions. <em>Nucleic acids research</em> <strong>47</strong>, 5490-5501 (2019).</p><p>16.&nbsp;Su, R., Fan, LH., Cao, C. et al. Global profiling of RNA-binding protein target sites by LACE-seq. Nat Cell Biol 23, 664\u2013675 (2021). https://doi.org/10.1038/s41556-021-00696-9.</p><p>&nbsp;</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41556-021-00696-9",
+                "date": "2021-06-09 16:06:28",
+                "title": "Global profiling of RNA-binding protein target sites by LACE-seq",
+                "authors": [
+                    "Ruibao Su",
+                    "Li-Hua Fan",
+                    "Changchang Cao",
+                    "Lei Wang",
+                    "Zongchang Du",
+                    "Zhaokui Cai",
+                    "Ying-Chun Ouyang",
+                    "Yue Wang",
+                    "Qian Zhou",
+                    "Ligang Wu",
+                    "Nan Zhang",
+                    "Xiaoxiao Zhu",
+                    "Wen-Long Lei",
+                    "Hailian Zhao",
+                    "Yong Tian",
+                    "Shunmin He",
+                    "Catherine C. L. Wong",
+                    "Qing-Yuan Sun",
+                    "Yuanchao Xue"
+                ],
+                "journal": "Nature Cell Biology",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 23258659,
+                "identity": "8ee7be14-3af4-4f47-8839-a230cfcc032f",
+                "order_by": 0,
+                "name": "Ruibao Su",
+                "email": "",
+                "orcid": "",
+                "institution": "Key Laboratory of RNA Biology, Institute of Biophysics, Chinese Academy of Sciences",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Ruibao",
+                "middleName": "",
+                "lastName": "Su",
+                "suffix": ""
+            },
+            {
+                "id": 23258899,
+                "identity": "c13d184c-4f55-4110-9d35-12cb4d98261f",
+                "order_by": 1,
+                "name": "Di Wang",
+                "email": "",
+                "orcid": "",
+                "institution": "Key Laboratory of RNA Biology, Institute of Biophysics, Chinese Academy of Sciences",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Di",
+                "middleName": "",
+                "lastName": "Wang",
+                "suffix": ""
+            },
+            {
+                "id": 23258900,
+                "identity": "1da83fd2-bebd-4164-a6e8-64c459bd096e",
+                "order_by": 2,
+                "name": "Changchang Cao",
+                "email": "",
+                "orcid": "",
+                "institution": "Key Laboratory of RNA Biology, Institute of Biophysics, Chinese Academy of Sciences",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Changchang",
+                "middleName": "",
+                "lastName": "Cao",
+                "suffix": ""
+            },
+            {
+                "id": 23258901,
+                "identity": "c286976f-45e7-4348-b2e7-fe3bf2f53c5b",
+                "order_by": 3,
+                "name": "Yuanchao Xue",
+                "email": "ycxue@ibp.ac.cn",
+                "orcid": "https://orcid.org/0000-0002-8113-2333",
+                "institution": "Key Laboratory of RNA Biology, Institute of Biophysics, Chinese Academy of Sciences",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Yuanchao",
+                "middleName": "",
+                "lastName": "Xue",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2021-04-26 03:09:16",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1499/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1499/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13697888,
+                "identity": "170240bc-a002-4a3c-9124-bfab2c8af975",
+                "added_by": "auto",
+                "created_at": "2021-09-17 13:11:50",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 366826,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1499/v1/6662b9b7-c09a-4a2b-8473-c4673efeefe5.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "RNA-binding protein; deep sequencing; binding site ",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>RNA-binding proteins (RBPs) directly interact with various RNAs in living cells to regulate their processing, translation, and stability. Identifying the precise binding sites of RBPs is critical for appreciating their physiological or pathological roles in germline and early embryo development. Current methods typically need millions of cells to map RBP binding positions, which prevents us from appreciating the crucial role of RBPs in early development. Here, we present the LACE-seq method for unbiased mapping of RBP-binding sites at single-nucleotide resolution in fewer cells or even single oocytes. LACE-seq depends on RBP-mediated reverse transcription termination, and linear&nbsp;amplification of&nbsp;the cDNA&nbsp;ends for deep sequencing. To further promote its application, we describe a step-by-step protocol about how to construct a successful LACE-seq library.</p>",
+        "manuscriptTitle": "Profiling the binding sites of RNA-binding protein by LACE-seq",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2021-06-10 10:23:10",
+                "doi": "10.21203/rs.3.pex-1499/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "f7a0e22c-3a33-4f87-876f-ef8309234be1",
+        "owner": [],
+        "postedDate": "June 10th, 2021",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3886385,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 3886386,
+                "name": "Molecular biology"
+            },
+            {
+                "id": 3886387,
+                "name": "Cell Biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2021-06-10 10:23:10",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

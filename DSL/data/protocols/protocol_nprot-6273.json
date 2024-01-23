@@ -1,0 +1,183 @@
+{
+    "identity": "nprot-6273",
+    "title": "Protein interaction perturbation profiling at amino acid resolution",
+    "content": [
+        {
+            "header": "Procedure",
+            "content": "1. Generation of mutant library PCR product\r\n  \r\n\n\nMutagenesis carried out as in Kitzman et al. \\(Step-by-step protocol available, Nature Methods, 2015) with the following alterations: To create WT template strands, each ORF was amplified from a gateway destination vector using generic att site primers. Each PCR product is then flanked with identical short sequences facilitating parallel mutant library synthesis while still allowing direct transfer of the final PCR products into a gateway donor vector via a BP reaction.\r\n\n\n\r\n\n\n2. Mutant Y2H library generation in yeast\r\n  \r\n\n\nBP the mutant library construct PCR into pDONR vector for 24hrs at 25\u00b0C using 80-120ng purified PCR product and 150ng pDONR vector in a total reaction volume of 10\u00b5l.\r\n\n\nTransform 4\u00b5l of the BP rxn into 50\u00b5l electro competent bacteria. Collect a colony number that is 20-100x the predicted number of variants in the mutant library. Midi-prep the resulting bacteria pellet.\r\n\n\nLR the mutant library into the desired gateway compatible destination vector for 24hrs at 25\u00b0C using 100-150ng pDONR mutant library and 150ng destination vector in a total reaction volume of 10\u00b5l.\r\n\n\nTransform 4\u00b5l LR rxn into 50\u00b5l electro competent bacteria. Again collect a colony number that is 20-100x the predicted number of variants in the mutant library. Midi-prep the resulting bacteria pellet.\r\n\n\nTransform the resultant Y2H mutant library into yeast. Scale up standard lithium acetate transformations to achieve same colony number as for the bacterial transformations. Plate out yeast transformation onto 3-4 large bioassay dishes \\(245mm\u00d7245mm\u00d725mm) containing NB-agar with the appropriate amino acid and 2% glucose supplement \\(NB+AA). Bait vectors agar add leucine, methionine, adenine, histidine. Prey vector agar add tryptophan methionine, adenine, histidine.\r\n\n\n\r\n\n\n3. Int-Seq mating protocol\r\n  \r\n\n\nInoculate wild type yeast binding partner in 50ml NB+AA media for 24-36 hours in shaking incubator at 30\u00b0C prior to starting experiment. Centrifuge and re-suspend yeast culture in NB+AA media to concentrate the yeast cells to an\nOD600 20-40. Collect yeast mutant library colonies in\n25ml NB-amino acid media to give an ~OD600 40-80. To saturate the mutant library, wild type and mutant library are then mixed in a 2:1 ratio by cell number and mated on YPDA media prior to incubation at 30\u00b0C for 24hours. For mating pipette 40\u00b5l of the above wild type and mutant library solutions onto YPDA agar in a 6-well plate, spreading immediately with glass beads.\r\n\n\nRe-suspend the yeast in 350\u00b5l NB-amino acids media, plate 60\u00b5l of the resulting suspension on each of 3-4 large bioassay dishes \\(select diploids on NB agar lacking leucine and tryptophan) in a total volume of 2.5ml NB+AA media per plate. Collect diploid yeast colonies in\n25ml NB+AA media. Mix well through inversion. Dilute down to\nOD600 0.5 before plating on 2 NB agar plates lacking tryptophan, leucine and adenine to select for interaction disrupting mutants.\r\n\n\nIncubate at 30\u00b0C for 1-3 days until yeast have grown, collect in ~25ml NB-amino acid media prior to centrifuging and storing pellet at -20\u00b0C until the DNA extraction can be undertaken.\r\n\n\n\r\n\n\n4. DNA extraction protocol\r\n  Thaw yeast pellet and lysozyme on ice. Re-suspend pellet in 300\u00b5l P1 buffer +1mg/ml lysozyme). Incubate in water bath at 37\u00b0C for 45minutes, mixing through inversion every 10 minutes. Add equal volume \\(as above) buffer P2 and incubate for 10 minutes. Add equal volume buffer P3, mix gently and allow to stand at RT for 15 minutes. Centrifuge at 14,000rpm for 30 minutes at room temperature. All buffer / solution volumes can be adjusted depending on yeast pellet size.\r\n\n\nPipette supernatant into a new 2ml falcon tube. Add 0.7x volume isopropanol to precipitate the DNA \\(so for 0.9ml, add 630\u00b5l). Centrifuge @ 14000rpm, 4\u00b0C for 30 minutes. Remove ALL excess isopropanol and allow to air dry for 10 minutes. Then re-suspend pellet in 300\u00b5l TE buffer. Add 0.5 volumes phenol \\(so 0.15ml for 0.3ml initial TE volume). Add 0.5 volumes \\(so 150\u00b5l here) chloroform isoamylalkohol \\(24:1), vortex. Centrifuge @ 14000rpm, 4\u00b0C for 3 minutes to separate the 2 phases.\r\n\n\nTransfer supernatant into new eppi \\(carefully pipette the aqueous phase by tilting the eppi). Add 1 volume chloroform isoamylalkohol \\(24:1) \\(so 300\u00b5l here) and centrifuge @ 14000rpm, 4\u00b0C for 3 minutes to separate the phases. Transfer the upper phase into a new 2ml eppi. Add 0.1 volume \\(so 30\u00b5l) 3M NaOac pH6.0. Wash with 3 volumes \\(900\u00b5l) ethanol. Centrifuge @ 14000rpm, 4\u00b0C for 1h then remove supernatant and let the pellet air dry. Resuspend in 50\u00b5l distilled H20.\r\n\n\nBuffers:\r\n\n\nP1: 50mM Tris, 10mM EDTA,10ml 0.5M EDTA, pH8.0, + RNase A \\(50\u00b5g/ml) \r\n\n\nP2:  200mM NaOH , 1% SDS \\(w/v)\r\n\n\nP3: 3M potassium acetate, pH 5.5\r\n\n\n\r\n\n\nPCR mutant library using vector / gene specific primers with a proof reading PCR enzyme. PCR both the mutant library pDONR and Y2H vectors as input controls for next generation sequencing analysis.\r\n\n\n\r\n\n\nSimultaneously fragment and tag PCR products using Nextera XT DNA Library Preparation Kit. Sequence using NextSeq 500, 150base pair read length, paired end.\r\n\n\n\r\n\n\n5. Initial sequence analysis outline\r\n  Generate unique 150mer single and paired end sequence fasta files from the raw fastq files. Align 150mer sequences against the specific construct used in each interaction assay using the rmapper tool in the sensitive SCHRiMP alignment software package \\(or other accurate DNA alignment software). Condense aligned rmapper files to obtained recall statistics of mutant codons in each position into a matrix format for importing into the R statistical analysis software. Regress the number of mutant codons at any given position against the input Y2H vector controls using the R-based linear model function \u201clm\u201d on 99% of the data \\(to prevent extreme outliers strongly influencing the model). Calculate the enrichment as:\r\n\n\n\r\n\n\nAmino acid codon enrichment = Observed total sequences for Codon 'x' divided by Expected total sequences for Codon 'x'.\r\n\n\n\r\n\n\nThe enrichment values for 2-4 samples were averaged per mutant library versus wild type interaction to give an initial mutagenic perturbation profile."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nmeth.4464",
+                "date": "2017-10-17 16:02:19",
+                "title": "Protein interaction perturbation profiling at amino-acid resolution",
+                "authors": [
+                    "Jonathan Woodsmith",
+                    "Luise Apelt",
+                    "Victoria Casado-Medrano",
+                    "Ziya \u00d6zkan",
+                    "Bernd Timmermann",
+                    "and Ulrich Stelzl"
+                ],
+                "journal": "Nature Methods",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 15081,
+                "identity": "a12b9f0a-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Jonathan Woodsmith",
+                "email": "jonathan.woodsmith@uni-graz.at",
+                "orcid": "",
+                "institution": "Stelzl Lab, University of Graz",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Jonathan",
+                "middleName": "",
+                "lastName": "Woodsmith",
+                "suffix": ""
+            },
+            {
+                "id": 15082,
+                "identity": "a12ba389-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Ulrich Stelzl",
+                "email": "ulrich.stelzl@uni-graz.at",
+                "orcid": "",
+                "institution": "Stelzl Lab, University of Graz",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Ulrich",
+                "middleName": "",
+                "lastName": "Stelzl",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2017-09-25 08:30:13",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2017.110",
+        "doiUrl": "https://doi.org/10.1038/protex.2017.110",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13465107,
+                "identity": "bac8a43a-4ddc-4614-a28f-9729d7813931",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:45:41",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 115925,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-6273/v1/9232c8a5-7447-417e-a9f9-e82d31a29c6f.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Protein-protein interactions, massively parallel programmed mutagenesis, reverse yeast two hybrid",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "Identification of genomic variants in healthy and diseased individuals continues to rapidly outpace our ability to functionally annotate them. Techniques that both systematically assay the functional consequences of nucleotide resolution variation and can scale to hundreds of genes are urgently required. We designed a sensitive yeast two-hybrid based \u201coff switch\u201d for positive selection of interaction disruptive variants from complex genetic libraries. Combined with massively parallel programmed mutagenesis and a sequencing readout, it enables systematic profiling of protein interaction determinants at an amino acid resolution. We defined >1,000 interaction disrupting amino acid mutations across eight subunits of the BBSome, the major human cilia protein complex associated with the pleiotropic genetic disorder Bardet-Biedl-Syndrome. These high-resolution interaction perturbation profiles provide a framework for interpreting patient derived mutations across the entire protein complex, highlighting how the impact of disease variation on interactome networks can be assessed systematically.",
+        "manuscriptTitle": "Protein interaction perturbation profiling at amino acid resolution",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2017-10-17 16:02:41",
+                "doi": "10.1038/protex.2017.110",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a12b5011-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "October 17th, 2017",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 4047,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 4048,
+                "name": "Biochemistry"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2017-10-17 16:02:41",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

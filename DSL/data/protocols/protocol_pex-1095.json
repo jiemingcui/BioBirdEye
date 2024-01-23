@@ -1,0 +1,233 @@
+{
+    "identity": "pex-1095",
+    "title": "<p>SoCCer: A pipeline to identify classes of soluble proteins in chemical communication in insect genomes</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>Insect genomes contain hundreds of OBPs important for olfactory processes (Venthur and Zhou, 2018). They are generally of helical fold and could be classified into subfamilies (like Minus-C, Plus-C, Classic and Atypical) depending on the length of OBP domain, cysteine topology and disulphide connectivity. Soluble proteins in chemical communication remain dissolved in the chemosensory organs in an insect. An extensive literature survey revealed that these typically include Odorant-binding proteins (OBPs), D7-proteins, Chemosensory proteins (CSPs) and Niemann-Pick C2 type proteins (NPCs). Protein families of OBPs, CSPs and NPC2 are secretory in nature with an N-terminal signal peptide (Pelosi et al, 2018). </p><p>&nbsp;</p><p>NPC2 proteins share some structural and functional characteristics with odorant-binding proteins (OBPs) and chemosensory proteins (CSPs), soluble polypeptides involved in detection and delivery of semiochemicals in vertebrates and in insects (<a href=\"https://www.frontiersin.org/articles/10.3389/fphys.2018.00052/full#B46\" rel=\"noopener noreferrer\" target=\"_blank\">Vogt and Riddiford, 1981</a>;<a href=\"https://www.frontiersin.org/articles/10.3389/fphys.2018.00052/full#B32\" rel=\"noopener noreferrer\" target=\"_blank\"> Angeli et al., 1999; Pelosi et al., </a>2014,<a href=\"https://www.frontiersin.org/articles/10.3389/fphys.2018.00052/full#B34\" rel=\"noopener noreferrer\" target=\"_blank\"> 201</a>8;<a href=\"https://www.frontiersin.org/articles/10.3389/fphys.2018.00052/full#B1\" rel=\"noopener noreferrer\" target=\"_blank\"> </a>). As OBPs and CSPs, also NPC2 proteins present a signal peptide revealing their secretory nature. The OBPs of insects are made of \u03b1-helical domains connected by short unstructured loops and held together in a compact structure by three conserved disulphide bridges (<a href=\"https://www.frontiersin.org/articles/10.3389/fphys.2018.00052/full#B38\" rel=\"noopener noreferrer\" target=\"_blank\">Vogt et al., 200</a>2). Proteins of both classes are extremely compact and stable, and this characteristic is also shared with NPC2 proteins. </p><p>&nbsp;</p><p>The vertebrate OBPs are markedly different from those of insects in terms of amino acid sequence and three-dimensional folding (<a href=\"https://www.frontiersin.org/articles/10.3389/fphys.2018.00052/full#B31\" rel=\"noopener noreferrer\" target=\"_blank\">Pelosi, 1994</a>;<a href=\"https://www.frontiersin.org/articles/10.3389/fphys.2018.00052/full#B42\" rel=\"noopener noreferrer\" target=\"_blank\"> Tegoni et al., 2000</a>), despite their common name and biological function. They belong to the family of lipocalins and have the typical \u03b2-barrel structure, made of eight \u03b2-sheets and a short \u03b1-helical segment (<a href=\"https://www.frontiersin.org/articles/10.3389/fphys.2018.00052/full#B43\" rel=\"noopener noreferrer\" target=\"_blank\"> Tegoni et al., 1996</a>; <a href=\"https://www.frontiersin.org/articles/10.3389/fphys.2018.00052/full#B9\" rel=\"noopener noreferrer\" target=\"_blank\">Briand et al., </a>2000). Moreover, the three-dimensional folding of NPC2 (<a href=\"https://www.frontiersin.org/articles/10.3389/fphys.2018.00052/full#B15\" rel=\"noopener noreferrer\" target=\"_blank\">Vanier et al., 200</a>4;<a href=\"https://www.frontiersin.org/articles/10.3389/fphys.2018.00052/full#B21\" rel=\"noopener noreferrer\" target=\"_blank\"> Ishida et al., 2014</a>) proteins resembles the \u03b2-barrel of lipocalins, while the presence of six conserved cysteines paired in three disulphide bridges is reminscent of insect OBPs.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": ""
+        },
+        {
+            "header": "Equipment",
+            "content": ""
+        },
+        {
+            "header": "Procedure",
+            "content": "Workflow\nThe workflow of our approach is as described below (\nFigure 1\n). It may be broadly divided into genomics, proteomics, machine-learning and evolutionary sub-approaches.\nDatasets were manually constructed and curated for seven protein families majorly involved in insect chemical communication. In order to build in-house datasets, well-annotated and curated protein sequences were mined from literature, UniProt and SwissProt searches. The protein \u2018classes\u2019 considered were Classic, Minus-C, Plus-C, Atypical, D7, CSP and NPC2. A control dataset was prepared that consisted of insect proteins that did not belong to any of the above classes. Unique and non-redundant protein sequences were retained.\nFeatures were computed to contribute to bit-wise information about each class-specific sequence. A feature matrix was derived that comprised 36 bits per sequence in a given class and necessary steps were taken to minimize or nullify bias due to imbalanced datasets wherever applicable.\nMachine learning models were built using sklearn library in Python v3.5 environment.\nVarious classifiers were used on the data. Data was split into training and testing using the 80:20 ratio. MinMax scaler was used to normalize the data. Data was split into training and testing for X and Y each. Performance was evaluated using measures of accuracy, precision, recall, f1-support, and Mathews\u2019 correlation coefficient (MCC). The performance was also visualized using a confusion matrix plotted using Python libraries.\nA total of 17 features were selected to be computed per sequence in each class. These are as follows-\na.\u00a0\u00a0\u00a0\u00a0Position-Specific Score Matrix (PSSM)\nb.\u00a0\u00a0\u00a0\u00a0Accessible Surface Area (ASA)\nc.\u00a0\u00a0\u00a0\u00a0Phi and Psi torsion angles (dihedral angles)\nd.\u00a0\u00a0\u00a0\u00a0Secondary structure\ne.\u00a0\u00a0\u00a0\u00a0Disorder scores of protein (two scores)\nf.\u00a0\u00a0\u00a0\u00a0\u00a0Number of Cysteines\ng.\u00a0\u00a0\u00a0\u00a0Length of protein\nh.\u00a0\u00a0\u00a0\u00a0Molecular weight\ni.\u00a0\u00a0\u00a0\u00a0\u00a0Aromaticity\nj.\u00a0\u00a0\u00a0\u00a0\u00a0Stability score\nk.\u00a0\u00a0\u00a0\u00a0Isoelectric point of sequence (pI)\nl.\u00a0\u00a0\u00a0\u00a0\u00a0Molecular coefficient of reduction extinction\nm.\u00a0\u00a0Molecular coefficient of disulphide\nn.\u00a0\u00a0\u00a0\u00a0Entropy of sequence\no.\u00a0\u00a0\u00a0\u00a0Number of globular domains in the sequence\np.\u00a0\u00a0\u00a0\u00a0Residue Adjacency Matrix of Cysteines (RAM)\nInsect genomes were collected from NCBI, Ensembl and VectorBase. Genomic alignments were obtained using protein datasets representative of each of the seven classes as query.\nThese were then used to obtain unique gene models and non-redundant protein sequences using a combined approach. A four-pronged approach was then used to score list of predicted proteins on the presence of cysteine topology, PBP/GOBP domain, length cut-off as well as the presence of signal peptide using predictive and in-house scripts. Due to the nature of predictions, scoring for only few of these criteria does not guarantee the sequence to be an OBP due to biochemical similarities across various classes of insect proteins. Hence, sequence passing the cut-off score were tested using optimized machine learning models trained to discriminate amongst seven major types of protein families/sub-families mediating insect chemical communication.\nPhylogenetic analysis of predicted classes/sub-families coupled with analyses of motifs, domains and co-occuring domains identified yielded unique insights into the evolution and possible functional significance of OBP and other protein families involved in communication in insects.\nUser-end inputs-\ni.\nFirst stage.\nTwo modes in input are possible- either A or B, or both A and B can be provided as input.\nA.\u00a0\u00a0\u00a0An\ninput file\nwith a list of protein sequences in FASTA format with special amino acids \u2018B\u2019, \u2018J\u2019 and \u2018X\u2019 removed. The header of every fasta sequence will be retained upto the first twenty characters.\nB.\u00a0\u00a0\u00a0An input folder with genome of the organism of interest in fna format, genomic alignment output file and a file with query proteins of interest from any organism.\nii.\nSecond stage.\nAn\ninput folder\nwith feature files corresponding to each protein sequence in the output fasta file of the first stage (i). These feature files are to be correctly named with the prefix same as that of the unique header ID of the protein sequence.\niii.The features can be computed using the code provided in Github repository https://github.com/bhavikamam/SoCCer/featurizer.py after appropriate changes in path have been made as per the requirement of the user. The \u2018readme\u2019 file will contain instructions for the software to be installed locally. The output file at this step has to be provided as input to the Python script for further identification and classification.\nSoftware, scripts\nThe entire pipeline and codes for the same have been uploaded in a repository on Github titled \u2018SoCCer\u2019 by the username \u2018bhavikamam\u2019.\nAdvantages\nDue to the similarities across some protein families in combination of\u00a0i. type of domain, ii. sequence, iii. structural and/ iv. functional properties, identifying a protein correctly as an OBP subtype is quite challenging. Our methodology derives a non-linear relationship from all the essential feature information provided and identifies whether a given protein sequence as one of the major families in insect chemical communication and accordingly classifies it further.\nComparison with other methods\nThere are a number of computational pipelines that combines gene prediction tools, starting from handling raw sequencing data, gathering transcript evidence and so on. However, such pipelines are not specialised for particular protein families. There are also sequence search techniques, but they mostly use amino acid exchange information to recognise homologous sequences and do not absorb or incorporate features such as secondary structures or cysteine connectivities in the identification or classification of proteins into subfamilies.\nCurrently to our knowledge, there is no other existing computational technique that classifies protein into one of the OBP subfamilies or other families involved in insect chemical communication using an optimized ML-based approach.\nApplication\nThe technique is useful in identifying and classifying the protein family/ or sub-family of insect chemical communication to which a novel and/or existing protein sequence predicted would belong by using a combinatorial genomics, machine learning and evolutionary-based approach.\nTarget audience\nThe major target audience of interest for this methodology would comprise entomologists and evolutionary biologists. Olfaction being a major sensory modality for insects, entomologists would be highly interested to learn more about the olfactory system in insects across orders as well as the types of proteins participating in the process of olfaction. Near-automatic classification of different types of OBPs not only provides them an advantage in terms of functional annotation but it would also help them to recognize subfamilies for designing experiments. For example, pheromone receptors could be taken up for detailed biochemical studies by cloning putative pheromone-binding proteins predicted by this methodological pipeline.\nUse of technique\nThis technical is useful because the scientific community has to otherwise typically engage in laborious manual process of aligning widely different types of OBPs since they differ in their length and disulphide connectivity and hence have to be examined manually to then be classified. Instead, we hereby, present a computational scheme by which we apply a novel combined approach to perform these classifications computationally. This can be used for few other non-OBP families as well.\nLimitations\nThe limitation of the technique is that as and when we come across newer OBP sub-types as we mine more insect genomes, we may come across unexpected or surprising deviations from these disulphide bonds patterns by which automatic recognition of these subfamily types would be challenging, so we expect that the protocol also must be open to adapt itself to increasing knowledge that comes from merely looking at more number of insect genomes as we go by."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p><strong>Troubleshooting</strong></p><p>The presence of large insert regions could hamper accurate identification and classification. While handling protein sequences of insect genomes, the user can remove or trim huge indel regions with respect to secondary structure and re-submit. Similarly, N-terminal and C-terminal overhangs can be submitted to Pfam so that proper domain boundaries may be recognized.</p><p><br></p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p><strong>Time taken</strong></p><p>The estimated time taken for the pipeline depends on the size of the genome and that of the available predicted protein sets from curated public repositories. For a file size of 1Gb, obtaining genomic alignments with query proteins and gene predictions can be accomplished within two hours using a GPU-based cluster. Generating feature files and input feature matrices is done using in-house Python scripts and takes approximately 5 hours &nbsp;for ~1000 &nbsp;protein sequences. Training neural networks took 10-12 hours whereas testing protein sequences takes less than 30 minutes. </p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>The pipeline analyzes diverse insect genomes to identify and discriminate among soluble proteins belonging to known classes of chemical communication, namely, OBPs, CSPs, NPC2 and D7. </p><p>The stepwise output of the pipeline first results in query-specific genomic alignments and predicted genes which are filtered along with proteins obtained from public repositories. The shortlisted set of predicted proteins are further subjected to feature matrix generation (<strong>Figure 2A</strong>) that is used as input to the optimized and trained neural network model (<strong>Figure 2B</strong>). The output of the network is a regression value indicating the likelihood of the sequence belonging to each of the classes.</p><p>As an example, in case of Hymenopteran <em>Apis florea </em>genome, the pipeline revealed 22 novel OBPs with 9 partial sequences either at the N-terminus, C-terminus or both with an average exon number of 5. Out of the 22 complete sequences annotated, 13 were predicted as Classic and 9 as Minus-C. The Classic OBP subfamily clade had expanded to Minus-C OBPs in honeybee and few other insect orders (<strong>Figure 2C</strong>). </p><p>Thus implementation of this pipeline streamlines gene and protein sequence prediction of classes important for insect chemical communication. This is done taking in account size, conserved cysteine pattern, disulphide spacing as well as secondary structure.</p>"
+        },
+        {
+            "header": "References",
+            "content": "<p><strong>References </strong></p><p>Angeli S, Ceron F, Pelosi P. Purification, structural characterization, cloning and immunocytochemical localization of chemoreception proteins from Schistocerca gregaria. European Journal of Biochemistry, 1999; 262 (3) : 0014-2956</p><p>Briand L, Nespoulous C, Perez V, R\u00e9my JJ, Huet JC, Pernollet JC. Ligand-binding properties and structural characterization of a novel rat odorant-binding protein variant.&nbsp;European Journal of Biochemistry, 2000; 267(10):3079\u20103089. </p><p>Ishida Y,&nbsp;Tsuchiya W,&nbsp;Fujii T,&nbsp;Fujimoto Z,&nbsp;Miyazawa M,&nbsp;Ishibashi J,</p><p>Matsuyama S,&nbsp;Ishikawa Y,&nbsp;Yamazaki T. Ant NPC2 mediating worker chemical communication. Proceedings of the National Academy of Sciences, 2014;&nbsp;201323928.</p><p>Larter NK, Sun JS, Carlson JR. Organization and function of&nbsp;Drosophila&nbsp;odorant binding proteins.&nbsp;Elife, 2016; 5: e20242. </p><p>Pelosi P.&nbsp;Odorant-binding proteins.&nbsp;Critical Reviews in Biochemistry and Molecular Biology. 1994; 29(3):199\u2010228. </p><p>Pelosi P, Calvello M, Ban L. Diversity of Odorant-binding Proteins and Chemosensory Proteins in Insects,&nbsp;<em>Chemical Senses</em>, 2005, 30 (1): 291\u2013292</p><p>Pelosi P, Iovinella I, Felicioli A, Dani FR. Soluble proteins of chemical communication: an overview across arthropods.&nbsp;Frontiers in Physiology, 2014; 5:320</p><p>Pelosi P, Zhu J, Knoll W. Odorant-Binding Proteins as Sensing Elements for Odour Monitoring.&nbsp;Sensors (Basel), 2018; 18(10): 3248.</p><p>Tegoni M, Pelosi P, Vincent F, et al. Mammalian odorant binding proteins.&nbsp;Biochimica et Biophysica Acta, 2000; 1482 (1-2): 229\u2010240. </p><p>Vanier MT, Millat G. Structure and function of the NPC2 protein.&nbsp;Biochimica et Biophysica Acta. 2004; 1685(1-3): 14\u201021. </p><p>Venthur H, Zhou J. Odorant Receptors and Odorant-Binding Proteins as Insect Pest Control Targets: A Comparative Analysis. Frontiers in Physiology 2018; 9, 1664-042.</p><p>Vogt R,&nbsp;Rogers M,&nbsp;Franco M, Sun&nbsp;M. A comparative study of odorant binding protein genes: differential expression of the PBP1-GOBP2 gene cluster in Manduca sexta&nbsp;(Lepidoptera) and the organization of OBP genes in&nbsp;Drosophila melanogaster&nbsp;(Diptera). Journal of Experimental Biology&nbsp;2002;&nbsp;205:&nbsp;719-744</p><p>Vogt R., Riddiford L. Pheromone binding and inactivation by moth antennae.&nbsp;Nature&nbsp;1981: 293,&nbsp;161\u2013163.</p><p>Zhu J, Guo M, Ban L, et al. Niemann-Pick C2 Proteins: A New Function for an Old Family.&nbsp;Frontiers in Physiology 2018;9:52.</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>BM has been supported by Tata Trust Fellowship. RS would like to thank her JC Bose Fellowship (SB/S2/JC-071/2015) from the Science and Engineering Research Board, India. The authors would like to thank NCBS (TIFR) for infrastructural support.</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 1322614,
+                "identity": "c0e38b03-c0ae-4e97-923c-2322bd7936a1",
+                "order_by": 0,
+                "name": "Bhavika Mam",
+                "email": "",
+                "orcid": "",
+                "institution": "National Centre for Biological Sciences",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Bhavika",
+                "middleName": "",
+                "lastName": "Mam",
+                "suffix": ""
+            },
+            {
+                "id": 1322615,
+                "identity": "3217437f-9c57-48f1-9658-941d343245c1",
+                "order_by": 1,
+                "name": "Ramanathan Sowdhamini",
+                "email": "mini@ncbs.res.in",
+                "orcid": "https://orcid.org/0000-0002-6642-2367",
+                "institution": "National Centre for Biological Sciences",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Ramanathan",
+                "middleName": "",
+                "lastName": "Sowdhamini",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2020-08-10 13:25:09",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1095/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1095/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2229738,
+                "identity": "fb4707e8-4c2f-43a5-ac61-dcb625f662f4",
+                "added_by": "auto",
+                "created_at": "2020-09-03 18:35:05",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 100662,
+                "visible": true,
+                "origin": "",
+                "legend": "SoCCer: a combined method using genomic, protein-based, ML and evolutionary approaches.",
+                "description": "",
+                "filename": "Figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/pex-1095/v1/Figure1.jpg"
+            },
+            {
+                "id": 2229739,
+                "identity": "f8c4fe33-bf27-4399-99f4-f0847fd4b246",
+                "added_by": "auto",
+                "created_at": "2020-09-03 18:35:05",
+                "extension": "jpg",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 379744,
+                "visible": true,
+                "origin": "",
+                "legend": "Sample results for SoCCer pipeline A. Feature matrices for protein sequences of Hymenopteran genome B. Performance of neural network during training C. Phylogeny of predicted odorant-binding proteins across 11 insect orders.",
+                "description": "",
+                "filename": "Figure2.jpg",
+                "url": "https://assets.researchsquare.com/files/pex-1095/v1/Figure2.jpg"
+            },
+            {
+                "id": 13587817,
+                "identity": "9c61dea8-8d00-4554-b957-d073400d3646",
+                "added_by": "auto",
+                "created_at": "2021-09-17 04:52:36",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 496242,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1095/v1/c25a05f7-8336-4be9-bc5a-1e8a60ab808e.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Insect olfaction, Genome Analysis, Sequence Searches, Olfactory binding proteins",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>Insects require olfactory cues to perform a number of processes. With an increasing number of insect genomes that are getting realized, there is a need for an automatic method to classify proteins involved in olfaction into various types so that their cognate odorant assignment becomes possible and to eliminate errors due to misclassification into protein families with related functions and/ biochemical or structural properties. We propose a near-automatic computational protocol to identify and classify protein sequences of a given genome into odorant binding protein subfamilies and other major soluble protein families involved in insect chemical communication. Such a protocol can be used to identify and classify odorant binding proteins (OBPs) in large genomes but could also be applied to large number of other globular proteins as well.</p>",
+        "manuscriptTitle": "SoCCer: A pipeline to identify classes of soluble proteins in chemical communication in insect genomes",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2020-09-03 18:24:14",
+                "doi": "10.21203/rs.3.pex-1095/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9f68a279-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "September 3rd, 2020",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 269010,
+                "name": "Computational biology and bioinformatics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2020-09-03 18:24:14",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

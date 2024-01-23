@@ -1,0 +1,374 @@
+{
+    "identity": "pex-1543",
+    "title": "<p>Data storage using peptide sequences</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>From the beginning of civilization, the media for storing data have been continuously evolving from such as stone tablets, animal bones and bamboo tablets to paper, with improvements on data density over time. Since the invention of electronics in the last century, the percentage of data stored in digital form has been increasing rapidly to almost 100% recently<sup>1</sup>. Moreover, the amount of data generated has been increasing exponentially, from several ZB in 2008 to an expected 74 ZB in 2021, causing a much increased demand for data storage correspondingly<sup>2</sup>. Most of the digital data are stored in physical media such as hard drives. In addition, many of the data are rarely accessed and are archived on reels of magnetic tapes. However, the physical thickness of the tapes and the size of magnetic domains limit the maximum data density, which is expected to reach a plateau soon. Furthermore, data in old tapes need to be copied onto new tapes regularly, as the magnetic tapes can normally last for ten to twenty years only. This process is time-consuming and expensive. Hence, next-generation media that can store digital data with a much higher data density and durability are needed.</p><p>&nbsp;</p><p>Here we report the use of peptide sequences for digital data storage, a method that has not been reported before<sup>3</sup>. The data-bearing peptides are commercially synthesized, and the data retrieval process is described here. As an example, we stored one dataset consists of 848 bits of ASCII formatted text in 40 peptides, and another dataset consists of 13752 bits of the \u201csilent night\u201d music in MIDI format together with its title in ASCII format in 511 peptides. These files are available in Supplementary Files section.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p>Peptides (lyophilized, as trifluoroacetate salts, &gt;50% purity) were synthesized by Genscript Inc. (Nanjing, China) and GL Biochem (Shanghai, China). The peptides were dissolved in dimethyl sulfoxide (10 \u00b5g/mL), mixed together for each dataset, and diluted with 50% acetonitrile with a 1:1 ratio before analysis. Methanol and acetonitrile (HPLC grade) were from Duksan (South Korea). Formic acid (99-100%) was from VWR (France). Water was purified by MilliQ system.</p><p><br></p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>LC: Waters Acquity UPLC system with a C18 column (Agilent AdvanceBio Peptide Map, 2.1\u00d7150 mm, 2.7 \u00b5m particle size, 120 \u00c5 pore size)</p><p>&nbsp;</p><p>MS: Orbitrap Fusion Lumos mass spectrometer (ThermoFisher Scientific, San Jose, CA)</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "1. Dilute the stock peptide mixture by 50% acetonitrile (ACN)/water with 0.1% formic acid (FA). The final concentration of the 40-peptide mixture was 10 ng/uL while the 511-peptide mixture was 1.02 ug/uL.\n2. Prepare the mobile phase A: 0.2% FA in water, and mobile phase B: 0.2% FA in ACN.\n3. Mount the C18 column on the UPLC system.\n4. Set the LC method:\n- Injection volume = 1 uL\n- Flow rate = 0.3 mL/min\n- Column temperature = 55\no\nC\n- Gradient:\n- 0 min: 10% B\n- 2 min: 18% B\n- 8 min: 22% B\n- 48 min: 34% B\n- 64 min: 40% B\n- 75 min: 55% B\n- 78 min: 80% B\n- 83 min: 80% B\n- 83 min: 80% B\n- 83.01 min: 10% B\n- 90 min: 10% B\n5. Set the MS method:\nGeneral:\n- spray voltage = +3600 V\n- ion transfer tube temperature = 280\no\nC\n- vaporizer temperature = 280\no\nC\nMS1 scan parameters:\n- scan range =\nm/z\nfrom 900 to 1400 Da\n- resolution = 30K\nIon selection parameters:\n- use quadruple\n- if available, use advanced peak determination (APD) with default charge of +2\n- top-speed mode with 3 s cycles\n- mass tolerance = 25 ppm\n- dynamic exclusion window = 4 s\n- isolation window width = 1.6 Da\nMS2 scan parameters:\n- high-energy collision dissociation (HCD) at 28% of normalized collision energy\n- stepped collision energy = 5%\n- scan range =\nm/z\nfrom 240 to 2450 Da\n- resolution of 15K.\n6. Run the LC-MS/MS process using the set parameters. For better results, repeat the process 2-3 times.\n7. Use MSConvert (a part of ProteoWizard), convert the .RAW spectral file to .ms1 and .ms2 files.\n8. Using a custom script, preprocess the spectra in the .ms1 and .ms2 files. The preprocess includes deconvolution to obtain a list of masses and charges of isotopic clusters with one or more peaks each, and identifying the monoisotopic mass and charge of parent ion.\n9. Using another custom script, analyze the preprocessed spectra to obtain a list of correct sequence candidates, then group and score the candidates to obtain the correct sequences. If the LC-MS/MS process is repeated, all such candidates are included in the grouping and scoring processes.\n10. Using another custom script, convert the correct sequences back to sequences of 0s and 1s, according to the predefined encoding (Fig. 1) and error-correction schemes. The original file is obtained."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": ""
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>Steps 1-2: &lt; 1h</p><p>Steps 3-6: About 2 h</p><p>Steps 7-10: About 4 h per .RAW file</p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>For 40 peptides, &gt;38 peptides can be sequenced correctly;</p><p>For 511 peptides, &gt;90% of the peptides can be sequenced correctly.</p><p>After error-correction according to the encoding scheme, the stored data can be retrieved correctly.</p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>1.&nbsp;Hilbert, M. &amp; L\u00f3pez, P. The world\u2019s technological capacity to store, communicate, and compute information. <em>Science</em> <strong>332</strong>, 60 (2011).</p><p>2.&nbsp;https://www.statista.com/statistics/871513/worldwide-data-created/ (accessed on 28 May 2021).</p><p>3.&nbsp;Yao, Z.P., Ng, C.C.A., Lau, C.M. &amp; Tam, W.M. Data storage using peptides. US Provisional Patent Application No. 62/657,026 (Filed on 13 April 2018); PCT Application No. PCT/CN2018/119349 (Filed on 6 December 2018); US Non-Provional Patent Application No.16/224,957 (Filed on 19 December 2018).</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>We thank Prof. Henry Lam (Hong Kong University of Science and Technology) and Prof. Jiang Xia (Chinese University of Hong Kong) for their helpful discussions. <strong>Funding:</strong> This work was supported by Hong Kong Research Grant Council (Nos. R5013-19F, C5031-14E, 153040/15P, 153348/16P, 153041/17P, C4002-17G and R4005-18), China Resources Life Sciences Group Limited, and University Research Facility in Chemical and Environmental Analysis and University Research Facility in Life Sciences of The Hong Kong Polytechnic University.</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41467-021-24496-9",
+                "date": "",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 31655666,
+                "identity": "1d24f8a1-5e36-45c9-a906-593c042cc964",
+                "order_by": 0,
+                "name": "Cheuk Chi A. Ng",
+                "email": "",
+                "orcid": "",
+                "institution": "State Key Laboratory of Chemical Biology and Drug Discovery, Food Safety and Technology Research Centre and Department of Applied Biology and Chemical Technology, The Hong Kong Polytechnic University, Hung Hom, Kowloon, Hong Kong SAR, China",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Cheuk",
+                "middleName": "Chi A.",
+                "lastName": "Ng",
+                "suffix": ""
+            },
+            {
+                "id": 31655667,
+                "identity": "e3746817-d110-4db3-a3b5-c6d79c68d614",
+                "order_by": 1,
+                "name": "Wai Man Tam",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Electronic and Information Engineering, The Hong Kong Polytechnic University, Hung Hom, Kowloon, Hong Kong SAR, China",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Wai",
+                "middleName": "Man",
+                "lastName": "Tam",
+                "suffix": ""
+            },
+            {
+                "id": 31655668,
+                "identity": "6b05ae71-dc28-48dd-a86d-c87ecd09fe11",
+                "order_by": 2,
+                "name": "Haidi Yin",
+                "email": "",
+                "orcid": "",
+                "institution": "State Key Laboratory of Chemical Biology and Drug Discovery, Food Safety and Technology Research Centre and Department of Applied Biology and Chemical Technology, The Hong Kong Polytechnic University, Hung Hom, Kowloon, Hong Kong SAR, China",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Haidi",
+                "middleName": "",
+                "lastName": "Yin",
+                "suffix": ""
+            },
+            {
+                "id": 31655669,
+                "identity": "53ece918-3f52-4e7b-a089-f994017e32ba",
+                "order_by": 3,
+                "name": "Qian Wu",
+                "email": "",
+                "orcid": "",
+                "institution": "State Key Laboratory of Chemical Biology and Drug Discovery, Food Safety and Technology Research Centre and Department of Applied Biology and Chemical Technology, The Hong Kong Polytechnic University, Hung Hom, Kowloon, Hong Kong SAR, China",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Qian",
+                "middleName": "",
+                "lastName": "Wu",
+                "suffix": ""
+            },
+            {
+                "id": 31655670,
+                "identity": "49b44c4d-5894-4810-8b68-e11cda881828",
+                "order_by": 4,
+                "name": "Pui-Kin So",
+                "email": "",
+                "orcid": "",
+                "institution": "University Research Facility in Life Sciences, The Hong Kong Polytechnic University, Hung Hom, Kowloon, Hong Kong SAR, China",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Pui-Kin",
+                "middleName": "",
+                "lastName": "So",
+                "suffix": ""
+            },
+            {
+                "id": 31655671,
+                "identity": "b2ce2519-8303-4b3a-9e3a-5ee072ec8fbb",
+                "order_by": 5,
+                "name": "Melody Yee-Man Wong",
+                "email": "",
+                "orcid": "",
+                "institution": "University Research Facility in Chemical and Environmental Analysis, The Hong Kong Polytechnic University, Hung Hom, Kowloon, Hong Kong SAR, China",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Melody",
+                "middleName": "Yee-Man",
+                "lastName": "Wong",
+                "suffix": ""
+            },
+            {
+                "id": 31655672,
+                "identity": "6a85ef92-f703-4984-bbaf-ff19f13c3862",
+                "order_by": 6,
+                "name": "Francis C. M. Lau",
+                "email": "francis-cm.lau@polyu.edu.hk",
+                "orcid": "",
+                "institution": "Department of Electronic and Information Engineering, The Hong Kong Polytechnic University, Hung Hom, Kowloon, Hong Kong SAR, China",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Francis",
+                "middleName": "C. M.",
+                "lastName": "Lau",
+                "suffix": ""
+            },
+            {
+                "id": 31655673,
+                "identity": "374953d9-8e89-43e7-9a92-28e5b986f51e",
+                "order_by": 7,
+                "name": "Zhong-Ping Yao",
+                "email": "zhongping.yao@polyu.edu.hk",
+                "orcid": "",
+                "institution": "State Key Laboratory of Chemical Biology and Drug Discovery, Food Safety and Technology Research Centre and Department of Applied Biology and Chemical Technology, The Hong Kong Polytechnic University, Hung Hom, Kowloon, Hong Kong SAR, China",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Zhong-Ping",
+                "middleName": "",
+                "lastName": "Yao",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2021-05-31 15:26:34",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1543/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1543/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 10789167,
+                "identity": "890aa43b-2211-4699-9d6f-c64eb3066dbd",
+                "added_by": "auto",
+                "created_at": "2021-06-25 17:51:39",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 6514,
+                "visible": true,
+                "origin": "",
+                "legend": "The one-to-one mapping of bit sequences to amino acids.",
+                "description": "",
+                "filename": "PEFig1.png",
+                "url": "https://assets.researchsquare.com/files/pex-1543/v1/981c2f339fffcc1ab04c7574.png"
+            },
+            {
+                "id": 13701034,
+                "identity": "8dbf10d2-35ec-4c73-aa2b-208cd49e60fb",
+                "added_by": "auto",
+                "created_at": "2021-09-17 13:27:16",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 177815,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1543/v1/fb2c8fee-5c8e-4554-ac2e-442bbf5c00e6.pdf"
+            },
+            {
+                "id": 10789169,
+                "identity": "cc89c592-e636-420b-b5b5-a1fbc0eeba55",
+                "added_by": "auto",
+                "created_at": "2021-06-25 17:51:39",
+                "extension": "txt",
+                "order_by": 1,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 105,
+                "visible": true,
+                "origin": "",
+                "legend": "The ASCII-encoded text file",
+                "description": "",
+                "filename": "datasetAtext.txt",
+                "url": "https://assets.researchsquare.com/files/pex-1543/v1/7ced003eafc31f95b319661b.txt"
+            },
+            {
+                "id": 10789445,
+                "identity": "8d8adcb5-3487-4861-8aec-2c4bbe851ffc",
+                "added_by": "auto",
+                "created_at": "2021-06-25 17:54:39",
+                "extension": "mid",
+                "order_by": 2,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 1707,
+                "visible": true,
+                "origin": "",
+                "legend": "The MIDI-encoded \"Silent Night\" music file",
+                "description": "",
+                "filename": "datasetBsilentNight.mid",
+                "url": "https://assets.researchsquare.com/files/pex-1543/v1/a5046e7dc5c4ade3caa372d1.mid"
+            },
+            {
+                "id": 10789444,
+                "identity": "8b436b27-f2c2-44ad-9212-13440be88e48",
+                "added_by": "auto",
+                "created_at": "2021-06-25 17:54:39",
+                "extension": "txt",
+                "order_by": 3,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 12,
+                "visible": true,
+                "origin": "",
+                "legend": "The ASCII-encoded \"Silent Night\" title file",
+                "description": "",
+                "filename": "datasetBtitle.txt",
+                "url": "https://assets.researchsquare.com/files/pex-1543/v1/bc57b53cfaf4cf4bdd4eb5e7.txt"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "data storage, peptides, mass spectrometry, proteomics, error-correction scheme, peptide sequencing",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>From the beginning of civilization, the media for storing data have been continuously evolving from such as stone tablets, animal bones and bamboo tablets to paper, with improvements on data density over time. Since the invention of electronics in the last century, the percentage of data stored in digital form has been increasing rapidly to almost 100% recently. Moreover, the amount of data generated has been increasing exponentially, from several ZB in 2008 to an expected 74 ZB in 2021, causing a much increased demand for data storage correspondingly. Most of the digital data are stored in physical media such as hard drives. In addition, many of the data are rarely accessed and are archived on reels of magnetic tapes. However, the physical thickness of the tapes and the size of magnetic domains limit the maximum data density, which is expected to reach a plateau soon. Furthermore, data in old tapes need to be copied onto new tapes regularly, as the magnetic tapes can normally last for ten to twenty years only. This process is time-consuming and expensive. Hence, next-generation media that can store digital data with a much higher data density and durability are needed.</p><p><br></p><p>Here we report the use of peptide sequences for digital data storage, a method that has not been reported before. The data-bearing peptides are commercially synthesized, and the data retrieval process is described here. As an example, we stored one dataset consists of (i) 848 bits of ASCII formatted text in 40 peptides, and (ii) another dataset consists of 13752 bits of the \u201csilent night\u201d music in MIDI format together with its title in ASCII format in 511 peptides. These files are available in Supplementary Files section.</p><p><br></p>",
+        "manuscriptTitle": "Data storage using peptide sequences",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2021-06-25 17:51:37",
+                "doi": "10.21203/rs.3.pex-1543/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "c2744009-aa28-4f4d-8749-6c984b144e9b",
+        "owner": [],
+        "postedDate": "June 25th, 2021",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 4853101,
+                "name": "Analytical chemistry"
+            },
+            {
+                "id": 4853102,
+                "name": "Information theory and computation"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2021-06-25 17:51:37",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

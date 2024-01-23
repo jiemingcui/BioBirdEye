@@ -1,0 +1,305 @@
+{
+    "identity": "pex-1334",
+    "title": "<p>A protocol to develop visual geographic models of socio-economic and public health data</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>The Townsend Score<sup>1</sup> and Index of Multiple Deprivation<sup>2</sup> (IMD) are examples of data tools used to correlate the overall wellbeing and socioeconomic status (SES) of a population. Factors may include education, employment, health deprivation and disability. However, conveying this data in a meaningful and accessible manner that can also be interpreted by a layperson and scientist alike can be particularly challenging. Utilising visual geographic models to map, evaluate and communicate socio-economic and health data has proven to be particularly effective in identifying correlations, such as contrasting regional diabetes prevalence vs available community resources or tracking seasonal variation in serum vitamin D levels within a community.<sup>3,4</sup> This approach can highlight areas or populations that might be considered as \u201chigh risk-low resource\u201d (HRLR), which in turn may support the development or optimisation of service allocation to tackle the specific needs of a population. Despite the increasing reliance on and access to smart technology, the uptake of visual data models is poor. Cited issues include poor usability, a lack of support to implement such models and inadequate knowledge of how to fully utilise visual tools to communicate and interpret data.<sup>5</sup> This protocol details a straightforward stepwise methodology to create and develop a visual geographic model of socio-economic and health data using 3 case studies with example data from Croydon University Hospital (CUH).</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": ""
+        },
+        {
+            "header": "Equipment",
+            "content": ""
+        },
+        {
+            "header": "Procedure",
+            "content": "1) Map Layer 1 (Base)\nSelect an area to map. This example selected the Borough of Croydon in London.\nAccess census data via GOV.UK\n6\nto collect the IMD values for each ward within the Borough of Croydon.\nAccess census data via GOV.UK\n6\nto download the available .shp files for the Borough\u2019s ward boundaries.\nDownload Mapshaper\n7\nsoftware to convert the ward .shp file into a JSON (JavaScript Object Notation) file.\nDownload JSON editor to match the ward JSON files with their matching IMD values.\nOpen JSON editor and insert the relevant code e.g. \u201cIMD\u201d:22.003\u201d to the matching ward\u2019s file to correlate the\nward boundary data with the IMD value for that ward.\nDownload the Mapbox\n8\nsoftware\nUpload the edited JSON ward files to Mapbox\n8\nusing the online tutorial to produce an outline of the ward boundary, which will contain the JSON edited IMD value for that ward.\nWard IMD values act as a defining variable to identify differences between wards in the Borough of Croydon.\nGroup wards based on their IMD values as follows <10, >10/<20, >20/<30, >30/<40, >40.\nAssign a colour code to identify variations in ward value by IMD based on the groups above e.g. green and red corresponding to the least and most deprived areas respectively (Figure 1).\n2) Map Layer 2 (Case Study 1)\nSelect a comparator data set to match which contains geographical data e.g. postcode. This example uses the addresses of children aged 5 who have received an Mumps, Measles & Rubella (MMR) vaccination. This data was provided by CUH as part of an approved research study with Kingston University.\nIf using postcode data, convert to longitudinal and latitudinal values using UK Grid Reference Finder\n9\nNote at this stage, the data are non-anonymised in terms of addresses for study participants. If required to anonymise longitudinal/latitudinal data, upload the data to an excel file format.\nTruncate the long/lat values using the =TRUNC function e.g.\n=TRUNC (12.12345,3) = 12.123\nSave the long/lat value as a CSV (Comma-Separated Values) file.\nUpload the CSV file to Mapbox\n8\nto create an overlay to the base map layer that demonstrates vaccination uptake vs ward IMD (Figure 2).\n3) Map Layer 3 (Case Study 2)\nData were provided by CUH identifying addresses of the patients with the highest readmission rates within 30 days of discharge for the following conditions: congestive heart failure, rheumatoid arthritis and falls. These data were compared with the distribution of civil service organisations in the Borough of Croydon.\nIf using postcode data, convert to longitudinal and latitudinal values using UK Grid Reference Finder.\n9\nNote at this stage, the data are non-anonymised in terms of addresses for study participants. If required to anonymise longitudinal/latitudinal data, upload the data to an excel file format.\nTruncate the long/lat values using the =TRUNC function e.g.\n=TRUNC (12.12345,3) = 12.123\nSave the long/lat value as a CSV (Comma-Separated Values) file.\nUpload the CSV file to Mapbox\n8\nto create an overlay to the base map layer.\nDownload the postcodes of registered civil service organisation in the Borough of Croydon.\nConvert to longitudinal and latitudinal values using UK Grid Reference Finder.\n9\nTruncation is not required for this data set as the postcodes are not confidential and available in a public domain.\nSave the long/lat value as a CSV (Comma-Separated Values) file.\nUpload the CSV file to Mapbox\n8\nto create an overlay to the base map layer and health data for readmissions vs distribution of civil service organisation (Figure 3).\n4) Map Layer 4 (Case Study 3)\nTo optimise the visualisation of paediatric MMR vaccination uptake by ward within the Borough of Croydon a simple calculation was performed using data provided by CUH.\n(Number of children aged 5 who received an MMR vaccination in ward X) - (Total number of children aged 5 eligible to receive an MMR vaccination in ward X) = Number of unvaccinated children in ward X\nUsing the above calculation, a numerical figure for unvaccinated children can be assigned for each ward as a means to visually identify variance across the Borough of Croydon.\nOpen JSON editor and insert the relevant code e.g. \u201cvaccination\u201d:50\u201d to the matching ward\u2019s file to correlate the ward boundary data with the vaccination value for that ward, which will replace the previously edited IMD value.\nGroup wards based on their vaccination values to create distinct categories.\nAssign a colour code to identify variations in ward by vaccination value e.g green and red corresponding to the most and least vaccinated areas respectively.\nDownload the postcodes of registered GP surgeries in the Borough of Croydon\nConvert to longitudinal and latitudinal values using UK Grid Reference Finder.\n9\nTruncation is not required for this data set as the postcodes are not confidential and available in a public domain.\nSave the long/lat value as a CSV (Comma-Separated Values) file.\nUpload the CSV file to Mapbox\n8\nto create an overlay to the base map layer (vaccination values by ward) vs distribution of GP surgeries in the Borough of Croydon (Figure 4)"
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p>Each step of this protocol outlines the manipulation of a specific data set relevant to the examples given in the case studies. When working with a unique data set, the authors suggest referring to the guidelines on the Mapbox<sup>8</sup> software which provides various guides to developing a mapping model. This protocol should be tackled in a stepwise approach, with each data layer developed individually starting with the base layer. Therefore, if errors occur, the developer can refer back to the previous step to ensure the correct methodology has been followed as well as identify the subject for troubleshooting using any search engine e.g., if using confidential long/lat data and the =TRUNC function is not working, the users can refer to the guide to identify that the following term should be used for troubleshooting \u201cHow to use the truncate function on excel?\u201d. Although this troubleshooting guidance may seem rudimentary, the protocol was used by several researchers in the original study with little to no experience of mapping software or coding. By following this simple troubleshooting method, easily overlooked errors were quickly identified.</p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>The protocol and time taken will be completely reliant upon the type of data sets used to develop the visual models. However, the authors note that the time-limiting step for this process was becoming familiar with the Mapbox<sup>8</sup> software and would advise any protocol user to familiarise themselves with the software guides online before attempting to create a visual model, especially if the user lacks experience with this type of data visualisation method.</p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": ""
+        },
+        {
+            "header": "References",
+            "content": "<p>1. Townsend P, Phillimore P, Beattie A. Health and deprivation: inequality and the North: Routledge; (1988). </p><p><br></p><p>2. Jordan H, Roderick P, Martin D. The Index of Multiple Deprivation 2000 and accessibility effects on health. Journal of Epidemiology &amp; Community Health. Mar 1;58(3):250-7. (2004)</p><p><br></p><p>3. Curtis AB, Kothari C, Paul R, Connors E. Using GIS and secondary data to target diabetes-related public health efforts. Public Health Rep May-Jun;128(3):212-220. (2013) <a href=\"https://doi.org/10.1177/003335491312800311\" rel=\"noopener noreferrer\" target=\"_blank\">https://doi.org/10.1177/003335491312800311</a></p><p><br></p><p>4. Laird E, Shannon T, Crowley VE, Healy M. The benefits of utilising geo-mapping for visualising the vitamin D status of Dublin city and the surrounding urban districts. Irish Journal of Medical Science. Nov 1;186(4):807-13. (2017)</p><p><br></p><p>5. Carroll LN, Au AP, Detwiler LT, Fu TC, Painter IS, Abernethy NF. Visualization and analytics tools for infectious disease epidemiology: a systematic review. J Biomed Inform Oct;51:287-298. (2014) <a href=\"https://doi.org/10.1016/j.jbi.2014.04.006\" rel=\"noopener noreferrer\" target=\"_blank\">https://doi.org/10.1016/j.jbi.2014.04.006</a></p><p><br></p><p>6. Department for Communities and Local Government. English Indices of Deprivation 2015 (<a href=\"https://www.gov.uk/government/statistics/english-indices-of-deprivation-2015)\" rel=\"noopener noreferrer\" target=\"_blank\">https://www.gov.uk/government/statistics/english-indices-of-deprivation-2015)</a>. September (GOV.UK). (2015)</p><p><br></p><p>7. MapShaper. Available at <a href=\"https://mapshaper.org/\" rel=\"noopener noreferrer\" target=\"_blank\">https://mapshaper.org/</a>. </p><p><br></p><p>8. Mapbox, 2019. Available at: <a href=\"https://www.mapbox.com/\" rel=\"noopener noreferrer\" target=\"_blank\">https://www.mapbox.com/</a> </p><p><br></p><p>9. UK Grid Reference Finder. Postcode Batch Converter. 2014; Available at: <a href=\"https://gridreferencefinder.com/postcodeBatchConverter/\" rel=\"noopener noreferrer\" target=\"_blank\">https://gridreferencefinder.com/postcodeBatchConverter/</a></p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>The authors would like to thank the Research Enterprise and Innovation team at Croydon University Hospital for supporting this work. The authors would also like to thank the Health Innovation Network for providing the funding for the full study where this protocol was implemented.</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 8736892,
+                "identity": "04a86264-dbfe-4333-83b6-612e0ac4d21c",
+                "order_by": 0,
+                "name": "Joshua Wells",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0003-2021-6055",
+                "institution": "School of Life Sciences, Pharmacy and Chemistry, Kingston University London; Kingston upon Thames",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Joshua",
+                "middleName": "",
+                "lastName": "Wells",
+                "suffix": ""
+            },
+            {
+                "id": 8736893,
+                "identity": "7b0c8bcd-8467-417c-a33f-a0b846358aa5",
+                "order_by": 1,
+                "name": "Robert Grant",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0001-9563-9824",
+                "institution": "Faculty of Health, Social Care & Education, Kingston and St George's, University of London; London",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Robert",
+                "middleName": "",
+                "lastName": "Grant",
+                "suffix": ""
+            },
+            {
+                "id": 8736894,
+                "identity": "2eb942d2-ba8d-448f-8611-a543550ed32b",
+                "order_by": 2,
+                "name": "John Chang",
+                "email": "",
+                "orcid": "",
+                "institution": "Croydon University Hospital; Croydon; London",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "John",
+                "middleName": "",
+                "lastName": "Chang",
+                "suffix": ""
+            },
+            {
+                "id": 8736895,
+                "identity": "1950c2d0-169d-41d4-95e3-15ad68e6044c",
+                "order_by": 3,
+                "name": "Reem Kayyali",
+                "email": "r.kayyali@kingston.ac.uk",
+                "orcid": "https://orcid.org/0000-0002-7300-8738",
+                "institution": "School of Life Sciences, Pharmacy and Chemistry, Kingston University London; Kingston upon Thames",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Reem",
+                "middleName": "",
+                "lastName": "Kayyali",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2021-01-14 15:05:49",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1334/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1334/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13682424,
+                "identity": "0815fd61-513d-4d01-b7b9-afec9345d7d7",
+                "added_by": "auto",
+                "created_at": "2021-09-17 11:57:15",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 199232,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1334/v1/e3351d71-1bcc-439a-9751-5c6d2f58aa09.pdf"
+            },
+            {
+                "id": 7340956,
+                "identity": "3b901ccc-89c8-4391-b222-b19f3c0f4994",
+                "added_by": "auto",
+                "created_at": "2021-03-25 08:56:08",
+                "extension": "docx",
+                "order_by": 1,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 280644,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "Figure1.docx",
+                "url": "https://assets.researchsquare.com/files/pex-1334/v1/e48468dce411570eccbbef8e.docx"
+            },
+            {
+                "id": 7340987,
+                "identity": "5e2bf8a3-af2c-4fed-a9d9-e2895184800d",
+                "added_by": "auto",
+                "created_at": "2021-03-25 08:59:08",
+                "extension": "docx",
+                "order_by": 2,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 273710,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "Figure2.docx",
+                "url": "https://assets.researchsquare.com/files/pex-1334/v1/b9bb51056af0788765914eac.docx"
+            },
+            {
+                "id": 7340958,
+                "identity": "89a9f01d-949b-4129-afb4-3a216002af4d",
+                "added_by": "auto",
+                "created_at": "2021-03-25 08:56:08",
+                "extension": "docx",
+                "order_by": 3,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 385025,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "Figure3.docx",
+                "url": "https://assets.researchsquare.com/files/pex-1334/v1/84463155a89d6d5587d3463e.docx"
+            },
+            {
+                "id": 7340988,
+                "identity": "85a82ac3-fe3b-48bd-96a4-17506850a9a8",
+                "added_by": "auto",
+                "created_at": "2021-03-25 08:59:08",
+                "extension": "docx",
+                "order_by": 4,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 221330,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "Figure4.docx",
+                "url": "https://assets.researchsquare.com/files/pex-1334/v1/655802bd522b6902613817c4.docx"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Visualisation, Mapping, Population Health, Vaccination, Readmission, Deprivation",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>Understanding the impact of socio-economic inequality on health outcomes is arguably more relevant than ever before given the global repercussions of COVID-19. With limited resources, innovative methods to track disease, population needs, and current health and social service provision are essential. One approach of interest is the implementation and integration of mapping software. This approach develops multi-layered interactive maps to demonstrate relationships between socio-economic and health data. Paediatric vaccination uptake and readmission rates are used as an example; however, the wider application of this method is not limited to these sets of health data. This approach aims to improve the interpretation and accessibility of data by creating a simple visual model with little need for additional technical experience beyond the guidance of the protocol.&nbsp;</p>",
+        "manuscriptTitle": "A protocol to develop visual geographic models of socio-economic and public health data",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2021-03-25 08:56:07",
+                "doi": "10.21203/rs.3.pex-1334/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "4b28ab13-c520-48a2-b21a-0a8edbe28701",
+        "owner": [],
+        "postedDate": "March 25th, 2021",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 2012913,
+                "name": "Health humanities"
+            },
+            {
+                "id": 2012914,
+                "name": "Risk factors"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2021-03-25 08:56:07",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

@@ -1,0 +1,278 @@
+{
+    "identity": "nprot-6521",
+    "title": "Protocol for TimeLapse-seq",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "The dynamics of RNA populations can be investigated by several techniques. One well established approach is to use metabolic labeling to incorporate a chemical handle on a non-canonical nucleoside, and then use this handle to enrich new transcripts \\(e.g., TT-seq<sup>1</sup> and s<sup>4</sup>U-seq<sup>2,3</sup>). These techniques require large amounts of input sample and extensive handling, and they present challenges when normalizing enrichment and estimating contamination. To capture temporal information about RNA directly in a sequencing experiment without biochemical enrichment, we developed TimeLapse-seq, a method in which cells are exposed to a noncanonical nucleoside that becomes incorporated into only new transcripts. Rather than enriching the metabolically labeled RNAs, we developed chemistry that recodes the hydrogen-bonding pattern of the uridine analog 4-thiouridine \\(s<sup>4</sup>U) to match the hydrogen-bonding pattern of cytosine, thereby causing mutations in a sequencing experiment \\(Fig. 1). The s<sup>4</sup>U base itself leads to low levels of U-to-C transitions upon reverse transcription<sup>4</sup>, but does so at levels too low to robustly identify new transcripts. While recent applications of s<sup>4</sup>U have focused on the thione as a nucleophile<sup>2</sup>, or for UV cross-linking<sup>5,6</sup>, we pursued less explored reactivity\u2014transforming s<sup>4</sup>U using oxidative-nucleophilic-aromatic substitution7. We developed new conditions that allow the oxidation of s<sup>4</sup>U, providing a convertible nucleoside intermediate that is converted into an analog of cytosine by aminolysis. When performed before RNA-seq analysis, this reaction reveals sites of s<sup>4</sup>U incorporation through T-to-C mutations stably introduced in the cDNA. \r\n\n\nThe following protocol describes a TimeLapse-seq experiment using optimized metabolic labeling conditions to study mRNA turnover in K562 cells \\(4 h, 100 \u00b5M s<sup>4</sup>U treatment)<sup>8</sup>. s<sup>4</sup>U treatment conditions will vary based on cell type and desired application \\(discussed in Schofield et al. Nature Methods, 2018), however the TimeLapse protocol described below can be applied to any standard s<sup>4</sup>U metabolic labeling pipeline."
+        },
+        {
+            "header": "Reagents",
+            "content": "K562 cells\r\n\n\nHyClone RPMI 1640 Media\r\n\n\nFetal bovine serum \\(FBS), certified\r\n\n\nPenicillin-Streptomycin, 100X solution\r\n\n\nPhosphate buffered saline \\(PBS), 1X\r\n\n\n6-well tissue culture plates\r\n\n\n4-thiouridine\r\n\n\nDEPC-treated water\r\n\n\nFilter pipette tips\u201410 \u00b5l, 20 \u00b5l, 200 \u00b5l, and 1000 \u00b5l \r\n\n\nQiagen RNeasy Mini kit\r\n\n\n2-mercaptoethanol \\(BME)\r\n\n\nEthanol, 200 proof, molecular biology grade\r\n\n\n3 M sodium acetate, pH 5.2\r\n\n\n2,2,2-trifluoroethylamine \\(TFEA)\r\n\n\n0.5 M EDTA, pH 8\r\n\n\nSodium periodate \\(NaIO<sub>4</sub>)\r\n\n\n0.2 mL PCR tube strips\r\n\n\n1.5 mL microcentrifuge tubes, PCR clean\r\n\n\n15 mL conical centrifuge tubes\r\n\n\n1 M dithiothreitol \\(DTT)\r\n\n\n22-gauge disposable needle\r\n\n\nLuer slip syringe\r\n\n\nAgencocurt RNAClean XP beads\r\n\n\nSMARTer Stranded Total RNA-Seq Kit - Pico Input Mammalian"
+        },
+        {
+            "header": "Equipment",
+            "content": "Magnetic PCR tube separation rack\r\n\n\nPCR Thermocycler\r\n\n\nNanodrop spectrophotometer\r\n\n\nMini centrifuge for PCR strips\r\n\n\nBenchtop microcentrifuge\r\n\n\nAnalytical balance\r\n\n\nBioanalyzer"
+        },
+        {
+            "header": "Procedure",
+            "content": "**Metabolic Labeling**\r\n\n\n1. Culture K562 cells at 37\u00b0C to approximately 50% confluence in RPMI media supplemented with 10% FBS and 1% P/S \\(e.g., 5 mL of 5x10\n5\ncells/mL in 6 well tissue culture plates). \r\n  2. Dissolve 4-thiouridine in a minimal volume of water \\(e.g. 25 mM stock solution) and add to 5 mL cultured cells at 100 \u00b5M final concentration. Agitate cells gently to evenly distribute the metabolic label. Incubate 4 h at 37\u00b0C.\r\n   Note: Take steps to protect 4-thiouridine treated cells and RNA in all subsequent steps from light exposure.\r\n\n\n Note: 4-thiouridine treatment time and concentration will vary by cell type and desired application. We provide an example above for K562 cells to examine relatively long RNA half-lives.\r\n\n\n3. Transfer cells from each well to separate 15 mL conical Eppendorf tube and place on ice for 1 min.\r\n  4. Pellet cells for 3 min at 300xg, 4\u00b0C in a pre-chilled centrifuge. Aspirate cell culture medium from cell pellet. \r\n  5. Rinse pellet with ice-cold 1X PBS then pellet and aspirate as in step 4. Proceed immediately to modified RNeasy isolation \\(recommended), or store cell pellet at -80\u00b0C.\r\n  \r\n\n\n**Modified RNeasy isolation**\r\n\n\n6. Resuspend cell pellet in 350 \u00b5l RLT buffer supplemented with 35 \u00b5l BME \\(1% final). Pass cell suspension through a 22-gauge needle 5 times to lyse the cells and transfer the mix to a 1.5 mL Eppendorf tube.\r\n  7. Add 350 \u00b5l freshly prepared 70% ethanol to the lysis mixture and mix well by inversion. Transfer 700 \u00b5l of mixture to an RNeasy spin column, and centrifuge >10,000 RPM for 15 sec. Discard flow through.\r\n  8. Add 700 \u00b5l buffer RW1 to column and centrifuge >10,000 RPM for 15 sec. Discard flow through.\r\n  9. Add 500 \u00b5l buffer RPE supplemented with 50 \u00b5l BME \\(1% final) to column and centrifuge >10,000 RPM for 15 sec. Discard flow through. \r\n  10. Add 700 \u00b5l freshly prepared 80% ethanol to column and centrifuge at maximum speed for 2 min. Transfer column to fresh collection tube and centrifuge at maximum speed for an additional 5 min. \r\n  11. Transfer column to 1.5 ml Eppendorf tube and add 30 \u00b5l DEPC-treated water directly to column membrane. Let column stand 1 min, then centrifuge >10,000 RPM for 1 min. Assess RNA concentration by nanodrop. \r\n   Note: Incubating spin column at 65\u00b0C for 5 min prior to centrifugation increases total RNA yield.\r\n\n\n\r\n\n\n**TimeLapse chemistry**\r\n\n\n12. Dilute RNA to 2 \u00b5g in 8.7 \u00b5l DEPC-treated water \\(less RNA may be used if desired, 10 ng of total RNA is recommended for library preparation after TimeLapse chemistry).\r\n  13. Create a master mix by combining the following reagents \\(15 \u00b5l total per sample, multiplied by number of samples, +10% to account for pipetting errors) on ice: 0.84 \u00b5l 3M sodium acetate, pH 5.2; 12.7 \u00b5l DEPC-treated water; 0.2 \u00b5l 0.5M EDTA, pH 8; 1.3 \u00b5l TFEA. Combine well by vortexing.\r\n   Note: TFEA is volatile. Pipette up and down several times prior to dispensing the reagent to ensure vapor pressure equilibration and accurate volumes.\r\n\n\n14. Add 15 \u00b5l master mix from step 13 to RNA sample from step 12 in a 0.2 ml PCR tube. Combine well by flicking PCR tubes, and briefly spin to collect sample at bottom of tube.\r\n  15. Add 1.3 \u00b5l of 192 mM solution of NaIO\n4\nin DEPC-treated water \\(freshly prepared, 10 mM final concentration). Combine well by flicking PCR tubes several times, and briefly spin to collect sample at bottom of tube.\r\n  16. Incubate samples at 45\u00b0C for 1 h in a pre-heated PCR thermocycler with a heated lid. Cool sample to 4\u00b0C after incubation.\r\n  17. Add an equal volume \\(e.g. 25 \u00b5l) of RNAClean beads to each sample and gently vortex to combine. Incubate at room temperature 10 min. \r\n   Note: An aliquot of RNAClean beads should be brought to room temperature for 30 min prior to use.\r\n\n\n18. Briefly spin to collect sample at bottom of tube, and place on a magnetic isolation rack until solution is clear \\(~5 min).\r\n  19. Carefully remove supernatant without disturbing bead pellet, and wash beads twice with 200 \u00b5l of freshly prepared 80% ethanol.\r\n  20. After removing second ethanol wash, briefly spin tubes, and recapture beads on magnetic isolation rack for 1 min. Remove residual ethanol with a pipette and allow bead pellet to dry \\(2-4 min).\r\n   Notes: A small crack will appear when beads are dried. Do not over-dry beads.\r\n\n\n21. Add 18 \u00b5l of DEPC-treated water to dried beads. Flick tubes until beads are completely resuspended, and allow to rehydrate for 2 min.\r\n  22. Briefly spin tubes, and place on magnetic isolation rack until solution is clear \\(~2 min).\r\n  23. Carefully collect the supernatant and transfer to a fresh PCR tube strip. \r\n  24. Prepare a 10X reducing master mix \\(100 \u00b5l recipe): 10 \u00b5l 1 M Tris-HCl, pH 7.4; 10 \u00b5l 1 M DTT; 20 \u00b5l 5 M NaCl; 2 \u00b5l 0.5 M EDTA, pH 8; 58 \u00b5l DEPC-treated water. \r\n  25. Add 2 \u00b5l master mix from step 24 to 18 \u00b5l of supernatant from step 23 and mix well to combine. Spin tubes briefly, and incubate samples at 37\u00b0C for 30 min. \r\n  26. Add an equal volume \\(e.g. 20 \u00b5l) of RNAClean beads to each sample and gently vortex to combine. Incubate at room temperature 10 min.\r\n  27. Repeat steps 18-20.\r\n  28. Add 12 \u00b5l of DEPC-treated water to dried beads. Flick tubes until beads are completely resuspended, and allow to rehydrate for 2 min.\r\n  29. Repeat steps 22-23.\r\n  30. Assess concentration and quality of RNA by bioanalyzer.\r\n  31. Proceed to RNA-seq library preparation using the SMARTer Stranded Total RNA-Seq Kit-Pico Input Mammalian."
+        },
+        {
+            "header": "Timing",
+            "content": "TimeLapse-seq can be performed over two days:\r\n\n\n\r\n\n\nDay one\r\n\n\n4-thiouridine treatment\u2014time dependent on cell type/application, typically 1-4 h\r\n\n\nRNA isolation\u20141 h\r\n\n\nTimeLapse chemistry and cleanup\u20143 h\r\n\n\n\r\n\n\nDay two\r\n\n\nLibrary preparation with SMARTer Stranded Total RNA-Seq Kit\u20145 h"
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "Improper handling can lead to loss of s<sup>4</sup>U RNA prior to chemical treatment. While low levels of s<sup>4</sup>U-RNA-specific loss can be corrected for bioinformatically \\(see Schofield et al. 2018), it is preferable to handle the RNA in a manner that maximizes retention of the s<sup>4</sup>U-RNA. One indication of specific loss of s<sup>4</sup>U RNA is a depletion of fast turnover transcripts \\(e.g., intronic signal and mRNA such as _MYC_) are relative to other RNA species. This loss can be avoided by handling the RNA in the dark, including reducing reagents \\(e.g., BME) when handling the RNA, and using the tips such as heated elution \\(see Step 11) described in the protocol above."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "RNA before and after chemical treatment should appear similar in size distribution \\(i.e., the chemistry should not lead to RNA degradation). Bioanalyzer analysis of a successful TimeLapse-seq library results in a curve with a peak size of ~400 bp \\(including sequencing adapters). RNA-seq analysis using standard bioinformatic tools should demonstrate that the total transcript counts from each sample are highly correlated irrespective of s<sup>4</sup>U exposure \\(comparison of plus and minus s<sup>4</sup>U treatment) or chemical treatment \\(expected Pearson\u2019s r \u2265 0.95). A specific and reproducible increase in T-to-C mutations dependent on both metabolic labeling with s<sup>4</sup>U and chemical treatment should be apparent. When separated by T-to-C mutation count, RNA-seq tracks display differences in mutations based on RNA turnover. The T-to-C mutation counts should be substantially higher for fast-turnover transcripts \\(e.g., _MYC_ and _FOSL1_), compared to more stable transcripts \\(e.g., _ACTB_). An enrichment of T-to-C mutations should be observed in intronic reads \\(consistent with the fast turnover of intronic RNA). TimeLapse-seq can be applied to various experimental designs depending on desired application. It can be used to examine differential transcript stability \\(including RNA half-lives), induced changes in gene expression \\(e.g., heat shock), and the transient transcriptome \\(e.g., TT-TimeLapse-seq)."
+        },
+        {
+            "header": "References",
+            "content": "1. Schwalb, B. et al. TT-seq maps the human transient transcriptome. Science 352, 1225\u20131228 \\(2016). \r\n  2. Rabani, M. et al. Metabolic labeling of RNA uncovers principles of RNA production and degradation dynamics in mammalian cells. Nat. Biotechnol. 29, 436\u2013442 \\(2011). \r\n  3. Duffy, E.E. et al. Tracking distinct RNA populations using efficient and reversible covalent chemistry. Mol. Cell 59, 858\u2013866 \\(2015). \r\n  4. Hafner, M. et al. Transcriptome-wide identification of RNA-binding protein and microRNA target sites by PAR-CLIP. Cell 141, 129\u2013141 \\(2010). \r\n  5. Rabani, M. et al. High-resolution sequencing and modeling identifies distinct dynamic RNA regulatory strategies. Cell 159, 1698\u20131710 \\(2014).\r\n  6. Mishima, Y. & Steitz, J.A. Site-specific crosslinking of 4-thiouridinemodified human tRNA\\(3Lys) to reverse transcriptase from human immunodeficiency virus type I. EMBO J. 14, 2679\u20132687 \\(1995). \r\n  7. Yano, M. & Hayatsu, H. Permanganate oxidation of 4-thiouracil derivatives. Isolation and properties of I-substituted 2-pyrimidone 4-sulfonates. Biochim. Biophys. Acta 199, 303\u2013315 \\(1970). \r\n  8. Russo, J., Heck, A.M., Wilusz, J. & Wilusz, C.J. Metabolic labeling and recovery of nascent RNA to accurately quantify mRNA stability. Methods 120, 39\u201348 \\(2017)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "This work was supported by the NIH NIGMS T32GM007223 \\(J.A.S. and E.E.D); NSF Graduate Research Fellowship \\(E.E.D); NIH New Innovator Award DP2 HD083992-01 \\(M.D.S.), and a Searle scholarship \\(M.D.S.)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nmeth.4582",
+                "date": "2018-06-12 11:32:44",
+                "title": "TimeLapse-seq: adding a temporal dimension to RNA sequencing through nucleoside recoding",
+                "authors": [
+                    "Jeremy A Schofield",
+                    "Erin E Duffy",
+                    "Lea Kiefer",
+                    "Meaghan C Sullivan",
+                    "and Matthew D Simon"
+                ],
+                "journal": "Nature Methods",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 15361,
+                "identity": "a14b8ec5-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Matthew Simon",
+                "email": "matthew.simon@yale.edu",
+                "orcid": "",
+                "institution": "Yale University",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Matthew",
+                "middleName": "",
+                "lastName": "Simon",
+                "suffix": ""
+            },
+            {
+                "id": 15360,
+                "identity": "a14b8c9d-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Meaghan Sullivan",
+                "email": "",
+                "orcid": "",
+                "institution": "Yale University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Meaghan",
+                "middleName": "",
+                "lastName": "Sullivan",
+                "suffix": ""
+            },
+            {
+                "id": 15357,
+                "identity": "a14b84de-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Jeremy Schofield",
+                "email": "",
+                "orcid": "",
+                "institution": "Yale University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jeremy",
+                "middleName": "",
+                "lastName": "Schofield",
+                "suffix": ""
+            },
+            {
+                "id": 15358,
+                "identity": "a14b87c0-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Erin Duffy",
+                "email": "",
+                "orcid": "",
+                "institution": "Yale University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Erin",
+                "middleName": "",
+                "lastName": "Duffy",
+                "suffix": ""
+            },
+            {
+                "id": 15359,
+                "identity": "a14b8b05-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Lea Kiefer",
+                "email": "",
+                "orcid": "",
+                "institution": "Yale University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Lea",
+                "middleName": "",
+                "lastName": "Kiefer",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2018-01-08 21:14:31",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2018.004",
+        "doiUrl": "https://doi.org/10.1038/protex.2018.004",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2610019,
+                "identity": "878dfa8d-898a-4230-8e02-941f8b910056",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:21",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 267121,
+                "visible": true,
+                "origin": "",
+                "legend": "Overview of TimeLapse-seq   TimeLapse-seq uses a convertible nucleoside approach to identify new transcripts in a sequencing experiment. (a) Scheme of TimeLapse-seq. (b) Oxidative-nucleophilic-aromatic substitution reaction that recodes 4-thiouridine into cytidine analogues.",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-6521/v1/figure_1.png"
+            },
+            {
+                "id": 13466058,
+                "identity": "a0aaa8af-e15f-45a9-8e17-bbe0d967bc2b",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:49:21",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 454465,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-6521/v1/e8ec07f7-44df-49f2-9418-9c5091f83c42.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "gene expression, 4-thiouridine, nucleoside chemistry, RNA turnover",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "RNA sequencing \\(RNA-seq) offers a snapshot of cellular RNA populations, but not temporal information about the sequenced RNA. Here we report a protocol for TimeLapse-seq, which uses oxidative-nucleophilic-aromatic substitution to convert 4-thiouridine into cytidine analogs, yielding apparent U-to-C mutations that mark new transcripts upon sequencing. The steps of the protocol are \\(1) treating samples with 4-thiouridine and isolating the total RNA, \\(2) a simple chemical treatment of the labeled RNA with an oxidant and amine under optimized conditions, and \\(3) isolation of the converted RNA which can then be subjected to sequencing.  TimeLapse-seq is a single-molecule approach that is adaptable to many applications.",
+        "manuscriptTitle": "Protocol for TimeLapse-seq",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2018-06-12 11:36:18",
+                "doi": "10.1038/protex.2018.004",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 1
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a14b32df-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "June 12th, 2018",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 4163,
+                "name": "Biochemistry"
+            },
+            {
+                "id": 4164,
+                "name": "Molecular Biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2018-06-12 11:36:18",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

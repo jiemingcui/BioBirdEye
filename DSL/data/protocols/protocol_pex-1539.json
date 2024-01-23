@@ -1,0 +1,285 @@
+{
+    "identity": "pex-1539",
+    "title": "<p>Molecular profile to cancer cell line matchmaking</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>Preclinical data from high-throughput therapeutic screens of cancer cell lines are routinely used to identify individual molecular features associated with therapeutic response or resistance, with the ultimate goal of translating these findings to impact clinical care<sup>1,2</sup>. A limitation of utilizing such results for translational hypothesis generation is that cell lines that share therapeutic response may be genomically highly dissimilar and therefore have questionable biological relevance to another molecular profile. Therefore, we were motivated to study similarity models which identified cancer cell lines that shared more extensive similarities while maintaining&nbsp;therapeutic sensitivities. Previous approaches evaluated genomic similarity based on shared mutated genes weighted by their recurrence in TCGA<sup>3,4</sup>. However, we chose to assess models based on shared therapeutic sensitivity independent of ontology-specific priors in this protocol to emphasize potential clinical relevance.&nbsp;</p><p><br></p><p>We note areas that may improve this protocol for translational hypothesis generation. First, not all cancer cell lines are tested with every therapy, preventing us from characterizing shared drug response in a more nuanced manner than boolean status. Second, there is likely an opportunity to improve developed genomic similarity models to align with therapeutic sensitivity. The advent of large, clinically annotated and molecular profile patient cohorts may enable these techniques and patient similarity networks to be evaluated for precision cancer medicine on patient profiles rather than cancer cell lines<sup>5-7</sup>.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p>Somatic variants and copy number alterations for cancer cell lines catalogued in the Cancer Cell Line Encyclopedia were downloaded from cBioPortal and fusions and therapeutic sensitivity were downloaded from the Sanger Institute\u2019s Genomics of Drug Sensitivity in Cancer (GDSC)<a href=\"https://paperpile.com/c/Y9Hd4k/23Zk+KCYA\" rel=\"noopener noreferrer\" target=\"_blank\">1,2</a>. </p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>Molecular Oncology Almanac version 0.4.1 (<a href=\"https://github.com/vanallenlab/moalmanac/releases/tag/0.4.1\" rel=\"noopener noreferrer\" target=\"_blank\">https://github.com/vanallenlab/moalmanac/releases/tag/0.4.1</a>).&nbsp;</p><p>A Python 3.7 environment with the following software packages installed:</p><p>ipykernel==5.1.0</p><p>jupyter==1.0.0</p><p>matplotlib==3.0.2</p><p>numpy==1.18.2</p><p>pandas==1.0.1</p><p>scipy==1.4.1</p><p>scikit-learn==0.20.1</p><p>snfpy==0.2.2</p><p>tabulate==0.8.7</p><p>oauth2client==4.1.3</p><p>openpyxl==3.0.6</p><p>xlrd==1.2.0</p><p>xmljson==0.2.0</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "1. Cancer cell lines are standardized by name and filtered by requiring: all four data types being available, being of solid tumor origin, not subject to genetic drift between Broad Institute and Sanger Institute characterizations of the cell line per Ghandi et al. 2019, and not reclassified as fibroblast-like by Weck et al. 2017 and Ghandi et al. 2019\n1,8\n.\n2. Observed somatic variants, copy number alterations, and fusions are processed by the Molecular Oncology Almanac (MOAlmanac) to identify clinically relevant molecular features and annotate for their presence in Cancer Gene Census (CGC)\n9\n.\n3. GDSC\u2019s cell line IC50 z-score thresholds are applied to each therapy and cancer cell line pair to generate boolean valued labels for sensitive (z-score < -2.0) and resistant (z-score > 2.0) relationships\n2\n. Pairwise comparisons are made between all cancer cell lines, noting the intersection of therapies which both cancer cell lines are sensitive to as well as the intersection size. Each pair of cancer cell lines is deemed to share therapeutic sensitivity if the intersection size of sensitive therapies is greater than zero. Cancer cell lines are further filtered by requiring that they are sensitive to at least one therapy and that there exists at least one other cell line that shares therapeutic sensitivity.\n4. Somatic variants, copy number alterations, and fusions are coded into matrices indexed by cancer cell line name with each column associated with a different molecular feature to be used to calculate genomic similarity between pairs of cancer cell lines. The coding of features is dependent on the model implemented, as follows in alphabetically:\n- Compatibility (compatibility): Similarity measures between case and comparison profiles are generated based on shared observed clinically relevant features.\nFirst, a total possible score is calculated for each profile based on the set of clinically relevant somatic variants, copy number alterations, and fusions observed in the tumor. Specifically, molecular features which match fully characterized MOAlmanac entries (by gene, feature type, and alteration details) receive 75 points, those which only match by gene and feature type receive 25 points, and only 10 points for matching by gene. For example, the features\nPIK3CA\np.H1047R,\nNUP214--ABL1\n, and\nCDK12\namplification respectively score 75, 25, and 10 points for a total of 110 points as\nPIK3CA\np.H1047R is catalogued in MOAlmanac,\nABL1\nis catalogued with other fusion partners, and\nCDK12\nsomatic variants but not copy number alterations are catalogued in MOAlmanac.\nNext, pairwise comparisons are performed to score the intersection of observed molecular features relative to each case profile. Consider a second profile (B) with features\nBCR--ABL1\n,\nCDK\np.L21S, and\nTP53\ndeletion being compared relative to the one described above (A). B scores 35 of 110 potential points from A, resulting in a score of 0.318. Likewise, A relative to B is calculated and the mean of the two values is taken as the similarity measure, or compatibility, between two molecular profiles. This approach was inspired by dating algorithms.\n- Jaccard of CGC feature types (jaccard-cgc-feature-types). Sort by agreement-based measure (jaccard) by considering variants in a Cancer Gene Census gene and feature type (e.g. CDKN2A copy number alterations match but not a CDKN2A deletion and CDKN2A nonsense somatic variant). Matrix elements are boolean.\n- Jaccard of CGC genes (jaccard-cgc-genes). Sort by agreement-based measure (jaccard) by considering any variant in a Cancer Gene Census gene. Matrix elements are boolean.\n- Jaccard of MOAlmanac feature types (jaccard-almanac-feature-types). Sort by agreement-based measure (jaccard) by considering both gene and data type for all somatic variants, copy number alterations, and rearrangements catalogued in the Molecular Oncology Almanac (e.g. CDKN2A copy number alterations match but not a CDKN2A deletion and CDKN2A nonsense somatic variant). Matrix elements are boolean.\n- Jaccard of MOAlmanac features (jaccard-almanac-features). Sort by agreement-based measure (jaccard) by considering all somatic variant, copy number, and rearrangement molecular features with alteration details as catalogued in the Molecular Oncology Almanac. Matrix elements are boolean.\n- Jaccard of MOAlmanac genes (jaccard-almanac-genes). Sort by agreement-based measure (jaccard) by considering any somatic variant, copy number alteration, and rearrangement in any gene catalogued in Molecular Oncology Almanac. Matrix elements are boolean.\n- Multi-pass sort: FDA & CGC (multi-pass-sort_fda-cgc). A weakness of agreement-based measure is that there will be tied values. Tied similarity based on Molecular Oncology Almanac features associated with FDA evidence are further sorted by using similarity based on CGC genes.\n- Nonsynonymous variant count (nonsynonymous-variant-count). Similarity is evaluated based on the absolute value of the difference of the number of coding somatic variants between the two cancer cell lines. This is a proxy for mutational burden, as the number of somatic bases considered when calling variants to use a denominator is not available from data sources.\n- PCA of CGC genes (pca-cgc-genes). Principal Component Analysis is applied to the matrix of CGC genes, with elements populated if a gene is mutated in a sample either as a somatic variant, copy number alteration, or fusion. Matrix elements are boolean. For example, both\nTP53\nnonsense variants and copy number deletions can populate elements in the column associated with the gene\nTP53\n.\n- PCA of MOAlmanac genes (pca-almanac-genes). Principal Component Analysis is applied to the matrix of MOAlmanac genes, with elements populated if a gene is mutated in a sample either as a somatic variant, copy number alteration, or fusion. Matrix elements are boolean. For example, both\nTP53\nnonsense variants and copy number deletions can populate elements in the column associated with the gene\nTP53\n.\n- Random (random_mean). Cell lines are shuffled against one another randomly across 100,000 seeds. The seed associated with the average mean average precision was chosen.\n- SNF: CGC (snf_cgc). The python implementation of Similarity Network Fusion by Ross Markello (\nhttps://github.com/rmarkello/snfpy\n) is used to combine similarity across multiple data types\n10\n. Matrices that contain boolean values describing variants in CGC genes altered by (1) somatic variants, (2) copy number alterations, and (3) rearrangements are processed by the tool.\n- SNF: FDA & CGC (snf_fda-cgc). The python implementation of Similarity Network Fusion by Ross Markello (\nhttps://github.com/rmarkello/snfpy\n) is used to combine similarity across multiple data types\n10\n. Matrices that contain boolean values describing variants (1) in CGC genes that contain a somatic variants, (2) in CGC genes that contain a copy number alterations, (3) in CGC genes that contain a fusion, and (4) associated with an FDA approval, as identified by MOAlmanac, are processed by the tool.\n- SNF: FDA & CGC genes (snf_fda-cgc-genes). The python implementation of Similarity Network Fusion by Ross Markello (\nhttps://github.com/rmarkello/snfpy\n) is used to combine similarity across multiple data types\n10\n. Matrices that contain boolean values describing variants (1) in CGC genes if mutated either as a somatic variant, copy number alteration, or fusion and (2) associated with an FDA approval, as identified by MOAlmanac, are processed by the tool.\n- SNF: MOAlmanac (snf_almanac). The python implementation of Similarity Network Fusion by Ross Markello (\nhttps://github.com/rmarkello/snfpy\n) is used to combine similarity across multiple data types\n10\n. Matrices that contain boolean values describing variants in MOAlmanac genes altered by (1) somatic variants, (2) copy number alterations, and (3) rearrangements are processed by the tool.\n- Somatic tree (somatic-tree). This approach is inspired by CELLector, by Najgebauer et al.\n4\n. CELLector has a prioritized list of alterations based on cancer type and will report similar cell lines based on mutant / wild type status of each alteration. Likewise, we utilize MOAlmanac\u2019s prioritization of somatic variants, copy number alterations, and rearrangements observed in a given profile to rank comparison cell lines based on the mutant or wild type status of each molecular feature\u2019s feature type and gene altered. The prioritization of somatic events is as appeared in the somatic.scored.txt output of MOAlmanac. As an illustrative example, consider a profile with prioritized somatic events, in order: BRAF somatic variant, COL1A1 fusion, and CDKN2A copy number alteration. Cell lines would be sorted into the order of: (1) BRAF, COL1A1, and CDKN2A mutant, (2) BRAF and COL1A1 mutant and CDKN2A wild type, (3) BRAF and CDKN2A mutant and COL1A1 wild type, (4) BRAF mutant and COL1A1 and CDKN2A wild type, and (5) BRAF wild type, etc.\n5. Similarity models are evaluated by their ability to sort cancer cell line pairs which share therapeutic sensitivity as more similar than those that do not using evaluation metrics from ranked retrieval\n11\n. The metrics precision at rank (\nk\n), recall at rank (\nk\n), and average precision are used to evaluate a model\u2019s ability to sort cell lines relative to one cell line. These metrics are defined as follows, considering a ranked list containing relevant and not relevant documents after a querying many documents:\n- Precision at rank\nk\n(precision @\nk\n). The number of relevant documents that are in the top\nk\nranked documents divided by\nk\n.\n- Recall at rank\nk\n(recall @\nk\n). The fraction of total relevant documents returned when considering\nk\ndocuments.\n- Average precision (AP). The average of precision values at the positions of relevant documents.\nThese metrics are illustrated by example by considering a ranked list of four items that are relevant, not relevant, relevant, and not relevant (Figure 1). Considering the first item (\nk\n= 1) yields a precision of 1.0 (1 relevant item / 1 considered item) but also considering the second yields a precision of 0.5 (1 relevant item / 2 considered items). Recall is calculated to be 0.5 at\nk = 1\n(1 relevant item / 2 total relevant item), 1.0 at\nk = 3\n(2 relevant items / 2 total relevant items), and 1.0 at\nk\n= 4. Relevant items exist at\nk\n= 1 and\nk = 3\nwith associated precision values of 1.0 and 0.66 so the average precision is calculated to be 0.83.\nThe mean average precision (mAP) is calculated to evaluate each model\u2019s performance across all cancer cell lines. The metric is defined as,\n- Mean average precision (mAP). The mean of average precision values from multiple queries.\nGiven three queries which returned six documents with AP values of 0.66, 0.565, and 0.25, the mAP is calculated to be 0.492 (Figure 2).\nThe AP for each cancer cell line and mAP across all cancer cell lines is calculated for each similarity model.\n6. Models are further compared pairwise using randomized testing (Figure 3). The difference in mAP (delta mAP) values between two models is chosen as a test statistic and recorded. For 10,000 iterations using seeds 0 to 9,999, AP values for all cancer cell lines generated by both models are shuffled and both mAP values and delta mAP values associated with the seed are recorded. A p-value describing the significance in difference between the two models is generated by comparing the test statistic to the distribution of 10,000 delta mAP values."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p>All code associated with an implementation of this procedure may be found on Github (<a href=\"https://github.com/vanallenlab/moalmanac-paper\" rel=\"noopener noreferrer\" target=\"_blank\">https://github.com/vanallenlab/moalmanac-paper</a>). </p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": ""
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>It is anticipated that 377 cancer cell lines will be used for evaluation of similarity models after applying filtering criteria.&nbsp;</p><p><br></p><p>The model SNF: CGC &amp; FDA is expected to observe the highest average precision at rank <em>k</em> = 1, with a value of 0.191. This means that the most similar cancer cell line identified shares a therapeutic sensitivity for 19.1% of evaluated cancer cell lines. This model is anticipated to be within the noise range of two other models attempted: Multi-pass sort: FDA &amp; CGC and Somatic tree. The random model is anticipated to result in an average precision at rank <em>k </em>= 1 of 0.095. </p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>1.\tGhandi, M. <em>et al.</em> Next-generation characterization of the Cancer Cell Line Encyclopedia. <em>Nature</em> <strong>569</strong>, 503\u2013508 (2019).</p><p>2.\tYang, W. <em>et al.</em> Genomics of Drug Sensitivity in Cancer (GDSC): a resource for therapeutic biomarker discovery in cancer cells. <em>Nucleic Acids Res.</em> <strong>41</strong>, D955\u201361 (2013).</p><p>3.\tSinha, R., Schultz, N. &amp; Sander, C. Comparing cancer cell lines and tumor samples by genomic profiles. <em>bioRxiv</em> 028159 (2015) doi:10.1101/028159<a href=\"http://paperpile.com/b/Y9Hd4k/jVkl\" rel=\"noopener noreferrer\" target=\"_blank\">.</a></p><p>4.\tNajgebauer, H. <em>et al.</em> CELLector: Genomics-Guided Selection of Cancer In Vitro Models. <em>Cell Syst</em> <strong>10</strong>, 424\u2013432.e6 (2020).</p><p>5.\tAACR Project GENIE Consortium. AACR Project GENIE: Powering Precision Medicine through an International Consortium. <em>Cancer Discov.</em> <strong>7</strong>, 818\u2013831 (2017).</p><p>6.\tPai, S. &amp; Bader, G. D. Patient Similarity Networks for Precision Medicine. <em>J. Mol. Biol.</em> <strong>430</strong>, 2924\u20132938 (2018).</p><p>7.\tZitnik, M. <em>et al.</em> Machine Learning for Integrating Data in Biology and Medicine: Principles, Practice, and Opportunities. <em>Inf. Fusion</em> <strong>50</strong>, 71\u201391 (2019).</p><p>8.\tde Weck, A., Bitter, H. &amp; Kauffmann, A. Fibroblasts cell lines misclassified as cancer cell lines. <em>bioRxiv</em> 166199 (2017) doi:10.1101/166199<a href=\"http://paperpile.com/b/Y9Hd4k/mD6j\" rel=\"noopener noreferrer\" target=\"_blank\">.</a></p><p>9.\tSondka, Z. <em>et al.</em> The COSMIC Cancer Gene Census: describing genetic dysfunction across all human cancers. <em>Nat. Rev. Cancer</em> <strong>18</strong>, 696\u2013705 (2018).</p><p>10.\tWang, B. <em>et al.</em> Similarity network fusion for aggregating data types on a genomic scale. <em>Nat. Methods</em> <strong>11</strong>, 333\u2013337 (2014).</p><p>11.\tSmucker, M. D., Allan, J. &amp; Carterette, B. A comparison of statistical significance tests for information retrieval evaluation. in <em>Proceedings of the sixteenth ACM conference on Conference on information and knowledge management</em> 623\u2013632 (Association for Computing Machinery, 2007).</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>This work was supported by NIH U01 CA233100, NIH R01 CA227388, NIH R37 CA222574, NIH U2C CA252974, Prostate Cancer Foundation (PCF) PCF-Movember Challenge Award, Mark Foundation Emerging Leader Award, and the ASPIRE Award of the Mark Foundation for Cancer Research.</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s43018-021-00243-3",
+                "date": "2021-09-30 16:19:06",
+                "title": "Integrating molecular profiles into clinical frameworks through the Molecular Oncology Almanac to prospectively guide precision oncology",
+                "authors": [
+                    "Brendan Reardon",
+                    "Nathanael D. Moore",
+                    "Nicholas S. Moore",
+                    "Eric Kofman",
+                    "Saud H. AlDubayan",
+                    "Alexander T. M. Cheung",
+                    "Jake Conway",
+                    "Haitham Elmarakeby",
+                    "Alma Imamovic",
+                    "Sophia C. Kamran",
+                    "Tanya Keenan",
+                    "Daniel Keliher",
+                    "David J. Konieczkowski",
+                    "David Liu",
+                    "Kent W. Mouw",
+                    "Jihye Park",
+                    "Natalie I. Vokes",
+                    "Felix Dietlein",
+                    "Eliezer M. Van Allen"
+                ],
+                "journal": "Nature Cancer",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 29431273,
+                "identity": "aad6237e-ab4c-4321-888c-269946cbb5ea",
+                "order_by": 0,
+                "name": "Brendan Reardon",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-1716-5720",
+                "institution": "Dana-Farber Cancer Institute",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Brendan",
+                "middleName": "",
+                "lastName": "Reardon",
+                "suffix": ""
+            },
+            {
+                "id": 29431274,
+                "identity": "11d38791-93bf-4328-a949-d56c036703ec",
+                "order_by": 1,
+                "name": "Eliezer Van Allen",
+                "email": "EliezerM_VanAllen@dfci.harvard.edu",
+                "orcid": "https://orcid.org/0000-0002-0201-4444",
+                "institution": "Dana-Farber Cancer Institute",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Eliezer",
+                "middleName": "Van",
+                "lastName": "Allen",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2021-05-26 17:15:40",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1539/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1539/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 14196496,
+                "identity": "2c582976-cedb-4af1-a076-e86749ffeba3",
+                "added_by": "auto",
+                "created_at": "2021-10-01 16:36:50",
+                "extension": "tiff",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 51311,
+                "visible": true,
+                "origin": "",
+                "legend": "Evaluation of models applied to one cancer cell line. Similarity models sort cancer cell lines into an ordered list relative to a one molecular profile based on shared genomic features. Their ability to sort cancer cell lines that share drug sensitivity (relevant items) as more similar than those that do not (not relevant) is evaluated. ",
+                "description": "",
+                "filename": "Slide1.tiff",
+                "url": "https://assets.researchsquare.com/files/pex-1539/v1/29b8df6bc514befc27645d39.tiff"
+            },
+            {
+                "id": 14196497,
+                "identity": "14bd8281-3644-4f16-8599-54ab69fadbc2",
+                "added_by": "auto",
+                "created_at": "2021-10-01 16:36:50",
+                "extension": "tiff",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 67179,
+                "visible": true,
+                "origin": "",
+                "legend": "Evaluation of models applied to many cancer cell lines. Taking the mean of average precision values of a model applied to many cancer cell lines is used to evaluate a model generally.",
+                "description": "",
+                "filename": "Slide2.tiff",
+                "url": "https://assets.researchsquare.com/files/pex-1539/v1/103dde466fe86ffafdb19707.tiff"
+            },
+            {
+                "id": 14196495,
+                "identity": "7c1bdd33-fdff-4f24-9cf4-824ff603eadc",
+                "added_by": "auto",
+                "created_at": "2021-10-01 16:36:50",
+                "extension": "tiff",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 74436,
+                "visible": true,
+                "origin": "",
+                "legend": "Comparing models with a randomized test. The difference in mean average precision (delta mAP)  between two values is taken as the test statistic. Average precision values from several applications of the two models are shuffled across many seeds to generate a distribution of delta mAP values. The test statistic is compared to the distribution to identify if two models perform significantly different from one another. ",
+                "description": "",
+                "filename": "Slide3.tiff",
+                "url": "https://assets.researchsquare.com/files/pex-1539/v1/140b8c4fbcb2bacb6fc0b10a.tiff"
+            },
+            {
+                "id": 14196498,
+                "identity": "8a08494c-78ca-4ec0-8a09-21ceb91a066b",
+                "added_by": "auto",
+                "created_at": "2021-10-01 16:36:53",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 326795,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1539/v1/60435f90-f226-49fb-b1f5-b5b76bda6a10.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "precision oncology, cancer cell lines, high throughput drug screens",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>Profile-to-cell line matchmaking is a computational protocol to identify cancer cell lines that are genomically similar to a patient\u2019s case profile. In doing so, high-throughput drug screens applied to the same cancer cell lines may be used for therapeutic hypothesis generation in research settings and potentially in clinical settings. To evaluate the metrics of the matchmaking, a hold-one-out approach of the considered cancer cell lines is applied, and molecular similarity models are assessed based on their ability to identify cancer cell lines that share therapeutic sensitivity. </p>",
+        "manuscriptTitle": "Molecular profile to cancer cell line matchmaking",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2021-10-01 16:36:48",
+                "doi": "10.21203/rs.3.pex-1539/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "d0f73de5-34ae-4ca6-aa11-5a50700f9e7f",
+        "owner": [],
+        "postedDate": "October 1st, 2021",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 4598901,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 4598902,
+                "name": "Cancer"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2021-10-01 16:36:48",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

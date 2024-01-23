@@ -1,0 +1,309 @@
+{
+    "identity": "pex-1576",
+    "title": "<p>Step-by-step protocol for data acquisition and reconstruction of holographic images in high-throughput single-pixel holography</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>The process to reconstruct a single-pixel holographic image can be briefly described into three parts. (1) Projection of modulated light patterns onto the complex-valued objects to be measured; (2) Data acquisition of transmitted light in a holographic system; (3) Reconstruction algorithm realized using customized coded for holographic reconstruction. All three parts have their respective functionalities, which will be introduced in Procedure section in order.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": ""
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>Statement of system requirements:</p><p>1. All the code demonstrations and experimental performances can be successfully executed using the MATLAB v2016a (including the later versions) and Visual Studio 2013 (including the later versions).</p><p>2. In this work, we chose to use the MATLAB v2020b and the Visual Studio 2019 community version. The operating system is Windows 10.</p><p>3. During the data acquisition, the physical presence of the digital micromirror device (DMD) and the data acquisition card (DAC) is required to execute respective C++ files successfully. Both the DMD and the DAC are the required non-standard hardware for the experiment.</p><p>Commercialized software, including the MATLAB, the Visual Studio, the software development kits (SDKs) of the DMD from Vialux, and the DAC from NI, can be accessed from official websites, as well as their installation guides. For our computer (Intel(R) Core(TM) i5-8600K CPU@3.60GHz), it generally takes about one hour of installation time on a desktop personal computer, respectively.</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "Preparation of the modulation patterns\nThis part aims to produce the binary data to be preloaded into the DMD as modulation patterns. The file \u2018DMD_hadamard256.m\u2019 in this file folder is used to generate Hadamard-like patterns with orders up to 256 \u00d7 256. Hadamard-like patterns with different orders can be generated as well by adjusting the parameter \u2018number\u2019 in this file. The execution of this file with commercialized software MATLAB generates a sequence of Hadamard-like patterns in the format of .txt binary files. To minimize phase drifting caused by environmental disturbance during the experiment, the first order of Hadamard-like patterns (DC signal) is inserted after every 16 modulation patterns as the tracking base. Therefore, 73,728 patterns are generated in a sequence and it takes about 25 minutes to finish this one-time preparation. This MATLAB code is provided in \u2018Supplementary Code\u2019, which can be accessed in the public repository Zenodo [1].\nA DMD (Texas Instrument DLP7000&DLPC410) is employed to project Hadamard-like patterns to the sample. The software and the control board of the DMD are provided by Vialux company (model number Vialux V7001). The Hadamard-like patterns in the format of .txt binary files can be uploaded to the random-access memory (RAM) in advance. Unfortunately, we do not provide a series of .txt files of Hadamard-like patterns for saving space as it occupies a large memory of about 50 Gbit (less than the 64 Gbit of the RAM of the DMD). After execution of this MATLAB file, the regenerated .txt binary files will be collected in the default document \u2018data_image256_3_3_8bitplane_russia_persuitbasis2_txt\u2019.\nData acquisition\nThis part describes how to collect the data. The main C++ code file that is implemented in the Visual Studio C++ project is included in the main folder named \u2018joint_256bitplane8\u2019, which is provided in \u2018Supplementary Code\u2019 that can be accessed in the public repository Zenodo [1].\nThis folder includes some necessary files of the Visual Studio C++ project to control both the DMD and the DAC. In this project, the execution of an integrated C++ source file named \u2018joint_256bitplane8.cpp\u2019 enables the DMD to display the desired Hadamard-like patterns with full speed and the DAC to acquire data subsequently. After preloading all the desired Hadamard-like patterns onto the DMD, it takes about 3 seconds to finish the data acquisition once. Please visit the website https://visualstudio.microsoft.com/zh-hans/ to download the Visual Studio 2019 community version.\nHowever, the successful execution of these C++ files requires the correct configuration of environment variables in a \u201cnormal\u201d desktop computer as well as the physical presence of the DMD and the DAC. It means that the data acquisition step cannot be run successfully without any supporting SDKs from Vialux and NI that manage the DMD and the DAC.\nTo gain control of the DMD and the DAC respectively, please visit the website https://www.vialux.de/en/download.html to download corresponding control files for the DMD and https://www.ni.com/zh-cn/support/downloads/drivers/download.ni-daqmx.html#288248 for the DAC.\nHolographic reconstruction\nThis part illustrates how to use MATLAB to reconstruct holographic images from the experimentally measured data. In the file folder named \u2018holographic reconstruction\u2019 provided in \u2018Supplementary Code\u2019 that can be accessed in the public repository Zenodo [1], there are two subfolders named \u2018stained tissue from mouse tails\u2019 and \u2018unstained tissue from mouse brains\u2019, corresponding to different types of biological tissue. In each folder, the MATLAB file named \u2018singlepixel_dataprocessing_complex.m\u2019 is the main file executed for holographic reconstruction. After executing the main file and loading the converted MATLAB data named \u2018biological_sample.mat\u2019 and \u2018background_curvature.mat\u2019, output files including many intermediate variables are stored in the folder named \u2018results\u2019. Among them, the expected amplitude and phase images are named \u2018imaging-amplitude.fig\u2019 and \u2018imaging-phase.fig\u2019, respectively.\nA flowchart of the step-by-step procedures to reconstruct holographic images is shown in Fig. 1."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": ""
+        },
+        {
+            "header": "Time Taken",
+            "content": ""
+        },
+        {
+            "header": "Anticipated Results",
+            "content": ""
+        },
+        {
+            "header": "References",
+            "content": "<p>1. Daixuan Wu. (2021, July 6). Supplementary Code for \"Imaging biological tissue with high-throughput single-pixel compressive holography\". Zenodo. http://doi.org/10.5281/zenodo.5078499</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41467-021-24990-0",
+                "date": "",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 37823068,
+                "identity": "6985f69f-351e-4912-af0a-2f93e195d10c",
+                "order_by": 0,
+                "name": "DaiXuan Wu",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-9232-3442",
+                "institution": "Key Laboratory of Optoelectronic Materials and Technologies, School of Electronics and Information Technology, Sun Yat-sen University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "DaiXuan",
+                "middleName": "",
+                "lastName": "Wu",
+                "suffix": ""
+            },
+            {
+                "id": 37823069,
+                "identity": "dba28eac-bc16-4b1c-96a3-84bc3344c173",
+                "order_by": 1,
+                "name": "Jiawei Luo",
+                "email": "",
+                "orcid": "",
+                "institution": "Key Laboratory of Optoelectronic Materials and Technologies, School of Electronics and Information Technology, Sun Yat-sen University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jiawei",
+                "middleName": "",
+                "lastName": "Luo",
+                "suffix": ""
+            },
+            {
+                "id": 37823070,
+                "identity": "2edf32d3-a438-46b4-9e87-ec89e43dac48",
+                "order_by": 2,
+                "name": "Guoqiang Huang",
+                "email": "",
+                "orcid": "",
+                "institution": "Key Laboratory of Optoelectronic Materials and Technologies, School of Electronics and Information Technology, Sun Yat-sen University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Guoqiang",
+                "middleName": "",
+                "lastName": "Huang",
+                "suffix": ""
+            },
+            {
+                "id": 37823071,
+                "identity": "49c0f412-1df3-4a21-b751-72b9547c6a58",
+                "order_by": 3,
+                "name": "Yuanhua Feng",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Electronic Engineering, College of Information Science and Technology, Jinan University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Yuanhua",
+                "middleName": "",
+                "lastName": "Feng",
+                "suffix": ""
+            },
+            {
+                "id": 37823072,
+                "identity": "44482650-2d10-4151-a754-d97a97a9e281",
+                "order_by": 4,
+                "name": "Xiaohua Feng",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Bioengineering, University of California",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Xiaohua",
+                "middleName": "",
+                "lastName": "Feng",
+                "suffix": ""
+            },
+            {
+                "id": 37823073,
+                "identity": "1c41a8fe-e1cd-4e21-8250-c88b471e0df2",
+                "order_by": 5,
+                "name": "Runsen Zhang",
+                "email": "",
+                "orcid": "",
+                "institution": "Institute of Photonics Technology, Jinan University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Runsen",
+                "middleName": "",
+                "lastName": "Zhang",
+                "suffix": ""
+            },
+            {
+                "id": 37823074,
+                "identity": "5fef1be3-2843-4dc3-bf2a-12bb101aba56",
+                "order_by": 6,
+                "name": "Yuecheng Shen",
+                "email": "shenyuecheng@mail.sysu.edu.cn",
+                "orcid": "",
+                "institution": "Key Laboratory of Optoelectronic Materials and Technologies, School of Electronics and Information Technology, Sun Yat-sen University",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Yuecheng",
+                "middleName": "",
+                "lastName": "Shen",
+                "suffix": ""
+            },
+            {
+                "id": 37823075,
+                "identity": "e026e036-2a6a-43d2-8e60-3b389267a503",
+                "order_by": 7,
+                "name": "Zhaohui Li",
+                "email": "lzhh88@mail.sysu.edu.cn",
+                "orcid": "",
+                "institution": "Key Laboratory of Optoelectronic Materials and Technologies, School of Electronics and Information Technology, Sun Yat-sen University",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Zhaohui",
+                "middleName": "",
+                "lastName": "Li",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2021-07-07 08:25:04",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1576/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1576/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 12377095,
+                "identity": "146bdaf7-82e0-41cf-9eb8-962a6c3de953",
+                "added_by": "auto",
+                "created_at": "2021-08-12 17:08:49",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 59699,
+                "visible": true,
+                "origin": "",
+                "legend": "A flowchart of the reconstruction process",
+                "description": "",
+                "filename": "pesudocodeflowchart.png",
+                "url": "https://assets.researchsquare.com/files/pex-1576/v1/6f7fb1c5b6017ad9f3342147.png"
+            },
+            {
+                "id": 13708869,
+                "identity": "139f9dfc-5e66-45e9-b06a-4b676e34a041",
+                "added_by": "auto",
+                "created_at": "2021-09-17 14:10:15",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 343312,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1576/v1/95fbe944-7824-4823-ba1e-c9a329ea148e.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "single-pixel holography, biological imaging",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>With the strong desire to develop an efficacious imaging modality that can scrutinize complex-valued objects with intricate structures, such as a myriad of biological samples, we develop high-throughput single-pixel holography (SPH). The protocol aims to describe the detailed procedures of this work.&nbsp;</p>",
+        "manuscriptTitle": "Step-by-step protocol for data acquisition and reconstruction of holographic images in high-throughput single-pixel holography",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2021-08-12 17:08:47",
+                "doi": "10.21203/rs.3.pex-1576/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "777b080e-03af-4ee9-9880-bead5df7f913",
+        "owner": [],
+        "postedDate": "August 12th, 2021",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 5544362,
+                "name": "Optical physics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2021-08-12 17:08:47",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

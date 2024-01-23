@@ -1,0 +1,284 @@
+{
+    "identity": "nprot-4565",
+    "title": "Label-free Mass-Spectrometry \\(MS) for Cancer control Protocol",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Label-free Mass Spectrometry \\(MS) makes use of novel methods and approaches that aim to recognize and, if possible, to determine the relative amount of proteins in two or more biological samples. Unlike other proteomics methods, label-free methods do not label the proteins.\r\n\n\nIn our published articles \\(1-8), we have coupled MS with label-free technologies such as Nucleic Acid Protein Programmable Arrays \\(NAPPA) and SNAP tag. New England Biolabs has indeed produced a series of alkylguanine-DNA alkyltransferases that react specifically and rapidly with benzylguanine \\(BG) derivatives, leading to irreversible covalent labeling of the SNAP tag. SNAP tag has a number of features that make it ideal for a variety of applications in protein tagging; in particular, its substrates are chemically inert towards other proteins, thus avoiding nonspecific tagging in cellular applications, as well as for other biomolecular tasks. \r\n\n\nMoreover, also the chemistry and the printing of the NAPPA have been improved. The last goal of our research is to develop a standardized analysis procedure, able to analyze the protein-protein interactions occurred on NAPPA array \\(or other similar arrays) in a label-free manner. \r\n\n\nTo this aim, we employed a Matrix-assisted laser desorption ionization \\(MALDI) Time of flight \\(TOF) MS for NAPPA analysis. MALDI technique, in fact, allows to analyze protein samples co-crystallized with the matrix on a conductive surface; for this reason, NAPPA was performed on a standard microscope glass covered with a thin layer of gold. After the NAPPA expression, the proteins immobilized on the array surface were trypsin digested and immediately after analyzed by MALDI-TOF MS, without needing to be removed from the array surface.\r\n\n\nFor MS analysis, the array printing was realized in a special geometry getting protein samples with higher density, in order to obtain an amount of protein appropriate for MS analysis. The spots of 300 microns were printed in 12 boxes of 10\u00d710 \\(spaced of 350 microns, center to center). The spots in a box were of the same gene, and in particular one box a piece was reserved to the sample genes, two boxes were printed with master mix \\(MM) as negative control and reference samples, and six boxes were printed with the sample genes in an order blinded to the MS user. This was done to check if our approach was able to recognize the unknown expressed genes.\r\n\n\nDue to the background noise introduced in the signal by master mix and E. Coli lysate, spectral subtraction is needed for the analysis of the signals acquired by MS. To this goal, an ad-hoc software package was developed \\(1). In this latter we implemented K-means clustering beyond spectra preprocessing functions. This approach proved to be useful to overcome the troubles related to peak deletion, due to preprocessing or subtraction of spectra."
+        },
+        {
+            "header": "Reagents",
+            "content": "- Argon,\r\n\n\n- cysteamine 2mM,\r\n\n\n- ethanol,\r\n\n\n- HeLa lysate mix \\(1-Step Human Coupled IVTT Kit, Thermo Fisher Scientific Inc.),\r\n\n\n- NucleoPrepII anion exchange resin \\(Macherey Nagel),\r\n\n\n- NAPPA printing mix \\(1.4 \u03bcg/ul DNA, 3.75 \u03bcg/ul BSA, Sigma-Aldrich; 5 mM BS3, Pierce, Rockford, IL, USA; 66.5 \u03bcg polyclonal capture GST antibody, GE Healthcares),\r\n\n\n- PBS,\r\n\n\n- SNAP tag."
+        },
+        {
+            "header": "Equipment",
+            "content": "- MALDI-TOF Ultraflex III \\(Bruker Daltonics, Leipzig, Germany),\r\n\n\n- SpaDs package: freely available at http://www.ibf.unige.it/SpADS"
+        },
+        {
+            "header": "Procedure",
+            "content": "- Prepare the NAPPA/SNAP samples. Construction of SNAP Genes Nanoarrays can be performed using gold surface coated for 10 minutes with 2% solution of 3- Aminopropyltriethoxysilane \u2013 APTES \u2013 \\(Pierce, Rockford, IL, USA) in acetone, rinsed in acetone and dried with filtered air. Full length complementary DNAs \\(cDNAs) can be purchased from DNASU Central Plasmid Repository located in the Biodesign Institute, Arizona State University \\(ASU), USA \\(https://dnasu.org/DNASU/Home.do) or from Open Biosystem, Thermo Scientific. cDNAs were amplified and cloned into NdeI and XhoI sites in pCOATexp SNAPf vector, a derivative of pCOATexp and pSNAPf \\(further details can be found at https://www.neb.com/products/n9183-psnapf-vector#tabselect0). Printing mix was prepared with 0.66 \u00b5g/\u00b5l DNA \\[bovine serum albumin, BSA, bound], capture reagent: BG-PEG-NH2 \\(an amine-terminated building block for the one-step synthesis of SNAP-tag substrates from NHS esters or other activated carboxyl esters on labels or surfaces, https://www.neb.com/products/s9150-bg-peg-nh2), ranging from 80 to 800 ng/\u03bcl \\[sBS3 bound],\r\n\n\n- digest with trypsin the synthesized protein\\(s) on the NAPPA/SNAP slides for MS analysis,\r\n\n\n- at the end of the digestion, let the solvent evaporate at room temperature,\r\n\n\n- store the slides at 4\u00b0C for subsequent MALDI-TOF MS analysis,\r\n\n\n- perform the MALDI-TOF measures in reflectron mode; the resulting mass accuracy for protein should be < 50 ppm,\r\n\n\n- acquire the MALDI TOF mass spectra with a pulsed nitrogen laser \\(337 nm) in positive ion mode, - for each sample acquire at least 8 spectra and average them,\r\n\n\n- process the acquired averaged MS spectra with SpaDs software:\r\n\n\n1. SpADS has to be feeded with data in the ASCII format\r\n  2. After the invocation of SpADS, build a new dataset by providing label and path to every single spectrum, along with a binning window. A typical value is of 1000,\r\n  3. Provide the set of non-mandatory parameters, like a threshold, a region of interest \\(ROI) and a filepath containing the noise spectrum. This latter has to be in ASCII format, too,\r\n  4. Once the dataset is created, SpADS will start automatically the K-means clustering. Conversion of data into percentage can save time. Select the most appropriate solution provided by SpADS.\r\n  Figure 3 shows the cluster assignement of an ensemble of 56 proteins by using a binning window of 1000, a threshold of the 10%, a ROI of 1000/1200 and Z-scored data. For further details please refer to \\(6)."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "We have recently developed a new MS bioinformatics procedure here reported for the first time. Instead of using a statistical approach, we started from all the components of the PURE mixture. All the hundred proteins of PureExpress mixture have been indeed plotted against the peaks experimentally obtained of background acquired with our Mass Spectrometer. \r\n\n\nThe biophysical unit is m/z ratio \\(of PureExpress along x axis and of background experimentally acquired along y axis).\r\n\n\nAll the peaks have been accordingly normalized, assuming constant equimolar ratios \\(1:1:1:\u2026 for all the components), or, in other words, assuming that intensity of the peaks \\(relative abundance) is equal for all the components. \r\n\n\nObserving this scatterplot, an exceptional alignment of both components \\(peaks of PureExpress and those experimentally acquired) emerges. It can be anticipated from this scatterplot that, knowing the real, exact molar ratios, the signal would be more or less perfectly subtracted.. \r\n\n\nThis approach is different from the clustering approach in that is more effective, less complex and can be routinely used also in clinical contexts."
+        },
+        {
+            "header": "References",
+            "content": "1) Belmonte L, Spera R, Nicolini C. SpADS: An R Script for Mass Spectrometry Data Preprocessing before Data Mining. J Comput Sci Syst Biol. 2013;6:298-304.\r\n\n\n2) Bragazzi NL, Pechkova E, Nicolini C. Proteomics and proteogenomics approaches for oral diseases.  Adv Protein Chem Struct Biol. 2014;95:125-62.\r\n\n\n3) Nicolini C, Adami M, Sartore M, Bragazzi NL, Bavastrello V, Spera R, Pechkova E. Prototypes of newly conceived inorganic and biological sensors for health and environmental applications. Sensors \\(Basel). 2012 Dec 12;12\\(12):17112-27. \r\n\n\n4) Nicolini C, Bragazzi N, Pechkova E. Nanoproteomics enabling personalized nanomedicine. Adv Drug Deliv Rev. 2012 Oct;64\\(13):1522-31.\r\n\n\n5) Nicolini C, Bragazzi NL, Pechkova E. Determination of Protein-Protein Interaction for Cancer Control via Mass Spectrometry and Nanoconductimetry of NAPPA SNAP Arrays: An Overview. NanoWorld J. 2015;1\\(1):9-17.\r\n\n\n6) Nicolini C, Spera R, Festa F, Belmonte L, Chong S, Pechkova E, LaBaer J. Mass Spectrometry and Florescence Analysis of Snap-Nappa Arrays Expressed Using E. coli Cell_Free Expression System. J Nanomed Nanotechnol. 2013;4:181. \r\n\n\n7) Nicolini C, Spera R, Pechkova E. SpADS and SNAP-NAPPA Microarrays towards Biomarkers Identification in Humans: Background Subtraction in Mass Spectrometry with E.coli Cell Free Expression System. J Mol Biomark Diagn 6:214. \r\n\n\n8) Spera R, Labaer J, Nicolini C. MALDI-TOF characterization of NAPPA-generated proteins. J Mass Spectrom. 2011 Sep;46\\(9):960-5.\r\n\n\n9) Nicolini C, Peshkova E. Microarray based Functional Nanoproteomics and Cancer. In: Cancer Nanotechnology \\(Chapter 2, pp. 110-113). Biotech, Biomaterials and Biomedical TechConnect Briefs 2015.\r\n\n\n10) Nicolini C, Peshkova E, Bragazzi N. From Nanogenomics and Structural-Functional Proteomics to Personalized Medicine for Oral Lichen Planus \\(OLP) as a Translational Model of Oral Cancer Useful to Introduce an Industrial Technical Innovation. In: Cancer Nanotechnology \\(Chapter 2, pp. 114-117). Biotech, Biomaterials and Biomedical TechConnect Briefs 2015.\r\n\n\n\r\n\n\nPATENTS\r\n\n\nNicolini C, Troisky V, Ghisellini P. Matrici per DNAser. ITRM20020328 \\(A1) \u2015 2003-12-10.\r\n\n\nNicolini C, Sposito D, Salvadeo P. DNAser. ITRM20020327 \\(A1) \u2015 2003-12-10.\r\n\n\nBragazzi NL, Nicolini C, Peshkova E. APA-SNAP nanoarrays per proteomica LB-basata \\(strutturale e funzionale) e per vaccinologia. ITGE20120080 \\(A1) \u2015 2014-02-10 \\(http://worldwide.espacenet.com/publicationDetails/biblio?FT=D&date=20140210&DB=worldwide.espacenet.com&locale=en_EP&CC=IT&NR=GE20120080A1&KC=A1&ND=5)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1002/jms.1976",
+                "date": "2016-01-25 15:02:51",
+                "title": "MALDI-TOF characterization of NAPPA-generated proteins",
+                "authors": [
+                    "Rosanna Spera",
+                    "Joshua Labaer",
+                    "and Claudio Nicolini"
+                ],
+                "journal": "Journal Of Mass Spectrometry",
+                "logo": ""
+            },
+            {
+                "doi": "10.1016/B978-0-12-800453-1.00004-X",
+                "date": "2016-01-25 14:18:41",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 13762,
+                "identity": "a0a781b1-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Claudio Ando Nicolini",
+                "email": "clannicolini@gmail.com",
+                "orcid": "",
+                "institution": "Claudio Ando Nicolini's Lab, NanoWorld, USA; HC Professor Nanobiotechnology, Lomonosov Moscow State University, Russia; Foreign Member Russian Academy of Sciences; President NWI Fondazione EL.B.A. Nicolini; Editor-in-Chief NWJ, Santa Clara, USA",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Claudio",
+                "middleName": "Ando",
+                "lastName": "Nicolini",
+                "suffix": ""
+            },
+            {
+                "id": 13763,
+                "identity": "a0a7842d-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Nicola Luigi Bragazzi",
+                "email": "",
+                "orcid": "",
+                "institution": "Claudio Ando Nicolini's Lab; LBN, University of Genoa, Genoa, Italy; Fondazione EL.B.A. Nicolini",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Nicola",
+                "middleName": "Luigi",
+                "lastName": "Bragazzi",
+                "suffix": ""
+            },
+            {
+                "id": 13764,
+                "identity": "a0a785c2-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Eugenia Pechkova",
+                "email": "",
+                "orcid": "",
+                "institution": "Claudio Ando Nicolini's Lab; LBN Director, DIMES, University of Genoa, Genoa, Italy; Fondazione EL.B.A. Nicolini",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Eugenia",
+                "middleName": "",
+                "lastName": "Pechkova",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2016-01-25 15:47:22",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2016.002",
+        "doiUrl": "https://doi.org/10.1038/protex.2016.002",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2609377,
+                "identity": "836e8f3d-f039-4934-8afa-bd5325f93484",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:53",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 28562,
+                "visible": true,
+                "origin": "",
+                "legend": "Mass Spectrometry NAPPA versus SNAP arrays",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-4565/v1/figure_1.png"
+            },
+            {
+                "id": 2609379,
+                "identity": "4b109196-7291-4b8f-b79a-023eb7c9345a",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:53",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 12903,
+                "visible": true,
+                "origin": "",
+                "legend": "Mass Spectrometry of Snap-Nappa Arrays of p53 versus CdK2 genes expressed using PURE Escherichia Coli system. ",
+                "description": "",
+                "filename": "figure2.png",
+                "url": "https://assets.researchsquare.com/files/nprot-4565/v1/figure_2.png"
+            },
+            {
+                "id": 2609378,
+                "identity": "60449378-a257-4dd5-bdee-307ba075aa72",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:53",
+                "extension": "png",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 31159,
+                "visible": true,
+                "origin": "",
+                "legend": "Cluster assignment for each known protein sample on a specimen of 56 spectra as done in (6) ",
+                "description": "",
+                "filename": "figure3.png",
+                "url": "https://assets.researchsquare.com/files/nprot-4565/v1/figure_3.png"
+            },
+            {
+                "id": 13465083,
+                "identity": "6dde4ba7-04e0-44de-b15c-b69357f49bf2",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:45:35",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 214998,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-4565/v1/8a8c3f91-0069-4c47-b490-75f8ae21c8df.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "label-free technologies, mass spectrometry, NAPPA, SNAP, cancer",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "In the current protocol, we explain how to perform label-free mass spectrometry \\(MS)-based analysis of gene expression and proteins. We coupled Matrix-assisted laser desorption ionization \\(MALDI) Time of flight \\(TOF) with cell-free in vitro transcription and translation \\(IVTT) technologies, namely Nucleic Acid Protein Programmable Array \\(NAPPA) and SNAP techniques. Data analysis is performed by the usage of SpADS, an R package that takes advantage of simple data mining algorithms.\r\n\n\nThe SpADS package is freely available at \"http://www.ibf.unige.it/SpADS\":http://www.ibf.unige.it/SpADS",
+        "manuscriptTitle": "Label-free Mass-Spectrometry (MS) for Cancer control Protocol",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2016-02-04 13:13:49",
+                "doi": "10.1038/protex.2016.002",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a0a6b1f6-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "February 4th, 2016",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3547,
+                "name": "Nanoscience and technology"
+            },
+            {
+                "id": 3548,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 3549,
+                "name": "Biochemistry"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2016-02-04 13:13:49",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

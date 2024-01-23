@@ -1,0 +1,259 @@
+{
+    "identity": "nprot-7305",
+    "title": "<p>Plating and imaging of yeast colonies for segmentation and classification with neural networks</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>Adenine auxotrophy is commonly used in yeast research to monitor genetic and epigenetic events. Mutation or silencing events interrupting the adenine synthesis pathway lead to the accumulation of a red pigment under adenine limiting conditions. Colonies with a functional adenine synthesis pathway appear white. An advantage of this non-selective reporter system is that a direct semi-quantitative comparison of expression levels between colonies can be made on the same plates. Furthermore, the degree and stability of expression (pink, variegating and red) can be determined by comparing the amount and distribution of accumulated red pigment within a colony. A disadvantage of this non-selective reporter is the very time-consuming and tedious color classification of colonies by hand. Further, if components of the adenine synthesis pathway are expressed at low level (pink phenotype), classification can vary between researchers and screens, potentially leading to erroneous and not fully reproducible results. To reduce these issues, we have developed a highly accurate and automated colony classification method based on neuronal networks with whole plate images as input (Carl <em>et al; </em>bioRxiv, doi: https://doi.org/10.1101/801845). In this protocol we describe in detail the procedures for plating and imaging as used for the pipeline training, which are crucial to achieve optimal results.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p>Petri Dish (FALCON, #351029)</p><p>Difco<sup>TM</sup> Agar, Granulated (BD, #214530)</p><p>Bacto<sup>TM</sup> Yeast Extract (BD, #212750)</p><p>\u03b1-D-Glucose (Sigma-Aldrich, #158968)</p><p>Yeast strain </p><p><br></p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p><strong>Equipment:</strong></p><p>Kaiser RS1 Copy Stand</p><p>Canon EOS 550D</p><p>Canon macro lens EF-S 60mm 1:2.8 USM </p><p>KAISER <a href=\"http://www.kaiser-fototechnik.de/en/produkte/2_1_produktanzeige.asp?nr=5556\" target=\"_blank\">RB 5000 DL Lighting Unit</a></p><p><br></p><p><strong>Software:</strong></p><p>Project home page: https://github.com/fmi-basel/buehler-colonyclassification</p><p>Operating system(s): Platform independent</p><p>Other requirements: Python 3.6 or higher, fastai library v. 0.7</p><p>License: GNU GPL v3.0</p><p><br></p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "We present a detailed protocol describing: (i) Plating of no more than 200-500 colonies/ 10cm plate (1 hour/ 100 plates) (ii) Incubation of plates until colonies form (at 30\u00b0C for 5-7 days); (iii) Imaging of plates (30min/ 100 plates); and (iii) running the automated pipeline described in (Carl\net al;\nbioRxiv, doi: https://doi.org/10.1101/801845) on the obtained images (20min/100 images). Although we established this protocol for\nSchizosaccharomyces pombe\n, implementation for other microbes should be straight-forward.\nYE plate preparation (1l / 50 plates)\n1.\u00a0\u00a0\u00a0\u00a0Mix 1.0 l ddH\n2\nO, 5.0 g Yeast Extract, 30.0 g \u03b1-D-Glucose and 20.0 Agar with a magnet until all powder clumps disperse.\n2.\u00a0\u00a0\u00a0\u00a0Autoclave at 121\u00b0C for 20 min.\n3.\u00a0\u00a0\u00a0\u00a0Cool down under constant stirring to 50\u00b0C.\n4.\u00a0\u00a0\u00a0\u00a0If desired, add antibiotics and stir for 2 min to ensure a homogeneous mixture.\n5.\u00a0\u00a0\u00a0\u00a0Pure 20 ml of autoclaved agar media into each 10 cm plate.\n6.\u00a0\u00a0\u00a0\u00a0After solidification (c.a. 20 min at room temperature), transfer plates upside down into plastic bags and store in a cold room until use or up to two months.\nNote: For consistent results keep autoclaving time the same for all plates within an experiment. Reduced autoclaving time can lead to slightly increased accumulation of the red pigment.\nNote: When working with PMGc plates, low thiamine concentration reduces epigenetic ade6\n+\nsilencing phenotypes in S. pombe.\nPlating of yeast cells\nFrom liquid culture:\n1.\u00a0\u00a0\u00a0\u00a0Measure optical density (OD).\n2.\u00a0\u00a0\u00a0\u00a0Dilute samples to 100 cells /ml.\n3.\u00a0\u00a0\u00a0\u00a0Pipette 1 ml onto a cover slip and recount under a microscope.\n4.\u00a0\u00a0\u00a0\u00a0Dilute to 500 cells / 100 ml (per plate).\n5.\u00a0\u00a0\u00a0\u00a0Homogeneously distribute 100 ml / plate with glass beads.\nFrom plate:\n1.\u00a0\u00a0\u00a0\u00a0Transfer cells from a plate with a pipette tip into a 1 ml H\n2\nO containing Eppendorf tube. Mix well by vortexing.\n2.\u00a0\u00a0\u00a0\u00a0Dilute 1:100.\n3.\u00a0\u00a0\u00a0\u00a0Pipette 1 ml onto a cover slip and count cells under the microscope.\n4.\u00a0\u00a0\u00a0\u00a0Dilute to 500 cells / 100 ml (per plate).\n5.\u00a0\u00a0\u00a0\u00a0Homogeneously distribute 100 ml / plate with glass beads.\nNote: When working with mutants that impact viability or selecting for a fraction of cells that are resistant to antibiotics, estimate how many cells will survive beforehand and plate accordingly.\nIncubation of yeast plates\nIncubate plates upside down at 30\u00b0C for 5-7 days.\nNote: If working with growth defective mutants or incubating plates at different temperatures, grow cells until colonies reach a diameter of at least 1 mm.\nNote: If colonies are overgrown (e.g. 10 days at 30\u00b0C), i.e. the center protrudes and a ring forms around the center of the colony, many white colonies are misclassified as pink.\nNote: Storing plates in the fridge enhances the red color. Treat all plates within an experiment the same.\nImaging of plates\n1.\u00a0\u00a0\u00a0\u00a0Place plate on a dark black background.\n2.\u00a0\u00a0\u00a0\u00a0Adjust camera height or zoom that the entire plate fits into one image.\nNote: If plates were previously stored in the cold, let them warm up to room temperature before imaging to avoid classification artefacts caused by condensation.\nNote: Different colored backgrounds can possibly be used, however a black background is recommended.\nNote: Set color balance to manual and not automatic to avoid increased red in images with only white colonies.\nRunning the automatic classification\nRun the classification pipeline as described in (Carl\net al;\nbioRxiv, doi: https://doi.org/10.1101/801845):\n1.\u00a0\u00a0\u00a0\u00a0Download and install the required python packages as detailed on the github page.\n2.\u00a0\u00a0\u00a0\u00a0Download the classification pipeline script.\n3.\u00a0\u00a0\u00a0\u00a0Place all images that you would like to classify into the same folder.\n4.\u00a0\u00a0\u00a0\u00a0Run the pipeline as described on the github page.\ngithub link: https://github.com/fmi-basel/buehler-colonyclassification"
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p><strong>No colonies classified:</strong></p><p>No colonies are classified when the neuronal network cannot distinguish colonies from background (segmentation). Change the background to a darker black. Bad quality of images (out of focus/ low pixel number) can reduce the number of classified colonies.</p><p>&nbsp;</p><p><strong>Few colonies classified:</strong></p><p>When colonies are very dense (&gt;500 colonies / plate), segmentation can frequently fail, leading to few classified colonies. Also colonies smaller than 20 x 20 pixels are not segmented. This can be easily resolved by decreasing plating density.</p><p>&nbsp;</p><p><strong>Misclassified colonies:</strong></p><p>White colonies can be misclassified as pink, if plates were incubated too long (a ring forms around the center of the colony). Reduce incubation time of plates. To check classification of specific colonies, the classification pipeline can be run in \u201cprediction-only\u201d mode on previously-segmented images.</p><p>&nbsp;</p><p><strong>Overestimation of white colonies: </strong></p><p>The accumulation of the red pigment decreases growth. If cells are plated too dense, red colonies do not reach the threshold size for segmentation, leading to a relative underestimation of red colonies in comparison to other colony phenotypes.</p><p><br></p><p><strong>\ufeffFurther improvement:</strong></p><p><strong>If all those measures don\u2019t imp</strong>rove the output, one can re-train the neuronal network with own images (Carl <em>et al; </em>bioRxiv, doi: https://doi.org/10.1101/801845).</p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p><strong>Estimated time requirements for 100 plates:</strong></p><p>YE plate preparation: 40 min</p><p>Plating of cells: 1 hour</p><p>Incubation of yeast plates: 5-7 days</p><p>Imaging of plates: 30 min</p><p>Running the automatic classification: 15-20 min</p><p><br></p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>The automatic classification pipeline generates a summary .csv file, containing the total number of classified colonies as well as the percentage of white and non-white colonies of each plate image .</p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>Carl S. H. et al. A fully automated deep learning pipeline for high-throughput colony segmentation and classification. bioRxiv, doi: https://doi.org/10.1101/801845</p><p><br></p><p><br></p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>We thank S. van Eeden for help with image acquisition and processing, Y. Shimada and D. Oberti for advice with yeast work and the FMI media kitchen for an immense number of plates. The Friedrich Miescher Institute for Biomedical Research is supported by the Novartis Research Foundation. </p><p><br></p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1101/801845",
+                "date": "2019-10-14 09:34:09",
+                "title": "A fully automated deep learning pipeline for high-throughput colony segmentation and classification",
+                "authors": [
+                    "Sarah H. Carl",
+                    "Lea Duempelmann",
+                    "Yukiko Shimada",
+                    "Marc B\u00fchler"
+                ],
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 21830,
+                "identity": "ce82b705-564b-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Marc  B\u00fchler",
+                "email": "marc.buehler@fmi.ch",
+                "orcid": "https://orcid.org/0000-0001-6661-9795",
+                "institution": "Marc B\u00fchler Lab, Switzerland",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Marc",
+                "middleName": "",
+                "lastName": "B\u00fchler",
+                "suffix": ""
+            },
+            {
+                "id": 21831,
+                "identity": "ce82bb7f-564b-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Lea  D\u00fcmpelmann",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-5775-5186",
+                "institution": "Marc B\u00fchler Lab, Switzerland",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Lea",
+                "middleName": "",
+                "lastName": "D\u00fcmpelmann",
+                "suffix": ""
+            },
+            {
+                "id": 21832,
+                "identity": "ce82c04c-564b-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Sarah Carl",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0003-3927-2559",
+                "institution": "Marc B\u00fchler Lab, Switzerland",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Sarah",
+                "middleName": "",
+                "lastName": "Carl",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2019-01-31 14:04:40",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.2.1825/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.2.1825/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 135894,
+                "identity": "2e26fc76-cffa-42f9-89e9-3ff93b8d1bde",
+                "added_by": "auto",
+                "created_at": "2019-10-23 10:27:56",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 699199,
+                "visible": true,
+                "origin": "",
+                "legend": "Workflow of colony plating, imaging, and quantification. 200-500 cells per 10 cm YE plate are evenly distributed with glass beads. Plates are incubated at 30\u00b0C for 5-7 days until colonies reach sufficient size. Subsequently, plate images are acquired on a black background. Finally, images are run through the pipeline described in (Carl S. H. et al; bioRxiv, doi: https://doi.org/10.1101/801845) to obtain quantification and classification of yeast colonies.",
+                "description": "",
+                "filename": "Figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-7305/v1/Figure1.jpg"
+            },
+            {
+                "id": 13477484,
+                "identity": "a5327179-ca34-4cf8-9842-ae184ff686c1",
+                "added_by": "auto",
+                "created_at": "2021-09-16 21:31:25",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 451969,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-7305/v1/e7f11d4c-35f7-4c96-ad31-00a174982747.pdf"
+            }
+        ],
+        "financialInterests": "The Friedrich Miescher Institute for Biomedical Research (FMI) receives significant financial contributions from the Novartis Research Foundation. Published research reagents from the FMI are shared with the academic community under a Material Transfer Agreement (MTA) having terms and conditions corresponding to those of the UBMTA (Uniform Biological Material Transfer Agreement).",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "automatic colony classification, Imaging, yeast, adenine auxotrophy, red/white colony color assay",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p><strong>The yeast research community commonly makes use of a simple and powerful color reporter assay, based on adenine auxotrophy, to study genetic and epigenetic mechanisms. Manual classification and quantification of colony color in high numbers is tedious, immensely time consuming, can be erroneous and irreproducible. To overcome these problems, we have established an automated pipeline to quantify and classify yeast colonies from images of entire plates with high accuracy (98.6%). Having the same plating and imaging conditions as used for training of the network is key to this high accuracy. Here we provide a standardized protocol for plating of yeast and imaging within 5-7 days, compatible with the classification pipeline described in Carl <em>et al </em>(bioRxiv; doi: https://doi.org/10.1101/801845).</strong></p>",
+        "manuscriptTitle": "Plating and imaging of yeast colonies for segmentation and classification with neural networks",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2019-10-23 10:27:56",
+                "doi": "10.21203/rs.2.1825/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "ce823a86-564b-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "October 23rd, 2019",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 31147,
+                "name": "Molecular biology"
+            },
+            {
+                "id": 31148,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 31149,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 31150,
+                "name": "Genetics"
+            },
+            {
+                "id": 31151,
+                "name": "Microbiology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2019-10-23 10:27:56",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

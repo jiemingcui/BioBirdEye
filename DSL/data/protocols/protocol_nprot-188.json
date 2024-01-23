@@ -1,0 +1,195 @@
+{
+    "identity": "nprot-188",
+    "title": "Assembly of the highly similar sequences of the IS elements by the means of phrap and miniassembly maker perl scripts.",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "The aim of this protocol is to help with resolution of highly repetitive sequences when sequencing by the whole genome shotgun sequencing strategy."
+        },
+        {
+            "header": "Reagents",
+            "content": "1. ABI genome sequencing results:\r\n    a. Whole genome shotgun sequencing data, \r\n\n\n  b. Reads from large template library ends \\(cosmids or BAC), \r\n\n\n  c. Template finishing reads \\(if avaiable),\r\n\n\n2. Genome assembly \\(by phrap) imported into the MySQL database.\r\n  3. Genome assembly mapping data \\(contig linkage data and contig consistency data)."
+        },
+        {
+            "header": "Equipment",
+            "content": "Hardware:\r\n\n\nPC with linux \\(64 bit strongly recommended for whole genome assembly, and at least 2 GB of RAM).\r\n\n\nSoftware:\r\n\n\nPhred/Phrap/Consed \\(v14);\r\n\n\nNCBI BLAST;\r\n\n\nMySQL server\r\n\n\nSet of PERL scripts used for automation of the routine tasks."
+        },
+        {
+            "header": "Procedure",
+            "content": "The idea is to do the miniassembly with one copy of the IS \\(or any other repeat sequence), finish it \\(if necessary), and to export resulting consensus back in to the main assembly as one \"long read\" or \"scaffolding read\", - consensus of repeat itself with bouth flanking non repetitive regions, at least few hundreds bp. each.\r\n\n\n\r\n\n\n1. Get the mapping data \\(contig region linkage information) and contig consistency data from the main assembly. It is retreived from large template ends reads pairs and used to locate misassemblies.\r\n  \r\n\n\n2. Repeat border localisation. Using NCBI BLASTN against the current main assembly database, locate borders of the repeat region \\(where it begins and ends), by the means blasting\\(N) of contig\\(s) fragment\\(s) with the current assembly blastN database. I recommend using master/slave aligment output mode for spotting repetitive regions. Also be avare, that real repeat borders can be different due to current assembly artifacts. Also, if it is known that, for example, the repetitive region contains known genes - transposase, than this info can be used as auxililary for repeats location finding. Also use information provided by \"matchElsewhereHighQual\" tags in the consed.\r\n  \r\n\n\n3. Define unique sequence \"anchor regions\" coordinates in the assembly - based on the repeats borders and template reads pairs information allocate coordinates of the non repetitive flanking regions, which does not contain other repeats, or other assembly problems. Usually it is from 50-100 bp from the repeat end to up to 35-40 KB from the repeat. Also note the direction to the problematic region\\(repeat) - U\\(Unicore, repeat after anchor region) or C\\(Complement, repeat before anchor region).\r\n  \r\n\n\n4. Obtain the list of ALL templates used for sequencing from anchor regions.\r\n  \r\n\n\n5. Obtain the list of all reads which where obtained from templates anchor templates.\r\n  \r\n\n\n6. Make separate minniassembly from these reads \\(obtained in step 5). Please include all chromatograms and all corresponding PhD files, including the ones with the edits. I was making separate phredPhrap project for that.\r\n  \r\n\n\nPS: \\(Steps 4-6 were automated by the means of gnm_region_auto_reasm.pl)\r\n\n\n\r\n\n\n7. Finish miniassembly by conventional methodics, using templates, which contain this region and only one copy of the repeat. Be sure to have the repeat in the good quality and error free before putting it back into the main assembly.\r\n  \r\n\n\n8. Once finished, exprort consensus of the miniassebly into the main assembly as JoiningRead_###.phd.1 file with quality vallues, where ### is the miniassembly ID, put this file into the phd_dir of the main assembly.\r\n  \r\n\n\n9. Reassemble the main assembly. \r\n  \r\n\n\n10. Check the assembly results by blasting the miniassembly consensus with the curent assembly, and from consed itself. Now this region shold be correctly assebled."
+        },
+        {
+            "header": "Timing",
+            "content": "It is very dependant from the reads coverage distribution over the affected region and oligo order turnarround speed, usually, when properly set up, it can be from 1 day - to 1 month."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "If you can't map oposite end \\(You have \"physical gap\") - make new library using different digestion conditions \\(or sequence more clones from the existing one \\(up to 20X template coverage)), doesn't helps - refer to methods fo physical gap finishing.\r\n\n\n\r\n\n\nProblems due to repeats within miniassembly -&gt; try making miniassembly for each repeat copy seperatelly - if impossible \\(two or more 1KB 100% identical IS copies next to each other) - use other sequencing strategies \\(cosmid shotgun, restriction mapping and subcloning, and than subclone sequencing for that region)\r\n\n\n\r\n\n\nFinal assembly problems due to reads from within repetitive region interfearing with the assembly - try making miniassemblies for all representatives of the particular repeat family, and than taking reads which contain the repeat itself out from the main assembly. Substitute them by the miniassembly consensus backbones, also try increasing flanking region length."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nbt1297 ",
+                "date": "2007-02-22 05:54:12",
+                "title": "Complete genome sequence of the erythromycin-producing bacterium Saccharopolyspora erythraea NRRL23338",
+                "authors": [
+                    "Oliynyk",
+                    "M. et al."
+                ],
+                "journal": "Nature Biotechnology",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 10138,
+                "identity": "9ee69559-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Markiyan Samborskyy",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Biochemistry, University of Cambridge",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Markiyan",
+                "middleName": "",
+                "lastName": "Samborskyy",
+                "suffix": ""
+            },
+            {
+                "id": 10139,
+                "identity": "9ee698ab-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Markiyan Oliynyk",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Biochemistry, University of Cambridge",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Markiyan",
+                "middleName": "",
+                "lastName": "Oliynyk",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2010-08-10 15:34:11",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/nprot.2007.182",
+        "doiUrl": "https://doi.org/10.1038/nprot.2007.182",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13465362,
+                "identity": "44228ddb-84af-4167-89e4-419217cfa3a7",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:46:29",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 120876,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-188/v1/cfa8ac01-b379-468e-b260-58f2579e1ab2.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "genome sequencing, missassembly resolving, repeats resolving, repeats sequencing.\r\n\r\n",
+        "license": {
+            "name": "None",
+            "url": ""
+        },
+        "manuscriptAbstract": "",
+        "manuscriptTitle": "Assembly of the highly similar sequences of the IS elements by the means of phrap and miniassembly maker perl scripts.",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2007-03-22 12:02:02",
+                "doi": "10.1038/nprot.2007.182",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9ee6355f-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "March 22nd, 2007",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 1628,
+                "name": "Computational biology and bioinformatics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2007-03-22 12:02:02",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

@@ -1,0 +1,306 @@
+{
+    "identity": "pex-398",
+    "title": "<p>Full-length poly(A) and mRNA sequencing (FLAM-seq)</p>",
+    "content": [
+        {
+            "header": "Reagents",
+            "content": "<p>Truseq mRNA preparation kit (cat. RS-122-2102, Illumina)</p><p>USB poly(A) length assay kit (cat. 764551KT, Thermo Fisher)</p><p>RNAClean XP Beads (cat. A63987, Beckman Coulter)</p><p>SMARTScribe Reverse Transcriptase kit (cat. 639537, Clontech)</p><p>XP DNA beads (cat. A63881, Beckman Coulter)</p><p>Advantage 2 DNA polymerase mix (cat 639201, Clontech)</p><p>RNA 6000 Pico Kit (cat. 5067-1513, Agilent Technologies, optional but recommended)</p><p>High Sensitivity NGS Fragment Analysis Kit (cat. DNF-474, Advanced Analytical Technologies GmbH)</p><p>Agilent DNA 12000 Kit (cat 5067-1508, Agilent Technologies)</p><p>Buffer EB (cat 19086, Qiagen)</p><p>Sequel\u2122 SMRT\u00ae Cell 1M v3 Tray (101-531-000, Pacific Biosciences)</p><p>SMRTbell\u2122 Template Prep Kit 1.0\u2010SPv3 (100-991-900, Pacific Biosciences)</p><p>Sequel Sequencing Kit 3.0 (101-597-800, Pacific Biosciences)</p><p>Sequel Binding and Internal Ctrl Kit 3.0 (101-626-600, Pacific Biosciences)</p><p><em>Oligonucleotides</em></p><p>RT primer 1:</p><p>GGTAATACGACTCACTATAGCGAGANNNNNNNNNNCCCCCCCCCTTT</p><p>RT primer 2 (to use in alternative to 1):</p><p>TGAGTCGGCAGAGAACTGGCGAANNNNNNNNNNCCCCCCCCCTTT,</p><p> Template switch oligo <u>(where \u201ci\u201d indicates stereoisomers of dC and dG as in the associated publication)</u>:</p><p>iCiGiCAAGCAGTGGTATCAACGCAGAGTACATrGrGrG</p><p> PCR primer 1 (to use in combination with RT primer 1):</p><p>GGTAATACGACTCACTATAGCGAG</p><p>PCR primer 2 (to use in combination with RT primer 2):</p><p>TGAGTCGGCAGAGAACTGGCGAA</p><p><br></p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>Agilent Fragment Analyzer</p><p>Agilent 2100 Bioanalyzer</p><p>Magnetic rack for 96 well</p><p>Qubit Fluorometer</p><p>PacBio Sequel system</p><p>Ordinary lab equipment (vortex, thermocycler, benchtop centrifuge ...)</p><p><br></p><p><br></p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "Poly(A)\n+\nRNA preparation (using Illumina\nTruseq mRNA preparation kit).\n1. Dilute 2-10 \u03bcg of total RNA in 50 \u03bcl of RNase-free H\n2\nO.\n2. Vortex RNA Purification Beads and add 50 \u03bcl to RNA sample. Pipet up and down 6 times to mix.\n3. Incubate in thermocycler at 65\u02da C for 5 min., on ice for 5 min. and at room temperature for 5 min.\n4. Place sample in magnetic separator for 5 min. Remove and discard all the supernatant.\n5. Remove sample from rack. Add 200 \u03bcl of Bead Washing Buffer and pipet up and down 6 times to mix sample.\n6. Place the sample back in the magnetic separator for 5 min. Remove and discard all the supernatant.\n7. Add 50 \u03bcl of Elution Buffer and pipet up and down 6 times.\n8. Incubate in thermocycler at 80\u02da C for 2 min.\n9. Remove sample from thermocycler and keep at room temperature for 5 min.\n10. Add 50 \u03bcl of Bead Binding Buffer and pipet up and down 6 times. Incubate at room temperature for 5 min.\n11. Place sample in magnetic separator for 5 min. Remove and discard all supernatant.\n12. Remove sample from rack. Add 200 \u03bcl of Bead Washing Buffer and pipet up and down 6 times.\n13. Place sample in magnetic separator for 5 min. Remove and discard all supernatant.\n14. Add 16 \u03bcl of RNase-free H\n2\nO and pipet up and down 6 times.\n15. Incubate in thermocycler at 70\u02da C for 2 min., then on ice for 1 min.\n16. Place sample in magnetic rack for 5 min. Transfer 16 \u03bcl of the supernatant to a new 0.2 ml PCR tube. Keep 1 \u03bcl for Bioanalyzer (optional).\nGI tailing of RNA (using USB poly(A) tail length assay, Thermo Fisher).\n1. Prepare the following mix, keeping the reagents on ice.\npoly(A)\n+\nRNA: 14 \u03bcl\n5X tail buffer mix: 4 \u03bcl\n10X tail enzyme mix: 2 \u03bcl\nTot. vol.: 20 \u03bcl\nIncubate at 37\u00b0C for 60 min.\n2. Add 1.5 \u03bcl of tail stop solution, keep on ice for 2 min.\n3. Add 1.8X XP RNA beads, incubate at room temperature for 5 min.\n4. Put on magnetic rack, keep for 3 min. Remove supernatant.\n5. Wash twice with 50 \u03bcl Ethanol 80% for 30 sec.\n6. Carefully remove supernatant, leave tubes open for 10 min in order to dry.\n7. Resuspend beads in 17 \u03bcl H\n2\nO, put on magnetic rack for 5 min. and collect supernatant. Keep 1 \u03bcl for Bioanalyzer (optional).\ncDNA synthesis (using SMARTscribe reverse transcriptase kit, Clontech).\n1. Prepare the following mix:\n5X First strand buffer: 8 \u03bcl\nDTT 20mM: 1.5 \u00b5l\ndNTP mix 10 mM: 4 \u00b5l\nRNase Inhibitor: 2 \u03bcl\nisoTSO 12 \u00b5M: 2 \u00b5l\nSMARTScribe RT: 2 \u00b5l\nH\n2\nO: 2.5 \u00b5l\nTot. vol.: 22 \u00b5l\nKeep the master mix at room temperature.\n2. In a second PCR tube, mix 16 \u00b5l of purified GI-tailed RNA and 2 \u00b5l of RT primer (10\u00b5M).\n3. Mix contents and spin briefly. Incubate in thermocycler starting the following program: 72\u00b0C for 3 min., 42\u00b0C for 60 min., 70 \u00b0C for 10 min. and at 4\u00b0C hold.\n4. When the RNA/primer sample has done completed the first step at 72\u00b0C, wait for 1-2 min. until it reaches the temperature of 42\u00b0C and add the RT master mix, previously equilibrated at room temperature, reaching a final volume 40\u00b5l.\n5. When the reaction is finished, add 0.6X XP DNA beads, incubate at room temperature for 5 min.\n6. Put on magnetic rack, keep for 3 min. Remove supernatant.\n7. Wash twice with 50 \u03bcl Ethanol 80% for 30 sec.\n8. Carefully remove supernatant, leave tubes open for 10 min.\n9. Resuspend beads in 42 \u00b5l of H\n2\nO, put on magnetic rack for 5 min. and collect supernatant. Keep 1 \u00b5l for Bioanalyzer (optional).\ncDNA library amplification (using Advantage 2 PCR enzyme system, Clontech).\n1.Prepare the following mix:\n10X Advantage 2SA PCR buffer: 10 \u03bcl\nDiluted first-strand cDNA: 40 \u03bcl\ndNTP Mix (10 mM each): 2\u03bcl\n5\u2019 PCR Primer II A (10 \u03bcM): 2 \u03bcl\nUniv. RV Primer (10 \u00b5M): 2 \u00b5l\nH\n2\nO: 42 \u00b5l\n50X Advantage 2 Polymerase Mix: 2 \u03bcl\nTot. vol.: 100 \u03bcl\nKeep the master mix on ice.\n2. Start the thermocycler with the following program: 98\u00b0C for 1 min., N. cycles x [98\u00b0C for 10 sec., 63\u00b0C for 15 sec., 68\u00b0C for 3 min.], 68\u00b0C for 7 min. Put the tube into the thermocycler when it has reached the temperature of 98\u00b0C. Note: if the sample has never been processed before, do PCR optimization splitting the 100 \u03bcl reaction into 4 tubes and do 18, 20, 22, 24 cycles, then compare the amplified libraries in terms of size profile and yield.\n3. When the reaction is finished, add 0.6X XP DNA beads, incubate at room temperature for 5 min.\n4. Put on magnetic rack, keep for 3 min. Remove supernatant.\n5. Wash twice with 200 \u03bcl Ethanol 80% for 30 sec.\n6. Carefully remove supernatant, leave tubes open for 10 min.\n7. Resuspend beads in 42 \u00b5l of H\n2\nO, put on magnetic rack for 5 min. and collect supernatant. Keep 1 \u00b5l for Fragment Analyzer. Quantify the library with a Qubit.\nSequencing library preparation (using the SMRTbell\u2122 Template Prep Kit)\n1. Prepare the following mix, keeping the reagents on ice.\nds DNA: up to 37 \u00b5l\nDNA Damage Repair Buffer: 5\u00b5l\nNAD+: 0.5 \u00b5l\nATP high: 0.5 \u00b5l\ndNTP: 0,5 \u00b5l\nDNA Damage Repair Mix: 2 \u00b5l\nwater: __ \u00b5l to adjust\nTot. vol.: 50\u00b5l\n2. Incubate at 37\u00b0C for 60 min.\n3. Add 2.5 \u00b5l End Repair Mix, incubate at 25\u00b0C for 5 min.\n4. Add 0.6X AMPure beads, incubate at room temperature for 10 min in a vortex mixer at 2000 rpm.\n5. Spin down (1 sec.), put on magnetic rack to collect the beads and pipette off cleared supernatant.\n6. Wash twice with 500 \u03bcL Ethanol 80% for 30 sec.\n7. Spin down (1 sec.), carefully remove supernatant, leave tubes open for 10 sec in order to dry.\n8. Resuspend beads in 30 \u03bcl EB, incubate at room temperature for 5 min. in a vortex mixer at 2000 rpm.\n9. Spin down (1 sec.), put on magnetic rack for 1 min. and collect cleared supernatant (optional: keep 1 \u00b5l for Bioanalyzer).\n10. For adapter ligation, prepare the following mix, keeping the reagents on ice.\nDNA (End Repaired): 29 \u00b5l\nAnnealed Blunt Adapter: 2 \u00b5l\n\u2192 mix before processing\nTemplate Prep Buffer: 4 \u00b5l\nATP low: 2 \u00b5l\n\u2192 mix before processing\nLigase: 1 \u00b5l\nWater: 2 \u00b5l\nTot. vol.: 40 \u00b5l\n11. Incubate at 25\u00b0C for 15 min., 65\u00b0C for 10 min.\n12. For exonuclease treatment, add to 40 \u00b5l of ligated DNA:\nExo III: 0.5 \u00b5l\nExo VII: 0.5 \u00b5l\n13. Incubate at 37\u00b0C for 60 min.\n14. Add 0.6X AMPure beads, incubate at room temperature for 10 min in a vortex mixer at 2000 rpm.\n15. Spin down (1 sec), put on magnetic rack to collect the beads and pipette off cleared supernatant.\n16. Wash twice with 500 \u03bcl Ethanol 80% for 30 sec.\n17. Spin down (1 sec), carefully remove supernatant, leave tubes open for 10 sec in order to dry.\n18. Resuspend beads in 30 \u03bcl EB, incubate at room temperature for 5 min in a vortex mixer at 2000 rpm.\n19. Spin down (1 sec), put on magnetic rack for 1 min. and collect cleared supernatant.\n20. Repeat steps 14.-17.\n21. Resuspend beads in 11 \u03bcl EB, incubate at room temperature for 5 min. in a vortex mixer at 2000 rpm.\n22. Spin down (1 sec.), put on magnetic rack for 1 min. and collect cleared supernatant.\n23. Check library quality on Bioanalyzer and Qubit.\nSample setup and sequencing\n1. Use the Sample Setup module in SMRT Link to generate a customized pipetting protocol for primer conditioning, primer annealing and polymerase binding.\n2. prepare the following mix:\nSequencing Primer v3: 1 \u00b5l\n1x Elution buffer: 29.1 \u00b5l\n3. Incubate at 80\u00b0C for 2 min., hold at 4\u00b0C.\nAnnealing Primer:\n4. Mix (according to the customized pipetting protocol) the following:\nsample\n10x Primer buffer v2\nconditioned Sequencing primer v3\nwater\n5. Incubate at 20\u00b0C for 60 min, put on ice for immediate use or store at 20\u00b0C for long-term use.\n6. Mix (according to the customized pipetting protocol) the following:\nsample\nSequel dNTP\nDTT\nSequel binding buffer\ndiluted Sequel Polymerase 3.0\nwater\n7. Incubate at 30\u00b0C for 60 min., use bound complex right away or store at 4\u00b0C for up to 7 days.\n8. Dilute the complex with Magbead binding buffer v2 (according to the customized pipetting protocol) and add AMPure beads; incubate at room temperature for 5 min.\n9. Spin down (1 sec), put on magnetic rack to collect the beads and pipette off cleared supernatant. Important: do not wash with ethanol.\n10. Resuspend beads in Magbead binding buffer v2, incubate at room temperature for 15 min.\n11. Spin down (1 sec), put on magnetic rack for 1 min. and collect cleared supernatant.\n12. Measure recovered DNA with Qubit and enter concentration and volume into the Sample Setup Module.\n13. Mix the following (85 \u00b5l total volume per SMRT cell)\nprepared sample\nDTT\nDiluted internal control\nSequel Additive\nSequel Complex Dilution buffer\n14. Load 85 \u00b5l and store up to 24 h at 4\u00b0C.\n15. Use the Run Design module in SMRTLink to create a run.\n16. Refer to the table for loading and pre-extension recommendations for your insert size:\nhttps://www.pacb.com/wp-content/uploads/Quick-Reference-Card-Loading-and-Pre-Extension-Recommendations-for-the-Sequel-System.pdf\n17. Set movie recording time to 360 - 600 min.; loading method: diffusion mode.\nData collection and analysis\nUse the SMRT Analysis module in SMRTLink to create CCS fastq files (Minimum Number of Passes = 3, default parameters).\nOnce the raw data have been processed, the final CCS fastq files can be used directly as input for the FLAM-seq analysis pipeline, available at:\nhttps://github.com/rajewsky-lab/FLAMAnalysis\n."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p><em>Low-input samples</em></p><p>We applied minor changes to the protocol for limiting samples (0.5-2 \u03bcg). Briefly, the RNA after poly(A) selection is eluted in 10 \u03bcl, GI tailing is performed in 12.5 \u03bcl and RNA eluted in 10 \u03bcl, cDNA synthesis is performed in 20 \u03bcl and eluted in 20 \u03bcl, PCR is performed in 50 \u03bcl for 23-25 cycles. Moreover, we found that fixing cells with methanol before RNA extraction improves RNA quality and yield for samples of neuronal origin.</p><p><br></p><p> </p><p><em>Poly(A) versus total RNA</em></p><p>FLAM-seq can be performed with either poly(A)-selected RNA or with ribo-depleted RNA. IN an exploratory analysis, we observed that RNAs with very short tails can be depleted with the poly(A) selection, however they represent a minor population in most biological samples (Figure 1). The advantage of poly(A) selection resides in the fact that PacBio sequencing has low depth compared to other sequencing technologies and poly(A) selection limits the fraction of reads mapping to non-mRNA molecules. Using poly(A)-selected RNA can therefore slightly bias the tail length measurement but allows obtaining enough reads to measure tails for thousands of mRNAs. Since tail length per transcript typically have a highly dispersed distribution, what is the required sequencing depth really depends on the biological questions that one wants to address. For poly(A) selection, we used the Illumina Truseq mRNA preparation kit, however any equivalent oligo-dT-based method is suitable in principle.</p><p><br></p><p> </p><p><em>GI tailing of RNA</em></p><p>We were able to replace the Thermo Fisher USB poly(A) length assay kit with yeast poly(A) polymerase (Thermo Fisher, 74225Z25KU) fed with equimolar G/I ribonucleotides, which is less expensive. However, we found that the buffer provided with this enzyme is very viscous and apparently incompatible with bead-based purification and downstream reactions. If the user decides for this alternative, we recommend to perform phenol-chloroform extraction followed by precipitation before proceeding with cDNA synthesis.</p><p><br></p><p> </p><p><em>Library profile</em></p><p>After PCR amplification, we recommend to check the library profile on an Agilent Fragment Analyzer. Fragment size of FLAM-seq libraries usually peaks between 1.5 and 2.5 kb, depending on the sample quality and the 5\u2019 coverage of the amplified cDNAs (Figure 2a). Transcript coverage can be biased towards the 3\u2019 ends, especially for mRNAs larger than ~ 1.5 kb, as reported in the associated publication. We found that increasing RT incubation to 90 minutes and PCR elongation to 5-7 minutes improves library size, but can yield more PCR artifacts depending on the RNA sample quality and amount. When optimizing FLAM-seq, we found that libraries often contained a significant fraction of PCR artifacts, generated by multiple rounds of concatenation of the template switch oligo with the RT primer and resulting in a ladder-like profile of the final library (an extreme example in Figure 2b). To avoid this issue, we introduced a size-selection and purification step after RT and PCR, as well as an anchored dC primer and a modified template switch oligo (with isonucleotides on its 5\u2019 end) for the reverse transcription. If the final library still contains low-size concatemers, we recommend to increase the RNA input and introduce a stricter size-selection for long fragments after cDNA preparation.</p><p><br></p><p> </p><p><em>Data analysis</em></p><p> The analysis pipeline that we provide discards many reads from the original sequencing output: if the library had a good size profile, still roughly 50% of the reads are typically discarded as they do not contain a poly(A) tail or one of the adapter sequences or they do not uniquely map to the genome. The PacBio Sequel system can provide up to one million reads per SMRT cell, with productively sequenced molecules typically in the range of 200,000 per SMRT cell. In our experience, 2 or 3 SMRT cells per sample are usually required for the basic analyses provided in our associated publication.&nbsp;&nbsp;</p><p><br></p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": ""
+        },
+        {
+            "header": "Anticipated Results",
+            "content": ""
+        },
+        {
+            "header": "References",
+            "content": ""
+        },
+        {
+            "header": "Acknowledgements",
+            "content": ""
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41592-019-0503-y",
+                "date": "",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 94216,
+                "identity": "7a1d0ea6-7045-4543-8ef0-1c42e52921d7",
+                "order_by": 1,
+                "name": "Ivano Legnini",
+                "email": "",
+                "orcid": "",
+                "institution": "Berlin Institute for Medical Systems Biology (BIMSB), Max Delbr\u00fcck Center for Molecular Medicine (MDC)",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Ivano",
+                "middleName": "",
+                "lastName": "Legnini",
+                "suffix": ""
+            },
+            {
+                "id": 94217,
+                "identity": "8155838c-dbff-42e3-aff3-58f85f4a0075",
+                "order_by": 2,
+                "name": "Jonathan Alles",
+                "email": "",
+                "orcid": "",
+                "institution": "Berlin Institute for Medical Systems Biology (BIMSB), Max Delbr\u00fcck Center for Molecular Medicine (MDC)",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jonathan",
+                "middleName": "",
+                "lastName": "Alles",
+                "suffix": ""
+            },
+            {
+                "id": 94218,
+                "identity": "158fe90f-95e1-4db2-b55e-25d0896b0359",
+                "order_by": 3,
+                "name": "Nikos Karaiskos",
+                "email": "",
+                "orcid": "",
+                "institution": "Berlin Institute for Medical Systems Biology (BIMSB), Max Delbr\u00fcck Center for Molecular Medicine (MDC)",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Nikos",
+                "middleName": "",
+                "lastName": "Karaiskos",
+                "suffix": ""
+            },
+            {
+                "id": 94219,
+                "identity": "9d336980-a935-4f0a-8a13-ae1e53748faa",
+                "order_by": 4,
+                "name": "Salah Ayoub",
+                "email": "",
+                "orcid": "",
+                "institution": "Berlin Institute for Medical Systems Biology (BIMSB), Max Delbr\u00fcck Center for Molecular Medicine (MDC)",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Salah",
+                "middleName": "",
+                "lastName": "Ayoub",
+                "suffix": ""
+            },
+            {
+                "id": 94220,
+                "identity": "fade2022-3147-4fa7-b5cc-ebef48941f05",
+                "order_by": 5,
+                "name": "Claudia Quedenau",
+                "email": "",
+                "orcid": "",
+                "institution": "Berlin Institute for Medical Systems Biology (BIMSB), Max Delbr\u00fcck Center for Molecular Medicine (MDC)",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Claudia",
+                "middleName": "",
+                "lastName": "Quedenau",
+                "suffix": ""
+            },
+            {
+                "id": 94221,
+                "identity": "c4923c5d-888d-4842-967f-fa3a028207ee",
+                "order_by": 6,
+                "name": "Nikolaus Rajewsky",
+                "email": "rajewsky@mdc-berlin.de",
+                "orcid": "",
+                "institution": "Berlin Institute for Medical Systems Biology (BIMSB), Max Delbr\u00fcck Center for Molecular Medicine (MDC)",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Nikolaus",
+                "middleName": "",
+                "lastName": "Rajewsky",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2019-05-31 12:57:09",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.2.10045/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.2.10045/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2613723,
+                "identity": "26a97c35-718d-4a4a-a6d0-a6ced320c1e4",
+                "added_by": "667753a7-bce6-4dbf-a90d-eb1f32d561b6",
+                "created_at": "2020-09-25 20:53:46",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 83492,
+                "visible": true,
+                "origin": "",
+                "legend": "Figure 1. Poly(A)-selected versus ribo-depleted RNA FLAM-seq libraries. Histograms of poly(A) tail length for HeLa S3 total, ribodepleted RNA (purple) versus poly(A)-selected RNA (blue).",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/pex-398/v1/figure_1.png"
+            },
+            {
+                "id": 2613721,
+                "identity": "9271ca48-145c-4f77-b37b-1748cb0c6704",
+                "added_by": "667753a7-bce6-4dbf-a90d-eb1f32d561b6",
+                "created_at": "2020-09-25 20:53:46",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 53597,
+                "visible": true,
+                "origin": "",
+                "legend": "Figure 2. Library profile from Agilent Fragment Analyzer. a. Library profile of a FLAM-seq library obtained from HeLa S3 poly(A)-selected RNA. b. Library profile from a sample of poor quality, where most of the amplified product consists of size-defined concatemers derived from annealing of the RT primer to the template switching oligo and numerous subsequent template switching events. Lower (LM) and upper (UM) markers form the Fragment Analysis kit are labeled in red.",
+                "description": "",
+                "filename": "figure2.png",
+                "url": "https://assets.researchsquare.com/files/pex-398/v1/figure_2.png"
+            },
+            {
+                "id": 13469213,
+                "identity": "acf0d727-31b7-4548-86a4-8890622f0ea5",
+                "added_by": "auto",
+                "created_at": "2021-09-16 21:01:19",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 350398,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-398/v1/83411b70-e7ab-4b5d-ac50-eb0840665460.pdf"
+            }
+        ],
+        "financialInterests": "I.L., J.A., N.K., S.A. and N.R. are named inventors on a patent application directed to genome-wide full-length mRNA and poly(A) tail sequencing.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "RNA, long reads, full-length mRNA sequencing, poly(A) tails",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>We developed FLAM-seq, a fast and simple method for generating cDNA libraries of full-length mRNAs, including the poly(A) tail. By combining a new strategy for cDNA preparation with PacBio long-read sequencing, FLAM-seq enables to generate hundreds of thousands of reads per sample in an easy and short procedure, with starting material ranging from 500 ng to 10 \u03bcg of total RNA. Besides the quantification of gene expression and the information about the mRNA isoform, the data generated with FLAM-seq allow accurate measurement of poly(A) tail length for thousands of genes in the sequenced samples. Here we describe the protocol step by step from the RNA preparation to the first steps of data analysis.</p>",
+        "manuscriptTitle": "Full-length poly(A) and mRNA sequencing (FLAM-seq)",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2019-08-05 19:01:05",
+                "doi": "10.21203/rs.2.10045/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "667753a7-bce6-4dbf-a90d-eb1f32d561b6",
+        "owner": [],
+        "postedDate": "August 5th, 2019",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 13161,
+                "name": "Molecular Biology"
+            },
+            {
+                "id": 13162,
+                "name": "Biochemistry"
+            },
+            {
+                "id": 13163,
+                "name": "Computational biology and bioinformatics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2019-08-05 19:01:05",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

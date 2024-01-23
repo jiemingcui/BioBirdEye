@@ -1,0 +1,210 @@
+{
+    "identity": "pex-1333",
+    "title": "<p>easyCLIP Analysis of RNA-Protein Interactions Incorporating Absolute Quantification</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>Currently, there is no general method to estimate absolute RNA-protein interaction frequencies and a quantitative test is needed to assess whether any non-random interaction with an RNA exists. The frequencies of RNA-protein complexes, per-cell and per-interaction partner, would enable the fundamental characterization of RNA-protein interaction networks. Determining the targets of an RBP by conventional approaches, such as enrichment over negative control immunopurification or by clustering of cross-links, are ultimately but indirectly determining if the absolute count of an RNA-protein complex in the cell is abnormally high. Defining RNA-protein interaction events per-cell and per-protein in absolute quantities, in contrast, may provide a framework for describing a global and widely reproducible view of RNA-protein interactions.&nbsp;</p><p><br></p><p>Here, we report a refinement of current CLIP protocols, termed easyCLIP. easyCLIP produces conventional CLIP-seq libraries, quantifies RNA cross-links-per-protein and provides visual confirmation of each step.</p><p>&nbsp;</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p>T4 RNA Ligase 1 (ssRNA Ligase), High Concentration NEB M0437M</p><p>T4 Polynucleotide Kinase&nbsp;NEB M0201L</p><p>SUPERase\u2022 In\u2122 RNase Inhibitor (20 U/\u03bcL) ThermoFisher AM2696</p><p>SuperScript\u2122 IV Reverse Transcriptase&nbsp;ThermoFisher 18090010</p><p>PrimeSTAR\u00ae Max DNA Polymerase Takara R045B</p><p>Proteinase K Solution (20 mg/mL)&nbsp;ThermoFisher AM2546</p><p>Dynabeads\u2122 Protein G for Immunoprecipitation&nbsp;ThermoFisher 10004D</p><p>Pierce\u2122 Anti-HA Magnetic Beads ThermoFisher 88837</p><p>DNA LoBind Tubes, DNA LoBind, 1.5 mL Eppendorf 22431021</p><p>NuPAGE LDS Sample Buffer (4X) ThermoFisher NP0008</p><p>NuPAGE\u2122 4-12% Bis-Tris Midi Protein Gels, 26-well&nbsp;ThermoFisher WG1403BOX</p><p>Adenosine 5'-Triphosphate (ATP)&nbsp;NEB P0756L</p><p>DTT ThermoFisher R0861</p><p>UltraPure\u2122 1 M Tris-HCI Buffer, pH 7.5 ThermoFisher 15567027</p><p>NaCl (5 M), RNase-free&nbsp;ThermoFisher AM9759</p><p>Triton\u2122 X-100 solution Sigma 93443-500ML</p><p>Tween\u2122 20 Surfact-Amps\u2122 Detergent Solution ThermoFisher 28320</p><p>NuPAGE\u2122 Transfer Buffer (20X)&nbsp;ThermoFisher NP00061</p><p>Poly(ethylene glycol)&nbsp;Sigma 91893-250ML-F</p><p>Precision Plus Protein\u2122 All Blue Prestained Protein Standards Bio-Rad #1610373</p><p>SYBR\u2122 Green I Nucleic Acid Gel Stain - 10,000X concentrate in DMSO ThermoFisher S7563</p><p>PrimeSTAR\u00ae Max DNA Polymerase Takara R045B   </p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>Stratagene UV Stratalinker 2400 Stratagene 2400</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "Buffers\nCLIP lysis buffer (Tris pH 7.5 50 mM, NaCl 200 mM, EDTA 1 mM, glycerol 10%, NP40 0.1%, Triton-X 100 1%, N-lauroylsarcosine 0.5%)\nHigh stringency buffer (Tris pH 7.5 15 mM, EDTA 5 mM, Triton X-100 1%, Na-deoxycholate 1%, SDS 0.1%, NaCl 120 mM, KCl 25 mM)\nHigh salt buffer (Tris pH 7.5 15 mM, EDTA 5 mM, Triton X-100 1%, Na-deoxycholate 1%, SDS 0.1%, NaCl 1 M)\nLow salt buffer (Tris pH 7.5 15 mM, EDTA 5 mM)\nNT2 buffer (Tris pH 7.5 50 mM, NaCl 150 mM, MgCl2 1 mM, Igepal CA-630 0.05%)\nNuclease digestion buffer (per reaction: 50 \u00b5L NT2 buffer with enzyme, 10 \u00b5L PEG400)\n3' PNK buffer (Tris pH 6.8 50 mM, MgCl2 5 mM, PEG400 16.7%, DTT 5 mM, SUPERase\u2022In 0.067 U/\u00b5L, T4 PNK 0.5 U/\u00b5L)\n5' PNK buffer (Tris pH 7.5 50 mM, MgCl2 5 mM, PEG400 16.7%, ATP 1 mM, DTT 5 mM, SUPERase\u2022In 0.33 U/\u00b5L, T4 PNK 0.5 U/\u00b5L)\n3' ligation buffer (Tris pH 7.5 50 mM, MgCl2 10 mM, PEG400 16.7%, DTT 5 mM, SUPERase\u2022In 0.13 U/\u00b5L, 3' linker oligo 33 nM, T4 RNA ligase I 1 U/\u00b5L)\n5' ligation buffer (Tris pH 7.5 50 mM, MgCl2 10 mM, PEG400 16.7%, ATP 0.67 mM, DTT 5 mM, SUPERase\u2022In 0.13 U/\u00b5L, 5' linker oligo 167 nM, T4 RNA ligase I 0.5 U/\u00b5L)\nLibrary construction for sequencing\nUV crosslinking (1h)\n1. Remove media, wash cells once with 4\u00b0-16\u00b0 PBS and aspirate PBS.\n2. Place dish on ice, remove lid and UV cross-link 0.3J/cm\n2\n3. Add ~1 ml CLIP lysis buffer per 15 cm plate and scrape to collect.\n4. Freeze in dry ice and store at -80\u00b0.\nLibrary generation (RNA steps, 1-2 days)\n5. Thaw lysates by hand and then keep at 4\u00b0.\n6. Sonicate lysate for 20-30 seconds at 7 second bursts with microtip sonicator at 10% power\n7. Spin lysate at 14 krcf for 10 min at 4\u00b0; transfer cleared lysate to new tube\n8. Add lysates to anti-HA or antibody-precojugated protein G beads. IP 1 h at 4\u00b0.\n9. Wash beads 1X High Str, 1X High Salt, 10min each at 4\u00b0 w/rotation, then 1X Low Salt (1 mL all)\n(Note: the above IP and washes can be performed robotically in a KingFisher machine with no visible change.)\n10. Perform nuclease digestion: 30\u00b0, 15s 1350 rpm, 45s rest, for 3-10 minutes with 0.01-0.1 U/\u00b5L RNAse ONE.\n11. Remove RNAse mixture and add 1 mL of 4\u00b0 High Str buffer to deactivate RNAse ONE.\n12. Wash beads 2X 1 mL NT2, then step down volume in NT2.\n13. Resuspend beads in 36 \u00b5l of PNK-3' Mix. Inucbate at 37\u00b0 for 30min, 15s 1350rpm, 90s rest.\n14. Place on magnet and remove PNK reaction (no wash required before ligation).\n15. Ligate 2h to overnight in thermomixer at 16\u00b0 in 36 \u00b5l of 3' Ligation Mix. 15s 1350 rpm, 90s rest.\n16. Wash 1X H. Salt or H. Str, 2X NT2.\n17. Resuspend beads in 70 \u00b5L of 5'PNK reaction.\n18. Incubate in thermomixer at 37\u00b0 for 15', 15 s 1000 RPM, 15 s rest.\n19. Wash 2X NT2 and step down volume in NT2.\n20. Resuspend beads in 70 \u00b5L of 5' ligation reaction.\n21. Incubate at 16\u00b0 for 2 h, 15 s 1350 RPM, 90 s rest.\nRNA capture (~6 h)\n22. Wash 1-2X with NT2 and step down volume in NT1.\n23. Optionally freeze 10% for WB.\n24. Resuspend beads in 20 \u00b5L 1.6X LDS.\n25. Heat 75\u00b0 for 15min.\n26. Run samples in NuPAGE gel, 180V 30-50 minutes, transfer to .45 \u00b5m nitrocellulose at 400 mA for 27'.\n27. Rinse membrane 1xPBS, scan on Odessy CLx (lowest quality/resolution OK)\n28. For each sample, add 375 \u00b5L PK buffer and 25 \u00b5L of Proteinase K (Ambion, 20mg/mL) to a DNA LoBind tube (Eppendorf).\n29. Place the nitrocellulose on PBS-soaked filter paper and cut with a scalpel in each hand.\u00a0We usually cut the minimal region and everything higher. Use a scalpel to transfer the slices of membrane to the Proteinase K mixture.\n30. Incubate at 50-55\u00b0 for 45min in thermomixer. 15s 900rpm, 45s rest.\n31. Wash 20 \u00b5L of oligo(dT)-dynabeads with BIB and leave in 600 \u00b5L BIB.\n32. Transfer Proteinase K extract to the oligo(dT) mixture in a DNA LoBind tube. 20 min at 4\u00b0 with rotation.\n33. Wash 1X BIB, transfer to PCR tube, wash 2X NT2, and 3X with 4\u00b0 PBS. Include RNAse inhibitor.\nReverse transcription (2h)\n34. Resuspend dT-beads in 12.4 \u00b5L water and 3 \u00b5L cDNA synthesis primer.\n35. Heat 95\u00b0 3' and transfer 13.3 \u00b5L sup to new PCR tube.\n36. Place tubes at 4\u00b0 for 5min.\n37. Add the rest of the annealing mix (6.7 \u00b5L).\n38. Incubate 53\u00b0 for 40 min, 55\u00b0 for 10 min, 80\u00b0 for 10 min.\nPCR and clean-up (~4 h)\n39. Create an 8-reaction master mix of PCR mix (per reaction: 25 \u00b5L PrimeSTAR Max DNA polymerase 2X MM (Takara), 1.25 \u00b5L 20 \u00b5M primer mixture, 1 \u00b5L 33X SybrGreen I (ThermoFisher),19.75 \u00b5L water) without RT product.\n40. Distribute 47 \u00b5L of PCR1 mix to 7 tubes and add \u2264 3.3 \u00b5L RT product to each.\n41. Run PCR program (98C 10s, then cycles of 98C 5 s, 65C 5 s, 72C 45 s) and stop a few reactions into the exponential phase. Reactions should not start to plateau.\n43. Purify PCR reactions using a NucleoSpin\u00ae Gel and PCR Clean-up kit (MACHEREY-NAGEL).\u00a0Instead of the kit's wash buffer, use freshly prepared 85% ethanol. Libraries are ready for quantification and sequencing.\nCross-link rate determination\nCreation of a protein standard\nCreate a protein standard by making a two-fold dilution series of the desired epitope and aliquoting into single-use striptubes of ~15 \u00b5L (see methods section). For the HA-tag, for example, any purified HA-tagged protein will suffice.\n1. Quantify the protein concentration of the standard by coomassie gel with a BSA standard curve, or other suitable protein quantification method.\n2. Dilute in protein dilution buffer (0.5X Dulbecco's PBS, 0-5% glycerol, 0.05% Tween-20, 0.15 mg/mL BSA) to 200 ng/\u00b5L.\n3. Make two-fold dilutions down from 20-200 ng/\u00b5L, depending on how protein is available, for a total of 8 concentrations of protein.\n4. Aliquot ~14 \u00b5L of each concentration into striptubes and freeze until use at -80\u00b0.\nCreation of RNA standard\nAn RNA standard to determine fluorescence per molecule number is created by UV cross-linking hnRNP C, purifying a large amount, aliquoting and quantifying by quantitative western blot.\n1. Add four replicates of 906-1600 \u00b5g of 293T/HCT116 lysate from cross-linked cells to ~20 \u00b5L Protein G Dynabeads (ThermoFisher Cat #10003D) coupled with 25 \u00b5L (5 \u00b5g) anti-hnRNP C (4F4) antibody per replicate.\n2. Immunoprecipitate at 4\u00b0 for ~1 hour.\n3. RNAse digest with 0.1 U/\u00b5L RNAse ONE for 10 minutes.\n4. Perform PNK reaction for 14 minutes at 37\u00b0.\n5. Ligate overnight (17 hours) with 20 pmol labeled L5, and 2 \u00b5L high concentration T4 RNA ligase (NEB).\n6. Combine samples and split into ~20 aliquots comprising 2.5% of the beads (~10 ng hnRNP C each, ~400 ng total purified) in ~15 \u00b5L 1.6X NuPAGE buffer, freeze in dry ice and keep long term at -80\u00b0.\nImmunoblot with ~1:3000 \u03b1hnRNP C conjugated to AF790 (Santa Cruz Biotechnology, sc-32308 AF790), or other suitable antibody, in PBS blocking buffer (LI-COR) for ~1 hour at room temperature. Use protein standards to quantify the amount of hnRNP C in the L5-ligated band by quantitative western blotting. ~5000 fluorescence units per fmol is a typical result.\nCross-link rate determination using standards\nUV Crosslinking (1 h)\n1. Remove media, wash cells once with 4\u00b0-16\u00b0 PBS and aspirate PBS.\n2. Place dish on ice, remove lid and UV cross-link 0.3J/cm\n2\n3. Add ~1 ml CLIP lysis buffer per 15 cm plate and scrape to collect.\n4. Freeze in dry ice and store at -80\u00b0.\nIP and RNA modification (1-2 days)\n5. Thaw lysates by hand and then keep at 4\u00b0.\n6. Sonicate lysate for 20-30 seconds at 7 second bursts with microtip sonicator at 10% power\n7. Spin lysate at 14 krcf for 10 min at 4\u00b0; transfer cleared lysate to new tube\n8. Add lysates to anti-HA or antibody-precojugated protein G beads. IP 1 h at 4\u00b0.\n9. Wash beads 1X High Str, 1X High Salt, 10min each at 4\u00b0 w/rotation, then 1X Low Salt (1 mL all) (Note: the above IP and washes can be performed robotically in a KingFisher machine with no visible effect.)\n10. Perform nuclease digestion: 30\u00b0, 15s 1350 rpm, 45s rest, for 3-10 minutes with 0.01-0.1 U/\u00b5L RNAse ONE.\n11. Remove RNAse mixture and add 1 mL of 4\u00b0 High Str buffer to deactivate RNAse ONE.\n12. Wash beads 2X 1 mL NT2, then step down volume in NT2.\n13. Resuspend beads in 70 \u00b5L of 5'PNK reaction.\n14. Incubate in thermomixer at 37\u00b0 for 15', 15 s 1000 RPM, 15 s rest.\n15. Wash 2X NT2 and step down volume in NT2.\n16. Resuspend beads in 70 \u00b5L of 5' ligation reaction.\n17. Incubate at 16\u00b0 overnight, 15 s 1350 RPM, 90 s rest.\nGel (~6 h)\n18. Wash 1-2X NT2 and step down volume in NT2.\n19. Thaw aliquot of RNA standard (cross-linked hnRNP C, frozen in 1.6X LDS), and PCR striptubes of pre-aliquoted protein standard.\n20. Add 10 \u00b5L of protein standard PCR tubes to a set of striptubes with 10 \u00b5L 3.2X LDS using a multichannel pipette.\n21. Resuspend beads in 20 \u00b5L 1.6X LDS.\u00a0Heat all samples at 75\u00b0 for 15min, applying intermittent shaking to samples with beads.\n22. Run samples in NuPAGE gel @180V 30-50 minutes, transfer to nitrocellulose (.45 um) at 400 mA for 27'.\n23. Place membrane in PBS, scan on Odessy CLx (lowest quality/resolution OK)\n24. Perform a western blot against the epitope on the purified proteins and protein standard.\nCalculation (1 h)\n25. Fit the protein standards to a hyperbolic curve. The fit should be very good.\n26. Use the hyperbolic curve to estimate immunopurified protein running in the non-cross-linked protein band. 27. Let this amount be \u201cP\u201d.\n28. Divide the fmols of RNA in the RNA standard by the observed L5 signal to obtain fmols RNA per fluorescence unit. Let this amount be \u201cF\u201d.\n29. Determine the amount of cross-linked RNA in immunopurified samples by multiplying fluorescence by the fmols/fluorescence of the RNA standard. Let this amount be \u201cR\u201d, calculated as R = (observed fluorescence for RNA) * F.\n30. Add the fmols of cross-linked RNA to the fmols of monomeric, un-cross-linked protein to obtain the total amount of protein. Let this amount be \u201cPt\u201d, calculated as Pt = R + P.\n31. Divide the fmols of RNA by the total amount of protein to obtain the fraction cross-linked and ligated. This is calculated as R/Pt.\n32. Multiply by 2 to adjust for ~50% ligation efficiency. So the cross-link rate is 2*R/Pt, or 2*R/(R + P).\nCombination of cross-link rate with sequencing date\nFor a given location or RNA, the number of reads in a CLIP library at that location or RNA as a fraction of all reads is the fraction of cross-links at that RNA or location. This fraction may be multiplied by the cross-links per protein to determine the cross-links per protein at the given location or RNA."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p>RNAse:</p><p>Verified by fluorescence on nitrocellulose (NC): under-digested sample runs at the top of the gel, and over-digested sample has no smear upward in the minimal region.&nbsp;It is easy to over-digest RNA so that it has a very low mapping rate, but relatively difficult to over-digest so much that the 5' ligation does not occur - this could be caused by the RNAse and ligase having similar requirements for substrate length. RNAse levels may work better for library constructions for many proteins at ~3 minutes digestion at 0.01 U/ul RNAse.</p><p><br></p><p>5\u2019 and 3\u2019 ligations:</p><p>Assessed by protein shifts and total fluorescence on NC. If both adapters are labeled, the success of the ligations is directly visualized by the amount of fluorescence. Single vs dual protein shifting is visible with some proteins, and is the most sensitive (and by far the easiest) of the three methods we have outlined for ligation efficiency estimates.</p><p><br></p><p>Nitrocellulose to reverse transcription&nbsp;</p><p>The extraction from NC and oligonucleotide(dT) purification can be assayed by dot-blotting the oligonucleotide(dT) eluate on nylon. Running an hnRNP C sample (or any other good positive control protein - CELF1, hnRNP D, FUBP1) will ensure that you have enough signal for dot blot tests despite sample loss or dilution. The amount of fluorescence extracted from a lane as determined by dot blotting the extract (before poly(dT) purification) is generally greater than the amount of fluorescence on the gel (that is, the apparent efficiency is often over 100%), due to increased brightness per molecule when dot blotting the extract. To determine the success of the poly(dT)-bead purification and elution, save some of the eluate from the poly(dT) beads to dot blot - this corresponds to the input to the RT reaction. Purified RNA must contain the L3 adapter because the L3 adapter contains the poly(A) tail, so fluorescence from the L5 adapter corresponds to completed library.&nbsp;</p><p><br></p><p>Reverse transcription (RT)&nbsp;</p><p>Verified by comparison of qPCR amplification with input to RT. PCR reactions amplify more quickly the more complex the input sample. The L5 adapter fluorescence input to RT corresponds to completed library. If L5 fluorescence input is in the ~1000s, the input is in the femtomolar range, which should be visibly in the exponential PCR phase before cycle 14. It should never be necessary to amplify more than ~16-18 cycles. Completed libraries before RT can also be visualized by the RNA shift method.&nbsp;</p><p><br></p><p>Amount of input RNA&nbsp;</p><p>Running the 5'-ligated purified protein alongside a quantified standard to translate fluorescence values into RNA molecule numbers allow for a determination of the total amount of input RNA.&nbsp;On the imaging machines at Stanford, and using our stock of adapters, 1 fmol of ligated L5 adapter gave about 5,000 fluorescence units, and signal &gt;10 fmols was generally enough for library construction.</p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p><strong>Library construction for sequencing (~4 days)</strong></p><p>UV crosslinking 1 h</p><p>Library generation 1-2 days</p><p>RNA capture ~6 h</p><p>Reverse transcription 2h</p><p>PCR and clean-up ~4 h</p><p><br></p><p><strong>Cross-link rate determination</strong></p><p>Creation of a protein standard ~6 h</p><p>Creation of RNA standard ~2 days</p><p>Cross-link rate determination using standards ~2 days</p><p><br></p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>Proteins typically have cross-link rates above 0.01%, and RNA-binding proteins above 0.1% and below 20%.</p><p><br></p><p>An immunopurification of a modestly abundant protein from a 15 cm petri plate of ~80% confluent 293T cells is likely to yield around 1-10 pmol protein, which would generate 10-100 fmol RNA at a cross-link rate of 1%, of which 1-10 fmol would be dual ligated (the largest hit probably being from the 3' ligation, which can be improved by increasing the L3 adapter concentration - this protocol uses a lower L3 adapter concentration than optimal). A conservative estimate of 1% efficiency for all remaining steps would generate 0.1-1 fmol library, or approximately 60-600 million unique reads. A general rule-of-thumb for publishable CLIP data is 1 million unique mapped reads, or much less than 60-600 million. Typically, for ~1 fmol libraries, the largest difficultly is having many empty sequencing reads (which is not an issue for larger libraries); these can be reduced by size purification or deeper sequencing.</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41467-021-21623-4",
+                "date": "2021-03-10 11:03:12",
+                "title": "easyCLIP analysis of RNA-protein interactions incorporating absolute quantification",
+                "authors": [
+                    "Douglas F. Porter",
+                    "Weili Miao",
+                    "Xue Yang",
+                    "Grant A. Goda",
+                    "Andrew L. Ji",
+                    "Laura K. H. Donohue",
+                    "Maria M. Aleman",
+                    "Daniel Dominguez",
+                    "Paul A. Khavari"
+                ],
+                "journal": "Nature Communications",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 8179357,
+                "identity": "30878e61-e680-4dc3-8507-c185236f484c",
+                "order_by": 0,
+                "name": "Douglas Porter",
+                "email": "dfporter@stanford.edu",
+                "orcid": "https://orcid.org/0000-0001-9491-8258",
+                "institution": "Stanford University",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Douglas",
+                "middleName": "",
+                "lastName": "Porter",
+                "suffix": ""
+            },
+            {
+                "id": 8179358,
+                "identity": "c763d7f4-fd2b-4dce-bfaf-42cd859d2c53",
+                "order_by": 1,
+                "name": "Paul Khavari",
+                "email": "khavari@stanford.edu",
+                "orcid": "",
+                "institution": "Stanford University",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Paul",
+                "middleName": "",
+                "lastName": "Khavari",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2021-01-13 18:02:02",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1333/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1333/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13682453,
+                "identity": "e24b62e2-e2f1-466a-a245-cca81967951b",
+                "added_by": "auto",
+                "created_at": "2021-09-17 11:57:21",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 209000,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1333/v1/7878625d-e827-4a80-91c0-b200b5f7ae45.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "RNA, RNA-binding protein, CLIP, Cancer",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>In general, an RNA-binding protein (RBP) may be considered a protein with an abnormally frequent interaction with RNA, and a \"target RNA\" for a specific protein may be considered an RNA with an abnormally frequent interaction with that protein. Traditional ultraviolet (UV) cross-linking immunoprecipitation (CLIP)-sequencing analysis methods generally define interactions by methods that are indirectly assessing the latter. However, there has been limited direct assessment of these metrics by determining RNA cross-link rates or the RNA-binding profiles of non-RBPs.</p><p><br></p><p>Here, we describe a method to determine RNA cross-link rates and create sequencing libraries for a protein of interest, either of which may be performed on their own. easyCLIP is a relatively short, reliable, and efficient CLIP method, with the capacity to directly visualize RNA libraries and diagnose methodological problems. By combining the sequencing data and cross-link rates, the absolute frequency of given cross-links may be compared between control and experimental proteins, to nominate potential RBPs and distinctive RNA-protein interactions.</p><p><strong>&nbsp;</strong></p>",
+        "manuscriptTitle": "easyCLIP Analysis of RNA-Protein Interactions Incorporating Absolute Quantification",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2021-03-25 08:51:58",
+                "doi": "10.21203/rs.3.pex-1333/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a0a50fe9-f756-4431-8029-4aaa6f9e9478",
+        "owner": [],
+        "postedDate": "March 25th, 2021",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 1897343,
+                "name": "Molecular biology"
+            },
+            {
+                "id": 1897344,
+                "name": "Biochemistry"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2021-03-25 08:51:58",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

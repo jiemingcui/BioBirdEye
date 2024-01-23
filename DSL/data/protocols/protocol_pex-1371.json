@@ -1,0 +1,285 @@
+{
+    "identity": "pex-1371",
+    "title": "<p>Protocol for detection of bacterial proteins involved in efflux mediated antibiotic resistance (ARE) and their sub-families</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>Efflux proteins are responsible for transportation of different types of molecules from inside of the cell to the outside environment. Many times efflux proteins are also capable to carry out one or more type of antibiotics. The efflux proteins are responsible for multi-drug resistance in many microbial pathogens <sup>1\u20135</sup>.&nbsp;In the past several highly accessed and useful antibiotic resistance databases have been established to catalogue the known antibiotic resistance genes at both the whole genome as well as at genes/proteins levels <sup>6\u201315</sup>. But an <em>in-silico </em>tool to predict and annotate efflux proteins responsible for antibiotic resistance (ARE) has not been developed yet.</p><p>As per the WHO list of priority pathogens <em>(</em><a href=\"https://www.who.int/news/item/27-02-2017-who-publishes-list-of-bacteria-for-which-new-antibiotics-are-urgently-needed\" rel=\"noopener noreferrer\" target=\"_blank\"><em><u>https://www.who.int/news/item/27-02-2017-who-publishes-list-of-bacteria-for-which-new-antibiotics-are-urgently-needed</u></em></a><em>) </em>several pathogens use efflux to attain resistance against antibiotics. Therefore, an efficient tool for predicting the ARE proteins and their family is urgently needed. This protocol describes a machine learning based two-tier <em>in-silico </em>tool,<em>&nbsp;</em>named as BacEffluxPred, to predict the bacterial ARE proteins and classify them into their respective families. The prediction cycle of BacEffluxPred completes into two tiers. Tier-I discriminates between ARE and non-ARE however Tier-II predicts the family of classified ARE proteins. Prediction capability of BacEffluxPred has also been evaluated using an independent dataset that showed a very good performance. The details of the dataset, training methodology and other details of BacEffluxPred can be obtained from Pandey et al<sup>16</sup>.</p><p><br></p><p><strong><u>Overview of BacEffluxPred</u></strong></p><p>BacEffluxPred is a web-server to predict efflux proteins that are also involved in antibiotic resistance. It also classifies the predicted efflux proteins into their respective efflux protein families. For prediction protein sequences in FASTA format are required. First the submitted protein sequence will be converted into numerical encoding in the form of Position Specific Scoring Matrix (PSSM). Using PSSM as an input, the BacEffluxPred SVM models predict the ARE protein (tier-I)&nbsp;and classify into their relevant family of efflux proteins at tier-II.</p><p>The final outcome of BacEffluxPred depends on the user-selected threshold. Higher thresholds would result in more specific predictions i.e. low false positives, while lower threshold would result in low specificity predictions i.e. more false-positive results. The complete workflow of BacEffluxPred is shown in Figure 1.</p><p><br></p><p><strong><u>Application of the Protocol</u></strong></p><p>Recent advances in DNA technology and the advent of high throughput genomic technologies have led to the identification of a large number of new efflux pump/proteins.&nbsp;Since efflux proteins are one of the factors behind emergence of multi-drug resistance (MDR) in microbial pathogens, hence, BacEffluxPred can be used for annotation of novel efflux based antibiotic resistance genes in a bacterial proteome/genome.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p>Protein sequence(s) for prediction.</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p><strong>Hardware</strong></p><p>No specific hardware configuration is recommended. </p><p><strong>Software</strong></p><p>\u25c6&nbsp;Linux or Unix operating system&nbsp;</p><p>\u25c6&nbsp;SVM<sub>Light</sub>&nbsp;<em>(</em><a href=\"http://download.joachims.org/svm_light/current/svm_light.tar.gz\" rel=\"noopener noreferrer\" target=\"_blank\"><em>http://download.joachims.org/svm_light/current/svm_light.tar.gz</em></a><em>)</em></p><p>\u25c6&nbsp;PSI-BLAST&nbsp;<em>(</em><a href=\"about:blank\" rel=\"noopener noreferrer\" target=\"_blank\"><em>ftp://ftp.ncbi.nlm.nih.gov/blast/executables/</em></a><em>)</em></p><p>\u25c6&nbsp;Non-redundant protein database of NCBI after reducing redundancy to 90%</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "Procedure\nDevelopment of the Protocol\nWith the aim to reduce the requisite time and resources for classification, identification and characterization of ARE proteins we came up with the novel\nin-silico\ntool BacEffluxPred.\u00a0It is a two-tier SVM based method that can do quick and highly accurate prediction of bacterial efflux proteins responsible for AR and also predict the efflux protein family to which a predicted ARE may belong.\nImplementation of BacEffluxPred Web-server\nThe BacEffluxPred web-server is hosted on a Linux operating system. Web pages were designed using HTML/CSS scripting languages. The Perl language is used for the back-end pipeline and gcc compiler was used for compilation of all the programs.\nWeb-server usage guide\nStep 1:\nAt the top of the HOME page of\nBacEffluxPred\n(http://proteininformatics.org/mkumar/baceffluxpred), links to other pages are present. In the middle of the HOME page a brief introduction about the efflux based AR mechanism and link to detailed information of each family can be found. At the end of the page the working schema of BacEffluxPred tool and performance of different prediction models during training is shown in the form of ROC plot.\nStep 2:\nThe protein sequences can be submitted on the submission page by either typing/pasting or uploading the sequence file. The input sequence(s) must be in FASTA format and must contain only 20 standard single letter codes for amino acids in either upper or lower case. At present the BacEffluxPred web-server can predict only five sequences at a time. In case more than five sequences are submitted, only the first five sequences will be processed. The result of prediction depends on the SVM threshold that can be changed by the user (the default value is -0.4). Selection of high threshold will result in prediction with high specificity and less sensitivity/false positives while low threshold would result in prediction with low specificity with high sensitivity/false positives.\nInstallation of standalone version of BacEffluxPred\nFor Bulk analysis of proteins or for whole proteome analysis we recommend the use of a standalone version of BacEffluxPred, which can be downloaded from\nhttp://proteininformatics.org/mkumar/baceffluxpred\n.\nIn the standalone version of BacEffluxPred, there is no limit of the number of sequences that can be predicted and annotated. The benchmark data sets that were used to train and test BacEffluxPred predictor can also be downloaded from the download page.\nUsage of standalone versions of BacEffluxPred\u00a0requires a little familiarity with Linux. To help a Linux novice we also provided a detailed help and tutorial page to guide through installation and running the program (\nhttp://proteininformatics.org/mkumar/baceffluxpred\n/\nhelp.html\n)\nis also provided.\nFollowing steps are required to install the standalone version of BacEffluxPred:\n1.\u00a0Download the standalone version of BacEffluxPred.\n2.\u00a0Unpack \"baceffluxpred.tar.gz\" using command:\ntar -xvf baceffluxpred.tar.gz\n3.\u00a0Download Blast package from\nftp://ftp.ncbi.nlm.nih.gov/blast/executables/release\nand install it to run PSI-BLAST into BacEffluxPred installation folder.\n4.\u00a0Define the path for 'blastpgp of Blast package' and the 'database' at the end of the psiblast_pssm.pl (specified as $path_blastpgp and $path_database).\n5.\u00a0Download and install the SVM\nLight\npackage using the link:\nhttp://download.joachims.org/svm_light/current/svm_light.tar.gz\nin directory of BacEffluxPred. Extract the content of tar file (svm_light.tar) and copy the program svm_classify into the BacEffluxPred folder."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p>In case the standalone version of BacEffluxPred does not work, verify (a) the BacEffluxPred folder contained all required programs like SVM<sub>Light</sub>, BLAST, NR protein database, (b) rechecks whether path of the all programs are mentioned correctly, and (c) the input sequences are in FASTA format. While performing prediction on BacEffluxPred web-server, the reason for an error might be due to (a) sequences are uploaded as Word files, or (b) sequences are not in FASTA format.</p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>A typical prediction cycle for five protein sequences normally takes five minutes to complete on the BacEffluxPred web-server. As per our benchmarking on a computer with Intel(R) Xeon(R) 4 Core E5507 2.27 GHz processor with 6 GB DDR4 RAM, running 64-bit Red Hat Enterprise Linux operating system (Release 6.2), it took one minute per sequence to do the prediction.&nbsp;</p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>The prediction result of BacEffluxPred web-server is presented in a tabular format. It displays the result of prediction in two columns (Figure 2). The First column shows the ID of query protein and the second column displays the prediction result of BacEffluxPred. The prediction results depend on the SVM prediction threshold that the user has selected during the job submission.</p><p><br></p><p><strong><u>Limitations</u></strong></p><p>The input feature of BacEffluxPred is based on PSSM constructed during PSI-BLAST search. Though we have used 90% non-redundant NR protein database of NCBI for the PSI-BLAST search, still it takes slightly longish time to complete a prediction cycle.&nbsp;</p><p><br></p><p><strong><u>Figure legends</u></strong></p><p><strong>Figure-1</strong>: Steps involved in development of BacEffluxPred. The development of BacEffluxPred<strong>&nbsp;</strong>involves six major stages, (a) Data curation and compilation: \u2018non-antibiotic resistance efflux (Non-ARE), non-efflux antibiotic resistance (Non-EAR), non-efflux prokaryotic and antibiotic resistance efflux (ARE)\u2019 protein sequences were retrieved from UniProtKB, Patric, and BacARscan database. These proteins were divided into positive and negative datasets depending upon their capability to efflux out the antibiotics (Tier-I) and the family to which efflux protein belongs (Tier-II); (b) Feature encoding in which the position-specific scoring matrix (PSSM), generated by PSI-BLAST search against 90% redundant NR protein, was used to encode each protein sequence; (c) Using the feature encoded negative and positive datasets support vector machine models were trained using various parameters and kernel features; (d) Performance of each SVM model was evaluated in terms of sensitivity, specificity, accuracy and MCC using leave-one-out cross-validation and the best performing SVM model was also evaluated using independent test dataset; (e) Complete working schema of BacEffluxPred; (f) Classification schema of BacEffluxPred predictions on the basis of actual and prediction state.&nbsp;</p><p><strong>Figure-2</strong>: Screenshots of the web pages of the BacEffluxPred web-server. (a) The home page that gives brief description about the efflux mechanism and BacEffluxPred web-server; (b) The submission page where the user can submit the query protein for prediction; (c) The help page where user can build an understanding  of using the tool; (d) The download page where the user can download different datasets and standalone package of BacEffluxPred.</p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>1. Wright, G. D. The antibiotic resistome: the nexus of chemical and genetic diversity. <em>Nat. Rev. Microbiol.</em>&nbsp;<strong>5</strong>, 175\u2013186 (2007).</p><p>2. Marquez, B. Bacterial efflux systems and efflux pumps inhibitors. <em>Biochimie</em>&nbsp;<strong>87</strong>, 1137\u20131147 (2005).</p><p>3. Paulsen, I. T., Sliwinski, M. K. &amp; Saier, M. H. Microbial genome analyses: global comparisons of transport capabilities based on phylogenies, bioenergetics and substrate specificities. <em>J. Mol. Biol.</em>&nbsp;<strong>277</strong>, 573\u2013592 (1998).</p><p>4. Nikaido, H. &amp; Pag\u00e8s, J.-M. Broad-specificity efflux pumps and their role in multidrug resistance of Gram-negative bacteria. <em>FEMS Microbiol. Rev.</em>&nbsp;<strong>36</strong>, 340\u2013363 (2012).</p><p>5. Li, X.-Z. &amp; Nikaido, H. Efflux-mediated drug resistance in bacteria: an update. <em>Drugs</em>&nbsp;<strong>69</strong>, 1555\u20131623 (2009).</p><p>6. Kumar, R., Srivastava, A., Kumari, B. &amp; Kumar, M. Prediction of \u03b2-lactamase and its class by Chou\u2019s pseudo-amino acid composition and support vector machine. <em>J. Theor. Biol.</em>&nbsp;<strong>365</strong>, 96\u2013103 (2015).</p><p>7. Srivastava, A., Kumar, R. &amp; Kumar, M. BlaPred: Predicting and classifying \u03b2-lactamase using a 3-tier prediction system via Chou\u2019s general PseAAC. <em>J. Theor. Biol.</em>&nbsp;<strong>457</strong>, 29\u201336 (2018).</p><p>8. Arango-Argoty, G. <em>et al.</em>&nbsp;DeepARG: a deep learning approach for predicting antibiotic resistance genes from metagenomic data. <em>Microbiome</em>&nbsp;<strong>6</strong>, 23 (2018).</p><p>9. Pesesky, M. W. <em>et al.</em>&nbsp;Evaluation of Machine Learning and Rules-Based Approaches for Predicting Antimicrobial Resistance Profiles in Gram-negative Bacilli from Whole Genome Sequence Data. <em>Front. Microbiol.</em>&nbsp;<strong>7</strong>, 1887 (2016).</p><p>10. Chowdhury, A. S., Call, D. R. &amp; Broschat, S. L. Antimicrobial Resistance Prediction for Gram-Negative Bacteria via Game Theory-Based Feature Evaluation. <em>Sci. Rep.</em>&nbsp;<strong>9</strong>, 14487 (2019).</p><p>11. Kim, J. <em>et al.</em>&nbsp;VAMPr: VAriant Mapping and Prediction of antibiotic resistance via explainable features and machine learning. <em>PLoS Comput. Biol.</em>&nbsp;<strong>16</strong>, e1007511 (2020).</p><p>12. Zankari, E. <em>et al.</em>&nbsp;Identification of acquired antimicrobial resistance genes. <em>J. Antimicrob. Chemother.</em>&nbsp;<strong>67</strong>, 2640\u20132644 (2012).</p><p>13. McArthur, A. G. <em>et al.</em>&nbsp;The comprehensive antibiotic resistance database. <em>Antimicrob. Agents Chemother.</em>&nbsp;<strong>57</strong>, 3348\u20133357 (2013).</p><p>14. Gibson, M. K., Forsberg, K. J. &amp; Dantas, G. Improved annotation of antibiotic resistance determinants reveals microbial resistomes cluster by ecology. <em>ISME J.</em>&nbsp;<strong>9</strong>, 207\u2013216 (2015).</p><p>15. Srivastava, A., Singhal, N., Goel, M., Virdi, J. S. &amp; Kumar, M. CBMAR: a comprehensive \u03b2-lactamase molecular annotation resource. <em>Database J. Biol. Databases Curation</em>&nbsp;<strong>2014</strong>, bau111 (2014).</p><p>16. Pandey, D., Kumari, B., Singhal, N. &amp; Kumar, M. BacEffluxPred: A two-tier system to predict and categorize bacterial efflux mediated antibiotic resistance proteins. <em>Sci. Rep.</em>&nbsp;<strong>10</strong>, 9287 (2020).</p><p><br></p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>DP is supported by the Department of Science and Technology Govt. of India (INSPIRE Program), (DST INSPIRE Fellowship/2016/IF160262 [Grant Number: DST/INSPIRE 03/2015/003022]. BK was a recipient of ICMR-SRF (Grant Number: BIC/11(33)/2014). NS is supported by CSIR Senior Research Associate-ship (Scientist\u2019s Pool Scheme) [Grant Number: 13(9089-A)/2019-Pool]. All authors thank University of Delhi South Campus, New Delhi (India) for providing facilities to pursue the research work.</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41598-020-65981-3",
+                "date": "2020-06-09 10:02:46",
+                "title": "BacEffluxPred: A two-tier system to predict and categorize bacterial efflux mediated antibiotic resistance proteins",
+                "authors": [
+                    "Deeksha Pandey",
+                    "Bandana Kumari",
+                    "Neelja Singhal",
+                    "Manish Kumar"
+                ],
+                "journal": "Scientific Reports",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 11780136,
+                "identity": "798bf471-95f3-4564-9fe2-96e33137f3ca",
+                "order_by": 0,
+                "name": "Deeksha Pandey",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Biophysics, University of Delhi South Campus",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Deeksha",
+                "middleName": "",
+                "lastName": "Pandey",
+                "suffix": ""
+            },
+            {
+                "id": 11780137,
+                "identity": "4f7d74a3-01aa-4653-83d8-be6d571d22d5",
+                "order_by": 1,
+                "name": "Bandana Kumari",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Biophysics, University of Delhi South Campus",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Bandana",
+                "middleName": "",
+                "lastName": "Kumari",
+                "suffix": ""
+            },
+            {
+                "id": 11780138,
+                "identity": "52994355-39bf-47fb-8617-7a249b03368f",
+                "order_by": 2,
+                "name": "Neelja Singhal",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Biophysics, University of Delhi South Campus",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Neelja",
+                "middleName": "",
+                "lastName": "Singhal",
+                "suffix": ""
+            },
+            {
+                "id": 11780139,
+                "identity": "e6a84d6d-4bc6-463f-bb1f-9c94857c2b83",
+                "order_by": 3,
+                "name": "Manish Kumar",
+                "email": "manish@south.du.ac.in",
+                "orcid": "https://orcid.org/0000-0002-7936-9892",
+                "institution": "Department of Biophysics, University of Delhi South Campus",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Manish",
+                "middleName": "",
+                "lastName": "Kumar",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2021-02-13 16:53:43",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1371/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1371/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 6570024,
+                "identity": "97bbc719-5560-4945-a332-fe7e7ce0dfd5",
+                "added_by": "auto",
+                "created_at": "2021-03-03 17:18:54",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 732520,
+                "visible": true,
+                "origin": "",
+                "legend": "Steps involved in development of BacEffluxPred. The development of BacEffluxPred involved six major steps, (a) Data curation and compilation: \u2018non-antibiotic resistance efflux (Non-ARE), non-efflux antibiotic resistance (Non-EAR), non-efflux prokaryotic and antibiotic resistance efflux (ARE)\u2019 protein sequences were retrieved from UniProtKB, Patric, and BacARscan database. These proteins were divided into positive and negative datasets depending upon their capability to efflux the antibiotics (tier-I) and the family to which efflux protein belongs (tier-II); (b) Feature encoding in which the position-specific scoring matrix (PSSM), generated by PSI-BLAST search against 90% redundant NR protein database, was used to encode each protein sequence; (c) Using the feature encoded negative and positive datasets support vector machine models were generated using various learning parameters and kernel features; (d) Performance of each SVM model was evaluated in terms of sensitivity, specificity, accuracy and MCC using leave-one-out cross-validation and the best performing SVM model was also evaluated using independent test dataset; (e) Complete working schema of BacEffluxPred; (f) Classification schema of BacEffluxPred predictions on the basis of actual and predicted state. ",
+                "description": "",
+                "filename": "Figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/pex-1371/v1/d1ee7bb031a09cae5a86bb62.jpg"
+            },
+            {
+                "id": 6569976,
+                "identity": "ace69d91-4f98-4c9d-b8a9-92c5f89369e9",
+                "added_by": "auto",
+                "created_at": "2021-03-03 17:15:54",
+                "extension": "jpg",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 772675,
+                "visible": true,
+                "origin": "",
+                "legend": "Screenshots of the web pages of the BacEffluxPred web-server. (a) The home page provides brief description about the efflux mechanism and BacEffluxPred web-server; (b) The submission page where the user can submit the query protein for prediction; (c) The help page; (d) The download page where the user can download different datasets and standalone version of BacEffluxPred.",
+                "description": "",
+                "filename": "Figure2.jpg",
+                "url": "https://assets.researchsquare.com/files/pex-1371/v1/7e0279f7dba7e0cbf3cc9a4b.jpg"
+            },
+            {
+                "id": 13673870,
+                "identity": "90cf8de4-dbb3-49d8-b186-e55bd36f3a1a",
+                "added_by": "auto",
+                "created_at": "2021-09-17 11:19:24",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 689987,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1371/v1/411d2ada-5fb2-4d29-9fb1-4e3d9dd94baf.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Bacterial Efflux Proteins, Antibiotic Resistance, In-silico Tool, Machine Learning",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>This protocol describes a method for detection of bacterial proteins involved in efflux mediated antibiotic resistance (ARE) and their sub-families as described in the research paper entitled \"<strong>BacEffluxPred: A two-tier system to predict and categorize bacterial efflux mediated antibiotic resistance proteins\u201d </strong>published in Scientific Reports. BacEffluxPred is a support vector machine based two-tier prediction method, that can be used for the detection of efflux proteins responsible for antibiotic resistance in bacteria and to identify the families to which it belongs. The overall prediction cycle includes three important steps: </p><p>1)&nbsp;The query protein is presented to the prediction algorithm. </p><p>2)&nbsp;If the query protein would be predicted to be a non-ARE protein, the prediction would stop at tier-I.</p><p>3)&nbsp;If the query protein would be predicted as an ARE protein at the tier-I, the query protein would be forwarded to tier-II for ARE family prediction. </p><p>By using these steps it is possible to generate the models that can be used on proteomic data to predict whether the given data have potential ARE proteins or not if yes it will further classified into their following families. This is the first <em>in-silico</em>&nbsp;tool for predicting bacterial ARE proteins and their families and it is freely available as both web-server and standalone versions at <a href=\"http://proteininformatics.org/mkumar/baceffluxpred/\" rel=\"noopener noreferrer\" target=\"_blank\"><strong><em><u>http://proteininformatics.org/mkumar/baceffluxpred/</u></em></strong></a></p><p>&nbsp;</p>",
+        "manuscriptTitle": "Protocol for detection of bacterial proteins involved in efflux mediated antibiotic resistance (ARE) and their sub-families",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2021-03-03 17:15:52",
+                "doi": "10.21203/rs.3.pex-1371/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "77e787e3-8db3-4678-ab0a-0cc5b4afbbf0",
+        "owner": [],
+        "postedDate": "March 3rd, 2021",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 2474532,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 2474533,
+                "name": "Pathogenesis"
+            },
+            {
+                "id": 2474534,
+                "name": "Molecular biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2021-03-03 17:15:52",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

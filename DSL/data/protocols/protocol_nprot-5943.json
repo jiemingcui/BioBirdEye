@@ -1,0 +1,222 @@
+{
+    "identity": "nprot-5943",
+    "title": "CRISPR-STOP: Gene silencing through base editing-induced nonsense mutations",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "The efficiency and simplicity of CRISPR technology presents unprecedented power in gene knockout and functional genomic studies. In the type II CRISPR system, the Cas9 endonuclease is guided to a specific genomic region via a short guide RNA molecule \\(sgRNA)1, 2.  At target sites, Cas9 produces DNA double strand breaks that are repaired by either non-homologous end joining \\(NHEJ) or homology directed repair \\(HDR) mechanisms. NHEJ is an error-prone repair mechanism resulting in permanent insertion/deletions \\(indels) at target sites. Since indels frequently result in frameshift mutations, this repair mechanism is heavily leveraged to achieve gene knockouts and perform functional studies. \r\n\n\n Although the system works efficiently, recent studies are raising concerns about the effects of DNA double strand breaks by WT-Cas9 approach. First, the system introduces indels of random sizes that cannot be controlled. Small fractions of these indels may not cause frameshift mutations and therefore will not result in a knock out \\(KO) phenotype. On the contrary, these mutations may increase the risk of introducing novel functions to the targeted protein. Secondly and more importantly, the double strand DNA cleavage activity of WT-Cas9 has been shown to result in excessive DNA damage and cell death, especially when multi-copy genomic regions are targeted3-6. This may fully confound experimental conclusions as lethal and reduced fitness phenotypes would be independent of target gene function3. Although the HDR mechanism can be exploited in theory to introduce specific DNA changes to overcome the first concern, this approach is highly inefficient compared to the NHEJ repair system7 and still carries the same risk noted in the second concern. \r\n\n\nHere, we show that CRISPR base editor approach8, which does not result in double strand DNA breaks, can be utilized as a gene KO strategy by editing certain genetic codes to generate early stop codons. Recently, dCas9/Cas9n has been fused to cytosine deaminase of vertebrate immune system to create a \u201cbase editor\u201d. These second-generation CRISPR genome editors achieve direct DNA base conversions and specific DNA changes without causing double strand DNA breaks or requiring exogenous DNA template8,9. These base editors directly convert Cytidine to Uridine, which results in C to T \\(or G to A on the complementary strand) substitutions on target sites during DNA replication. Here, we demonstrate the utility of this system as an efficient and less deleterious alternative to WT-Cas9 mediated gene knockout studies. We show that guiding Cas9n-fused APOBEC1 cytidine deaminase and Uracil Glycosylase inhibitor \\(called Base Editor 3 or BE3)8 by an sgRNA that harbors CAA, CAG, CGA or TGG codons in the guiding sequence results in specific base changes that converts these codons into stop codons. By introducing early stop codons in the coding strand, the approach achieves effective knockout of both exogenous and endogenous genes. Comparative analysis with conventional WT-Cas9 mediated gene knockout studies with identical sgRNAs illustrate that the CRISPR-STOP approach has comparable KO efficiency as WT-Cas9 at low copy genomic regions but shows higher efficiency at high copy regions. More critically, it is less deleterious to the cells when low or high copy genomic regions are targeted. Computational analysis identified that 216,281 sgRNAs can be used to introduce stop codons in ~ 17,000 genes. Our proof of principal, targeted cell survival and depletion screenings demonstrate that CRISPR-STOP can be utilized for large-scale functional gene KO screenings. The CRISPR-STOP approach we present here further expands the CRISPR toolbox with novel, efficient, and safer gene KO functionality."
+        },
+        {
+            "header": "Reagents",
+            "content": "Reagents:\r\n\n\nA: Plasmids, Enzymes and Oligos\r\n\n\n-WT-Cas9 expressing plasmid \\(Addgene #41815)\r\n\n\n-BE3 expressing plasmid \\(Addgene #73021)\r\n\n\n-sgRNA expressing plasmids \\(Addgene #42230)\r\n\n\n-NheI \\(NEB #R0131), BamHI \\(NEB #R3136), Bbs.I \\(NEB # R0539)\r\n\n\n-Oligonucleotides \\(from EuroFins MWG Operon)\r\n\n\n-pMD2.G and psPAX plasmids \\(for viral packaging)\r\n\n\n-T4 DNA ligase \\(NEB M0202) \r\n\n\n\r\n\n\nB: Transient Transfection\r\n\n\n-Fugene6 \\(Promega Cat # E2691)\r\n\n\n-Opti-MEM Reduced Serum Media \\(#31985062)\r\n\n\n- Doxycycline Hydrochloride \\(10592-13-9)\r\n\n\n\r\n\n\nC: DNA isolation and DNA sequencing\r\n\n\n- UltraPure\u2122 Phenol: Chloroform: Isoamyl Alcohol \\(25:24:1, v/v)\r\n\n\n-SDS lysis buffer \\(100 mM NaCl, 50 mM Tris-Cl \\(pH 8.1), 5 mM EDTA and 1% \\(wt/vol) SDS)\r\n\n\n-EtOH \\(100% and 70%)\r\n\n\n-3M Sodium Acetate\r\n\n\n-minElute Gel Extraction Kit \\(Qiagen)\r\n\n\n- Invitrogen TA cloning kit \\(Invitrogen Cat #450046)\r\n\n\n\r\n\n\nD: Western Blot\r\n\n\n-RIPA buffer \\(10 mM Tris-Cl \\(pH 8.0),1 mM EDTA,1% Triton X-100,0.1% sodium deoxycholate,0.1% SDS,140 mM NaCl,1 mM PMSF)\r\n\n\n-Blotting Grade Blocker Non-Fat Dry Milk #1706404XTU\r\n\n\n- NuPAGE 4-12 % Bis-Tris gradient gel \\(Invitrogen NP0335)\r\n\n\n- iBlot\u00ae Transfer Stack, nitrocellulose, regular size \\(#IB301001)\r\n\n\n-iBlot\u00ae Transfer Stack, PVDF, regular size \\(#IB401001)\r\n\n\n-TBS-T Buffer \\(50 mM Tris,150 mM NaCl,0.1% Tween 20, pH 7.4 - 7.6)\r\n\n\n-antibodies \\(abcam anti-EHMT2 \\(G9a) \\(cat # ab 185050), cell signaling anti-LMNB2 \\(cat # 12255), Genscript alpha Tubulin \\(cat # A01410-40), abcam anti-HA \\(cat # ab 9110)\r\n\n\n\r\n\n\nE: Immunofluorescence\r\n\n\n-PBS\r\n\n\n-PBS-T \\(PBS with 0.1% Tween20)\r\n\n\n-4% paraformaldehyde\r\n\n\n-1% BSA\r\n\n\n- Phospho-Histone H2A.X \\(Ser139) \\(Cell signaling Cat #2577)\r\n\n\n- anti rabbit Alexa488 \r\n\n\n\r\n\n\nF: Site Directed Mutagenesis\r\n\n\n- Q5 Site-Directed Mutagenesis Kit \\(NEB Cat # E0554S)\r\n\n\n-Oligos\r\n\n\n-Competent Cells\r\n\n\n\r\n\n\nG: Flow Cytometry Analysis\r\n\n\n- annexin-binding buffer: 10 mM HEPES, 140 mM NaCl, and 2.5 mM CaCl2, pH 7.4\r\n\n\n-DAPI solution \\(1 \u00b5g/\u00b5l)\r\n\n\n- AnnexinV-FITC conjugate antibody from Molecular Probes \\(Cat # A13199)."
+        },
+        {
+            "header": "Equipment",
+            "content": "Equipment:\r\n\n\n-Thermocycler\r\n\n\n-Attune NxT Flow Cytometer \r\n\n\n-Benchtop centrifuge\r\n\n\n-Gel Electrophoresis System\r\n\n\n-Western Blot Running Tank\r\n\n\n-The iBlot\u00ae Dry Blotting System\r\n\n\n- Zeiss fluorescence microscope.\r\n\n\n-Nanodrop"
+        },
+        {
+            "header": "Procedure",
+            "content": "Procedure:\r\n\n\nA. Single sgRNA design \r\n\n\n1.Any guide RNA target sites with 5\u2019-N\\(3 to 7)-\\(CGA/CAG/CAA)-N\\(14 to 10)-NGG\\(PAM) on the coding strand  will acquire an i-stop codon in the human exome if CGA,CAG and CAA codes Arg,Gln and Gln, respectively. Or, any guide RNA target sites with 5\u2019-N \\(2 to 7) -\\(CCA)-N \\(15 to 10)-NGG\\(PAM) on the noncoding strand will acquire an i-stop codon in the human exome if TGG \\(or CCA) codes Trp on the coding strand.\r\n\n\n2.Each sgRNA sequence is chosen according to the CrisprScan10 and CROP-IT tools11 and its first nucleotide is modified to \u201cG\u201d if it is not. This 20-bp nucleotide sequence is used in the forward oligo and its reverse complement sequence is used in the reverse oligo.\r\n\n\n4.\u201cCACC\u201d overhangs are added to the 5\u2019 of the forward oligo and \u201cAAAC\u201d overhangs are added to the 5\u2019 of the reverse complementary oligo for each sgRNA.\r\n\n\n\r\n\n\nB. sgRNA design for Library \\(whole genome)\r\n\n\n1.Arg, Gln, and Trp positions are identified for all human proteins. \r\n\n\n2.Amino acid positions are converted to corresponding genomic locations. \r\n\n\n3.All possible sgRNAs are designed to target these Arg, Gln, and Trp codons. \r\n\n\n4. Only sgRNAs uniquely mapped to the genome were selected for the library. \r\n  5.To identify the three amino acids, human protein sequences are downloaded from UniProt \\(UP0005640). Arg, Gln, and Trp positions in the 70,952 proteins are determined using a Biopython script. 6.For the obtained amino acid positions, backlocate \\(Lindenbaum, Pierre \\(2015): JVarkit: java-based utilities for Bioinformatics. figshare. http://dx.doi.org/10.6084/m9.figshare.1425030) is implemented to convert them to genomic coordinates.\r\n\n\n7.For each candidate Arg, Gln, and Trp codon, all possible Cas9 sgRNA sequences of the form 5\u2032-N \\(3 to 7) -\\(CGA/CAG/CAA)-N \\(14 to 10)-NGG\\(PAM) on the coding or 5\u2032-N \\(2 to 7) -\\(CCA)-N \\(15 to 10)-NGG\\(PAM) on the noncoding strand are selected as candidate targets. Since we started from protein sequences, codons spanning alternative splicing sites were included as well. \r\n\n\n8.In the end, every 20-mer candidate sgRNA is compared with each other to exclude off-target effects in the exome. Additionally, any sgRNAs with other perfect matches in the genome is discarded based on BLAT12 results. \r\n\n\n\r\n\n\nC. Production of the sgRNA expressing plasmid: \r\n\n\n 1.Add 2 \u00b5l of diluted oligos \\(10 \u00b5M) in to Eppendorf tube and make it 50 \u00b5l by using distilled water. Transfer oligos in thermocycler at 95 \u00b0C for at least 5 min and cooled down gradually in thermocycler or leave on bench until it reaches the room temperature. \r\n\n\n2. Digest sgRNA expressing plasmid with Bbs.I and run on the 1% gel. Purify the upper band from gel as a vector and quantify the amount by nanodrop.  \r\n  3. Use 50 ng digested and purified vector and 2 \u00b5l of annealed oligos from step 1 for the 20 \u00b5l ligation reaction.  \r\n  4.Use 1 \u00b5l reaction from step 4 for the transformation of the competent cells.\r\n\n\n5. Use forward primer inside U6 promoter and your reverse oligonucleotides as a reverse primer for PCR screening, choice colonies which has a single band around ~300 bp. Confirm the sequence of sgRNA by sanger Sequencing.\r\n  \r\n\n\nD. Site Directed Mutagenesis of the BE complex.\r\n\n\n1.Sequential two-step PCR was performed to introduce mutations by using the following primer pairs. \r\n\n\nP29F-For: ATTCTTCGATtttAGAGAGCTCCGC; \r\n\n\nP29F-Rev: ACCTCAAACTCATGGGGC; \r\n\n\nE181Q-for: GTACGTTCTTcAACTGTACTGC; \r\n\n\nE181Q-rev: AGTCGTACCCACAGATGG.\r\n\n\n2. Add 12.5 \u03bcl Q5 Hot Start High-Fidelity 2X Master Mix ,1.25 \u03bcl of forward oligo,1.25 \u03bcl reverse oligo and 10 ng template DNA into Eppondorf Tube and make it 25 \u03bcl by using distilled water. \r\n  3.  Amplify the plasmid with mutated oligos by using following condition:\r\n  \r\n\n\nSTEP TEMP TIME\r\n\n\nInitial Denaturation 98\u00b0C 30 seconds\r\n\n\n25 Cycles 98\u00b0C 10 seconds\r\n\n\n  60\u00b0C 30 seconds\r\n\n\n  72\u00b0C 5 minutes\r\n\n\nFinal Extension 72\u00b0C 7 minutes\r\n\n\nHold 4 C  \r\n\n\n\r\n\n\n4. KLD reaction: Add 5 \u03bcl 2X KLD reaction buffer to the 1 \u03bcl of the PCR product from step3 followed by adding 1 \u03bcl 10X KLD enzyme mix. Make the final volume to 10 \u03bcl by using nuclease-free water.\r\n  5.Incubate for 5 min at room temperature.\r\n\n\n6.Use 1 \u03bcl of the reaction from step 4 for the transformation.\r\n\n\n7.Confirm the mutant nucleotide change by sanger sequencing.\r\n\n\n\r\n\n\nE. Transient Transfections:\r\n\n\nDay 0: Set up mCherry \\(low, medium or high copy number cells) cells the day before the transfection in the 12-well or 6-well plate.\r\n\n\nDay1: Once you get 60-70 % confluency of the cell, you can start the transfection.\r\n\n\n-Add 100 \u03bcl of the Opti-MEM media in the sterile PCR tube and add 3 \u03bcl of the Fugene-6 reagent in each tube. \\(These amounts for the one well of the 12-well plate). Wait or 5 minutes.\r\n\n\n-For each transfection, use 700 ng WT-Cas9/BE3 plasmid together with 300 ng sgRNA plasmid.  Gently vortex for 1 second. Incubate the solution at room temperature for 30 minutes.\r\n\n\n-Gently add solutions on top of the cells drop by drop \\(since Fugene6 is NOT toxic to the cells, you can keep the reagents up to 2 days in the culture media).\r\n\n\nDay3: Split the cells in 12-well by 1:3 or 1:4 ratio depending on the cell confluency. \r\n\n\nDay4: Re-transform the cells as day1.\r\n\n\n Day7: Cells should be incubated at least 3-4 days after second transfection to see the effects of i-stop production. Depending on the half-life of the target protein in the cells, this period might be longer.\r\n\n\nCritical Step: For the tet-inducible cell lines, do not include the doxycycline during the process of transfection. You can add the doxycycline at least after 12 hours of transient transfection.\r\n\n\nCritical Step: For tet-inducible cell lines, single cell lines should be produced from population and expression level of WT-Cas9 and BE3 were quantified. Depending on the cell type, doxycycline dose curve might be needed to get equal or comparable level of expression for WT-Cas9 and BE3 protein expression.\r\n\n\nCritical Step: For tet-inducible stable cell lines, 1 \u03bcg of total sgRNA expressing plasmid can be used during transfection since WT-Cas9 and BE3 are already expressing in the cells.\r\n\n\n\r\n\n\nF.DNA isolation:\r\n\n\n1.Collect cells after trypsinization and wash the cell pellet with PBS.\r\n\n\n2.Resuspend cell pellet in 250 \u03bcl SDS-lysis buffer.\r\n\n\n3.If the solution is very viscous, sonicate for a few seconds with low amplitude.\r\n\n\n4.Add 250 \u03bcl Phenol: Chloroform: Isoamyl Alcohol to the lysed cells and vortex for 30 seconds at high speed.\r\n\n\n5.Centrifuge the samples at 13,000 rpm for 10min.\r\n\n\n6.Carefully remove the upper aqueous part into clean Eppendorf tube \\(it might be around 200 \u03bcl)\r\n\n\n7.Add 500 \u03bcl 100% EtOH and 25 \u03bcl NaAc \\(3 M) to the aqueous phase from step 6. \r\n\n\n8.Centrifuge samples at 14,000 rpm for 10 minutes.\r\n\n\nCritical Step: If you do not see any pellet, you can add 1 \u03bcl glycogen and incubate your solution at -80 \u00b0C for 2hours at least.\r\n\n\n9.Wash pellet with 70% EtOH.\r\n\n\n10.Dry the pellet and dissolve it by using RNase-containing water.\r\n\n\nG.DNA sequencing:\r\n\n\n1.PCR amplify the target region with primers giving at least 500 bp PCR product.\r\n\n\n2.Run PCR product on 1% gel. If you have a single band, purify the PCR by using minElute PCR purification kit and measure the amount of DNA by nanodrop.\r\n\n\n3.Use 20-50 ng PCR product and TA cloning vector \\(0.5 to 1 \u00b5l) for ligation reaction.\r\n\n\n4.Perform transformation and spread the cells on the X-gal +IPTG treated LB-agar plate.\r\n\n\n5.Next day, pick up the white colonies from the plate for Sanger Sequencing.\r\n\n\n\r\n\n\nH. Flow Cytometry:\r\n\n\n1.mCherry cell lines were harvested at least 7 days after transient transfection of plasmids. \r\n\n\n2.Cells were trypsinized and washed twice with PBS. \r\n\n\n3.Resuspend cells in 250 \u00b5l PBS and prepare also positive \\(100 % mCherry) and negative control cells \\(no mCherry) for flow cytometry analysis.\r\n\n\n4. Attune NxT Flow Cytometer was used to measure the mCherry signal.\r\n  5.For the AnnexinV staining;\r\n\n\n- Cells were trypsinized and washed with cold PBS.\r\n\n\n-Resuspend cells in AnnexinV binding buffer and add 5 \u00b5l of Annexin V conjugate to each cell suspension. Add also DAPI 1:1000 dilution into each suspension and wait for 15 min at room temperature. \r\n\n\n-After incubation period, add 400 \u00b5l Annexin V binding buffer and mix gently. \r\n\n\n-As soon as possible, measure the fluorescence signal with proper single stained marker as a control.\r\n\n\nCritical Step: It is very important to prepare the single stained cells to make a proper compensation analysis for each cell type. \r\n\n\n6.FlowJo were used for measurement and analysis, respectively. All necessary compensation analysis should be done for AnnexinV-FITC, DAPI and mCherry before measurement and during the analysis of the data.\r\n\n\n\r\n\n\nI.Immunoblot:\r\n\n\n1.Cells were harvested in RIPA buffer\r\n\n\n2.Lysed cells were sonicated gently for 1 second\r\n\n\n3.Keep lysates on ice for 30 minutes and then centrifuges lysates at 10,000 rpm for 10 minutes.\r\n\n\n4.Remove supernatant into clean Eppendorf tubes and freeze lysates immediately\r\n\n\n5.Measure the protein amount by BCA assay for each lysate.\r\n\n\n6.Load equal amount of protein in each well of the NuPAGE 4-12 % Bis-Tris gradient gel.\r\n\n\n7.Run gel with 100-200 voltage in cold room for 30 minutes to 2 hours depending on the target protein.\r\n\n\n8.Transfer lysates from membrane onto the iBlot\u00ae Transfer Stack, nitrocellulose or PVDF membrane. \r\n\n\n9.Block membrane with 3% milk for half hour and then treat the membranes with your first antibody \\(1:1000 dilute in 1% milk) for overnight at cold room.\r\n\n\n10.Wash membrane with TBS-T three time, each for 5 minutes.\r\n\n\n11.Add secondary antibody \\(anti-HRP rabbit or mouse depending on the first antibody type) for 30 minutes to 1 hours.\r\n\n\n12.Develop your membrane.\r\n\n\n\r\n\n\nJ.Immunofluorescence:\r\n\n\n1.Cells were seeded on coverslips inside 6-well plates overnight and were transfected as described previously. \r\n\n\n2.After 3 days, cells were washed with PBS twice gently followed by 4% paraformaldehyde fixation for 10 minutes. \r\n\n\n3.After twice PBS_T \\(0.1% Tween 20) wash, cells were permeabilized by using PBS with 0.4% Triton X-100 for 10 min. \r\n\n\n4.Fixed and permeabilized cells were washed with PBST twice again followed by 30 min blocking inside the 1% BSA at room temperature. \r\n\n\n5.Phospho-Histone H2A.X \\(Ser139) antibody is diluted in 1% BSA and applied for 1 hour at room temperature \\(or 4 \u00b0C for overnight). \r\n\n\n6.After 3 times PBS_T wash, Alexa488-anti rabbit was used for fluorescence conjugation at dark for 1 hour. \r\n\n\n7.Cell nuclei were counterstained with 4,6-diamidino-2-phenylindole dihydrochloride \\(DAPI; Sigma-Aldrich) in the mounting media. \r\n\n\n8.Cells were examined under a Zeiss fluorescence microscope\r\n\n\n\r\n\n\nK. Mini-Library Preparation: \r\n\n\n1.sgRNAs were prepared as described previously. \r\n\n\n2.Annealed sgRNAs were inserted into modified LV-sgRNA-zeocin backbone \\(Addgene 61427).\r\n\n\n3. Each sgRNA was prepared separately and then combined with equimolar ratio as an sgRNA mini-library. 4.Type-2 lentiviral packaging system was used in 293T cells to produce viruses.\r\n  5.Transfection for virus production;\r\n\n\n-use 10 \u03bcg total plasmid DNA in 70-80 % confluent cells. \r\n\n\n-add 30 \u03bcl Fugene6 in to 600 \u03bcl opti-MEM media and wait for 5min.\r\n\n\n-add 5 \u03bcg mini-library plasmid DNA ,4 \u03bcg psPAX and 1\u03bcg pMD2.G plasmid in the opti-MEM media and wait for 30 min at room temperature. \r\n\n\n-add transfection reagent slowly drop by drop on the cells.\r\n\n\n-change the media with fresh 10% FBS containing media next day and wait 24 hours for the first harvesting.\r\n\n\n-collect the media for the next two days, and combine them. After 10,000 rpm for 5 minutes\u2019 centrifugation, filter virus by using .45 \u03bcm filter.\r\n\n\n-use the virus immediately or aliquot and freeze them at -80 \u00b0C.\r\n\n\n6.Determination of the MOI.\r\n\n\n-Prepare two sets of your target cells in ten 10-cm plates.\r\n\n\n- Add four different volume of virus \\(62.5 \u03bcl,125 \u03bcl,250 \u03bcl and 500 \u03bcl might be good starting volume) in duplicate to the 8 of the 10-cm plates. One plate in each set should be control plate without virus.\r\n\n\n-Start zeocin selection \\(1000 \u03bcg/ml) the next day in one set of the plates \\(5 plates should NOT be treated with Zeocin).\r\n\n\n-Keep zeocin selection until cells in your control plates \\(without virus, with Zeocin) die.\r\n\n\n-Calculate relative cell survival amount by dividing the number of cells in the \\(+) zeocin plate to the number of cells in the \\(-) zeocin plate for each virus volume.  Find the volume of virus for the MOI 0.4 from these results and use this virus volume in the main screening experiment.\r\n\n\n7.After zeocin selection \\(it might be 5-7 days), start 6-TG \\(10 \u00b5M, Sigma A4882) and puromycin \\(4 \u00b5g/ml) selection at least for 2-weeks.\r\n\n\n8.Genomic DNAs were isolated as described previously.\r\n\n\n9. PCR amplicons were prepared by two-step PCR by using following primers:\r\n  Outer for Primer: 5\u2019cagggacagcagagatccag, \r\n\n\nOuter Rev Primer: 5\u2019cggagccaattcccactcc\r\n\n\nFirst PCR program: use high Fidelity Taq polymerase for the PCR reaction with 10 \u00b5g DNA for small size of library which has 27 sgRNAs.\r\n\n\nSTEP TEMP TIME\r\n\n\nInitial Denaturation 95\u00b0C 5 min\r\n\n\n18 Cycles 94\u00b0C 30 seconds\r\n\n\n  60\u00b0C 30 seconds\r\n\n\n  72\u00b0C 30 minutes\r\n\n\nFinal Extension 72\u00b0C 7 minutes\r\n\n\nHold 4 C  \r\n\n\n\r\n\n\n\r\n\n\nChoice one of the following forward primers for the second PCR reaction together with the universal reverse primer, \r\n\n\nInner Rev primer:5\u2019AATGATACGGCGACCACCGAGATCTACACCGACTCGGTGCCACTTTT\r\n\n\n\r\n\n\nlib-IN-F-index1 5\u2019CAAGCAGAAGACGGCATACGAGATCatcacgTTTCTTGGGTAGTTTGCAGTTTT\r\n\n\nlib-IN-F-index2 5\u2019CAAGCAGAAGACGGCATACGAGATCcgatgtTTTCTTGGGTAGTTTGCAGTTTT\r\n\n\nlib-IN-F-index3 5\u2019CAAGCAGAAGACGGCATACGAGATCttaggcTTTCTTGGGTAGTTTGCAGTTTT\r\n\n\nlib-IN-F-index4 5\u2019CAAGCAGAAGACGGCATACGAGATCtgaccaTTTCTTGGGTAGTTTGCAGTTTT\r\n\n\nlib-IN-F-index5 5\u2019CAAGCAGAAGACGGCATACGAGATCacagtgTTTCTTGGGTAGTTTGCAGTTTT\r\n\n\nlib-IN-F-index6 5\u2019CAAGCAGAAGACGGCATACGAGATCgccaatTTTCTTGGGTAGTTTGCAGTTTT\r\n\n\nlib-IN-F-index7 5\u2019CAAGCAGAAGACGGCATACGAGATCcagatcTTTCTTGGGTAGTTTGCAGTTTT\r\n\n\nlib-IN-F-index8 5\u2019CAAGCAGAAGACGGCATACGAGATCacttgaTTTCTTGGGTAGTTTGCAGTTTT\r\n\n\nlib-IN-F-index9 5\u2019CAAGCAGAAGACGGCATACGAGATCgatcagTTTCTTGGGTAGTTTGCAGTTTT\r\n\n\nlib-IN-F-index10 5\u2019CAAGCAGAAGACGGCATACGAGATCtagcttTTTCTTGGGTAGTTTGCAGTTTT\r\n\n\nlib-IN-F-index11 5\u2019CAAGCAGAAGACGGCATACGAGATCggctacTTTCTTGGGTAGTTTGCAGTTTT\r\n\n\nlib-IN-F-index12 5\u2019CAAGCAGAAGACGGCATACGAGATCcttgtaTTTCTTGGGTAGTTTGCAGTTTT\r\n\n\nlib-IN-F-index13 5\u2019CAAGCAGAAGACGGCATACGAGATCagtcaaTTTCTTGGGTAGTTTGCAGTTTT\r\n\n\nlib-IN-F-index14 5\u2019CAAGCAGAAGACGGCATACGAGATCagttccTTTCTTGGGTAGTTTGCAGTTTT\r\n\n\nlib-IN-F-index15 5\u2019CAAGCAGAAGACGGCATACGAGATCatgtcaTTTCTTGGGTAGTTTGCAGTTTT\r\n\n\nlib-IN-F-index16 5\u2019CAAGCAGAAGACGGCATACGAGATCccgtccTTTCTTGGGTAGTTTGCAGTTTT\r\n\n\nlib-IN-F-index18 5\u2019CAAGCAGAAGACGGCATACGAGATCgtccgcTTTCTTGGGTAGTTTGCAGTTTT\r\n\n\nlib-IN-F-index19 5\u2019CAAGCAGAAGACGGCATACGAGATCgtgaaaTTTCTTGGGTAGTTTGCAGTTTT\r\n\n\nlib-IN-F-index20 5\u2019CAAGCAGAAGACGGCATACGAGATCgtggccTTTCTTGGGTAGTTTGCAGTTTT\r\n\n\nlib-IN-F-index21 5\u2019CAAGCAGAAGACGGCATACGAGATCgtttcgTTTCTTGGGTAGTTTGCAGTTTT\r\n\n\nlib-IN-F-index22 5\u2019CAAGCAGAAGACGGCATACGAGATCcgtacgTTTCTTGGGTAGTTTGCAGTTTT\r\n\n\nlib-IN-F-index23 5\u2019CAAGCAGAAGACGGCATACGAGATCgagtggTTTCTTGGGTAGTTTGCAGTTTT\r\n\n\nlib-IN-F-index25 5\u2019CAAGCAGAAGACGGCATACGAGATCactgatTTTCTTGGGTAGTTTGCAGTTTT\r\n\n\nlib-IN-F-index27 5\u2019CAAGCAGAAGACGGCATACGAGATCattcctTTTCTTGGGTAGTTTGCAGTTTT\r\n\n\nUse 5 \u00b5l of the first PCR reaction in the second PCR reaction in total 100 \u00b5l reaction volume.\r\n\n\nSTEP TEMP TIME\r\n\n\nInitial Denaturation 95\u00b0C 5 min\r\n\n\n25 Cycles 94\u00b0C 30 seconds\r\n\n\n  60\u00b0C 30 seconds\r\n\n\n  72\u00b0C 30 minutes\r\n\n\nFinal Extension 72\u00b0C 7 minutes\r\n\n\nHold 4 C  \r\n\n\n\r\n\n\n10.Run PCR reaction on 2% gel and purify the band around 270 bp.\r\n\n\nCritical Step: Since this is a two-step PCR, there might be a second PCR amplicon on top of the first band. Be careful, do not contaminate the lower band with upper band.\r\n\n\n11.Purify bands from gel by using Gel-Extraction Kit from Qiagen and quantify amount of DNA by nanodrop.\r\n\n\n12. Use total 4nM DNA mixture in MiSeq Illumina platform together with custom index and sequencing primer. \r\n  illmn-SeqP 5\u2019CGGTGCCACTTTTTCAAGTTGATAACGGACTAGCCTTATTTTAACTTGCTATTTCTAGCT\r\n\n\nCTAAAAC\r\n\n\nillmn-IndexP 5\u2019TTTCAAGTTACGGTAAGCATATGATAGTCCATTTTAAAACATAATTTTAAAACTGCAAACT\r\n\n\nACCCAAGAAA"
+        },
+        {
+            "header": "References",
+            "content": "References:\r\n\n\n1. Cong, L. et al. Multiplex Genome Engineering Using CRISPR/Cas Systems. Science 339, 819-823 \\(2013).\r\n  2. Mali, P. et al. RNA-guided human genome engineering via Cas9. Science 339, 823-826 \\(2013).\r\n  3. Aguirre, A.J. et al. Genomic Copy Number Dictates a Gene-Independent Cell Response to CRISPR/Cas9 Targeting. Cancer discovery 6, 914-929 \\(2016).\r\n  4. Hart, T. et al. High-Resolution CRISPR Screens Reveal Fitness Genes and Genotype-Specific Cancer Liabilities. Cell 163, 1515-1526 \\(2015).\r\n  5. Wang, T. et al. Identification and characterization of essential genes in the human genome. Science 350, 1096-1101 \\(2015).\r\n  6. Wang, T. et al. Gene Essentiality Profiling Reveals Gene Networks and Synthetic Lethal Interactions with Oncogenic Ras. Cell 168, 890-903 e815 \\(2017).\r\n  7. Maruyama, T. et al. Increasing the efficiency of precise genome editing with CRISPR-Cas9 by inhibition of nonhomologous end joining. Nat Biotechnol 33, 538-542 \\(2015).\r\n  8. Komor, A.C., Kim, Y.B., Packer, M.S., Zuris, J.A. & Liu, D.R. Programmable editing of a target base in genomic DNA without double-stranded DNA cleavage. Nature 533, 420-424 \\(2016).\r\n  9. Nishida, K. et al. Targeted nucleotide editing using hybrid prokaryotic and vertebrate adaptive immune systems. Science 353 \\(2016).\r\n  10. Moreno-Mateos, M.A. et al. CRISPRscan: designing highly efficient sgRNAs for CRISPR-Cas9 targeting in vivo. Nature methods 12, 982-988 \\(2015).\r\n  11. Singh, R., Kuscu, C., Quinlan, A., Qi, Y.J. & Adli, M. Cas9-chromatin binding information enables more accurate CRISPR off-target prediction. Nucleic Acids Res 43 \\(2015).\r\n  12. Kent, W.J. BLAT--the BLAST-like alignment tool. Genome Res 12, 656-664 \\(2002)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "Acknowledgement: The research was funded through a pilot project \\(NIDDK P50 DK096373), V Scholar award to MA from V Cancer Research Foundation and UVA Cancer center pilot project awards to MA. CK and MA designed the study; CK performed experiments. JY and KS performed computational work and TT, MP, RM helped CK with experiments. We would like to thank Stephen Shang for his constructive feedback and critical reading of the manuscript."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nmeth.4327",
+                "date": "2017-06-04 22:08:03",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 14769,
+                "identity": "a10f0f97-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Mazhar Adli",
+                "email": "adli@virginia.edu",
+                "orcid": "",
+                "institution": "Adli Lab",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Mazhar",
+                "middleName": "",
+                "lastName": "Adli",
+                "suffix": ""
+            },
+            {
+                "id": 14766,
+                "identity": "a10f08d9-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Cem Kuscu",
+                "email": "",
+                "orcid": "",
+                "institution": "Adli Lab",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Cem",
+                "middleName": "",
+                "lastName": "Kuscu",
+                "suffix": ""
+            },
+            {
+                "id": 14767,
+                "identity": "a10f0c38-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Turan Tufan",
+                "email": "",
+                "orcid": "",
+                "institution": "Adli Lab",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Turan",
+                "middleName": "",
+                "lastName": "Tufan",
+                "suffix": ""
+            },
+            {
+                "id": 14768,
+                "identity": "a10f0dd3-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Jiekun Yang",
+                "email": "",
+                "orcid": "",
+                "institution": "Adli Lab",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jiekun",
+                "middleName": "",
+                "lastName": "Yang",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2017-05-01 22:52:13",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2017.054",
+        "doiUrl": "https://doi.org/10.1038/protex.2017.054",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13464929,
+                "identity": "8826748f-fce6-4bd4-9904-068a4d2eac99",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:45:11",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 155879,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-5943/v1/d3f608f1-fc47-44c4-937c-5cb6f33475df.pdf"
+            }
+        ],
+        "financialInterests": "NO",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "CRISPR-STOP, gene silencing,",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "The efficiency of conventional CRISPR knockout strategy relies on error-prone repair of DNA double strand breaks at target sites. However, this may result in excessive DNA damage response and deleterious effects particularly at high copy genomic regions, thus confounding experimental results. Here, we repurposed a CRISPR base editor as an efficient and less toxic gene silencing method. We demonstrate that Cas9n-fused to APOBEC1 cytosine deaminase can efficiently edit Arg, Gln and Trp coding sequences into STOP codons, leading to loss of function gene mutations \\(CRISPR-STOP). Importantly, CRISPR-STOP has higher gene KO efficiency at high copy regions and results in significantly less DNA damage response and cytotoxicity compared to WT-Cas9. Genome-wide computational analyses show that ~17,000 genes can be targeted to introduce early stop codons. Our targeted screening indicates the suitability of genetic code editing and CRISPR-STOP approach as an efficient functional screening tool.  This protocol accompanies Kuscu et al, Nature Methods, published online June 5, 2017 \\(nmeth.4237)",
+        "manuscriptTitle": "CRISPR-STOP: Gene silencing through base editing-induced nonsense mutations",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2017-06-05 09:15:29",
+                "doi": "10.1038/protex.2017.054",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a10e9e72-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "June 5th, 2017",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3937,
+                "name": "Molecular Biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2017-06-05 09:15:29",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

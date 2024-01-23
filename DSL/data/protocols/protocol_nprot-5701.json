@@ -1,0 +1,334 @@
+{
+    "identity": "nprot-5701",
+    "title": "Using MSFragger for ultrafast database searching",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "MSFragger is an ultrafast database search tool for peptide identifications in mass spectrometry-based proteomics. It differs from conventional search engines by computing similarity scores in a fragment-centric fashion using a theoretical fragment index of candidate peptides. The speed of MSFragger makes it particularly suitable for \u2018open\u2019 database searches, where the precursor mass tolerance is set to hundreds of Daltons, for the identification of modified peptides. MSFragger is implemented in the cross-platform Java programming language and is compatible with standard proteomics file formats such as MGF/mzXML/mzML/pepXML.\r\n\n\n\r\n\n\nThis protocol contains the necessary procedures for running the initial release \\(20170103.0) of MSFragger.  Up-to-date downloads of the software and manuals can be found at \"nesvilab.org/software.html\":http://nesvilab.org/software.html."
+        },
+        {
+            "header": "Equipment",
+            "content": "**Computer Hardware requirements**\r\n\n\n\r\n\n\nThe processor requirements of MSFragger depends on the complexity of your search \\(and your patience to wait for search results). For an open search \\(500Da precursor mass window) using a tryptic digest of the human proteome, a single processor core can search roughly 40,000 MS/MS spectra in under an hour. MSFragger scales well with the number of processor cores and runtimes of under 2 minutes per file have been achieved using a 28-core workstation. A desktop workstation with a quad core processor is sufficient for most simple workflows.\r\n\n\n\r\n\n\nMSFragger requires substantial amounts of memory due to its in-memory fragment index. While MSFragger can operate with less memory than needed to store the fragment index, it will cause index fragmentation where it breaks the search into multiple passes, searching each input file against a small segment of the index at a time \\(which greatly increases the runtime). For the human Uniprot protein database with reversed decoys, approximately 3700 MB of memory is needed to prevent index fragmentation. The actual size of the fragment index is substantially lower \\(MSFragger uses a very conservative estimate of the available free memory to avoid out of memory situations). Specifying common modifications may boost memory requirements to 6 GB. Semi-tryptic, non-enzymatic, and phospho searches may take tens of gigabytes\r\n\n\nto avoid fragmented searches. Limiting the range of peptide lengths can reduce the search space and reduce memory consumption in such cases. While fragment index\r\n\n\nfragmentation is undesirable, it may be unavoidable in certain instances.\r\n\n\n\r\n\n\nWe recommend at least 8GB of memory for workflows involving standard tryptic digestions.\r\n\n\n\r\n\n\n**Operating System requirements**\r\n\n\n\r\n\n\nMSFragger has been tested on Mac OS X, Windows 7, and a number of Linux distributions. Note that a 64-bit operating system is required to access more than 4GB of memory.\r\n\n\n\r\n\n\n**Java requirements**\r\n\n\n\r\n\n\nMSFragger is written using Java 1.8 and requires the Java 8 Runtime Environment. We recommend the Oracle Java 8 Runtime \\(download and installation instructions are available at \"www.java.com\":http://www.java.com )."
+        },
+        {
+            "header": "Procedure",
+            "content": "**Preparing Input Files**\r\n\n\n\r\n\n\nMass spectrometry data must first be converted to one of the supported MS/MS input formats of MGF, mzXML, or mzML. A popular option for converting from vendor file inputs and between various input formats is Proteowizard \\(\"proteowizard.sourceforge.net\":http://proteowizard.sourceforge.net ). MSFragger determines the appropriate data parser to use based on the file extension \\(.mgf for MGF, .mzXML for mzXML, and .mzML for mzML) and does not make inferences from file contents \\(i.e. naming a mzML file with the .mzXML extension will lead to unpredictable results or crashes).\r\n\n\n\r\n\n\nThe protein database must be supplied in FASTA format. MSFragger does not have the capability to generate decoys internally so they must be generated externally and appended to the protein database before running MSFragger.\r\n\n\n\r\n\n\n**Configuring MSFragger**\r\n\n\n\r\n\n\nExtract the MSFragger.jar into your working directory along with the sample configuration file called fragger.params. MSFragger is configured using a text parameters file. The parameters file is passed as the first argument to MSFragger and has no restrictions on names or file extensions \\(so one might want to name their configuration files to be more descriptive such as Uniprot_open_withmods.txt) after editing the parameters file for a particular analysis. \r\n\n\n\r\n\n\nParameter names are given left of the equal sign and parameter values are given to the right \\(e.g. num_threads = 4). White spaces are trimmed from the ends of each value by MSFragger. All text to the right of \\(and including) the # sign of each line is discarded so # can be used for comments in the parameters file.\r\n\n\n\r\n\n\nA detailed explanation of each parameter can be found in \"this PDF\":http://www.nature.com/protocolexchange/system/uploads/5227/original/MSFraggerParamGuide.pdf?1488158913.\r\n\n\n\r\n\n\n**Performance Considerations for Batch Processing**\r\n\n\n\r\n\n\nMSFragger allows multiple MS/MS input files to be processed in a batch. Passing multiple files to MSFragger at once allows MSFragger to reuse the fragment index for subsequent MS/MS run. This is particularly important for narrow window searches which may only take fractions of a second.\r\n\n\n\r\n\n\nOn computers or compute clusters with many processor cores, we highly recommended that MSFragger is set to process files sequentially with all available processor cores rather than running multiple instances of MSFragger in parallel \\(assigning a smaller number of cores to each). This reduces initialization times and allows the fragment index to be re-used, at the same time reducing overall memory requirements.\r\n\n\n\r\n\n\n**Launching MSFragger**\r\n\n\n\r\n\n\nEnsure that you have placed MSFragger.jar in your working directory and have modified the parameters file to reference your protein database. MSFragger generates auxiliary files during database search so it is critical that **MSFragger must have write access to the directories containing the protein database AND the MS/MS data files**.\r\n\n\n\r\n\n\nDetermine the amount of system memory available that you would like to make available to MSFragger. This will be specified by the Java maximum heap size parameter -Xmx \\(e.g. -Xmx3700M for 3700 MB or -Xmx8G for 8GB).\r\n\n\n\r\n\n\nMSFragger takes the first argument as the input parameters file, followed by a list of\r\n\n\none or more MS/MS data files.\r\n\n\n\r\n\n\nExamples:\r\n\n\njava -Xmx8G -jar MSFragger.jar fragger.params HeLa_run1.mzML HeLa_run2.mzML\r\n\n\njava -Xmx8G -jar MSFragger.jar fragger.params *.mzML\r\n\n\n\r\n\n\nThe **-Xmx flag is very important** to ensure that MSFragger has access to sufficient memory to efficiently perform the search as the default max heap setting in Java is 1/4 of total system memory \\(which is insufficient for optimal performance). We recommend that you can allocate a minimum of 4G or 6G for standard tryptic digestions."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "**Expected Behavior**\r\n\n\n\r\n\n\nThe first time running MSFragger on a new protein database or set of search parameters with a given database, it will first perform an in-silico digestion, create, and cache the peptide index \\(in .pepindex files adjacent to where the FASTA database is stored). These pepindex files can be safely removed at any time and should be removed to free up disk space when a set of search parameters is no longer used\r\n\n\n\\(MSFragger will automatically re-generate the index as needed).\r\n\n\n\r\n\n\nThe process begins with filtering and in-silico digestion subject to the digestion parameters.\r\n\n\n\r\n\n\n<a href=\"#figures\" data-url=\"http://www.nature.com/protocolexchange/system/uploads/5229/original/Screenshot1.PNG?1488159000\">See figure in Figures section.</a>\r\n\n\n\r\n\n\nFollowed by peptide sorting and de-duplication. The non-redundant set of peptides are then evaluated to generate the set of variably modified peptides \\(based on the specified variable modifications) which are then sorted by mass and stored.\r\n\n\n\r\n\n\n<a href=\"#figures\" data-url=\"http://www.nature.com/protocolexchange/system/uploads/5231/original/Screenshot2.PNG?1488163139\">See figure in Figures section.</a>\r\n\n\n\r\n\n\nAfter peptide index generation is complete \\(or is read from disk in the below screenshot). MSFragger selects the fragment index bin width to use and estimates the memory available for fragment index storage based on the available memory \\(in this case, 8GB of memory was made available to the Java Virtual Machine, of which MSFragger estimates that 4976.67MB can be safely reserved for fragment index operations). It then computes the number of theoretical fragments to be generated for the entire index, the number of slices or iterations \\(in multi-pass searches when there is insufficient memory), and the total amount of memory represented by the entire fragment index. The fragment index is then generated, and a time is reported for the index generation time \\(at the end of each Operating on slice 1 of X: line, 4770 ms\r\n\n\nbelow). If the maximum fragment slice size is very small compared to your desired amount of system memory or the number of slices is unexpectedly high, double check that the -Xmx flag is correctly set.\r\n\n\n\r\n\n\n<a href=\"#figures\" data-url=\"http://www.nature.com/protocolexchange/system/uploads/5233/original/Screenshot3.PNG?1488159166\">See figure in Figures section.</a>\r\n\n\n\r\n\n\nSearch begins and the current file is reported, along with the time needed to read and pre-process the MS/MS data, along with current search progress.\r\n\n\n\r\n\n\n<a href=\"#figures\" data-url=\"http://www.nature.com/protocolexchange/system/uploads/5235/original/Screenshot4.PNG?1488159183\">See figure in Figures section.</a>\r\n\n\n\r\n\n\nAt the completion of the search, a completed time is reported, and the results are written to disk in the same folder as the MS/MS data \\(if they are not in the same folder as your working directory). Note that there is a current bug that causes MSFragger to incorrectly display the average rate of matching at the conclusion of the run \\(although the total time can be divided by the total number of spectra to calculate this value).\r\n\n\n\r\n\n\n**Output Files**\r\n\n\n\r\n\n\n.fragtmp files\r\n\n\n\r\n\n\nIn cases of fragment index fragmentation \\(in limited memory scenarios), MSFragger will iteratively load each MS/MS run and search loaded spectra against the current index slice before working on the next index slice. The partial search results are then stored in these .fragtmp files. In the event that MSFragger is terminated in the middle of a search, it will recover its partial results using these\r\n\n\nfiles. At the end of the last index slice, MSFragger will read all such .fragtmp files and generate an aggregated results file \\(identical to one that would be generated if it had the memory to search against all peptides in a single pass). These .fragtmp files are then automatically deleted. These can be safely removed if you no longer wish to continue an aborted search or if MSFragger somehow fails to remove them at the conclusion of a successful search.\r\n\n\n\r\n\n\nLocation: Same directory as MS/MS files\r\n\n\n\r\n\n\n.pepindex files\r\n\n\n\r\n\n\nMSFragger stores the computed peptide index in .pepindex files adjacent to the protein database files to remove the need to re-compute the index if search parameters are unchanged in subsequent runs. These .pepindex indices can be safely removed and MSFragger will re-compute the index again at runtime if needed.\r\n\n\n\r\n\n\nLocation: Same directory as protein database\r\n\n\n\r\n\n\nResults Files \\(eg. .pep.xml, .tsv)\r\n\n\n\r\n\n\nThese are the pepXML or TSV output files containing the peptide identifications. The file extension is specified in the search parameters so specifying a .pep.xml extension with output_format = tsv will output .pep.xml files with TSV content.\r\n\n\n\r\n\n\nLocation: Same directory as MS/MS files\r\n\n\n\r\n\n\n**Interpretation of Output**\r\n\n\n\r\n\n\nFor pepXML outputs, these can be used for downstream processing using PeptideProphet in TPP directly. For viewing of results or conversion to other peptide identification result formats for use in other pipelines or tools that do not support pepXML, we recommend first converting to the mzIdentML format using the tool idconvert as part of the ProteoWizard package. The pepXML generated by MSFragger validates against v 1.18 of the pepXML schema and should be compatible with any downstream tools supporting the pepXML format.\r\n\n\n\r\n\n\nThe order of the output fields in the TSV file produced by MSFragger are: ScanID, Precursor neutral mass \\(Da), Retention time \\(minutes), Precursor charge, Hit rank, Peptide Sequence, Upstream Amino Acid, Downstream Amino Acid, Protein, Matched fragment ions, Total possible number of matched theoretical fragment ions, Neutral mass of peptide \\(including any variable modifications) \\(Da), Mass difference, Number of tryptic termini, Number of missed cleavages, Variable modifications detected \\(starts with M, separated by |, formated as position,mass), Hyperscore, Next score, Intercept of expectation model \\(expectation in log space), Slope of expectation model \\(expectation in log space)"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nmeth.4256",
+                "date": "2017-04-10 16:08:53",
+                "title": "MSFragger: ultrafast and comprehensive peptide identification in mass spectrometry\u2013based proteomics",
+                "authors": [
+                    "Andy T Kong",
+                    "Felipe V Leprevost",
+                    "Dmitry M Avtonomov",
+                    "Dattatreya Mellacheruvu",
+                    "and Alexey I Nesvizhskii"
+                ],
+                "journal": "Nature Methods",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 14530,
+                "identity": "a0f18664-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Alexey I. Nesvizhskii",
+                "email": "nesvi@med.umich.edu",
+                "orcid": "",
+                "institution": "Nesvizhskii Lab / University of Michigan",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Alexey",
+                "middleName": "I.",
+                "lastName": "Nesvizhskii",
+                "suffix": ""
+            },
+            {
+                "id": 14526,
+                "identity": "a0f1754f-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Andy T Kong",
+                "email": "",
+                "orcid": "",
+                "institution": "Nesvizhskii Lab / University of Michigan",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Andy",
+                "middleName": "T",
+                "lastName": "Kong",
+                "suffix": ""
+            },
+            {
+                "id": 14527,
+                "identity": "a0f17abd-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Felipe V.  Leprevost",
+                "email": "",
+                "orcid": "",
+                "institution": "Nesvizhskii Lab / University of Michigan",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Felipe",
+                "middleName": "V.",
+                "lastName": "Leprevost",
+                "suffix": ""
+            },
+            {
+                "id": 14528,
+                "identity": "a0f17e22-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Dmitry M. Avtonomov",
+                "email": "",
+                "orcid": "",
+                "institution": "Nesvizhskii Lab / University of Michigan",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Dmitry",
+                "middleName": "M.",
+                "lastName": "Avtonomov",
+                "suffix": ""
+            },
+            {
+                "id": 14529,
+                "identity": "a0f18302-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Dattatreya Mellacheruvu",
+                "email": "",
+                "orcid": "",
+                "institution": "Nesvizhskii Lab / University of Michigan",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Dattatreya",
+                "middleName": "",
+                "lastName": "Mellacheruvu",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2017-03-04 23:18:59",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2017.032",
+        "doiUrl": "https://doi.org/10.1038/protex.2017.032",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2609664,
+                "identity": "82479f34-239e-4754-b332-74859efc2e89",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:05",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 98017,
+                "visible": true,
+                "origin": "",
+                "legend": "In-silico digestion phase",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-5701/v1/figure_1.png"
+            },
+            {
+                "id": 2609668,
+                "identity": "283b7b95-f1b2-4fd3-afaa-23ef5ae8e38a",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:05",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 85441,
+                "visible": true,
+                "origin": "",
+                "legend": "Peptide index generation",
+                "description": "",
+                "filename": "figure2.png",
+                "url": "https://assets.researchsquare.com/files/nprot-5701/v1/figure_2.png"
+            },
+            {
+                "id": 2609665,
+                "identity": "c7d41550-83f4-4ee1-b744-9177ddea7e21",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:05",
+                "extension": "png",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 129516,
+                "visible": true,
+                "origin": "",
+                "legend": "Main search screen",
+                "description": "",
+                "filename": "figure3.png",
+                "url": "https://assets.researchsquare.com/files/nprot-5701/v1/figure_3.png"
+            },
+            {
+                "id": 2609666,
+                "identity": "1302d0a5-7f4a-4d24-a3b8-6bb15a938d2a",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:05",
+                "extension": "png",
+                "order_by": 4,
+                "title": "Figure 4",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 102992,
+                "visible": true,
+                "origin": "",
+                "legend": "MSFragger in batch mode",
+                "description": "",
+                "filename": "figure4.png",
+                "url": "https://assets.researchsquare.com/files/nprot-5701/v1/figure_4.png"
+            },
+            {
+                "id": 13464878,
+                "identity": "00dd5544-bbbf-47ec-a0f3-ea0f672c6c22",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:44:57",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 472936,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-5701/v1/d8374e1e-b426-4c0c-bf5d-f501c59d0360.pdf"
+            },
+            {
+                "id": 2609662,
+                "identity": "09521efe-c0db-4ee8-bb06-ca3c8cf6dd28",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:05",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 63579,
+                "visible": true,
+                "origin": "",
+                "legend": "MSFraggerParamGuide   Guide to Search Parameters",
+                "description": "",
+                "filename": "supplement0.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-5701/v1/supplement_0.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Mass spectrometry, Proteome informatics, Proteomics, Software",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "Database search has long been the preferred method for peptide identification in shotgun proteomics.  While a wide range of database search tools exist and excel for conventional workflows, they are too slow for open database searching.  To make open searching practical for routine analysis, we developed a novel database search tool called MSFragger that is over 100 times faster than most existing tools.\r\n\n\n\r\n\n\nThis protocol demonstrates how to perform database searching using MSFragger.  Up-to-date downloads of MSFragger and associated documentation can be found at \"nesvilab.org/software.html\":http://nesvilab.org/software.html.",
+        "manuscriptTitle": "Using MSFragger for ultrafast database searching",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2017-04-10 16:10:36",
+                "doi": "10.1038/protex.2017.032",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a0f0e2d8-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "April 10th, 2017",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3835,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 3836,
+                "name": "Biochemistry"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2017-04-10 16:10:36",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

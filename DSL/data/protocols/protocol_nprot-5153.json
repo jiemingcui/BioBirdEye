@@ -1,0 +1,265 @@
+{
+    "identity": "nprot-5153",
+    "title": "Neurofeedback training with MEG-based BMI prosthetic hand",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Some previous studies have shown that brain\u2013machine interfaces \\(BMIs) can induce plastic changes in cortical activity. A BMI works by first decoding neural activity of the mental action to move the affected hand, for example, and then by converting the decoded hand movement into that of a robotic neuroprosthesis. BMIs based on magnetoencephalography \\(MEG) sensorimotor cortex signals have been shown to be sufficient to precisely decode hand movements in real time, even in severely paralyzed patients simply intending to move the affected hands. Moreover, training to use BMIs induces plastic changes in cortical activity and, potentially, associated clinical symptoms. \r\n\n\n\r\n\n\nHere, we will demonstrate how to apply the BMI of a neuroprosthetic \\(robotic) hand using real-time MEG signals to modulate the cortical activities and the pain in phantom limb patients. We evaluated the association between changes in their symptomatic pain and in cortical currents during phantom hand movements."
+        },
+        {
+            "header": "Reagents",
+            "content": "Subjects: Phantom limb patients with pain\r\n\n\nInclusion criteria: \\(1) pain and phantom sensation in the upper limb; \\(2) no hand or no sensation in the residual hand; \\(3) severe paresis with manual muscle testing \\(MMT) score 0\u20131; and \\(4) normal comprehension and intellectual capacity according to the Japanese Adult Reading Test \\(JART-25).\r\n\n\n\r\n\n\n**The study adhered to the Declaration of Helsinki and was performed in accordance with protocols approved by the Ethics Committee of Osaka University Clinical Trial Center \\(no. 12107, UMIN000010180). All patients were informed of the purpose and possible consequences of this study, and written informed consent was obtained. In figures, the photo of the patient was used with the patient\u2019s permission for publication.**"
+        },
+        {
+            "header": "Equipment",
+            "content": "1. Visual stimulus presentation system \\(Presentation; Neurobehavioral Systems, Albany, CA, USA) \r\n  2. A liquid crystal projector \\(LVP-HC6800; Mitsubishi Electric, Tokyo, Japan)\r\n  3. 160-channel whole-head MEG equipped with coaxial-type gradiometers housed in a magnetically shielded room \\(MEGvision NEO; Yokogawa Electric Corporation, Kanazawa, Japan)\r\n  4. FPGA DAQ boards \\(PXI-7854R; National Instruments, Austin, TX, USA) \r\n  5. PC with MATLAB 2013a  \\(Mathworks, Natwick, MA, USA)\r\n  6. Prosthetic hand which is able to generate grasping and opening postures"
+        },
+        {
+            "header": "Procedure",
+            "content": "All patients participated in a crossover trial consisting of three experiments on different days \\(wash out period was more than two weeks). Each experiment consisted of three tasks: offline task \\(pre-BMI), BMI training, and offline task \\(post-BMI) \\(Figure1)\nSee figure in Figures section.\n1. Take face scan and fiducial points \\(6 points in face and more than 50 points in head)\r\n  2.  Put EMG electrodes on face and both forearms \\(the signals for eye ball movements and blinks, ECG,  flexor digitorum superficialis and the extensor digitorum communis)\r\n  3. Put the patient into the MEG scanner \r\n  4. Start to record MEG signals\r\n  5. After taking 60 seconds of rest, the patients attempted to move their phantom hands at the presented times. \r\n  6. At first, the patients were visually instructed regarding the movement type to perform with the Japanese word for \u201cgrasp\u201d or \u201copen.\"\\(Figure 2)\nSee figure in Figures section.\n7. After 1 second, two sounds and one execution cue sound were given to the subjects as the timing to move their hands. The execution cues were repeated four times every 5.5s.\r\n  8. The procedure 6 and 7 were repeated for 10 times for each movement types.\r\n  9. Repeat 5 to 10 with moving their intact hands \\(grasping and opening)\r\n  10. Construct the decoder to control the BMI neuroprosthetic hand using the recorded MEG signals.\r\n  11. Evaluate the pain by McGill Pain questionnaire and visual analog scale \\(VAS)\r\n  12. Present the prosthetic hand in the monitor for patient\r\n  13. Instruct the patient to control \r\n  the MEG signals to the online decoder to control the neuroprosthetic hand by intending to move their phantom hands without moving their actual bodies for 10 minutes.\r\n\n\n\r\n\n\n14. The patient controlled the prosthetic hand for 10 minutes\r\n  15. Evaluate the pain by McGill Pain questionnaire and VAS and record the patient's report how they felt to move the robot\r\n  16. Repeat from 4 to 9.\r\n  \r\n\n\n17. For the analysis, VBMEG \\(variational bayesian multimodal encepharography) was used with the following parameters:\r\n  act = 'uniform', a0_act = 100, w = 0.0002, time constance in twin_meg = 1000, Tperiod = 1000, Tnext = 1000, trial_average = off, filter condition; common to conditions"
+        },
+        {
+            "header": "Timing",
+            "content": "1, 5 mins\r\n\n\n2, 5 mins\r\n\n\n3 to 8, 15 mins\r\n\n\n9, 10 mins\r\n\n\n10, 10 mins\r\n\n\n11 to 13, 5 mins\r\n\n\n14, 10 mins\r\n\n\n15,  5 mins\r\n\n\n16, 30 mins"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "It will be shown that the BMI training leads to a significant increase of movement information of the phantom hand in the sensorimotor cortex after the training with the phantom hand decoder that was trained with the MEG signals during the patient moved their phantom hands. Moreover, the training significantly increases pain. On the other hand, BMI training to control the prosthetic hand based on the real hand decoder, which was trained by the MEG signals during the patient moved their intact hands, will reduce pain with decreased information about phantom hand movements."
+        },
+        {
+            "header": "References",
+            "content": "Takufumi Yanagisawa et al., Induced sensorimotor brain plasticity controls pain in phantom limb patients, Nature Communications, 2016"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "This research was conducted under the \u201cDevelopment of BMI Technologies for Clinical Application\u201d of SRPBS by MEXT and AMED. This research was also supported in part by JST PRESTO; Grants-in-Aid for Scientific Research KAKENHI \\(90533802, 24700419, 26560467, 26242088, 22700435, 15H05710, 15H05920); Brain/MINDS and SICP from AMED; ImPACT; Ministry of Health, Labor, and Welfare \\(18261201); and the Japan Foundation of Aging and Health."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/ncomms13209",
+                "date": "2017-01-11 10:06:09",
+                "title": "Induced sensorimotor brain plasticity controls pain in phantom limb patients",
+                "authors": [
+                    "Takufumi Yanagisawa",
+                    "Ryohei Fukuma",
+                    "Ben Seymour",
+                    "Koichi Hosomi",
+                    "Haruhiko Kishima",
+                    "Takeshi Shimizu",
+                    "Hiroshi Yokoi",
+                    "Masayuki Hirata",
+                    "Toshiki Yoshimine",
+                    "Yukiyasu Kamitani",
+                    "and Youichi Saitoh"
+                ],
+                "journal": "Nature Communications",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 14102,
+                "identity": "a0c8f60a-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "TAKUFUMI YANAGISAWA",
+                "email": "tyanagisawa@nsurg.med.osaka-u.ac.jp",
+                "orcid": "",
+                "institution": "Department of Neurosurgery, Osaka University",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "TAKUFUMI",
+                "middleName": "",
+                "lastName": "YANAGISAWA",
+                "suffix": ""
+            },
+            {
+                "id": 14103,
+                "identity": "a0c8fa66-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Ryohei Fukuma",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Neurosurgery, Osaka University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Ryohei",
+                "middleName": "",
+                "lastName": "Fukuma",
+                "suffix": ""
+            },
+            {
+                "id": 14104,
+                "identity": "a0c8fc3d-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Youichi Saitoh",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Neurosurgery, Osaka University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Youichi",
+                "middleName": "",
+                "lastName": "Saitoh",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2017-01-04 01:18:32",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2017.002",
+        "doiUrl": "https://doi.org/10.1038/protex.2017.002",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2609546,
+                "identity": "3ad4e34c-4a05-46d6-b8fc-1ee79311c85f",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:00",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 19251,
+                "visible": true,
+                "origin": "",
+                "legend": "Experimental protocol   A diagram of the tasks in each experiment. First, the patients performed the offline phantom hand task to move their phantom hand according to the instructions. Then, after evaluation of their pain, BMI training was performed for 10 min. Here, three types of decoders were used to control the prosthetic hand, each for three experiments. After evaluation of their pain, the same offline phantom hand task was performed. *1For the experiment with the real hand decoder, the patients also performed the offline task with their intact hand after the task with their phantom hand.",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-5153/v1/figure_1.png"
+            },
+            {
+                "id": 2609547,
+                "identity": "7f126fbb-144f-4ccf-91ae-e1485b0a817f",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:00",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 12548,
+                "visible": true,
+                "origin": "",
+                "legend": "Experimental paradigm of offline task   An epoch began with a 3-s visual presentation of a black cross. A Japanese word was shown for 1 s to instruct the subjects which movement to perform. After two 1-s timing cues, the execution cue of the cross sign was presented for 0.5 s with a sound. The patients performed the instructed movements once when the execution cue was presented. These cues with sounds were repeated four times for each instruction. Each of the movement types was assigned in random order 10 times each.",
+                "description": "",
+                "filename": "figure2.png",
+                "url": "https://assets.researchsquare.com/files/nprot-5153/v1/figure_2.png"
+            },
+            {
+                "id": 13465451,
+                "identity": "6e770ea6-8965-4fe1-bcdd-8e10e332ecdf",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:46:41",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 165136,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-5153/v1/d6782d0a-8c7d-40cf-9b1c-6af039472ba8.pdf"
+            }
+        ],
+        "financialInterests": "None",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "BMI training, phantom limb pain, MEG",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "A MEG based neuroprosthetic system of brain-machine interface \\(BMI) was used to train some paralyzed patients. In this protocol, we will demonstrate how the cortical activity was modulated by the BMI training.",
+        "manuscriptTitle": "Neurofeedback training with MEG-based BMI prosthetic hand",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2017-01-11 10:09:12",
+                "doi": "10.1038/protex.2017.002",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a0c8a004-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "January 11th, 2017",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3691,
+                "name": "Neuroscience"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2017-01-11 10:09:12",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

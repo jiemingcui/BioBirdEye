@@ -1,0 +1,241 @@
+{
+    "identity": "nprot-534",
+    "title": "Efficient _in silico_ designing of oligonucleotides for artificial gene synthesis",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "&#x2018;Artificial/Chemical Gene-Synthesis&#x2019; has become an important contemporary technique, which has been refined several folds owing to application of Polymerase Chain Reaction \\(PCR) \\(Engels, 2005). This procedure has been used in past for artificially synthesizing a number of genes \\(Engels, 2005). The principle of Artificial Gene-Synthesis has been elucidated in Figure 1 \\(Casimiro et al, 1997; Engels, 2005; Engels &amp; Uhlmann, 1989; Tsuchiya et al, 2006). Technically speaking, this procedure involves two phases i.e. upstream-phase and downstream-phase. In the upstream phase, the oligonucleotides \\(whose sequence is derived from target gene to be synthesized) are designed manually or in silico while in the downstream phase, these designed oligonucleotides are chemically synthesized and assembled together to give stable ds-DNA duplexes/target gene. The peculiarity of these oligonucleotides is that, each forward \\(5&#x2019;&#x2192;3&#x2019;) oligonucleotide overlaps with the corresponding reverse \\(3&#x2019;&#x2192;5&#x2019;) oligonucleotide in around 20 terminal nucleotide-bases, thus allowing formation of an annealed-product. Current protocol focuses on the upstream-phase since it&#x2019;s a success-defining phase for artificial gene-synthesis. In the current protocol, various state-of-art bioinformatics tools have been brought together to provide a comprehensive-approach towards in silico designing of oligonucleotides. Further, for the first time, DNA/mRNA secondary-structure formation analysis has been included in such a protocol."
+        },
+        {
+            "header": "Reagents",
+            "content": "None"
+        },
+        {
+            "header": "Equipment",
+            "content": "Computer: A PC loaded with MS Windows OS \\(2000/Me/XP/Vista). Here, &#x2018;Mozilla Firefox v.3.0.5&#x2019; is specially recommended for browsing related to softwares mentioned below.\r\n\n\n\r\n\n\nComputer Softwares:\r\n\n\n\r\n\n\n1. DNA mfold v.3.2\r\n  URL: \"http://frontend.bioinfo.rpi.edu/applications/mfold/cgi-bin/dna-form1.cgi\":http://www.chromdb.org/rnai/vector_info.html\r\n\n\n\r\n\n\n2. FoldRNA\r\n  URL: \"http://www.softberry.com/berry.phtml?topic=foldrna&amp;group=programs&amp;subgroup=rnastruct\":http://www.softberry.com/berry.phtml?topic=foldrna&amp;group=programs&amp;subgroup=rnastruct\r\n\n\n\r\n\n\n3. Gene Design &#x3B2;2.0\r\n  URL: \"http://baderlab.bme.jhu.edu/gd/\":http://baderlab.bme.jhu.edu/gd/\r\n\n\n\r\n\n\n4. MB Advanced DNA Analysis v.6.83\r\n  URL: \"http://www.molbiosoft.de\":http://www.molbiosoft.de\r\n\n\n\r\n\n\n5. Tandem Repeats Finder \\(TRF) v.3.21\r\n  URL: \"http://tandem.bu.edu/trf/trf.download.html\":http://tandem.bu.edu/trf/trf.download.html"
+        },
+        {
+            "header": "Procedure",
+            "content": "Overall methodology for in silico designing of the oligonucleotides required for artificial gene synthesis has been divided into various task levels \\(I to VI) such that each task consists of various respective steps.\r\n\n\n\r\n\n\nTask I: Generation of \u2018Preliminary DNA Sequence\u2019\r\n\n\n \r\n\n\nThe peptide/protein sequence of interest \\(which ought to be more than 20 amino acids long) should be first back-translated to derive a \u2018Preliminary DNA Sequence\u2019. The peptide/protein sequence should be back-translated using the software, \u2018Gene Design \u03b22.0\u2019 \\(Richardson et al, 2006), which is accessible from the following link: \"http://baderlab.bme.jhu.edu/gd/\":http://baderlab.bme.jhu.edu/gd/\r\n\n\n\r\n\n\n1. For back-translating using the above software, enter the peptide/protein sequence in RAW format into the \u2018Reverse Translate\u2019 module present in Gene Design software.\r\n  \r\n\n\n2. Now the software would ask for selecting a specific codon-usage table \\(genetic-code). Selection of this table would depend upon the organism from which your protein/peptide originates; for e.g. if organism of origin is E. coli, then select the \u2018E. coli Radio-button\u2019 present in the software. After these procedures run the module by hitting the \u2018Reverse Translate\u2019 button \\(Keep everything else as default).\r\n  \r\n\n\n3. After the software has processed the peptide sequence \\(which probably takes a second), suitable back-translated DNA sequence would be given as output. Consider this to be our \u2018Preliminary DNA Sequence\u2019, which is now ready as input for Task II.\r\n  \r\n\n\n\r\n\n\nTask II: Codon Juggling and Generation of \u2018Optimized Trial DNA Sequence\u2019\r\n\n\n\r\n\n\nAfter back/reverse-translation, one might observe presence of certain repetitive residues in the \u2018preliminary DNA Sequence\u2019. In long-run this may become a problem since these repetitive sequences may cause the DNA sequence to form secondary structures like hair-pin loops \\(due to self-annealing) or wrong dimer products \\(due to inter- or intra-molecular interactions) during later annealing cycles. Therefore, such DNA repeats may interfere with gene-construction \\(Engels & Uhlmann, 1989). In fact on the level of mRNA, certain inverted-repetitive sequences may lead to formation of RNA-secondary loop structures, which may hamper the translation of proteins \\(Looman & et al., 1986). In order to avoid these repetitive DNA sequences from causing problems in gene-constructions, the phenomenon of codon-degeneracy must be utilized to change our \u2018preliminary DNA sequence\u2019 into \u2018Trial DNA Sequence\u2019 such that the \u2018trial DNA sequence\u2019 codes for the same peptide as the preliminary sequence but both differ in their sequence especially at the third position of various codons \\(Engels & Uhlmann, 1989; Griffiths et al, 1999). This strategy may prove to be useful in getting rid of these repetitive sequences while still not altering the peptide coded by the sequence. These sequences are called \u2018Trial DNA Sequences\u2019 since these are still under test for repeats, restrictions sites, secondary structures etc.\r\n\n\n\r\n\n\n4. Now, suitable \u2018Trial DNA sequences\u2019 could be constructed from \u2018Preliminary DNA sequence\u2019 using the \u2018Codon Juggling/Juggle\u2019 module present in the software, \u2018Gene Design \u03b22.0\u2019 \\(Richardson et al, 2006). Here, feed the above \u2018preliminary DNA sequence\u2019 \\(produced at the end of Task I) as input in RAW format to the \u2018Codon juggling\u2019 module; subsequently select your respective target organism from the pull-down menu to keep up with the genetic-code, and hit the \u2018Next Step: Results\u2019 button. \r\n  This software will now utilize four different algorithms to produce four corresponding sequences \\(namely - Optimized, Most Different, Next Most Optimized and Random DNA sequences) as output, which have nucleotide sequences most different from original sequence but all encode the same peptide/protein \\(Richardson et al, 2006). \r\n\n\n\r\n\n\n5. From the fours sequences produced by the software, select two \u2018trial DNA sequences\u2019 on the basis of their identity \\(which should be as small as possible) with the original \u2018preliminary DNA sequence\u2019.\r\n  \r\n\n\n6. Now enter both of these above trial DNA sequences in RAW format into the \u2018Oligo Design\u2019 module present in the Gene Design \u03b22.0 software, one-by-one. Keep all other parameters as default, click on the \u2018Design Oligos\u2019 button.\r\n  Since one of the above two \u2018trial DNA sequences\u2019 is supposed to be synthesized later by chemical synthesis, during which they would be broken up into oligonucleotides \\(Tsuchiya et al, 2006), a preliminary analysis for Oligonucleotide is required to be run on both of the above sequences for synthesis-related optimization \\(e.g. insertion of silent restriction site). This can be done using the \u2018Oligo Design\u2019 module present in the Gene Design software. \r\n\n\n\r\n\n\n7. During this preliminary analysis, the software might ask for adding an extra unique restriction site in the \u2018trial DNA sequences\u2019 for designing optimal oligonucleotides. Here, a module called \u2018Silent Site Insertion\u2019 present in the Gene Design software may well be utilized. If the software doesn\u2019t ask for this procedure then directly proceed to Step 11.\r\n  This module allows insertion of unique restriction site within a sequence without altering what the codons in that position are coding. This strategy could be used for inserting a silent restriction site in the sequence by giving the query sequence \\(which in this case are the trial DNA sequences) as input and selecting the unique restriction site. The software requires presence of at least 2 restriction sites within the DNA sequence of interest in order to generate optimal oligonucleotides.\r\n\n\n\r\n\n\n8. The software suitably guides the user in selecting the site; henceforth follow the instructions of the software \\(under the \u2018Silent Site Insertion\u2019 module). The unique restriction site might be selected ad libitum but remember that the restriction enzyme being selected shouldn\u2019t exhibit \u2018star activity\u2019. This characteristic of restriction enzyme might be confirmed from the following list: \"http://catalog.takara-bio.co.jp/en/product/basic_info.asp?unitid=U100005230\":http://catalog.takara-bio.co.jp/en/product/basic_info.asp?unitid=U100005230 . Restriction sites of enzymes exhibiting star activity shouldn\u2019t be selected.\r\n  \r\n\n\n9. The software would now insert the relevant restriction site in the sequence giving us our \u2018modified trial\u2019 DNA sequence. The software at this point will show this phase \u2013 \u2018You can take this sequence to another module now\u2019, along with the modified DNA sequence and the details of the restriction sites inserted. At this stage, take the sequence back to the \u2018Oligo Design\u2019 module.\r\n  \r\n\n\n10. Now, once you have returned to the \u2018Oligo Design\u2019 module you would observe that your modified DNA sequence has been automatically inserted into the query area. Now, keeping all the settings as default, click on the \u2018Design Oligos\u2019 button.\r\n  \r\n\n\n11. The software will now give the oligonucleotides for the respective \u2018Trial DNA sequences\u2019 and their overlapping sequences as output along with other statistics of interest. Note these down or save this page using the \u2018Save As\u2019 option.\r\n  \r\n\n\n12. After the above exercise, both of the \u2018Optimized trial DNA sequences\u2019 would be preliminarily found to be producing acceptable oligonucleotides. This test must be followed up by the test to confirm whether both of these sequences are coding for the same peptide or not. This can be done by back/reverse-translating these sequences using the strategy used in Task I. \r\n  After the above step, both sequences should be found to be coding for the same peptide/protein as desired. These sequences are now ready to be taken for \u2018Repeat Analysis\u2019 so as to select one sequence over another for chemical/artificial gene synthesis. \r\n\n\n\r\n\n\n\r\n\n\nTask III: Repeat Analysis on the \u2018Optimized Trail DNA Sequences\u2019\r\n\n\n\r\n\n\nAs mentioned previously, the repeats present in DNA sequences may hamper overall success of the present experiment at various levels. Thus, a \u2018Repeat Identification & Quantification Analysis\u2019 must be performed on the two \u2018Optimized Trial DNA Sequences\u2019 \\(Engels & Uhlmann, 1989) derived at the end of Task II. This analysis is also supposed to decide the choice of DNA sequence out of the above two, to be used for further analysis and experimentation. DNA repeat analysis on the two \u2018optimized trial DNA sequences\u2019 may be done using the software, \u2018Tandem Repeats Finder v.3.21\u2019 \\(Benson, 1999), which is designed to locate and display tandem DNA repeats in a sequence. This software may be downloaded from the following link: \"http://tandem.bu.edu/trf/trf.download.html\":http://tandem.bu.edu/trf/trf.download.html . The original \u2018preliminary DNA sequence\u2019 \\(Derived at the end of Task I) should also be included in this analysis for comparing the extent of success achieved due to codon juggling \\(that was done in Task II).\r\n\n\n\r\n\n\n13. The above three sequences \\(i.e. two optimized trial and one preliminary, DNA sequences) should be fed in FASTA format to the \u2018Tandem Repeat Finder software\u2019, separately; followed by running it by clicking the \u201cStart Search\u201d button in the upper tray.\r\n  \r\n\n\n14. After running the program, an output consisting of two files will be produced such that one file \\(i.e. Repeat Table) gives data about location, size, copy number, and nucleotide content of repeats while second file gives data about alignment of the repeats present in each sequence with a consensus sequence of that repeat. These files could be assessed by clicking on the \u201cView Report\u201d button in the upper tray. \r\n  \r\n\n\n15. Now, based upon the data present in the above two tables and comparison with the data for the original \u2018preliminary DNA sequence\u2019; one \u2018optimized trial DNA sequence\u2019 should be selected out of the two, as the \u2018final DNA sequence\u2019. Main parameters responsible for deciding a particular sequence over another are: \\(1) Good Percent Match score and \\(2) Low Entropy \\(S). \r\n  The DNA sequence having a higher entropy \\(calculated based upon the percent composition) shouldn\u2019t be selected; because, as per laws of thermodynamics \\(Moore et al, 2005; Zuker, 2000), such a sequence with higher entropy has better probability of posing stable  repeat-mediated problems than others with lower entropy \\(since high value of entropy i.e. S or \u0394S, means less Gibbs free energy i.e. G or \u0394G value; and lesser the value of Gibbs free energy, better the spontaneity of an event, hence the repeats in DNA sequence with high entropy value would have better spontaneity towards posing problems like formation of rapid and stable secondary structures). Therefore, the sequence with highest percent match score and lowest entropy must be selected as the \u2018Final DNA Sequence\u2019 at the end of this Task.\r\n\n\n\r\n\n\n\r\n\n\nTask IV: DNA and mRNA Secondary Structure Analysis on \u2018Final DNA Sequence\u2019\r\n\n\n\r\n\n\nAt the end of Task III, \u2018final DNA sequence\u2019 would be retrieved. This sequence now is further needed to be analysed for presence/absence of DNA and mRNA secondary structures \\(Engels & Uhlmann, 1989) so that necessary codon juggling \\(if required) could be further performed to abolish these secondary structures from the sequence.\r\n\n\n\r\n\n\n16. DNA secondary structure analysis could be performed using the software, \u2018DNA mfold v.3.2\u2019 \\(Zuker, 2003) accessible at \"http://frontend.bioinfo.rpi.edu/applications/mfold/cgi-bin/dna-form1.cgi\":http://frontend.bioinfo.rpi.edu/applications/mfold/cgi-bin/dna-form1.cgi . This software predicts pattern of DNA folding based upon energy predictions. Here, \u2018Preliminary DNA sequence\u2019 \\(generated at the end of Task I) should also be included \\(for the sake of comparison) along with an \u2018External Control\u2019 DNA Sequence. This external control DNA sequence should originate from the same organism \\(from which the peptide/protein originated) and should have a comparable number of amino acids. This will serve the purpose of being a natural sequence so as to allow comparison between our results \\(for synthetic sequence) and this \u2018natural sequence\u2019. Such sequence might be selected ad libitum through any genomic database e.g. NCBI Gene Database. \r\n  For example, if the peptide/protein for which the synthetic gene is being produced is 40 amino acids long and originates from E. coli than a suitable \u2018External Control\u2019 DNA Sequence might be the sequence of E. coli K12 gene \\(NCBI GeneID: 2847682) coding for 41 amino acids.\r\n\n\n\r\n\n\n17. The DNA mfold software is customizable for a number of chemical parameters. Here, present analysis should be performed under two conditions i.e. at Temperature = 37\no\nC, \\[Na+] = 1M \\(viz. Condition I - to get an estimate of secondary structures in physiological conditions) and at Temperature = 62\no\nC, \\[Na+] = 300 mM, \\[Mg++] = 1.75 mM \\(viz. Condition II - to get an estimate of secondary structures at annealing conditions, to be used in later PCR cycles). Other parameters should be used as default.\r\n  \r\n\n\n18. Once the above parameters have been set, the respective sequences \\(i.e. Final DNA Sequence, Preliminary DNA Sequence and \u2018External Control\u2019 DNA Sequence) should be entered \\(one-by-one) into the software in the FASTA format. Data should be gathered for each of the sequence in both Conditions I and II. After entering the sequence, run the software by hitting the button \u2018Fold DNA\u2019.\r\n  \r\n\n\n19. After running the software with above parameters for the three sequences, the output would be retrieved in the form of several energy statistics as well as structural diagrams. Here, the statistics to focus upon are, \u2018No. of structures formed\u2019 and \u2018\u2206G of each structure\u2019. Structural Diagrams are produced for each type of structure formed by the respective sequences.\r\n  Out of the presented hypothetical structures formed by these sequences only those structures would be expected to form more often \\(than others did), which have the lowest Gibbs free energy values \\(\u0394G). Thus, structures with high Gibbs free energy \\(i.e. tending towards 0 Kcal/mol) would be preferable since they would have lesser probability of forming secondary structures. For example in Condition II, a structure with \u2206G = -22.17 Kcal/mol would have more probability of forming rapid and stable secondary structures than the one with \u2206G = -0.77 Kcal/mol. For the sake of comparison it is worth mentioning here that the DNA Sequence of E. coli K12 gene has a \u2206G value in range of -0.29 to 0.65 Kcal/mol.  \r\n\n\n\r\n\n\n20. In this case, it should be observable in the output for both Conditions I as well as II that, the \u2018final DNA sequence\u2019 forms structures of higher Gibbs free energy \\(i.e. tending towards 0 Kcal/mol) when compared to the \u2018preliminary DNA sequence\u2019, such that their values are considerably closer to those of the \u2018external control\u2019 DNA sequence; meaning thereby that this \u2018final DNA sequence\u2019 would have a very low probability of forming stable secondary structures in physiological or PCR conditions \\(Zuker, 2000). \r\n  Retrieval of results where \u2018final DNA sequence\u2019 has \u2206G values tending towards 0 Kcal/mol would mean that our \u2018codon juggling\u2019 worked well and that oligonucleotides for this sequence wouldn\u2019t form spontaneous stable secondary structures. However, if this is not found to be the case in the output then, Task II should be repeated again-and-again on the \u2018final DNA sequence\u2019 of interest unless and until the problem is fixed. In almost all cases though, the protocol should work and the \u2206G-based stability of the \u2018final DNA sequence\u2019 should be easily observable at this point. \r\n\n\n \r\n\n\n21. Similarly, mRNA secondary structure analysis should also be done on the sequences using the software called \u2018FoldRNA\u2019 accessible from the following webpage link:  \"http://www.softberry.com/berry.phtml?topic=foldrna&group=programs&subgroup=rnastruct\":http://www.softberry.com/berry.phtml?topic=foldrna&group=programs&subgroup=rnastruct . This software predicts RNA/mRNA secondary structures through energy minimization. This type of analysis would further ensure the robustness of \u2018final DNA sequence\u2019.\r\n  \r\n\n\n22. Here, the above three sequences \\(final, preliminary and external control) should be entered into the software-query field in RAW format, one after the other. The \u2018Run Java Viewer\u2019 option must be enabled. The software should then be initiated by clicking on the \u2018Process\u2019 button.\r\n  \r\n\n\n23. The output would be retrieved from the software on a new page along with the respective structure in a separate Java Window. Here, the statistics to focus on are, \u2018No. of Structures\u2019 and their \u2018\u2206G values\u2019. Again, the \u2018final DNA sequence\u2019 should pass this test and should be expected to give a good mRNA structure \\(with high Gibbs free energy and less secondary structures).\r\n  If the \u2018final DNA sequence\u2019 doesn\u2019t produce a stable mRNA then it has to undergo the same changes as recommended in Step 20. Here, the \u2206G value of mRNA secondary structure formed by \u2018final DNA sequence\u2019 may not tend towards 0 Kcal/mol as much as it did for DNA secondary structures but it would be considerably less than that for the \u2018preliminary DNA sequence\u2019. Secondary mRNA structures, may not have a \u2206G value tending heavily towards 0 Kcal/mol since in contrast to DNA, mRNA often utilizes such secondary structures for functional regulation \\(Murray et al, 2003).  Hence, their complete absence might not be possible.\r\n\n\n\r\n\n\n24. At the end of this task, it would be expected that our \u2018final DNA sequence\u2019 could now be finalized without any further codon-modification and this DNA sequence could now be taken into the next Task.\r\n   \r\n\n\nTask V: Modification of Final DNA Sequence\r\n\n\n\r\n\n\nNow as our \u2018final DNA sequence\u2019 is ready at the end of Task IV, we may now modify it in certain ways \\(without disturbing the sequence of peptide/protein that it codes for) so as to add certain sequence and modify certain others, so that the gene resulting from the artificial synthesis of this DNA duplex could later be inserted properly and transcribed/translated in the expression system \\(e.g. pET). At the end of Task IV, the DNA sequence that we would get would actually produce a blunt ended DNA duplex. Blunt ended DNA duplexes/genes may be inserted easily into certain vectors in presence of proper ligation system however certain vectors might not be very compatible to such insertions. Thus, in latter situations we would be required to introduce some restriction sites at the end of our DNA duplex so as to allow its proper insertion into various vectors. \r\n\n\n\r\n\n\n25. Firstly, the \u2018final DNA sequence\u2019 should be checked properly for the presence of appropriate start and stop codons. In case of either\u2019s absence, they should be added manually to make our sequence translationally autonomous. \r\n  \r\n\n\n26. Before adding restriction sites at ends of our DNA, it should be ascertained that the restriction sites that we are using for insertion aren\u2019t present inside the synthetic gene\u2019s DNA sequence. For this purpose, feed the above sequence in RAW format into the software, \u2018MB Advanced DNA Analysis v.6.83\u2019 \\(Simakov, 2006) downloadable from \"http://www.molbiosoft.de\":http://www.molbiosoft.de and digest the sequence with all the 711 restriction enzymes available in the software. \r\n  \r\n\n\n27. The output of the software should be self-explanatory and should help in selection of unique restriction sites absent in the \u2018final DNA sequence\u2019 but present in the target vector. \r\n  Here, the restriction site to be inserted at the ends of the DNA sequence should be selected based upon: \\(1) the type of vector being used, \\(2) the restriction sites within the vector which are to be utilized for insertion and \\(3) types of restriction sites present within the final DNA sequence-based duplex/gene. Also note that the restriction enzymes which exhibit \u2018star activity\u2019 should be avoided.\r\n\n\n\r\n\n\n28. Now, the user can manually insert the respective restriction site sequences at the 5\u2019 and 3\u2019 end of the \u2018final DNA sequence\u2019.\r\n  Here, while inserting the sequences manually, take special care regarding the exact 5\u2019 and 3\u2019 orientations of the \u2018final DNA sequence\u2019 and the restriction sites.\r\n\n\n\r\n\n\n29. Lastly, as later cycles of gene synthesis involve PCR procedures, wherein there exists a risk of losing some nucleotides at the 5\u2019 end of the amplicons, it\u2019s advisable to add 2 or 3 nucleotides at the end of the final DNA sequence which could be cleaved off later by restriction enzymes \\(Engels & Uhlmann, 1989). Thus now, manually add 3 nucleotides at each end of the above sequence e.g. ATC. The sequence thus retrieved is our synthetic gene\u2019s \u2018template DNA sequence\u2019, and it is broadly depicted in Figure 2. This sequence could now be taken to the next task.\r\n  Here, remember again that the miscellaneous restriction site being inserted at the ends of the sequence should be unique such that it should be absent both in our target gene as well as the corresponding vector.\r\n\n\n\r\n\n\n\r\n\n\nTask VI: Designing of the Oligonucleotides for later Chemical/Artificial Gene Synthesis\r\n\n\n\r\n\n\nAs discussed in the Background section, the current protocol is an upstream process leading up to the actual in vitro artificial synthesis of the gene encoding for our target peptide/protein. The in vitro downstream methodology to be used for synthesizing our gene construct would be the \u2018SPR method of artificial gene synthesis\u2019 \\(Tsuchiya et al, 2006). This procedure involves; \\(1) Designing of two oligonucleotides of equal length having a ~20 b.p. overlap; \\(2) Synthesizing these oligonucleotides using Automated DNA Synthesizer utilizing phosphoaramdite \\(or any other suitable) method on solid phase/surface and \\(3) Hybridizing these oligos and extending them using PCR \\(See Figure 1) \\(Engels & Uhlmann, 1989; Tsuchiya et al, 2006). Here, the step 2 and 3 heavily depend upon successful execution of step 1 i.e. proper in silico designing of the two oligonucleotides, which is exactly the focus of the present Task.\r\n\n\n\r\n\n\n30. Here, the designing of oligonucleotides for our gene of interest would be done using the software, \u2018Gene Design \u03b22.0\u2019 \\(Richardson et al, 2006). For designing the oligonucleotides, feed the \u2018Oligo Design\u2019 module within the \u2018Gene Design \u03b22.0\u2019 software with the \u2018template DNA sequence\u2019 \\(derived at the end of Task V) in RAW format and set following parameters in the software \u2013 Target Oligo-Length: 100 b.p., Overlap Melting Temperature: 62oC and Chunk overlap: 20 b.p.\r\n  \r\n\n\n31. After the parameters have been set and the sequence entered in the query field, run the software by clicking on the button, \u2018Design Oligos\u2019.\r\n  \r\n\n\n32. In its output, the software would now show a series of overlapping oligonucleotides \\(depending upon how long the template DNA sequence is) in both Forward \\(5\u2019-3\u2019) and Reverse \\(3\u2019-5\u2019) orientations, such that each oligonucleotide overlaps with another by 20 b.p. The software would also give the exact value of Tm which applies to these oligonucleotides, which in practice wouldn\u2019t be very far away from 62\no\nC.   \r\n  Once the respective oligonucleotides have been designed at the end of Task VI, these oligonucleotides could than be synthesized using Automated DNA/Gene Synthesizer utilizing the phosphoaramdite method on solid phase/surface \\(Engels & Uhlmann, 1989). Later, once the oligonucleotides have been synthesized, they could be mixed, hybridized and the complete gene could be synthesized via PCR reaction \\(Casimiro et al, 1997; Kodumal et al, 2004; Tsuchiya et al, 2006). Following the synthesis of the gene, it can be inserted into the respective vectors by following the manufacturer\u2019s protocols for that particular vector \\(Kodumal et al, 2004)."
+        },
+        {
+            "header": "Timing",
+            "content": "1-2 days"
+        },
+        {
+            "header": "Critical Steps",
+            "content": "1. In the steps like Step 2 in the above protocol, please select the organism of origin correctly or else this might lead to selection of wrong genetic-code, which would thereby spoil the later 'reverse translation' results.\r\n  \r\n\n\n2. As apparent in the above protocol, there are many instances were the user has to select a certain restriction enzyme site. Please remember that don't select a restriction enzyme site, whose recognizing enzyme exhibits 'star activity'. Because, enzymes exhibiting star activity lead to unspecific cleavages during certain in vitro conditions.\r\n  \r\n\n\n3. In steps like Step 20, it is very crucial to remember that only those DNA sequences are good for which the G value is high or tending towards 0 kcal/mol since higher is this value lesser is the probability of those DNA sequences forming spontaneous structures in physiological or PCR conditions."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "Though every effort has been made to use softwares or bioinformatics resources having permanent links yet there exists a fair possibility that over a long period of time these links might go inactive due to server changes, domain changes etc. In such conditions, do not panic\\! These softwares have peer-reviewed publications behind them and hence they need to be online always thus if you don't find a software functional at that link, just type the name of that program/software in Google and in author's experience the latest link would be found without much problems."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "Main problems that may arise during downstream phase of artificial gene synthesis are mostly attributable to faulty designing. Such problems might include: \\(1) wrong or no annealing of the oligonucleotides and \\(2) hampering of oligonucleotide annealing due to repeat-mediated DNA and/or mRNA secondary structure formations \\(Engels &amp; Uhlmann, 1989; Richardson et al, 2006). Previously researchers use to manually design oligonucleotides, which was an extremely cumbersome and error-prone procedure \\(Richardson et al, 2006). However, advent of bioinformatics created a great demand for in silico methodologies for designing of these oligonucleotides. Though many types of software have been designed for this purpose \\(Richardson et al, 2006) yet the problem has been that the overall designing procedure is so complex and demanding that a single-platform based analysis cannot be considered comprehensive enough. In the present protocol, an attempt has been made to address these problems. Present protocol is better than most other existing in silico protocols for oligonucleotide designing since along with certain other things, this protocol uniquely incorporates the testing for mechanics of repeat-mediated DNA and mRNA secondary structure formations following codon juggling. Previous to this, codon juggling or modifications were performed and it was assumed that it would be enough to avoid secondary structure formation on all nucleic acids levels \\(Hoover &amp; Lubkowski, 2002; Jayaraj et al, 2005; Rouillard et al, 2004). However, the current protocol allows users to confirm the extent of stable secondary structures formed by either DNA or mRNA of target DNA sequence and if required, repeat the codon modifications to reach acceptable levels. Further, in the present protocol, the &#x2018;Gene Design &#x3B2;2.0&#x2019; software has been extensively used since it has better and more flexible options than certain other previous softwares such as Gene2Oligo, DNAWorks and GeMS \\(Richardson et al, 2006). It is envisaged that, this protocol would ensure effective and easy in silico designing of oligonucleotides to be used for later artificial/chemical gene synthesis.\r\n\n\n\r\n\n\nThe best anticipated result coming out of this protocol is that, the final sequence that the user derives after applying this protocol would be very different from their original back-translated DNA sequence and would not form stable secondary structures. For the sake of example of how efficient this protocol is, kindly have a look at Figure 3. Here, three scenarios \\(A, B and C) have been presented which consist of secondary structures formed by 3 highly similar DNA sequences \\(in a 'before' and 'after' orientation). In scenario 'A', the initial DNA sequence \\(upper) was not modified much and hence the resulting sequence \\(below) still forms stable secondary structures however in scenario 'B' and 'C', the initial DNA sequences \\(upper) were modified extensively using above protocol and hence their resulting sequences \\(below) are making less stable secondary structures. This example demonstrates in nutshell, the overall anticipated results after following this protocol."
+        },
+        {
+            "header": "References",
+            "content": "Benson G \\(1999) Tandem repeats finder: a program to analyze DNA sequences. Nucleic Acids Res 27: 573-580\r\n\n\n\r\n\n\nCasimiro DR, Wright PE, Dyson HJ \\(1997) PCR-based gene synthesis and protein NMR spectroscopy. Structure 5: 1407-12\r\n\n\n\r\n\n\nEngels JW \\(2005) Gene synthesis on microchips. Angew Chem Int Ed Engl 44: 7166-9\r\n\n\n\r\n\n\nEngels JW, Uhlmann E \\(1989) Gene Synthesis \\(New Synthetic Methods 77). Angew Chem Int Ed Engl 28: 716-734\r\n\n\n\r\n\n\nGriffiths JFA, Miller JH, Suzuki DT, Lewontin RC, Gelbart WM \\(1999) Introduction to Genetic Analysis, 7th edn. New York: W. H. Freeman &amp; Co.\r\n\n\n\r\n\n\nHoover DM, Lubkowski J \\(2002) DNAWorks: an automated method for designing oligonucleotides for PCR-based gene synthesis. Nucleic Acids Res 30: e43\r\n\n\n\r\n\n\nJayaraj S, Reid R, Santi DV \\(2005) GeMS: an advanced software package for designing synthetic genes. Nucleic Acids Res 33: 3011-6\r\n\n\n\r\n\n\nKodumal SJ, Patel KG, Reid R, Menzella HG, Welch M, Santi DV \\(2004) Total synthesis of long DNA sequences: synthesis of a contiguous 32-kb polyketide synthase gene cluster. Proc Natl Acad Sci U S A 101: 15573-8\r\n\n\n\r\n\n\nLooman AC, et al. \\(1986) Secondary structure as primary determinant of the efficiency of ribosomal binding sites in Escherichia coli. Nucleic Acids Res 14: 5481-5497\r\n\n\n\r\n\n\nMoore JW, Stanistski CL, Jurs PC \\(2005) Chemistry, the Molecular Science. USA: Brooks Cole\r\n\n\n\r\n\n\nMurray RK, Granner DK, Mayes PA, Rodwell VW \\(2003) Harper's Illustrated Biochemistry. New York: McGraw-Hill Medical\r\n\n\n\r\n\n\nRichardson SM, Wheelan SJ, Yarrington RM, Boeke JD \\(2006) GeneDesign: Rapid, automated design of multikilobase synthetic. Genome Res 16: DOI - 10.1101/gr.4431306\r\n\n\n\r\n\n\nRouillard JM, Lee W, Truan G, Gao X, Zhou X, Gulari E \\(2004) Gene2Oligo: oligonucleotide design for in vitro gene synthesis. Nucleic Acids Res 32: W176-80\r\n\n\n\r\n\n\nSimakov O \\(2006) MB Advanced DNA Analysis v.6.83: URL: \"http://www.molbiosoft.de\":http://www.molbiosoft.de\r\n\n\n\r\n\n\nTsuchiya Y, Morioka K, Shirai J, Yoshida K, Inumaru S \\(2006) Comparison of artificial synthesis methods of gene. Nucleic Acids Symp Series No. 50: 275-276\r\n\n\n\r\n\n\nZuker M \\(2000) Calculating nucleic acid secondary structure. Curr Opin Struct Biol 10: 303-310\r\n\n\n\r\n\n\nZuker M \\(2003) Mfold web server for nucleic acid folding and hybridization prediction. Nucleic Acids Res 31: 3406-3415"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "The author would like to acknowledge the financial support received from, Department for International Development \\(DFID, UK), University of Leeds \\(Leeds, UK) and Commonwealth Scholarship Commission \\(CSC, UK) in the form of the &#x2018;Commonwealth Shared Scholarship Scheme 2007-08&#x2019;, which enabled him to complete his studies at University of Leeds \\(Leeds, UK).\r\n\n\n\r\n\n\nFurther the author would also like to acknowledge the guidance and critical review provided by Prof. Dr. John Colyer \\(Professor of Biotechnology, Institute of Membrane and Systems Biology, University of Leeds, UK). This protocol is derived from an assignment submitted to Prof. Colyer as a part of Masters Coursework and the assignment was reviewed thoroughly and awarded with very high marks by Prof. Colyer, inspiring me to write this protocol."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 11149,
+                "identity": "9f4de1bd-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Abhishek D. Garg",
+                "email": "",
+                "orcid": "",
+                "institution": "Faculty of Biological Sciences, University of Leeds, Leeds LS2 9JT, United Kingdom",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Abhishek",
+                "middleName": "D.",
+                "lastName": "Garg",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2010-09-03 09:28:24",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/nprot.2009.15",
+        "doiUrl": "https://doi.org/10.1038/nprot.2009.15",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2607977,
+                "identity": "fefb0eaa-6dcf-46e9-be3a-e7ac9837d6ce",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:53",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 36624,
+                "visible": true,
+                "origin": "",
+                "legend": "Principle of artificial gene synthesis.   Artificial Gene Synthesis, principally involves stepwise coupling of individual nucleotides together to yield oligonucleotides, which are further arranged/annealed amongst themselves into double-stranded (ds) DNA-duplexes based upon overlapping base complementarity. This complementarity-based hydrogen bonding is followed by chemical-based or chemoenzymatic-based ligation of phosphoric esters resulting in stable ds-DNA duplexes or our final target gene. This is further elucidated in following steps: (1) After the oligonucleotides (of both 5&#x2019;&#x2192;3&#x2019; and 3&#x2019;&#x2192;5&#x2019; orientations) for the target gene have been designed (manually or in silico), the oligonucleotides are then synthesized via various methods like trimester, phosphate, phosphoramidite and H-phosphonate. Oligonucleotides of both orientation are synthesized by polycondensation of corresponding nucleoside phosphates. In the present figure, the phosphoramidite method has been depicted; (2) Once the oligonucleotides of both orientations have been synthesized, they are mixed together; (3) Owing to around 20 b.p. overlapping complementarity, these corresponding oligonucleotides anneal together; (4) The annealed product thus formed than acts as a template for PCR and (5) PCR-mediated polymerisation helps in production of the final DNA duplex or artificially synthesized gene. Here, steps 2 to 6 depict the SPR method of Artificial Gene Synthesis (Engels &amp; Uhlmann, 1989; Tsuchiya et al, 2006). ",
+                "description": "",
+                "filename": "figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-534/v1/figure_1.jpg"
+            },
+            {
+                "id": 2607979,
+                "identity": "243163a4-d4a3-454b-822d-7f8651f73827",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:53",
+                "extension": "jpg",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 10286,
+                "visible": true,
+                "origin": "",
+                "legend": "Broad depiction of the in silico designed &#x2018;template DNA&#x2019;.   Here, the actual target gene sequence is flanked on both sides by corresponding restriction sites as well as 3 extra nucleotides to safeguard against PCR-mediated terminal nucleotide loss. The start codon (ATG) and stop codon (TAA) mark the ends of the actual target gene sequence. ",
+                "description": "",
+                "filename": "figure2.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-534/v1/figure_2.jpg"
+            },
+            {
+                "id": 2607983,
+                "identity": "673aa4a0-4e22-4627-bf13-bc8a41784548",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:53",
+                "extension": "jpg",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 12303,
+                "visible": true,
+                "origin": "",
+                "legend": "Efficiency of Present Procotol based on DNA secondary structure formation.   (A)Here, the DNA Sequence derived from back-translation (upper) wasn't modified according to the present protocol and hence the resulting DNA sequence (below) still retained extensive stable secondary structures. (B and C) Here, the two DNA sequences (upper) were extensively modified using the present protocol and hence the resulting respective DNA sequences (below) were found to form less extensive stable structures.",
+                "description": "",
+                "filename": "figure3.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-534/v1/figure_3.jpg"
+            },
+            {
+                "id": 13464491,
+                "identity": "89a73cca-9261-4fe1-b2e4-da11db2b0ab8",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:43:32",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 235106,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-534/v1/4e7141a2-1d5c-4969-8873-ae28e8a2dcd3.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "oligonucleotides, artificial gene synthesis, secondary structures, in silico, DNA\r\n\r\n",
+        "license": {
+            "name": "None",
+            "url": ""
+        },
+        "manuscriptAbstract": "",
+        "manuscriptTitle": "Efficient in silico designing of oligonucleotides for artificial gene synthesis",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2009-01-22 08:31:34",
+                "doi": "10.1038/nprot.2009.15",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9f0e71bf-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "January 22nd, 2009",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 2236,
+                "name": "Computational biology and bioinformatics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2009-01-22 08:31:34",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

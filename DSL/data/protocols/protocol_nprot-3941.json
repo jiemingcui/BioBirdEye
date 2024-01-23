@@ -1,0 +1,380 @@
+{
+    "identity": "nprot-3941",
+    "title": "A memristive Hopfield network for associative memory",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "An artificial neural network \\(ANN) is a bio-inspired information processing paradigm, which has been proved useful in many applications, such as pattern recognition, speech production, real time control, and etc.<sup>1</sup> The Hopfield neural network is one of the most studied ANN<sup>2-5</sup>, and its structure can be implemented by an electronic circuit<sup>6</sup>. Although many attempts have been made to simulate or construct ANNs with the ultimate goal to emulate the human brain<sup>7</sup>, there are still many challenges. In biological systems, learning involves adjustments of the synaptic weights \\(connections) between two adjacent neurons, and the ANNs process information in a similar way. An ideal synapse in the ANN should be reconfigurable, nonvolatile, scalable and low-power. Some types of devices \\(such as resistor, capacitor and current source<sup>8</sup>) proposed in the early stage cannot completely satisfy the rigorous requirements of synapses. Recently, memristor<sup>9</sup>, which takes advantages of reconfigurability, high-scalability, and low-power consumption<sup>9</sup>, has been demonstrated to be an promising candidate for constructing synapses<sup>10-14</sup>. However, constructing ANN with memristors is still of great challenge<sup>15-20</sup>.\r\n\n\n\r\n\n\nIn this protocol, we present an approach to demonstrate associative memory in a memristive Hopfield network \\(MHN). Through an appropriate design of synaptic weight matrix and threshold matrix, pattern\\(s) can be stored into the MHN, and the pre-stored pattern\\(s) can be successfully retrieved."
+        },
+        {
+            "header": "Equipment",
+            "content": "In the experiment of the Hopfield MHN, the following equipment and components are used: Keithley-4200 semiconductor characterization system, transmission-gate chips \\(Texas Instruments CD4066), operational amplifiers \\(Texas Instruments LM324N), comparator chip \\(Texas Instruments LM339), field programming gate array \\(FPGA, model no. ALTERA EP2C8Q208C8), RIGOL oscilloscope \\(model no. DS4024), memristors in standard 28-pin dual in-line package \\(DIP), capacitors, resistors, ribbon wires, and printed circuit board \\(PCB). In the design and simulation of a more complicated MHN consisting of 6561 synapses, IC design software and database \\(Cadence 5141 and standard 0.18 \u03bcm CMOS process library) are used."
+        },
+        {
+            "header": "Procedure",
+            "content": "**Fabrication of the MHN**\r\n\n\nThe MHN was fabricated on a printed circuit board \\(PCB). The synapse consists of a memristor, a resistor, an inverter and a transmission gate. Positive or negative synaptic weight can be obtained by electronic switches. In the 3-bit MHN, a neuron consists of three synapses. A neuron was constructed with an operational amplifier to obtain the sum of the three inputs. The state of the neuron was stored on a capacitor. The fabrication procedure of the MHN is as follows: design of the schematic circuit of the MHN; design of the PCB layout of the MHN \\(see \"Figure 1\":http://www.nature.com/protocolexchange/system/uploads/3655/original/Figure_1.jpg?1432391113 ); assembly of the commercial chips, resistors and capacitors, onto the PCB; wire connection of the memristors with the PCB; and programming of the FPGA to control the MHN. \r\n\n\n\r\n\n\n**TIP**: There are two possible circuit configurations for the synaptic connection, as shown in \"Figure 2\":http://www.nature.com/protocolexchange/system/uploads/3657/original/Figure_2.jpg?1432391117. In the first configuration \\(Figure 2\\(a)), the synaptic weight of the synapse corresponding to input _N\ni\n_ \\(_i_=1, 2, 3) is _w\ni\n_=\u00b1 _R_ /\\(_M\ni\n_ + _R_), where _M\ni\n_ is the resistance of the corresponding memristor. In this design, _R_ should be of a high resistance at the level of 10\n6\nohms in order to limit the current and avoid wrongly-switching of the memristor during circuit operation. _M\ni\n_ can only be adjusted in the range from several tens of ohms to several hundreds of k\u2126 due to the memristor inherent property. As _R_ is much larger than _M\ni\n_, _w\ni\n_ would be insensitive to _M\ni\n_ and may always stay at \u00b11. Thus the variable range of the synaptic weight is very small. It is difficult for the MHN to detect such a small change in _w\ni\n_. In contrast, in the second configuration \\(Figure 2\\(b)), _w\ni\n_=\u00b1 _M\ni\n_/\\(_M\ni\n_ + _R_), thus the synaptic weight _w\ni\n_ is much more sensitive to the change of _M\ni\n_ and can be varied in a larger range. Therefore, the circuit configuration shown in Figure 2\\(b) is used to implement the synapses. \r\n\n\n\r\n\n\n**Implementation of associative memory in the MHN**\r\n\n\nWith a given pattern, the synaptic weight matrix elements in equation \\(1) \\(all equations in this protocol are placed in the \"Supplementary document 1\":http://www.nature.com/protocolexchange/system/uploads/3659/original/Supplementary_equation_file.pdf?1432386669) are set to _w_\n11\n= _w_\n22\n= _w_\n33\n=0, _w_\n12\n= _w_\n21\n, _w_\n13\n= _w_\n31\n, and _w_\n23\n= _w_\n32\n. The threshold vector **T**=\\(_\u03b8_\n1\n_\u03b8_\n2\n_\u03b8_\n3\n) is set as _\u03b8_\n1\n= _\u03b8_\n2\n= _\u03b8_\n3\n= _\u03b8_. Here, _w\nij\n_ \\(_i_, _j_=1, 2, 3) is in the form of equation \\(2). During the recalling process, the MHN is updated according to equation \\(3). In equation \\(3), _t_ denotes the number of updating cycles; _t_=0 denotes no updating taking place and the corresponding state vector is the initial vector **X**\\(0); and the sign function is defined in equation \\(4). In one updating cycle, new states of the neurons are asynchronously updated from _x_\n1\n, _x_\n2\nto _x_\n3\nin three stages, which are defined as stages a, b and c, respectively. \r\n\n\n\r\n\n\n**Single associative memory**\r\n\n\nIt is required that if the input is the target pattern itself, the final output must also stabilize at the target pattern. Thus, when \u201c110\u201d is stored into the MHN, according to equation \\(3) and Hopfield network rule for updating, equation \\(5) should be satisfied. With _w_\n11\n= _w_\n22\n= _w_\n33\n=0, _w_\n12\n= _w_\n21\n, _w_\n13\n= _w_\n31\n, and _w_\n23\n= _w_\n32\nand _\u03b8_\n1\n= _\u03b8_\n2\n= _\u03b8_\n3\n= _\u03b8_, equation \\(5) is simplified as shown in equation \\(6). Equation \\(6) can be satisfied with the following setting: _\u03b8_=-2/60, _w_\n12\n=4/60, _w_\n13\n=1/60, and _w_\n23\n=-4/60. Thus the synaptic weight matrix is given by equation \\(7), and the threshold vector is given by equation \\(8). The following initial states **X**\\(0) along with equations \\(7) and \\(8) are put into equation \\(3) to verify the convergence: \u201c000\u201d, \u201c001\u201d, \u201c010\u201d, \u201c011\u201d, \u201c100\u201d, \u201c101\u201d, \u201c110\u201d, and \u201c111\u201d. It is found that the MHN can eventually converge to the final state \u201c110\u201d from the above initial states. \r\n\n\n\r\n\n\nHere, **X**\\(0)= \\(_x_\\(0)\n1\n_x_\\(0)\n2\n_x_\\(0)\n3\n)=\\(0 0 0) is taken as an example to demonstrate the recalling process. In stage a of the first updating cycle, we obtain equation \\(9) according to equation \\(3). And only _x_\n1\nis updated in stage a of the first updating cycle, and thus we eventually obtain equation \\(10) in this stage; In stage b of the first updating cycle, equation \\(11) can be obtained according to equation \\(3). And only _x_\n2\nis updated in stage b, so we eventually obtain equation \\(12) in this stage; In stage c of the first updating cycle, equation \\(13) can be obtained according to equation \\(3). And only _x_\n3\nis updated in stage c, and thus we eventually obtain equation \\(14). From equations \\(9)-\\(14), we can see that \u201c000\u201d eventually converges to \u201c110\u201d. In a similar way, the MHN converges to \u201c110\u201d from any other initial states. \r\n\n\n\r\n\n\nWith the synaptic weight matrix shown in equation \\(7), the resistance matrix of the memristors determined from equation \\(2) can be set to the form of equation \\(15). Note that it is not necessary to adjust the resistances of the memristors exactly to the above values because the MHN has a tolerance to the resistance variation.  An offline training scheme for setting the resistance of the memristors to a pre-determined value is implemented with a C Language program embedded in the Keithley 4200 semiconductor characterization system. With the actual resistance matrix **M** in equation \\(16), the actual synaptic weight matrix **W** was set to equation \\(17). With the above synaptic weight matrixe **W** and the threshold vector in equation \\(8), \u201c110\u201d can be correctly retrieved using the MHN fabricated on the PCB.\r\n\n\n\r\n\n\n**Multi-associative memory**\r\n\n\nSimilar to the requirement for single associative memory, when the two patterns \u201c000\u201d and \u201c101\u201d, are stored in the MHN, equations \\(18) and \\(19) should be satisfied. With _w_\n11\n= _w_\n22\n= _w_\n33\n= 0, _w_\n12\n= _w_\n21\n, _w_\n13\n= _w_\n31\n, and _w_\n23\n= _w_\n32\nand _\u03b8_\n1\n= _\u03b8_\n2\n= _\u03b8_\n3\n= _\u03b8_, equations \\(18) and \\(19) are respectively simplified as equations \\(20) and \\(21). Equations \\(20) and \\(21) can be satisfied with the following setting: _\u03b8_=6/60, _w_\n12\n=1/60, _w_\n13\n=8/60, and _w_\n23\n=4/60. Thus the synaptic weight matrix is given by equation \\(22), and the threshold vector is given by equation \\(23). Putting equations \\(22) and \\(23) and **X**\\(0) \\(**X**\\(0) can be varied from \u201c000\u201d to \u201c111\u201d) into equation \\(3), \u201c000\u201d and \u201c101\u201d can be stored into and retrieved from the MHN theoretically. For the synaptic weight matrix given in equation \\(22), the resistance matrix obtained from equation \\(2) can be set to the form of equation \\(24). The actual resistance matrix and the actual synaptic weight matrix of the fabricated MHN are given by equations \\(25) and \\(26), respectively:"
+        },
+        {
+            "header": "Timing",
+            "content": "The time cost to retrieve the pre-stored pattern in the 3-bit MHN depends on the initial state and the operational frequency. At 5 kHz operating frequency, the time required to retrieve the pre-stored pattern ranges from 33.3 \u03bcs to 300 \u03bcs depending on the initial states."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "Failure to set the resistance matrix to the pre-determined one with appropriate precision may lead to the failure of associative memory. In this work, we set the memristors to a low resistance state first with a compliance current \\(_e.g._, 0.1 mA, 1 mA, _etc._), and then the memristors are programmed with an offline training scheme which is implemented with a C Language program embedded in the Keithley 4200 semiconductor characterization system. In this way, the resistance matrix with appropriate precision can be obtained."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "In the associated article, we demonstrated single associative memory and multi-associative memories in a 3-bit MHN. In the 3-bit MHN, the pre-stored pattern\\(s) can be successfully retrieved at an operating frequency of 5 kHz. On the other hand, the simulation for a more complicated MHN consisting of 6561 synapses shows that more complicated patterns can be stored and retrieved but convergence errors may occur, as described in the associated article."
+        },
+        {
+            "header": "References",
+            "content": "1. Ahmad, Z., Mat Noor, R. A. & Zhang, J. Multiple neural networks modeling techniques in process control: a review. _Asia-Pac. J. Chem. Eng._ **4**, 403-419 \\(2009).\r\n  2. Hopfield, J. J. Neural networks and physical systems with emergent collective computational abilities. _Proceedings of the National Academy of Sciences_ **79**, 2554-2558 \\(1982).\r\n  3. Hopfield, J. J. Neurons with graded response have collective computational properties like those of two-state neurons. _Proceedings of the National Academy of Sciences_ **81**, 3088-3092 \\(1984).\r\n  4. Hopfield, J. J. & Tank, D. W. \u201cNeural\u201d computation of decisions in optimization problems. _Biol. Cybern._ **52**, 141-152 \\(1985).\r\n  5. Hopfield, J. J. & Tank, D. W. Computing with neural circuits- a model. _Science_ **233**, 625-633 \\(1986).\r\n  6. Wen, U.-P., Lan, K.-M. & Shih, H.-S. A review of Hopfield neural networks for solving mathematical programming problems. _European Journal of Operational Research_ **198**, 675-687 \\(2009).\r\n  7. Cattell, R. & Parker, A. Challenges for Brain Emulation: Why is Building a Brain so Difficult? _Natural intelligence_ **1**, 1-28 \\(2012).\r\n  8. Verleysen, M., Martin, D. & Jespers, P. in _1989 European Conference on Circuit Theory and Design_ 73-77 \\(IET, Brighton, 1989).\r\n  9. Hu, S. G. _et al_. Review of nanostructured resistive switching memristor and its applications. _Nanoscience and Nanotechnology Letters_ **6**, 729-757 \\(2014).\r\n  10. Jo, S. H. _et al_. Nanoscale memristor device as synapse in neuromorphic systems. _Nano Lett._ **10**, 1297-1301 \\(2010).\r\n  11. Li, Y. _et al_. Ultrafast synaptic events in a chalcogenide memristor. _Scientific Reports_ **3**, 1619 \\(2013).\r\n  12. Yu, S., Wu, Y., Jeyasingh, R., Kuzum, D. & Wong, H. S. P. An Electronic Synapse Device Based on Metal Oxide Resistive Switching Memory for Neuromorphic Computation. _IEEE Trans. Electron Devices_ **58**, 2729-2737 \\(2011).\r\n  13. Wang, Z. Q. _et al_. Synaptic learning and memory functions achieved using oxygen ion migration/diffusion in an amorphous ingazno memristor. _Adv. Funct. Mater._ **22**, 2759-2765 \\(2012).\r\n  14. Hu, S. G. _et al_. Synaptic long-term potentiation realized in Pavlov's dog model based on a NiOx-based memristor. _J. Appl. Phys._ **116**, 214502 \\(2014).\r\n  15. Ziegler, M. _et al_. An electronic version of Pavlov's dog. _Adv. Funct. Mater._ **22**, 2744-2749 \\(2012).\r\n  16. Hu, S. G. _et al_. Design of an electronic synapse with spike time dependent plasticity based on resistive memory device. _J. Appl. Phys._ **113**, 114502-114504 \\(2013).\r\n  17. Pershin, Y. V. & Di Ventra, M. Experimental demonstration of associative memory with memristive neural networks. _Neural Networks_ **23**, 881-886 \\(2010).\r\n  18. Burr, G. _et al_. in _2014 IEEE International Electron Devices Meeting \\(IEDM)_.  29.25. 21-29.25. 24 \\(IEEE).\r\n  19. Park, S. _et al_. in _2013 IEEE International Electron Devices Meeting \\(IEDM)_.  25.26.21-25.26.24 \\(IEEE).\r\n  20. Eryilmaz, S. B. _et al_. Brain-like associative learning using a nanoscale non-volatile phase change synaptic device array. _Frontiers in Neuroscience_ **8**, 205 \\(2014)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "This work was supported by NSFC under project No. 61274086 and the Young Scholar Fund of Sichuan under project No. 2011JQ0002, MOE Tier 1 Grant \\(Grant No. RG 43/12) and NTU-A*STAR Silicon Technologies Centre of Excellence \\(Grant No.M4070176.040)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/ncomms8522",
+                "date": "2015-05-31 06:36:44",
+                "title": "Associative memory realized by a reconfigurable memristive Hopfield neural network",
+                "authors": [
+                    "S.G. Hu",
+                    "Y. Liu",
+                    "Z Liu",
+                    "T.P. Chen",
+                    "J.J. Wang",
+                    "Q. Yu",
+                    "L.J. Deng",
+                    "Y. Yin",
+                    "and Sumio Hosaka"
+                ],
+                "journal": "Nature Communications",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 13384,
+                "identity": "a0603f88-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Y. Liu",
+                "email": "yliu1975@uestc.edu.cn",
+                "orcid": "",
+                "institution": "Memristor group",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Y.",
+                "middleName": "",
+                "lastName": "Liu",
+                "suffix": ""
+            },
+            {
+                "id": 13386,
+                "identity": "a0604597-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "T. P.  Chen",
+                "email": "echentp@ntu.edu.sg",
+                "orcid": "",
+                "institution": "Memristor group",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "T.",
+                "middleName": "P.",
+                "lastName": "Chen",
+                "suffix": ""
+            },
+            {
+                "id": 13383,
+                "identity": "a0603ac6-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "S. G. Hu",
+                "email": "",
+                "orcid": "",
+                "institution": "Memristor group",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "S.",
+                "middleName": "G.",
+                "lastName": "Hu",
+                "suffix": ""
+            },
+            {
+                "id": 13385,
+                "identity": "a0604363-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Z. Liu",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Z.",
+                "middleName": "",
+                "lastName": "Liu",
+                "suffix": ""
+            },
+            {
+                "id": 13387,
+                "identity": "a060470d-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "J. J. Wang",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "J.",
+                "middleName": "J.",
+                "lastName": "Wang",
+                "suffix": ""
+            },
+            {
+                "id": 13388,
+                "identity": "a0604864-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Q. Yu",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Q.",
+                "middleName": "",
+                "lastName": "Yu",
+                "suffix": ""
+            },
+            {
+                "id": 13389,
+                "identity": "a06049a8-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "L. J.  Deng",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "L.",
+                "middleName": "J.",
+                "lastName": "Deng",
+                "suffix": ""
+            },
+            {
+                "id": 13390,
+                "identity": "a0604aee-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Y. Yin",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Y.",
+                "middleName": "",
+                "lastName": "Yin",
+                "suffix": ""
+            },
+            {
+                "id": 13391,
+                "identity": "a0604c34-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Sumio Hosaka",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Sumio",
+                "middleName": "",
+                "lastName": "Hosaka",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2015-05-24 10:55:13",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2015.070",
+        "doiUrl": "https://doi.org/10.1038/protex.2015.070",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2609183,
+                "identity": "d19874c6-bd0e-4728-8d97-e057b8eb2ed2",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:44",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 930451,
+                "visible": true,
+                "origin": "",
+                "legend": "PCB layout of the MHN   (a) the front view; and (b) the back view.",
+                "description": "",
+                "filename": "figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-3941/v1/figure_1.jpg"
+            },
+            {
+                "id": 2609185,
+                "identity": "942fded0-fea6-443d-8643-9649a968e81e",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:45",
+                "extension": "jpg",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 201938,
+                "visible": true,
+                "origin": "",
+                "legend": "Two possible circuit configurations for the connection between one neuron and three synapses   (a) synaptic weight _w~i~_= \u00b1 _R_/(_M~i~_ + _R_); and (b)  _w~i~_= \u00b1 _M~i~_/(_M~i~_ + _R_).",
+                "description": "",
+                "filename": "figure2.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-3941/v1/figure_2.jpg"
+            },
+            {
+                "id": 13464907,
+                "identity": "adacfd67-e5a3-4697-896e-55f4cf09b0b5",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:45:05",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 458416,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-3941/v1/145f4dfa-855a-4b9c-ac72-f85c7cc98b83.pdf"
+            },
+            {
+                "id": 2609182,
+                "identity": "17bbd289-4303-4a2e-9474-d353ec20da03",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:44",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 48857,
+                "visible": true,
+                "origin": "",
+                "legend": "Supplementary document 1   Equations evolved in this protocol",
+                "description": "",
+                "filename": "supplement0.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-3941/v1/supplement_0.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Associative memory, Hopfield network, memristor",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "This protocol presents an approach to realize associative memory in a memristive Hopfield network \\(MHN). In the MHN, neurons and synapse are constructed with operational amplifiers and memristors, respectively; and control signals are provided by field programming gate array \\(FPGA). Different patterns can be stored into the MHN by appropriately setting the synaptic weight matrix and threshold matrix. In the process to recall the pre-stored pattern, the states of the neurons in the MHN are asynchronously updated in sequence under the control of FPGA.",
+        "manuscriptTitle": "A memristive Hopfield network for associative memory",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2015-07-07 16:05:58",
+                "doi": "10.1038/protex.2015.070",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a05fe625-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "July 7th, 2015",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3359,
+                "name": "Materials science"
+            },
+            {
+                "id": 3360,
+                "name": "Mathematics and computing"
+            },
+            {
+                "id": 3361,
+                "name": "Neuroscience"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2015-07-07 16:05:58",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

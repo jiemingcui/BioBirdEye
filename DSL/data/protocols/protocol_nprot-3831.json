@@ -1,0 +1,184 @@
+{
+    "identity": "nprot-3831",
+    "title": "A Bioconductor R pipeline for analysis of RNA-seq data",
+    "content": [
+        {
+            "header": "Procedure",
+            "content": "1. Check the sequencing quality of RNA-seq data using 'qualityScores' function in Rsubread package.\r\n  \r\n\n\n2. Use 'align' function in Rsubread to align the reads.\r\n  \r\n\n\n3. Use 'featureCounts' function in Rsubread to assign reads to genes.\r\n  \r\n\n\n4. Use 'voom' function in limma package to normalize read counts and to estimate the mean-variance relationship.\r\n  \r\n\n\n5. Use 'lmFit' function in limma to fit linear models to genes.\r\n  \r\n\n\n6. Use 'treat' \\(or 'eBayes') function in limma to compute moderated t statistic for each gene for each comparison.\r\n  \r\n\n\n7. Call differentially expressed genes using the 'decideTests' function in limma.\r\n  \r\n\n\nThe Rsubread package can be downloaded from http://bioconductor.org/packages/release/bioc/html/Rsubread.html. The limma package can be downloaded from http://bioconductor.org/packages/release/bioc/html/limma.html"
+        },
+        {
+            "header": "Timing",
+            "content": "The whole pipeline will take less than 8 hours to complete the analysis of an RNA-seq dataset including 100 million reads in total, on a computer with >=4 CPUs and >=8GB of memory."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "Lists of genes whose expression levels are found to be statistically significantly changed in different conditions \\(eg. different cell types or different treatments)."
+        },
+        {
+            "header": "References",
+            "content": "\\[1] Liao Y, Smyth GK and Shi W. The Subread aligner: fast, accurate and scalable read mapping by seed-and-vote. Nucleic Acids Research, 41\\(10):e108, 2013\r\n\n\n\r\n\n\n\\[2] Liao Y, Smyth GK and Shi W. featureCounts: an efficient general purpose program for assigning sequence reads to genomic features. Bioinformatics, 30\\(7):923-30, 2014\r\n\n\n\r\n\n\n\\[3] Law CW, Chen Y, Shi W and Smyth GK. Voom: precision weights unlock linear model analysis tools for RNA-seq read counts. Genome Biology, 15\\(2):R29, 2014\r\n\n\n\r\n\n\n\\[4] Smyth GK. Linear models and empirical Bayes methods for assessing differential expression in microarray experiments. Statistical Applications in Genetics and Molecular Biology, Volume 3, Article 3, 2004"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/ni.3154",
+                "date": "2015-05-18 15:29:31",
+                "title": "Transcriptional profiling of mouse B cell terminal differentiation defines a signature for antibody-secreting plasma cells",
+                "authors": [
+                    "Wei Shi",
+                    "Yang Liao",
+                    "Simon N Willis",
+                    "Nadine Taubenheim",
+                    "Michael Inouye",
+                    "David M Tarlinton",
+                    "Gordon K Smyth",
+                    "Philip D Hodgkin",
+                    "Stephen L Nutt",
+                    "and Lynn M Corcoran"
+                ],
+                "journal": "Nature Immunology",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 13323,
+                "identity": "a056c7ed-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Wei Shi",
+                "email": "shi@wehi.edu.au",
+                "orcid": "",
+                "institution": "Gordon Smyth's Lab, Walter and Eliza Hall Institute, Melbourne",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Wei",
+                "middleName": "",
+                "lastName": "Shi",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2015-03-25 03:24:42",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2015.039",
+        "doiUrl": "https://doi.org/10.1038/protex.2015.039",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13464886,
+                "identity": "923d4eee-634f-4d3b-95ad-67b56df92b59",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:44:59",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 101918,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-3831/v1/480e355c-8bab-427d-9f07-ecb76437934f.pdf"
+            }
+        ],
+        "financialInterests": "none.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "next-generation sequencing, RNA-seq, read alignment, read summarization, normalization, differential expression ",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "We describe a powerful and easy-to-use RNA-seq analysis pipeline that can be used for complete analysis of RNA-seq data. It starts with raw read output of an sequencing instrument and reports lists of genes that are found to be differentially expressed in the comparison of different cell types. It consists of several analysis modules including Subread read alignment \\[1], featureCounts read summarization \\[2], voom normalization \\[3] and statistical testing of differential expression using empirical Bayes moderated t-statistic \\[4]. The entire pipeline mainly makes use of two R packages, Rsubread and limma, both available from the popular Bioconductor project.",
+        "manuscriptTitle": "A Bioconductor R pipeline for analysis of RNA-seq data",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2015-05-18 15:30:37",
+                "doi": "10.1038/protex.2015.039",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a05678e5-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "May 18th, 2015",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3311,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 3312,
+                "name": "Biotechnology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2015-05-18 15:30:37",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

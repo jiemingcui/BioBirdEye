@@ -1,0 +1,404 @@
+{
+    "identity": "nprot-2646",
+    "title": "4-D photoacoustic tomography: the exploration of space and time in living tissue",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Photoacoustic tomography \\(PAT) is a 3D imaging technique based on the photoacoustic \\(PA) effect, a phenomena first described by Alexander Graham Bell over one hundred years ago<sup>1-6</sup>. The combination of the strong spectral discrimination arising from optical tissue interactions and the high spatial resolution associated with ultrasound propagation lends PA imaging to a broad range of potential applications in clinical medicine, preclinical research and biology<sup>7-12</sup>.  PAT has become one of the fastest growing fields in biomedical imaging in recent years<sup>13-21</sup>. \r\n\n\n\r\n\n\nEarly PAT systems used a single ultrasonic transducer, and required mechanical scanning and thus long data acquisition times in order to obtain high-quality images<sup>22, 23</sup>. To reduce data acquisition time, systems have been implemented using arrays from clinical ultrasound imaging systems or custom-designed linear arrays<sup>24-28</sup>. The extension of the above-mentioned real-time PAT method to 3-D would require scanning the linear array perpendicular to its length, and imaging the 3-D volume slice by slice. An alternative approach for fast 3-D PAT would be to use a two-dimensional transducer array combined with parallel data acquisition system. However, the existing 3D PAT systems have long data collection times \\(up to 8 min)<sup>29</sup>.  To monitor dynamic processes, the dimension of time must be integrated into 3D photoacoustic tomograms. Furthermore, the time resolution in every step must compensate for the motion of the object during data collection. Although3D imaging with real-time resolution can be obtained using sparse arrays of ultrasonic detectors, the spatial resolution of these systems is poor \\(2-3 mm)<sup>30</sup>.   Thus, there is a need for improvements in order to perform real-time high-resolution 3D photoacoustic tomography of whole animal and live tissue. \r\n\n\n\r\n\n\nWe recently developed the 4D PAT<sup>31</sup>, which integrates temporal resolution with 3D spatial resolution at centimeter depth by using a spherical array of ultrasonic detectors which is a different arrangement from the previously published PAT<sup>32</sup>. Our 4-D PAT setup provides a resolution of 0.19 mm in x-y direction and a resolution of 0.27 mm in z direction with, and a temporal resolution of 330 ms. This method has been demonstrated in 3D image guidance of needle placement for drug delivery, in monitoring dynamic events during epileptic seizures, and in monitoring dynamic temperature changes in tissues during thermal therapy of tumors.  4D PAT is safe and can potentially be applied to humans. However, in this protocol, we use rats as an example. \r\n\n\n\u2003\r\n\n\n**Experimental design**\r\n\n\n<img src=\"http://www.nature.com/protocolexchange/system/uploads/2527/original/Fig1_copy.jpg?1363306062\" width=\"100%\"> </a> \r\n\n\n  **Figure 1** | 4D-PAT system and its key components. \\(a) A color photograph of the 4D-PAT system with its key components labeled. \\(b) Photograph of the animal holder for _in vivo_ imaging. \\(c) Schematic drawing of the spherical interface and 3D ultrasound transducer array.\r\n\n\n\r\n\n\n**Imaging setup.** \r\n\n\nThe 4D PAT imaging system \\(Fig. 1a) comprises three major hardware components: \\(i) a tunable pulsed laser system, \\(ii) a 3D ultrasound detector array; and \\(iii) a signal processing and data acquisition system. A synchronization signal generated from the laser system was used to coordinate the data acquisition system.\r\n\n\n\r\n\n\nThe laser system needs to produce ultra-short laser pulses \\(several nanoseconds) in order to enhance conversion efficiency of photoacoustic signal as well as provide high spatial resolution<sup>33</sup>. The current 4D PAT uses a tunable \\(680\u2013900 nm) Ti: Sapphire laser \\(LOTIS TII Ltd, Minsk, Belarus), delivering <6.5-ns duration pulses with a repetition frequency of 10 Hz. The beam is guided into a custom-made silica fused-end fiber bundle to illuminate a 20-mm diameter area on the surface of the imaged object. However, other types of tunable pulsed laser systems are also available. A laser system with higher pulse repetition rate could provide faster image acquisition. The laser system should also be able to supply sufficient output energy to ensure a good signal-to-noise ratio \\(SNR) while keeping the energy below the ANSI laser safety limit of 20 mJ/cm<sup>2</sup>   <sup>34</sup>. To provide calibration for PAT image reconstruction, the energy of each laser pulse is monitored by a photodiode.  \r\n\n\n\r\n\n\nA 3D spherical ultrasound transducer array is used to capture the PA signals generated from the optical absorption inside the living animal. 192 transducers are placed along a custom-fabricated white Acrylonitrile butadiene styrene \\(ABS) spherical interface containing 610 through-holes with counter bores, forming 11 evenly spaced layers along the vertical direction of the ball as shown in Fig. 1c. The interface has an outer diameter of 160 mm and an inner diameter of 140 mm and the diameter of the holes in the ball is 5.7 mm, which fits well with the transducer \\(5.5 mm outer diameter). The transducers are adhered onto the interface with epoxy which can be removed to allow the position change of the transducers.  The transducer positions on the spherical interface are selectable and can be optimized for the geometry of the imaged target. Each ultrasonic detector has a 5 MHz central frequency and a 70% nominal bandwidth with an active area of 3 mm in diameter and total diameter of 5.5 mm \\(Blatek, Inc., PA, U.S.A.). The  angular acceptance of each transducer is about 15 degrees.\r\n\n\n\r\n\n\n**Signal processing and data acquisition.**\r\n\n\n<img src=\"http://www.nature.com/protocolexchange/system/uploads/2528/original/Fig2_copy.jpg?1363306096\" width=\"100%\"> </a> \r\n\n\n**Figure 2** | Signal processing and data acquisition \\(a) A color photograph of the photoacoustic signal processing and data acquisition system with its key components labeled. \\(b) Flow diagram of the data acquisition system. \r\n\n\n\r\n\n\nThe signal processing and data acquisition system consists of preamplifiers, secondary stage amplifiers \\(for optimizing the SNR), and a 3:1 electronic multiplexer coupled with a 64-channel analog-to-digital converter.  There are 16 preamplifier boards separately sealed in 4 metal boxes \\(See amplifier box), and each board \\(See pre-amplifier &. multiplexer board), has 12 input channels, 4 output channels, and 2 digital signal control inputs. Within each board, 12 dedicated operational amplifier modules \\(AD8099) individually amplify the input signals with a fixed gain of 26 dB, and then the amplified signals are multiplexed into the 4 output channels by 4 multiplexer chips \\(MAX 4051), which are controlled by a USB IO digital module \\(USB-1024LS, Measurement Computing) through the 2 digital inputs. The MAX4051 is used to switch between 3 signals. The 64-channel parallel data acquisition system consists of eight 8-channel PCI cards \\(PCIAD850, US Ultratek) in an industrial computer. With one card set as the master and remaining set to slave mode, all channels on the slave card will start acquisition upon receiving a trigger signal from the master card. At each trigger event \\(software trigger or external trigger), all the channels will simultaneously convert the analog signals to digital data with user-selected post trigger delay and waveform length. For each channel, 3000 sampling points are collected at 50 MHz sampling rate in 10 bits, and stored in a 32kB on-board memory before they are transferred to the host machine. Amplifiers with a programmable gain of 0 to 80 dB along with a 16 MHz low band pass filter are built into the data acquisition system. The average speed of PAT data acquisition system is 0.33 s/frame and is limited by the 10 Hz laser repetition<sup>35</sup>.\r\n\n\n\r\n\n\n<img src=\"http://www.nature.com/protocolexchange/system/uploads/2529/original/Fig3_copy.jpg?1363306129\" width=\"100%\"> </a> \r\n\n\n**Figure 3** | Data acquisition software \\(a) Flowchart of the photoacoustic data acquisition loop. \\(b) Control panel of 4-D PAT data acquisition software.\r\n\n\n \r\n\n\nA flowchart of the control software for data acquisition is illustrated in Fig. 3. First, data length, gain range, averaging number, channel filter and laser wavelength are selected. Once the data acquisition board is initialized, the address is identified for data acquisition. Next, the laser pulse triggers the simultaneous acquisition of time-resolved photoacoustic signals using the 64 different channels. The collected data are then stored into PC memory, reconstructed and finally displayed as 3D images. After the sequence is completed, the system can select another wavelength to scan and the sequence commences again. For multispectral data sets, the animal typically remains stationary during the scanning of all the selected wavelengths. \r\n\n\n\r\n\n\n**System calibration and image reconstruction.**\r\n\n\n \r\n\n\n<img src=\"http://www.nature.com/protocolexchange/system/uploads/2530/original/Fig4_copy.jpg?1363306170\" width=\"100%\"> </a> \r\n\n\n**Figure 4** | System calibration and image reconstruction \\(a) Comparison between the photoacoustic signal before \\(blue line) and after \\(red line) time-delay calibration. \\(b) Cross sectional photoacoustic image before calibration. \\(c) Cross sectional photoacoustic image after calibration. \r\n\n\n\r\n\n\nBefore _in vivo_ experiments, the transducers were calibrated through an experiment with a point absorber embedded solid phantom. The solid phantom was a mixture of Intralipid \\(scatter), India ink \\(absorber), and 2% Agar powder \\(solidifier). The absorption and reduced scattering coefficients of the phantom were 0.007mm <sup>-1</sup> and 1.0mm<sup>-1</sup>. Figs. 4\\(a) shows the photoacoustic signals from different positions of transducer where we note a time shift between these signals \\(blue line), caused by the different distance of these transducers from the point absorber. Hence, calibration of this time shift is needed before further 3-D imaging reconstruction. We measured and compensated the delay of time for all the 192 channels in the radial direction \\(red line).  The photoacoustic signals were then calibrated by time delay and deconvolution during the imaging reconstruction. The calibrated PA image in Fig 4\\(b) shows a better correlation with the target size and the shape than that before calibration \\(Fig 4\\(a)). Using the spatial phase-controlled algorithm<sup>31</sup>, the 3D \\(volume) tomograms were reconstructed. We then used the time series 3D tomograms to make motion pictures that reflect the temporal evolution of dynamic processes.\r\n\n\n\r\n\n\n**Animal handling.**\r\n\n\n \r\n\n\nFor _in vivo_ experiments \\(Fig1 b), the rat head was elevated with linear stage \\(NRT150, Thorlabs) to the center of the spherical interface through a chamber fixed at the tank bottom, whose top was about 15 mm beneath the interface center, and a transparent plastic wrap was used to cover the chamber top. Ultrasound gel was used to couple the sound from the animal to the plastic wrap. The ultrasonic transducer array with the spherical interface was placed in the water bath, and was thus acoustically coupled to the mouse tissues. Before mouse imaging, hair surrounding the region of interest was removed under anesthesia using a hair-removal lotion, in order to allow for light penetration into the region of interest. All procedures were approved by the University of Florida Animal Care and Use Committee and conducted in accordance with the National Institutes of Health Guide for the Care and Use of Experimental Animals."
+        },
+        {
+            "header": "Reagents",
+            "content": "\u2022 Male Sprague-Dawley rats \\(Harlan Labs, Indianapolis, IN) weighing 50-60 g. \r\n\n\n**\\! CAUTION** All experimental animal and human procedures should be carried out in conformity with the applicable national guidelines and regulations. \r\n\n\n\u2022 Deionized water\r\n\n\n\u2022 Hair removal cream \\(Amazon.com)\r\n\n\n\u2022 Ultrasound gel \\(Edan Instruments)\r\n\n\n\u2022 Intralipid \\(Sigma-Aldrich, Inc.)\r\n\n\n\u2022 Agar, liquid \\(Sigma-Aldrich, Inc.)\r\n\n\n\u2022 Urethane \\(Sigma-Aldrich, Inc.)\r\n\n\n\u2022 Indocyanine green, ICG \\(Sigma-Aldrich, Inc.)\r\n\n\n\u2022 NaCl solution \\(0.9%; Berlin-Chemie)"
+        },
+        {
+            "header": "Equipment",
+            "content": "\u2022 Tunable \\(680\u2013900 nm) Ti: Sapphire laser \\(LOTIS TII Ltd, Minsk, Belarus)\r\n\n\n\u2022 Laser safety glasses \\(KENTEK)\r\n\n\n\u2022 Optical fiber \\(source fiber) with large \\(at least 600 mm) core diameter that delivers light from the tunable laser to the imaging head \r\n\n\n\u2022 Ultrasound transducer \\(Blatek, Inc., PA, U.S.A.) **\u0394 CRITICAL** Users should choose an ultrasonic detector with an appropriate central frequency to achieve the imaging resolution they desire. The detector size should be small enough to achieve high detector density on the 3-D transducer array, while being aware that a smaller size transducer will have low detection sensitivity. Our detectors had a 3-mm diameter circular active area and 5.5-mm outer diameter.\r\n\n\n\u2022 Custom-fabricated spherical interface containing 610 through holes with counter bores, formed 11 evenly spaced layers along the vertical direction of the ball **\u0394 CRITICAL** The material used for making this interface should allow for easily drilling a smooth hole to keep the ultrasound transducers in correct positions. \r\n\n\n\u2022 Custom-made amplifiers \r\n\n\n**\\! CAUTION** Every input and output channels should be tested before sealing the amplifier box. A bad connection of each channel will cause no signal in the experiment. \r\n\n\n\u2022 Multi-Channel Analog to Digital Converter Board with Simultaneous Acquisition \\(ADCs, PCIAD850, US Ultratek)\r\n\n\n\u2022 Computer \\(Intel CORE QUAD, 2.66 GHz CPU,8 GB RAM, Intel) \r\n\n\n\u2022 Custom-made animal holder \\(Fig1. b)\r\n\n\n\u2022 Custom-made water container \\(Fig1. a)\r\n\n\n**\u0394 CRITICAL** The material used for making the animal holder and water container should be transparent for easy observation of the animal behavior.\r\n\n\n\u2022 Transparent plastic membrane \\(U.S. Plastic Corp.) \r\n\n\n\u2022 Translation stage \\(NRT150, Thorlabs)\r\n\n\n\u2022 Self-made venous catheter\r\n\n\n\u2022 Laser power meter \\(FieldMaxII-TOP, Coherent)\r\n\n\n\u2022 Instrument control software \\(LabView, National Instruments) to control the data acquisition\r\n\n\n\u2022 Reconstruction software \\(MATLAB, MathWorks) for imaging reconstruction\r\n\n\n\u2022 Amira \\(version 5.3.3, TGS Template Graphics Software) for 3D reconstruction of the photoacoustic image slices."
+        },
+        {
+            "header": "Procedure",
+            "content": "**\\! CAUTION** For illustration, imaging/monitoring of drug delivery in a rat \\(body weight: 50-60 g) brain is elaborated. For other imaging applications, the procedure needs to be revised accordingly.\r\n\n\n\r\n\n\n**System preparation \u25cf TIMING ~20 min \\(on cold start)**\r\n\n\n1| Switch on the laser; let it warm up for ~15 min to stabilize its output if it is not used beforehand.  \r\n\n\n**\\! CAUTION**  You cannot operate data acquisition until 15 minutes after turning this unit. The warm up time may be  different for different laser systems.\r\n\n\n\r\n\n\n2| Seal the window at the bottom of the water container with new polyethylene membrane. Fill the water container with deionized water, which acts as an ultrasonic coupling medium between the ultrasonic detector and the sample. During the experiments, the ultrasonic detector array is immersed in water. \r\n\n\n\r\n\n\n3| Connect the transducer array, amplifier box, A/D cards, computer and the power supplies. \r\n\n\n\r\n\n\n**Animal handling \u25cf TIMING ~15 min**\r\n\n\n4| Inject 1 mg kg\n\u22121\nof Urethane intra-peritoneally into the rat and wait \\(approximately 5\u201315 min) until the animal is fully anesthetized. \r\n\n\n**\\! CAUTION** Animal experiments should be conducted according to relevant national and institutional animal-handling guidelines and should be performed by appropri\u00acately licensed personnel. **\u0394 CRITICAL STEP** The effective time may depend on the dose of Urethane. The effective time in our experiments is more than 2 hours. \r\n\n\n**\\! CAUTION** Overdose of anesthetic can cause animal death. Anesthesia should be administered only by licensed and trained personnel.\r\n\n\n\r\n\n\n5| Remove hair with the hair removal cream on the brain as well as the surrounding area. \r\n\n\n**\\! CAUTION** Care should be taken to minimize inflammation and wounds due to hair removal, as they may create surface artifacts in the reconstructed images.\r\n\n\n\r\n\n\n6| Protect the eyes of the mouse with ointment; this will prevent dryness and damage from intense pulsed laser radiation.\r\n\n\n\r\n\n\n7| Plant a venous catheter into the tail vein of the mouse and retain it with fixation tape. Fill it with 0.9% \\(vol/vol) NaCl solution to prevent blood clotting.\r\n\n\n\r\n\n\n8| Place the mouse into the animal holder, placeits snout into the breathing mask and fix its position with fixation tape.\r\n\n\n\r\n\n\n9| Apply a layer of ultrasound gel onto the depilated area. Then apply another layer of ultrasound gel at the bottom of the membrane to seal the window of the water container. \r\n\n\n**\\! CAUTION** Avoid trapping air bubbles inside the ultrasound gel. If you do get bubbles in, you can use a swab to squeeze out those bubbles from the imaging area. \r\n\n\n\r\n\n\n10| Insert the animal holder into the imaging chamber with linear stage. \r\n\n\n**\\! CAUTION** Ensure that the mouse can breathe freely.\r\n\n\n\r\n\n\n11| Adjust the height of the animal holder to keep the animal head in the center of the ultrasound transducer array.\r\n\n\n**\u0394 CRITICAL STEP** The animal should be centered on the point of the curved transducer array. The transverse resolution will degrade away from the transducer array center: the closer to the imaging center, the better resolution will be.\r\n\n\n\r\n\n\n**Data acquisition \u25cf TIMING Variable**\r\n\n\n12| Start the data acquisition program and select the correct acquisition parameters: \r\n\n\nRecord data length: for example, 1000 points with 50 MHz sample rate for the record length are sufficient to fit a FOV of 30 mm. \r\n\n\nGain range: Input the correct gain \\(range from 0 to 80 dB). Make sure that the dynamic range of the data acquisition card is fully used by adjusting the input-signal ranges of all channels.\r\n\n\nAveraging number:  choose the number for signal averaging. A higher number of averaging leads to better SNR and overall image quality but longer acquisition time. \r\n\n\nChannel filter: Adjust the channel filtering according to the center frequency and the bandwidth of the ultrasonic detector. \r\n\n\nLaser wavelength: Choose an appropriate wavelength set for the imaging contrast agent.\r\n\n\n\r\n\n\n13| Start the laser firing.\r\n\n\n**\\! CAUTION** The laser pulse energy should be chosen to fulfill the laser safety standards. Wear the laser safety glasses to protect your eyes when laser is on. \r\n\n\n**? TROUBLESHOOTING**\r\n\n\n\r\n\n\n14| Execute the imaging loop shown in Figure 3a.\r\n\n\n**? TROUBLESHOOTING**\r\n\n\n\r\n\n\n15| Stop the laser when acquisition is completed.\r\n\n\n\r\n\n\n16| Inject contrast medium via catheter into the tail vein of the animal. Some agents, for example, targeted molecular probes require injection several hours to several days before imaging in order to allow appropriate accumulation in the animal body. \r\n\n\n\r\n\n\n17| Repeat steps 13-15 when contrast agent is ready to be monitored.  \r\n\n\n\r\n\n\n18| Lower down the animal holder, stop the breathing anesthesia system, release the animal and clean the ultrasound gel off the animal body.\r\n\n\n\r\n\n\n19| If future experiments on the same animal are necessary, house the animal according to the approved animal protocols. Otherwise, euthanize and dispose of the animal by following proper procedures.\r\n\n\n\r\n\n\n**Off-line image reconstruction \u25cf TIMING Variable**\r\n\n\n20| Imaging reconstruction with MATLAB based code. Choose appropriate filters for pre-processing of the raw data, and remove low-frequency bias and high-frequency noise. Reconstruct the photoacoustic images at the chosen wavelength.  On a 200 \u00d7 200 grid, the 3-D spatial phase-controlled algorithm was used for image reconstruction. Normalize each reconstruction with the corresponding laser energy.\r\n\n\n**\\! CAUTION** The reconstruction timing is algorithm dependent.\r\n\n\n\r\n\n\n21| Amira was used for 3D reconstruction of the photoacoustic image slices. 4-D movies were made by MATLAB based code."
+        },
+        {
+            "header": "Timing",
+            "content": "**Steps 1\u201311**, System and animal preparation: ~15\u201320 min. You can finish the animal preparation while the laser is warming up. \r\n\n\n\r\n\n\n**Steps 12\u201315**, Image acquisition: variable duration. The data acquisition duration depends on the number of wavelengths, the number of averaging needed per data set and cross-sectional slices to be imaged. Currently, a whole 3D volumetric imaging without aver\u00acaging can be carried out in approximately 300 ms.\r\n\n\n\r\n\n\n**Steps 16**, Injection of contrast medium via catheter into the tail vein of the animal needs approximately 1 min.\r\n\n\n\r\n\n\n**Steps 20 and 21**, Image reconstruction: variable duration \r\n\n\nImage reconstruction can be carried out in real time and takes only ~50 ms per 2D slice when using the spatial phase-controlled algorithm. Thus, image previews can be presented in real time."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "**Step 13: Inhomogenous illumination**\r\n\n\nIf the reconstruction preview shows a heterogeneous distribution of signals, e.g. manifested as skin reconstruction of varying intensity, check if there are no air gaps between the mouse and the membrane. It may also be possible that the illumination needs adjustment; do this by rotating the fiber bundle to achieve more balanced illumination or by repositioning the animal as described in Steps 10-11. If this does not work, the beam line of the laser may have to be readjusted \\(consult a specialist).\r\n\n\n\r\n\n\n**Step 14: No PA signal** \r\n\n\nFirst, make sure that the signal amplifier is powered and all cables are functioning properly and are connected correctly. Second, make sure that air bubbles trapped by the ultrasonic detector are completely removed. Third, make sure that enough laser light is delivered to the sample."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "This protocol provides guidelines for how to carry out noninvasive 4D _in vivo_ photoacoustic imaging. When executed correctly, the protocol allows structural, functional and molecular information to be obtained from deep tissues of rats and other small animals. The methodology has been demonstrated in 3D image guidance of needle placement for drug delivery, monitoring dynamic events during epileptic seizures and monitoring dynamic tissue temperature changes during tumor thermal therapy. \r\n\n\n<img src=\"http://www.nature.com/protocolexchange/system/uploads/2531/original/Fig5_copy.jpg?1363306217\" width=\"100%\"> </a> \r\n\n\n**Figure 5** | 3-D photoacoustic images of rat brain taken at 750 nm. \\(a)  Stack of cross-sectional photoacoustic images throughout the whole rat head. Representative 3D volume snapshots of the rat brain at different view angle in  \\(b), \\(c)  and  \\(d). \r\n\n\n\r\n\n\n<iframe width=\"560\" height=\"315\" src=\"http://www.youtube.com/embed/BPnkJ1Kmuxk?rel=0\" frameborder=\"0\" allowfullscreen></iframe>\r\n\n\nSupplementary \"Video 1\":http://www.nature.com/protocolexchange/system/uploads/2533/original/F1.mpg?1363372591.\r\n\n\n\r\n\n\n\r\n\n\nFigure 5 shows a stack of representative cross-sectional photoacoustic reconstructions obtained _in vivo_ from an adult rat imaged at 750 nm. The reconstructions were carried out using the 3D spatial phase-controlled algorithm method. Figures 5b\u2013d show different 3D rendered structure at view angles. \"Video 1\":http://www.nature.com/protocolexchange/system/uploads/2533/original/F1.mpg?1363372591 shows a three dimensional rendering of the brain structure at a given time point. There is accurate congruence between features in the noninvasive photoacoustic images and the anatomical photographs of the rat. The brain structures, including the middle cerebral artery, right hemispheres, left hemispheres, left olfactory bulbs, and right olfactory bulbs, are clearly shown in the PAT images \\(Figs. 5b, c and d).  Finally, such a stack of cross-sectional 2D images can be fed into a volumetric visualization toolbox\\(Amira) for direct 3D representation. \r\n\n\n\r\n\n\n<img src=\"http://www.nature.com/protocolexchange/system/uploads/2532/original/Fig6_copy.jpg?1363306249\" width=\"100%\"> </a> \r\n\n\n**Figure 6** | 4-D PAT for monitoring ICG- pharmacokinetics in rat brain. Consecutive frames of a video showing ICG-based pharmacokinetics of drugs over a duration of 9 s. \r\n\n\n\r\n\n\n<iframe width=\"480\" height=\"360\" src=\"http://www.youtube.com/embed/NSPE8sTHwao?rel=0\" frameborder=\"0\" allowfullscreen></iframe>\r\n\n\nSupplementary \"Video 2\":http://www.nature.com/protocolexchange/system/uploads/2534/original/F2.avi?1363372743.\r\n\n\n\r\n\n\n\r\n\n\nICG pharmacokinetics was also monitored within a rat brain in real time at 810 nm \\( \"Video 2\":http://www.nature.com/protocolexchange/system/uploads/2534/original/F2.avi?1363372743). During the first 20 seconds the signal is constant while a sudden increase of the signal strength occurs right afterward due to the ICG injection, followed by a plateau in the photoacoustic signal strength. Also presented are five time frames of the 3D structures obtained from reconstructed representative 4D tomograms from t=16.650 s \\(left) and t= 26.640 s \\(right). Immediately after injection, indocyanine green\\(ICG) accumulation in the brain cortex is observed photoacoustically. The PA images of the ICG-dyed brain shows ICG accumulation enhanced the PA signal \\(green). After transient accumulation of ICG, the amount of drug reduces exponentially. A clear advantage of this _in vivo_ approach is the opportunity of direct visualization of disease processes at the molecular scale and the quantification of changes to the relevant marker molecules in a non-invasive testing environment. In principle, any drugs with optical absorption contrast could be studied by 4-D photoacoustic tomography."
+        },
+        {
+            "header": "References",
+            "content": "1.Wang, L.V. & Hu, S. Photoacoustic tomography: in vivo imaging from organelles to organs. Science 335, 1458-1462 \\(2012).\r\n\n\n2.Andreev, V.G., Karabutov, A.A. & Oraevsky, A.A. Detection of ultrawide-band ultrasound pulses in optoacoustic tomography. IEEE Trans Ultrason Ferroelectr Freq Control 50, 1383-1390 \\(2003).\r\n\n\n3.Bell, A.G. On the Production and Reproduction of Sound by Light. Am J Sci 20 \\(1880).\r\n\n\n4.Calasso, I.G., Craig, W. & Diebold, G.J. Photoacoustic point source. Physical Review Letters 86, 3550-3553 \\(2001).\r\n\n\n5.Diebold, G.J., Sun, T. & Khan, M.I. Photoacoustic Monopole Radiation in 1-Dimension, 2-Dimension, and 3-Dimension. Physical Review Letters 67, 3384-3387 \\(1991).\r\n\n\n6.Fang, H., Maslov, K. & Wang, L.V. Photoacoustic doppler effect from flowing small light-absorbing particles. Physical Review Letters 99 \\(2007).\r\n\n\n7.Wilson, K., Homan, K. & Emelianov, S. Biomedical photoacoustics beyond thermal expansion using triggered nanodroplet vaporization for contrast-enhanced imaging. Nat Commun 3, 618 \\(2011).\r\n\n\n8.Oraevsky, A.A. et al. Coregistered opto-acoustic and ultrasonic imaging for functional and anatomical maps of breast tumors. Journal of Nuclear Medicine 52, 671-671 \\(2011).\r\n\n\n9.Kircher, M.F. et al. A brain tumor molecular imaging strategy using a new triple-modality MRI-photoacoustic-Raman nanoparticle. Nature Medicine 18, 829-U235 \\(2012).\r\n\n\n10.Galanzha, E.I. et al. In vivo magnetic enrichment and multiplex photoacoustic detection of circulating tumour cells. Nature Nanotechnology 4, 855-860 \\(2009).\r\n\n\n11.Beard, P. Biomedical photoacoustic imaging. Interface Focus 1, 602-631 \\(2011).\r\n\n\n12.Taruttis, A., Morscher, S., Burton, N.C., Razansky, D. & Ntziachristos, V. Fast Multispectral Optoacoustic Tomography \\(MSOT) for Dynamic Imaging of Pharmacokinetics and Biodistribution in Multiple Organs. Plos One 7 \\(2012).\r\n\n\n13.Zhou, F.F., Wu, S.N., Yuan, Y., Chen, W.R. & Xing, D. Mitochondria-Targeting Photoacoustic Therapy Using Single-Walled Carbon Nanotubes. Small 8, 1543-1550 \\(2012).\r\n\n\n14.Zhang, H.F., Maslov, K. & Wang, L.H.V. In vivo imaging of subcutaneous structures using functional photoacoustic microscopy. Nature Protocols 2, 797-804 \\(2007).\r\n\n\n15.Yuan, Z. & Jiang, H.B. A calibration-free, one-step method for quantitative photoacoustic tomography. Medical Physics 39, 6895-6899 \\(2012).\r\n\n\n16.Yuan, Y., Yang, S.H. & Xing, D. Optical-resolution photoacoustic microscopy based on two-dimensional scanning galvanometer. Applied Physics Letters 100 \\(2012).\r\n\n\n17.Xiang, L.Z. et al. Real-time optoacoustic monitoring of vascular damage during photodynamic therapy treatment of tumor. Journal of Biomedical Optics 12 \\(2007).\r\n\n\n18.Xi, L. et al. Evaluation of breast tumor margins in vivo with intraoperative photoacoustic imaging. Optics Express 20, 8726-8731 \\(2012).\r\n\n\n19.Razansky, D., Buehler, A. & Ntziachristos, V. Volumetric real-time multispectral optoacoustic tomography of biomarkers. Nature Protocols 6, 1121-1129 \\(2011).\r\n\n\n20.Liangzhong Xiang, B.H., Colin Carpenter, Guillem Pratx, Yu Kuang, and Lei Xing X-ray acoustic computed tomography with pulsed X-ray beam from a medical linear accelerator. Med Phys 40, 010701 \\(2013).\r\n\n\n21.Kim, J.W., Galanzha, E.I., Shashkov, E.V., Moon, H.M. & Zharov, V.P. Golden carbon nanotubes as multimodal photoacoustic and photothermal high-contrast molecular agents. Nature Nanotechnology 4, 688-694 \\(2009).\r\n\n\n22.Wang, X. et al. Noninvasive laser-induced photoacoustic tomography for structural and functional in vivo imaging of the brain. Nat Biotechnol 21, 803-806 \\(2003).\r\n\n\n23.Xiang, L. et al. Real-time optoacoustic monitoring of vascular damage during photodynamic therapy treatment of tumor. J Biomed Opt 12, 014001 \\(2007).\r\n\n\n24.Buehler, A., Herzog, E., Razansky, D. & Ntziachristos, V. Video rate optoacoustic tomography of mouse kidney perfusion. Opt Lett 35, 2475-2477 \\(2010).\r\n\n\n25.Li, C. et al. Real-time photoacoustic tomography of cortical hemodynamics in small animals. J Biomed Opt 15, 010509 \\(2010).\r\n\n\n26.Xiang, L. et al. Noninvasive real time tomographic imaging of epileptic foci and networks. Neuroimage 66C, 240-248 \\(2013).\r\n\n\n27.Niederhauser, J.J., Jaeger, M., Lemor, R., Weber, P. & Frenz, M. Combined ultrasound and optoacoustic system for real-time high-contrast vascular imaging in vivo. Ieee Transactions on Medical Imaging 24, 436-440 \\(2005).\r\n\n\n28.Montilla, L.G., Olafsson, R., Bauer, D.R. & Witte, R.S. Real-time photoacoustic and ultrasound imaging: a simple solution for clinical ultrasound systems with linear arrays. Physics in Medicine and Biology 58, N1-N12 \\(2013).\r\n\n\n29.Brecht, H.P. et al. Whole-body three-dimensional optoacoustic tomography system for small animals. J Biomed Opt 14, 064007 \\(2009).\r\n\n\n30.Ephrat, P., Roumeliotis, M., Prato, F.S. & Carson, J.J. Four-dimensional photoacoustic imaging of moving targets. Opt Express 16, 21570-21581 \\(2008).\r\n\n\n31.Xiang, L.Z., Wang, B., Ji, L.J. & Jiang, H.B. 4-D Photoacoustic Tomography. Scientific Reports 3 \\(2013).\r\n\n\n32.Brecht, H.P. et al. Whole-body three-dimensional optoacoustic tomography system for small animals. Journal of Biomedical Optics 14 \\(2009).\r\n\n\n33.Lou, C.G., Yang, S.H., Ji, Z., Chen, Q. & Xing, D. Ultrashort Microwave-Induced Thermoacoustic Imaging: A Breakthrough in Excitation Efficiency and Spatial Resolution. Physical Review Letters 109 \\(2012).\r\n\n\n34.America, L.I.o. American National Standard for Safe Use of Lasers.  ANSI Z136., 1-2000 \\(2000).\r\n\n\n35.Wang B., X.L., Jiang Max S., Yang J., Zhang Q., Carney p.,Jiang H.. Photoacoustic tomography system for noninvasive real-time three-dimensional imaging of epilepsy. Biomed. Opt. EXPRESS 3, 142 \\(2012)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "We thank Bo Wang, Jianjun Yang, Lijuan Ji, Tao Zhang, Jianbo Tang and Junli Zhou for experimental assistance. This research was supported in part by the J. Crayton Pruitt Family endowment fund and SRFDP \\(20124407120012). The authors also thank Moiz Ahmad for helpful discussion."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/srep01113",
+                "date": "2013-03-14 20:41:20",
+                "title": "4-D Photoacoustic Tomography",
+                "authors": [
+                    "Liangzhong Xiang",
+                    "Bo Wang",
+                    "Lijun Ji",
+                    "and Huabei Jiang"
+                ],
+                "journal": "Scientific Reports",
+                "logo": ""
+            },
+            {
+                "doi": "10.1364/BOE.3.001427",
+                "date": "2013-03-14 20:43:55",
+                "title": "Photoacoustic tomography system for noninvasive real-time three-dimensional imaging of epilepsy",
+                "authors": [
+                    "Bo Wang",
+                    "Liangzhong Xiang",
+                    "Max S. Jiang",
+                    "Jianjun Yang",
+                    "Qizhi Zhang",
+                    "Paul R. Carney",
+                    "and Huabei Jiang"
+                ],
+                "journal": "Biomedical Optics Express",
+                "logo": ""
+            },
+            {
+                "doi": "10.1016/j.neuroimage.2012.10.077",
+                "date": "2013-03-14 20:47:09",
+                "title": "Noninvasive real time tomographic imaging of epileptic foci and networks",
+                "authors": [
+                    "Liangzhong Xiang",
+                    "Lijun Ji",
+                    "Tao Zhang",
+                    "Bo Wang",
+                    "Jianjun Yang",
+                    "Qizhi Zhang",
+                    "Max S. Jiang",
+                    "Junli Zhou",
+                    "Paul R. Carney",
+                    "and Huabei Jiang"
+                ],
+                "journal": "NeuroImage",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 12452,
+                "identity": "9ff806b0-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Huabei  Jiang",
+                "email": "hjiang@bme.ufl.edu",
+                "orcid": "",
+                "institution": "J. Crayton Pruitt Family Department of Biomedical Engineering, University of Florida,32611,USA ",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Huabei",
+                "middleName": "",
+                "lastName": "Jiang",
+                "suffix": ""
+            },
+            {
+                "id": 12451,
+                "identity": "9ff8026d-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Liangzhong Xiang",
+                "email": "",
+                "orcid": "",
+                "institution": "J. Crayton Pruitt Family Department of Biomedical Engineering, University of Florida,32611,USA ;  MOE Key Laboratory of Laser Life Science and Institute of Laser Life Science, College of Biophotonics, South China Normal University, Guangzhou, 510631 China",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Liangzhong",
+                "middleName": "",
+                "lastName": "Xiang",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2013-03-15 19:55:35",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2013.031",
+        "doiUrl": "https://doi.org/10.1038/protex.2013.031",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2608693,
+                "identity": "e33faffb-4166-4976-8d2b-76395908d6ad",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:24",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 197818,
+                "visible": true,
+                "origin": "",
+                "legend": "4D-PAT system and its key components   (a) A color photograph of the 4D-PAT system with its key components labeled. (b) Photograph of the animal holder for in vivo imaging. (c) Schematic drawing of the spherical interface and 3D ultrasound transducer array.",
+                "description": "",
+                "filename": "figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-2646/v1/figure_1.jpg"
+            },
+            {
+                "id": 2608692,
+                "identity": "91dd21a5-3e63-4088-a0af-597fce5354c9",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:24",
+                "extension": "jpg",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 281727,
+                "visible": true,
+                "origin": "",
+                "legend": "Signal processing and data acquisition    (a) A color photograph of the photoacoustic signal processing and data acquisition system with its key components labeled. (b) Flow diagram of the data acquisition system. ",
+                "description": "",
+                "filename": "figure2.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-2646/v1/figure_2.jpg"
+            },
+            {
+                "id": 2608695,
+                "identity": "7da1028a-1104-4ce5-9eb7-6429f6b9ab13",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:24",
+                "extension": "jpg",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 290043,
+                "visible": true,
+                "origin": "",
+                "legend": "Data acquisition software    (a) Flowchart of the photoacoustic data acquisition loop. (b) Control panel of 4-D PAT data acquisition software.",
+                "description": "",
+                "filename": "figure3.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-2646/v1/figure_3.jpg"
+            },
+            {
+                "id": 2608694,
+                "identity": "581a8025-e111-4838-bcbb-4e40775df733",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:24",
+                "extension": "jpg",
+                "order_by": 4,
+                "title": "Figure 4",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 186909,
+                "visible": true,
+                "origin": "",
+                "legend": "System calibration and image reconstruction    (a) Comparison between the photoacoustic signal before (blue line) and after (red line) time-delay calibration. (b) Cross sectional photoacoustic image before calibration. (b) Cross sectional photoacoustic image after calibration.",
+                "description": "",
+                "filename": "figure4.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-2646/v1/figure_4.jpg"
+            },
+            {
+                "id": 2608696,
+                "identity": "2147685d-7e53-43da-bd51-c5071cf324a8",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:24",
+                "extension": "jpg",
+                "order_by": 5,
+                "title": "Figure 5",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 130776,
+                "visible": true,
+                "origin": "",
+                "legend": "3-D photoacoustic images of rat brain taken at 750 nm   (a) Stack of cross-sectional photoacoustic images throughout the whole rat head. Representative 3D volume snapshots of the rat brain at different view angle in (b), (c) and (d). See also Supplementary Video 1.",
+                "description": "",
+                "filename": "figure5.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-2646/v1/figure_5.jpg"
+            },
+            {
+                "id": 2608698,
+                "identity": "e5ab8b06-b256-4b0a-b116-4fc0b1d99e68",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:24",
+                "extension": "jpg",
+                "order_by": 6,
+                "title": "Figure 6",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 149173,
+                "visible": true,
+                "origin": "",
+                "legend": "4-D PAT for monitoring ICG- pharmacokinetics in rat brain   Consecutive frames of a video showing ICG-based pharmacokinetics of drugs over a duration of 9 s. See also Supplementary Video 2.",
+                "description": "",
+                "filename": "figure6.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-2646/v1/figure_6.jpg"
+            },
+            {
+                "id": 13464653,
+                "identity": "a633cdb5-9219-424c-933c-69774b72b77a",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:44:11",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 672529,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-2646/v1/afe5a8cf-2d35-403b-9380-300ca24962d9.pdf"
+            },
+            {
+                "id": 2608729,
+                "identity": "26e5dbd1-a928-4fab-a477-e25806cc0e63",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:26",
+                "extension": "avi",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 51978240,
+                "visible": true,
+                "origin": "",
+                "legend": "Video 2   4-D PAT movie   <iframe width=\"480\" height=\"360\" src=\"http://www.youtube.com/embed/NSPE8sTHwao?rel=0\" frameborder=\"0\" allowfullscreen></iframe>\r\n4-D PAT for monitoring ICG- pharmacokinetics in rat brain",
+                "description": "",
+                "filename": "supplement0.avi",
+                "url": "https://assets.researchsquare.com/files/nprot-2646/v1/supplement_0.avi"
+            },
+            {
+                "id": 2608700,
+                "identity": "67c5c66e-6b62-4e3f-b4e9-40f8271025b8",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:24",
+                "extension": "mpg",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 5234990,
+                "visible": true,
+                "origin": "",
+                "legend": "Video 1   3-D volume rendering   <iframe width=\"560\" height=\"315\" src=\"http://www.youtube.com/embed/BPnkJ1Kmuxk?rel=0\" frameborder=\"0\" allowfullscreen></iframe>\r\nThree dimensional photoacoustic rendering of rat brain structure ",
+                "description": "",
+                "filename": "supplement0.mpg",
+                "url": "https://assets.researchsquare.com/files/nprot-2646/v1/supplement_0.mpg"
+            }
+        ],
+        "financialInterests": "There is no competing financial interest.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "4-D Photoacoustic tomography, photoacoustic imaging,drug delivery, real-time imaging,epileptic seizures, thermal therapy monitoring",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "Four dimensional \\(4D) photoacoustic tomography \\(PAT) has recently been developed to offer dynamic three-dimensional \\(3D) structural and functional imaging of living biological tissue with label-free, optical absorption contrast. 4D PAT integrates time resolution with three dimensional \\(3D) spatial resolution by using spherical arrays of ultrasonic detectors. The technique generates motion pictures of imaged tissue, enabling real time tracking of dynamic physiological and pathological processes at hundred micrometer-millisecond resolutions. Here we provide a detailed description of the 4D PAT imaging system setup, signal processing and data acquisition, system calibration, image reconstruction and animal handling. It currently takes ~300 ms for data acquisition by using a 10-Hz pulse -repetition rate laser system. The data acquisition time, however, can be significantly reduced by using a laser system with a higher pulse repetition rate.",
+        "manuscriptTitle": "4-D photoacoustic tomography: the exploration of space and time in living tissue",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2013-03-18 15:04:15",
+                "doi": "10.1038/protex.2013.031",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9ff6b298-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "March 18th, 2013",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 2917,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 2918,
+                "name": "Optics and photonics"
+            },
+            {
+                "id": 2919,
+                "name": "Physics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2013-03-18 15:04:15",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

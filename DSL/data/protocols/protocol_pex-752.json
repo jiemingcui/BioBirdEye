@@ -1,0 +1,313 @@
+{
+    "identity": "pex-752",
+    "title": "<p>User Manual for Tomography-Guided 3D Reconstruction of Subcellular Structures (TYGRESS)</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>SP-cryo-EM and cryo-ET both generate three-dimensional (3D) reconstructions of native biological macromolecules under cryogenic conditions. However, whereas SP-cryo-EM can be used to determine the structure of isolated macromolecules with up to atomic resolution (~3\u00c5), the resolution achieved by cryo-ET of intact cells or organelles paired with subtomogram averaging lags approximately one order of magnitude behind (~30\u00c5). Here, we introduce a hybrid-method called \u201c<u>T</u>omograph<u>Y</u>-<u>G</u>uided 3D&nbsp;<u>RE</u>construction of&nbsp;<u>S</u>ubcellular&nbsp;<u>S</u>tructures\u201d (TYGRESS), which combines the advantages of both SP-cryo-EM (images with good signal-to-noise ratio/contrast and minimal radiation damage of the sample) and cryo-ET averaging (extraction and 3D alignment of macromolecules contained in a complex cellular sample). Ultimately TYGRESS is a SP-reconstruction, but the parameters from subtomogram averaging are critical to guide particle picking and image alignment \u2013 steps that usually prohibit SP-cryo-EM of complex cellular samples. </p><p><br></p><p>In this method, a typical high dose (HD) single particle cryo-EM micrograph is acquired (i.e., with an electron dose that is higher than for individual tile series images) immediately prior to a conventional low dose (LD) cryo-ET tilt series. The LD cryo-ET data set are processed, including subtomogram averaging of the particle of interest. The parameters, i.e., the particle position and alignment, are then used to guide the particle picking in the HD single-particle cryo-EM data set and initialize its angular alignment. With this information from cryo-ET, single particle image processing techniques can be applied to subcellular samples, despite the superposition of many structures in the SP projection image.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": ""
+        },
+        {
+            "header": "Equipment",
+            "content": "<p><strong>Hardware requirements and software installation</strong></p><p>A computer cluster and/or workstation with GPU with shared storage is recommended for running TYGRESS. Before installation of TYGRESS, please ensure the software packages below are installed by following the installation guide of each package. You can also find the hardware and operating system requirements in the distribution pages of the following software packages. </p><p><br></p><p><strong>MATLAB</strong>: The major running environment for TYGRESS.&nbsp;Use the R2014b version of MATLAB for the best results. </p><p><strong>IMOD</strong> &amp; <strong>PEET</strong>: Tilt series alignment, tomogram generation, and subtomogram averaging. (http://bio3d.colorado.edu/imod/ &amp; http://bio3d.colorado.edu/PEET/) </p><p><strong>CTFFIND3</strong>: Detect defocus value (http://grigoriefflab.janelia.org/ctf)</p><p><strong>EMAN2</strong>: \u2018Normalization\u2019 function (<a href=\"https://blake.bcm.edu/emanwiki/EMAN2\" target=\"_blank\">https://blake.bcm.edu/emanwiki/EMAN2</a>)</p><p><strong>FREALIGN</strong>: 3D reconstruction (<a href=\"http://grigoriefflab.janelia.org/frealign\" target=\"_blank\">http://grigoriefflab.janelia.org/frealign</a>)</p><p><strong>Bfactor</strong>: Apply B-factor for the final reconstruction (<a href=\"http://grigoriefflab.janelia.org/grigorieff/download_b.html\" target=\"_blank\">http://grigoriefflab.janelia.org/grigorieff/download_b.html</a>)</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "1: Preparation to run TYGRESS\n1.1 To use TYGRESS on the example data set, download and unzip the TYGRESS source code and example data set package (www.tygress.org), and then follow Procedure step 2 (\u201cPreparation of TYGRESS input files\u201d below).\nNote\uff1a\nTYGRESS is also available on Code Ocean as a compute capsule (https://doi.org/10.24433/CO.2034333.v1). Please read the readme file on the Code Ocean TYGRESS page for more details.\n1.2 To use your own data set, please finish the data collection, tomogram reconstruction, and subtomogram averaging before following Procedure 2, below.\n1.2.1\nData collection\n. During data collection, two data sets need to be acquired for each region of interest. (1) First, acquire a 2D image at 0 degree using an electron dose typical for conventional SP-cryo-EM (HD image), which is used for final TYGRESS reconstruction; (2), immediately after collecting the HD image, collect a traditional low-dose tilt series (LD images) of the same region, which is used for retrieving the position information for each particle of interest after tomogram reconstruction and subtomogram averaging. Note: to minimize the effects of radiation damage in the final reconstruction, the HD image must be recorded prior to the LD images.\n1.2.2\nMotion correction\n. If movie stacks were taken during the data collection, run the whole-frame motion correction using IMOD scripts.\n1.2.3\nAlignment of the combined tilt series\n. Each HD image needs to be inserted into its corresponding tilt series at the angle where the HD image was taken using the \u201cnewstack\u201d command in the IMOD package, resulting in a \u201ccombined tilt series\u201d. For example, an HD image recorded at 0 degrees should be inserted just before the LD image at 0 degrees. After tilt series alignment using the IMOD package, the combined HD and LD images ensure a common reference frame for the later steps in the TYGRESS procedure.\n1.2.4\nTomogram reconstruction\n. After alignment, only the LD images are used to generate the tomogram using the IMOD package.\n1.2.5\nSubtomogram averaging\n. The subtomogram averaging can be performed using the PEET package in IMOD. Run PEET averaging for each tilt series and all of the particles of interest, respectively.\n2: Preparation TYGRESS input files.\n2.1 Prepare two TYGRESS input text files.\n2.1.1 There is one file named as \u201cTYGRESS_input.txt\u201d in the TYRESS source code folder (as shown below in the example data set), which contains all the parameters to run TYGRESS, such as the work directory, file path, 3D reconstruction parameters,\netc\n. Update these parameters as needed to reflect the location and organization of your files. If you are following along with the example dataset, modify the following:\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0fnDataDir= (copy the full path name for the example data folder that you downloaded from this tutorial)\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0fncode= (copy the full path name for the TYGRESS source code folder that you downloaded from this tutorial)\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0fnref= (copy the full path name for the .mrc file within the example folder)\nExample of a \u201cTYGRESS_input.txt\u201d file\n=========================================================================\nPart I Parameters for running TYGRESS\nfnDataDir = /project/cellbiology/Nicastro_lab/nusr/shang/linux/Tygress/example/\u00a0\u00a0\u00a0\u00a0% project data directory\nfncode = /home2/s165838/Tygress/Tcoden/Tcode/\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% TYGRESS code directory\nfnWorkDir = combined_PEET/\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% combined peet directory\nfnDef = ctffind/DefocusList.txt\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% defocus file\nfnref = /home2/s165838/Tygress/ref.mrc\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% reference masked after PEET average\nfnCombinedHD = HD_particles/\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% high dose 2D particle directory\nfnmod = combined_mod_csv/\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% combined mod & csv directory\nfncsv = Iter1_particles/\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% updated peet run for whole dataset\ncsvDirname = Itr1/\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% csv directory\ncsvname_h = _Itr1_MOTL_Tom\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% csv root name after PEET of individual tilt series\ncsvname_t = _Iter5.csv\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% csv tail name after PEET of individual tilt series\nmodname_h = A1.mod.FOIE.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% mod root name after PEET of individual tilt series\nmodname_t = .txt.mod.txt.Ax_Pred_.txt.mod\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% mod tail name after PEET of individual tilt series\nfnPEETRoot = example\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% root name for PEET running\nparticleSize = 180\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% particle size for PEET running\nfnDist = N\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% file for correct distortion (gif camera), 'N' for no correction\ntail_st = _fused.st\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% entire tilt date set\ntail_hd = _HD.st\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% file name use for save HD micrograph\namplitude_contrast = 0.14\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% thin ice sample use 0.07 and thick ice use 0.14\naxoRepeat =180\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% pixel size for particle (used for remove edged particles) in high dose micrograph\nMag1 = 22500\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% micrograph magnification\nPickSize = 300\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% size for pick 2D high dose particle\nsizex = 200\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% size for final out put structure\nroot_csv = _MOTL_Tom\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% csv root name after run entire PEET\ntail_csv = _Iter2.csv\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% csv tail name after run entire PEET\nSizeRef = 180\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% size of reference volume\nsx = 4\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% shift range of coordinates, nm\nsa = 2\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% shift range of orientation, degree\nparallel_f = 1\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% set 1 for run job in parallel job\nNcpu = 5\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% cup number for parallel job\ntail_rec = _fused_exHD.rec\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% tail part of rec file\npixel_size = 5.562\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% angstrom per pixel for raw particle\nkV = 300\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% voltage\nCs = 2\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% value of spherical aberration coefficient of objective in mm\nuse_ctf = 1\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% set 1 for ctf correction\nout_mrc = 96nm\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% output reconstruction file\nimageSize = 2048\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% entire raw image size K*K\nsizescale = 0.6\nn_neighbor = 2\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% number of neighbored particles which used for background reference\ndis_neighbor = 9\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0% distance (# pixels) used for selecting nearby particles for background reference\nPart II Parameter file for reconstruction, visit FREALIGN webpage for more details\ndata_input\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a096nm\nraw_images1\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a096nm\nthresh_reconst\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a090.0\nthresh_refine\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a090.0\npixel_size\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a05.562\ndstep_frealign\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a013\nWGH\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a00.14\nkV1\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0300.0\nCs\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a02.0\nRI\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a00.0\nRO\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a03000.0\nPBC\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a02.0\nBOFF\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a075.0\nASYM\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a00\nDANG\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a01\nITMAX\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a010\nMODE\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a01\nXSTD\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a00.0\nRBFACT\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a00\nFPART\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0F\nFMAG\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0F\nFDEF\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0F\nFASTIG\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0F\nIEWALD\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a00\ndfsig\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0100\nFBEAUT\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0F\nFCREF\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0F\nres_reconstruction\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a03.0\nres_low_refinement\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0800.0\nres_refinement\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a03.0\nstart_process\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a01\nend_process\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a01\nfirst_particle\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a01\nlast_particle\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0471\nincrement\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a010\n=========================================================================\nNote\uff1a\nWhen modifying the \u201cTYGRESS_input.txt\u201d file, please use the full path name to the directories for 'fnDataDir', 'fncode', and 'fnref', and only use the relative file folder names for the other parameters when needed.\n2.1.2 The file named \u201cDataList.txt\u201d in the TYGRESS source code folder (as shown below in the example data set) has three columns containing the \u201cdata set main name\u201d + \u201cdata set sub name\u201d + \u201ctotal .mod number\u201d, which you should change as needed.\nExample of a \u201cDataList.txt\u201d file\n=========================================================================\nWT_20120914\u00a0S1\u00a09\nWT_20120914\u00a0S2\u00a09\nWT_20120914\u00a0S3\u00a09\nWT_20120914\u00a0S4\u00a09\nWT_20120914\u00a0S5\u00a09\n=========================================================================\n2.2 Modify the \u201cctffind.csh\u201d file in the TYGRESS source code folder, which will be used to determine CTF. Please see the example in the \u201cctffind.csh\u201d file for details. You may at least need to change the path of the \u201cctffind3.exe\u201d file. For more details about how to modify this file, please visit (http://grigoriefflab.janelia.org/sites/default/files/readme_ctf.txt).\n2.3 Modify the path of your FREALIGN installation in the \u201cmreconstruct_noMask.com\u201d file. Please see the example \u201cmreconstruct_noMask.com\u201d file for details.\n3: Run TYGRESS\nOpen the Matlab interface, and set the TYGRESS source code folder as the work path. Then, in Matlab, open the TYGRESS_GUI (Figure 1). Click the \u201cTygress parameter file\u201d button, input the \u201cTYGRESS_input.txt\u201d file, click the \u201cData list\u201d button, and input the \u201cDataList.txt\u201d file. Click \u201cYes\u201d on the corresponding step to have TYGRESS run that step (Figure 1). All steps should be run in order if it is your first time processing your TYGRESS data. (Note: You can process the steps one by one, or you can run all selected steps together.)\nFinal 3D reconstruction is performed with FREALIGN, and all output is saved under the \u201cReconstruction\u201d folder. For more information about FREALIGN, please visit (http://grigoriefflab.janelia.org/frealign).\n4: Directory tree of TYGRESS (Figure 2)\nPlease note:\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0.mod(1) and .csv(1) are the parameters after running PEET for individual tilt series\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0.mod(2) and .csv(2) are the parameters for running PEET for the entire data, and .csv(3) is the output\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0.csv(3) and mod(2) are used for TYGRESS alignment and to generate the .par file\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0.mrc(1) is the 2D particle data set and .mrc(2) is the final output for the 3D structure\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0.txt(1) is the parameter for defocus and .txt(2) coordinates parameters of each particle\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0.m is the code for running TYGRESS\n\u00b7\nProject data\nfolder contains all tilt series data; each tilt series is processed (alignment and reconstruction in IMOD) in its own particles folder, including particles_Predict and Iter folders (alignment results from individual PEET runs).\n\u00b7\nCombined_PEET\nfolder includes combined alignment for all 3D subtomogram particles in PEET (Iter1_particles); Combined_mod_csv contains the file for running PEET for the entire dataset; 2D HD particles are picked in each data set under the HD_particles folder. The defocus detection for HD images is put in the ctffind folder.\n\u00b7\nTYGRESS code\nfolder stores all codes needed for running TYGRESS. The \u2018m\u2019extension\u00a0indicates matlab scripts, which can be only executed in Matlab. The structure is output as a .mrc file.\n\u00b7\nReconstruction\nfolder stores all output results after reconstruction with FREALIGN."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": ""
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>In the example data set, which includes five tilt series, each tilt series includes all the files generated after tomogram reconstruction and subtomogram averaging. The PEET averaging for the whole dataset is also included. Therefore, you can run TYGRESS directly after changing the work directories in the \u201cTYGRESS_input.txt\u201d file. The total TYGRESS processing time from CTF finding to final reconstruction will take less than 30 minutes on a common computer cluster. &nbsp;</p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>5.1&nbsp;*.mod(1) and *.csv(1) are the output files after running PEET for each individual tilt series.</p><p><br></p><p>5.2 You can copy the *.mod(1) and *.csv(1) to the Combined_mod_csv folder as *.mod(2) and *.csv(2) to run the PEET for the whole datasets, and then you will get *.csv(3) after PEET. All these .mod and .csv files are obtained before you starting to run TYGRESS.</p><p><br></p><p>5.3 After you run <strong>Step 1</strong> in the TYGRESS GUI, the \u201cctffind\u201d folder will be created and the defocus information will be saved in the *.txt(1) file. Moreover, the \u201cHD_particle\u201d folder will be created and all HD images will be saved in its sub_folder.</p><p><br></p><p>5.4 After you run <strong>Step 2</strong> in the TYGRESS GUI, the program will use the information from *.mod(2) and *.csv(3) to pick particles from the HD images,&nbsp;and then save all picked 2D particles as *.mrc file and save the coordinate parameters of each picked particle as *.txt(2) file, and alignment parameters as *.par file.</p><p><br></p><p>5.5 After you run <strong>Step 3</strong> in the TYGRESS GUI, the program will align the 2D particles picked and update the *.par file. <strong>Note:</strong> for further constrained alignment, you need to update your 'sx' (for x, y shift) and 'sa' (for angular shift) values in the \u201cTYGRESS_input.txt\u201d file, use the *.par file created in <strong>Step 3</strong> to replace the *.par file generated in <strong>Step 2,</strong> and re-run <strong>Step 3</strong>.</p><p><br></p><p>5.6 After you run <strong>Step 4</strong> in the TYGRESS GUI, the program will generate the 3D reconstruction and save the *.mrc(2) file.</p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>This protocol is related to the following article:</p><p>Song, K., Shang, Z., Fu, X., Lou, X., Grigorieff, N., and Nicastro, D. (2018). Structure of the ciliary axoneme at nanometer resolution reconstructed by TYGRESS. <em>BioRxiv</em> 363317.</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": ""
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41592-019-0651-0",
+                "date": "",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            },
+            {
+                "unpublished": "Song K., Shang Z., Fu X., Lou X., Grigorieff N., Nicastro D., In situ structure determination at nanometer resolution using TYGRESS. Nature Methods. (Accepted: 11 October 2019)"
+            }
+        ],
+        "authors": [
+            {
+                "id": 208581,
+                "identity": "a74ea9c3-f720-483a-acd3-aa23ae67e81d",
+                "order_by": 1,
+                "name": "Zhiguo Shang",
+                "email": "",
+                "orcid": "",
+                "institution": "University of Texas Southwestern Medical Center",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Zhiguo",
+                "middleName": "",
+                "lastName": "Shang",
+                "suffix": ""
+            },
+            {
+                "id": 208582,
+                "identity": "d56628d4-6168-4de8-822f-21c25fed44d5",
+                "order_by": 2,
+                "name": "Kangkang Song",
+                "email": "",
+                "orcid": "",
+                "institution": "University of Texas Southwestern Medical Center",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Kangkang",
+                "middleName": "",
+                "lastName": "Song",
+                "suffix": ""
+            },
+            {
+                "id": 208583,
+                "identity": "b6f4fe35-1d72-48fd-98e8-c7a4b1efb367",
+                "order_by": 3,
+                "name": "Xiaofeng Fu",
+                "email": "",
+                "orcid": "",
+                "institution": "University of Texas Southwestern Medical Center",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Xiaofeng",
+                "middleName": "",
+                "lastName": "Fu",
+                "suffix": ""
+            },
+            {
+                "id": 208584,
+                "identity": "fdc46570-1c23-4389-b3dd-18a737ce0e18",
+                "order_by": 4,
+                "name": "Xiaochu Lou",
+                "email": "",
+                "orcid": "",
+                "institution": "University of Texas Southwestern Medical Center",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Xiaochu",
+                "middleName": "",
+                "lastName": "Lou",
+                "suffix": ""
+            },
+            {
+                "id": 208585,
+                "identity": "6d3ee9a8-5997-45b7-b17d-979bf44a20fb",
+                "order_by": 5,
+                "name": "Nikolaus Grigorieff",
+                "email": "",
+                "orcid": "",
+                "institution": "Janelia Farm Research Campus, Howard Hughes Medical Institute, 19700 Helix Drive, Ashburn, VA 20147, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Nikolaus",
+                "middleName": "",
+                "lastName": "Grigorieff",
+                "suffix": ""
+            },
+            {
+                "id": 208586,
+                "identity": "7b1d205f-7fb1-405a-9dcd-c6735325a69a",
+                "order_by": 6,
+                "name": "Daniela Nicastro",
+                "email": "daniela.nicastro@utsouthwestern.edu",
+                "orcid": "",
+                "institution": "Departments of Cell Biology and Biophysics, University of Texas Southwestern Medical Center, Dallas, TX 75390, USA",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Daniela",
+                "middleName": "",
+                "lastName": "Nicastro",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2019-10-10 05:42:07",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.2.16083/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.2.16083/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 149580,
+                "identity": "3c9b8b48-54d6-4d0c-a76b-7ec1b7eebffa",
+                "added_by": "auto",
+                "created_at": "2019-11-05 16:24:53",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 66847,
+                "visible": true,
+                "origin": "",
+                "legend": "Example of TYGRESS GUI",
+                "description": "",
+                "filename": "1.png",
+                "url": "https://assets.researchsquare.com/files/774e79fa-e46a-41a5-9d8a-4f06466771d3/v1/1.png"
+            },
+            {
+                "id": 149581,
+                "identity": "9720fdc3-3ae6-43b3-8f0e-ed0050eb8569",
+                "added_by": "auto",
+                "created_at": "2019-11-05 16:24:54",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 76444,
+                "visible": true,
+                "origin": "",
+                "legend": "Work directory tree of TYGRESS",
+                "description": "",
+                "filename": "2.png",
+                "url": "https://assets.researchsquare.com/files/774e79fa-e46a-41a5-9d8a-4f06466771d3/v1/2.png"
+            },
+            {
+                "id": 13479658,
+                "identity": "55dc9eef-7b78-4e80-918c-7f57644c3aaa",
+                "added_by": "auto",
+                "created_at": "2021-09-16 21:40:01",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 384084,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-752/v1/bb619132-3c90-4f24-a2e0-7e5cd6b5d818.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "cryo-electron microscopy , cryo-electron tomography ",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>Recent advances in cryo-electron microscopy (cryo-EM) are paving the way to determining isolated three-dimensional (3D) macromolecular structures at near-atomic resolution using single-particle cryo-electron microscopy (SP-cryo-EM). However, determining the subcellular structures in intact cells and organelles<em> </em>using cryo-electron tomography (cryo-ET) and subtomogram averaging, another cryo-EM technique, with comparable resolution remains a challenge. Current methodologies can only reach a resolution of several nanometers in most samples studied. Here, we introduce a new hybrid method, called Tomography-Guided 3D Reconstruction of Subcellular Structures (TYGRESS) that is able to achieve structural determination of subcellular structures within their natural crowded environment with nanometer-resolution by combining the advantages of cryo-ET and SP-cryo-EM.&nbsp;</p>",
+        "manuscriptTitle": "User Manual for Tomography-Guided 3D Reconstruction of Subcellular Structures (TYGRESS)",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2019-11-05 16:24:53",
+                "doi": "10.21203/rs.2.16083/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "d8345325-aa78-44b2-a2a6-e29ec15b67fd",
+        "owner": [],
+        "postedDate": "November 5th, 2019",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 34775,
+                "name": "Cell Biology"
+            },
+            {
+                "id": 34776,
+                "name": "Structural biology"
+            },
+            {
+                "id": 34777,
+                "name": "Biophysics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2019-11-05 16:24:53",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

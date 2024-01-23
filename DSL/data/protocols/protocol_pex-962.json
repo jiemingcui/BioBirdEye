@@ -1,0 +1,229 @@
+{
+    "identity": "pex-962",
+    "title": "<p>Single Cell scale RNA-seq Analysis Protocol to analyze Smart-3SEQ data from RAGP neurons of pig heart</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>\tThe present protocol was developed as part of the National Institutes of Health SPARC project efforts to construct a comprehensive anatomical, molecular and functional map of the peripheral nervous system at the visceral organs. A key goal is to develop an anatomical framework onto which various data sets can be mapped, e.g., spatial location and distribution of hundreds to thousands of single neurons within a tissue context, molecular profiles of spatially-tracked single neurons, etc. The method integrates precise 3D location of pig RAGP neurons using imaging technologies with high throughput single cell gene expression data.</p><p>\tThe experimental method is conceptually similar to the prototype RNA-seq method, but with a streamlined protocol and optimizations for LCM and FFPE material (Foley et al , 2019). Primarily designed to analyze the gene expression of single cells captured using LCM from fresh frozen tissue, it can be adapted to other low input samples such as cell culture samples (1-1000 cells), and extracted RNA (10pg-1ng).&nbsp;The workflow to analyze the single cell scale expression data consists of two main steps \u2013 pre-processing and downstream analysis. In the pre-processing stage, the raw sequencing data (Illumina sequencer\u2019s base call files (BCLs) was converted to Fastq files using the Illumina bcl2fastq program (version 1.8.4). As a next step, the fastq reads were trimmed to remove the first 5 nts (to append as UMI), and the next 3 nts as G-overhang.&nbsp;The trimmed reads were aligned to the reference genome using STAR-2.7.2a (Dobin et al. 2013).&nbsp;</p><p>\tWe did not do UMI based deduplication at this stage because with 3SEQ protocol, duplicates are expected since we are sampling sequences from narrower windows upstream of the expressed genes and the step itself might introduce additional noise. We observed that the read alignments tend to be at sites other than the 3' ends of annotated transcripts. It is expected of this protocol, hence we did not limit our analysis to 3' ends. We used the Feature count algorithm, Subread R (Liao et al 2013) to count the genes/exons per transcripts from the merged reads. The resulting gene count matrix was used for downstream analysis.</p><p>\tThe annotated gene count matrices from different experimental batches were combined using a batch correction algorithm ComBat-seq (Zhang et al 2020). ComBat-seq uses Bayesian linear regression to remove batch effects and is ideal for smaller data sets with larger number of overdispersed counts. The outlier samples were removed and low expressed samples and genes were filtered out based on the \u201czero inflation\u201d. DESeq2 (Love et al. 2014) was used to do regularized log transformation. To account for the system level dependence of gene expression variation on sequencing depth and to estimate scaling factors within groups, the data was normalized using SCnorm (Bacher et al. 2017). SCnorm is known to be effective for datasets that have large numbers of zero counts.&nbsp;</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": ""
+        },
+        {
+            "header": "Equipment",
+            "content": ""
+        },
+        {
+            "header": "Procedure",
+            "content": "Procedure\n1.\nPre-processing\nConversion\n: Raw sequencing data (Illumina sequencer\u2019s base call files (BCLs) was converted to fastq files using the Illumina\nbcl2fastq\nprogram\nTrimming:\nThe reads from Fastq files were trimmed to remove poly A tail and G overhang, primer dimers and the 5 base umi was extracted. umi_homopolymer.py is downloaded from\nhttps://github.com/jwfoley/3SEQtools\nAligning:\nThe trimmed reads were aligned, using STAR-2.7.2a (Dobin et al. 2013) to the Sus scrofa reference genome sequence version Sus_scrofa.Sscrofa11.1.fasta, available in the Ensembl database. \u00a0Sus_scrofa.Sscrofa11.1.95.gtf was used as a reference transcriptome. The STAR parameters we used specific to our dataset were --outFilterMismatchNmax 999 (for mismatch) , --outFilterMultimapNmax 1\u00a0(to take care of the multi-mapping) and clip3pAdapterSeq AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA (clipping the adapter reads at 3` end)\n.\nBelow are the steps.\n\u25cf\u00a0\u00a0\u00a0\u00a0\u00a0Download the latest version of STAR aligner software\n\u25cf\u00a0\u00a0\u00a0\u00a0\u00a0Download the reference fasta file from Ensembl database\n\u25cf\u00a0\u00a0\u00a0\u00a0\u00a0Download the reference annotation file from Ensembl database\n\u25cf\u00a0\u00a0\u00a0\u00a0\u00a0Create the genome index file using the command\nSTAR --runThreadN 4 --runMode genomeGenerate --genomeDir path --\u00a0genomeFastaFiles\u00a0\u00a0\u00a0\u00a0Sus_scrofa.Sscrofa11.1.fasta --sjdbGTFfile Sus_scrofa.Sscrofa11.1.95.gtf\u00a0--sjdbOverhang 100\nMerging sam files:\nAligned files from reads from 4 lanes are merged using MergeSamfiles from picard (https://github.com/broadinstitute/picard/releases/download/2.22.3/picard.jar)\nBelow is the shell script for executing these steps starting from trimming\n#Note: Variable \u201cname\u201d indicates the folder names (PR1643-xxx) corresponding to each of the samples. Each sample has 4 lanes (L001,L002,L003,L004) giving rise to 4 fastq files. This script is executed from the main folder that has all the library sub-folders. Within the main folder is a folder for each sample with the folder names (PR1643-xxx). Within each of these sample folders are four folders, one for each lane, labeled L001-4.\u00a0Prior to running the following shell script, it is expected that one unzipped fastq file corresponding to the appropriate file and lane resides in each folder. The following script will write the output of umi_homopolyer.py and STAR into the respective lane folders.\u00a0The output of the MergeSamFiles will write the combined sam file to top level of the sample folder.\n#!/bin/bash\nfor name in PR1643*; do\necho $name\n#1. run python code to trim polyA tail and g-overhang\npython umi_homopolymer.py ./$name/L001/*.fastq ./$name/L001/$name\\_L001.fastq\npython umi_homopolymer.py ./$name/L002/*.fastq ./$name/L002/$name\\_L002.fastq\npython umi_homopolymer.py ./$name/L003/*.fastq ./$name/L003/$name\\_L003.fastq\npython umi_homopolymer.py ./$name/L004/*.fastq ./$name/L004/$name\\_L004.fastq\n#2. Run STAR to align the reads to reference genome\nSTAR --runThreadN 60 --quantMode GeneCounts --genomeDir Pig_genome/star_index --readFilesIn\u00a0./$name/L001/${name}_L001.fastq\u00a0\u00a0--outFileNamePrefix ./$name/L001/${name}_L001_star\u00a0--outFilterMultimapNmax 1 --outFilterScoreMinOverLread 0.1 --outFilterMatchNminOverLread 0.1 --outFilterMatchNmin 0 --outFilterMismatchNmax 999 -clip3pAdapterMMP 0.2 -clip3pAdapterSeq AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA --twopassMode Basic\nSTAR --runThreadN 60 --quantMode GeneCounts --genomeDir Pig_genome/star_index --readFilesIn\u00a0./$name/L002/${name}_L002.fastq\u00a0\u00a0--outFileNamePrefix ./$name/L002/${name}_L002_star\u00a0--outFilterMultimapNmax 1 --outFilterScoreMinOverLread 0.1 --outFilterMatchNminOverLread 0.1 --outFilterMatchNmin 0 --outFilterMismatchNmax 999 -clip3pAdapterMMP 0.2 -clip3pAdapterSeq AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA --twopassMode Basic\nSTAR --runThreadN 60 --quantMode GeneCounts --genomeDir Pig_genome/star_index --readFilesIn\u00a0./$name/L003/${name}_L003.fastq\u00a0\u00a0--outFileNamePrefix ./$name/L003/${name}_L003_star\u00a0--outFilterMultimapNmax 1 --outFilterScoreMinOverLread 0.1 --outFilterMatchNminOverLread 0.1 --outFilterMatchNmin 0 --outFilterMismatchNmax 999 -clip3pAdapterMMP 0.2 -clip3pAdapterSeq AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA --twopassMode Basic\nSTAR --runThreadN 60 --quantMode GeneCounts --genomeDir Pig_genome/star_index --readFilesIn\u00a0./$name/L004/${name}_L004.fastq\u00a0\u00a0--outFileNamePrefix ./$name/L004/${name}_L004_star\u00a0--outFilterMultimapNmax 1 --outFilterScoreMinOverLread 0.1 --outFilterMatchNminOverLread 0.1 --outFilterMatchNmin 0 --outFilterMismatchNmax 999 -clip3pAdapterMMP 0.2 -clip3pAdapterSeq AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA --twopassMode Basic\n#3. Merge sam files from 4 lanes into one file\njava -jar ~/Downloads/picard-2.18.14.jar MergeSamFiles\nI=./$name/L001/$name\\_L001_star-Aligned.out.sam\nI=./$name/L002/$name\\_L002_star-Aligned.out.sam\nI=./$name/L003/$name\\_L003_star-Aligned.out.sam\nI=./$name/L004/$name\\_L004_star-Aligned.out.sam\nO=PR1643/STAR/$name\\.sam\ndone\nFeature Count\nFeature count algorithm, Subread R (featureCounts) package (Liao et al 2013) was used to count genomic features genes and exons per transcript. A digital gene expression matrix was created from this data.\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Download the R package SUBREAD, for Read summarization\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Use the same reference annotation file used for read aligning\nBelow is the R script for counting the reads to their genomic features - genes\n.\nThe folder contains the merged sam files.\n#1. Load the necessary package\nlibrary(Rsubread)\n#Import the sam files to a folder and Set the RStudio working directory to the location of the\u00a0folder\nextension <- \"sam\"\nfileNames <- Sys.glob(paste(\"*.\", extension, sep=\"\"))\nsavefolder\u00a0<- \"PR1643/FeatureCount\"\n#2. Retrieve the genomic features - gene and exon\nfor (fileName in fileNames)\n{\n##for genes\ngene.result <- featureCounts(file=sprintf(fileName),annot.ext=\n\"Pig_genome/Sus_scrofa.Sscrofa11.1.95_clean.gtf\",isGTFAnnotationFile=TRUE, GTF.featureType = \"gene\",readExtension3=200, ignoreDup = TRUE, isPairedEnd = FALSE,allowMultiOverlap = TRUE, nthreads = 20 )\n##for exons\nexon.result <- featureCounts(file=sprintf(fileName),annot.ext= \u201cPig_genome/Sus_scrofa.Sscrofa11.1.95_clean.gtf\",isGTFAnnotationFile=TRUE, GTF.featureType = \"exon\",readExtension3=200, ignoreDup = TRUE, isPairedEnd = FALSE,allowMultiOverlap = TRUE, nthreads = 20 )\n#3. Export the gene and exon count matrices\nwrite.table(x=data.frame(gene.result$annotation,gene.result$counts), file = sprintf(\"%s/%s-gene-counts.txt\",savefolder,fileName), quote=FALSE, sep=\"\\t\")\nwrite.table(x=data.frame(exon.result$annotation,exon.result$counts), file = sprintf(\"%s/%s-exon-counts.txt\",savefolder,fileName), quote=FALSE, sep=\"\\t\")\n}\n2. Downstream Analysis\nThe gene matrix is used for downstream analysis.\n1. Annotation:\nWe annotated the genes with gene symbols. The missing gene symbols were substituted by ensemble/wiki gene names.\n2. Batch Correction:\nMultiple batch correction algorithm ComBat-seq (Zhang et al 2020) was used to account for technical variability arising from batch effect.\n3. Filtering:\nQuality of the final matrix is ensured by filtering samples based on the number of dropouts and abundance threshold. Out of 142 samples, 52 Samples with non-zero gene counts <6000 were considered as outliers. Additionally, 10800 genes that are present in very low quantities (<30 non-zero gene counts) were filtered out.\n4. Rlog transformation:\nA regularized log transformation was carried out using DESeq2 (Love et al. 2014).\n5. Normalization:\nWe normalized the data using a quantile regression method SCnorm (Bacher et al. 2017).\n#1. Load necessary packages:\nlibrary(tidyr)\nlibrary(dplyr)\nlibrary(reshape2)\nlibrary(biomaRt)\nlibrary(DESeq2)\nlibrary(Rtsne)\nlibrary(ggplot2)\nlibrary(cluster)\nlibrary(gtools)\nlibrary(pheatmap)\nlibrary(pcaMethods)\nlibrary(rgl)\nlibrary(limma)\nlibrary(sva)\nlibrary(edgeR)\nlibrary(SCnorm)\nlibrary(sva)\n#2. Download functions from https://github.com/zhangyuqing/ComBat-seq\nsource (\"help_combat_seq.R\")\nsource (\"ComBat_seq.R\")\n#Import the gene counts file and Set the RStudio working directory to the location of the\u00a0#gene\ncount matrix.\n#3. Conversion of gene IDs and annotation\nraw <- read.table(\"PR1643-genes-counts.txt\",sep=\"\\t\", header = T, row.names = 1)\nsums <- rowSums(raw)\nraw <- raw[-which(sums==0),]\n#Using ensembl database, retrieve gene names, description, wiki gene names and\n#description\ngenes <- rownames(raw)\nensembl <- useMart(\"ensembl\")\nensembl <- useMart(\"ensembl\",dataset=\"sscrofa_gene_ensembl\", host=\"uswest.ensembl.org\")\nG_list <- getBM(filters= \"ensembl_gene_id\", attributes= c(\"ensembl_gene_id\",\"external_gene_name\",\"description\",\"wikigene_description\",\"wikigene_name\"),values=genes,mart= ensembl)\n#Remove duplicate gene rows and substitute the absent gene names (NAs) with #corresponding ensemble IDs/wiki names\nraw2 <- raw; raw2$ensembl_gene_id <- rownames(raw2)\nnew.list <- G_list[-which(duplicated(G_list$ensembl_gene_id)),]\nfull.list <- right_join(new.list,raw2)\ngene.names <- make.names(full.list$ensembl_gene_id, unique = T)\n##gene names where the external gene name and wikigene name are the same\ngene.names[which(full.list$external_gene_name != \"\" & full.list$wikigene_name != \"\" & full.list$external_gene_name == full.list$wikigene_name)] <- full.list$external_gene_name[which(full.list$external_gene_name != \"\" & full.list$wikigene_name != \"\" & full.list$external_gene_name == full.list$wikigene_name)]\n##gene names where no external gene name was available but wikigene name is, set #to wikigene name\ngene.names[which(full.list$external_gene_name == \"\" & full.list$wikigene_name != \"\")] <- full.list$wikigene_name[which(full.list$external_gene_name == \"\" & full.list$wikigene_name != \"\")]\n##gene names where external gene name was available but wikigene name is not, set #to external gene name\ngene.names[which(full.list$external_gene_name != \"\" & full.list$wikigene_name == \"\")] <- full.list$external_gene_name[which(full.list$external_gene_name != \"\" & full.list$wikigene_name == \"\")]\n##when external gene name and wikigene name are both available, but not the same, #combine both, separated by a \u201c_\u201d for easier downstream reference\ngene.names[which(full.list$external_gene_name != \"\" & full.list$wikigene_name != \"\" & full.list$external_gene_name != full.list$wikigene_name)] <- paste0(full.list$external_gene_name[\nwhich(full.list$external_gene_name != \"\" & full.list$wikigene_name != \"\" & full.list$external_gene_name != full.list$wikigene_name)], \"_\" ,\nfull.list$wikigene_name[which(full.list$external_gene_name != \"\" & full.list$wikigene_name != \"\" & full.list$external_gene_name != full.list$wikigene_name)])\nfull.list$gene_name <- make.names(gene.names, unique=T)\n##change order\nfull.list <- full.list[,c(1,ncol(full.list), 2:(ncol(full.list)-1))]\n##set blanks to NA\nfull.list2 <- full.list; full.list2[which(full.list==\"\", arr.ind = T)] <- NA\n##substitute commas for a period in the description to enable properly writing output as csv file\nfull.list2$description <- gsub(\",\",\"\\\\.\", full.list2$description); full.list2$wikigene_description <- gsub(\",\",\"\\\\.\", full.list2$wikigene_description)\n#Save the corresponding gene annotation csv file\nwrite.csv(full.list2[,1:6], \"PR1643_RNAseq_IDs_Genes_Description.csv\", row.names=F, quote=F)\nfull_dataset <- as.matrix(full.list2[,7:ncol(full.list2)]); rownames(full_dataset) <- full.list2$ensembl_gene_id\nrownames(full_dataset) <- full.list2$gene_name\n#Save the gene count matrix with the gene IDs as row names\nwrite.table(full_dataset,\"PR1643_raw_RNAseqData_gene_names.txt\",sep=\"\\t\",quote=F, col.names = NA)\n#4. Batch correction for the two sets of runs\n#Remove genes with total expression count = NULL\nfull <- full_dataset[which(rowSums(full_dataset)>0),]\n#Separate the batches of 47 and 95 samples\nbatch47 <- full[,1:47]\nbatch95 <- full[,48:142]\ncol.data <- data.frame(batch=c(rep(\"Batch47\",47), rep(\"Batch95\",95)));\nrownames(col.data) <- colnames(full)\nannot_samp <- col.data\nannot_cols <- NA\ncounts <- as.matrix(full)\nbatch <- as.factor(c(rep(\"b47\", 47), rep(\"b95\", 95)))\n#Make sure that the parameters for the function ComBat_seq are individually specified\ngroup <- NULL\nfull_mod <- FALSE\ncovar_mod <- NULL\nshrink <- FALSE\nshrink.disp <- NULL\ngene.subset.n <- NULL\nadjusted<- ComBat_seq(counts, batch=batch)\n#Save the batch adjusted data into a new file\nwrite.table(adjusted,\"FullSet_142_adjusted.txt\", sep=\"\\t\", quote=F)\n# 5. Filtering Data\nPR1643.142.adjusted <- adjusted\n#Assess genes \u2013 samples with non-zero counts\nsamples.with.counts <- apply(PR1643.142.adjusted, 1, function(x)(sum(x!=0)))\ntot.counts <- apply(PR1643.142.adjusted,1, function(x)(sum(x)))\naverage <- apply(PR1643.142.adjusted,1, function(x)(mean(x)))\nstats <- data.frame(samples.with.counts,tot.counts,average)\nggplot(stats, aes(samples.with.counts)) + geom_histogram() + scale_x_log10() + scale_y_log10()\nggplot(stats, aes(1:142,samples.with.counts)) + geom_bar() + scale_x_log10() + scale_y_log10()\n#Assess samples\nsamples.with.counts <- apply(PR1643.142.adjusted, 2, function(x)(sum(x!=0)))\ntot.counts <- apply(PR1643.142.adjusted,2, function(x)(sum(x)))\naverage <- apply(PR1643.142.adjusted,2, function(x)(mean(x)))\nstats <- data.frame(samples.with.counts,tot.counts,average)\nggplot(stats, aes(samples.with.counts)) + geom_histogram() #+ scale_x_log10() + scale_y_log10()\nggplot(stats, aes(tot.counts)) + geom_histogram() + scale_x_log10() + scale_y_log10()\nggplot(stats, aes(average)) + geom_histogram() + scale_x_log10() + scale_y_log10()\n#First level filtering\nPR1643.142.adjusted.filt <- PR1643.142.adjusted[,-which(samples.with.counts < 3000 & tot.counts < 100000)]\n#Save the file \u2013after first filtering -132 samples\nwrite.table(PR1643.142.adjusted.filt, \"PR1643-132-adjusted.txt\", sep=\"\\t\", quote=F)\nraw <- PR1643.142.adjusted.filt\n#Remove genes with max rld value of 0 or less\nraw2 <- t(apply(raw+1,1,function(x)(log2(x))))\nmax.genes <- apply(raw2,1,max)\nmax.samples <- apply(raw2,2,max)\nsamples.with.counts.filt <- apply(raw, 2, function(x)(sum(x!=0)))\ngenes.with.counts.filt <- apply(raw, 1, function(x)(sum(x!=0)))\nmat.ordered2 <- raw2[rev(order(genes.with.counts.filt)), rev(order(samples.with.counts.filt))]\nmat.ordered3 <- mat.ordered2; mat.ordered3[which(mat.ordered2==0)] <- NA\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0##still log2\nraw.ordered2 <- raw[rev(order(genes.with.counts.filt)), rev(order(samples.with.counts.filt))]\n#Filtering samples with non-zero gene counts <6000 and genes <30\nfiltered <- mat.ordered2[1:15000,1:90]\nfiltered.raw <- raw.ordered2[1:15000,1:90]\nwrite.table(filtered.raw, \"PR1643_adjusted_raw_90samps_15kgenes.txt\", sep=\"\\t\", quote=F)\n#6. Regularized log normalization - DESeq\nragp.raw <- filtered.raw\n#Regularized log transformation : rlog takes long to run\nragp.rlog <- rlog(ragp.raw, fitType = \"local\", blind = T);\nrownames(ragp.rlog) <- rownames(ragp.raw)\n#Median centering\nragp.rlog.med <- t(apply(ragp.rlog,1,function(x)(x-median(x))))\n#Extract high expression genes for visualization\ncount.means <- apply(ragp.raw,1,mean)\nhighgenes <- rownames(ragp.raw)[which(count.means>10)]\n#Using total counts\ntop200 <- rev(sort(rowSums(ragp.raw)))[1:200]\ntop2000 <- rev(sort(rowSums(ragp.raw)))[1:2000]\n#7. Normalization- SCnorm\n#Input is DESeq rlog matrix (90 samples, 15000 genes)\nmySCData <- SingleCellExperiment::SingleCellExperiment(assays = list('counts' = ragp.rlog))\nConditions <- as.factor(annot_samp$batch)\ncountDeptEst <- plotCountDepth(Data = mySCData, Conditions = Conditions,FilterCellProportion = .1, NCores=4)\nstr(countDeptEst)\nhead(countDeptEst[[1]])\nmySCData = SingleCellExperiment::counts(mySCData)\n#SCnormalization\nDataNorm <- SCnorm(Data = mySCData,Conditions = Conditions,PrintProgressPlots = TRUE,FilterCellNum = 10, NCores=4, reportSF = TRUE)\nDataNorm\nNormalizedData.rlog <- SingleCellExperiment::normcounts(DataNorm)\nrow.names(NormalizedData.rlog) <- row.names(ragp.rlog)\nNormalizedData.rlog[1:5,1:5]\n#Save the normalized count data into a new file\nwrite.table(NormalizedData.rlog,\"PR1643-normalized_90samples_15kgenes.txt\", sep=\"\\t\", quote=F, col.names = NA, row.names = T)"
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p><em>Problem:&nbsp;SCnorm can not converge.</em></p><p><em>&nbsp;Solution: Define the value of parameter K=18, based on the evaluation plots. </em></p><p><em>&nbsp;set.seed(xxx)</em></p><p><em>DataNorm &lt;- SCnorm(Data = mySCData,Conditions = Conditions,PrintProgressPlots = TRUE,FilterCellNum = 10, K=18, NCores=4, reportSF = TRUE)</em></p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": ""
+        },
+        {
+            "header": "Anticipated Results",
+            "content": ""
+        },
+        {
+            "header": "References",
+            "content": "<p>Foley, JW, Zhu, C, Jolivet, P, Zhu, SX, Lu, P, Meaney, MJ <em>et al.</em>. Gene expression profiling of single cells from archival tissue with laser-capture microdissection and Smart-3SEQ. Genome Res. <strong>29 </strong>(11):1816-1825 (2019)</p><p><br></p><p>A. Dobin, C.A. Davis, F. Schlesinger, J. Drenkow, C. Zaleski, S. Jha, P. Batut, M. Chaisson, T.R. Gingeras. STAR: ultrafast universal RNA-seq aligner. Bioinformatics, <strong>29, </strong>15-21 (2013).</p><p><br></p><p>Yang Liao, Gordon K Smyth and Wei Shi The R package Rsubread is easier, faster, cheaper and better for alignment and quantification of RNA sequencing reads. <em>Nucleic Acids Research</em>, <strong>47</strong>(8):e47 (2019).</p><p><br></p><p><a href=\"http://sciwheel.com/work/bibliography/8081670\" rel=\"noopener noreferrer\" target=\"_blank\">Zhang, Y., Parmigiani, G., and Johnson, W.E. (2020). ComBat-Seq: batch effect adjustment for RNA-Seq count data. BioRxiv.</a></p><p><br></p><p>Love, M. I., Huber, W. &amp; Anders, S. Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. <em>Genome Biol.</em> <strong>15</strong>, 550 (2014).</p><p><br></p><p>Bacher R, Chu LF, Leng N, Gasch AP, Thomson JA, Stewart RM, Newton M, Kendziorski C. SCnorm: robust normalization of single-cell RNA-seq data. Nature Methods. <strong>14</strong>(6):584-6 (2017).</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": ""
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 628891,
+                "identity": "e821d43f-c8b2-4b4a-9fa1-eb30bda3780c",
+                "order_by": 1,
+                "name": "Lakshmi Kuttippurathu",
+                "email": "lakshmi.kuttippurathu@jefferson.edu",
+                "orcid": "https://orcid.org/0000-0001-6612-9040",
+                "institution": "Thomas Jefferson University",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Lakshmi",
+                "middleName": "",
+                "lastName": "Kuttippurathu",
+                "suffix": ""
+            },
+            {
+                "id": 628892,
+                "identity": "88738f7c-0a3b-4486-8267-c39a438504dc",
+                "order_by": 2,
+                "name": "Alison Moss",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-7907-8796",
+                "institution": "Thomas Jefferson university",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Alison",
+                "middleName": "",
+                "lastName": "Moss",
+                "suffix": ""
+            },
+            {
+                "id": 628893,
+                "identity": "25a10292-f20f-4282-a563-ed789448e78b",
+                "order_by": 3,
+                "name": "Rajanikanth Vadigepalli",
+                "email": "Rajanikanth.Vadigepalli@jefferson.edu",
+                "orcid": "https://orcid.org/0000-0002-8405-1037",
+                "institution": "Thomas Jefferson University",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Rajanikanth",
+                "middleName": "",
+                "lastName": "Vadigepalli",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2020-06-01 21:38:30",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-962/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-962/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13697561,
+                "identity": "db86886b-dc63-41b1-910e-d344fd55e740",
+                "added_by": "auto",
+                "created_at": "2021-09-17 13:10:03",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 380828,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-962/v1/188e318d-a5d6-4f7f-bb81-beb4c6c8346b.pdf"
+            },
+            {
+                "id": 10118485,
+                "identity": "84d7d7ce-c652-464b-969c-f1169c2502af",
+                "added_by": "auto",
+                "created_at": "2021-06-08 15:21:51",
+                "extension": "pdf",
+                "order_by": 1,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 267940,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "scRNAseqdataanalysisprotocol.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-962/v1/dea1e1dd8d34ce0e7c6aa54b.pdf"
+            }
+        ],
+        "financialInterests": "No",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "SMART-3seq, scRNA-Seq, Data Analysis, LCM, RAGP, Mapping",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>The present protocol describes transcriptome mapping,&nbsp;data normalization and analysis pipeline with detailed steps for each of these aspects for single cell/ low input RNASeq data from Right Atrial Ganglionated Plexus (RAGP) of pig heart. The protocol with minor modifications can be adapted for low input samples with short reads or samples with low quality input RNA. Single cell samples acquired using Laser Capture Microdissection (LCM) were processed for RNA-Seq library preparation using Smart-3SEQ technique (Foley et al 2019).&nbsp;The data analysis workflow&nbsp;consists of (a) pre-processing- data trimming, read alignment and feature count and (b) downstream analysis- annotation, batch correction, filtering and normalization. The entire protocol is performed using freely available packages. Most of them are available within the R framework.&nbsp;</p><p><br></p>",
+        "manuscriptTitle": "Single Cell scale RNA-seq Analysis Protocol to analyze Smart-3SEQ data from RAGP neurons of pig heart",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2021-06-08 15:21:49",
+                "doi": "10.21203/rs.3.pex-962/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "85d4ee1d-c543-4042-9f2b-c18fa894058a",
+        "owner": [],
+        "postedDate": "June 8th, 2021",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 111271,
+                "name": "Computational biology and bioinformatics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2021-06-08 15:21:49",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

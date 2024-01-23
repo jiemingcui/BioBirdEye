@@ -1,0 +1,322 @@
+{
+    "identity": "nprot-4489",
+    "title": "MMRA  MicroRNA Master Regulator Analysis",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "In many cancer types, gene expression signatures able to discriminate subgroups of cases with different prognosis or drug response have been proposed. However, the biological mechanisms and regulatory networks underlying these subtypes are mostly unexplained. Here we considered as potential subtype drivers the microRNAs, small non-coding RNAs of 20\u201322 nucleotides that bind complementary sequences in target mRNAs and thus reduce their stability and translation rate<sup>1</sup>. Identification of microRNAs driving cancer suptypes requires integrative analysis of paired microRNA-mRNA expression profiles. Recently, integrative computational methods have been proposed to discover microRNA-mRNA interactions possibly involved in tumour development<sup>2,3</sup>. However, these methods have been typically applied to distinguish tumor from normal tissue, a comparison characterized by much wider variation than between two tumor subtypes. Moreover, the methods only take into account microRNA-mRNA interactions supported by anticorrelation, while it has been recently observed that microRNAs can act also indirectly through e.g. regulation of silencing complexes<sup>4</sup>. Finally, the above methods do not prioritize the identified microRNA-mRNA interactions.\r\n\n\n\r\n\n\nTo overcome all these limitations, we propose the MMRA analysis pipeline, aimed at discovering which microRNAs potentially regulate which cancer subtype, and applied it to colorectal cancer \\(CRC). MMRA is subdivided in four sequential steps, each aimed at progressively reducing the number of candidate microRNAs: \r\n\n\n\r\n\n\nI. Differential expression analysis to highlight microRNAs with subtype-specific expression.\r\n\n\nII. Target transcript enrichment analysis, to further select those microRNAs whose predicted targets are enriched in the associated subtype mRNA signature.\r\n\n\nIII. Network analysis, in which an mRNA network is constructed around each microRNA using ARACNe <sup>5</sup>, and tested for enrichment in signature genes.\r\n\n\nIV. Identification of microRNAs whose expression \u201cexplains\u201d the expression of subtype signature genes, using Stepwise Linear Regression  \\(SLR) analysis<sup>6</sup>. \r\n\n\n\r\n\n\nAn overview of the workflow and of the algorithmic steps is provided in Figure 1."
+        },
+        {
+            "header": "Equipment",
+            "content": "The source code provided with this protocol implements the pipeline introduced in7  and available at http://eda.polito.it/MMRA/. It requires the following freely-available software/libraries:\r\n\n\n\r\n\n\n\u2022 R \\(http://www.r-project.org/)\r\n\n\n\u2022 R packages: preprocessCore, plyr, Matching\r\n\n\n\u2022 Perl\r\n\n\n\u2022 ARACNE:\r\n\n\n            o         From http://wiki.c2b2.columbia.edu/califanolab/index.php/Software/ARACNE download the file aracne.zip\r\n\n\n              o save the file in MMRA_pipeline/codes\r\n\n\n              o unzip aracne.zip"
+        },
+        {
+            "header": "Procedure",
+            "content": "**1. Perform MicroRNAs differential expression analysis**\r\n\n\nTo perform differential microRNA expression analysis, we used a combination of Kolmogorov-Smirnov \\(KS) test and fold-change \\(FC). For the KS test we used the function ks.boot implemented in the R package \u2018Matching\u2019\n8\n. The thresholds for this step are chosen by a permutation-based estimate of the false discovery rate \\(FDR), i.e. the estimated percentage of microRNAs identified by chance. For each pair of chosen KS P-value and FC thresholds, the FDR was computed reshuffling 1000 times the samples constituting the microRNA dataset. The mean value of microRNAs significantly differentially expressed in these 1000 experiments was computed and then compared with the number of microRNAs differentially expressed in our step of the pipeline.\r\n\n\n \r\n\n\n**2. Perform Target transcripts enrichment analysis**\r\n\n\nIn the second MMRA step, for each microRNA differentially expressed in a given CRC subtype, we performed a target enrichment analysis in the gene signature corresponding to the subtype in which the microRNA was differentially expressed. MicroRNA\u2019s target transcripts were predicted following the procedure discussed in Riba and colleagues\n9\n. To evaluate an enrichment of predicted targets in the signature of the miRNA associated subtype, we calculated a Bonferroni-adjusted Hypergeometric test P-value and the observed/expected \\(O/E) ratio. To choose optimal P-value and O/E ratio thresholds, we implemented a FDR computation as follows. \r\n\n\n\r\n\n\n**3. Perform network analysis**\r\n\n\nNetwork analysis was performed using the ARACNe information-theoretic algorithm for inferring transcriptional interactions\n5\n. The software was downloaded \\(\nhttp://wiki.c2b2.columbia.edu/califanolab/index.php/Software/ARACNE\n) and included in the pipeline to infer interactions between each microRNA selected by the previous steps and any mRNA from the paired dataset. For each microRNA selected at the previous steps, data preparation for ARACNEinvolved the setting up of an expression matrix \\(X) row-wise combining the entire mRNA expressionTCGA dataset with the expression values of the single microRNA under analysis. To generate a matrix compatible with the standard ARACNE pre-processing steps, we inverted log2 transformation of the expression dataset: naming Xij the elements of the expression matrix previously described, we obtained the called \u201clinear expression matrix\u201d Y through the following operation Yij=2\nXij\n. Then, standardARACNE pre-processing involves quantile normalization of the dataset Y, log2 transformation and filtering of those genes with a standard deviation lower than 1.2. For MMRA the only edges of interest are those connecting the microRNA to mRNAs, therefore the algorithm is run imposing the microRNA as the only hub of the network. The chosen MI P-value significance threshold \\(10\n-7\n) and bootstrapping P-value threshold \\(10\n-12\nafter 100 bootstrapped networks) are the originally recommended ones\n10\n. Subsequently, each of the consensus networks constructed around the selected microRNAs \\(the \u201cregulons\u201d), is tested for significant enrichment in subtype signature genes respect to a random null model. To this end the Master Regulator Analysis \\(MRA) algorithm is used as previously described\n11,12\n, evaluating the statistical significance \\(P-values computed by Fisher\u2019s exact test, FET) of the overlap between the \u201cregulon\u201d of each microRNA, and the gene signature of the subtype in which the microRNA was identified as differentially expressed at the previous steps. To assess the sensitivity and specificity of our approach, we built a null model selecting the microRNAs that were expressed \\(detected in more than 45 of the 450 samples) but not differential in any subtype of any classifier \\(signal to noise ratio \u2013 i.e. fold-change over standard deviation \u2013 < 0.05). The regulons of the microRNAs constituting the null model were also required to have an intersection with any regulon of the previously selected candidate microRNAs lower than 70%. Then, we chose the MRA Pvalue threshold of the MRApvalues obtained in the null model.\r\n\n\n\r\n\n\n**4. Perform stepwise linear regression analysis** \r\n\n\nIn this step, to filter out weak microRNA-mRNA relations within the regulons, MMRA employs stepwise linear regression \\(SLR), a procedure previously adopted for transcription factor / target analysis\n11,12\n. The SLR procedure involved the construction of a linear model for each signature gene, as follows: the log2-expression level of the gene was considered the response variable, and the log2-expression levels of microRNAs linked by ARACNE to the gene were considered as the explanatory variables. Then, a stepwise algorithm is used to select the best minimal set of explanatory variables within the model. Akaike information criterion \\(AIC) was used as the stop criterion. The output of SLR was reorganized at the microRNA level, to include, for each microRNA, a list of response variables \\(subtype signature genes associated by ARACNE) to which it was associated by SLR. The extent of modulation of a given subtype by a given microRNA can then be estimated as the fraction of signature genes for that subtype whose expression is approximated by the microRNA according to SLR analysis \\(positive or negative coefficient). To estimate a significance threshold for this step we considered the distribution of the results for all the selected microRNAs in all the colorectal cancer subtypes. These results are expected to include a small subset of true associations, also selected across the previous steps, and a larger set of random associations. We therefore selected the 90th percentile of the fraction values. To generate the final output of the MMRA pipeline, significant fractions of associated subtype genes are provided only for the microRNA-subtype associations also selected in the previous steps."
+        },
+        {
+            "header": "Timing",
+            "content": "Due to the computational complexity of the network analysis, the pipeline needs to run on a computational cluster. The scripts provided with the ARACNE distribution, are designed for the Rocks 3.2 distribution of Linux and the Sun Grid Engine \\(SGE) job scheduler. Thus these scripts use the \u2018qsub\u2019 command to submit jobs to the cluster, and this command must be modified based on the user\u2019s job-scheduling software."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "List of microRNAs with subtype-specific expression providing a significant contribution to the expression of subtype signature genes. An example of MMRA output is shown in7 \\(Table 1)."
+        },
+        {
+            "header": "References",
+            "content": "1. Bartel, D.P. MicroRNAs: genomics, biogenesis, mechanism, and function. Cell 116, 281-97 \\(2004).\r\n  2. Fu, J. et al. Identifying microRNA-mRNA regulatory network in colorectal cancer by a combination of expression profile and bioinformatics analysis. BMC Syst Biol 6, 68 \\(2012).\r\n  3. Pizzini, S. et al. Impact of microRNAs on regulatory networks and pathways in human colorectal carcinogenesis and development of metastasis. BMC Genomics 14, 589 \\(2013).\r\n  4. Fabbri, M., Calore, F., Paone, A., Galli, R. & Calin, G.A. Epigenetic regulation of miRNAs in cancer. Adv Exp Med Biol 754, 137-48 \\(2013).\r\n  5. Margolin, A.A. et al. ARACNE: an algorithm for the reconstruction of gene regulatory networks in a mammalian cellular context. BMC Bioinformatics 7 Suppl 1, S7 \\(2006).\r\n  6. Carro, M.S. et al. The transcriptional network for mesenchymal transformation of brain tumours.\r\n  7.  Cantini, L., et al. \\(2015). MicroRNA-mRNA interactions underlying colorectal cancer molecular subtypes. Nature Communications, 6.\r\n  \r\n\n\n8. Sekhon, J.S. Multivariate and Propensity Score Matching Software with Automated Balance Optimization: The Matching Package for R. Vol. 42 \\(Journal of Statistical Software, 2011).\r\n  9. Riba, A., Bosia, C., El Baroudi, M., Ollino, L. & Caselle, M. A combination of transcriptional and microRNA regulation improves the stability of the relative concentrations of target genes. PLoS Comput Biol 10, e1003490 \\(2014).\r\n  10. Margolin, A.A. et al. Reverse engineering cellular networks. Nat Protoc 1, 662-71 \\(2006).\r\n  11.  Carro, Maria Stella, et al. The transcriptional network for mesenchymal transformation of brain tumours. Nature 463.7279 \\(2010): 318-325.\r\n  12.  Bae, T. et al. Identification of upstream regulators for prognostic expression signature genes in colorectal cancer. BMC Syst Biol 7, 86 \\(2013)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "This work was supported by grants from AIRC \\(IG n. 12944 and 2010 Special Program Molecular Clinical Oncology 5x1000 project n. 9970), and Fondazione Piemontese per la Ricerca sul Cancro-ONLUS \\(5x1000 Ministero della Salute 2010-OGC and 2011-Implementing genomic-driven precision oncology at the IRCC)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/ncomms9878",
+                "date": "2015-12-15 10:04:13",
+                "title": "MicroRNA\u2013mRNA interactions underlying colorectal cancer molecular subtypes",
+                "authors": [
+                    "Laura Cantini",
+                    "Claudio Isella",
+                    "Consalvo Petti",
+                    "Gabriele Picco",
+                    "Simone Chiola",
+                    "Elisa Ficarra",
+                    "Michele Caselle",
+                    "and Enzo Medico"
+                ],
+                "journal": "Nature Communications",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 13685,
+                "identity": "a09c662b-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Laura Cantini",
+                "email": "laura.cantini@unito.it",
+                "orcid": "",
+                "institution": "Enzo Medico Lab (University of Torino, Candiolo Cancer Institute)",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Laura",
+                "middleName": "",
+                "lastName": "Cantini",
+                "suffix": ""
+            },
+            {
+                "id": 13686,
+                "identity": "a09c6e57-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Claudio Isella",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Claudio",
+                "middleName": "",
+                "lastName": "Isella",
+                "suffix": ""
+            },
+            {
+                "id": 13687,
+                "identity": "a09c7117-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Consalvo Petti",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Consalvo",
+                "middleName": "",
+                "lastName": "Petti",
+                "suffix": ""
+            },
+            {
+                "id": 13688,
+                "identity": "a09c7349-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Gabriele Picco",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Gabriele",
+                "middleName": "",
+                "lastName": "Picco",
+                "suffix": ""
+            },
+            {
+                "id": 13689,
+                "identity": "a09c74cc-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Simone Chiola",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Simone",
+                "middleName": "",
+                "lastName": "Chiola",
+                "suffix": ""
+            },
+            {
+                "id": 13690,
+                "identity": "a09c7634-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Elisa Ficarra",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Elisa",
+                "middleName": "",
+                "lastName": "Ficarra",
+                "suffix": ""
+            },
+            {
+                "id": 13691,
+                "identity": "a09c7777-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Michele Caselle",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Michele",
+                "middleName": "",
+                "lastName": "Caselle",
+                "suffix": ""
+            },
+            {
+                "id": 13692,
+                "identity": "a09c78c3-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Enzo  Medico",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Enzo",
+                "middleName": "",
+                "lastName": "Medico",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2015-12-15 10:27:02",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2015.122",
+        "doiUrl": "https://doi.org/10.1038/protex.2015.122",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2609355,
+                "identity": "9b5fbeba-84f2-4c54-a15d-9caaae197fa9",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:52",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 581656,
+                "visible": true,
+                "origin": "",
+                "legend": "Schematic representation of the microRNA Master Regulator Analysis (MMRA) workflow.    The schema reports the data required as initial input, the four analytic steps with the respective outputs, and the final output of the pipeline. \r\n",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-4489/v1/figure_1.png"
+            },
+            {
+                "id": 13465405,
+                "identity": "056e306e-2495-4f81-b09f-bef96e0494cb",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:46:39",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 420110,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-4489/v1/a2e98b9f-f8b0-42c8-bbb2-2d63a901f2ea.pdf"
+            }
+        ],
+        "financialInterests": "No conflicting financial interests",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "microRNAs, pipeline, cancer subtypes",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "MMRA is an analysis pipeline that can be used for the identification of microRNAs driver of cancer subtypes. It starts with \\(i) a paired microRNA/mRNA expression dataset \\(ii) classification of the samples into subtypes \\(iii) Subtype-specific mRNA expression signatures, and outputs lists of microRNAs with subtype-specific expression significantly contributing to the expression of subtype signature genes. MMRA consists of four sequential steps, each aimed at progressively reducing the number of candidate microRNAs: \\(i) differential expression analysis to highlight microRNAs with subtype-specific expression; \\(ii) target transcript enrichment analysis, to further select those microRNAs whose predicted targets are enriched in the associated subtype mRNA signature; \\(iii) network analysis, in which an mRNA network is constructed around each microRNA and tested for enrichment in signature genes; \\(iv) identification of microRNAs whose expression \u201cexplains\u201d the expression of subtype signature genes. The pipeline is available at http://eda.polito.it/MMRA/.",
+        "manuscriptTitle": "MMRA  MicroRNA Master Regulator Analysis",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2015-12-22 11:50:38",
+                "doi": "10.1038/protex.2015.122",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a09add36-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "December 22nd, 2015",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3524,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 3525,
+                "name": "Genetics"
+            },
+            {
+                "id": 3526,
+                "name": "Biotechnology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2015-12-22 11:50:38",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

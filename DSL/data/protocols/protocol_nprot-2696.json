@@ -1,0 +1,250 @@
+{
+    "identity": "nprot-2696",
+    "title": "Analysis of the development of phonetic syntax in infant babbling",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Materials\r\n\n\n\r\n\n\nData for the analysis of human babbling was obtained from 9 children in the Davis corpus \\(Davis & MacNeilage, 1995) of the CHILDES database \\(MacWhinney, 2000) \\[Specifically \u2013 Ben, Cameron, Charlotte, Georgia, Paxton, Rachel, Rebecca, Rowan, Sam]. On average, these children were 9 months, 28.3 days old \\(2 months, 1.3 days std.) at the first session, and data was collected for an average of 1 year, 7 months \\(7 months, 12.8 days std.) following this time. The data for each child consisted of 38.8 sessions on average \\(10.2 std.) each recorded an average of 16.07 days apart \\(6.4 days std.). \r\n\n\n\r\n\n\n\r\n\n\nData Analysis\r\n\n\n\r\n\n\nOur analysis was focused upon characterizing the structure of infant babbling \u2013 specifically the manner in which children combine syllables during prelinguistic vocal exploration. Thus, we restricted our analysis to utterances for which no lexical items were assigned in the CHILDES transcriptions. We parsed these babbled utterances into syllables from the transcribed phonemes using a semi-automated method, as describe below. We then performed our analysis over those utterances that received a complete syllabic parse. On average, this amounted to 2135 utterances per child \\(924 std.) and 62.0 utterances per session \\(37.5 std.)\r\n\n\n\r\n\n\n\r\n\n\nParsing Algorithm\r\n\n\n\r\n\n\nThe CHILDES data consists of phonetically transcribed utterances. To convert this data into syllables, we used an iterative process to parse each babbling utterance into a sequence of accepted syllables. An utterance was only considered parsed \\(and so usable in the analysis) if every phoneme in the utterance was successfully assigned to a syllable by this algorithm. In other words, we only considered an utterance for our analysis if we could fit a sequence of syllables to the phonemes such that each phoneme was used exactly one time in a syllable. On each iteration of the parsing algorithm, we first manually assigned complete syllabic parses to several unparsed utterances. We then added these new syllables to the set of possible syllables that could be used to parse the utterances. Next, we automatically checked all of the utterances to see if they could be exhaustively parsed using the current store of syllables. For example, an utterance badaja would be manually assigned the syllabic parse of ba, da, ja. On the following automatic parsing pass, an utterance baja could be automatically parsed into the syllables ba and ja. Utterances that could not be fully parsed using the set of defined syllables were then manually parsed, adding to the set of acceptable syllables. Thus, every syllable used to parse the data was manually verified as a valid syllable within the data. If an utterances could be assigned two different parses, then we employed a heuristic such that we chose the parse with the greater number of two phoneme syllables \\(CV or VC). If multiple parses for an utterance were equal in this measure, we manually assigned a parse to the utterance or left it as ambiguous. All such ambiguous parses were excluded from the analysis. This process was then repeated until a sizeable amount of the data had been parsed from phonemes into syllables \\(58.2% of babbling utterances \\[19.0% std.]).\r\n\n\n\r\n\n\n\r\n\n\nInitial Tabulation\r\n\n\n\r\n\n\nFrom this set of parsed babbling utterances, we then tabulated the frequency of each syllable within each session and its placement within its utterance. To parallel the birdsong analysis, we then restricted our analysis below to those syllables that reached a certain frequency threshold during a session, set at 1% of the total number of syllables in the session. Thus, we focused only on those syllables that the child produced at a non-negligible rate within a given recording session. Finally, we also calculated the frequency of all transitions between the syllables. A transition was defined as any two sequential syllables that occurred within a single utterance.\r\n\n\n\r\n\n\n\r\n\n\nBootstrapped Normalization\r\n\n\n\r\n\n\nUltimately, we were interested in characterizing the evolution of transitional variability over time. Clearly, any measure of this development is confounded to some degree by the growth over time both in the number of syllables used by a child as well as the length of its utterances. Thus, to control for these factors, we used a bootstrapped normalization procedure for the statistics reported below. To establish a baseline value for each measure that reflected a random placement of syllables but held vocabulary size and utterance length constant, we shuffled syllables randomly within each recording session while maintaining the length of each utterance. Thus, the order of the syllables was randomized while the frequency of each syllable type remained constant within each session, as did the length of each utterance. The statistics reported below were then recalculated over these bootstrapped randomizations to establish a baseline value. By comparing the observed data to these measures, we were able to isolate effects due to the structure imposed by the child on the babbling, controlling for changes over time in the number of syllables used by the child and the length of its utterances.\r\n\n\n\r\n\n\n\r\n\n\nMeasures \r\n\n\n\r\n\n\n The measures described below were calculated for each syllable type in each session. Sessions were then aligned on a syllable type's first appearance, and a mean over syllable types was calculated for each session. Only syllable types that first appeared in the course of the experimental period \\(namely, that were not present at the first session) were included in the analysis.\r\n\n\n\r\n\n\nPerformance of new syllables at edges: we calculated the proportion of occurrences of a syllable type at the edge of an utterance compared to those that were in the middle of an utterance. For the purposes of this measure, we did not count reduplications \\(i.e. repetitions of a syllable) as being in the middle of the utterance. These frequencies were then compared to a randomized \\(bootstrapped) baseline. \r\n\n\n\r\n\n\nAddition of new transitions: we calculated the number of new transitions per syllable used in each session, and compared it to baseline levels. This measure indicates how likely each syllable occurrence was to participate in a previously unseen transition. \r\n\n\n\r\n\n\nReduplication: we calculated the proportion of occurrences of each syllable type in reduplicated transitions \\(e.g., AA) versus occurrences in variegated transition \\(e.g., AB), and compared it to baseline levels."
+        },
+        {
+            "header": "Reagents",
+            "content": "Nine children from the Davis corpus \\(Davis & MacNeilage, 1995) of the CHILDES database \\(MacWhinney, 2000) \r\n\n\n\r\n\n\nhttp://childes.psy.cmu.edu/browser/index.php?url=Eng-NA/Davis/ :\r\n\n\n\r\n\n\nBen, Cameron, Charlotte, Georgia, Paxton, Rachel, Rebecca, Rowan, Sam."
+        },
+        {
+            "header": "Equipment",
+            "content": "The analysis was performed using Matlab  code that  is available for download at http://ofer.sci.ccny.cuny.edu/publications \\(see procedures)."
+        },
+        {
+            "header": "Procedure",
+            "content": "1. Download matlab codes for analysis from http://ofer.hunter.cuny.edu/publications/publications \\(click on the link saying '+ shared protocol for babbling analysis'. The codes are in a zipped folder.\r\n  \r\n\n\n2. Download infant vocal transcriptions data from http://childes.psy.cmu.edu/browser/index.php?url=Eng-NA/.\r\n  \r\n\n\nIf you would like to repeat the babbling analysis used in the paper, download the 9 infants listed in the \"Reagents' section from http://childes.psy.cmu.edu/browser/index.php?url=Eng-NA/Davis/.\r\n\n\n\r\n\n\nPut all data in a folder within the folder containing the matlab codes \\(point 1). Name the folder 'English-Davis_CHAT' or update the matlab code accordingly \\(see below).\r\n\n\n\r\n\n\n3. Open matlab and the 'Analysis.m'. This script contains two cells. The first parses the .cha files from the database and the second produces the graphs presented in the paper."
+        },
+        {
+            "header": "Timing",
+            "content": "About an hour."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "1. Make sure that the matlab codes are placed in a directory for which a path is set in matlab \\(see help for 'set path' in matlab).\r\n  \r\n\n\n2. In case your infant data directory is named differently than 'English-Davis_CHAT', replace the correct folder name in  the 'Analysis.m' file."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "Matlab plots containing the analyses shown in Figure 4 in the paper \\(Stepwise Acquisition of combinatorial capacity in songbirds and human infants)."
+        },
+        {
+            "header": "References",
+            "content": "References\r\n\n\n\r\n\n\nDavis, B. L., & MacNeilage, P. F. \\(1995). The articulatory basis of babbling. Journal of Speech & Hearing Research, 38, 1199-1211.\r\n\n\nMacNeilage, P. F. \\(2008). The origin of speech: Oxford University Press, USA.\r\n\n\nMacNeilage, P. F., & Davis, B. L. \\(2000). On the Origin of Internal Structure of Word Forms. Science, 288, 527-531.\r\n\n\nMacNeilage, P. F., & Davis, B. L. \\(2011). In Defense of the \u201cFrames, then content\u201d \\(FC) Perspective on Speech Acquisition: A Response to Two Critiques. Language Learning and Development, 7, 234-242.\r\n\n\nMacNeilage, P. F., Davis, B. L., & Matyear, C. L. \\(1997). Babbling and first words: Phonetic similarities and differences. Speech Communication, 22, 269-277.\r\n\n\nMacWhinney, B. \\(2000). The CHILDES project: Tools for analyzing talk \\(Vol. Third Ed.): Psychology Press.\r\n\n\nOller, D. K. \\(1980). The emergence of the sounds of speech in infancy. In G. Yeni-Komshian, J. F. Kavanagh & G. A. Ferguson \\(Eds.), Child phonology 1. Production \\(pp. 93-112). New York, NY: Academic Press.\r\n\n\nSmith, B. L., Brown-Sweeney, S., & Stoel-Gammon, C. \\(1989). A quantitative analysis of reduplicated and variegated babbling. First Language, 9, 175-189.\r\n\n\nStark, R. E. \\(1980). Stages of speech development in the first year of life. In G. Yeni-Komshian, J. F. Kavanagh & G. A. Ferguson \\(Eds.), Child phonology 1. Production \\(pp. 73-90). New York, NY: Academic Press."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "The study was supported by a US Public Health Service grant to Ofer Tchernichovski."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nature12173",
+                "date": "2013-06-10 02:25:06",
+                "title": "Stepwise acquisition of vocal combinatorial capacity in songbirds and human infants",
+                "authors": [
+                    "Dina Lipkind",
+                    "Gary F. Marcus",
+                    "Douglas K. Bemis",
+                    "Kazutoshi Sasahara",
+                    "Nori Jacoby",
+                    "Miki Takahasi",
+                    "Kenta Suzuki",
+                    "Olga Feher",
+                    "Primoz Ravbar",
+                    "Kazuo Okanoya",
+                    "and Ofer Tchernichovski"
+                ],
+                "journal": "Nature",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 12505,
+                "identity": "a0010099-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Douglas K. Bemis",
+                "email": "doug.bemis@gmail.com",
+                "orcid": "",
+                "institution": "INSERM-CEA Cognitive Neuroimaging unit, CEA/SAC/DSV/DRM/Neurospin center,  B\u00e2t 145, Point Courier 156, F-91191 Gif-sur-Yvette Cedex FRANCE ",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Douglas",
+                "middleName": "K.",
+                "lastName": "Bemis",
+                "suffix": ""
+            },
+            {
+                "id": 12506,
+                "identity": "a001045f-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Garry F. Marcus",
+                "email": "",
+                "orcid": "",
+                "institution": "Psychology Department, New York University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Garry",
+                "middleName": "F.",
+                "lastName": "Marcus",
+                "suffix": ""
+            },
+            {
+                "id": 12507,
+                "identity": "a0010774-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Dina Lipkind",
+                "email": "",
+                "orcid": "",
+                "institution": "Ofer Tchernichovski Lab, Hunter College, CUNY",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Dina",
+                "middleName": "",
+                "lastName": "Lipkind",
+                "suffix": ""
+            },
+            {
+                "id": 12508,
+                "identity": "a0010919-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Ofer Tchernichovski",
+                "email": "",
+                "orcid": "",
+                "institution": "Ofer Tchernichovski Lab, Hunter College, CUNY",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Ofer",
+                "middleName": "",
+                "lastName": "Tchernichovski",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2013-06-10 02:20:22",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2013.057",
+        "doiUrl": "https://doi.org/10.1038/protex.2013.057",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13464573,
+                "identity": "5d179eba-4e78-471e-a77b-e4f4831549f4",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:43:52",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 145478,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-2696/v1/093a7aae-5b9c-4551-b3b8-2622f36ece75.pdf"
+            }
+        ],
+        "financialInterests": "None",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "vocal learning, infant babbling, phonetic syntax",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "As part of a comparative study of early vocal learning in songbirds and human infants, we have analyzed the development of phonetic syntax in the babbling utterances of infants, using data from the CHILDES database. Here we present a detailed description of the data and analysis methods used.",
+        "manuscriptTitle": "Analysis of the development of phonetic syntax in infant babbling",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2013-06-10 10:19:52",
+                "doi": "10.1038/protex.2013.057",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a000a05e-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "June 10th, 2013",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 2984,
+                "name": "Developmental biology"
+            },
+            {
+                "id": 2985,
+                "name": "Neuroscience"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2013-06-10 10:19:52",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

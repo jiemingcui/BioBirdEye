@@ -1,0 +1,352 @@
+{
+    "identity": "nprot-574",
+    "title": "Automated on-chip imaging and sorting of <em>C. elegans</em>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Microscopy, phenotyping, and visual screens are frequently applied to model organisms in combination with genetics.  Although widely used, these techniques for multicellular organisms have mostly remained manual and low-throughput. We recently reported a fully automated microsystem for sorting and imaging of _C. elegans_ \\(**Fig. 1a**) \\[ref 1]. This protocol describes how to fabricate microfluidic devices and how to operate the system.  The microfluidic device is fabricated using conventional soft-lithography by molding a silicone material \\(polydimethylsiloxane or PDMS) to the masters created using microfabrication methods.  To create the negative masters, photoresists are deposited on a silicon wafer, and patterned to create micron-scale structures using optical masks; a separate master is created for each of the three layers of the final device.  The silicone components are aligned and bonded to one another to create the final device.  One of the significant advantages of these devices is that they can be used with any microscope, camera and stage of choice. Additionally, the device can be easily scaled for _C. elegans_ of different sizes as well as for other small model organisms.  The devices are inexpensive to create, and once the masters have been fabricated will costly only pennies for the materials per device."
+        },
+        {
+            "header": "Reagents",
+            "content": "- Silicon wafer\r\n\n\n- SU8-2025, SU8-2050, SU8 developer \\(Microchem)\r\n\n\n- AZ50XT, AZ 400T developer \\(AZ Electronic Materials)\r\n\n\n- Tridecafluoro-1,1,2,2-tetrahydrooctyl-1-trichlorosilane \\(United Chemical Technologies)\r\n\n\n- Polydimethylsiloxane \\(PDMS, Sylgard 184, Dow Corning)\r\n\n\n\r\n\n\nM9 buffer \\(for 1 L):\r\n\n\n- 3 g KH<sub>2</sub>PO<sub>4</sub>\r\n\n\n- 6 g Na<sub>2</sub>HPO<sub>4</sub>\r\n\n\n- 5 g NaCl\r\n\n\n- 1 ml 1 M MgSO<sub>4</sub>\r\n\n\n- H<sub>2</sub>O to 1 liter\r\n\n\n- 1% BSA \\(add after autoclaving)\r\n\n\n\r\n\n\nEmbryo isolation solution \\(prepare fresh before use):\r\n\n\n- 19 ml water\r\n\n\n- 1.25 ml 5 M NaOH\r\n\n\n- 4.75 ml household bleach \\(5% solution of sodium hypochlorite)\r\n\n\n\r\n\n\nCoolant: \r\n\n\nA solution of 30% by weight of CaCl<sub>2</sub> is used as the coolant."
+        },
+        {
+            "header": "Equipment",
+            "content": "- Photolithograph tools: Available in most university cleanrooms. These include a spin coater, a profilometer, an alignment and UV exposure tool.\r\n\n\n- Peltier cooler: PJT-5 30mm square and PJT-6 40 mm square peltier coolers. \r\n\n\n- Aluminum tubing: Aluminum alloy 3003 tubing with .0345&#x201D; ID and .063&#x201D; OD. \r\n\n\n- Digital I/O Card: USB 6501 digital I/O card purchased from National Instruments.\r\n\n\n- Solenoid Valves: Solenoid valves from Hargraves Fluidics. \r\n\n\n- Valve Manifold: Custom designed.\r\n\n\n- Air Pressure Manifold: Custom designed.\r\n\n\n- Amplifier Card: Custom designed to amplify signal from the 6501 I/O card.\r\n\n\n- Microscope: Leica DM4500 or equivalent.\r\n\n\n- Camera: Hamamatsu C9100-13 EM CCD or equivalent.\r\n\n\n- Light Source: Mercury arc lamp.\r\n\n\n- Lenses: 10X \\(air, NA = 0.3) and 100X \\(oil, NA = 1.4), or any microscope lens suitable for the application\r\n\n\n\r\n\n\nThe general setup to operate the microchip is illustrated in **Fig. 1b**."
+        },
+        {
+            "header": "Procedure",
+            "content": "The following details the procedure for creating microfluidic masters, devices and running the experiments. Devices can be prepared ahead of time.  \r\n\n\n \r\n\n\n**I. Microfluidic device fabrication:**\r\n\n\n_A. Mold fabrication_ \u2013 the mold wafers should be fabricated in a Cleanroom environment if possible for a high yield in device fabrication.  Follow Cleanroom protocols and safety precautions. \r\n\n\n\u2022 Worm loading layer\r\n\n\n1. Spin-coat SU8-2025 on a silicon wafer at 3000 rpm.\r\n  2. Soft bake the wafer at 95\u00baC for 5 min and UV-expose the photoresist with a mask \\(**Fig. 2a**)  for the worm loading layer.\r\n  3. Hard bake at 95\u00baC for 7 min and develop the wafer with SU8 developer.\r\n  4. Spin-coat AZ50XT on the wafer at 2200 rpm.\r\n  5. Use a mask \\(**Fig. 2b**) of AZ features for UV exposure.\r\n  6. After development with AZ 400T developer, heat the wafer at 125 \u00baC for 5 min to reflow the AZ photoresist.\r\n  \u2022 Control layer\r\n\n\n1. Spin-coat SU8-2050 on a silicon wafer at 3000 rpm.\r\n  2. Soft bake the wafer at 95\u00baC for 5 min and UV exposure with a mask \\(**Fig. 2c**) for the control layer.\r\n  3. Hard bake at 95\u00baC for 7 min and develop the wafer with SU8 developer.\r\n  \u2022 Filtering device\r\n\n\n1. Spin-coat SU8-2025 on a silicon wafer at 3000 rpm.\r\n  2. Soft bake the wafer at 95\u00baC for 5 min and UV exposure with a mask \\(**Fig. 3**).\r\n  3. Hard bake at 95\u00baC for 7 min and develop the wafer.\r\n  \u2022 Treat the two molds and a blank wafer with tridecafluoro-1,1,2,2-tetrahydrooctyl-1-trichlorosilane vapor in a vacuum desiccators at room temperature for at least 4hr. This process needs to be done in a hood because the chemical vapor is toxic.   \r\n\n\n\r\n\n\n_B. PDMS device fabrication_\r\n\n\n\u2022 Worm imaging device- The fabrication process is described in **Fig. 4**.\r\n\n\n1. Prepare Mixture #1 of PDMS \\(A and B in 5:1 ratio) and a mixture #2 of PDMS \\(A and B and Toluene in 20:1:10.5 ratio) in a chemical hood.\r\n  2. Pour Mixture #1 onto the control-layer master to obtain a 5 mm-thick layer in a 15-mm Petri dish and bake the dish for 20 min at 70 \u00baC to make PDMS layer 1.\r\n  3. Spin-coat Mixture #2 onto the blank wafer to give a  ~20 \u00b5m-thick layer and bake to cure for 10 min at 70 \u00baC .\r\n  4. Peel off the PDMS layer 1 from the master and place it on the PDMS membrane. \r\n  5. Fully cure the combined PDMS layer for 2 hours at 70 \u00baC for bonding.\r\n  6. Spin-coat Mixture #1 onto the worm-loading layer master to give a 60 \u00b5m-thick layer and bake it for 2 hours at 70 \u00baC to give PDMS layer 2.\r\n  7. Peel off the PDMS layer 2 from the master and flip it over.\r\n  8. Align the combined PDMS layer and bond it onto the flipped PDMS layer 2 using oxygen plasma treatment \\[ref 2].\r\n  9. Punch holes and bond it onto the cover glass.\r\n  \u2022 Filtering device\r\n\n\n1. Prepare mixture of PDMS \\(A and B in 10:1 ratio).\r\n  2. Pour the mixture onto the filtering device master to obtain a 5 mm-thick layer in a 15-mm Petri dish and bake the dish for 2 hours at 70 \u00baC.\r\n  3. Peel off the PDMS layer, punch holes and bond it onto the cover glass using plasma treatment.\r\n  \r\n\n\n**II. _C. elegans_ culture and sample preparation**\r\n\n\n1. Bleach adults using bleaching solution for ~5 min \\[ref 3].  Watch the adult animals in the solution; as the bodies start to disintegrate, stop the bleaching by diluting and washing with M9 as not to overbleach the embryos.\r\n  2. Let embryos hatch in M9 buffer for ~12 hr and transfer hatched first larval stage animals on Nematode Growth Medium \\(NGM) plates seeded with _E. coli_ OP50.\r\n  3. Culture the animals to the stage of interest.\r\n  4. Wash out animals from the NGM plate using M9 solution containing 0.5 % wt/vol Bovine Serum Albumin \\(BSA). Spin down and wash three times with the M9 solution to remove _E. coli_ from the worm suspension. \r\n  5. Flow the worm suspension through the filtering device to remove debris.\r\n  \r\n\n\n**III. System operation**\r\n\n\n1. Connect tubings and pins to the device properly and mount it on the stage of the microscope.\r\n  2. Prime the device with the buffer solution \\(M9).\r\n  3. Set up cooling system.  The coolant is pumped through a tubing that is placed adjacent to the Peltier device.  \r\n  4. Make sure that there is no leakage, and that the valves work properly.  Check the coolant temperature at the cooling inlet using a thermocouple.  The optimal temperature of the coolant is ~3 \u00b0C before going on the chip.\r\n  5. Run the Matlab code.  **Fig. 5** shows the valve control configurations and sequences for imaging and sorting.\r\n  6. Inject worm suspension into the device using pressure driven flow.  We use ~8 to 10 psi but the actual pressure will depend on each system setup \\(e.g. the length of the tubing).  \r\n  7. After performing imaging/sorting, flush the lines with enough buffer to collect animals and spin down the suspensions in the collection tubes.\r\n  8. Transfer animals onto NGM plates seeded with _E. coli_ OP50."
+        },
+        {
+            "header": "Timing",
+            "content": "Fabricating the masters will take several hours in a cleanroom by a trained user, and fabricating the PDMS devices typically requires a few hours per batch.  Preparing the synchronized animals will take less than half an hour, and should be done sufficiently in advance of using the system so that the animals can grow to the correct age. Setting up the system to run a batch of animals will take ~30 minutes and operation time will depend on the application and the number of animals to be screened and sorted."
+        },
+        {
+            "header": "Critical Steps",
+            "content": "Reflow: The reflow process for the AZ photoresist is critical. This process allows the rectangular channels originally fabricated on the master to transform into rounded channels and allow the valves to completely close.  The rounded profile of the channel can be confirmed by measuring height profile of the channel using a profilometer.  \r\n\n\n\r\n\n\nSilane: Depositing a thin layer of silane on the silicon master prevents the PDMS from adhering to the photoresist structures. Without this, the photoresist will be removed from the wafer when the PDMS device is peeled off. Silane allows the master to be used many times and minimizes the total cost.\r\n\n\n\r\n\n\nBonding: Bonding the different PDMS layers must be done carefully and with great precision. By exposing the PDMS to oxygen plasma, it is possible to activate the surface so that it will bond irreversibly to glass or another PDMS layer. If the PDMS is exposed to plasma for too short or too long, however, it will fail to create a strong bond. Once activated, the layers must be bonded within two minutes.\r\n\n\n\r\n\n\nAlignment: Accurate alignment is critical for robust device operation. Typically we perform alignment by hand using a stereomicroscope. With practice, it is possible to get reliable alignment with 5-micron precision.\r\n\n\n\r\n\n\nPressure: The pressure for injecting the animal suspension and actuating on-chip valves will likely have to be fine-tuned at the beginning of every experiment due to individual variations in the devices as they are manufactured. \r\n\n\n\r\n\n\nLeakage: If the needles used to punch holes in the device are not sufficiently sharp, they can tear the PDMS. When the device is subsequently used, the tears may prevent a good seal from forming, and cause leakage. Make sure that the holes in each device are punched cleanly. Inspect the devices under a microscope once assembled."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "Silane treatment: If the PDMS is hard to be peeled off from the wafer and/or removes the photoresist, this is likely a result of ineffective silane treatment. This is possily a result of either silane that has been left open and exposed to the ambient for an extended period of time, or an insufficiently strong vacuum. Test the vacuum desiccator to insure that it is pulling a strong vacuum, and if the silane is believed to be significantly oxidized, purchase new silane.\r\n\n\n\r\n\n\nBonding issue: If the bonds between layers in the microfluidic device do not appear sufficiently strong, either causing leakage or is non-conforming, there could be several culprits.  If the layers thermo-bonded are delaminating, it is possible that one or all of the layers are overcured.  Repeat the fabrication process but bake the thin, spin-coated layer for a few minutes less.  If the bond between layers that are plasma activated is weak, there could be several causes.  If the plasma chamber is not as clean, the plasma activation process may not work as properly.  Clean according to manufacturer&#x2019;s recommendations and test by bonding blank pieces of PDMS to each other or to glass.  Properly bonded PDMS should be very difficult to remove.  Additionally, evaluate the protocol and be sure that the bonding surfaces are clean and are not touched by gloves or tweezers.  You may need to vary the plasma treatment time to find an optimal condition.  \r\n\n\n\r\n\n\nAlignment: Proper alignment is critical. If the device is offset slightly the partial closure valves will operate slightly differently and change the hydrodynamic resistance. To facilitate good alignment, we use a ring-LED light source connected to a stereomicroscope, and perform bonding at high magnification.  Your Cleanroom may have equipment \\(e.g. aligners) that may facilitate these processes. \r\n\n\n\r\n\n\nLeakage: Leakage typically results from one of two sources: bonding issues, or a poor seal between the device and connected tubing/pins. If the cause seems to be bonding, see the bonding troubleshooting entry.  If the problem appears to be a result of a bad seal between the connected pins and the device, it could be as a result of either incorrectly sized pins or a tearing around the holes in the device.  The silicone material of the device is used to form a strong seal around pins and tubing connected to it.  When the holes in the device are punched, however, it is possible to create small tears around the hole that prevent a good seal from forming. If this is the case, make sure to take care when punching holes, and possibly sharpen the pins used for punching holes in the device.\r\n\n\n\r\n\n\nCooling: If animals do not appear to be immobilized, the temperature on chip may not be sufficiently low.  To find the optimal temperature for the coolant, measure the coolant temperature before arriving on chip and optimize the power input to the Peltier.  An optimal starting point is ~3 &#xB0;C, but the exact condition also depends on the room temperature and the flow rates of the coolant and the animal suspension.  \r\n\n\n\r\n\n\nDevice clogging: When operating the device, occasionally multiple animals or a piece of debris may clog the channels.  Increase the pressure that drives the flow to push the animals and debris out of the channel.  Some animals may be lost in that process, so depending on whether more false positives or false negatives can be tolerated, open either the sorted sample outlet or the waste outlet."
+        },
+        {
+            "header": "References",
+            "content": "1. Chung, K.H., Crane, M.M. &amp; Lu, H. Automated on-chip rapid microscopy, phenotyping and sorting of _C. elegans_. Nature Methods 5, 637-643 \\(2008).\r\n  2. Jackman, R.J., Duffy, D.C., Cherniavskaya, O. &amp; Whitesides, G.M. Using elastomeric membranes as dry resists and for dry lift-off. Langmuir 15, 2973-2984 \\(1999).\r\n  3. Brenner, S. Genetics of _Caenorhabditis elegans_. Genetics 77, 71-94 \\(1974)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "We acknowledge Jeffrey Stirman for assistance in designing the injection manifold and troubleshooting."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nmeth.1227",
+                "date": "2008-11-24 10:56:27",
+                "title": "Automated on-Chip Rapid Microscopy, Phenotyping, and Sorting of C. elegans",
+                "authors": [
+                    "Kwanghun Chung",
+                    "Matthew M Crane & Hang Lu"
+                ],
+                "journal": "Nature Methods",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 11239,
+                "identity": "9f5fd00b-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Kwanghun Chung",
+                "email": "",
+                "orcid": "",
+                "institution": "School of Chemical and Biomolecular Engineering, Georgia Institute of Technology",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Kwanghun",
+                "middleName": "",
+                "lastName": "Chung",
+                "suffix": ""
+            },
+            {
+                "id": 11240,
+                "identity": "9f5fd301-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Matthew Crane",
+                "email": "",
+                "orcid": "",
+                "institution": "Interdisciplinary Program in Bioengineering, Georgia Institute of Technology",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Matthew",
+                "middleName": "",
+                "lastName": "Crane",
+                "suffix": ""
+            },
+            {
+                "id": 11241,
+                "identity": "9f5fd4e9-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Hang Lu",
+                "email": "",
+                "orcid": "",
+                "institution": "School of Chemical and Biomolecular Engineering, Interdisciplinary Program in Bioengineering, Georgia Institute of Technology",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Hang",
+                "middleName": "",
+                "lastName": "Lu",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2010-08-31 14:57:15",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/nprot.2009.105",
+        "doiUrl": "https://doi.org/10.1038/nprot.2009.105",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2608012,
+                "identity": "00100a35-53f4-4d03-8146-2eaee0042744",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:54",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 85600,
+                "visible": true,
+                "origin": "",
+                "legend": "Schematics of the system. ",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-574/v1/figure_1.png"
+            },
+            {
+                "id": 2608013,
+                "identity": "0d3dcf60-8727-49e6-afe6-cfb1e4bcecba",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:54",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 23412,
+                "visible": true,
+                "origin": "",
+                "legend": "AutoCAD design of the worm imaging device.",
+                "description": "",
+                "filename": "figure2.png",
+                "url": "https://assets.researchsquare.com/files/nprot-574/v1/figure_2.png"
+            },
+            {
+                "id": 2608016,
+                "identity": "19013e0c-4178-4959-815a-4d678bcd64a1",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:54",
+                "extension": "png",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 30749,
+                "visible": true,
+                "origin": "",
+                "legend": "Figure 2c   AutoCAD design of the worm imaging device.",
+                "description": "",
+                "filename": "figure3.png",
+                "url": "https://assets.researchsquare.com/files/nprot-574/v1/figure_3.png"
+            },
+            {
+                "id": 2608015,
+                "identity": "d637faa2-ff04-486c-b539-94cb518d9c16",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:54",
+                "extension": "png",
+                "order_by": 4,
+                "title": "Figure 4",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 18197,
+                "visible": true,
+                "origin": "",
+                "legend": "Figure 3   AutoCAD design of the filtering device.",
+                "description": "",
+                "filename": "figure4.png",
+                "url": "https://assets.researchsquare.com/files/nprot-574/v1/figure_4.png"
+            },
+            {
+                "id": 2608018,
+                "identity": "a7446be6-298a-406f-a1c6-85b2cedb1567",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:54",
+                "extension": "png",
+                "order_by": 5,
+                "title": "Figure 5",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 26225,
+                "visible": true,
+                "origin": "",
+                "legend": "Figure 4   PDMS device fabrication process for the imaging/sorting device.",
+                "description": "",
+                "filename": "figure5.png",
+                "url": "https://assets.researchsquare.com/files/nprot-574/v1/figure_5.png"
+            },
+            {
+                "id": 2608017,
+                "identity": "a00a3615-d540-4f9c-aaeb-9e1abef342d7",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:54",
+                "extension": "png",
+                "order_by": 6,
+                "title": "Figure 6",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 65669,
+                "visible": true,
+                "origin": "",
+                "legend": "Figure 5   Schematic diagrams summarizing the valve control sequence in the worm-sorting process. ",
+                "description": "",
+                "filename": "figure6.png",
+                "url": "https://assets.researchsquare.com/files/nprot-574/v1/figure_6.png"
+            },
+            {
+                "id": 15665574,
+                "identity": "eddda429-a370-4662-a5c4-7b236f840259",
+                "added_by": "auto",
+                "created_at": "2021-11-18 13:32:19",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 392264,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-574/v1/e6fee1b4-3d1d-410d-a292-e8a2ef007d18.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "microfluidics, C. elegans, model organism, sorting, imaging, screening, automation, high-resolution, high-throughput\r\n\r\n",
+        "license": {
+            "name": "None",
+            "url": ""
+        },
+        "manuscriptAbstract": "",
+        "manuscriptTitle": "Automated on-chip imaging and sorting of C. elegans",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2009-05-20 10:54:54",
+                "doi": "10.1038/nprot.2009.105",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9f5f805e-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "May 20th, 2009",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 2309,
+                "name": "Cell biology"
+            },
+            {
+                "id": 2310,
+                "name": "Developmental biology"
+            },
+            {
+                "id": 2311,
+                "name": "Genetics"
+            },
+            {
+                "id": 2313,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 2314,
+                "name": "Neuroscience"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2009-05-20 10:54:54",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

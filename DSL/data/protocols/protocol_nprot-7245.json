@@ -1,0 +1,290 @@
+{
+    "identity": "nprot-7245",
+    "title": "Quantitative analysis of PARP inhibitor toxicity by multidimensional fluorescence microscopy",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "The growing interest in PARP inhibitors \\(PARPi) for the treatment of cancer calls for the development of unbiased approaches to measure PARPi-mediated toxicity.  Current methodology to evaluate PARPi toxicity involves cell proliferation and clonogenic survival assays, manual evaluation of PARPi-induced DNA damage markers such as \u03b3H2AX or RAD51 foci formation in relatively small cohorts of cells, or biochemical cell fractionation for the detection of chromatin-bound PARP enzymes. Although very useful, these approaches are either time consuming, have limited sensitivity, are not well suited for screening purposes, or focus on single parameters of the cellular response to PARPi. Moreover, cell-to-cell variation in PARPi responses, including cell cycle phase-specific responses, is neglected when using methods that measure cell population averages of asynchronously growing cells. Here, we apply an experimental pipeline, which, based on automated microscopy and software-assisted image analysis, allows for image-based cell cycle staging, thus revealing genotoxic stress responses in a sensitive and cell cycle resolved manner \\(1-9). Applied to PARPi, this approach reveals PARPi-induced DNA damage signaling in S-phase cells, quantitatively differentiates responses to different clinically relevant PARPi, measures chromatin retention of PARP enzymes, and may be applied to predict conditions of PARPi hypersensitivity and resistance. In comparison to flow cytometry, the presented workflow combines the advantages of analyzing thousands of individual cells per condition with the high resolution of state-of-the-art microscope lenses, which enables quantification of PARPi-induced changes also at the subcellular level. Although the presented workflow follows the principles of high-content imaging applied in large-scale perturbations screens \\(10,11), it is equally suited for hypothesis driven small-scale experiments and can be applied to address a variety of biological questions in the area PARP inhibitor biology and beyond."
+        },
+        {
+            "header": "Reagents",
+            "content": "Protocol Part A: Indirect immunofluorescence\r\n\n\n\r\n\n\n1. Cell culture: For standard mammalian cell culture Dulbecco\u2019s modified Eagle\u2019s medium \\(DMEM), fetal calf serum \\(FCS) and penicillin/streptomycin \\(P/S) are used. For cell treatment and labeling the following compounds are used: Az-20 \\(1 \u03bcM, Tocris), Camptothecin \\(50 nM to 1 \u03bcM, Selleckchem), Temozolamide \\(1 mM, Sigma), Roscovitine \\(20 \u03bcM, Selleckchem), PJ-34 \\(10 \u03bcM, Enzo Life Sciences), niraparib \\(MK-4827) \\(10 \u03bcM, Selleckchem), rucaparib \\(AG-014699, PF-01367338) \\(10 \u03bcM, Selleckchem), talazoparib \\(BMN 673) \\(50 nM-10 \u03bcM, S7048, Selleckchem), veliparib \\(ABT-888) \\(10 \u03bcM, Enzo Life Sciences), olaparib \\(AZD-2281) \\(50nM-10 \u03bcM, S1060, Selleckchem), pevonedistat \\(MLN4924) \\(10 nM to 100 nM, S7109, Selleckchem), Hydrogen peroxide \\(0.1 mM, Sigma-Aldrich), Methyl methanesulfonate \\(0.01%, Sigma-Aldrich), EdU \\(5-ethynyl-2'-desoxyuridine) \\(10 \u03bcM, Thermo Fisher Scientific). X-ray irradiation of cells is performed with a Faxitron Cabinet X-ray System Model RX-650. \r\n  \r\n\n\n2. Fixation: 3% formaldehyde in PBS.\r\n  \r\n\n\n3. Permeabilization: 0.2% Triton X-100 in PBS.\r\n  \r\n\n\n4. Blocking solution: Filtered DMEM containing 10% FCS and 0.01% sodium azide.\r\n  \r\n\n\n5. Click-iT EdU Alexa Fluor 488 Imaging Kit \\(Thermo Fisher Scientific) is used for EdU detection.\r\n  \r\n\n\n6. Primary antibodies: H2AX Phospho S139 \\(mouse, Biolegend 613401, 1:1000), RAD51 \\(rabbit, Bioacademia 70-002, 1:1000), BRCA1 \\(mouse, Santa Cruz sc-6954, 1:100), Poly\\(ADP-ribose) \\(rabbit, Enzo Lifesciences ALX-210-890, 1:1000), Cyclin A \\(rabbit, Santa Cruz sc-751, 1:100), PARP1 \\(rabbit, Santa Cruz sc-7150, 1:100), PARP2 \\(rabbit, Active Motif 39743, 1:250), Histone H3 phospho S10 \\(rabbit, Abcam ab5176, 1:2000), 53BP1 \\(rabbit, Santa Cruz sc-22760, 1:500).\r\n  \r\n\n\n7. Secondary antibodies: Alexa Fluor 488 goat-anti rabbit, Alexa Fluor 488 goat-anti mouse, Alexa Fluor 568 goat-anti rabbit, Alexa Fluor 568 goat-anti mouse, Alexa Fluor 647 goat-anti rabbit, Alexa Fluor 647 goat-anti mouse \\(all Thermo Fisher Scientific, 1:500). \r\n  \r\n\n\n8. 4\u2019,6-Diamidino-2-Phenylindole Dihydrochloride \\(DAPI, FluoroPure grade, Thermo Fisher Scientific): 5mg/ml stock solution kept at 4 \u00b0C for short term storage and at -20 \u00b0C for long term storage. Protect from light. Prepare 0.5 \u03bcg/ml working solution in PBS before use.\r\n  \r\n\n\n9. Mounting media: Mowiol 4.88, Glycerol, Tris.\r\n  \r\n\n\nProtocol Part B: Automated microscopy and image analysis\r\n\n\n\r\n\n\n1. Image acquisition can be performed manually on any wide-field or confocal fluorescence microscope. However, multi-channel multi-position imaging is best achieved on motorized microscopes equipped with robust autofocus systems. We mainly use the Olympus ScanR Screening System with an inverted motorized Olympus IX83 microscope, a motorized stage, infra-red laser-based hardware autofocus, a fast emission filter wheel with single band emission filters for DAPI, FITC, Cy3, and Cy5, high NA air objectives \\(4x Objective: NA 0.16; 10x Objective: NA 0.40; 20x Objective: NA 0.75; 40x Objective: NA 0.90), and a 12-bit digital monochrome CMOS camera with sensor chip FL-400 \\(2048 x 2048 pixels of size 6.5 x 6.5 \u03bcm). Automated image acquisition is performed using the ScanR Acquisition Software \\(Olympus) employing both hardware and software autofocus.\r\n  \r\n\n\n2. Image analysis can be performed using a variety of commercially available or open-source software packages. Here, we use the ScanR Analysis Software \\(Olympus) for image processing, object detection and segmentation, intensity measurements, and gating. Further, the Spotfire data visualization and analytics software \\(TIBCO) is used to generate color-coded scatter plots and to quantify signal intensities from cell populations and sub-populations."
+        },
+        {
+            "header": "Procedure",
+            "content": "Protocol Part A: Indirect immunofluorescence\r\n\n\n\r\n\n\n1. Seed cells onto sterilized 12mm coverslips placed in 60-mm dishes in DMEM-GlutaMAX medium complemented with 10 % \\(vol/vol) FCS \\(optional: 1 % penicillin/streptomycin), let them attach and grow for 24 hours at 37 \u00b0C in a humidified atmosphere with 5% CO2. Alternatively, cells can be cultured in multi-well imaging plates. Most adherent cell lines that are suitable for indirect immunofluorescence experiments are also appropriate for PARPi-evoked DNA damage response signaling \\(PARPi-DDR) measurements by quantitative image-based cytometry. \r\n  \r\n\n\n2. Cells on coverslips are transferred to 24-well plates and subjected to cell treatments.\r\n  \r\n\n\n3. To measure DNA synthesis by EdU \\(5-ethynyl-2'-desoxyuridine) \\(Thermo Fisher Scientific) incorporation, cells are incubated for 20 minutes in medium containing 10 \u03bcM EdU. \r\n  \r\n\n\n4. After treatment, cells are fixed with 3% formaldehyde in PBS for 12 minutes at room temperature. The formaldehyde solution is removed and cells are washed once with PBS. When the analysis is focused on extraction-resistant protein pools, a pre-extraction on ice with 0.2% Triton X-100 \\(Sigma-Aldrich) for 2 minutes is performed prior to fixation to remove soluble protein fractions \\(see Troubleshooting section).\r\n  \r\n\n\n5. Cells are permeabilized for 5 minutes at room temperature in 0.2% Triton X-100 in PBS, and washed twice in PBS. This step is not required in pre-extracted samples.\r\n  \r\n\n\n6. Fixed and permeabilized cells are washed twice in PBS and incubated in blocking solution \\(Filtered DMEM containing 10% FCS and 0.01% sodium azide \\(Fluka)) for 15 min at room temperature. \r\n  \r\n\n\n7. Primary antibodies are diluted in blocking solution and the coverslips are inverted over 35 \u03bcl of the desired primary antibody solution on a flattened piece of parafilm. To avoid evaporation, using a wet chamber is recommended. Here, antibody incubations were performed for 2 hours at room temperature, although incubation time may have to be optimized for every antibody. When combining the staining with EdU detection, an EdU Click-it reaction is performed prior to incubation with the primary antibodies according to the manufacturer\u2019s recommendations \\(Thermo Fisher Scientific).\r\n  \r\n\n\n8. The coverslips are transferred back to the 24 well dishes, washed 3 times with PBS and inverted over 35 \u03bcl of fluorophore-conjugated secondary antibodies diluted in blocking solution following the same procedure as in step 7. Secondary antibody incubation is performed for 1 h at room temperature protected from light.\r\n   \r\n\n\n9. The coverslips are transferred back to the 24 well dishes, washed once with PBS and the DNA is stained with a 4\u2019,6-Diamidino-2-Phenylindole Dihydrochloride \\(DAPI, FluoroPure grade, Thermo Fisher Scientific) solution in PBS \\(DAPI, 0.5 \u03bcg/ml) for 10 min protected from light. After DAPI staining, the coverslips are washed 3 times with PBS. Optimizing DAPI concentration and incubation time for different cell lines, as well as terminating the DNA staining by multiple PBS washes, facilitate quantitative image-based cell cycle staging, so that total DAPI intensities scale with DNA content correspondingly and allow for a discrimination of the different cell cycle phases \\(see Troubleshooting section).\r\n  \r\n\n\n10. Coverslips are briefly washed with distilled water, placed on 3MM paper to dry and mounted on 5 \u03bcl Mowiol-based mounting medium. For Mowiol preparation mix 2.4 g Mowiol with 6.9 g of 86-89% glycerol. While stirring, add 6 ml distilled water and leave stirring for 2 hours at room temperature. Add 12 ml of 0.2 M Tris \\(pH 8.5). Incubate at 50-60 \u00b0C for 10 minutes to resolve all components. Repeat until all components are dissolved. Prepare aliquots and store at -20\u00b0 C. Store mounted coverslips over night at 4\u00b0 C to allow for complete Mowiol polymerization prior to image acquisition \\(see Troubleshooting section).\r\n  \r\n\n\nProtocol Part B: Automated microscopy and image analysis\r\n\n\n\r\n\n\n1. Images are acquired in an unbiased fashion with the Olympus ScanR Screening System equipped with an inverted motorized Olympus IX83 microscope, a motorized stage, IR-laser hardware autofocus, a fast emission filter wheel with single band emission filters, and a digital monochrome Hamamatsu ORCA-FLASH 4.0 V2 sCMOS camera \\(2048 x 2048 pixel, 12 bit dynamics). For each condition, image information of large cohorts of cells \\(typically at least 500 cells for the UPLSAPO 40x objective \\(NA 0.9), at least 2000 cells for the UPLSAPO 20x objective \\(NA 0.75), and at least 5000 cells for the UPLSAPO 10x \\(NA 0.4) and UPLSAPO 4x \\(NA 0.16) objectives) is acquired under non-saturating conditions at a single autofocus-directed z-position. The choice of objective and number of acquired images per condition depend on cell density, desired read-out, required image resolution and camera field of view. Besides dedicated high content platforms \\(e.g. Olympus ScanR, Thermo Scientific CellomicsArrayScan, Molecular Devices ImageXpress Ultra/Micro, GE Healthcare IN Cell Analyzer 6000/2200, Perkin Elmer Opera/Operetta, BD Biosciences BD Pathway 855/435) images acquired with any automated fluorescence microscope, wide-field or confocal, as well as manually acquired images can be subjected to quantitative image-based cytometry analyses \\(see Troubleshooting section).\r\n  \r\n\n\n2. Images are analyzed with the inbuilt Olympus ScanR Image Analysis Software. A moderate dynamic background correction is first applied, and DAPI signals are used for segmentation of the nuclei using an integrated intensity-based module that generates masks that identify nuclei as individual objects. This mask is then applied to quantify pixel intensities in the different color channels. Here, total DAPI levels, and mean intensities of EdU, \u03b3H2AX, poly\\(ADP-ribose), PARP1, PARP2, Histone H3 phospho S10 and Cyclin A are measured. For RAD51, BRCA1 and 53BP1 foci segmentation and quantification in high-resolution images an integrated spot-detection module is used. Various commercial software packages and open-source alternatives \\(e.g. ImageJ/Fiji, CellProfiler) can be used for image segmentation and feature extraction \\(see Troubleshooting section).\r\n  \r\n\n\n3. The extracted data is imported to the Spotfire data visualization software \\(TIBCO). Spotfire is used to generate color-coded scatter plots of asynchronous cell populations in a flow-cytometry-like fashion and to quantify percentages and cell \\(sub)population averages. Fluorescence intensities are depicted as arbitrary units. For visualizing discrete data in scatter plots \\(e.g. foci numbers), mild jittering \\(random displacement of data points along the discrete data axes) is applied in order to demerge overlapping data points. Within one experiment, similar cell numbers are compared for the different conditions. The free software environment for statistical computing and graphics R can be used as an alternative for data visualization and analysis."
+        },
+        {
+            "header": "Timing",
+            "content": "For the Part A of the protocol \\(Indirect immunofluorescence) no more than 5 hours are needed, starting form the fixation step to the mounting step. The time taken for cell culture will vary depending on the cell treatments applied. For the automated imaging the reader may expect to invest between 10 and 30 minutes to acquire 10 samples, based on the objective and required number of images. The time needed for data visualization and analysis varies dependent on the degree of expertise and experience, the research question\\(s), and the complexity of the experiment. The time needed may thus range from 30 minutes for a simple experiment with known read-outs to several hours for more complex experiments and more thorough analysis of multiple cellular features."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "A4: PAR formation during fixation. When exact PAR measurements or quantifications of basal PAR levels are required, PARP and PARG inhibitors may have to be added during the fixation step.\r\n\n\n\r\n\n\nA4: Cell loss after pre-extraction. Pre-extraction should be performed quickly and with ice-cold 0.2% Triton X-100. Fix cells with room temperature 3% formaldehyde. Alternatively, a Cytospin centrifuge can be used after the pre-extraction step and fix the cells directly on the slide.\r\n\n\n\r\n\n\nA9: Non-homogenous DAPI staining. DAPI solution should be mixed thoroughly before adding it to the cells. After DAPI staining, wash gently the cells with PBS. Cell density can also affect DAPI staining, thus, ensure homogenous cell density between samples.\r\n\n\n\r\n\n\nA10: Bubble formation during mounting of the coverslips. To avoid solidification of the mounting-media, work quickly after adding it to the slide. Increase the Mowiol quantity to 6-7 \u03bcl if needed. \r\n\n\n\r\n\n\nB1: Focus problems. Small particles between the slide and the coverslips can affect the focus. Briefly wash the coverslips with distilled water before mounting and make sure particles have been removed.\r\n\n\n\r\n\n\nB2: Difficulties in nuclei segmentation. Over confluent cells can preclude proper nuclei segmentation. The optimal cell density should be high enough to allow for a large number of cells to be analyzed per image, while avoiding contact between neighboring cell nuclei in order to facilitate software-assisted object detection. For most adherent cell lines a cell density of 70-90% accomplishes these criteria."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "Applied to PARPi, the described workflow revealed an S-phase-specific DNA damage response after short-term PARPi treatment. An increase in \u03b3H2AX levels and accumulation of homologous recombination intermediates \\(such as RAD51 and BRCA1 foci) is expected specifically in S-phase cells \\(Figure 1A). By simultaneously assessing PARPi-induced PARP trapping and \u03b3H2AX induction we showed that although PARP trapping occurs in all phases of the cell cycle, the DNA damage signal primarily occurs in S-phase cells \\(Figure 1B). As additional parameters of PARPi-induced cytotoxicity the consequences of PARPi on cell cycle progression can be assessed by 4-dimensional \\(4D) cell cycle staging based on DAPI, Cyclin A, EdU and the mitotic marker H3pS10 \\(Serine10-phosphorylated histone H3) \\(Figure 1C). The dynamics and cell cycle phase specificity of the cellular responses vary based on the biological question and the cell treatments applied. We would like to direct the reader to several publications, in which different examples and applications of cell cycle resolved multidimensional fluorescence microscopy to study DNA damage signaling and replication stress responses can be found \\(1-7,12-14).\r\n\n\n\r\n\n\n<a href=\"#figures\" data-url=\"http://www.nature.com/protocolexchange/system/uploads/7433/original/Fig1.jpg?1544701572\">See figure in Figures section.</a> \r\n\n\n\r\n\n\nFigure 1: Schematic illustration of the expected results obtained by quantitative analysis of PARP inhibitor toxicity by multidimensional fluorescence microscopy.\r\n\n\n\\(a) Schematic of single cell data obtained by quantitative microscopy from cells treated with PARPi, pulsed with EdU and stained for \u03b3H2AX, RAD51, EdU and DAPI. Two-dimensional cell cycle staging can be performed based on the DAPI/EdU profile. For the same cell populations, cell cycle resolved \u03b3H2AX and RAD51 foci formation can be assessed. \r\n\n\n\\(b) Illustration of chromatin-bound PARP1 and \u03b3H2AX formation in single cells and in a cell cycle resolved manner. \\(c) Schematic on how PARPi-induced cell cycle arrest can be revealed by 4-dimensional quantitative image-based cytometry by combining EdU, Cyclin A, H3pS10 and DAPI. Two-dimensional cell cycle staging can be performed based on DAPI/EdU, DAPI/Cyclin A and DAPI/H3pS10."
+        },
+        {
+            "header": "References",
+            "content": "1 Michelena, J. & Altmeyer, M. Cell Cycle Resolved Measurements of Poly\\(ADP-Ribose) Formation and DNA Damage Signaling by Quantitative Image-Based Cytometry. Methods Mol Biol 1608, 57-68, doi:10.1007/978-1-4939-6993-7_5 \\(2017).\r\n\n\n\r\n\n\n2 Pellegrino, S., Michelena, J., Teloni, F., Imhof, R. & Altmeyer, M. Replication-Coupled Dilution of H4K20me2 Guides 53BP1 to Pre-replicative Chromatin. Cell Rep 19, 1819-1831, doi:10.1016/j.celrep.2017.05.016 \\(2017).\r\n\n\n\r\n\n\n3 Toledo, L. I. et al. ATR prohibits replication catastrophe by preventing global exhaustion of RPA. Cell 155, 1088-1103, doi:10.1016/j.cell.2013.10.043 \\(2013).\r\n\n\n\r\n\n\n4 Altmeyer, M. et al. Liquid demixing of intrinsically disordered proteins is seeded by poly\\(ADP-ribose). Nat Commun 6, 8088, doi:10.1038/ncomms9088 \\(2015).\r\n\n\n\r\n\n\n5 Altmeyer, M. et al. The chromatin scaffold protein SAFB1 renders chromatin permissive for DNA damage signaling. Mol Cell 52, 206-220, doi:10.1016/j.molcel.2013.08.025 \\(2013).\r\n\n\n\r\n\n\n6 Gudjonsson, T. et al. TRIP12 and UBR5 suppress spreading of chromatin ubiquitylation at damaged chromosomes. Cell 150, 697-709, doi:10.1016/j.cell.2012.06.039 \\(2012).\r\n\n\n\r\n\n\n7 Ochs, F. et al. 53BP1 fosters fidelity of homology-directed DNA repair. Nat Struct Mol Biol 23, 714-721, doi:10.1038/nsmb.3251 \\(2016).\r\n\n\n\r\n\n\n8 Roukos, V., Pegoraro, G., Voss, T. C. & Misteli, T. Cell cycle staging of individual cells by fluorescence microscopy. Nat Protoc 10, 334-348, doi:10.1038/nprot.2015.016 \\(2015).\r\n\n\n\r\n\n\n9 Toledo, L., Neelsen, K. J. & Lukas, J. Replication Catastrophe: When a Checkpoint Fails because of Exhaustion. Mol Cell 66, 735-749, doi:10.1016/j.molcel.2017.05.001 \\(2017).\r\n\n\n\r\n\n\n10 Boutros, M., Heigwer, F. & Laufer, C. Microscopy-Based High-Content Screening. Cell 163, 1314-1325, doi:10.1016/j.cell.2015.11.007 \\(2015).\r\n\n\n\r\n\n\n11 Liberali, P., Snijder, B. & Pelkmans, L. Single-cell and multivariate approaches in genetic perturbation screens. Nat Rev Genet 16, 18-32, doi:10.1038/nrg3768 \\(2015).\r\n\n\n\r\n\n\n12 Duda, H. et al. A Mechanism for Controlled Breakage of Under-replicated Chromosomes during Mitosis. Dev Cell 39, 740-755, doi:10.1016/j.devcel.2016.11.017 \\(2016).\r\n\n\n\r\n\n\n13 Haahr, P. et al. Activation of the ATR kinase by the RPA-binding protein ETAA1. Nat Cell Biol 18, 1196-1207, doi:10.1038/ncb3422 \\(2016).\r\n\n\n\r\n\n\n14 Somyajit, K. et al. Redox-sensitive alteration of replisome architecture safeguards genome integrity. Science 358, 797-802, doi:10.1126/science.aao3172 \\(2017)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "We acknowledge the Flow Cytometry Facility and the Center for Microscopy and Image Analysis at the University of Zurich, in particular Urs Ziegler and Jos\u00e9 Mar\u00eda Mateos Melero, for excellent support, and Michael Hottiger for providing reagents. We thank all members of the Altmeyer lab for valuable discussions and experimental help. Research in the lab of Matthias Altmeyer is supported by the Swiss National Science Foundation \\(SNSF Professorship Grants PP00P3_150690 and PP00P3_ 179057), the European Research Council \\(ERC) under the European Union's Horizon 2020 research and innovation programme \\(ERC-2016-STG 714326), the Novartis Foundation for Medical-Biological Research \\(Grant 16B078), and the Swiss Foundation to Combat Cancer \\(Stiftung zur Krebsbek\u00e4mpfung). JM is supported by the Gobierno Vasco Programa Posdoctoral de Perfeccionamiento de Personal Investigador Doctor. AL is a member of the Cancer Biology Program of the Life Science Zurich Graduate School. FT is a member of the Molecular Life Sciences Program."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41467-018-05031-9",
+                "date": "2018-12-13 11:43:52",
+                "title": "Analysis of PARP inhibitor toxicity by multidimensional fluorescence microscopy reveals mechanisms of sensitivity and resistance",
+                "authors": [
+                    "Jone Michelena",
+                    "Aleksandra Lezaja",
+                    "Federico Teloni",
+                    "Thomas Schmid",
+                    "Ralph Imhof",
+                    "and Matthias Altmeyer"
+                ],
+                "journal": "Nature Communications",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 16130,
+                "identity": "a1a4b435-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Matthias Altmeyer",
+                "email": "matthias.altmeyer@uzh.ch",
+                "orcid": "",
+                "institution": "Altmeyer Lab, Department of Molecular Mechanisms of Disease, University of Zurich, Switzerland",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Matthias",
+                "middleName": "",
+                "lastName": "Altmeyer",
+                "suffix": ""
+            },
+            {
+                "id": 16128,
+                "identity": "a1a4b118-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Thomas Schmid",
+                "email": "",
+                "orcid": "",
+                "institution": "Altmeyer Lab, Department of Molecular Mechanisms of Disease, University of Zurich, Switzerland",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Thomas",
+                "middleName": "",
+                "lastName": "Schmid",
+                "suffix": ""
+            },
+            {
+                "id": 16129,
+                "identity": "a1a4b2cd-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Ralph Imhof",
+                "email": "",
+                "orcid": "",
+                "institution": "Altmeyer Lab, Department of Molecular Mechanisms of Disease, University of Zurich, Switzerland",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Ralph",
+                "middleName": "",
+                "lastName": "Imhof",
+                "suffix": ""
+            },
+            {
+                "id": 16125,
+                "identity": "a1a4a845-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Jone Michelena",
+                "email": "",
+                "orcid": "",
+                "institution": "Altmeyer Lab, Department of Molecular Mechanisms of Disease, University of Zurich, Switzerland",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jone",
+                "middleName": "",
+                "lastName": "Michelena",
+                "suffix": ""
+            },
+            {
+                "id": 16126,
+                "identity": "a1a4ad0f-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Aleksandra Lezaja",
+                "email": "",
+                "orcid": "",
+                "institution": "Altmeyer Lab, Department of Molecular Mechanisms of Disease, University of Zurich, Switzerland",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Aleksandra",
+                "middleName": "",
+                "lastName": "Lezaja",
+                "suffix": ""
+            },
+            {
+                "id": 16127,
+                "identity": "a1a4af1d-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Federico Teloni",
+                "email": "",
+                "orcid": "",
+                "institution": "Altmeyer Lab, Department of Molecular Mechanisms of Disease, University of Zurich, Switzerland",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Federico",
+                "middleName": "",
+                "lastName": "Teloni",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2018-12-13 12:53:06",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2019.005",
+        "doiUrl": "https://doi.org/10.1038/protex.2019.005",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2610329,
+                "identity": "41895b1e-c6e5-401b-b739-559defaca8fd",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:34",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 166295,
+                "visible": true,
+                "origin": "",
+                "legend": "Schematic illustration of the expected results obtained by quantitative analysis of PARP inhibitor toxicity by multidimensional fluorescence microscopy.   (a) Schematic of single cell data obtained by quantitative microscopy from cells treated with PARPi, pulsed with EdU and stained for \u03b3H2AX, RAD51, EdU and DAPI. Two-dimensional cell cycle staging can be performed based on the DAPI/EdU profile. For the same cell populations, cell cycle resolved \u03b3H2AX and RAD51 foci formation can be assessed. \r\n(b) Illustration of chromatin-bound PARP1 and \u03b3H2AX formation in single cells and in a cell cycle resolved manner. (c) Schematic on how PARPi-induced cell cycle arrest can be revealed by 4-dimensional quantitative image-based cytometry by combining EdU, Cyclin A, H3pS10 and DAPI. Two-dimensional cell cycle staging can be performed based on DAPI/EdU, DAPI/Cyclin A and DAPI/H3pS10.",
+                "description": "",
+                "filename": "figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-7245/v1/figure_1.jpg"
+            },
+            {
+                "id": 13465930,
+                "identity": "664988c9-2b72-4080-8d34-199f722856dc",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:48:49",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 227514,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-7245/v1/ef18c0b8-0d81-4539-bcff-464fd79ab30c.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "PARP inhibitor, DNA damage response, BRCA1, BRCA2, synthetic lethality, PARP inhibitor sensitivity and resistance, ATR inhibitor, SCF inhibitor",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "Current methods employed to evaluate PARP inhibitor \\(PARPi) toxicity can be time consuming, have limited sensitivity, may not be well suited for screening purposes, or yield results from cell population averages rather than single cell information. To overcome these limitations we provide a detailed protocol to assess PARPi toxicity at multiple phenotypic levels based on a high-content microscopy workflow. This approach takes two days and allows for sensitive cell cycle resolved analyses of PARPi-evoked DNA damage response signaling and PARP trapping. The approach can be applied to evaluate conditions of PARPi hypersensitivity and resistance, and to obtain insights in the cellular mechanisms of drug synergism. Moreover, the described workflow is compatible with high-throughput screening for the discovery and characterization of functional interactions between PARPi and other clinically relevant drugs.",
+        "manuscriptTitle": "Quantitative analysis of PARP inhibitor toxicity by multidimensional fluorescence microscopy",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2019-01-28 13:27:42",
+                "doi": "10.1038/protex.2019.005",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a1a42cb4-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "January 28th, 2019",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 4468,
+                "name": "Cell biology"
+            },
+            {
+                "id": 4470,
+                "name": "Biological techniques"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2019-01-28 13:27:42",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

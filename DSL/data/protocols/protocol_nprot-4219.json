@@ -1,0 +1,247 @@
+{
+    "identity": "nprot-4219",
+    "title": "Building the KOMODO media database",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "A large collection of media recipes for microbial strains is available through the German Leibniz Institute DSMZ strain and media collection \\(accessible here: https://www.dsmz.de/?id=441).  These recipes are publicly available, but they are contained as instructions in portable document format \\(PDF) files that must be searched on an organism-by-organism basis.  Putting these recipes into a usable database form required extensive and non-trivial work parsing, merging, and organizing, as well as handling cross-references between media and sub-media compound mixtures such as \u2018trace element solutions,\u2019 which could be detailed and referenced from any DSMZ medium.  \r\n\n\n\r\n\n\nDealing with such cross references involves handling multiplication of volumes, masses, and concentrations, even in cases when the same media component is included both in a sub-medium mixture and in the main medium description, often with non-matching names and/or units \\(e.g., once in g/L and once in moles/L).  Medium and sub-medium volumes also are often not listed in media, but are assumed by microbiologists to be 1 liter per the number of grams \\(or moles, or milliliters) of compounds listed for inclusion.  However, there is no general rule for this, as some media do list specific volumes, some of which do not sum up to 1 liter.  Often, the volumes are left to be deciphered through common sense.\r\n\n\n\r\n\n\nWe tackled these challenges with a pipeline that is part manual and part automated.  We used this pipeline to read in more than 1500 PDF media descriptions and to create the KOMODO database, containing media compositions with standardized units. The pipeline is depicted as a 15-step process in Figure 1 of this protocol. Each step is explained in detail below."
+        },
+        {
+            "header": "Procedure",
+            "content": "**Step 1. Copy media PDFs into text file**\r\n\n\nPDFs of all the media in the DSMZ database were copied verbatim into a text file.  \r\n\n\n\r\n\n\n**Step 2. Manually reformat PDFs for machine reading**\r\n\n\nThe resulting ~27,000 lines of text were manually reformatted in a way that could be machine read, using tags such as /ph/ \\(set the pH tag of the medium), /replace/ \\(replace one compound with another), /conc/ \\(change the concentration of a compound), and /rm/ \\(remove a compound from the medium) to denote media features and instructions.  These tags were embedded in a specialized syntax that was similar to natural language media instructions, and thus required minimal alterations from the instructions listed in the original pdfs, but that followed a defined syntactical structure that could be interpreted by a computer program.  We were able to extract and reformat the majority of media from the DSMZ database in this way. A few examples of final formatted media descriptions \\(ready for machine reading) are shown here:\r\n\n\n\r\n\n\nExample 1:\r\n\n\n#nondefined# #medium# 233. METHANOLOBUS-I-MEDIUM\r\n\n\nmedium 141\r\n\n\n/rm/ Yeast extract\r\n\n\n/rm/ Trypticase\r\n\n\n/rm/ Na-acetate\r\n\n\n/conc/ NaHCO3 @ 1 g/l\r\n\n\n/anaerobic/\r\n\n\n/atm/ N2, CO2\r\n\n\n/notag/ methanol @ 0.5 %%\r\n\n\n/ph/ 6.5\r\n\n\n\r\n\n\nExample 2:\r\n\n\n#nondefined# #medium# 237. ENB medium\r\n\n\n##Nutrient broth \\(Difco) @ 100 %%\r\n\n\n/notag/ Peptone @ 5 g\r\n\n\n/notag/ KH2PO4 @ 1.5 g\r\n\n\n/notag/ K2HPO4 @ 3.5 g\r\n\n\n/notag/ NaCl @ 5 g\r\n\n\n/notag/ Glucose @ 1 g\r\n\n\n/notag/ Agar @ 15 g\r\n\n\n/notag/ Distilled water @ 1000 ml\r\n\n\n/ph/ 6.8 - 7.0\r\n\n\n\r\n\n\nExample 3:\r\n\n\n#defined# #medium# 194. DESULFOBULBUS MEDIUM\r\n\n\nmedium 193\r\n\n\n/conc/ NaCl @ 1 g/l\r\n\n\n/conc/ MgCl2 x 6 H2O @ 0.4 g/l\r\n\n\n/rm/ Na-acetate x 3 H2O\r\n\n\n/notag/ Sodium propionate @ 1.5 g/l\r\n\n\n#194.1 For DSM 1744\r\n\n\n/conc/ NaCl @ 10 g/l\r\n\n\n/rm/ Sodium propionate\r\n\n\n/notag/ sodium lactate @ 2.5 g/l\r\n\n\n/notag/ Yeast extract @ 1 g/l\r\n\n\n#194.2 For DSM 14880\r\n\n\n/rm/ Sodium propionate\r\n\n\n/notag/ Yeast extract @ 0.5 g/l\r\n\n\n/notag/ Sodium pyruvate @ 2.2 g/l\r\n\n\n#194.3 For DSM 21556\r\n\n\n/rm/ Sodium propionate\r\n\n\n/notag/ Sodium butyrate @ 2.2 g/l\r\n\n\n\r\n\n\nOrdinary form for a component:\r\n\n\n/notag/ NaCl @ 5 g \uf0e8 this indicates that there are 5 grams of NaCl added to the medium. The line has the form: \\[/tag/, compound name, @, concentration value, concentration unit]. If the concentration unit is a percent, then the molar amount is calculated based on a volume conversion.\r\n\n\n\r\n\n\nAll of the tags we use are listed here:\r\n\n\n# = indicates the title of a new medium which is a strain-specific variant of the base medium being described. For example, in example 3 above, media 194.1, 194.2, and 194.3 are strain specific variants of medium 194, with some added instructions.\r\n\n\n## = indicates that all components of a medium or submedium need to be added in some amount.\r\n\n\n// = a comment \\(to be functionally ignored)\r\n\n\n/also/ = same as /or/\r\n\n\n/anaerobic/ = no oxygen in the medium.\r\n\n\n/atm/ = this will be followed by all of the components in the atmosphere of the medium \\(e.g., H2, CO2).\r\n\n\n/atm+/ = add the listed components to the atmosphere.\r\n\n\n/conc/ = alter the concentration of the component to the given quantity.\r\n\n\n/editnotes/ = a comment\r\n\n\n/notag/ = no tag \\(this is just a placeholder).\r\n\n\n/or/ = this component can replace the one on the previous line \\(can rack up multiple /or/\u2019s this way)\r\n\n\n/ph/ = the pH of the medium is listed after this tag, along with any components used to adjust it \\(e.g.: /ph/ 6 \u2013 7, KOH)\r\n\n\n/rm/ = remove this component from the medium.\r\n\n\n/s/ = defines the substrate of a medium.\r\n\n\nMedium = add all components of the referenced medium to the current medium.\r\n\n\n## = reference to another medium\r\n\n\n\r\n\n\n**Step 3. Add special instructions for specific organisms**\r\n\n\nWe noticed that a large number of organisms had specialized growth instructions listed either within the media descriptions, or in the organism-medium mapping file provided to us by DSMZ.  We considered these instructions critical to building an accurate database.  To incorporate them, we copied the components of the base media and then implemented the stated changes to create medium definitions for each media variant.  In all, this process resulted in nearly a doubling of the number of media in the database, from 1946 to 3672.  In the DSMZ listing \\(http://www.dsmz.de/?id=441), each medium is referenced by an ID number.  We generated unique new media IDs for these media variants by following the base media IDs with a period \\(.) or an underscore \\(_), and then a unique numerical or text string.\r\n\n\n\r\n\n\nAdditionally, many media included in their compositions submedia, which were to be mixed independently and then combined.  To ease the formation of the database, we treated each sub-medium as an independent medium with a new medium ID of 2000 or above.  This then allowed us to calculate cross-references between media and submedia using a standardized methodology.\r\n\n\n\r\n\n\n**Step 4. Map all media components to unique component names**\r\n\n\nMedia components as listed in literature are highly redundant and degenerate.  For example, the compound Sodium sulfide is listed in the database in at least 9 different ways \\(sodium sulfide, sodium sulphide, Na2S x 9 H2O, Na2S x 9H2O, etc.).  To convert the database to the most versatile form, we manually mapped compound names to \u2018semi-unique names\u2019 as an intermediate layer, and then finally to \u2018unique names\u2019 that contained only the precise metabolites contributed to a medium by a metabolite.  For example, the \u2018semi-unique\u2019 name mapped to all original forms of sodium sulfide \\(including hydrated forms) from media descriptions is \u2018sodium sulfide\u2019, and the \u2018unique name\u2019 is \u2018SEED-cpd00239#cpd00971#,\u2019 which precisely depicts the two SEED compounds \\(cpd00239 = Sulfide ion, and cpd00971 = Sodium ion).  \r\n\n\n\r\n\n\n**Step 5. Map unique components to SEED compounds or \u2018complex\u2019 categories**\r\n\n\nWe defined three classes of unique names, to which all components are mapped:\r\n\n\n\r\n\n\n\\(1) SEED compounds, which are denoted with a \u201cSEED-\u201c tag and then up to three SEED metabolites contained within them \\(e.g. \u201cSEED-cpd00239#cpd00971#\u201d).\r\n\n\n\r\n\n\n\\(2) Complex components, which are denoted with a \u201crich-\u201c tag \\(e.g., \u201crich-peptone\u201d). \\(Note, this \u2018richness\u2019 is not to be confused with media richness; rather, it denotes complexity \\(media richness is treated differently in the work). In the main text, complex components are presented with a complex- tag instead of a rich- tag. The two are interchangeable, and both denote complexity, not media richness).\r\n\n\n\r\n\n\n\\(3) Other compounds, which are chemically defined but are not in SEED.  These are simply written out in full \\(e.g., \u201c1,4-Naphthaquinone\u201d).  \r\n\n\n\r\n\n\n**Step 6. Calculate total volume of each medium**\r\n\n\nA rule of thumb in microbiology media recipes is that the quantities of compounds listed are those needed to produce 1 liter of final medium.  Because of this, media volumes are often omitted \\(and assumed to be 1 L), or are explicitly accounted for by mixing of media compounds with 1 liter of water.  However, there are many exceptions to this rule, such as media or submedia compositions that include some volume of water that is not 1 liter, or that contain very small volumes of liquid \\(from, e.g., addition of some volume of ethanol), which should not be considered the \u2018final volume\u2019 of the medium by any means.  It was critical to determine the exact volume of media in order to properly convert compound units into concentrations \\(see Steps 9-11).  \r\n\n\n\r\n\n\nTo deal with this, we classed media and submedia into categories called \u2018fill\u2019 and \u2018scale.\u2019  The \u2018fill\u2019 tag means that whatever volume a medium has should be \u2018filled\u2019 to 1 liter, i.e., that the volume listed should simply be ignored; the \u2018scale\u2019 tag means that the concentrations of compounds listed in a medium description should be scaled up with the listed volume until that volume comes out to 1 liter.  Media were classed as \u2018fill\u2019 and \u2018scale\u2019 using general rules, which were overridden in ambiguous cases by manual curation \\(filling and scaling pseudocode is listed below).  \r\n\n\n\r\n\n\n**Step 7. Calculate unit multiplier for 1L of medium**\r\n\n\nFinally, we adjusted final volumes of \u2018fill\u2019 media and then determined a multiplier for each \u2018scale\u2019 medium and submedium composition in order to convert compound units from Moles to Moles per Liter \\(see Steps 9-11).  \r\n\n\n\r\n\n\n**Step 8. Unpack cross-media references**\r\n\n\nLarge proportions of DSMZ media contain cross-references either to other media or to complex submedia \\(~60% and >25%, respectively).  Many of these references also contain references, so sometimes multiple layers of references must be unpacked in order to build a given medium.  Faithfully unpacking these cross-references requires \\(1) determining the molar concentrations of all compounds in the cross-referenced submedium/medium, \\(2) determining the volume of the submedium/medium per liter of final medium, \\(3) multiplying these two factors correctly to get the concentration of each submedium compound, and \\(4) accounting for the volume of the cross-referenced submedium/medium in determining the final medium volumes.  This process was fully automated. \r\n\n\n\r\n\n\n**Step 9. Calculate component amounts per medium**\r\n\n\nA goal of this project was to include every compound if possible with standardized units, as this would ease analyses between media and between compounds.  Compounds in the original media files were listed with over 30 distinct units.  As a first step, we built a mapping with multipliers to convert all of these units into five standard ones: g/L, L/L, M/L, trace, and \u2018gas substrate\u2019.  \r\n\n\n\r\n\n\n**Step 10. Convert all compound units to Moles**\r\n\n\nThe next step was to convert all of these units \\(except for the \u2018trace\u2019 and \u2018gas substrate\u2019 ones, which were treated separately) into Moles.  To do this, we needed to obtain the molecular weights of all defined media components, as well as the molar ratios of each component forming each semi-unique compound name.  When available, molecular weights of SEED compounds were taken from the SEED database.  For SEED compounds without molecular weights listed, as well as for compounds falling into the \u201cOther\u201d category \\(i.e., defined but not listed in SEED), we curated molecular weights manually based on internet searches.  Finally, we manually curated molar ratios of compounds in the original compound names, as well as the number of waters linked to each compound.  With all of this information, we were able to calculate from, for example, the compound name \u201cCoCl2 x 6 H2O,\u201d the exact molar amounts of cobalt and chloride in a final medium composition, even if the original compound was listed in grams and not Moles.  \r\n\n\n\r\n\n\nFor the subset of compounds listed with units of volume rather than grams or Moles, we universally assumed that the densities of the fluids were equal to the density of water \\(1 gram per ml), in order to ease the conversion of units.  This rule was not used for volumes of submedia or media, but only for units of individual compounds.  \r\n\n\n\r\n\n\n**Step 11. Use media volumes to convert Moles into Moles/Liter**\r\n\n\nFinally, we needed to convert the units for each compound from a molar amount \\(Moles, M) into a molar concentration \\(Moles per Liter, M/L).  This was done by multiplying the Molar amount of each compound by the medium volume multipliers as determined in steps 6-7.\r\n\n\n\r\n\n\n**\\(For steps 12-14)**\r\n\n\nMany complicated bookkeeping calculations are automated in steps 6-11 of this workflow, and there are many potential sources for mistakes or errors.  Therefore, it was important to validate several key results as a sanity check in order to ensure that the database was faithfully converted.  To do this, we manually produced three \u2018gold standard\u2019 files for validation. Steps 12-14 each use one of these files as a manual check. In practice, validation files were built manually for steps 12-14, and then were used over multiple rounds of validation. These files were used for extensive troubleshooting and debugging of the conversion code and of the syntax in the files for conversion, until there were no mismatches left between the manual files and the automated results.\r\n\n\n\r\n\n\n**Step 12. Validate media volumes**\r\n\n\nManually calculated media volumes for 149 media and \u201cfill\u201d or \u201cscale\u201d statuses for 138 media, to check against the results of step 6.\r\n\n\n\r\n\n\n**Step 13. Validate concentrations of unique compound names**\r\n\n\nManually calculated quantities \\(including units) of 973 compounds referenced across media, to validate the results of steps 7-9.\r\n\n\n\r\n\n\n**Step 14. Validate molar concentrations of SEED compounds**\r\n\n\nManually calculated molar concentrations of 965 SEED compounds in media, to validate the results of steps 10-11.\r\n\n\n\r\n\n\n**Step 15. Add media & compounds to KOMODO database**\r\n\n\nThe work in steps 1-14 ultimately produces a high confidence matrix of media versus the concentrations of compounds within them.  This information was next integrated into a database format, along with information provided by DSMZ of which organisms grow on which media, and linkages of DSMZ organism IDs to NCBI IDs and SEED organism IDs, when available. This was done automatically using custom built code.\r\n\n\n\r\n\n\n**Pseudocode for steps 6-11 of database build**\r\n\n\nHere we provide pseudocode for steps 6-11 of the database building process, which are the automated portions for reading in the initial database information:\r\n\n\n\r\n\n\n\\(1) Determine volumes of each of the media.\r\n\n\na. All submedia are considered to have volumes.  Therefore, convert ones with units of mass into units of volume with the 1 ml = 1 g conversion \\(even though it\u2019s not always precise).\r\n\n\nb. For metabolites added with parentheses, add the volume if it exists in one of the parentheses.  For example: in /notag/ NaCl @ \\(100 ml)*\\(5 g/l), the volume added is 100 ml.\r\n\n\n\r\n\n\n\\(2) Adjust volumes based on the following formula:\r\n\n\na. All rules about to be written are overridden by the tags put on specific media / submedia for determining the fill or scale status.  The tags are: \u201cfill\u201d and \u201cscale\u201d.  \u201cfill\u201d means that the medium should have volume added to it so that the final volume is 1 liter, but without altering the amounts of compounds in the medium.  \u201cscale\u201d means that concentrations in the medium should scale up along with the volume of the medium, until the volume is 1 liter.  For example:\r\n\n\ni. Fill: if there\u2019s 1 g HCl in 700 ml medium, and the tag is \u201cfill\u201d, then the final volume is 1 liter and the final concentration of HCl is 1 g/l.\r\n\n\nii. Scale: if there\u2019s 1 g HCl in 700 ml medium, and the tag is \u201cscale\u201d, then the final volume is 1 liter and the final concentration of HCl is \\(1 g / 0.7 l) = 1.43 g/l.\r\n\n\nb. If a medium or submedium has a volume of 0, adjust the volume to 1 liter \\(i.e., the rule is \u201cfill\u201d).\r\n\n\nc. If a medium or submedium has a volume of 1 liter, keep as it is.\r\n\n\nd. If a medium has a volume above 1 liter, the rule is \u201cscale\u201d\r\n\n\ne. All submedia with nonzero volumes should be \u201cscaled\u201d\r\n\n\n\r\n\n\n\\(3) Determine the amount of each compound in each medium.  For this, parenthesis are multiplied out \\(e.g., \\(100 ml)**\\(5 g/l) \uf0e8 0.5 g/l), with the general principle that all compounds are in units of mass or moles \\(i.e., g/l or M/l).  A compound that has a volume should be converted to grams using the formula: 1 ml = 1 g \\(even though this is not strictly accurate, it\u2019s a reasonable approximation for most compounds we\u2019re dealing with).  Also, submedia are treated like more embedded parentheses.  For example, if medium a contains 10 ml of medium b, and medium b contains 15 ml medium c, and medium c contains 5 ml of metabolite X, then medium a contains \\(10 ml/l)**\\(15 ml/l)**\\(5 ml metabolite X)**\\(1 g/ml conversion) = 0.00075 g metabolite X.  Percentages are converted as shown in the conversion sheet.\r\n\n\n\r\n\n\n\\(4) For all SEED compounds, convert grams into Moles.  For this calculation, water molecules that are attached to the compound molecules should be accounted for.  Water molecules that should be accounted for are always in the form \u201cmetabolite x N H2O\u201d.  For example, the metabolite: /notag/ CaCl2 x 2 H2O @ 10 mg would be converted as such: \r\n\n\na. Molecular weight of CaCl2 is 110\r\n\n\nb. Molecular weight of H2O is 18\r\n\n\nc. So 10 mg of CaCl2 x 2 H2O = \\(10 mg) / \\( \\(110 + 2*18) mg/mmol) = 0.0684 mmol of CaCl2\r\n\n\n\r\n\n\n**Coupling with SEED**\r\n\n\nAn ultimate goal of this work is to combine the knowledge embedded in manually built media with modern sequencing and genomics databases, in a form that may be used for large-scale metabolic analysis.  A natural choice for this linkage is the Model SEED, a project that utilizes the RAST genome annotation server to automatically build and store genome-scale metabolic models 1, 2.  To this end, we converted all compounds that had SEED equivalents into SEED compound names and IDs, with each ingredient listed in a medium converted into between one and three SEED compounds \\(see example in Figure 1).  The quantities of these SEED compounds \\(as well as compounds without SEED equivalents) were then combined in final media compositions and converted to molar units."
+        },
+        {
+            "header": "Timing",
+            "content": "The database build took two researchers approximately 6 months to complete."
+        },
+        {
+            "header": "References",
+            "content": "1. Henry CS, DeJongh M, Best AA, Frybarger PM, Linsay B, Stevens RL. High-throughput generation, optimization and analysis of genome-scale metabolic models. Nat Biotechnol 28, 977-982 \\(2010).\r\n  \r\n\n\n2. Henry CS, et al. Connecting genotype to phenotype in the era of high-throughput sequencing. Biochim Biophys Acta,  \\(2011)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 13514,
+                "identity": "a06f7ced-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Matthew Oberhardt",
+                "email": "mattoby@gmail.com",
+                "orcid": "",
+                "institution": "Ruppin Lab, University of Maryland",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Matthew",
+                "middleName": "",
+                "lastName": "Oberhardt",
+                "suffix": ""
+            },
+            {
+                "id": 13516,
+                "identity": "a06f81a6-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Uri Gophna",
+                "email": "urigo@post.tau.ac.il",
+                "orcid": "",
+                "institution": "Tel Aviv University",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Uri",
+                "middleName": "",
+                "lastName": "Gophna",
+                "suffix": ""
+            },
+            {
+                "id": 13517,
+                "identity": "a06f838e-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Eytan Ruppin",
+                "email": "eyruppin@gmail.com",
+                "orcid": "",
+                "institution": "University of Maryland",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Eytan",
+                "middleName": "",
+                "lastName": "Ruppin",
+                "suffix": ""
+            },
+            {
+                "id": 13515,
+                "identity": "a06f7fe7-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Raphy Zarecki",
+                "email": "",
+                "orcid": "",
+                "institution": "Tel Aviv University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Raphy",
+                "middleName": "",
+                "lastName": "Zarecki",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2015-08-19 03:35:49",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2015.075",
+        "doiUrl": "https://doi.org/10.1038/protex.2015.075",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2609232,
+                "identity": "2288f10e-6fac-446e-983c-042801479093",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:47",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 105717,
+                "visible": true,
+                "origin": "",
+                "legend": "Workflow for building KOMODO, the Known Media Database   This partially manual and partially automated workflow enabled the building of KOMODO, based on media recipes publically available on the Leibniz DSMZ website.  ",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-4219/v1/figure_1.png"
+            },
+            {
+                "id": 13465329,
+                "identity": "31b9b256-9c46-4a87-ac3a-324137aec7f0",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:46:18",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 455864,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-4219/v1/5903e313-9e9e-47a6-b922-bbf058115e85.pdf"
+            },
+            {
+                "id": 2609230,
+                "identity": "bd884296-7140-400d-910c-ee851637ab2f",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:47",
+                "extension": "xlsx",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 10191,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 1   Concentration conversions   This shows how we converted any concentration, mass, or volume unit into a set of 5 standard units (see Step 9 of the protocol).",
+                "description": "",
+                "filename": "supplement0.xlsx",
+                "url": "https://assets.researchsquare.com/files/nprot-4219/v1/supplement_0.xlsx"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "systems biology, bacterial culturing, microbial database, microbial media",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "This protocol describes the process used to convert >1300 microbial media recipes, listed on the website of the Leibniz Institute DSMZ \\(see: https://www.dsmz.de/?id=441), into a machine readable format, and then to read them into a SQL database. In the process, we combine compounds with degenerate names and include concentrations of all compounds in standard units. The protocol includes steps for error-checking, as well as a process to recursively add media when they cross-reference each other. The protocol might be useful in other, similar database building tasks, and especially might help in efforts to incorporate other microbial media recipes from literature into this or another database.",
+        "manuscriptTitle": "Building the KOMODO media database",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2015-09-03 13:50:42",
+                "doi": "10.1038/protex.2015.075",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a06f21e7-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "September 3rd, 2015",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3420,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 3421,
+                "name": "Microbiology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2015-09-03 13:50:42",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

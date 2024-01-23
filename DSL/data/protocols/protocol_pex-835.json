@@ -1,0 +1,314 @@
+{
+    "identity": "pex-835",
+    "title": "<p>Kethoxal-assisted single-stranded DNA sequencing (KAS-seq) for capturing transcription dynamics and enhancer activity</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>Transcription and its regulation determine cell fate and physiological functions, with dysfunctions in transcriptional regulation associated with various human diseases<sup>1</sup>. To understand global transcription regulation, genome-wide sequencing approaches have been developed to analyze the occupancy of RNA polymerases (ChIP-seq)<sup>2</sup>, or detect the presence and level of nascent RNA. Nascent RNA analysis is usually based on run-on assays<sup>3,4</sup>, metabolic labeling<sup>5,6</sup>, and Pol II-associated or chromatin-associated RNA enrichment<sup>7-11</sup>. Although powerful, these methods also have limitations. Run-on-based methods and Pol II-associated RNA enrichment typically require millions of cells as starting materials. Pol II ChIP-seq could not distinguish whether RNA polymerases are simply bound or are actively engaged in transcription<sup>3</sup>. Metabolic labeling may not be able to accurately measure transient and low-abundant RNA species, such as enhancer RNAs (eRNAs), especially when using limited materials with modest sequencing depth. As most RNAs undergo post-transcriptional processing, their levels are indirect readouts that may not accurately reflect transcription dynamics <em>in situ</em>.</p><p>Transcriptionally engaged RNA polymerases resolve DNA double helices and generate single-stranded DNA bubbles. Mapping ssDNA throughout the genome provides a readout of the activity and dynamics of transcriptionally engaged RNA polymerases.</p><p>Here we describe a rapid and sensitive labeling of single-stranded DNA for sequencing (KAS-seq, Figure 1), based on a kethoxal-guanine reaction<sup>12</sup>. We show that KAS-seq simultaneously measures the dynamics of transcriptionally-engaged Pol II, transcribing enhancers, Pol I and Pol III activities, and non-canonical DNA structures involving ssDNA <em>in situ</em>, by using as few as 1,000 cells or mice tissues.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p>N<sub>3</sub>-kethoxal (Synthesized as previously<sup>12</sup>)</p><p>DMSO (Fisher Scientific, BP231-100)</p><p>DBCO-PEG<sub>4</sub>-biotin (Sigma, 760749)</p><p>Boric acid (Sigma, 15663)</p><p>Potassium hydroxide (Sigma, P5958)</p><p>Tween-20 (Sigma, P9416)</p><p>Phosphate buffered saline (PBS, Thermo, 10010001)</p><p>Phosphate buffered saline, 10\u00d7 (Thermo, AM9624)</p><p>1 M Tris-HCl buffer (Thermo, 15567027)</p><p>5 M sodium chloride solution (Thermo, AM9759)</p><p>0.5 M EDTA solution (Thermo, AM9206G)</p><p>RNase A (Thermo, 12091039)</p><p>Dynabeads Myone Streptavidin C1 (Thermo, 65001)</p><p>PureLink genomic DNA mini kit (Thermo, K182001)</p><p>Quick-DNA Microprep Plus kit (Zymo, D4074)</p><p>MinElute PCR purification kit (Qiagen, 28004)</p><p>DNA Clean &amp; Concentrator kit (Zymo, D4013)</p><p>Tagmentation DNA Enzyme (Illumina, 15027865)</p><p>Tagmentation DNA Buffer (Illumina, 15027866)</p><p>i5 index primer (Illumina, 20027213)</p><p>i7 index primer (Illumina, 20027213)</p><p>NEBNext Ultra II Q5 Master Mix (NEB, M0544S)</p><p>Accel-NGS Methyl-seq DNA library kit (Swift 30024)</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>1.5 mL tube</p><p>Nanodrop</p><p>Centrifuge</p><p>Themomixer</p><p>Thermo cycler</p><p>DynaMag-PCR Magnet</p><p>Bioruptor Pico (Diagenode)</p><p>0.65 mL Bioruptor Micotubes (Diagenode, C30010011)</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "1. KAS-seq with mammalian cell cultures\nLabeling and DNA isolation\n1. Prepare 500 mM N\n3\n-kethoxal stock solution using DMSO. Then prepare the labeling medium by diluting the N\n3\n-kethoxal solution into pre-warmed (37 \u02daC) cell culture medium to a final concentration of 5 mM. It is critical to pre-warm the medium to facilitate N\n3\n-kethoxal dissolution.\n2. Incubate 1-5 million cells in the labeling medium for 10 min at 37 \u02daC. For adhesive cells, apply the labeling medium to the cell culture directly in dishes and incubate cells for 10 min at 37 \u02daC. For suspension cells, suspend cells in the labeling medium and incubate them for 10 min at 37 \u02daC.\n3. Harvest cells after the incubation. Isolate total DNA from cells by using PureLink genomic DNA mini kit (Thermo K182001). Elute DNA by using 50 \u00b5L 25 mM K\n3\nBO\n3\n(pH 7.0).\n[Stop point 1]\nBiotinylation and purification\n4. Prepare the click reaction mixture as the follows.\n2 \u00b5g total DNA diluted in 85\u00b5L of 25 mM K\n3\nBO\n3\n(pH 7.0)\n10 \u00b5L 10\u00d7 PBS\n5 \u00b5L 20 mM DBCO-PEG\n4\n-biotin (DMSO solution, Sigma 760749)\nIncubate the mixture at 37 \u02daC for 1.5 h with shaking at 500 rpm to facilitate the \u201cclick\u201d reaction.\n5. Add 5 \u00b5L RNase A (Thermo 12091039) to the reaction mixture. Incubate the mixture at 37 \u02daC for 15 min with shaking at 500 rpm.\n6. Purify DNA from the reaction mixture by DNA Clean & Concentrator kit (Zymo D4013). Elute DNA by using 50 \u00b5L 25 mM K\n3\nBO\n3\n(pH 7.0).\n[Stop point 2]\nEnrichment of N\n3\n-kethoxal-modified DNA\n7. Dilute 1 \u00b5g biotinylated DNA in 100 \u00b5L 25 mM K\n3\nBO\n3\n(pH 7.0). Fragment the DNA by sonication using Bioruptor Pico under 30s-on /30s-off setting for 30 cycles. The size of fragmented DNA ranges from 150-350 bp.\n8. Save 5 \u00b5L of the fragmented DNA as input. Use the remaining 95 \u00b5L for enrichment.\n9. Wash 10 \u00b5L Dynabeads Myone Streptavidin C1 (Thermo 65001) 3 times with 50 \u00b5L 1\u00d7 binding and wash buffer (5 mM Tris-HCl pH 7.4, 0.5 mM EDTA, 1 M NaCl, 0.05% Tween-20). Re-suspend pre-washed beads in 95 \u00b5L 2\u00d7 binding and wash buffer (10 mM Tris-HCl pH 7.4, 1 mM EDTA, 2 M NaCl, 0.1% Tween-20).\n10. Mix the beads with 95 \u00b5L fragmented DNA from step 8. Incubate the mixture at room temperature for 15 min with gentle rotation. After incubation, place the mixture on a magnetic rack to remove the supernatant and wash beads 5 times with 100 \u00b5L 1\u00d7 binding and wash buffer.\n11. Re-suspend the beads in 15 \u00b5L nuclease-free water and heat it at 95 \u02daC for 10 min to elute enriched DNA. Then put the mixture on a magnetic rack, and transfer the supernatant to a new labeled tube.\n12. In parallel with the previous step, heat the saved input at 95 \u02daC for 10 min. Then, put both the input and the eluted samples on ice immediately.\n[Stop point 3]\nLibrary preparation and sequencing\n13. Perform library construction by using the Accel-NGS Methyl-seq DNA library kit (Swift 30024). Perform PCR amplification for 7-8 cycles for the input samples and 12-14 cycles for the enriched samples. The library size should range from 200-500 bp.\n14. Sequence libraries on Illumina platforms by using single-end mode, aiming to get 30 million reads per sample\nDNAs can be stored at -20 \u02daC at the noted stop points if needed.\n2. KAS-seq with mouse liver\nLabeling and DNA isolation\n1. Homogenize mouse liver tissue to a cell suspension in ice-cold PBS by using a dounce homogenizer or a pellet pestle.\n2. Spin the cell suspension at 100 g for 15 seconds to sediment and remove potential large tissue pieces at the bottom of the tube.\n3. Spin the cell suspension at 800 g for 5 min. Remove the supernatant and save the cell pellet at the bottom of the tube for labeling.\n4. Suspend 1-5 million cells in the labeling medium for 10 min at 37 \u02daC (refer to step 1 in the protocol for mammalian cell cultures for labeling medium preparation).\n5. Isolate total DNA from cells by using PureLink genomic DNA mini kit (Thermo K182001). Elute DNA by using 50 \u00b5L 25 mM K\n3\nBO\n3\n(pH 7.0).\n[Stop point 1]\nPerform Biotinylation and purification, Enrichment of N\n3\n-kethoxal-modified DNA, Library preparation and sequencing according to the protocol for mammalian cell cultures.\n3. Low-input KAS-seq\nLabeling and DNA isolation\n1. Label 1,000, 5,000, or 10,000 cells according to the protocol for bulk mammalian cell cultures.\n2. Isolate DNA from cells by using the Quick-DNA Microprep Plus kit (Zymo D4074). Elute DNA by using 43 \u00b5L 25 mM K\n3\nBO\n3\n(pH 7.0).\nBiotinylation and purification\n3. Prepare the click reaction mixture as follows.\n42.5 \u00b5L DNA in 25 mM K\n3\nBO\n3\n(pH 7.0)\n5 \u00b5L 10\u00d7 PBS\n2.5 \u00b5L 20 mM DBCO-PEG\n4\n-biotin (DMSO solution, Sigma 760749)\nIncubate the mixture at 37 \u02daC for 1.5 h with shaking at 500 rpm to facilitate the \u201cclick\u201d reaction.\n4. Add 2.5 \u00b5L RNase A (Thermo 12091039) to the reaction mixture. Incubate the mixture at 37 \u02daC for 5 min.\n5. Purify DNA from the reaction mixture by DNA Clean & Concentrator kit (Zymo D4013). Elute DNA by using 25 \u00b5L 25 mM K\n3\nBO\n3\n(pH 7.0).\nTagmentation and enrichment\n6. Perform tagmentation on biotinylated DNA by using Tagmentation DNA Enzyme (Illumina 15027865). For 1,000 cells, 23.5 \u00b5L DNA was mixed with 1.5 \u00b5L enzyme and 25 \u00b5L Tagmentation DNA Buffer (Illumina 15027866). For 5,000 cells, 23 \u00b5L DNA was mixed with 2 \u00b5L enzyme and 25 \u00b5L Tagmentation DNA Buffer. For 10,000 cells, 20 \u00b5L DNA was mixed with 5 \u00b5L enzyme and 25 \u00b5L Tagmentation DNA Buffer.\n7. Incubate the tagmentation mixture at 37 \u02daC for 30 min with shaking at 500 rpm.\n8. Purify DNA from the reaction mixture by DNA Clean & Concentrator kit (Zymo D4013). Elute DNA by using 55 \u00b5L 25 mM K\n3\nBO\n3\n(pH 7.0).\n9. Save 5 \u00b5L of the tagmented DNA as input. Use the remaining 50 \u00b5L for enrichment.\nEnrichment of N\n3\n-kethoxal-modified DNA\n10. Wash 5 \u00b5L Dynabeads Myone Streptavidin C1 (Thermo 65001) 3 times with 25 \u00b5L 1\u00d7 binding and wash buffer (5 mM Tris-HCl pH 7.4, 0.5 mM EDTA, 1 M NaCl, 0.05% Tween-20). Re-suspend pre-washed beads in 50 \u00b5L 2\u00d7 binding and wash buffer (10 mM Tris-HCl pH 7.4, 1 mM EDTA, 2 M NaCl, 0.1% Tween-20).\n11. Mix the beads with 50 \u00b5L fragmented DNA from step 9. Incubated the mixture at room temperature for 15 min with gentle rotation. After incubation, place the mixture on a magnetic rack to remove the supernatant and wash beads 5 times with 100 \u00b5L 1\u00d7 binding and wash buffer.\nPCR amplification and library sequencing\n12. Adjust the volume of input to 20 \u00b5L by adding 15 \u00b5L nuclease-free water to the 5 \u00b5L input saved in step 9. Re-suspend the washed beads in 20 \u00b5L nuclease-free water.\n13. Prepare the PCR reaction mix as follows:\n20 \u00b5L input DNA or beads suspension\n2.5 \u00b5L i5 index primer (Illumina 20027213)\n2.5 \u00b5L i7 index primer (Illumina 20027213)\n25 \u00b5L NEBNext Ultra II Q5 Master Mix (NEB M0544S)\n14. Perform PCR reaction in a thermocycler as follows:\n1 cycle:\u00a0\u00a0\u00a0\u00a0\u00a0\u00a05 min\u00a0\u00a0\u00a072 \u02daC\n10 min\u00a0\u00a095 \u02daC\n15 cycles:\u00a0\u00a010 sec\u00a0\u00a0\u00a098 \u02daC\n30 sec\u00a0\u00a0\u00a060 \u02daC\n1 min\u00a0\u00a0\u00a0\u00a072 \u02daC\n15. Remove the beads from the enriched samples by using a magnetic rack. Purify the library by using MinElute PCR purification kit (Qiagen 28004). The library size should range from 200-600 bp.\n16. Sequence libraries on Illumina platforms by using single-end mode with 30 million reads per sample."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": ""
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>Labeling, cell collection, and DNA isolation: ~1 h</p><p>Biotinylation: ~2 h</p><p>Fragmentation and enrichment: ~1 h</p><p>Library preparation: ~3 h</p><p><br></p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>1. Sequencing results show traditional KAS-seq features. Signals are enriched at gene-coding regions, with sharp and strong peaks on TSS, broad peaks on the gene body and terminal regions (Figure 3).</p><p>2. KAS-seq signals show up in some enhancers.</p><p>3. KAS-seq signals show up in some predicted non-B form ssDNA-containing regions.</p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Schwanh\u00e4usser, B.<em> et al.</em> Global quantification of mammalian gene expression control. <em>Nature</em> <strong>473</strong>, 337-342 (2011).</p><p>2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kim, T.-K.<em> et al.</em> Widespread transcription at neuronal activity-regulated enhancers. <em>Nature</em> <strong>465</strong>, 182-187 (2010).</p><p>3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Core, L.J., Waterfall, J.J. &amp; Lis, J.T. Nascent RNA Sequencing Reveals Widespread Pausing and Divergent Initiation at Human Promoters. <em>Science</em> <strong>322</strong>, 1845-1848 (2008).</p><p>4.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kwak, H., Fuda, N.J., Core, L.J. &amp; Lis, J.T. Precise Maps of RNA Polymerase Reveal How Promoters Direct Initiation and Pausing. <em>Science</em> <strong>339</strong>, 950-953 (2013).</p><p>5.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fuchs, G.<em> et al.</em> 4sUDRB-seq: measuring genomewide transcriptional elongation rates and initiation frequencies within cells. <em>Genome Biology</em> <strong>15</strong>, R69 (2014).</p><p>6.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Schwalb, B.<em> et al.</em> TT-seq maps the human transient transcriptome. <em>Science</em> <strong>352</strong>, 1225-1228 (2016).</p><p>7.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Churchman, L.S. &amp; Weissman, J.S. Nascent transcript sequencing visualizes transcription at nucleotide resolution. <em>Nature</em> <strong>469</strong>, 368-373 (2011).</p><p>8.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Christopher, Ramachandran, S. &amp; Henikoff, S. Nucleosomes Are Context-Specific, H2A.Z-Modulated Barriers to RNA Polymerase. <em>Molecular Cell</em> <strong>53</strong>, 819-830 (2014).</p><p>9.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nojima, T.<em> et al.</em> Mammalian NET-Seq Reveals Genome-wide Nascent Transcription Coupled to RNA Processing. <em>Cell</em> <strong>161</strong>, 526-540 (2015).</p><p>10.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mayer, A.<em> et al.</em> Native Elongating Transcript Sequencing Reveals Human Transcriptional Activity at Nucleotide Resolution. <em>Cell</em> <strong>161</strong>, 541-554 (2015).</p><p>11.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hirabayashi, S.<em> et al.</em> NET-CAGE characterizes the dynamics and topology of human transcribed cis-regulatory elements. <em>Nature Genetics</em> 51, 1369-1379 (2019).</p><p>12.<strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>Weng, X.<em> et al.</em> Keth-seq for transcriptome-wide RNA structure mapping. <em>Nature Chemical Biology</em> (2020).</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": ""
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41592-020-0797-9",
+                "date": "2020-04-06 16:04:26",
+                "title": "Kethoxal-assisted single-stranded DNA sequencing captures global transcription dynamics and enhancer activity in situ",
+                "authors": [
+                    "Tong Wu",
+                    "Ruitu Lyu",
+                    "Qiancheng You",
+                    "Chuan He"
+                ],
+                "journal": "Nature Methods",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 479881,
+                "identity": "f55668c9-19a4-47a4-9ee0-643f2071cfcf",
+                "order_by": 1,
+                "name": "Tong Wu",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0001-9968-9909",
+                "institution": "University of Chicago",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Tong",
+                "middleName": "",
+                "lastName": "Wu",
+                "suffix": ""
+            },
+            {
+                "id": 479882,
+                "identity": "cda5ec49-35bd-4a05-a0e1-38744262f986",
+                "order_by": 2,
+                "name": "Ruitu Lyu",
+                "email": "",
+                "orcid": "",
+                "institution": "University of Chicago",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Ruitu",
+                "middleName": "",
+                "lastName": "Lyu",
+                "suffix": ""
+            },
+            {
+                "id": 479883,
+                "identity": "e488680e-78d2-4960-99cd-8fc341981222",
+                "order_by": 3,
+                "name": "Chuan He",
+                "email": "chuanhe@uchicago.edu",
+                "orcid": "https://orcid.org/0000-0003-4319-7424",
+                "institution": "University of Chicago",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Chuan",
+                "middleName": "",
+                "lastName": "He",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2020-02-19 19:57:11",
+        "currentVersionCode": 2,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-835/v2",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-835/v2",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13501108,
+                "identity": "79cbf85b-ad99-4ed3-8456-3beab467af88",
+                "added_by": "auto",
+                "created_at": "2021-09-16 23:09:11",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 327375,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-835/v2/accd0b98-18d5-4702-aa48-61da57627aae.pdf"
+            },
+            {
+                "id": 1009976,
+                "identity": "7bfb768f-7aad-42d6-829d-3f768d5030eb",
+                "added_by": "auto",
+                "created_at": "2020-05-01 14:26:42",
+                "extension": "png",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 123257,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "ProtocolExchangeFig3.png",
+                "url": "https://assets.researchsquare.com/files/pex-835/v2/ProtocolExchangeFig3.png"
+            },
+            {
+                "id": 1009977,
+                "identity": "8453dccb-03a0-4c7f-aff9-148f81a2bb06",
+                "added_by": "auto",
+                "created_at": "2020-05-01 14:26:42",
+                "extension": "png",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 129619,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "ProtocolExchangeFig1.png",
+                "url": "https://assets.researchsquare.com/files/pex-835/v2/ProtocolExchangeFig1.png"
+            },
+            {
+                "id": 1009978,
+                "identity": "5eb10d65-0d5a-4692-8c53-1a085b8a74fb",
+                "added_by": "auto",
+                "created_at": "2020-05-01 14:26:42",
+                "extension": "jpg",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 1725399,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "ProtocolExchangeFig2.jpg",
+                "url": "https://assets.researchsquare.com/files/pex-835/v2/ProtocolExchangeFig2.jpg"
+            }
+        ],
+        "financialInterests": "The University of Chicago has filed a patent application on KAS-seq. C.H. is a scientific founder and a member of the scientific advisory board of Accent Therapeutics, Inc., and a shareholder of Epican Genetech.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "single-stranded DNA, transcription, enhancer",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>We describe a rapid and sensitive labeling of single-stranded DNA for sequencing (KAS-seq), based on a kethoxal-guanine reaction. KAS-seq procedure involves N<sub>3</sub>-kethoxal labeling, DNA isolation, biotinylation, fragmentation and enrichment, library preparation and sequencing. The whole process can be finished in a day. KAS-seq enables rapid measurement of the dynamics of transcriptionally-engaged Pol II, transcribing enhancers, Pol I and Pol III activities, and non-canonical DNA structures involving ssDNA simultaneously <em>in situ</em>, by using as few as 1,000 cells or mice tissues. The robust and tissue-friendly nature coupled with low input material requirement make KAS-seq a method that can be broadly applied. This step-by-step protocol is related to the publication \u201cKethoxal-assisted single-stranded DNA sequencing captures global transcription dynamics and enhancer activity <em>in situ</em>\u201d<em> </em>in <em>Nature Methods</em>.</p>",
+        "manuscriptTitle": "Kethoxal-assisted single-stranded DNA sequencing (KAS-seq) for capturing transcription dynamics and enhancer activity",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2020-04-08 17:41:01",
+                "doi": "10.21203/rs.3.pex-835/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            },
+            {
+                "code": 2,
+                "date": "2020-05-01 14:26:41",
+                "doi": "10.21203/rs.3.pex-835/v2",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "82266310-d6b0-4754-8510-05e018fe8444",
+        "owner": [],
+        "postedDate": "May 1st, 2020",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 81078,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 81079,
+                "name": "Cell Biology"
+            },
+            {
+                "id": 81080,
+                "name": "Genetics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2020-05-01 14:26:41",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

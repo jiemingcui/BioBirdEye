@@ -1,0 +1,244 @@
+{
+    "identity": "nprot-6727",
+    "title": "GPCR identification in parasitic worm genome assemblies",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "G protein-coupled receptors \\(GPCRs) are a superfamily of plasma membrane receptors that have diverse functions in parasitic worms \\(helminths), including neuromuscular signaling, chemosensation, and development. As GPCRs are the most popular class of drug targets in humans, they have been implicated as possible next-generation targets for anthelmintics. Thus, identification and annotation of GPCRs in helminth genomes is often an immediate priority. Here, we present a computational pipeline for GPCR identification and annotation that leverages comparative genomics performed in the recent release of over 50 helminth genomes.\r\n\n\nThe most robust methods for GPCR identification often use structural information alone as a first-pass identification of putative GPCRs. GPCRs have a canonical structure that includes seven transmembrane regions, and as such they are readily identified in genomic open-reading frames using pan-genome transmembrane domain predictions. However, this is computationally intensive for a single genome, let alone >100 genomes. It is also not optimized for highly fragmented genomes that have confounded assembly by high concentrations of repetitive regions and high AT content \u2013 features that are often found in helminth genomes.\r\n\n\nThus, we devised an alternative strategy that leveraged the lucrative comparative genomic data included at WormBase ParaSite. Using previously identified helminth and free-living worm GPCRs as seeds, we developed a homologous family-centric approach for identifying conserved GPCR families and filtering out false-positives \\(Figure 1 <a href=\"#figures\" data-url=\"http://www.nature.com/protocolexchange/system/uploads/6571/original/50HGI_GPCR_pipeline.png?1523547486\">See figure in Figures section.</a>)."
+        },
+        {
+            "header": "Reagents",
+            "content": "Compara clusters at www.parasite.wormbase.org"
+        },
+        {
+            "header": "Equipment",
+            "content": "Software:\r\n\n\nmafft \\(https://mafft.cbrc.jp/alignment/software/)\r\n\n\ntrimal \\(https://github.com/scapella/trimal)\r\n\n\nHHsuite \\(http://www.soeding.genzentrum.lmu.de/software-and-servers-2/)\r\n\n\nNCBI blast command line \\(ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/ )"
+        },
+        {
+            "header": "Procedure",
+            "content": "1. Acquire all previously identified GPCR gene IDs from C. elegans, B. malayi, O. volvulus. S. mansoni, and S. mediterranea. \r\n  2. Using the gene ID seeds from \\(1), use the WormBase ParaSite API to pull out all orthologues in the database. Pull the orthologous gene IDs and their sequences and organize into gene families based on the original seed.\r\n  3. Use MAFFT \\(Katoh & Standley 2013) \\(--auto) to individually align the sequences of each family.\r\n  4. Use trimal \\(Capella-Guti\u00e9rrez 2009) \\(-automated1) to trim remove columns that contain ambiguous sites or poorly aligned characters.\r\n  5. Use HHsuite \\(hmmbuild) to create profile Hidden Markov Models \\(HMMs) for each trimmed alignment.\r\n  6. Acquire curated HMM databases from UniProt, SCOPUS, Pfam, and the PDB.\r\n  7. Use HHsuite \\(Soding 2005) \\(hmmsearch) to search each family HMM against the four databases and retain the best-hit for each search \\(i.e. resulting in four best-hits for each family).\r\n  8. Manually peruse the best-hits for each family and remove families that contain <2 GPCR-like best-hits \u2013 these are the most likely false positives.\r\n  9. Take two or three representative sequences from each family and use blastp \\(Camacho et al. 2009) to search against the NCBI non-redundant protein database. Cross-reference the annotations of significant hits with GPCRdb \\(Pandy-Szekeres et al. 2018) to categorize the GPCR family as Class A \\(rhodopsin-like), Class B \\(secretin/adhesion-like), Class C \\(glutamate-like), or Class F \\(frizzled-like).\r\n  10. Append manually identified GPCR families and families identified via a separate analysis of synapomorphic families to the final list of putative GPCR families and their members."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "As with an in silico method, there are caveats to this approach. First, it is unlikely to capture some of the interesting clade- and class-specific families, as well as those that are more highly diverged or don\u2019t have representatives among the original set of seeds. Second, the approach relies heavily on the trustworthiness of the initial homology classifications, and so any assignment mistakes upstream will trickle down into GPCR classification as well. Despite these, this approach provides a conservative set of confidently called GPCRs, which can be used for further optimization for gene annotation in helminth genomes."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "A list of GPCR families, along with their individual members, with categorization into GPCRdb classes and subclassifications of Class A families into aminergic, peptidergic, chemosensory, and other receptors."
+        },
+        {
+            "header": "References",
+            "content": "1. Katoh, Kazutaka, and Daron M. Standley. 2013. \u201cMAFFT Multiple Sequence Alignment Software Version 7: Improvements in Performance and Usability.\u201d Molecular Biology and Evolution 30 \\(4): 772\u201380.\r\n  \r\n\n\n2. Wit, Janneke, and John S. Gilleard. 2017. \u201cResequencing Helminth Genomes for Population and Genetic Studies.\u201d Trends in Parasitology 33 \\(5): 388\u201399.\r\n  \r\n\n\n3. Howe, Kevin L., Bruce J. Bolt, Myriam Shafie, Paul Kersey, and Matthew Berriman. 2017. \u201cWormBase ParaSite - a Comprehensive Resource for Helminth Genomics.\u201d Molecular and Biochemical Parasitology 215 \\(July): 2\u201310.\r\n  \r\n\n\n4. Capella-Guti\u00e9rrez, Salvador, Jos\u00e9 M. Silla-Mart\u00ednez, and Toni Gabald\u00f3n. 2009. \u201ctrimAl: A Tool for Automated Alignment Trimming in Large-Scale Phylogenetic Analyses.\u201d Bioinformatics 25 \\(15): 1972\u201373.\r\n  \r\n\n\n5. S\u00f6ding, Johannes. 2005. \u201cProtein Homology Detection by HMM-HMM Comparison.\u201d Bioinformatics 21 \\(7): 951\u201360.\r\n  \r\n\n\n6. P\u00e1ndy-Szekeres, G\u00e1sp\u00e1r, Christian Munk, Tsonko M. Tsonkov, Stefan Mordalski, Kasper Harps\u00f8e, Alexander S. Hauser, Andrzej J. Bojarski, and David E. Gloriam. 2018. \u201cGPCRdb in 2018: Adding GPCR Structure Models and Ligands.\u201d Nucleic Acids Research 46 \\(D1): D440\u201346.\r\n  \r\n\n\n7. Camacho, Christiam, George Coulouris, Vahram Avagyan, Ning Ma, Jason Papadopoulos, Kevin Bealer, and Thomas L. Madden. 2009. \u201cBLAST+: Architecture and Applications.\u201d BMC Bioinformatics 10 \\(December): 421."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 15624,
+                "identity": "a1659d48-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Nicolas Wheeler",
+                "email": "njwheeler@wisc.edu",
+                "orcid": "",
+                "institution": "Zamanian Lab",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Nicolas",
+                "middleName": "",
+                "lastName": "Wheeler",
+                "suffix": ""
+            },
+            {
+                "id": 15625,
+                "identity": "a165a2a1-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Tim Day",
+                "email": "",
+                "orcid": "",
+                "institution": "Iowa State University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Tim",
+                "middleName": "",
+                "lastName": "Day",
+                "suffix": ""
+            },
+            {
+                "id": 15626,
+                "identity": "a165a4f1-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Mostafa Zamanian",
+                "email": "",
+                "orcid": "",
+                "institution": "University of Wisconsin-Madison",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Mostafa",
+                "middleName": "",
+                "lastName": "Zamanian",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2018-04-12 15:42:46",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2018.061",
+        "doiUrl": "https://doi.org/10.1038/protex.2018.061",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2610100,
+                "identity": "f9186c26-56f1-4036-bcee-29e25270d4d8",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:25",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 1264026,
+                "visible": true,
+                "origin": "",
+                "legend": "Computational pipeline for identifying GPCRs in the genomes of parasitic worms.",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-6727/v1/figure_1.png"
+            },
+            {
+                "id": 13465738,
+                "identity": "b6cea272-94af-4aed-b289-466d1c27641d",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:48:00",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 422082,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-6727/v1/4f655992-05da-4252-ab8c-509f5f3985ce.pdf"
+            },
+            {
+                "id": 2610102,
+                "identity": "a83bc4a2-2c43-4da9-aa2f-4fbd81a427ff",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:25",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 3125248,
+                "visible": true,
+                "origin": "",
+                "legend": "Original version of the protocol   protex,2018.061 - original version   The original version of this protocol included  Michael Kimber as a contributing author.  His name has been removed, because it was added in error. He had contributed to other related work, but not to this protocol.\r\n9 August 2018",
+                "description": "",
+                "filename": "supplement0.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-6727/v1/supplement_0.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interest.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "genome sequencing, assembly, parasites, transmembrane protein, GPCRs, genomes, assemblies, parasitic worms, helminths, nematodes, flatworms, platyhelminths, Nematoda, Platyhelminthes",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "G protein-couple receptors are often a primary point of interest in parasitic worms. Thus, after the sequencing of the genome of one of these worms, GPCR identification and annotation is often a priority. Here, we describe a computational pipeline for the identification of orthologous GPCRs in a set of over 50 newly sequenced genomes from parasitic worms.",
+        "manuscriptTitle": "GPCR identification in parasitic worm genome assemblies",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2018-05-17 21:19:30",
+                "doi": "10.1038/protex.2018.061",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a1652ac1-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "May 17th, 2018",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 4233,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 4234,
+                "name": "Biotechnology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2018-05-17 21:19:30",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

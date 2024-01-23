@@ -1,0 +1,217 @@
+{
+    "identity": "nprot-6729",
+    "title": "Genomic and transcriptomic data production for helminths",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "A multi-step protocol for preparation of draft genomes, specifically applicable to Nematoda. This includes initial library preparation, genome and transcriptome assembly, assembly QC/contamination screening and gene prediction. Both 454 and Illumina sequencing platforms are included."
+        },
+        {
+            "header": "Procedure",
+            "content": "**A** Genome sequencing library preparation\r\n\n\n\r\n\n\nPaired end short insert libraries\r\n\n\n454 titanium fragment libraries are constructed with 5-10ug of DNA according to the manufacturer's recommendations \\(Roche 454).\r\n\n\n\r\n\n\nIllumina small-insert paired-end libraries are prepared according to the manufacturer's protocol with the exception that multiple library enrichment reactions and size selection are performed after amplification and multiple size fractions \\(300-400 and 400-500 bp) are collected.\r\n\n\n\r\n\n\n454/Illumina 3 kb insert mate pair libraries\r\n\n\n3kb mate pair libraries are created as follows:\r\n\n\n\r\n\n\n1. DNA is sheared into 3kb fragments, blunt ended and ligated to the SOLiD Mate-Pair Cap Adapter \\(ABI).\r\n  2. Ligated DNA is size fractionated to 2-4 kb fractions and then purified.\r\n  3. Circularization reactions are set up using 1 \u03bcg of the extracted fraction and 1.3 pmol of the Internal SoliD Mate Pair adaptor \\(ABI).\r\n  4. Linear \\(or non-circularized and nicked) fragments are removed, circularized fragments are nick-translated extending from gaps engineered within the cap adapter using 200 ng of library and 20 units of DNA polymerase I.\r\n  5. Nick-translation reactions are treated with S1 nuclease for 15 minutes.\r\n  6. Resulting products are blunt ended and immobilized using Dynal M270 Streptavidin beads \\(Invitrogen).\r\n  7. For 454 sequencing, FLX Titanium paired-end library adaptors are ligated onto the immobilized DNA fragments and processed as recommended by the Manufacturers 3 kb span paired end library construction protocol \\(Roche 454). For Illumina sequencing, blunt ended fragments are processed through an adenylation reaction. Illumina\u2019s Truseq adaptors are ligated, the library is enriched with KAPA HiFi polymerase \\(KAPA Biosystems) and a final dual SPRI size selection is performed to isolate 300-500 bp library fragments.\r\n  \r\n\n\n454/Illumina 8 kb insert mate pair libraries\r\n\n\n8kb mate pair libraries are created as follows:\r\n\n\n\r\n\n\n1. 8 kb span paired-end libraries are constructed for 454 sequencing according to the manufacturer\u2019s recommendations \\(Roche 454), except that the 6.5-9 kb fraction is extracted from the size selection gel and the extracted adaptor ligated DNA is purified using a Qiagen Gel Extraction Kit.  For Illumina sequencing, 15 \u03bcg of high molecular weight DNA is sheared to a mean fragment size of 8 kb with a Hydroshear, blunt ended using DNA Terminator End Repair Kit \\(Lucigen) and ligated with 20 \u00b5M Circularization Adapters \\(Roche).\r\n  2. The ligated DNA is size-fractionated and the 6.5-10 kb fraction is purified using the Qiagen Gel Extraction Kit.\r\n  3. 300 ng of size selected DNA is circularized using 10U of Cre Recombinase. Linear \\(or non-circularized and nicked) library fragments are removed.\r\n  4. The circularized library fragments are fragmented targeting a mean insert size of 300 bp.\r\n  5. The fragmented DNA is blunt ended using the DNA Terminator End Repair Kit \\(Lucigen), processed through an adenylylation reaction \\(NEB) and Illumina's TruSeq adaptors are ligated.\r\n  6. The adenylated fragments are immobilized with Dynal M270 Streptavidin beads and amplified with KAPA HiFi Polymerase \\(KAPA Biosystems).\r\n  7. The final 300-500 bp library fragments are selected with a dual SPRI reaction.\r\n  \r\n\n\nGenomes sequenced on the Roche/454 platform are assembled from a combination of fragment reads, 3 kb paired-end reads and 8 kb paired-end reads generated to meet the coverage criteria of 15x, 15x and 3x respectively, with a target of 30x coverage for the final assembly. Genomes sequenced on the Illumina platform had overlapping fragment reads, 3 kb and 8 kb paired-end reads and are sequenced to a depth of 45x, 45x, and 10x, respectively.\r\n\n\n\r\n\n\n**B** Genome assembly\r\n\n\n\r\n\n\nAssemblies are generated using the assembly workflows outlined in Fig. 1, with the specific method depending on the input material.   Assemblies based on Roche 454 3kb, 8kb and fragment input followed the steps detailed in panel m1.  Assemblies from Illumina 3kb, 8kb and fragment input used the workflow described in panel m2 and a reference guided assembly method shown in panel m3.\nSee figure in Figures section.\n**Figure** **1:** The McDonnell Genome Institute Genome assembly pipelines\r\n\n\n\r\n\n\n454 data\r\n\n\nAssemblies built using a combination of Roche 454 3kb, 8kb and fragment input data are constructed as follows \\(Fig. 1 panel m1)\r\n\n\n1. A combination of 3kb, 8kb and fragment 454 reads are subject to adapter removal, quality trimming and length filtering using a combination of the Flexbar\n1\nand Trimmomatic\n2\ntools \\(Fig. 1).\r\n  2. Contaminant screening  is done using the Bowtie2\n9\naligner and a local contaminant database containing ribosomal RNA, bacteria and host sequence.\r\n  3. Cleaned reads are then assembled using the Newbler assembler\n3\nbefore being scaffolded with an in-house tool CIGA which links contigs based on cDNA evidence.\r\n  4. The resulting assembly  is improved using another local tool named Pygap that uses Illumina short paired end sequences to help fill gaps between scaffolded contigs.\r\n  5. Finally the L_RNA_scaffolde\n4\nused 454 cDNA data to further improve scaffolding.\r\n  \r\n\n\nIllumina data\r\n\n\nAssemblies constructed from 3kb, 8kb and fragment Illumina sequences followed this methodology \\(Fig. 1 panel m2)\r\n\n\n1. 3kb, 8kb and fragment Illumina sequences are subject to the adapter removal, quality trimming, length filtering and contamination screening process described for the 454 data above.\r\n  2. The cleaned reads are then assembled using the AllPaths-LG assembler\n5\nbefore being improved using the Pygap and L_RNA_scaffolder tools as described above.\r\n  Reference guided, assisted assembly\r\n\n\nFinally we have a protocol for a reference guided, assisted assembly approach \\(Fig. 1 panel m3)\r\n\n\n1. Illumina 3kb paired end sequence data are subject to the same 'cleaning' procedure described above and  is then mapped against the reference assembly using the bwa aligner\n6\nwith default parameters.\r\n  2. Samtools mpileup  is run on the alignment along with vcfutils.pl varFilter using suggested argument settings to identify the differences between the new input reads and the reference backbone.\r\n  3. We then subtract out the reference from the mapped region by omitting all SNP loci where the alternate allele frequency  is 1.\r\n  4. We then used FastaAlternateReferenceMaker method of GATK \\( \"http://software.broadinstitute.org/gatk/\":http://software.broadinstitute.org/gatk/) and a bed file comprising only regions where the new data mapped to the reference to construct a new consensus populated with alleles from the new reads at each detected SNP locus.\r\n  5. In addition, reads that did not initially map to the reference are assembled using Velvet\n7\n,  with a kmer size of 39 chosen by the VelvetOptimizer \\( \"http://bioinformatics.net.au/software.velvetoptimiser.shtml\":http://bioinformatics.net.au/software.velvetoptimiser.shtml).\r\n  6. BLAT\n8\nis then used to compare the contigs created by Velvet to the contigs created by alignment to the reference and all Velvet contigs greater than 500 bp that mapped less than 50% of their length \\(and at >80% identity) to an existing contig are added to the assembly.\r\n  \r\n\n\n**C** Assembly QC / Contamination screening\r\n\n\n\r\n\n\nAll assemblies are screened, to remove for contamination, before annotation. \r\n\n\n1. Adaptor sequencs and contaminants are identified by compared contigs to a database of vectors, bacterial and host contaminants using Megablast.\r\n  2. High-scoring segment pairs  \\(HSPs) with E-value <0.01 and length >100 bp are picked. The final alignment length is from the first base of the first HSP to the last base of the last HSP. \r\n  3. The contig  is removed if the identity  is greater than 75% and the coverage  is greater than 40% of the contig, or the contig  is less than 2000 bp. \r\n  4. Any contigs which are on the border of the requirements and longer in length are manually reviewed as an extra measure against true genome contigs being removed. \r\n  \r\n\n\n**D** Transcriptome sequencing and assembly\r\n\n\n\r\n\n\nAssembled RNAseq ata are used alongside EST data in the MAKER stage of gene prediction.\r\n\n\n1. Transcriptome \\(RNAseq) libraries are generated with the Illumina TrueSeq stranded protocol following the manufacturer\u2019s guidelines.\r\n  2. Raw reads are cleaned using an in-house tool that trims adaptor, quality trims and applies a length filter using Flexbar\n1\nand Trimmomatic\n2\n.\r\n  3. Low complexity sequence  is masked using the filter_by_complexity tool in the seq_crumbs package \\( \"http://bioinf.comav.upv.es/seq_crumbs/\":http://bioinf.comav.upv.es/seq_crumbs/), and contaminating sequences are identified using Bowtie2\n9\nand TopHat2\n10\nbefore being removed using local code.\r\n  4. The cleaned, filtered RNAseq reads are assembled de novo with Trinity\n11\n, using both left and right cleaned paired reads. \r\n  5. The output  is filtered for the longest representative open reading frame, resulting in a \u2018best candidates\u2019 file. \r\n  6. Transcripts are merged using CD-HIT\n12\nwith 98% coverage and identity. \r\n  7. The assembled contigs are assessed for quality by aligning \\(with TopHat2\n10\n) back to reference assembly to establish the percentage of reference aligned to by the reads and the percentage of reads that aligned to the reference.\r\n  \r\n\n\n**E** Gene prediction\r\n\n\n\r\n\n\nGene prediction  is run on assemblies as follows:\r\n\n\n1. For each assembly a repeat library  is generated using RepeatModeler. Ribosomal RNA genes are identified using RNAmmer \\( \"http://www.cbs.dtu.dk/cgi-bin/nph-sw_request?rnammer\":http://www.cbs.dtu.dk/cgi-bin/nph-sw_request?rnammer) and transfer RNAs are identified with tRNAscan-SE\n13\n.\r\n  2. Non-coding RNAs, such as microRNAs, are identified by searching against Rfam\n14\n.  \r\n  3. Repeats and predicted RNAs are then masked using RepeatMasker. \r\n  4. Protein-coding genes are predicted from the masked assembly using a combination of several ab initio programs: SNAP\n15\n, FGENESH \\(Softberry, Corp), Augustus\n16\nand the MAKER pipeline\n17\n, which aligns mRNA, EST and protein evidence from the same species or cross-species to aid in gene structure determination and modifications \\(Fig. 2).  \r\n  5. SNAP and Augustus models are generated where possible using the MAKER pipeline and species-specific evidence. A consensus gene set from the above prediction algorithms  is generated, using a logical, hierarchical approach developed at MGI.\nSee figure in Figures section.\n**Figure** **2:** The McDonnell Genome Institute Gene-finding pipeline.\r\n\n\n\r\n\n\nHigh confidence gene selection\r\n\n\nA high confidence gene set  is created from MAKER\n17\noutput:\r\n\n\n1. Quality Index \\(QI) criteria are calculated as follows: \\(i) length of the 5' UTR; \\(ii) fraction of splice sites confirmed by an EST; \\(iii) fraction of exons that overlapped an EST alignment; and \\(iv) fraction of exons that overlapped EST or protein alignments.\r\n  2. These decision-making steps are followed to define the set of high confidence genes:\r\n  a) Genes are screened for overlaps \\(<10% overlap  is allowed).\r\n\n\nb) If QI\\[2] and QI\\[3] are >0, or QI\\[4]  is >0, then the gene  is kept.\r\n\n\nc) Genes are retained if they matched Swissprot\n18\nusing BLAST \\(E<1e-06). \r\n\n\nd) Genes are retained if they matched Pfam\n19\nusing RPSBLAST \\(E<1e-03).\r\n\n\ne) RPSBLAST  is run against CDD\n20\n\\(E<1e-03 and coverage >40%). Genes that met both cut-offs are kept.\r\n\n\nf) If no hit  is recorded the gene  is retained if it had \u2265 55% identity to the genes database from KEGG\n21\n, and and a bitscore of \u226535.\r\n\n\n\r\n\n\nAdditional curation of gene sets\r\n\n\nDepending on the nature of the final gene set in relation to the assembly quality some gene sets underwent an additional manual review of short genes lacking definitive evidence. After the high confidence gene selection steps described above, shorter single and double exon genes and genes annotated as hypothetical \\(with no KEGG nor InterPro homologies) are further scrutinized. A manual review of the Annotation Edit Distance \\(AED, from MAKER)  is considered in combination with the QI scores \\(all provided by MAKER), enabling analysts to make a more informed decision about whether to keep or discard each such gene."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "raw sequence data, genomic and/or transcriptomic assembly and a high confidence gene set."
+        },
+        {
+            "header": "References",
+            "content": "1. Dodt, M., Roehr, J. T., Ahmed, R. & Dieterich, C. FLEXBAR-Flexible Barcode and Adapter Processing for Next-Generation Sequencing Platforms. Biology \\(Basel) 1, 895-905, doi:10.3390/biology1030895 \\(2012).\r\n  \r\n\n\n2. Bolger, A. M., Lohse, M. & Usadel, B. Trimmomatic: a flexible trimmer for Illumina sequence data. Bioinformatics 30, 2114-2120, doi:10.1093/bioinformatics/btu170 \\(2014).\r\n  \r\n\n\n3. Margulies, M. et al. Genome sequencing in microfabricated high-density picolitre reactors. Nature 437, 376-380 \\(2005).\r\n  \r\n\n\n4. Xue, W. et al. L_RNA_scaffolder: scaffolding genomes with transcripts. BMC Genomics 14, 604, doi:10.1186/1471-2164-14-604 \\(2013).\r\n  \r\n\n\n5. Butler, J. et al. ALLPATHS: de novo assembly of whole-genome shotgun microreads. Genome Res 18, 810-820, doi:10.1101/gr.7337908 \\(2008).\r\n  \r\n\n\n6. Li, H. & Durbin, R. Fast and accurate short read alignment with Burrows-Wheeler transform. Bioinformatics 25, 1754-1760, doi:10.1093/bioinformatics/btp324 \\(2009).\r\n  \r\n\n\n7. Zerbino, D. R. & Birney, E. Velvet: algorithms for de novo short read assembly using de Bruijn graphs. Genome Res 18, 821-829 \\(2008).\r\n  \r\n\n\n8. Kent, W. J. BLAT--the BLAST-like alignment tool. Genome Res 12, 656-664, doi:10.1101/gr.229202. Article published online before March 2002 \\(2002).\r\n  \r\n\n\n9. Langmead, B. & Salzberg, S. L. Fast gapped-read alignment with Bowtie 2. Nature methods 9, 357-359, doi:10.1038/nmeth.1923 \\(2012).\r\n  \r\n\n\n10. Kim, D. et al. TopHat2: accurate alignment of transcriptomes in the presence of insertions, deletions and gene fusions. Genome biology 14, R36, doi:10.1186/gb-2013-14-4-r36 \\(2013).\r\n  \r\n\n\n11. Grabherr, M. G. et al. Full-length transcriptome assembly from RNA-Seq data without a reference genome. Nat Biotechnol 29, 644-652, doi:10.1038/nbt.1883 \\(2011).\r\n  \r\n\n\n12. Fu, L., Niu, B., Zhu, Z., Wu, S. & Li, W. CD-HIT: accelerated for clustering the next-generation sequencing data. Bioinformatics 28, 3150-3152, doi:10.1093/bioinformatics/bts565 \\(2012).\r\n  \r\n\n\n13. Lowe, T. M. & Eddy, S. R. tRNAscan-SE: a program for improved detection of transfer RNA genes in genomic sequence. Nucleic acids research 25, 955-964 \\(1997).\r\n  \r\n\n\n14. Nawrocki, E. P. et al. Rfam 12.0: updates to the RNA families database. Nucleic acids research 43, D130-137, doi:10.1093/nar/gku1063 \\(2015).\r\n  \r\n\n\n15. Korf, I. Gene finding in novel genomes. BMC bioinformatics 5, 59, doi:10.1186/1471-2105-5-59 \\(2004).\r\n  \r\n\n\n16. Stanke, M. et al. AUGUSTUS: ab initio prediction of alternative transcripts. Nucleic acids research 34, W435-439, doi:10.1093/nar/gkl200 \\(2006).\r\n  \r\n\n\n17. Cantarel, B. L. et al. MAKER: an easy-to-use annotation pipeline designed for emerging model organism genomes. Genome Res 18, 188-196, doi:10.1101/gr.6743907 \\(2008).\r\n  \r\n\n\n18. Bairoch, A. & Apweiler, R. The SWISS-PROT protein sequence database and its supplement TrEMBL in 2000. Nucleic acids research 28, 45-48 \\(2000).\r\n  \r\n\n\n19. Finn, R. D. et al. Pfam: the protein families database. Nucleic acids research 42, D222-230, doi:10.1093/nar/gkt1223 \\(2014).\r\n  \r\n\n\n20. Marchler-Bauer, A. et al. CDD: NCBI's conserved domain database. Nucleic acids research 43, D222-226, doi:10.1093/nar/gku1221 \\(2015).\r\n  \r\n\n\n21. Kanehisa, M. The KEGG database. Novartis Found Symp 247, 91-101; discussion 101-103, 119-128, 244-152 \\(2002)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 15627,
+                "identity": "a1660d3c-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "John Martin",
+                "email": "jmartin@wustl.edu",
+                "orcid": "",
+                "institution": "Mitreva Lab (MGI, Washington University in St. Louis)",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "John",
+                "middleName": "",
+                "lastName": "Martin",
+                "suffix": ""
+            },
+            {
+                "id": 15628,
+                "identity": "a1660fe0-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Makedonka Mitreva",
+                "email": "",
+                "orcid": "",
+                "institution": "MGI, Washington University in St. Louis",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Makedonka",
+                "middleName": "",
+                "lastName": "Mitreva",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2018-04-06 21:01:56",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2018.044",
+        "doiUrl": "https://doi.org/10.1038/protex.2018.044",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2610101,
+                "identity": "d0aaf456-0695-4b33-90fb-1c68af5db0ae",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:25",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 245586,
+                "visible": true,
+                "origin": "",
+                "legend": "The McDonnell Genome Institute Genome assembly pipelines.",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-6729/v1/figure_1.png"
+            },
+            {
+                "id": 2610099,
+                "identity": "878b626c-af3e-4e42-b82f-473b190ed5f4",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:25",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 115907,
+                "visible": true,
+                "origin": "",
+                "legend": "The McDonnell Genome Institute Gene-finding pipeline.",
+                "description": "",
+                "filename": "figure2.png",
+                "url": "https://assets.researchsquare.com/files/nprot-6729/v1/figure_2.png"
+            },
+            {
+                "id": 13465733,
+                "identity": "4e9edd3d-26c8-450a-9c7f-a4feca53e7d7",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:47:58",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 416971,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-6729/v1/0547ef01-aee3-43b5-ac2d-5209d32f108d.pdf"
+            }
+        ],
+        "financialInterests": "none",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "sequencing, assembly, contamination screening, genomic data production, transcriptomic data production, helminths, nematoda, platyhelminthes, genome annotation",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "Protocols for genomic and transcriptomic data production, assembly and quality control.",
+        "manuscriptTitle": "Genomic and transcriptomic data production for helminths",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2018-05-17 12:03:45",
+                "doi": "10.1038/protex.2018.044",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a163bfa0-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "May 17th, 2018",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 4235,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 4236,
+                "name": "Biotechnology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2018-05-17 12:03:45",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

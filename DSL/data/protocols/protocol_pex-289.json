@@ -1,0 +1,304 @@
+{
+    "identity": "pex-289",
+    "title": "<p>Protocol for Single-Cell RNA-Sequencing of Cryopreserved Human Liver Cells</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>This protocol enables sorting based scRNA-seq of the main liver cell types found in the normal human liver. Viable cells can be sorted for scRNA-seq in an unbiased fashion or on the basis of cell surface markers as demonstrated in Aizarani et al. (see Aizarani et al. (2019) A Human Liver Cell Atlas reveals Heterogeneity and Epithelial Progenitors. Nature.<sub><span class=\"ql-cursor\">\ufeff</span>\ufeff </sub>)</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p>192 reverse transcription (RT) primers anchored polyT primers having a 6 bp cell barcode, 6 bp unique molecular identifiers (UMIs), a part of 5\u2019 Illumina adapter and a T7 promoter: 40 nM; randomhexRT primer: 5\u2019 GCCTTGGCACCCGAGAATTCCANNNNNN; RNA PCR primers; DNA LoBind 384-well plates; LoBind tubes; Mineral oil (Sigma); dNTPs 10 mM; 0.3% Triton-X-100 in DNase/RNase-free water;&nbsp;DNase/RNase free water; SuperScript II\u2122 Reverse Transcriptase (Invitrogen); RNaseOUT Recombinant Ribonuclease Inhibitor (Invitrogen);&nbsp;Second Strand Buffer (Invitrogen); E. coli DNA Polymerase I (Invitrogen); E. coli DNA ligase (Invitrogen);&nbsp;&nbsp;E. coli Ribonuclease H (Invitrogen);&nbsp;MEGAscript T7 Transcription Kit (Ambion);&nbsp;ExoSAP-IT For PCR Product CleanUp (Affymetrix); NEBNext\u00ae Magnesium RNA Fragmentation Module (New England Biolabs); AMPure XP beads (Beckman Coulter); RNAClean XP beads (Beckman Coulter); Qubit dsDNA HS (High Sensitivity) Assay Kit; Agilent High Sensitivity DNA kit; Agilent RNA 6000 Pico Kit; Phusion\u00ae High-Fidelity PCR Master Mix with HF Buffer (New England Biolabs); HEPES buffer, EGTA, collagenase Type IV (Sigma-Aldrich), CaCl2, CryoStor\u00ae CS10 solution, PBS, absolute undenatured Ethanol, Zombie Green (Biolegend); FACS tubes, 40 micron filters. For more details on reagents used in the mCel-Seq2 protocol, refer to Sagar, et al. (2018). \"High-Throughput Single-Cell RNA Sequencing and Data Analysis.\" Methods Mol Biol <strong>1766</strong>: 257-283.</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>mosquito\u00aeHTS (TTP Labtech), Flow cytometer (BD FACS Aria Fusion or MoFlo XDP Sorter), Agilent Bionalyzer, Qubit fluorometer</p><p><br></p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "I). Sample preparation and FACS:\n1). Prepare 384 well plates containing 1.2 uL of mineral oil and 240 nL of lysis buffer solution using the mosquito nanoLiter pipetting robot)(per well lysis buffer solution contains: 140 nL 0.35% Triton X-100 H2O, 40nL primers (25ng/uL), 40nL RNase free water, 20nL 10mM dNTPs). (see Sagar et al., for more instructions on how to prepare the plates)\n2). Isolate liver cells from human liver specimens after resection following a standard 2-step perfusion protocol (first perfuse with HEPES 0.5mM EGTA for 15 min then perfuse with HEPES containing 0.5mg/mL collagenase and 0.075% CaCl2 for 15 min). Non-viable cells can be removed by Percoll gradient centrifugation. Cells can be split into non-parenchymal cell (NPC) or hepatocyte fractions by spinning at 80-100xg to pellet hepatocytes, or NPCs and hepatocytes can be kept together.\n3). Cryopreserve cells using CryoStor\u00ae CS10 solution according to the manufacturer's instructions and store in liquid nitrogen (for long term storage) or at -80\no\nC (for short term storage).\n4). On the day of the sort, thaw cryopreserved samples in a water bath at 37\no\nC. Spin at 350xg at 4\no\nC and remove cryoprotectant solution. Wash the sample with 1XPBS .\n5). Stain the cells with Zombie Green and keep cells on ice for 15 min then wash with 1XPBS.\n6). Perform the relevant antibody staining for your population(s) of interest (see Aizarani et al. for markers and antibodies). Wash sample with 1X PBS.\n7). Filter cells using a 40 micron filter and collect the cells in PBS in a FACS tube. Make sure to dilute the sample well enough for the sort so that is not too turbid.\n8). Calibrate FACS machine for the 384 well plate. Use a 100 micron nozzle for sorting the cells (MoFlo or FACS Aria Fusion), and keep the platform on which the plate is placed cold at all times.\n9). Exclude doubles by FSC and SCC. Gate on viable cells (Zombie Green negative cells) and sort single cells from the population of interest into the 384 well plate containing the lysis buffer solution on the basis of the antibody staining or markers. Shortly vortex the cells before sorting and every 30 min during the sort to avoid clogs.\n10). After the sort is over, place the plate on ice then spin down at maximum speed for 10 min at 4\no\nC. Snap freeze the plate and store at -80\no\nC. Plates can stored at -80\no\nC for months.\nII). ScRNA-seq with mCEL-Seq2:\nA). cDNA synthesis and in vitro transcription:\n1). Thaw the frozen plate on ice then spin at maximum speed for a few minutes.\n2). Lyse cells: 90\u00b0C for 3min in thermocycler (lid: 105\u00b0C)\n3). Prepare reverse transcription mix. For one plate, mix 70uL of First Strand Buffer, 35uL 0.1M DTT, 17.5uL RNase Out, 17.5uL Superscript II. Pipette 160nL (per well) of the mix into the plate containing the cells using the mosquito (per well: 80nL First Strand Buffer, 40nL 0.1M DTT, 20nL RNase Out, 20nL Superscript II). (see Sagar et al., for more detailed instructions on pipetting) Spin shortly.\n4). Incubate at 42\u00b0C for 1h in thermal cycler (lid: 50\u00b0C).Heat inactivate at 70\u00b0C for 10min (lid: 85\u02daC). Put on ice to chill, spin shortly.\n5). Around 20min before the reverse transcription reaction is over, prepare second strand synthesis mix. For one plate, mix 631.4 uL of RNase/DNase free water, 205 uL of Second Strand Buffer, 20.5uL of 10mM dNTPs, 7.38uL Ligase, 28.7uL E.coli DNA Polymerase, 7.38uL RnaseH. Pipette 2.196 uL of the mix per well using the mosquito (per well the second strand synthesis mix contains: 1.54uL DDW (Rnase free water), 0.5 uL Second strand buffer, 50nL 10mM dNTPs, 18nL Ligase, 70nL E.coli DNA Polymerase, 18nL Rnase). (see Sagar et al., for more detailed instructions on pipetting)\n6). Incubate at 16\u00b0C for 2h (lid: 25\u00b0C)\n7). cDNA Cleanup: Prewarm AMPure XP beads to RT (25\u00b0C), vortex beads in buffer until well dispersed. Pool 96 cells in 4 tubes for\u00a0IVT\u00a02,596 \u00b5l per cell, spin shortly: Measure volume of pooled samples (4 samples a ~210\u00b5l). Distribute each sample in 2 wells(96-well plate) a ~100\u00b5l.\u00a0Add 0,8 volumes of beads (~80 \u00b5l). Incubate at RT (25\u00b0C) for 10min. Place on magnetic stand for 5min or until liquid appears clear Remove\u00a0and\u00a0discard supernatant. Add\u00a0180 \u00b5l of freshly prepared\u00a080% EtOH. Incubate at least 30 seconds, remove and discard supernatant, w/o disturbing the beads . Repeat\u00a0wash. Incubate at least 30 seconds, remove and discard supernatant, w/o disturbing the beads. Air dry beads for 10min or until completely dry. Resuspend\u00a0\u00a0with\u00a07 uL of water. Incubate at RT (25\u00b0C) for 2min. Place on magnetic stand for 5min or until liquid appears clear. Transfer ~6.4\u00b5l of supernatant to new tube. Store cDNA at -20\no\nC or proceed directly to the IVT.\n8). Prepare IVT mix (7.2 uL of each of the following: A, G, C, U, 10X T7 Buffer, T7 enzyme). Add 9.6 uL of the mix to each tube (4 tubes per plate).\n9). Incubate at 37\u00b0C for 13h (lid: 70\u00b0C), final step: 4\u00b0C hold\n10). Add 6 \u00b5l of EXO-SAP enzyme and incubate at 37\u00b0C for 15min.\n11). Add 2.44 \u00b5l 10x Fragmentation Buffer, flick, Incubate at 94\u00b0C for 3min.\n12). Immediately move to ice and add \u00b5l 10x Fragmentation Stop Buffer.\n13). Amplified RNA Cleanup: Prewarm RNAClean XP beads to room temperature 25\u00b0C (30min) Vortex RNAClean XP beads until well dispersed. Add\u00a021.5 \u00b5l (0.8 volumes) of beads to sample Incubate at room temperature for 10min. Place on magnetic stand for at least 5min, until liquid appears clear. Remove\u00a0and\u00a0\u00a0discard\u00a050 \u00b5l of the supernatant. Add 180 \u00b5l freshly prepared 70% EtOH Incubate at least 30 seconds, remove and discard supernatant, w/o disturbing the beads Repeat wash 2x times. Air dry beads for 10min or until completely dry. Resuspend\u00a0with\u00a07 \u00b5l water, mix thoroughly Incubate at room temperature (25\u00b0C) for 2min. Place on magnetic stand for\u00a05min or until liquid appears clear Transfer supernatant to new tube. Keep sample at -80\u00b0C. Check RNA on Bioanalyzer, and follow the manufacturer's protocol.\nB). Library Preparation and sequencing:\n1).\u00a0\u00a0Prepare the following primer-dNTP mix in a 0.5 ml RNase-free tube (7.5 \u00b5l): 5 \u00b5l of 10 \u00b5M randomhexRT primer and 2.5 \u00b5l of 10mM dNTPs. Mix well by flicking and spin down briefly in a mini-centrifuge. Add 1.5 \u00b5l to each of the four aRNA samples and incubate at 65\u00baC (Lid temperature: 80\u00baC) for 5 min. Transfer samples on ice.\n2).\u00a0During the 65\u00baC incubation step, prepare the following RT mix in a 0.5 ml RNase-free tube (20 \u00b5l): 10 \u00b5l of First Strand Buffer, 5 \u00b5l of 0.1 M DTT, 2.5 \u00b5l of SuperScript II\u2122 Reverse Transcriptase and 2.5 \u00b5l of RNaseOUT Ribonuclease Inhibitor.\n3).\u00a0Add 4 \u00b5l to each of the four aRNA samples. Mix well by pipetting up and down and centrifuge briefly at the maximum speed. Incubate the samples at 25\u00baC (Lid temperature: 37\u00baC) for 10 min and at 42\u00baC (Lid temperature: 50\u00baC) for 1 hour.\n4). Fifteen minutes before the completion of the RT reaction, prepare the following PCR mix in a 1.5 ml tube (171 \u00b5l): 49.5 \u00b5l of DNase/RNase-free water, 112.5 \u00b5l of Phusion\u00ae High-Fidelity PCR Master Mix with HF Buffer and 9 \u00b5l of 10 \u00b5M RP1 primer.\n5).\u00a0After the completion of the RT reaction, transfer the samples on ice and add 38 \u00b5l of PCR mix in each sample. Afterwards, add 2 \u00b5l of one of RPI1-12 primers to each sample separately, mix well by pipetting and centrifuge the plate briefly.\n6).\u00a0\u00a0Use the following PCR cycle conditions to prepare the libraries: 98\u00b0C (30 sec), 11 cycles of: 98\u00b0C (10 sec), 60\u00b0C (30 sec) and 72\u00b0C (30 sec), final elongation at 72\u00b0C for 10 min and infinite hold at 4\u00b0C.\n7).\u00a0After starting the PCR, take out the AMPure XP beads (approximately 240 \u00b5l) from the refrigerator and let them pre-warm at room temperature.\n8).\u00a0Once the PCR is finished, remove the plate from the cycler, vortex AMPure XP Beads and add 50 \u03bcl to each library sample. Mix beads with the sample thoroughly by pipetting up and down. Change tips while mixing different libraries to avoid contamination. If library preparation was done in PCR tubes, add 50 \u03bcl AMPure XP Beads to each sample, mix well and transfer the sample and the beads in a 96-well plate for clean-up.\n9).\u00a0Incubate the 96-well plate at room temperature for 10 min and afterwards place it on the magnetic stand until all the beads are attached to the wall of the plate and the liquid is clear. At this stage, DNA is attached to the beads. Remove and discard the liquid while keeping the plate on the magnetic stand. Prepare 80% ethanol in DNase/RNase-free water during this incubation period.\n10). Add 150 \u03bcl freshly prepared 80% ethanol, incubate at least for 30 seconds, remove and discard the ethanol without disturbing the beads.\n11). Repeat the washing step once more. After the washing steps, make sure to remove small droplets of ethanol at the bottom or the corner of the well using a single-channel pipette.\n12). Air dry beads for 10 min while keeping the plate on the magnetic stand.\n13). Remove the plate from the magnetic stand and resuspend beads in 25 \u03bcl DNase/RNase-free water. Pipette the entire volume up and down several times to mix thoroughly.\n14).\u00a0Incubate the plate at room temperature for 2 min, place it back on the magnetic stand until the liquid appears clear and transfer 25 \u03bcl of supernatant to the empty wells of the same 96-well plate.\n15). Repeat the bead clean-up process again but this time with 25 \u00b5l of beads. Elute the DNA in 11 \u00b5l of DNase/RNase-free water.\n16). Use 1-1 \u00b5l per library sample to measure the concentration by Qubit\u00ae Fluorometer using Qubit dsDNA HS (High Sensitivity) Assay Kit and size distribution by Agilent 2100 Bioanalyzer using High Sensitivity DNA kit respectively. The remaining 8 \u00b5l of the libraries can be stored at -20\u00baC.\n17).\u00a0Based on the concentration measured by Qubit\u00ae Fluorometer and the average library size measured by Agilent 2100 Bioanalyzer, calculate the molarity of each sample. Adjust the concentration to a particular molarity, pool the samples and submit them for pair-end sequencing. Consult your sequencing facility regarding the type of run and concentration needed by them to be loaded on the flow cell."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p>If there is a clog during sorting (this is more likely to happen when sorting hepatocytes), filter the cells again through a 40 micron filter and further dilute the sample.</p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>3 days in total. (1 day to sort cells, 1 day for RT and cDNA preparation from single cells, 1 day for library preparation)</p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p><br></p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>Sagar, et al. (2018). \"High-Throughput Single-Cell RNA Sequencing and Data Analysis.\" Methods Mol Biol <strong>1766</strong>: 257-283.</p><p>Herman, J. S., Sagar &amp; Grun, D. FateID infers cell fate bias in multipotent progenitors from single-cell RNA-seq data. <em>Nat Methods</em>, doi:10.1038/nmeth.4662 (2018).</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>We would like to thank the deep sequencing and FACS facilities at the MPI-IE for their active support and the patients for providing informed consent to participate in the study.</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41586-019-1373-2",
+                "date": "2019-07-10 18:03:37",
+                "title": "A human liver cell atlas reveals heterogeneity and epithelial progenitors",
+                "authors": [
+                    "Nadim Aizarani",
+                    "Antonio Saviano",
+                    " Sagar",
+                    "Laurent Mailly",
+                    "Sarah Durand",
+                    "Josip S. Herman",
+                    "Patrick Pessaux",
+                    "Thomas F. Baumert",
+                    "Dominic Gr\u00fcn"
+                ],
+                "journal": "Nature",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 87297,
+                "identity": "d3ffbb19-285e-4df1-96d4-39654ae286f5",
+                "order_by": 1,
+                "name": "Nadim Aizarani",
+                "email": "aizarani@ie-freiburg.mpg.de",
+                "orcid": "",
+                "institution": "MPI-IE (Freiburg)",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Nadim",
+                "middleName": "",
+                "lastName": "Aizarani",
+                "suffix": ""
+            },
+            {
+                "id": 87298,
+                "identity": "9ce85655-b6c1-497f-ac59-6be431a222c7",
+                "order_by": 2,
+                "name": "Antonio Saviano",
+                "email": "",
+                "orcid": "",
+                "institution": "Inserm U1110 (Strasbourg)",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Antonio",
+                "middleName": "",
+                "lastName": "Saviano",
+                "suffix": ""
+            },
+            {
+                "id": 87299,
+                "identity": "43c2d18a-86ba-43a7-8b6e-5f7c46723bdd",
+                "order_by": 3,
+                "name": "Sagar",
+                "email": "",
+                "orcid": "",
+                "institution": "MPI-IE (Freiburg)",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "",
+                "middleName": "",
+                "lastName": "Sagar",
+                "suffix": ""
+            },
+            {
+                "id": 87300,
+                "identity": "31461ec2-2f82-4eb4-8f1e-88c00576a663",
+                "order_by": 4,
+                "name": "Laurent Mailly",
+                "email": "",
+                "orcid": "",
+                "institution": "Inserm U1110 (Strasbourg)\t",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Laurent",
+                "middleName": "",
+                "lastName": "Mailly",
+                "suffix": ""
+            },
+            {
+                "id": 87301,
+                "identity": "ba544ce6-5ee0-4928-997e-883d264c112c",
+                "order_by": 5,
+                "name": "Sarah Durand",
+                "email": "",
+                "orcid": "",
+                "institution": "Inserm U1110 (Strasbourg)",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Sarah",
+                "middleName": "",
+                "lastName": "Durand",
+                "suffix": ""
+            },
+            {
+                "id": 87302,
+                "identity": "948cef50-a192-4b00-b120-7d0b6026022b",
+                "order_by": 6,
+                "name": "Patrick Pessaux ",
+                "email": "",
+                "orcid": "",
+                "institution": "Inserm U1110 (Strasbourg)",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Patrick",
+                "middleName": "",
+                "lastName": "Pessaux",
+                "suffix": ""
+            },
+            {
+                "id": 87303,
+                "identity": "b9a831cb-862b-4e35-9e2e-38d9643ad9f8",
+                "order_by": 7,
+                "name": "Thomas F. Baumert",
+                "email": "Thomas.Baumert@unistra.fr",
+                "orcid": "",
+                "institution": "Inserm U1110 (Strasbourg)",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Thomas",
+                "middleName": "F.",
+                "lastName": "Baumert",
+                "suffix": ""
+            },
+            {
+                "id": 87304,
+                "identity": "01694302-a47e-4fbe-8bbe-d795ac37a5e5",
+                "order_by": 8,
+                "name": "Dominic Gr\u00fcn",
+                "email": "gruen@ie-freiburg.mpg.de",
+                "orcid": "",
+                "institution": "MPI-IE (Freiburg)",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Dominic",
+                "middleName": "",
+                "lastName": "Gr\u00fcn",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2019-05-14 08:32:51",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.2.9620/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.2.9620/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13468431,
+                "identity": "f70a863e-51db-4673-83a3-d6386047d6aa",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:58:54",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 196335,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-289/v1/477af4e8-972d-4b2f-b5a3-5355a52742c4.pdf"
+            }
+        ],
+        "financialInterests": "No. ",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Single-cell RNA-Sequencing (scRNA-seq), FACS, human liver cells, cryopreserved",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>This is a protocol describing how to perform scRNA-seq of cryopreserved human liver cells using the mCEL-Seq2 protocol as described in the following paper.</p><p>Title: A Human Liver Cell Atlas reveals Heterogeneity and Epithelial Progenitors</p><p>Authors: Nadim Aizarani, Antonio Saviano, Sagar, Laurent Mailly, Sarah Durand, Patrick Pessaux, Thomas F. Baumert, Dominic Gr\u00fcn</p><p>Journal: Nature</p>",
+        "manuscriptTitle": "Protocol for Single-Cell RNA-Sequencing of Cryopreserved Human Liver Cells",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2019-07-11 09:28:59",
+                "doi": "10.21203/rs.2.9620/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "67d21634-b242-4620-a425-ef21ffc21fd0",
+        "owner": [],
+        "postedDate": "July 11th, 2019",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 12172,
+                "name": "Cell biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2019-07-11 09:28:59",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

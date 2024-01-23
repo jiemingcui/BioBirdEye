@@ -1,0 +1,374 @@
+{
+    "identity": "pex-1065",
+    "title": "<p>A systematic evaluation of the design, orientation, and sequence context dependencies of massively parallel reporter assays</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>The spatiotemporal control of gene expression is orchestrated in part by distally located DNA</p><p>sequences known as enhancers. The first viral and cellular enhancers were identified by cloning</p><p>fragments of DNA into a plasmid with a reporter gene and promoter 1\u20134 . Enhancement of</p><p>transcription in such a reporter assay is a widely used approach for evaluating whether a putative</p><p>regulatory element is a bona fide enhancer. However, conventional, one-at-a-time reporter assays</p><p>are insufficiently scalable to test the &amp;gt;1 million putative enhancers in the human genome 5\u20138 .</p><p><br></p><p>Massively parallel reporter assays (MPRAs) modify the in vitro reporter assays described above</p><p>to facilitate simultaneous testing of thousands of putative regulatory elements or variants</p><p>thereof 9\u201311 in a single experiment. Instead of relying on measurement of a conventional reporter,</p><p>MPRAs characterize each element in a multiplex fashion, through sequence-based quantification</p><p>of barcodes incorporated into the RNA, each associated with a different element 9\u201315 . MPRAs (a</p><p>term we use broadly to encompass related methods including STARR-seq 16 and lentiMPRAs 17 )</p><p>have facilitated the scalable study of putative regulatory elements for goals ranging from</p><p>functional annotation 16\u201318 to variant effect prediction 10\u201315,19 to evolutionary reconstruction 20,21 .</p><p><br></p><p>To date, several groups have implemented enhancer-focused MPRAs, but with diverse designs.</p><p>Some of the major differences include whether the enhancer is upstream 10,11 vs. within the 3\u2032\u2009UTR of the reporter gene 16 , and whether the construct remains episomal vs. integrated 17 .</p><p>Additionally, most MPRAs test sequences cloned in one of two possible orientations, effectively</p><p>assuming that enhancer activity is independent of orientation. Finally, while larger sheared</p><p>genomic DNA fragments 16,22 , PCR amplicons 12 or captured sequences 23,24 have been used in</p><p>MPRAs, most studies using MPRAs synthesize libraries of candidate enhancers on microarrays,</p><p>and are therefore limited to testing shorter sequences (typically less than 200 bp).</p><p><br></p><p>Unfortunately, we have, as a field to date, largely failed to evaluate how these design choices</p><p>impact or bias the results of MPRAs. First, although assays like STARR-seq wherein the</p><p>enhancer serves as the barcode are more straightforward to implement, our understanding of how</p><p>position (3\u2032 of the promoter, rather than 5\u2032 as in a more conventional reporter assay vector) or the</p><p>fact that the sequence is serving as the barcode, influences results, remains incomplete. Arnold et</p><p>al. notably benchmarked STARR-seq against 142 conventional luciferase assays (r = 0.83), but</p><p>STARR-seq has yet to be systematically compared to other MPRAs 16 . Second, although we</p><p>previously showed differences between episomal vs. integrated MPRAs 17 , it is not clear how</p><p>these differences rank relative to those resulting from other design choices. Third, although the</p><p>orientation-independence of enhancers has been evaluated in Drosophila 16,25,26 , to our knowledge</p><p>the robustness of this assumption has not previously been systematically tested in a mammalian</p><p>system. Finally, the typical choice to test &amp;lt;200 bp fragments, each corresponding to a putative</p><p>enhancer, is entirely based on technical limitations of massively parallel DNA synthesis, rather than on any principled understanding of the actual size of enhancers. The consequences of this</p><p>choice for the results obtained remain largely unquantified.</p><p><br></p><p>Particularly as efforts to validate the &gt;1 million putative human enhancers 5\u20138 , as well as the</p><p>growing number of disease-associated noncoding variants, begin to scale, a clear-eyed</p><p>understanding of the biases and tradeoffs introduced by various MPRA experimental design</p><p>choices is needed. To this end, we performed a systematic comparison, testing the same 2,440</p><p>sequences for regulatory activity using nine different MPRA strategies, including conventional</p><p>episomal, STARR-seq, and lentiviral designs. Second, we tested the same sequences in both</p><p>orientations relative to the promoter. Finally, we further developed our multiplex pairwise</p><p>assembly protocol 27, and applied it to test short (192 bp), medium (354 bp), and long (678 bp)</p><p>versions of the same enhancers. Our results quantify the impact of MPRA experimental design</p><p>choices and also provide further insight into the nature of enhancers.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p>KAPA HiFi 2x Readymix (Kapa Biosystems)&nbsp;</p><p>KAPA HiFi HotStart Uracil+ ReadyMix PCR Kit (Kapa Biosystems)&nbsp;</p><p>KAPA2G Robust HostStart ReadyMix (Kapa Biosystems)&nbsp;</p><p>Sybr Green (Thermo fisher scientific)</p><p>AMPure XP (Beckman coulter)&nbsp;</p><p>Qiagen Elution Buffer (EB)</p><p>QIAquick Gel Extraction Kit (Qiagen)</p><p>NextSeq Mid 300 cycle kit (Illumina)</p><p>Qubit DNA High Sensitivity Assay kit (Thermo Fisher Scientific)</p><p>300 Cycle NextSeq v2 High-Output kit (Illumina)</p><p>USER enzyme (NEB)</p><p>NEBNext End Repair Module (NEB)</p><p>DNA Clean and Concentrator 5 (Zymo Research)</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>MiniOpticon Real-Time PCR system (Bio-Rad)</p><p>PacBioSequel System&nbsp;</p><p>Illumina Miseq</p><p>Illumina Nextseq</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "1.\u00a0\u00a0\u00a0\u00a0All libraries were amplified off the array using the corresponding group specific primers in Supplemental Table 1 with KAPA HiFi HotStart Uracil+ ReadyMix PCR Kit (Kapa Biosystems).\n2.\u00a0\u00a0\u00a0\u00a0During the first round of assembly, fragments A and B were assembled with HSSF-ATGC (5\u2032-TCTAGAGCATGCACCGGATGC-3\u2032) and DO_31R_PU (5'-CCA/ideoxyU/GACCCT/ideoxyU/ACTGGG/ideoxyU//3deoxyU/-3') and fragments C and D were assembled with DO_8F_PU (5'-GCGACG/ideoxyU/CATGC/ideoxyU/GTTG/ideoxyU//3deoxyU/-3') and HSS_R (5'-CTTATCATGTCTGCTCGAAGC-3').\n3.\u00a0\u00a0\u00a0\u00a0Assembled libraries were then purified with a 0.65x Ampure cleanup following the manufacturer\u2019s protocol, and eluted in 20 \u00b5l.\n4.\u00a0\u00a0\u00a0\u00a02 \u00b5l of USER enzyme (NEB) was added to the purified assembly reactions and incubated at 37 \u00b0C for 15 minutes followed by 15 minutes at room temperature, and then repaired using the NEBNext End Repair Module (NEB), following the manufacturer\u2019s protocol, and purified using the DNA Clean and Concentrator 5 (Zymo Research) and eluted in 10 \u00b5L EB.\n5.\u00a0\u00a0\u00a0\u00a0All libraries were then quantified using the Qubit dsDNA HS Assay kit (Thermo Fisher Scientific) and eluted to 0.75 ng/ul.\n6.\u00a0\u00a0\u00a0\u00a0Assemblies AB and CD were then assembled together following the multiplex pairwise assembly protocol\n27\n.\n7.\u00a0\u00a0\u00a0\u00a0After the second assembly, libraries were purified using a 0.6x AMPure cleanup and eluted in 30 \u00b5L EB.\n8.\u00a0\u00a0\u00a0\u00a0We then amplified 1 uL of each assembly with HSS-F-ATGC-pu1F (5'-ACTTTATCAATCTCGCTCCAAACCTCTAGAGCATGCACCGGATGC-3') and HSS-R-clon-pu1R (5'-ACTTTATCAATCTCGCTCCAAACCCCATCATTCTGACCGGC-3') to add flow cell adapters and indexes.\n9.\u00a0\u00a0\u00a0\u00a0We performed the assembly for each set of 172 sequences separately, as well as for different combinations of sets, up to all 2,236 sequences at once."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": ""
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>6 hours</p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>HMPA of overlapping pairs of array-synthesized 192 bp fragments yielded overlapping pairs of 354 bp fragments, which were further assembled to generate 678 bp fragments. These 678 bp fragments had an 84% yield (1,887/2,236) and 27.9-fold IQR. We verified a subset of our long enhancers with PacBio sequencing (chimera rate of 16.5% ).</p><p><br></p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>1. <a href=\"http://paperpile.com/b/rUVmOk/K2kk\" rel=\"noopener noreferrer\" target=\"_blank\">Banerji, J., Rusconi, S. &amp; Schaffner, W. Expression of a beta-globin gene is enhanced by remote SV40 DNA sequences. <em>Cell</em> <strong>27</strong>, 299\u2013308 (1981).</a></p><p>2. <a href=\"http://paperpile.com/b/rUVmOk/AK1c\" rel=\"noopener noreferrer\" target=\"_blank\">Moreau, P. <em>et al.</em> The SV40 72 base repair repeat has a striking effect on gene expression both in SV40 and other chimeric recombinants. <em>Nucleic Acids Res.</em> <strong>9</strong>, 6047\u20136068 (1981).</a></p><p>3. <a href=\"http://paperpile.com/b/rUVmOk/TvU3\" rel=\"noopener noreferrer\" target=\"_blank\">Banerji, J., Olson, L. &amp; Schaffner, W. A lymphocyte-specific cellular enhancer is located downstream of the joining region in immunoglobulin heavy chain genes. <em>Cell</em> <strong>33</strong>, 729\u2013740 (1983).</a></p><p>4. <a href=\"http://paperpile.com/b/rUVmOk/aku5\" rel=\"noopener noreferrer\" target=\"_blank\">Neuberger, M. S. Expression and regulation of immunoglobulin heavy chain gene transfected into lymphoid cells. <em>EMBO J.</em> <strong>2</strong>, 1373\u20131378 (1983).</a></p><p>5. <a href=\"http://paperpile.com/b/rUVmOk/qXD2\" rel=\"noopener noreferrer\" target=\"_blank\">Bernstein, B. E. <em>et al.</em> The NIH Roadmap Epigenomics Mapping Consortium. <em>Nat. Biotechnol.</em> <strong>28</strong>, 1045\u20131048 (2010).</a></p><p>6. <a href=\"http://paperpile.com/b/rUVmOk/qcP7\" rel=\"noopener noreferrer\" target=\"_blank\">Kawaji, H., Kasukawa, T., Forrest, A., Carninci, P. &amp; Hayashizaki, Y. The FANTOM5 collection, a data series underpinning mammalian transcriptome atlases in diverse cell types. <em>Sci Data</em> <strong>4</strong>, 170113 (2017).</a></p><p>7. <a href=\"http://paperpile.com/b/rUVmOk/vvkP\" rel=\"noopener noreferrer\" target=\"_blank\">ENCODE Project Consortium. An integrated encyclopedia of DNA elements in the human genome. <em>Nature</em> <strong>489</strong>, 57\u201374 (2012).</a></p><p>8. <a href=\"http://paperpile.com/b/rUVmOk/oyZT\" rel=\"noopener noreferrer\" target=\"_blank\">The ENCODE Project Consortium. A User\u2019s Guide to the Encyclopedia of DNA Elements (ENCODE). <em>PLoS Biol.</em> <strong>9</strong>, e1001046 (2011).</a></p><p>9. <a href=\"http://paperpile.com/b/rUVmOk/KViw\" rel=\"noopener noreferrer\" target=\"_blank\">Patwardhan, R. P. <em>et al.</em> High-resolution analysis of DNA regulatory elements by synthetic saturation mutagenesis. <em>Nat. Biotechnol.</em> <strong>27</strong>, 1173\u20131175 (2009).</a></p><p>10.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"http://paperpile.com/b/rUVmOk/sJ5o\" rel=\"noopener noreferrer\" target=\"_blank\">Patwardhan, R. P. <em>et al.</em> Massively parallel functional dissection of mammalian enhancers in vivo. <em>Nat. Biotechnol.</em> <strong>30</strong>, 265\u2013270 (2012).</a></p><p>11.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"http://paperpile.com/b/rUVmOk/rBii\" rel=\"noopener noreferrer\" target=\"_blank\">Melnikov, A. <em>et al.</em> Systematic dissection and optimization of inducible enhancers in human cells using a massively parallel reporter assay. <em>Nat. Biotechnol.</em> <strong>30</strong>, 271 (2012).</a></p><p>12.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"http://paperpile.com/b/rUVmOk/JCZc\" rel=\"noopener noreferrer\" target=\"_blank\">Vockley, C. M. <em>et al.</em> Massively parallel quantification of the regulatory effects of noncoding genetic variation in a human cohort. <em>Genome Res.</em> <strong>25</strong>, 1206\u20131214 (2015).</a></p><p>13.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"http://paperpile.com/b/rUVmOk/gwlP\" rel=\"noopener noreferrer\" target=\"_blank\">Tewhey, R. <em>et al.</em> Direct Identification of Hundreds of Expression-Modulating Variants using a Multiplexed Reporter Assay. <em>Cell</em> <strong>172</strong>, 1132\u20131134 (2018).</a></p><p>14.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"http://paperpile.com/b/rUVmOk/iJQN\" rel=\"noopener noreferrer\" target=\"_blank\">Ulirsch, J. C. <em>et al.</em> Systematic Functional Dissection of Common Genetic Variation Affecting Red Blood Cell Traits. <em>Cell</em> <strong>165</strong>, 1530\u20131545 (2016).</a></p><p>15.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"http://paperpile.com/b/rUVmOk/7eDx\" rel=\"noopener noreferrer\" target=\"_blank\">Liu, S. <em>et al.</em> Systematic identification of regulatory variants associated with cancer risk. <em>Genome Biol.</em> <strong>18</strong>, 194 (2017).</a></p><p>16.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"http://paperpile.com/b/rUVmOk/yEru\" rel=\"noopener noreferrer\" target=\"_blank\">Arnold, C. D. <em>et al.</em> Genome-wide quantitative enhancer activity maps identified by STARR-seq. <em>Science</em> <strong>339</strong>, 1074\u20131077 (2013).</a></p><p>17.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"http://paperpile.com/b/rUVmOk/lf3E\" rel=\"noopener noreferrer\" target=\"_blank\">Inoue, F. <em>et al.</em> A systematic comparison reveals substantial differences in chromosomal versus episomal encoding of enhancer activity. <em>Genome Res.</em> <strong>27</strong>, 38\u201352 (2017).</a></p><p>18.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"http://paperpile.com/b/rUVmOk/Do7g\" rel=\"noopener noreferrer\" target=\"_blank\">Kwasnieski, J. C., Fiore, C., Chaudhari, H. G. &amp; Cohen, B. A. High-throughput functional testing of ENCODE segmentation predictions. <em>Genome Res.</em> <strong>24</strong>, 1595\u20131602 (2014).</a></p><p>19.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"http://paperpile.com/b/rUVmOk/Fuz9\" rel=\"noopener noreferrer\" target=\"_blank\">Klein, J. C. <em>et al.</em> Functional testing of thousands of osteoarthritis-associated variants for regulatory activity. <em>Nat. Commun.</em> <strong>10</strong>, 2434 (2019).</a></p><p>20.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"http://paperpile.com/b/rUVmOk/26QB\" rel=\"noopener noreferrer\" target=\"_blank\">Arnold, C. D. <em>et al.</em> Quantitative genome-wide enhancer activity maps for five Drosophila species show functional enhancer conservation and turnover during cis-regulatory evolution. <em>Nat. Genet.</em> <strong>46</strong>, 685\u2013692 (2014).</a></p><p>21.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"http://paperpile.com/b/rUVmOk/hX0S\" rel=\"noopener noreferrer\" target=\"_blank\">Klein, J. C., Keith, A., Agarwal, V., Durham, T. &amp; Shendure, J. Functional Characterization of Enhancer Evolution in the Primate Lineage. <em>bioRxiv</em> 283168 (2018) doi:</a><a href=\"http://dx.doi.org/10.1101/283168\" rel=\"noopener noreferrer\" target=\"_blank\">10.1101/283168</a><a href=\"http://paperpile.com/b/rUVmOk/hX0S\" rel=\"noopener noreferrer\" target=\"_blank\">.</a></p><p>22.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"http://paperpile.com/b/rUVmOk/MllK\" rel=\"noopener noreferrer\" target=\"_blank\">Muerdter, F. <em>et al.</em> Resolving systematic errors in widely used enhancer activity assays in human cells. <em>Nat. Methods</em> <strong>15</strong>, 141\u2013149 (2018).</a></p><p>23.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"http://paperpile.com/b/rUVmOk/xGXo\" rel=\"noopener noreferrer\" target=\"_blank\">Vanhille, L. <em>et al.</em> High-throughput and quantitative assessment of enhancer activity in mammals by CapStarr-seq. <em>Nat. Commun.</em> <strong>6</strong>, 6905 (2015).</a></p><p>24.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"http://paperpile.com/b/rUVmOk/CXG6\" rel=\"noopener noreferrer\" target=\"_blank\">Wang, X. <em>et al.</em> High-resolution genome-wide functional dissection of transcriptional regulatory regions and nucleotides in human. <em>Nat. Commun.</em> <strong>9</strong>, 5380 (2018).</a></p><p>25.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"http://paperpile.com/b/rUVmOk/9r8r\" rel=\"noopener noreferrer\" target=\"_blank\">Kvon, E. Z., Stampfel, G., Y\u00e1\u00f1ez-Cuna, J. O., Dickson, B. J. &amp; Stark, A. HOT regions function as patterned developmental enhancers and have a distinct cis-regulatory signature. <em>Genes Dev.</em> <strong>26</strong>, 908\u2013913 (2012).</a></p><p>26.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"http://paperpile.com/b/rUVmOk/waR8\" rel=\"noopener noreferrer\" target=\"_blank\">Mikhaylichenko, O. <em>et al.</em> The degree of enhancer or promoter activity is reflected by the levels and directionality of eRNA transcription. <em>Genes Dev.</em> <strong>32</strong>, 42\u201357 (2018).</a></p><p>27.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"http://paperpile.com/b/rUVmOk/VLq8\" rel=\"noopener noreferrer\" target=\"_blank\">Klein, J. C. <em>et al.</em> Multiplex pairwise assembly of array-derived DNA oligonucleotides. <em>Nucleic Acids Res.</em> <strong>44</strong>, e43 (2016).</a></p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>We thank Seungsoo Kim and other members of the Shendure and Ahituv laboratories for general advice and critical feedback on the manuscript. This work was supported by the National Human Genome Research Institute grants 1UM1HG009408 (N.A. and J.S.), 5R01HG009136 (J.S.), 1R21HG010065 (N.A.), and 1R21HG010683 (N.A.); National Institute of Mental Health grants 1R01MH109907 (N.A.) and 1U01MH116438 (N.A.), NRSA NIH fellowship 5T32HL007093 (V.A.) and the Uehara Memorial Foundation (F.I.). J.S. is an investigator of the Howard Hughes Medical Institute.</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41592-020-0965-y",
+                "date": "",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 994875,
+                "identity": "fdf1cf73-3b25-4362-a04e-4193ace6d14e",
+                "order_by": 0,
+                "name": "Jason Klein",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0001-9566-6347",
+                "institution": "memorial sloan kettering cancer center",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jason",
+                "middleName": "",
+                "lastName": "Klein",
+                "suffix": ""
+            },
+            {
+                "id": 994876,
+                "identity": "50504655-6eca-4f92-a28b-0695bdf6e7c1",
+                "order_by": 1,
+                "name": "Vikram Agarwal",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0001-8148-952X",
+                "institution": "Calico Life Sciences LLC",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Vikram",
+                "middleName": "",
+                "lastName": "Agarwal",
+                "suffix": ""
+            },
+            {
+                "id": 996417,
+                "identity": "6adc03aa-91c1-48d1-8f07-4883d33b0676",
+                "order_by": 2,
+                "name": "Fumitaka Inoue",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0003-0657-434X",
+                "institution": "UCSF",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Fumitaka",
+                "middleName": "",
+                "lastName": "Inoue",
+                "suffix": ""
+            },
+            {
+                "id": 996418,
+                "identity": "aee77b5c-3eaa-452a-86c4-a1fb4aae2f6c",
+                "order_by": 3,
+                "name": "Aidan Keith",
+                "email": "",
+                "orcid": "",
+                "institution": "University of Washington",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Aidan",
+                "middleName": "",
+                "lastName": "Keith",
+                "suffix": ""
+            },
+            {
+                "id": 996419,
+                "identity": "599eba00-57a1-426a-83b1-96efcd36b9b3",
+                "order_by": 4,
+                "name": "Beth Martin",
+                "email": "",
+                "orcid": "",
+                "institution": "University of Washington",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Beth",
+                "middleName": "",
+                "lastName": "Martin",
+                "suffix": ""
+            },
+            {
+                "id": 996420,
+                "identity": "c7d7c343-0201-4738-a75c-9cc5c3c46878",
+                "order_by": 5,
+                "name": "Martin Kircher",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0001-9278-5471",
+                "institution": "Berlin Institute of Health",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Martin",
+                "middleName": "",
+                "lastName": "Kircher",
+                "suffix": ""
+            },
+            {
+                "id": 996421,
+                "identity": "d24c8701-a853-4b3b-8132-f8093282e7b3",
+                "order_by": 6,
+                "name": "Nadav Ahituv",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-7434-8144",
+                "institution": "UCSF",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Nadav",
+                "middleName": "",
+                "lastName": "Ahituv",
+                "suffix": ""
+            },
+            {
+                "id": 996422,
+                "identity": "2377efa9-35e7-4c28-a5b6-b0216f4f4aef",
+                "order_by": 7,
+                "name": "Jay Shendure",
+                "email": "shendure@uw.edu",
+                "orcid": "https://orcid.org/0000-0002-1516-1865",
+                "institution": "University of Washington",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Jay",
+                "middleName": "",
+                "lastName": "Shendure",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2020-07-23 13:50:26",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1065/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1065/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2931857,
+                "identity": "47a373b4-343a-4ffa-a4ea-c10dd891dc60",
+                "added_by": "auto",
+                "created_at": "2020-10-12 16:48:51",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 108742,
+                "visible": true,
+                "origin": "",
+                "legend": "Evaluation of Multiplex Pairwise Assembly (MPA) and Hierarchical Multiplex Pairwise Assembly (HMPA) library quality. A) Plot of the uniformity of indel-free reads for 2,336 x 192mers (amplified off Agilent 230mer array), 2,336 x 354mers (after Multiplex Pairwise Assembly), and 2,236 x 678mers (after a single Hierarchical Multiplex Pairwise Assembly). The x-axis is rank-ordered according to the most to least abundant from left to right. The y-axis is the fraction of either indel-free reads (for 192mers and 354mers) or all reads (for 678ners). B) Uniformity for various HMPA reactions, with total number of target sequences ranging from 344 to 2,236. The sequencing reads were downsampled to normalize for the total number of targets (#Reads=581*#Targets). The Y axis is the number of downsampled reads from a given target sequence. C) One sub-library (of 172 targets), was sequenced on a PacBio Sequel. The plot shows the uniformity for all aligning reads (black) and indel-free reads (grey). D) Composition of the sub-library of 172 targets. The first column shows the breakdown of oligos by Illumina sequencing. The second column shows the theoretical breakdown of 678mers based on each target consisting of four independent oligos. The third column shows the breakdown of 678mers based on PacBio sequencing.",
+                "description": "",
+                "filename": "hmpaperformance.png",
+                "url": "https://assets.researchsquare.com/files/pex-1065/v1/0538d03afef8e7826fe2cd59.png"
+            },
+            {
+                "id": 2931858,
+                "identity": "f64a9c06-9048-4573-a83d-95be312171a9",
+                "added_by": "auto",
+                "created_at": "2020-10-12 16:48:51",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 38762,
+                "visible": true,
+                "origin": "",
+                "legend": "Hierarchical Multiplex Pairwise Assembly (HMPA) strategy. 1. To generate a library of 678 bp enhancers, we ordered each enhancer as four oligonucleotides to be assembled (fragments \u201cA\u201d, \u201cB\u201d, \u201cC\u201d, and \u201cD\u201d). To assemble fragments \u201cAB\u201d and CD\u201d, sequences were designed such that the 3\u2032 end of fragments A and C had 30 bps of homology to the 5\u2032 ends of fragments B and D, respectively (shown in red and orange). To remove adapter sequences from these ends of the fragments, uracil primers (shown in yellow) were used to incorporate uracils into the adapters during qPCR amplification. 2. The resulting fragments were treated with USER enzyme (scissors) and put into an end-repair reaction, 3. effectively removing the adapters. 4. Fragments were assembled in a qPCR reaction by allowing the fragments to first anneal to one another for 5 cycles of PCR without primers, and then adding primers targeting the 5\u2032 end of fragments A and C, and the 3\u2032 ends of fragments B and D, 5. resulting in fragments \u201cAB\u201d and \u201cCD\u201d. 6-9. Adapter sequences were removed from the 3\u2032 end of AB fragments and the 5\u2032 end of CD fragments, and the final 678 bp \u201cABCD\u201d enhancer sequences were assembled using the aforementioned assembly reaction.            ",
+                "description": "",
+                "filename": "hmpaschematic.png",
+                "url": "https://assets.researchsquare.com/files/pex-1065/v1/51d5f58e7d7cbcefcd2f2d3a.png"
+            },
+            {
+                "id": 2931859,
+                "identity": "9578e989-1ae2-434e-9ee1-0c75e7655113",
+                "added_by": "auto",
+                "created_at": "2020-10-12 16:48:51",
+                "extension": "png",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 103611,
+                "visible": true,
+                "origin": "",
+                "legend": "Including additional sequence context around tested elements leads to differences in the results of MPRAs. A) Experimental schematic. 192 bp, 354 bp, and 678 bp libraries were synthesized, assembled, and cloned into the pGL4 backbone. These were pooled and transfected into HepG2 cells in quadruplicate. B) Beeswarm plot of the Pearson correlation values corresponding to each of the six possible pairwise comparisons among the four replicates. The correlations are computed between observed enhancer activity values for elements measured in each of the three possible size classes. C) Scatter plots of the average activity score of each element, comparing short vs. medium, medium vs. long, and short vs. long versions of each element. D) Violin plot displaying the distribution of average log2(RNA/DNA) ratios for short, medium, and long versions of the elements tested, as well as for positive and negative controls at short and medium lengths.",
+                "description": "",
+                "filename": "Enhancersizeeffects.png",
+                "url": "https://assets.researchsquare.com/files/pex-1065/v1/40fd126b107e4633d35721ff.png"
+            },
+            {
+                "id": 13602165,
+                "identity": "f0ff48a8-aca6-4ffc-9597-b0f4aa91f6ae",
+                "added_by": "auto",
+                "created_at": "2021-09-17 05:50:43",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 520449,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1065/v1/1980d2cb-da97-4464-a955-6a4907b95438.pdf"
+            },
+            {
+                "id": 2931856,
+                "identity": "2da07b40-e6bd-43cc-80c4-873eee088754",
+                "added_by": "auto",
+                "created_at": "2020-10-12 16:48:51",
+                "extension": "xlsx",
+                "order_by": 1,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 17811,
+                "visible": true,
+                "origin": "",
+                "legend": "Group specific primers",
+                "description": "",
+                "filename": "supptable.xlsx",
+                "url": "https://assets.researchsquare.com/files/pex-1065/v1/14062ddff829df4eaede1696.xlsx"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "MPRA, enhancers, promoters, gene expression, gene regulation, reporter assay",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>Massively parallel reporter assays (MPRAs) functionally screen thousands of sequences for regulatory activity in parallel. Here, we further develop and apply a novel method to assemble and functionally test libraries of greater than 2000 of the same putative enhancers as 192-mers, 354-mers, and 678-mers. We achieved a yield of 95% for 354-mers and 84% for 678-mers. Importantly, we observe surprisingly large differences in functional activity. This work provides a framework for the experimental design of high-throughput reporter assays, suggesting that the extended sequence context of tested elements, and to a lesser degree the precise assay, influence MPRA results.</p>",
+        "manuscriptTitle": "A systematic evaluation of the design, orientation, and sequence context dependencies of massively parallel reporter assays",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2020-10-12 16:42:37",
+                "doi": "10.21203/rs.3.pex-1065/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "b2f9942f-fc07-4bbd-9217-5633fc7f4983",
+        "owner": [],
+        "postedDate": "October 12th, 2020",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 758868,
+                "name": "Genetics"
+            },
+            {
+                "id": 758869,
+                "name": "Molecular biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2020-10-12 16:42:37",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

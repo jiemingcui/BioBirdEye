@@ -1,0 +1,368 @@
+{
+    "identity": "pex-759",
+    "title": "<p>Mass Cytometry for Multivariate Organoid Signalling Analysis</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>Organoids are self-organising 3D tissue models comprising stem and differentiated cells<sup>1</sup>. Organoid monocultures typically contain one major cell class (e.g. epithelial) and can be co-cultured with heterotypic cell-types (e.g. mesenchymal<sup>2</sup> or immune cells<sup>3</sup>) to model cell-cell interactions <em>in vitro</em>. When compared with traditional 2D cell culture, organoids more accurately represent their parental tissue and are powerful models for studying multicellular diseases such as cancer<sup>4</sup>.</p><p>While culturing organoids has become increasingly widespread, methods to analyse cell-type specific phenotypes in organoids are limited. Mass cytometry (MC, also known as cytometry time-of-flight (CyTOF)) uses heavy metal-conjugated antibodies to measure &gt;35 proteins in single cells<sup>5</sup>. Although MC is traditionally used for high-dimensional immunophenotyping, MC can also measure PTMs in heterocellular systems (e.g. peripheral blood mononuclear cells (PBMCs)<sup>6</sup> and tissue<sup>7</sup>). Here we report a protocol to perform cell-type specific analysis of post-translational modification (PTM) signalling networks in organoids and organoid co-cultures using MC.</p><p>In addition to high dimensional single-cell PTM measurements, a major advantage of MC is its ability to perform multiplexed barcoding of experimental variables. Unfortunately, commercially available Palladium-based barcodes cannot bind organoids <em>in situ</em> as they react with Matrigel proteins commonly used in organoid culture. This means organoids must be removed from Matrigel and dissociated separately before using Pd barcoding. To overcome this, we developed Thiol-reactive Organoid Barcoding <em>in situ</em> (TOB<em>is</em>) to enable high-throughput multivariate single-cell organoid signalling analysis in a single tube.</p><p>Taken together, our protocol demonstrates how traditional MC workflows can be modified to measure cell-type and cell-state specific signal transduction in organoids in a high-throughput multiplexed manner (Figure 1).</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p><strong><u>Murine Small Intestinal Organoid Culture</u></strong><sup>8</sup></p><p>Growth Factor Reduced Matrigel (Corning, Cat# 354230)</p><p>Advanced DMEM/F-12 (Thermo, Cat# 12634010)</p><p>L-Glutathione (Sigma, Cat# G6529)</p><p>N-Acetyl-L-Cysteine (Sigma, Cat# A9165)</p><p>HEPES (Sigma, Cat# H3375)</p><p>B-27 Supplement (Thermo, Cat# 17504044)</p><p>N-2 Supplement (Thermo, Cat# 17502048)</p><p>Murine EGF (Thermo, Cat# PMG8041)</p><p>Murine Noggin (Peprotech, Cat# 250-38)</p><p>Murine R-Spondin-1 (Peprotech, Cat# 315-32)</p><p>HyClone<sup>TM</sup> Penicillin Streptomycin Solution (Thermo, Cat# SV30010)</p><p>&nbsp;</p><p><strong><u>Mass Cytometry Analysis</u></strong></p><p><sup>127</sup>5-Iodo-2\u2032-deoxyuridine (<sup>127</sup>IdU) (Fluidigm, Cat# 201127)</p><p>Protease Inhibitor Cocktail (Sigma, Cat# P8340)</p><p>PhosSTOP\u2122 (Sigma, Cat# 4906845001)</p><p>Paraformaldehyde solution, 4% in PBS (Thermo, Cat# J19943K2)</p><p><sup>194/8</sup>Cisplatin (Fluidigm, Cat# 201194/8)</p><p>Dispase II (Thermo, Cat# 17105041)</p><p>Collagenase IV (Thermo, Cat# 17104019)</p><p>DNase I (Sigma, Cat# DN25)</p><p><sup>196</sup>Cisplatin (a gift from Fluidigm)</p><p>TeMal (<sup>124</sup>Te, <sup>126</sup>Te, <sup>128</sup>Te, <sup>130</sup>Te) (a gift from Prof. Mark Nitz, University of Toronto)<sup>9</sup></p><p>Cell Staining Buffer (Fluidigm, Cat# 201068)</p><p>Maxpar\u00ae X8 Multimetal Labeling Kit (Fluidigm, Cat# 201300)</p><p>Triton X-100 (Sigma, Cat# T8787)</p><p>Methanol (Fisher, Cat# 10675112)</p><p>Pierce\u2122 16% Formaldehyde (w/v), Methanol-free (Pierce, Cat# 28906)</p><p>Cell-ID\u2122 Intercalator-Ir (Fluidigm, Cat# 201192A)</p><p>EQ\u2122 Four Element Calibration Beads (Fluidigm, Cat# 201078)</p><p>&nbsp;</p><p><strong><u>Rare-Earth Metal Conjugated Antibodies</u></strong></p><p>We advise users to develop custom heavy-metal conjugated antibody panels specifically for their biological questions. In our experience, cell-state (e.g. proliferating, quiescent, and apoptotic) has a huge influence on PTM signalling. We therefore strongly advise users to include cell-cycle (e.g. pRB [S807/S811], Cyclin B1, and pHistone H3 [S28]) and apoptosis (e.g. cCaspase3 [D175]) markers in their panels. Particular care should also be taken to validate cell-type specific antibodies that have not been used in MC before. The antibody panels used when developing this protocol can be found in Qin <em>et al</em>., bioRxiv, 2019<sup>10</sup>.</p><p><br></p><p><strong><u>Thiol-reactive Organoid Barcoding </u><em><u>in situ</u></em><u> (TOB</u><em><u>is</u></em><u>)</u></strong></p><p>Debarcoding efficiency is heavily dependent on aligned Te and Pt signal intensities. We advise TeMal (<sup>124</sup>Te, <sup>126</sup>Te, <sup>128</sup>Te, and <sup>130</sup>Te) and Cisplatin (<sup>196</sup>Pt and <sup>198</sup>Pt) isotopologs to be carefully titrated to achieve a common \u2018on\u2019 median intensity at ~5x10<sup>2</sup> and \u2018off\u2019 median intensity of &lt;1x10<sup>1</sup> (Figure 2). TeMals should be used between 500-1000 nM and Cisplatin between 10-20 nM.</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>gentleMACS C-Tube (Miltenyi, Cat# 130-096-334)</p><p>gentleMACS Octo Dissociator (with Heaters) (Miltenyi, Cat# 130-096-427)</p><p>Helios Mass Cytometer (Fluidigm)</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "S-Phase Cell Labelling\n1)\u00a0\u00a0\u00a0Add\n127\nIdU directly to culture media to a final concentration of 25 \u03bcM. Gently rotate the plate, and incubate for 25 mins at 37 \u00baC, 5 % CO\n2\n.\nPhosphatase & Protease Inhibitor Treatment\n2)\u00a0\u00a0\u00a0Add the protease inhibitor cocktail (100\u2a09) and PhosSTOP (40\u2a09) directly to culture media, rotate the plate, and incubate for 5 mins at 37 \u00baC, 5 % CO\n2\n.\nFixation\n3)\u00a0\u00a0\u00a0Remove culture media quickly. Add pre-warmed 4% PFA into each well with care taken not to disrupt Matrigel droplets. Incubate for 60 mins at 37 \u00baC, 5 % CO\n2\n.\n4)\u00a0\u00a0\u00a0Remove PFA solution. Wash the cells with PBS on a rocker for 10 mins at room temperature. Repeat wash.\nOptional: Stopping point \u2013 The fixed cells can be kept in PBS at 4 \u00baC for up to four weeks.\nLive / Dead Discrimination\n5)\u00a0\u00a0\u00a0Remove PBS. Add 0.25 \u03bcM\n194/8\nCisplatin / PBS solution to each well and incubate for 10-15 mins on a rocker at room temperature.\n6)\u00a0\u00a0\u00a0Remove the\n194/8\nCisplatin solution. Wash the cells with PBS on a rocker for 10 mins at room temperature. Repeat wash.\nOptional: If barcoding multiple organoid samples continue to step 7. If only one organoid culture condition is being analysed, skip to step 10.\nThiol-reactive Organoid Barcoding\nin situ\n(TOB\nis\n)\n(Optional)\n7)\u00a0\u00a0\u00a0Resuspend TOB\nis\nbarcodes in PBS and add them to corresponding organoid samples. Incubate the cells overnight at 4 \u00baC.\n8)\u00a0\u00a0\u00a0Remove the barcoding solutions and wash the cells with 2 mM Glutathione / CSB for 10 mins on a rocker at room temperature. Repeat wash twice.\n9)\u00a0\u00a0\u00a0Wash the cells with PBS for 10 mins on a rocker at room temperature. Repeat wash.\nSingle-Cell Dissociation\n10) Make up a dissociation solution of fresh 0.5 mg/mL Dispase II, 0.2 mg/mL Collagenase IV, and 0.2 mg/mL DNase I in PBS.\n11) Remove PBS from the wells and add the dissociation solution.\n12) Scrape Matrigel droplets and transfer the cells with dissociation solution to a gentleMACS C-tube. Top up the dissociation solution to 5 mL / C-tube.\n13) Dissociate the organoids into single cells using a gentleMACS Octo Dissociator.\nCustom Program:\n-\u00a0Set Heater temperature: 37 \u00baC\n-\u00a0Forward spin at 20 rpm for 2 mins\n-\u00a0Backward spin at 20 rpm for 2 mins\n-\u00a0Loop 15\u2a09:\n* Forward spin at 1500 rpm for 2 secs\n* Backward spin at 1500 rpm for 2 secs\n* Forward spin at 50 rpm for 3 mins\n- End loop\n14) After confirmation of sufficient dissociation, centrifuge the C-tubes at 800\u2a09g for 1 min to collect the cells.\n15) Transfer all cells and solution to a polypropylene FACS tube.\n16) Centrifuge the cells at 800\u2a09g for 5 mins and discard the supernatant.\n17) Wash the cells with 2 mL CSB, centrifuge at 800\u2a09g for 5 mins, and discard the supernatant. Repeat wash.\nOptional: Stopping point \u2013 The fixed cells can be kept in CSB at 4 \u00baC for up to four weeks.\n18) Centrifuge the cells, discard the supernatant, and resuspend the cells in 50 \u03bcL CSB.\nExtracellular Stain\n19) Prepare extracellular antibody cocktail in CSB (total volume up to 50 \u03bcL).\n20) Add the extracellular antibody cocktail to the cells, and incubate for 30 mins on a rocker at room temperature. Mix cells every 10 mins to avoid cells pelleting.\n21) Add 2 mL CSB to the cells, centrifuge at 800 \u2a09g for 5 mins, and discard the supernatant.\nPermeabilisation\n22) Resuspend the cells in 1 mL of 0.1 % Triton X-100 / PBS, gently vortex, and incubate for 30 mins on a rocker at room temperature. Mix cells every 10 mins to avoid cells pelleting.\n23) Add 2 mL CSB to the cells, centrifuge at 800 \u2a09g for 5 mins, and discard the supernatant. Repeat wash and remove supernatant.\n24) Place the cells on ice for 1 min. Resuspend the cells in 1 mL of ice-cold 50% Methanol / PBS (store at -20 \u00baC until use) and incubate for 10 mins on ice.\n25) Add 2 mL CSB to the cells, centrifuge at 800 \u2a09g for 5 mins, and discard the supernatant. Repeat wash.\n26) Resuspend the cells in 50 \u03bcL CSB.\nIntracellular Stain\n27) Prepare intracellular antibody cocktail in CSB.\n28) Add the intracellular antibody cocktail to the cells, and incubate for 30 mins on a rocker at room temperature. Mix cells every 10 mins to avoid cells pelleting.\n29) Add 2 mL CSB to the cells, centrifuge at 800\u2a09g for 5 mins, and discard the supernatant.\nPost-Staining Fixation\n30) Add 1 mL 1.6% formaldehyde (FA) / PBS solution made fresh from 16% FA to the cells.\n31) Incubate the cells on a rocker for 10 mins at room temperature.\n32) Add 1 mL CSB to the cells, centrifuge at 800\u2a09g for 5 mins, and discard the supernatant.\nOptional: Stopping point \u2013 The fixed cells can be kept in CSB at 4 \u00baC for up to one week.\nDNA Intercalation\n33) Dilute 0.75 \u03bcL Cell-ID Intercalator-Ir in 1 mL Fix & Perm Buffer.\n34) Resuspend the cells in the intercalation buffer, gently vortex, and incubate for 1 hr at room temperature or overnight at 4 \u00baC.\nMass Cytometry Data Acquisition\n35) Centrifuge the cells at 800\u2a09g for 5 mins, and discard the supernatant.\n36) Wash the cells with 2 mL CSB, centrifuge at 800\u2a09g for 5 mins, and discard the supernatant. Repeat wash.\n37) Wash the cells with 2 mL MaxPar Water, centrifuge at 800\u2a09g for 5 mins, and discard the supernatant.\n38) Resuspend cells in 1 mL of MaxPar Water, filter through a 35 \u03bcm cell strainer (70 \u03bcm when the culture contains fibroblasts), and count the cells.\n39) Dilute cells to ~0.8 \u2013 1 \u2a09 10\n6\n/ mL in MaxPar Water.\n40) Add EQ Beads to the cells at a volumetric ratio of 1:5.\n41) Add EDTA to the cells to a final concentration of 2 mM.\n42) Analyse the sample on a Helios mass cytometer. (We advise using the \u201cSuper Sampler\u201d (Victorian Airships) to load organoid cells into the Helios.)"
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p><strong>Organoids are not dissociated properly.</strong></p><p>In order for organoids to be sufficiently dissociated with the gentleMACS Octo Dissociator, we suggest users not to overload the gentleMACS C-Tubes. In our experience, up to ~ 5\u2a0910<sup>6</sup> cells per C-Tube can be dissociated sufficiently using our custom dissociation program. We also recommend users to prepare fresh dissociation solution before each use.</p><p><strong>Antibody staining is not working.</strong></p><p>Antibody panels for MC experiments need to be carefully designed and titrated in accordance with known monoisotopic impurities<sup>11</sup> and antigen abundance. We also encourage users to test alternative fixation and permeabilisation conditions for their specific experimental system.</p><p><strong>\ufeffCells are lost during staining.</strong></p><p>Cell loss is inevitable during staining due to the multiple washing steps, and it is more striking with fewer cells. We recommend users to start with sufficient materials, barcode the cells, and pool different conditions as early as possible during the protocol (that is part of the motivation of the development of TOB<em>is</em>). In addition, during optimisation we observed that coating polypropylene FACS tubes with CSB prior to centrifugation of cells resuspended in PBS also facilitates the cells to spin down properly and thereby reduces cell loss.</p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>The pre-treatment and fixation of organoids takes around 2 hours. Live / dead discrimination staining takes around 0.5 hour. TOB<em>is </em>barcoding can be performed in 1-2 hours but an overnight incubation will give superior debarcoding efficiencies. Depending on the number of samples, single-cell dissociation takes 2 to 2.5 hours. The MC staining protocol (extracellular staining, permeabilisation, and intracellular staining) takes around 4 hours. DNA intercalation is performed for 1 hour at room temperature or overnight at 4 \u00baC. The MC run takes 1 to 2 hours depending on the number of cells to be analysed.</p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>The data generated from the workflow reported here is single-cell measurements of up to 50 channels (cell-type identification antibodies, cell-state antibodies / probes, and PTM antibodies etc.) across multiple organoid culture conditions. TOB<em>is</em> barcoded conditions can be resolved into individual FCS files using: <a href=\"https://github.com/zunderlab/single-cell-debarcoder\" target=\"_blank\">https://github.com/zunderlab/single-cell-debarcoder</a>. All FCS files can be uploaded to the Cytobank platform (<a href=\"http://www.cytobank.org/\" target=\"_blank\">http://www.cytobank.org/</a>) and proceed to single-cell signalling analysis<sup>10</sup>. All selection of tools to analyse organoid CyTOF data can be found at: <a href=\"https://github.com/TAPE-Lab\" target=\"_blank\">https://github.com/TAPE-Lab</a>. </p><p><br></p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>1.&nbsp;Clevers, H. Modeling Development and Disease with Organoids. <em>Cell</em> <strong>165</strong>, 1586\u20131597 (2016).</p><p>2.&nbsp;Pastu\u0142a, A. <em>et al.</em> Three-Dimensional Gastrointestinal Organoid Culture in Combination with Nerves or Fibroblasts: A Method to Characterize the Gastrointestinal Stem Cell Niche. <em>Stem Cells Int.</em> <strong>2016</strong>, 3710836 (2016).</p><p>3.&nbsp;Dijkstra, K. K. <em>et al.</em> Generation of Tumor-Reactive T Cells by Co-culture of Peripheral Blood Lymphocytes and Tumor Organoids. <em>Cell</em> <strong>174</strong>, 1586-1598.e12 (2018).</p><p>4. Tuveson, D. &amp; Clevers, H. Cancer modeling meets human organoid technology. <em>Science</em> <strong>364</strong>, 952\u2013955 (2019).</p><p>5.&nbsp;Spitzer, M. H. &amp; Nolan, G. P. Mass Cytometry: Single Cells, Many Features. <em>Cell</em> <strong>165</strong>, 780\u2013791 (2016).</p><p>6.&nbsp;Bendall, S. C. <em>et al.</em> Single-Cell Mass Cytometry of Differential Immune and Drug Responses Across a Human Hematopoietic Continuum. <em>Science</em> <strong>332</strong>, 687\u2013696 (2011).</p><p>7.&nbsp;Simmons, A. J. <em>et al.</em> Cytometry-based single-cell analysis of intact epithelial signaling reveals MAPK activation divergent from TNF-\u03b1-induced apoptosis in&nbsp;vivo. <em>Mol. Syst. Biol.</em> <strong>11</strong>, 835 (2015).</p><p>8.&nbsp;Sato, T. <em>et al.</em> Single Lgr5 stem cells build crypt-villus structures in vitro without a mesenchymal niche. <em>Nature</em> <strong>459</strong>, 262\u2013265 (2009).</p><p>9.&nbsp;Willis, L. M. <em>et al.</em> Tellurium-based mass cytometry barcode for live and fixed cells. <em>Cytom. Part J. Int. Soc. Anal. Cytol.</em> <strong>93</strong>, 685\u2013694 (2018).</p><p>10.&nbsp;Qin, X. <em>et al.</em> Single-Cell Signalling Analysis of Heterocellular Organoids. <em>bioRxiv</em> (2019) doi:10/gf9z6g.</p><p>11. Chevrier, S. <em>et al.</em> Compensation of Signal Spillover in Suspension and Imaging Mass Cytometry. <em>Cell Syst.</em> <strong>6</strong>, 612-620.e5 (2018).</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>We are extremely grateful to Dr. Xin Lu (University of Oxford) for sharing mouse intestines, and Dr. Olga Ornatsky (Fluidigm) for providing monoisotopic Cisplatin (<sup>195</sup>Pt and <sup>196</sup>Pt). We thank the UCL CI Flow-Core for MC support. This work was supported by Cancer Research UK (C60693/A23783), UCLH Biomedical Research Centre (BRC422), The Royal Society (RSG\\R1\\180234), and Rosetrees Trust (A1989).</p><p><br></p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41592-020-0737-8",
+                "date": "",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            },
+            {
+                "unpublished": "\n\nAuthors: Xiao Qin, Jahangir Sufi, Petra Vlckova, Pelagia Kyriakidou, Sophie E. Acton, Vivian S. W. Li, Mark Nitz, Christopher J. Tape\n\nJournal: Nature Methods (in press)"
+            }
+        ],
+        "authors": [
+            {
+                "id": 355493,
+                "identity": "7441ded8-efc9-4552-a6e5-41d62952a259",
+                "order_by": 1,
+                "name": "Xiao Qin",
+                "email": "x.qin@ucl.ac.uk",
+                "orcid": "https://orcid.org/0000-0002-8738-4187",
+                "institution": "Cell Communication Lab, Department of Oncology, University College London Cancer Institute",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Xiao",
+                "middleName": "",
+                "lastName": "Qin",
+                "suffix": ""
+            },
+            {
+                "id": 355494,
+                "identity": "efe0422d-df18-4179-9e15-4a0ff7c93648",
+                "order_by": 2,
+                "name": "Jahangir Sufi",
+                "email": "",
+                "orcid": "",
+                "institution": "Cell Communication Lab, Department of Oncology, University College London Cancer Institute",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jahangir",
+                "middleName": "",
+                "lastName": "Sufi",
+                "suffix": ""
+            },
+            {
+                "id": 355495,
+                "identity": "652adf7b-4580-4812-b7d9-ffbd0b5f3556",
+                "order_by": 3,
+                "name": "Petra Vlckova",
+                "email": "",
+                "orcid": "",
+                "institution": "Cell Communication Lab, Department of Oncology, University College London Cancer Institute",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Petra",
+                "middleName": "",
+                "lastName": "Vlckova",
+                "suffix": ""
+            },
+            {
+                "id": 355496,
+                "identity": "2adb0498-d202-492a-a8cc-4598d9578fa9",
+                "order_by": 4,
+                "name": "Pelagia Kyriakidou",
+                "email": "",
+                "orcid": "",
+                "institution": "Cell Communication Lab, Department of Oncology, University College London Cancer Institute",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Pelagia",
+                "middleName": "",
+                "lastName": "Kyriakidou",
+                "suffix": ""
+            },
+            {
+                "id": 355497,
+                "identity": "0858fc46-3d00-4304-bdf4-e12210c4f9f3",
+                "order_by": 5,
+                "name": "Sophie E. Acton",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0003-2704-716X",
+                "institution": "MRC Laboratory for Molecular Cell Biology, University College London",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Sophie",
+                "middleName": "E.",
+                "lastName": "Acton",
+                "suffix": ""
+            },
+            {
+                "id": 355498,
+                "identity": "0b57144b-ad9b-4812-95a1-bb34b20f8662",
+                "order_by": 6,
+                "name": "Vivian S. W. Li",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0003-2041-0085",
+                "institution": "Stem Cell and Cancer Biology Lab, The Francis Crick Institute",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Vivian",
+                "middleName": "S. W.",
+                "lastName": "Li",
+                "suffix": ""
+            },
+            {
+                "id": 355499,
+                "identity": "1346bc20-af18-447c-8f7c-6c9de2d69bb6",
+                "order_by": 7,
+                "name": "Mark Nitz",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Chemistry, University of Toronto",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Mark",
+                "middleName": "",
+                "lastName": "Nitz",
+                "suffix": ""
+            },
+            {
+                "id": 355500,
+                "identity": "72f812a4-af93-48f1-9388-15c67e2adc4c",
+                "order_by": 8,
+                "name": "Christopher J. Tape",
+                "email": "c.tape@ucl.ac.uk",
+                "orcid": "https://orcid.org/0000-0003-4712-2737",
+                "institution": "\tCell Communication Lab, Department of Oncology, University College London Cancer Institute",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Christopher",
+                "middleName": "J.",
+                "lastName": "Tape",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2019-10-15 13:08:39",
+        "currentVersionCode": 2,
+        "declarations": "",
+        "doi": "10.21203/rs.2.16232/v2",
+        "doiUrl": "https://doi.org/10.21203/rs.2.16232/v2",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 515999,
+                "identity": "b2c6f363-0899-484f-9883-53c50f3f242d",
+                "added_by": "auto",
+                "created_at": "2020-02-19 17:02:10",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 856984,
+                "visible": true,
+                "origin": "",
+                "legend": "Experimental workflow. Live organoids are pulsed with IdU to label S-phase cells, treated with protease / phosphatase inhibitors and fixed with PFA to preserve post translational modification (PTM) signals, and stained with Cisplatin to label dead cells. Fixed organoids are barcoded using Thiol-reactive Organoid Barcoding in situ (TOBis), pooled for dissociation, stained with rare-earth metal-conjugated antibodies, and analysed by single-cell mass cytometry (MC). The resulting dataset contains integrated cell-type, cell-state, and PTM signalling information from multiple organoid culture conditions.",
+                "description": "",
+                "filename": "Figure1.png",
+                "url": "https://assets.researchsquare.com/files/83150205-2b9a-4eb4-bab7-bac56903b3b8/v2/Figure 1.png"
+            },
+            {
+                "id": 516000,
+                "identity": "aa193739-868e-4fb6-a44c-1ddc68cc7f35",
+                "added_by": "auto",
+                "created_at": "2020-02-19 17:02:11",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 764479,
+                "visible": true,
+                "origin": "",
+                "legend": "Thiol-reactive Organoid Barcoding in situ (TOBis). a) Thiol-reactive tellurium maleimide (TeMal) and Cisplatin isotopologs combined to form a 20-plex (6-choose-3) doublet-filtering organoid barcoding strategy. b) Small intestinal organoids stained in situ with TOBis 1\u201420 barcodes according to the 6-choose-3 matrix are successfully resolved into each individual sample.",
+                "description": "",
+                "filename": "Figure2.png",
+                "url": "https://assets.researchsquare.com/files/83150205-2b9a-4eb4-bab7-bac56903b3b8/v2/Figure 2.png"
+            },
+            {
+                "id": 13489884,
+                "identity": "7b0b5f1e-26d1-4f19-9ac2-37c5cca4ed17",
+                "added_by": "auto",
+                "created_at": "2021-09-16 22:21:12",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 755734,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-759/v2/cc21d4e4-99a7-4076-92cc-59a7789b65c7.pdf"
+            }
+        ],
+        "financialInterests": "M.N. has pending intellectual property on the use of tellurium reagents for mass cytometry applications which has been licensed to Fluidigm Corporation.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Mass cytometry, Organoid, Single-cell Analysis, Signalling Analysis",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>Organoids are powerful biomimetic tissue models. Despite their increasing popularity, no existing methods are suitable for cell-type specific analysis of post-translational modification (PTM) signalling networks in organoids. Here we report a multivariate mass cytometry (MC) protocol for single-cell analysis of cell-type specific PTM signalling in organoid monocultures and organoids co-cultured with stromal and immune cells. Thiol-reactive Organoid Barcoding <em>in situ</em> (TOB<em>is</em>) was developed to facilitate high-throughput comparison of signalling networks between organoid cultures. Taken together, our protocol enables high-throughput multivariate PTM signalling analysis of healthy and cancerous organoids at the single-cell level.</p>",
+        "manuscriptTitle": "Mass Cytometry for Multivariate Organoid Signalling Analysis",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2020-02-17 17:15:04",
+                "doi": "10.21203/rs.2.16232/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            },
+            {
+                "code": 2,
+                "date": "2020-02-19 17:02:10",
+                "doi": "10.21203/rs.2.16232/v2",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9f0a7d8f-f939-4b37-b0c6-ac79ac1840ff",
+        "owner": [],
+        "postedDate": "February 19th, 2020",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 59419,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 59420,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 59421,
+                "name": "Cell Biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2020-02-19 17:02:10",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

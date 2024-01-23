@@ -1,0 +1,227 @@
+{
+    "identity": "nprot-91",
+    "title": "NOESY-based strategy for assignments of backbone and side chain resonances of large proteins without deuteration",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "NMR spectroscopy has been widely used to determine high resolution structures of proteins and protein complexes in solution<sup>1, 2</sup>. However, it is is not suitable for larger proteins \\(&gt; 30 kDa) due to increased signal decay rates. Deuterium labeling of protein samples overcomes this problem<sup>3</sup>, but deuteration makes sample preparation much harder and structure determination more difficult<sup>4, 5</sup>. Here we introduce a strategy that uses non-deuterated samples<sup>6</sup>. Backbone and side chain resonances of large proteins are assigned from 3D TROSY-HNCA<sup>7</sup>, 3D MQ-CCH-TOCSY<sup>8</sup> and 4D <sup>15</sup>N,<sup>13</sup>C-edited NOESY<sup>9</sup> spectra. The three spectra with reasonable quality can be obtained within <sub>11 days using a uniformly <sup>13</sup>C,<sup>15</sup>N-labeled sample at a protein concentration of </sub>1 mM. Unlike the conventional strategy mainly relying on through-bond correlation experiments, the strategy used here mainly uses a through-space correlation experiment \\(4D <sup>15</sup>N,<sup>13</sup>C-edited NOESY) to obtain intra-residue and sequential correlations, which are separated from other inter-residue NOE correlations using the 3D HNCA and CCH-TOCSY experiments. Similar to the conventional strategy, sequential assignment is achieved from matching intra-residue and sequential correlations. Using this strategy, one can obtain nearly complete backbone assignments and &gt;80% side chain assignments for monomeric proteins &lt; 42 kDa and multimeric proteins &lt; 65 kDa."
+        },
+        {
+            "header": "Reagents",
+            "content": "&#x2022; <sup>13</sup>C and <sup>15</sup>N labeled protein sample with ~1 mM monomer and 5-10% D2O; if a cryoprobe is available, lower concentration is needed"
+        },
+        {
+            "header": "Equipment",
+            "content": "&#x2022; 800 MHz NMR spectrometer; for multimeric proteins with less complexity, a 500 MHz or higher field machine equipped with a cryoprobe can be used as an alternate\r\n\n\n&#x2022; A personal computer \\(Linux operating system)\r\n\n\n&#x2022; NMRPipe and Sparky softwares; other softwares with similar functions can be used"
+        },
+        {
+            "header": "Procedure",
+            "content": "**Recording data** \u2022 TIMING ~11 days\r\n\n\n1. Record 3D TROSY-HNCA, 3D MQ-CCH-TOCSY and 4D\n13\nC,\n15\nN-edited NOESY for resonance assignment. Use half-point delays for the evolution periods of C\n\u03b1\nspins \\(t\n1\n) in the HNCA,\n13\nC spins \\(bonded with the directly detected\n1\nH, t\n2\n) in the MQ-CCH-TOCSY, and both\n13\nC and\n15\nN spins \\(t\n2\nand t\n3\n) in the 4D NOESY. In this way, the peaks aliased with odd times have opposite signs to those aliased with even times. Record a 2D\n1\nH-\n15\nN TROSY-HSQC with enough spectral width in the\n15\nN dimension to facilitate the identification of peaks aliased in the\n15\nN dimension in 3D HNCA and 4D\n13\nC,\n15\nN-edited NOESY.\r\n  \r\n\n\n**Processing data** \u2022 TIMING ~1 day\r\n\n\n2. Process the data with NMRPipe. Use linear prediction to improve the resolution of all indirectly detected dimensions.\r\n  Covert the processed spectra into ucsf format for further analysis with Sparky.\r\n\n\n\r\n\n\n**Picking peaks and grouping peaks into clusters** \u2022 TIMING ~1-2 days\r\n\n\n3. Use peak picking functions in Sparky to pick HNCA peaks automatically. Group them into clusters according to \\(H\nN\n, N) chemical shifts. Usually one cluster contains two peaks: one from the intraresidue C\n\u03b1\n, another from the C\n\u03b1\nof the preceding residue. However, some clusters contain only one peak due to degenerate C\n\u03b1\nchemical shifts, while some clusters may contain more than two peaks due to the overlap of amide chemical shifts. Identify peaks from NH\n2\ngroups according to their paired patterns and unusual \u201cC\n\u03b1\n\u201d chemical shifts. These peaks can be excluded during backbone assignment.\r\n  Check the number of clusters identified and the expected number and ensure that there is not a large difference.\r\n\n\n4. Pick peaks in 4D\n13\nC,\n15\nN-edited NOESY manually or automatically. Group NOE peaks into their corresponding clusters according to \\(H\nN\n, N) chemical shifts of individual clusters. Due to lower resolution of the 4D NOESY, some peaks cannot be grouped into only one cluster unambiguously.  These peaks will remain ungrouped. \r\n  5. Correct chemical shifts of the aliased peaks in 3D TROSY-HNCA and 4D NOESY with Sparky.\r\n  6. Pick peaks in CCH-TOCSY.\r\n  \r\n\n\n**Identifying and classifying spin-systems** \u2022 TIMING ~5-10 days\r\n\n\n7. Each cluster is characterized by a pair of \\(H\nN\n, N) chemical shifts. Typically, one cluster contains two HNCA peaks and a number of HC-NH NOE peaks. First, initialize a spin-system from one HNCA peak in a given cluster. Second, among the NOE peaks in this cluster, identify the peak that matches the HNCA peak in\n13\nC chemical shift within a certain tolerance \\(e.g., ~0.3 ppm). If only one peak is identified, this peak is considered as a sequential or intra-residue C\n\u03b1\nH\n\u03b1\n-NH NOE\n10\n. Note that there are two \u03b1 protons for glycine residues and thus two peaks with identical C\n\u03b1\nshifts may be observed. Third, display the TOCSY slice defined by the \\(H, C) chemical shifts of each NOE peak in this cluster and check if the CH spin-pair of the NOE peak correlates with the C\n\u03b1\nspin of this initial spin-system. If yes, the NOE peak is regarded as a sequential or intraresidue side chain NOE in this spin-system. The\n13\nC spin of the CH spin-pair should also correlate with C\n\u03b1\nH\n\u03b1\nof this spin-system via TOCSY. In some cases, this correlation cannot be detected because it is too weak or close to the intense water signal. For spin-systems of long side chains, a few more CH spin-pairs may be added into the spin-systems according to their TOCSY correlations with side chain CH spin-pairs that are already identified.\r\n  8. In cases where only one HNCA peak is picked for one cluster due to degenerate C\n\u03b1\nchemical shifts and two NOE peaks match this HNCA peak, build two spin-systems using the two NOE peaks. The NOE peaks belonging to these two spin-systems can be separated because side chain\n13\nC spins correlate with two non-degenerate C\n\u03b1\nH\n\u03b1\nspin-pairs in CCH-TOCSY, provided that\n13\nC-C\n\u03b1\nH\n\u03b1\ncorrelations are detectable.\r\n  9. For each spin-system, check whether the CH spin-pairs correlate with each other in CCH-TOCSY and whether the correlations can be explained by one of the 20 amino acids in terms of number of peaks and chemical shifts.\r\n  10. Classify a spin-system by residue type according to its C\n\u03b1\nchemical shift and NOE peaks. Typically it is possible to unambiguously recognize most glycine, alanine, threonine, valine, isoleucine, and leucine, which account for ~42% amino acid residues in a protein. Glycine can be identified according to its small C\n\u03b1\nchemical shift, and sometimes two H\n\u03b1\npeaks. Alanine can be identified based on its strong intraresidue C\n\u03b2\nH\n\u03b2\n-NH NOE peak, strong C\n\u03b1\n-C\n\u03b2\nH\n\u03b2\nTOCSY peak, and characteristic C\n\u03b1\nand C\n\u03b2\nchemical shifts.  For threonine, valine, isoleucine and leucine, classification can be easily done based on their characteristic side chain chemical shifts. In particular, the methyl groups of these residues always give rise to well resolved TOCSY correlations with other\n13\nC spins. Some serine, lysine, arginine, and proline can be distinguished, provided that the C\n\u03b2\nH\n\u03b2\nspin-pair for serine, C\n\u03b2\nH\n\u03b2\n, C\n\u03b3\nH\n\u03b3\nand C\n\u03b4\nH\n\u03b4\nspin-pairs for lysine, arginine and proline can be identified. Classify other residues into three groups: \\(Asp, Asn, Phe, Tyr), \\(Gln, Glu, Met) and \\(Cys, Trp, His) according to both\n1\nH and\n13\nC chemical shifts. \r\n  If a spin-system contains too few peaks to be classified, leave it without classification. Usually classification of about ~35-50% spin-systems is sufficient for obtaining backbone assignment.\r\n\n\n\r\n\n\n**Matching spin-systems to form fragments and Mapping fragments** \u2022 TIMING ~1-3 days\r\n\n\n11. Link clusters to build fragments through matching spin-systems. Two spin-systems match each other when they have i). identical C\n\u03b1\nchemical shifts, ii). the largest number of matched NOE peaks, and iii). no inconsistent \\(C, H) chemical shifts.\r\n  12. Compare spin-system types of a connectivity fragment with the protein sequence. If only one segment in the sequence matches the fragment in residue type at every amino acid position, map this fragment onto the segment of the sequence. Note that it is unknown which end of the fragment is the N-terminus since intraresidue and sequential spin-systems are not distinguished. The intraresidue HNCA peak is usually stronger than the sequential one. If a mapping is inconsistent with this, it may contain errors and need to check more carefully.\r\n  13. Use common NOEs shared by two clusters to resolve ambiguities in sequential connectivities for unassigned spin-systems\n6\n. If two spin-systems have a true sequential relationship, no mismatch of intra-residue and sequential correlations should exist. On the basis of this fact, some ambiguities can be removed too.\r\n  14. Repeat steps 11-13 and assign the unassigned fragments and clusters in an iterative way. \r\n  15. Note that some initial errors may be introduced during the processes of identifying, classifying and matching spin-systems and mapping fragments to the sequence. Most errors can be recognized during the process of assignment and will not lead to wrong final assignments. Those lead to wrong initial assignments should be recognized when some other clusters can\u2019t be assigned\n6\n.\r\n  \r\n\n\n**Side chain assignments** \u2022 TIMING ~2-7 days\r\n\n\n16. Most side chain chemical shifts are ready to be extracted according to the identified spin-systems and backbone assignments. Assign some more side chain resonances by comparing two\n13\nC,\n15\nN-edited NOESY planes defined by two adjacent amides, and by exploring the MQ-CCH-TOCSY more extensively\n10\n.\r\n  17. Assign NH\n2\nchemical shifts according to i) C\n\u03b2\n-NH\n2\nand C\n\u03b3\n-NH\n2\ncorrelations in the HNCA spectrum for asparagine and glutamine respectively, ii)  H\n\u03b2\nC\n\u03b2\n-NH\n2\nand H\n\u03b3\nC\n\u03b3\n-NH\n2\n/H\n\u03b2\nC\n\u03b2\n-NH\n2\ncorrelations in the 4D\n13\nC,\n15\nN-edited NOESY for asparagine and glutamine respectively.\r\n  18. Assign C\n\u03b4\nH\n\u03b4\ngroups of aromatic residues according to their NOE correlations with intraresidue and sequential amides\n11\n. Other aromatic resonances can be assigned later with a 4D\n13\nC,\n13\nC-edited NOESY \\(\n7 days for data collection) or a 3D\n15\nN/\n13\nC-simutaneous NOESY \\(\n3 days for data collection).\r\n  \r\n\n\n**NOE assignment and structure determination** \u2022 TIMING ~2-6 weeks\r\n\n\n19. With a relatively complete chemical shift list, assign other NOE peaks in the 4D\n13\nC,\n15\nN-edited NOESY and\n13\nC,\n13\nC-edited NOESY. Follow the conventional procedure for NOE assignment and structure calculation. The chemical shifts of a few more side chain atoms may be assigned during this process."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "Some amide groups have degenerate \\(H<sup>N</sup>, N) chemical shifts, which lead to some clusters containing more than one residues. These clusters can be identified since they contain more than two HNCA peaks or more than one HNCO peak. They are treated as normal clusters during spin-system identification. However, when linking clusters through matching spin-systems, we place these clusters at the ends of fragments. In this way, each spin-system in such a cluster is linked and mapped independently. When the number of degenerate amides is so large that many fragments are too short to be mapped onto the sequence, backbone assignment may be difficult to be obtained. \r\n\n\nFor very large proteins, the CCH-TOCSY may give weak signals for many correlations, especially for those involved in H<sup>&#x3B1;</sup> and H<sup>&#x3B2;</sup> spins, and the 4D <sup>13</sup>C,<sup>15</sup>N edited-NOESY may also lack many intraresidue and sequential NOE peaks. This leads to spin-systems with very few NOE peaks, which are difficult to be classified and matched unambiguously. In such cases, one may rely on C<sup>&#x3B1;</sup> chemical shifts and common NOE peaks between two clusters, although there will be more ambiguity in spin-system matching and mapping."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "For monomeric proteins smaller than <sub>42 kDa or multimeric proteins smaller than </sub>65 kDa, the 3D and 4D spectra used in our method can be obtained with reasonable quality on an 800 MHz NMR spectrometer equipped with a normal probe using a sample of <sup>13</sup>C,<sup>15</sup>N-labeled protein at a monomer concentration of <sub>1 mM. The number of the clusters obtained from the spectra should be very close to the expected one.  Most spin-systems generated from the spectra should contain at least one HC-NH NOE peak. </sub>60% spin-systems can be classified by residue types. ~50% spin-systems can be unambiguously matched to their corresponding partners. Nearly complete backbone assignment can be obtained, provided that all amides give rise to <sup>1</sup>H-<sup>15</sup>N HSQC correlations. On the basis of the backbone assignment, &gt;80% side chain resonances can be assigned from the 3D MQ-CCH-TOCSY and 4D <sup>13</sup>C,<sup>15</sup>N-edited NOESY spectra. With these assignments, NOE assignments should be possible and a high resolution structure can be determined."
+        },
+        {
+            "header": "References",
+            "content": "1. Wuthrich, K. _NMR of Proteins and Nucleic Acids_, \\(Wiley, New York, 1986).\r\n  2. Cavanagh, J., Palmer, A. G., Fairbrother, W. &amp; Skelton, N. _Protein NMR Spectroscopy: Principles and Practice_ \\(Academic, San Diego, 1996).\r\n  3. LeMaster, D.M. &amp; Richards, F.M. NMR sequential assignment of Escherichia coli thioredoxin utilizing random fractional deuteriation. _Biochemistry_ **27**, 142-150 \\(1988).\r\n  4. Tugarinov, V., Kanelis, V. &amp; Kay, L. E. Isotope labeling strategies for the study of high-molecular-weight proteins by solution NMR spectroscopy. _Nature Protocols_ **1**, 749-754 \\(2006).\r\n  5. Kainosho, K. et al. Optimal isotope labelling for NMR protein structure determinations. _Nature_ **440**, 52-57 \\(2006).\r\n  6. Xu, Y.Q., Zheng, Y., Fan, J.S. &amp; Yang, D.W. A novel strategy for solution structure determination of large proteins without deuteration. _Nature Methods_ \\(in press).\r\n  7. Yang, D.W. &amp; Kay, L.E. TROSY triple-resonance four-dimensional NMR spectroscopy of a 46 ns tumbling protein. _J. Am. Chem. Soc._ **121**, 2571-2575 \\(1999).\r\n  8. Yang, D.W., Zheng, Y., Liu, D. &amp; Wyss, D.F. Sequence-specific assignments of methyl groups in high-molecular weight proteins. _J. Am. Chem. Soc._ **126**, 3710-3711 \\(2004).\r\n  9. Kay, L.E., Clore, G.M., Bax, A. &amp; Gronenborn, A. M. Four-dimensional heteronuclear triple-resonance NMR spectroscopy of Interleukin-1&#x3B2; in solution. _Science_, **249**, 411-414 \\(1990).\r\n  10. Xu, Y.Q., Lin, Z., Ho, C. &amp; Yang, D.W. A general strategy for the assignment of aliphatic side-chain resonances of uniformly 13C,15N-labeled large proteins. _J. Am. Chem. Soc._ **127**, 11920-11921 \\(2005).\r\n  11. Lin, Z., Xu, Y.Q., Yang, S. &amp; Yang, D.W. Sequence-specific assignment of aromatic resonances of uniformly 13C,15N-labeled proteins by using 13C- and 15N-edited NOESY spectra. _Angew. Chem. Int. Ed._ **45**, 1960-1963 \\(2006)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nmeth938",
+                "date": "2006-09-07 04:50:06",
+                "title": "A new strategy for structure determination of large proteins in solution without deuteration",
+                "authors": [
+                    "Yingqi Xu",
+                    "Yu Zheng",
+                    "Jing-Song Fan & Daiwen Yang"
+                ],
+                "journal": "Nature Methods",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 9908,
+                "identity": "9ea349f8-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Yingqi Xu",
+                "email": "",
+                "orcid": "",
+                "institution": "National University of Singapore",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Yingqi",
+                "middleName": "",
+                "lastName": "Xu",
+                "suffix": ""
+            },
+            {
+                "id": 9909,
+                "identity": "9ea34dcc-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Yu Zheng",
+                "email": "",
+                "orcid": "",
+                "institution": "National University of Singapore",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Yu",
+                "middleName": "",
+                "lastName": "Zheng",
+                "suffix": ""
+            },
+            {
+                "id": 9910,
+                "identity": "9ea34f94-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Daiwen Yang",
+                "email": "",
+                "orcid": "",
+                "institution": "National University of Singapore",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Daiwen",
+                "middleName": "",
+                "lastName": "Yang",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2011-01-30 23:02:06",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/nprot.2006.410",
+        "doiUrl": "https://doi.org/10.1038/nprot.2006.410",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13464168,
+                "identity": "b97ebedd-217d-40ac-861e-eeefeb3a4a3a",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:42:36",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 149553,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-91/v1/9656d8e4-ccaa-4df8-8901-e05f47d8b1cb.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "NMR, assignment, large protein, NOESY, protein structure, protein NMR              ",
+        "license": {
+            "name": "None",
+            "url": ""
+        },
+        "manuscriptAbstract": "",
+        "manuscriptTitle": "NOESY-based strategy for assignments of backbone and side chain resonances of large proteins without deuteration",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2006-05-11 23:00:00",
+                "doi": "10.1038/nprot.2006.410",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9ea2f536-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "May 11th, 2006",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 1390,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 1391,
+                "name": "Structural biology"
+            },
+            {
+                "id": 1392,
+                "name": "Biochemistry"
+            },
+            {
+                "id": 1393,
+                "name": "Computational biology and bioinformatics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2006-05-11 23:00:00",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

@@ -1,0 +1,265 @@
+{
+    "identity": "nprot-2356",
+    "title": "Sample preparation for 2b-RAD genotyping",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Sample preparation for 2b-RAD genotyping is accomplished in a single well of a multi-well plate within about 4 hours. 2b-RAD constructs are produced in a series of three reactions \\(restriction digest, adaptor ligation, and barcode incorporation), then gel-purified and sequenced \\(Fig 1).\r\n\n\n\r\n\n\n<a href=\"http://www.nature.com/protocolexchange/system/uploads/2101/original/figure_1.bmp?1333863193\" > <img src=\"http://www.nature.com/protocolexchange/system/uploads/2101/thumbnail/figure_1.png?1333863193\" > </a>\r\n\n\n\r\n\n\nFirst, genomic DNA is digested using type IIB restriction endonucleases to excise the target fragments used for genotyping \\(Fig 1). To maintain buffer concentrations in subsequent reactions, the initial digest is conducted in a small volume, which necessitates high DNA concentrations \\(at least 250 ng \u00b5l<sup>-1</sup>). Samples with lower concentrations can be easily concentrated using standard methods including ethanol precipitation or drying under vacuum.\r\n\n\n\r\n\n\nBefore processing a new set of samples \\(e.g. a new species, etc.), it\u2019s advisable to test the effectiveness of the chosen restriction enzyme by comparing digested genomic DNA \\(~100-200 ng genomic DNA) against the uncut DNA and a no-enzyme control. While partially degraded DNA can be used effectively for 2b-RAD genotyping, for the purposes of this test a perfectly intact sample should be chosen. Digested samples show a subtle smear extending downward from the original high-molecular weight genomic DNA band. No-enzyme controls should look identical to the original DNA after 1 hr at 37\u00b0C.\r\n\n\n\r\n\n\nNext, partially double-stranded adaptors are ligated to the restriction fragments using T4 DNA ligase. The sequences of these adaptors, and all other oligonucleotides used in this protocol, are shown in Table 1. Note that the choice of adaptors at this stage determines the set of restriction sites to be included in the library, and the sequencing platform to be used. The fully degenerate overhangs \\(5\u2019-NNN-3\u2019) featured in the standard protocol target all sites. Adaptors with reduced degeneracy can be used instead to target a subset of the sites \\(e.g. adaptors bearing overhangs 5\u2019-NNG-3\u2019 target 1/16th of the sites). The fraction targeted can be chosen based on genome size, polymorphism frequency, and the number of polymorphisms required for a particular experiment. \r\n\n\n\r\n\n\n<a href=\"http://www.nature.com/protocolexchange/system/uploads/2102/original/table_1.bmp?1333863535\" > <img src=\"http://www.nature.com/protocolexchange/system/uploads/2102/thumbnail/table_1.png?1333863535\" > </a>\r\n\n\n\r\n\n\nIn the final reaction, ligation products are amplified using oligonucleotide primers complementary to the adaptors, and incorporating sample-specific barcodes for multiplex sequencing of pooled samples. This is accomplished using a step-out PCR procedure in which two long oligos present at low concentrations incorporate barcode sequences and binding sites for two shorter primers present at standard concentrations. To minimize any distortions of allele frequencies, samples are collected across a range of cycle numbers to identify the minimum number of cycles required to produce a visible product in gel electrophoresis. Only a small number of cycles should be required \\(4-10) for standard libraries, while for reduced schemes additional cycles proportional to the targets\u2019 lower abundance are required \\(e.g. 1/16th reductions require an additional ~4 cycles). \r\n\n\n\r\n\n\nFinally, the barcoded PCR products are gel purified using standard methods to remove primer dimers and residual products of restriction digest. The purified products are then pooled for multiplex sequencing on either SOLiD or Illumina platforms. Note that the fragments produced by 2b-RAD are shorter than the maximum read length of these technologies, so short read lengths should be specified when submitting samples \\(36 bp or less) to minimize sequencing costs.\r\n\n\n\r\n\n\nThe details given in Procedures correspond to a standard AlfI library to be sequenced on the SOLiD System. A wide variety of modifications are possible, depending on the choice of enzyme, the reduction scheme, and the sequencing platform, as described in the associated manuscript."
+        },
+        {
+            "header": "Reagents",
+            "content": "Major reagents:\r\n\n\n1) AlfI \\(Fermentas, cat no. ER1801)\r\n\n\n2) T4 ligase \\(NEB, cat no. M0202)\r\n\n\n3) ATP \\(NEB, cat no. P0756)\r\n\n\n4) Phusion High-Fidelity DNA polymerase \\(NEB, cat no. M0530)\r\n\n\n5) dNTP \\(NEB, cat no. N0447)\r\n\n\n6) Agarose\r\n\n\n7) All adaptor and primer oligos are ordered from IDT."
+        },
+        {
+            "header": "Equipment",
+            "content": "Major equipments:\r\n\n\n1) NanoDrop 1000 Spectrophotometer \\(Thermo Scientific)\r\n\n\n2) Horizontal Electrophoresis Apparatus Set\r\n\n\n3) Gel Documentation System\r\n\n\n4) DNA Engine Tetrad 2 thermal cycler \\(Bio-Rad)"
+        },
+        {
+            "header": "Procedure",
+            "content": "**Restriction digest**\r\n\n\n**1 |** Prepare intact, high-quality genomic DNA samples each containing 1 \u00b5g at a high concentration \\(at least 250 ng \u00b5l\n-1\n). Dilute all samples to the same volume \\(4 \u00b5l) with nuclease free water.\r\n\n\n\r\n\n\n**2 |** Prepare a master mix for restriction digest by combining the following components in a single tube and mixing thoroughly by back-pipetting. The volumes listed here are intended for a single reaction, so multiply by the number of samples plus some small amount for pipetting error.\r\n\n\n0.6 \u00b5l 10X Buffer R\r\n\n\n0.4 \u00b5l 150 \u00b5M SAM \r\n\n\n1.0 U AlfI\r\n\n\nNuclease-free water \\(NFW) to total volume 2.0 \u00b5l\r\n\n\n\r\n\n\n**3 |** Combine 2 \u00b5l master mix with each 4 \u00b5l DNA sample, and incubate 1 hr at 37\u00b0C, then inactivate the enzyme at 65\u00b0C for 20 min and hold samples on ice.\r\n\n\n\r\n\n\n**Adaptor ligation**\r\n\n\n**1 |** Prepare two partially double stranded adaptors by combining each pair of oligonucleotides at a final concentration of 4 \u00b5M each. Adaptor 1 is prepared by combining sld-ada1-AlfI and anti-sld-ada1, and adaptor 2 by combining sld-ada2-AlfI and anti-sld-ada2 \\(Table 1).\r\n\n\n\r\n\n\n**2 |** Prepare a master mix for ligation by combining the following components in a single tube. The volumes listed here are intended for a single reaction, so scale up as needed.\r\n\n\n0.5 \u00b5l 10 mM ATP\r\n\n\n2.0 \u00b5l 10X T4 ligase buffer\r\n\n\n2.5 \u00b5l 5 \u00b5M Adaptor 1\r\n\n\n2.5 \u00b5l 5 \u00b5M Adaptor 2\r\n\n\n11.5 \u00b5l NFW\r\n\n\n\r\n\n\n**3 |** Combine 20 \u00b5l master mix with 5 \u00b5l of digested DNA.  Incubate for 1 hour \\(16\u00b0C for heat-inactivatable enzymes e.g. AlfI, or at 4\u00b0C for enzymes that cannot be inactivated, e.g. BsaXI), then hold on ice.\r\n\n\n\r\n\n\n**Barcode incorporation**\r\n\n\n**1 |** Conduct a test-scale PCR to determine the minimum number of cycles required to produce a visible product, and evaluate relative yield across samples. Prepare a master mix for PCR by combining the following components in a single tube, and mix thoroughly by backpipetting. The volumes listed here are intended for a single reaction, so scale up as needed.\r\n\n\n6.5 \u00b5l NFW\r\n\n\n2.5 \u00b5l 2.5 mM dNTP\r\n\n\n0.4 \u00b5l 10 \u00b5M sld-p5\r\n\n\n0.4 \u00b5l 10 \u00b5M sld-p6\r\n\n\n1.0 \u00b5l 1 \u00b5M sld-p3\r\n\n\n1.0 \u00b5l 1 \u00b5M sld-p4 \\(barcode)\r\n\n\n4.0 \u00b5l 5X HF buffer\r\n\n\n0.2 \u00b5l Phusion polymerase\r\n\n\n\r\n\n\n**2 |** Combine 16 \u00b5l master mix with 4 \u00b5l ligation from each sample, and amplify on the following profile: \\(98\u00b0C 5 sec, 60\u00b0C 20 sec, 72\u00b0C 10 sec) X 12 cycles.\r\n\n\n\r\n\n\n**3 |** Sample 5 \u00b5l from each reaction at two-cycle intervals \\(n = 6, 8, 10, & 12 cycles). The thermocycler can be paused during each sampling interval. \r\n\n\n\r\n\n\n**4 |** Visualize PCR products using standard gel electrophoresis methods \\(2% agarose TBE gel), including a low-molecular weight marker. Select the minimum number of cycles required to produce a visible product at ~130 bp.\r\n\n\n\r\n\n\n**5 |** Prepare a master mix for preparatory-scale PCR by combining the following components in a single tube, and mix thoroughly by backpipetting. The volumes listed here are intended for a single reaction, so scale up as needed.\r\n\n\n32.5 \u00b5l NFW   \r\n\n\n12.5 \u00b5l 2.5 mM dNTP\r\n\n\n2.0 \u00b5l 10 \u00b5M sld-p5\r\n\n\n2.0 \u00b5l 10 \u00b5M sld-p6\r\n\n\n5.0 \u00b5l 1 \u00b5M sld-p3\r\n\n\n5.0 \u00b5l 1 \u00b5M sld-p4 \\(barcode)\r\n\n\n20.0 \u00b5l 5X HF buffer\r\n\n\n1.0 \u00b5l Phusion polymerase\r\n\n\n\r\n\n\n**6 |** Combine 80 \u00b5l master mix with 20 \u00b5l ligation and amplify using the optimal cycle number determined in step 4.\r\n\n\n\r\n\n\n**Gel purification**\r\n\n\n**1 |** Resolve samples on 2% agarose gels using standard electrophoresis methods and reagents. Large wells are required to accommodate each 100 \u00b5l sample in a single well.\r\n\n\n\r\n\n\n**2 |** Using a UV transilluminator set to low intensity, excise the target band \\(~130 bp) from each lane, being careful to limit the UV exposure of each sample to no more than 30 seconds. \r\n\n\n\r\n\n\n**3 |** Extract preparations from excised gel slices either:\r\n\n\nA. using a commercial gel-extraction kit of your choice according to the manufacturers instructions; or\r\n\n\nB. by eluting directly from the gel slice into water \\(40 \u00b5l NFW in a 1.5 ml microcentrifuge tube). Gel slices are held overnight at 4\u00b0C, and the eluent collected the following morning. \r\n\n\n\r\n\n\n**4 |** Collect a small aliquot \\(~2-10 \u00b5l) from each preparation and combine in a multiplex pool for sequencing. Remaining preparations can be held for 6 months at -20\u00b0C and sampled again for sequencing if additional coverage is required for any samples."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nmeth.2023",
+                "date": "2012-04-11 21:39:01",
+                "title": "2b-RAD: a simple and flexible method for genome-wide genotyping",
+                "authors": [
+                    "Shi Wang",
+                    "Eli Meyer",
+                    "John K McKay",
+                    "and Mikhail V Matz"
+                ],
+                "journal": "Nature Methods",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 12023,
+                "identity": "9fc0a7a6-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Shi Wang",
+                "email": "swang@ouc.edu.cn",
+                "orcid": "",
+                "institution": "College of Marine Life Sciences, Ocean University of China",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Shi",
+                "middleName": "",
+                "lastName": "Wang",
+                "suffix": ""
+            },
+            {
+                "id": 12024,
+                "identity": "9fc0aa4e-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Eli Meyer",
+                "email": "eli.meyer@science.oregonstate.edu",
+                "orcid": "",
+                "institution": "Department of Zoology, Oregon State",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Eli",
+                "middleName": "",
+                "lastName": "Meyer",
+                "suffix": ""
+            },
+            {
+                "id": 12025,
+                "identity": "9fc0ac40-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "John McKay",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Bioagricultural Sciences and Graduate Degree Program in Ecology, Colorado State University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "John",
+                "middleName": "",
+                "lastName": "McKay",
+                "suffix": ""
+            },
+            {
+                "id": 12026,
+                "identity": "9fc0aecf-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Mikhail Matz",
+                "email": "",
+                "orcid": "",
+                "institution": "School of Biological Sciences, University of Texas - Austin",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Mikhail",
+                "middleName": "",
+                "lastName": "Matz",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2012-04-11 09:40:48",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2012.010",
+        "doiUrl": "https://doi.org/10.1038/protex.2012.010",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2608454,
+                "identity": "c88e25f2-109a-46b5-9cd1-0797bfc5d0d5",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:14",
+                "extension": "bmp",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 1112456,
+                "visible": true,
+                "origin": "",
+                "legend": "Preparation of samples for 2b-RAD genotyping.   Sample preparation for 2b-RAD genotyping is accomplished by restriction digest (AlfI) of genomic DNA, cohesive end ligation of partially double-stranded adaptors with compatible (NN) overhangs, and incorporation of barcodes for multiplex sequencing by PCR.",
+                "description": "",
+                "filename": "figure1.bmp",
+                "url": "https://assets.researchsquare.com/files/nprot-2356/v1/figure_1.bmp"
+            },
+            {
+                "id": 2608451,
+                "identity": "2f3e8f92-c673-497b-bc9d-c42744195693",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:14",
+                "extension": "bmp",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 1706456,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 1   Oligonucleotide sequences for 2b-RAD sample preparation   bc: barcode, any 6-10 bp DNA sequence easily distinguishable from other barcodes on that same sequencing run. ",
+                "description": "",
+                "filename": "figure2.bmp",
+                "url": "https://assets.researchsquare.com/files/nprot-2356/v1/figure_2.bmp"
+            },
+            {
+                "id": 13464650,
+                "identity": "be32bb64-a946-4471-91e8-11be051573fb",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:44:10",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 250113,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-2356/v1/17c7d5b7-798d-4432-add3-4ea5e8f1c5b2.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare that they have no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Genotyping, SNP discovery, Restriction-associated DNA, type IIB restriction endonuclease, ",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "High-throughput sequencing of restriction site-associated genomic DNA \\(RAD) is now a widely used approach for simultaneously discovering and profiling genetic polymorphisms. We describe an alternative approach for RAD genotyping with several useful features, called 2b-RAD for the use of type IIB restriction endonucleases \\(AlfI, BsaXI). The fragments excised by type IIB enzymes are uniform in length, streamlining library preparation and producing even sequencing coverage across the genome. The cohesive ends present on both 5\u2019 and 3\u2019 ends of each fragment make it possible to target a defined subset of restriction sites using modified adaptors. Marker density can be adjusted as needed in this way, greatly reducing sequencing coverage requirements and costs. 2b-RAD offers a cost-effective strategy for high-throughput genotyping that is widely suitable for linkage mapping and profiling genetic variation in natural populations.",
+        "manuscriptTitle": "Sample preparation for 2b-RAD genotyping",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2012-06-06 15:07:34",
+                "doi": "10.1038/protex.2012.010",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9fbfffc9-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "June 6th, 2012",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 2704,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 2705,
+                "name": "Genetics"
+            },
+            {
+                "id": 2706,
+                "name": "Molecular Biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2012-06-06 15:07:34",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

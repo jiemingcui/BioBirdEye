@@ -1,0 +1,265 @@
+{
+    "identity": "pex-1636",
+    "title": "<p>Resampled dimensional reduction for feature representation in machine learning</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>Adoption of insurance-based healthcare is emerging worldwide, which needs better prevention in order to improve both patient outcome and healthcare efficiency. To achieve these goals, machine learning algorithms are widely applied for developing a clinical prediction with satisfying predictive performance.<sup>1-6</sup> However, machine learning models, including those applying multivariable logistic regression, were high risk of bias, especially because of low sample size in relative to the number of candidate predictors.<sup>7</sup></p><p>To deal with this problem, dimensional reduction can be applied to represent many candidate predictors into fewer latent variables. However, most prediction models that used these variables, if not all, conducted a dimensional reduction without either resampling or data partition, which exposed to a risk of optimistic bias, and is not robust for samples beyond the training set, which is one of the main problems in current machine learning practice.<sup>8</sup> This is because resampling or data partition are more well-known in either predictive modeling or supervised machine learning, compared to a dimensional reduction that is typically used for statistical inference and unsupervised machine learning.</p><p>We applied this protocol for multiple studies in a human-machine learning project. This compared our human-machine learning algorithm with those applying human learning and other machine learning algorithms to predict a variety of health outcomes. Ethical clearance was waived by the Taipei Medical University Joint Institutional Review Board (TMU-JIRB number: N202106025). We followed two guidelines for developing and reporting machine learning predictive models in biomedical research,<sup>9,10</sup> specific for multivariable prediction models instead of those identifying risk or prognostic factors.<sup>10</sup> This protocol aimed to provide a resampling protocol for dimensional reduction resulting a few latent variables, focusing on but not limited to application for developing a machine learning prediction model.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": ""
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>The data analysis was conducted using R 4.0.2 programming language (R Foundation, Vienna, Austria) in RStudio 1.3.959 (RStudio PBC, Boston, MA, USA). The R packages were all in sync by utilizing Bioconductor 3.11.<sup>11</sup> Since machine learning predictive modeling was the main context of this protocol, an R package of caret 6.0.86 was used for data partition. To facilitate main steps of this protocol, we created an R package rsdr 0.1.0. We also created medhist 0.1.0 to preprocess the sample dataset. These are available for download from this repository <a href=\"https://github.com/herdiantrisufriyana\" rel=\"noopener noreferrer\" target=\"_blank\">https://github.com/herdiantrisufriyana</a>. Details on other R package versions and all of the source codes (vignette) for the data analysis are available in <a href=\"https://github.com/herdiantrisufriyana/resdimer\" rel=\"noopener noreferrer\" target=\"_blank\">https://github.com/herdiantrisufriyana/resdimer</a>.</p><p>A set of hardware requirements may be needed to reproduce our work. This is a single machine with 8 logical processors for the 3.40 GHz central processing unit (CPU) (Core (TM) i7-4770, Intel\u00ae, Santa Clara, CA, USA), and 16 GB RAM. But, if the sample size is smaller than that of dataset we used in this protocol, a machine with only 4 logical processors and 4 GB RAM can also be used.</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "1. Split a dataset randomly for a derivation and validation set\nOnly the derivation set was used to estimate latent variables at the population level. This set was also used later for training set of a prediction model. This would make the model blinded to the distribution of weights for feature representation of any external validation sets.\n2. Choose resampling and dimensional reduction methods\nWe made the rsdr 0.1.0 (an R package) that allows future investigators to conduct a principal component (PC) analysis or singular value decomposition using resampling methods, as described in this protocol. Instead of computing singular values by bootstrapping, as an example, we computed PCs by\nk\n-fold cross-validation for reasons of simplicity considering a simpler theoretical framework and an achievable computational capacity. To compute PCs by\nk\n-fold cross-validation, each of\n\u03b2\nl\n,\n\u03bc\nj\n, and\n\u03c3\nj\nwas inferred from the derivation set only, of which a\n(K-k\nm\n)/K\npart of\nn\ninstances for\nm=[1,2,\u22ef,K]\n(equation in Figure 1) was used each time to compute the variance.\n3. Standardize each variable with variable-wise average and standard deviation\nFor every subset of resampling, an\nX\nmatrix was constructed of\nn\u00d7p\ndimensions for\ni=[1,2,\u22ef,n]\ninstances and\nj=[1,2,\u22ef,p]\ncandidate predictors. Each vector was standardized with a column-wise\n\u03bc\nj\nmean and\n\u03c3\nj\nstandard deviation of all instances for each candidate predictor.\n4. Map from higher to lower dimension by finding weights that maximize variances of new dimensions\nFor every subset of resampling, we mapped each vector\nx\n(i)\n\u2208\nX\nonto a new vector of PC scores\nt\nl(i)\n= x\n(i)\n\u2219 \u03b2\nl\nfor\nl=[1,2,\u22ef,q]\nby a matrix\n\u03b2\nof weight vectors where\nq\nranged up to\np\n. Mapping was used to find estimates of weight vectors that maximized the variance (equation in Figure 1). The\nl\nth\nPC was calculated by subtracting the\nl\nth\n-1\nPC from\nX\n, then finding the estimate of the\nl\nth\nPC as\nl\nth\n-1\nPC.\n5. Estimate\nvariable-wise average and standard deviation\nand weights of the transformation at population level\nAn estimate of the weight vector\n\u03b2\nl\nwas calculated by averaging\n\u03b2\nl\n,\n\u03bc\nj\n, and\n\u03c3\nj\nfrom all\nK=10\nof\n(K-k\nm\n)/K\nparts. The eigenvalue of the matrix is commonly known for\nX\nT\nX\n, which achieves the maximum variance by\n\u03b2\nas the eigenvector. For each PC, one can find some original variables that are represented by a PC by filtering those with minimum absolute number of estimated weights of the transformation for that PC.\n6. Apply the estimated values to standardize and transform original variables into new dimensions\nEach of original variables in either derivation or validation set was standardized by subtracting it with the variable-wise estimated average, and subsequently by dividing it with the variable-wise estimated standard deviation. All of the standardized variables were mapped to each of PCs by multiplying each of these variables with the estimated weights. A dot product, which is a PC, was a sum of all the multiplication results.\n7. Select a particular number of new dimensions with highest proportions of variance explained\nThis step is optional for predictive modeling. The recommended number of sample size in relative to the number of candidate predictors was computed for a specific algorithm (e.g. 200 events per variable for random forest).\n12\nMaximum number of candidate predictors was calculated by dividing the number of events with that number. The PCs were sorted by proportion of variance explained from the highest to the lowest. We selected top PCs as many as the maximum number of candidate predictors. Only top PCs were used for predictive modeling."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p><strong>Step 1 to 6</strong></p><p><em><u>Problem</u></em></p><p>Premature stop of computation</p><p><em><u>Possible reason</u></em></p><p>Dataset consists of a large sample size or number of variables.</p><p><em><u>Solution</u></em></p><p>Consider to use computer with larger memory size or RAM. Alternatively, split table into ones consisting unique sets of variables.</p><p><br></p><p><strong>Step 2 to 4</strong></p><p><em><u>Problem</u></em></p><p>Unable to conduct dimensional reduction</p><p><em><u>Possible reason</u></em></p><p>Variables with non-zero variances are none or only 1 variable.</p><p><em><u>Solution</u></em></p><p>Consider to collect other variables.</p><p><br></p><p><strong>Step 7</strong></p><p><em><u>Problem</u></em></p><p>No selected latent variable</p><p><em><u>Possible reason</u></em></p><p>The sample size is too small in relative to the minimum events per variable.</p><p><em><u>Solution</u></em></p><p>Consider to collect data with larger sample size.</p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p><strong>All steps</strong></p><p>Approximate time: 20 to 60 minutes (pre-computed)</p><p><br></p><p><strong>Step 1</strong></p><p>Approximate time: 5 to 10 minutes (pre-computed)</p><p><br></p><p><strong>Step 2 to 4</strong></p><p>Approximate time: 5 to 30 minutes</p><p><br></p><p><strong>Step 5 to 6</strong></p><p>Approximate time: 5 to 10 minutes</p><p><br></p><p><strong>Step 7</strong></p><p>Approximate time: 1 to 2 minutes</p><p>  </p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>The number of latent variables, i.e. PCs, is the same with that of original predictors at maximum. The composition is different among PCs for the weights of original predictors in each PC. Original predictors with larger weights may describe what a PC represents, semantically. One may assign each PC a term that describes original predictors with larger weights in that PC. By this way, this will also improve our interpretation if a PC is considered important for a prediction. Derivation of PCs with resampling may provide a better estimate for these latent variables in population. A latent variable may also imply a novel factor of a disease.</p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>1.&nbsp;Fleuren, L.M., et al. Machine learning for the prediction of sepsis: a systematic review and meta-analysis of diagnostic test accuracy. Intensive Care Med 46, 383-400 (2020).</p><p><br></p><p>2.&nbsp;Lee, Y., et al. Applications of machine learning algorithms to predict therapeutic outcomes in depression: A meta-analysis and systematic review. J Affect Disord 241, 519-532 (2018).</p><p><br></p><p>3.&nbsp;Gonem, S., Janssens, W., Das, N. &amp; Topalovic, M. Applications of artificial intelligence and machine learning in respiratory medicine. Thorax 75, 695-701 (2020).</p><p><br></p><p>4.&nbsp;Bien, N., et al. Deep-learning-assisted diagnosis for knee magnetic resonance imaging: Development and retrospective validation of MRNet. PLoS Med 15, e1002699 (2018).</p><p><br></p><p>5.&nbsp;Hannun, A.Y., et al. Cardiologist-level arrhythmia detection and classification in ambulatory electrocardiograms using a deep neural network. Nat Med 25, 65-69 (2019).</p><p><br></p><p>6.&nbsp;Rajpurkar, P., et al. Deep learning for chest radiograph diagnosis: A retrospective comparison of the CheXNeXt algorithm to practicing radiologists. PLoS Med 15, e1002686 (2018).</p><p><br></p><p>7.&nbsp;Sufriyana, H., et al. Comparison of Multivariable Logistic Regression and Other Machine Learning Algorithms for Prognostic Prediction Studies in Pregnancy Care: Systematic Review and Meta-Analysis. JMIR Med Inform 8, e16503 (2020).</p><p><br></p><p>8.&nbsp;Wilkinson, J., et al. Time to reality check the promises of machine learning-powered precision medicine. Lancet Digit Health 2, e677-e680 (2020).</p><p><br></p><p>9.&nbsp;Luo, W., et al. Guidelines for Developing and Reporting Machine Learning Predictive Models in Biomedical Research: A Multidisciplinary View. J Med Internet Res 18, e323 (2016).</p><p><br></p><p>10.&nbsp;Moons, K.G.M., et al. PROBAST: A Tool to Assess Risk of Bias and Applicability of Prediction Model Studies: Explanation and Elaboration. Ann Intern Med 170, W1-w33 (2019).</p><p><br></p><p>11.&nbsp;Huber, W., et al. Orchestrating high-throughput genomic analysis with Bioconductor. Nat Methods 12, 115-121 (2015).</p><p><br></p><p>12.&nbsp;van der Ploeg, T., Austin, P.C. &amp; Steyerberg, E.W. Modern modelling techniques are data hungry: a simulation study for predicting dichotomous endpoints. BMC Med Res Methodol 14, 137 (2014).</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>The social security administrator for health or <em>badan penyelenggara jaminan sosial (BPJS) kesehatan</em> in Indonesia gave permission to access the sample dataset in this protocol (dataset request approval number: 5064/I.2/0421). This protocol was funded by the Ministry of Science and Technology (MOST) in Taiwan (grant number MOST109-2221-E-038-018 and MOST110-2628-E-038-001) and the Higher Education Sprout Project from the Ministry of Education (MOE) in Taiwan (grant number DP2-110-21121-01-A-13) to Emily Chia-Yu Su.</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1101/2021.06.16.21258884",
+                "date": "2021-06-22 23:00:30",
+                "title": "Prognostication for prelabor rupture of membranes and the time of delivery in nationwide insured women: development, validation, and deployment",
+                "authors": [
+                    "Herdiantri Sufriyana",
+                    "Yu-Wei Wu",
+                    "Emily Chia-Yu Su"
+                ],
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 49768339,
+                "identity": "1b27ca31-c526-40de-9bb1-7f9a93bbf0f0",
+                "order_by": 0,
+                "name": "Herdiantri Sufriyana",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0001-9178-0222",
+                "institution": "(1) Graduate Institute of Biomedical Informatics, College of Medical Science and Technology, Taipei Medical University, 250 Wu-Xing Street, Taipei 11031, Taiwan. (2) Department of Medical Physiology, Faculty of Medicine, Universitas Nahdlatul Ulama Surabaya, 57 Raya Jemursari Road, Surabaya 60237, Indonesia.",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Herdiantri",
+                "middleName": "",
+                "lastName": "Sufriyana",
+                "suffix": ""
+            },
+            {
+                "id": 49768340,
+                "identity": "68cdc4f8-da53-4fda-92ed-d19aeaf3f8e3",
+                "order_by": 1,
+                "name": "Yu Wei Wu",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-5603-1194",
+                "institution": "(1) Graduate Institute of Biomedical Informatics, College of Medical Science and Technology, Taipei Medical University, 250 Wu-Xing Street, Taipei 11031, Taiwan. (2) Clinical Big Data Research Center, Taipei Medical University Hospital, 250 Wu-Xing Street, Taipei 11031, Taiwan.",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Yu",
+                "middleName": "Wei",
+                "lastName": "Wu",
+                "suffix": ""
+            },
+            {
+                "id": 49768341,
+                "identity": "5528b6ab-caef-4f55-bc98-cee7fff6127a",
+                "order_by": 2,
+                "name": "Emily Chia-Yu Su",
+                "email": "emilysu@tmu.edu.tw",
+                "orcid": "https://orcid.org/0000-0003-4801-5159",
+                "institution": "(1) Graduate Institute of Biomedical Informatics, College of Medical Science and Technology, Taipei Medical University, 250 Wu-Xing Street, Taipei 11031, Taiwan. (2) Clinical Big Data Research Center, Taipei Medical University Hospital, 250 Wu-Xing Street, Taipei 11031, Taiwan. (3) Research Center for Artificial Intelligence in Medicine, Taipei Medical University, 250 Wu-Xing Street, Taipei 11031, Taiwan.",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Emily",
+                "middleName": "Chia-Yu",
+                "lastName": "Su",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2021-09-03 06:11:22",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1636/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1636/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 14477859,
+                "identity": "db34fe43-81be-4820-b7cb-1f34d3d8bd51",
+                "added_by": "auto",
+                "created_at": "2021-10-13 08:46:36",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 1371286,
+                "visible": true,
+                "origin": "",
+                "legend": "Equation of principal component derivation by k-fold cross validation",
+                "description": "",
+                "filename": "resdimerfigure1.png",
+                "url": "https://assets.researchsquare.com/files/pex-1636/v1/fafe7230da4f0dcdab14ac73.png"
+            },
+            {
+                "id": 14477863,
+                "identity": "5c36f739-443b-45db-af42-cbc1fba3ffaa",
+                "added_by": "auto",
+                "created_at": "2021-10-13 08:49:40",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 336277,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1636/v1/36ca2d23-b782-431b-97e2-9249643d050f.pdf"
+            },
+            {
+                "id": 14477862,
+                "identity": "0b78fadc-1c01-4730-a7da-3d870b2ff1bf",
+                "added_by": "auto",
+                "created_at": "2021-10-13 08:49:36",
+                "extension": "pdf",
+                "order_by": 1,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 18888,
+                "visible": true,
+                "origin": "",
+                "legend": "Supplementary information for source code description",
+                "description": "",
+                "filename": "suppprotocolresdimer.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1636/v1/1f2e75a31c7187e1bf49c2bc.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "resampling method, dimensional reduction, latent variable, machine learning",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>We aimed to provide a resampling protocol for dimensional reduction resulting a few latent variables. The applicability focuses on but not limited for developing a machine learning prediction model in order to improve the number of sample size in relative to the number of candidate predictors. By this feature representation technique, one can improve generalization by preventing latent variables to overfit data used to conduct the dimensional reduction. However, this technique may warrant more computational capacity and time to conduct the procedure. The key stages consisted of derivation of latent variables from multiple resampling subsets, parameter estimation of latent variables in population, and selection of latent variables transformed by the estimated parameters.</p>",
+        "manuscriptTitle": "Resampled dimensional reduction for feature representation in machine learning",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2021-10-13 08:46:34",
+                "doi": "10.21203/rs.3.pex-1636/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "0c701e94-2fd4-4b1a-8893-957eeabc4181",
+        "owner": [],
+        "postedDate": "October 13th, 2021",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 6929016,
+                "name": "Information theory and computation"
+            },
+            {
+                "id": 6929017,
+                "name": "Computational biology and bioinformatics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2021-10-13 08:46:34",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

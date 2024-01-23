@@ -1,0 +1,381 @@
+{
+    "identity": "nprot-4095",
+    "title": "epicPCR \\(Emulsion, Paired Isolation, and Concatenation PCR)",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<a href=\"http://www.nature.com/protocolexchange/protocols/4095/uploads/3803\" > <img src=\"http://www.nature.com/protocolexchange/system/uploads/3803/original/Spencer2015_Fig1.png?1437747673\" > </a>\r\n\n\n\r\n\n\nepicPCR accepts microbial cells directly from an environmental source, then generates single-cell gene fusions in high-throughput \\(Fig. 1).  The gene fusions are generated in an emulsion, then amplified in bulk via a nested reaction.  Thus each targeted gene should have three conserved sites for primer design \\(two for the initial fusion and one more for the nested reaction).  The more rare a targeted gene, the more challenging library amplification will become - we recommend controlled titrations to determine a lower limit for your gene of interest.  Completing more identical emulsions with the same primers and sample source, then combining the fusion amplicons can also improve performance for rare genes.\r\n\n\n\r\n\n\nWe are excited about extensions and modifications to this core methodology.  Hydrogel encapsulation in particular enables a range of new techniques, including fluorescent sorting of hydrogel beads, covalently attached nucleotides, etc.  Please refer to the manuscript for novel designs of synthetic control beads and discussion of future applications.\r\n\n\n\r\n\n\n**Primer design**\r\n\n\nThe following schematic \\(Fig. 2) describes the gene-specific primers that must be designed for each new functional gene assay.  The schematic abbreviations are used in the Protocol section to designate necessary concentrations.\r\n\n\n\r\n\n\n<a href=\"http://www.nature.com/protocolexchange/protocols/4095/uploads/3805\" > <img src=\"http://www.nature.com/protocolexchange/system/uploads/3805/original/Spencer2015_Fig2.png?1437747693\" > </a>\r\n\n\n\r\n\n\n_Fusion primer design_\r\n\n\nF1: forward primer targeting a conserved site, distance to R1 should be less than 1,000 bp.\r\n\n\nR2: reverse primer targeting the 16S rRNA gene; we recommend the universal 1492R primer.\r\n\n\nR1-F2': bridge primer to connect the genes.  R1 is a reverse primer on the target functional gene, and F2' is the reverse complement of a 16S rRNA gene forward primer.  For F2' we recommend the universal primer 519R.\r\n\n\n\r\n\n\n_Nested primer design_\r\n\n\nF3: A primer that nests within the functional gene, ideally < 300 bp from R1.  Add an Illumina overhang \\(5'-ACACGACGCTCTTCCGATCTYRYR-3') to the 5' end of the primer.\r\n\n\nR3: A primer that nests within the 16S rRNA gene; we recommend the universal primer 786R.  Add an Illumina overhang \\(5'-CGGCATTCCTGCTGAACCGCTCTTCCGATCT-3') to the 5' end of the primer.\r\n\n\nblockF: Add 10 'T' bases to the 5' end of F2 and a 3-carbon spacer to the 3' end.\r\n\n\nblockR: Add 10 'T' bases to the 5' end of F2' and a 3-carbon spacer to the 3' end.\r\n\n\n\r\n\n\n_Illumina adapter primer design_\r\n\n\nPE-PCR-III-F: A forward flow cell adapter \\(5'-AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCT-3')\r\n\n\nPE-PCR-IV-XXX: A reverse flow cell adapter with a variable 9 bp barcode \\(5'-CAAGCAGAAGACGGCATACGAGATNNNNNNNNNCGGTCTCGGCATTCCTGCTGAACCGCTCTTCCGATCT-3'); optional barcodes listed in the Supplementary Information of the associated publication, Spencer and Tamminen _et al._, _ISME J_ \\(2015)."
+        },
+        {
+            "header": "Reagents",
+            "content": "Acrylamide \\(for molecular biology, \u226599.5%, Sigma, St. Louis, MO, USA)\r\n\n\nBAC \\(N,N\u2032-Bis\\(acryloyl)cystamine, suitable for electrophoresis, Sigma)*\r\n\n\nAmmonium persulfate \\(for molecular biology, \u226598.0%, Sigma)\r\n\n\nTEMED \\(N,N,N\u2032,N\u2032-Tetramethylethylenediamine, \u226599.5%, Sigma)\r\n\n\nSpan 80 \\(Sigma)\r\n\n\nTween 80 \\(Sigma)\r\n\n\nTriton X-100 \\(molecular biology grade, EMD Millipore, Billerica, MA, USA)\r\n\n\nMineral oil \\(light, suitable for cell culture, Sigma)\r\n\n\nDiethyl ether \\(water-saturated, \u226599.5%, Sigma)\r\n\n\nUltraPure DNase/RNase-Free Distilled Water \\(Life Technologies, Grand Island, NY, USA)\r\n\n\nTris-HCl \\(pH 7.5, Teknova, Hollister, CA, USA)\r\n\n\nKCl \\(\u226599.0%, VWR, Radnor, PA, USA)\r\n\n\nABIL EM 90, a surfactant \\(Evonik, Mobile, AL, USA)\r\n\n\nBSA \\(molecular biology grade, NEB, Ipswich, MA, USA)\r\n\n\nTween 20 \\(for molecular biology, Sigma)\r\n\n\nDeoxynucleotide \\(dNTP) Solution Mix \\(10 mM each, NEB)\r\n\n\nPhusion Hot Start Flex DNA Polymerase \\(NEB)\r\n\n\nEthylenediaminetetraacetic acid \\(EDTA, suitable for cell culture, Sigma)\r\n\n\nEthyl acetate \\(water-saturated, ACS grade, \u226599.5%, BDH, Poole Dorset, UK)\r\n\n\nAgencourt AMPure XP - PCR Purification \\(Beckman Coulter, Danvers, MA, USA)\r\n\n\nEthanol \\(200 proof, VWR)\r\n\n\nE-Gel 1 Kb Plus DNA Ladder \\(Invitrogen)\r\n\n\n\r\n\n\n_Optional_\r\n\n\nReady-Lyse Lysozyme Solution \\(Epicentre, Madison, WI, USA)\r\n\n\nProteinase K from Tritirachium album \\(for molecular biology, Sigma)\r\n\n\nSYBR Green I Nucleic Acid Gel Stain \\(10,000X, Invitrogen, Waltham, MA, USA)\r\n\n\n\r\n\n\n*Can be substituted for bisacrylamide \\(N,N\u2032-Methylenebis\\(acrylamide), 99%, Sigma)"
+        },
+        {
+            "header": "Equipment",
+            "content": "1.5 ml Safe-Lock Microcentrifuge Tubes, Polypropylene \\(Eppendorf, Hamburg, DE)\r\n\n\n2 ml Safe-Lock Microcentrifuge Tubes, Polypropylene \\(round-bottom, Eppendorf)\r\n\n\nPCR 8-Well Tube Strips with Individually Attached Caps \\(VWR)\r\n\n\nMicrocentrifuge \\(Microcentrifuge 5415D, Eppendorf)\r\n\n\nThermal-cycler \\(C1000 Touch Thermal Cycler, Bio-Rad, Hercules, CA, USA)\r\n\n\nBD Falcon 35\u03bcm Cell Strainer in 12x75 mm Polystyrene Tube \\(Corning, Tewksbury, MA, USA)\r\n\n\n2 mm glass beads \\(Andwin Scientific, Schaumburg, IL, USA)\r\n\n\nDynaMag-2 Magnet \\(Life Technologies)\r\n\n\nE-Gel iBase and E-Gel Safe Imager \\(Invitrogen)\r\n\n\nE-Gel EX Agarose Gels, 1% \\(Invitrogen)\r\n\n\n\r\n\n\n_Optional_\r\n\n\nReal-Time PCR System \\(CFX96 Real-Time PCR Detection System, Bio-Rad)"
+        },
+        {
+            "header": "Procedure",
+            "content": "**REAGENT SETUP**\r\n\n\n_Acrylamide solution \\(store at 4\u00b0C)_\r\n\n\n12% Acrylamide\r\n\n\n0.32% BAC \\(N,N\u2032-Bis\\(acryloyl)cystamine)\r\n\n\n\r\n\n\n_1X TK buffer \\(recommended filter through 0.2 \u03bcm, store at RT)_\r\n\n\n20 mM Tris-HCl \\(pH 7.5)*\r\n\n\n60 mM KCl*\r\n\n\n*autoclave the two liquid stocks before combining\r\n\n\n\r\n\n\n_STT emulsion oil \\(store at RT, should be prepared fresh every two weeks)_\r\n\n\n4.5% Span 80\r\n\n\n0.4% Tween 80\r\n\n\n0.05% Triton X-100\r\n\n\nv/v in Mineral oil\r\n\n\n\r\n\n\n_ABIL emulsion oil \\(store at RT)_\r\n\n\n4% ABIL EM 90\r\n\n\n0.05% Triton X-100\r\n\n\nv/v in Mineral oil\r\n\n\n\r\n\n\n**PROCEDURE**\r\n\n\n**Stage 1: Polyacrylamide bead formation**\r\n\n\nTIMING: 4 h\r\n\n\n1 Start with 10-20 million cells in 30 \u03bcl water.  No initial filtering is required for environmental samples.  If cells need to be spun down and resuspended, spin at 12,000 _g_ for 1 min in a microcentrifuge or 4,000 rpm \\(max speed) for 5 min at 4\u00b0C in a benchtop centrifuge.  Draw off supernatant and resuspend in 30 \u03bcl nuclease-free water.\r\n\n\nCRITICAL STEP: Be mindful of what liquid the cells are resuspended in.  This protocol has been successful with cells resuspended in water and liquid LB, but different salt or chemical concentrations may affect emulsion stability and should be tested.  Also consider to what extent cells exist in aggregates vs. in a single-cell state.  Vortexing \\(Steps 3 and 4) should disperse most cell aggregates, but upstream sonication or filtering may be necessary to ensure predominantly single cells.\r\n\n\n2 Combine the following in a 2 ml round-bottom microcentrifuge tube.  Vortex gently to mix.\r\n\n\n\u2022 30 \u03bcl suspended cells\r\n\n\n\u2022 200 \u03bcl 12% acrylamide/BAC\r\n\n\n\u2022 25 \u03bcl 10% APS\r\n\n\n3 Add 600 \u03bcl STT emulsion oil \\(shake & mix thoroughly before use).  Vortex the combined aqueous and oil phases at max speed \\(3,000 rpm) for 30 sec.\r\n\n\n4 Add 25 \u03bcl TEMED to the emulsion.  Vortex at max speed \\(3,000 rpm) for 30 sec.\r\n\n\n5 Let tube sit on the benchtop at room temperature and polymerize for 90 min.\r\n\n\n6 Add 800 \u03bcl diethyl ether to the microcentrifuge tube, then immediately close, invert, and flick the microcentrifuge tube to mix the emulsion with the ether.  A visible precipitate ought to form.  Draw off the ether/oil mixture around the precipitate and discard in a dedicated chemical waste container.\r\n\n\nCRITICAL STEP: First shake the bottle of diethyl ether in a chemical hood, opening occasionally to prevent pressure from building up as the ether dissolves in water.  Draw from the top phase after it settles.  Invert and mix the microcentrifuge tube as soon as possible after ether addition.\r\n\n\n7 Add 1 ml nuclease-free water to the top of the microcentrifuge tube and mix by flicking and inverting.  Transfer suspended mixture to a 1.5 ml eppendorf tube.  Centrifuge for 30 seconds at 12,000 _g_.  Three layers should form: a bottom layer of beads, a middle cloudy layer of oil/water, and a top milky layer of oil.\r\n\n\n8 Using a P1000 pipette, draw off the top oil layer as much as possible and discard it.  Add more water \\(or the remaining bead suspension from the 2 ml microcentrifuge tube) and repeat this wash \\(Steps 7 and 8) five or more times until there is no remaining oil at the top of the tube.\r\n\n\n9 Once the oil is removed, aspirate all remaining water without disturbing the bottom bead layer.  Resuspend the beads in 1 mL 1X TK buffer.  Run this bead suspension through a 35 \u03bcm cell strainer; pipette forcefully in small portions to move the liquid through the filter.  Transfer the flow-through to a fresh 1.5 ml microcentrifuge tube and store at 4\u00b0C.\r\n\n\nPAUSE POINT: Polyacrylamide beads containing single cells can be stored at 4\u00b0C for 1-2 months, although we recommend lysis and fusion PCR as soon as possible \\(within a few days) after bead polymerization.\r\n\n\n\r\n\n\n**Optional: Cell lysis**\r\n\n\nTIMING: 1 d\r\n\n\n1 Mix polyacrylamide bead tube from Stage 1 by flicking and inverting.  Aliquot total desired amount for lysis into 50 \u03bcl aliquots in 200 \u03bcl PCR tubes.\r\n\n\n2 Add 0.4 \u03bcl Ready-Lyse Lysozyme \\(35,000 U/\u03bcl, Epicentre, Madison, WI, USA) to each polyacrylamide bead aliquot.\r\n\n\n3 Incubate at 37 \u00b0C overnight.\r\n\n\n4 Centrifuge each aliquot at 12,000 _g_ for 30 s, discard liquid phase above the beads, and resuspend in 1X TK buffer to 40 \u03bcl.\r\n\n\n5 Add 10 \u03bcl proteinase K \\(1 mg/ml, Sigma, St. Louis, MO, USA) and 0.4 \u03bcl Triton X-100.\r\n\n\n6 Incubate samples at the following temperatures: 37 \u00b0C for 30 min, 95 \u00b0C for 10 min, 4 \u00b0C hold.\r\n\n\n7 Pool polyacrylamide bead aliquots in a 1.5 ml microcentrifuge tube.  Centrifuge at 12,000 _g_ for 30 s and resuspend in 1X TK buffer three times to dilute the Triton X-100.\r\n\n\nCRITICAL STEP: Different cell types may require different lysis procedures, or none at all.  Any enzymatic and chemical reagents typical for a 16S rRNA gene library preparation can also be applied to polyacrylamide beads, and optimal lysis treatment may vary depending on sample type.  In addition to enzymatic and chemical lysis, freeze/thaw cycles are possible if the polyacrylamide beads are separated into 25-50 \u03bcl aliquots \\(to control the size of ice crystal formation).\r\n\n\nPAUSE POINT: Polyacrylamide beads containing exposed genomes can be stored at 4 \u00b0C for 1-2 months, although we recommend fusion PCR as soon as possible \\(within a few days) after lysis treatment.\r\n\n\n\r\n\n\n**Stage 2: Fusion PCR**\r\n\n\nTIMING: 4 h\r\n\n\n10 Label a round-bottom 2 ml tube for each sample.  Add four 2 mm glass beads and 900 \u03bcl ABIL emulsion oil to each tube.\r\n\n\n11 Prepare the following mix, multiplied by the number of samples \u00d7 1.1:\r\n\n\n\u2022 Nuclease-free water 1 \u03bcl\r\n\n\n\u2022 5X Phusion HF buffer 20 \u03bcl\r\n\n\n\u2022 50 mM MgCl\n2\n2 \u03bcl\r\n\n\n\u2022 10 mM dNTPs 2.5 \u03bcl\r\n\n\n\u2022 F1 \\(10 uM) 10 \u03bcl\r\n\n\n\u2022 R2 \\(10 uM) 10 \u03bcl\r\n\n\n\u2022 R1-F2\u2019 \\(1 uM) 1 \u03bcl\r\n\n\n\u2022 BSA 0.5 \u03bcl\r\n\n\n\u2022 Tween-20 0.2 \u03bcl\r\n\n\n\u2022 Phusion Hot Start Flex 8 \u03bcl\r\n\n\n12 Aliquot 55.2 \u03bcl mix into PCR tubes for each sample.\r\n\n\n13 Add 45 \u03bcl of polyacrylamide beads \\(from Stage 1 with optional lysis treatment) to each sample.  Mix by hand, then add to the prepared round-bottom tubes.\r\n\n\n14 Emulsify by vortexing at 3,000 rpm for 1 min.\r\n\n\n15 Aliquot each sample into 16 PCR tubes, 60 \u03bcl each.  Run the following cycling program: 94\u00b0C 30 s, \\[94\u00b0C 5 s, 52\u00b0C 30 s, 72\u00b0C 30 s] for 33 cycles total, 72\u00b0C 5 min, 4\u00b0C hold.\r\n\n\n16 Immediately after the fusion reaction, pool the emulsion aliquots for each sample into a 1.5 ml microcentrifuge tube.  Add a total of 1 mM EDTA \\(2 \u03bcl of 50 mM EDTA) to each pooled sample.\r\n\n\nPAUSE POINT: Once sample aliquots are pooed and EDTA is added, emulsions can be stored at 4 \u00b0C overnight.\r\n\n\n\r\n\n\n**Stage 3: Break ABIL emulsions**\r\n\n\nTIMING: 5 h\r\n\n\n17 Centrifuge the pooled samples from Stage 2 at 13,000 _g_ for 5 min at 25 \u00b0C. Dispose of the upper \\(oil) phase.\r\n\n\n18 Shake water-saturated diethyl ether \\(1:1 mixture of ether:water) for 30 s and open cap occasionally prevent pressure buildup.  Allow the phases to settle before use and draw from the top \\(ether) phase.\r\n\n\n19 Add 1 ml of diethyl ether to each sample, then vortex gently to mix.  Centrifuge samples for 1 min at 13,000 _g_ to separate the phases. Dispose of the upper \\(solvent) phase.  Repeat.\r\n\n\n20 Perform an extraction \\(Step 19) with water-saturated ethyl acetate.  Ethyl acetate is also less dense than water and will comprise the upper phase.\r\n\n\n21 Perform two more extractions with diethyl ether. Dispose of the upper \\(solvent) phase.\r\n\n\n22 Leave the samples open in a laminar flood hood or covered area for 10 min so the remaining diethyl ether can evaporate.  Collect 100-150 \u00b5l from the bottom phase.\r\n\n\nPAUSE POINT: Extracted reactions can be stored at 4 \u00b0C for a few hours or at -20 \u00b0C overnight.\r\n\n\n23 Use AMPure XP beads to purify the fusion PCR products for the nested reaction \\(see \u2018AMPure XP PCR cleanup\u2019).\r\n\n\nPAUSE POINT: Purified reactions can be stored at 4 \u00b0C for a few hours or at -20 \u00b0C overnight.\r\n\n\n\r\n\n\n**Repeated: AMPure XP PCR cleanup**\r\n\n\nTIMING: 2 h\r\n\n\n1 Shake or vortex the bottle of AMPure XP beads to suspend beads.  For each 100 \u03bcl sample, aliquot 85.5 \u03bcl beads into a 1.5 ml microcentrifuge tube.  If samples are >100 \u03bcl, scale the volume of beads to add.  Let the aliquot sit on the bench during setup and make sure it is room temperature by the end of setup.  30 min max for equilibration to room temperature.\r\n\n\n2 Add unpurified DNA samples to the bead aliquots.  Mix by vortexing gently until homogenous.  Incubate 13 min at room temperature to bind DNA.\r\n\n\n3 Separate beads on magnet for 2 min.  Then while on magnet, remove and discard the supernatant.\r\n\n\n4 Wash beads twice with 70% EtOH, using 500 \u03bcl each wash.  Keep tubes on the magnet during the entire wash.\r\n\n\n5 Open the tubes and air dry the beads for 15-20 min on magnet, in a laminar flow hood or covered area.  Check that beads appear dry and there are no droplets on the sides of the tube. Dry up to 30 min or even an hour if necessary.\r\n\n\n6 Remove samples from magnet, elute in 40 \u03bcl Buffer EB \\(or purified water), vortex gently to resuspend.\r\n\n\n7 Incubate 7 min at room temperature to elute the DNA.\r\n\n\n8 Separate beads on magnet for 2 min.  Collect 35-40 \u03bcl of the supernatant and store in a fresh 1.5 ml microcentrifuge tube.\r\n\n\n\r\n\n\n**Optional: Nested qPCR**\r\n\n\nTIMING: 4 h\r\n\n\n1 Prepare a qPCR mix to determine the optimal nested PCR cycle numbers for different samples.  Each sample should have duplicate qPCR reactions and there should also be a no-template negative control \\(also in duplicate).  Prepare the following mix, multiplied by the number of qPCR samples \u00d7 1.1:\r\n\n\n\u2022 Nuclease-free water 7.125 \u03bcl\r\n\n\n\u2022 5X HF 5 \u03bcl\r\n\n\n\u2022 10 mM dNTP 0.5 \u03bcl\r\n\n\n\u2022 F3 \\(3 \u03bcM) 2.5 \u03bcl\r\n\n\n\u2022 R3 \\(3 \u03bcM) 2.5 \u03bcl\r\n\n\n\u2022 blockF \\(32 \u03bcM) 2.5 \u03bcl\r\n\n\n\u2022 blockR \\(32 \u03bcM) 2.5 \u03bcl\r\n\n\n\u2022 2 U/\u03bcl Phusion Hot Start Flex 0.25 \u03bcl\r\n\n\n\u2022 100X SYBR Green I 0.125 \u03bcl\r\n\n\n3 Aliquot 23 \u03bcl mix for each reaction into white PCR tubes \\(Masterclear Cap and Tube Strips, VWR, Radnor, PA, USA).  Add 2 \u03bcl purified template from Stage 3 or water \\(for negative control).\r\n\n\n2 Mix the qPCR reactions by flicking and then spin down.  Attach clear cap strips.  Run the following cycling program: 98\u00b0C 30 s, \\[98\u00b0C 5 s, 52\u00b0C 30 s, 72\u00b0C 30 s] for 40 cycles total, melt curve 65\u00b0C to 95\u00b0C with 0.5\u00b0C increment for 5 s, 4\u00b0C hold.\r\n\n\n3 Use qPCR Ct values to estimate minimum cycle numbers for different samples.  If possible, dilute the more concentrated samples so all can be run with the same number of nested PCR cycles.  \\[Calculate an average Ct from sample duplicates.  Calculate delta Ct for each sample using the lowest concentration sample Ct value.  Assume 1.75x amplification each cycle.]\r\n\n\nPAUSE POINT: qPCR reactions can be discarded and templates from Stage 3 can remain stored at 4 \u00b0C for a few hours or at -20 \u00b0C overnight.\r\n\n\n\r\n\n\n**Stage 4: Nested PCR**\r\n\n\nTIMING: 4 h\r\n\n\n24 Prepare 37 \u03bcl sample dilutions in water.  If the optional qPCR step was not performed, combine 20 \u03bcl of Stage 3 product with 17 \u03bcl nuclease-free water.  If the optional step was performed, dilute according to qPCR results.\r\n\n\n25 Prepare the following mix, multiplied by the number of samples \u00d7 4 \u00d7 1.1:\r\n\n\n\u2022 5X HF Buffer 5 \u03bcl\r\n\n\n\u2022 10 mM dNTP 0.5 \u03bcl\r\n\n\n\u2022 F3 \\(3 \u03bcM) 2.5 \u03bcl\r\n\n\n\u2022 R3 \\(3 \u03bcM) 2.5 \u03bcl\r\n\n\n\u2022 blockF \\(32 \u03bcM) 2.5 \u03bcl\r\n\n\n\u2022 blockR \\(32 \u03bcM) 2.5 \u03bcl\r\n\n\n\u2022 2 U/ul Phusion Hot Start Flex 0.25 \u03bcl\r\n\n\n26 Combine 63 \u03bcl mix with 37 \u03bcl diluted samples from Step 24, mix by hand, then divide into four 25 \u03bcl aliquots.  \\[The quadruplicate aliquots reduce PCR bias.]\r\n\n\n27 Run the following cycling program: 98\u00b0C 30 s, \\[98\u00b0C 5 s, 52\u00b0C 30 s, 72\u00b0C 30 s] for 40 cycles total or variable based on qPCR Ct values, 72\u00b0C 5 min, 4\u00b0C hold.\r\n\n\nPAUSE POINT: Amplified reactions can be stored at 4 \u00b0C for a few hours or at -20 \u00b0C overnight.\r\n\n\n28 Pool replicate reactions and use AMPure XP beads to purify the nested PCR products for the final Illumina amplification \\(see \u2018AMPure XP PCR cleanup\u2019).\r\n\n\nPAUSE POINT: Purified reactions can be stored at 4 \u00b0C for a few hours or at -20 \u00b0C overnight.\r\n\n\n\r\n\n\n**Stage 5: Illumina PCR**\r\n\n\nTIMING: 5 h\r\n\n\n29 Perform a final PCR reaction to add flow-cell compatible Illumina adapters.  Every sample should be prepared in four replicate reactions to reduce PCR bias.  Prepare the following mix multiplied by the number of template samples \u00d7 4 \u00d7 1.1:\r\n\n\n\u2022 Nuclease-free water 8.65 \u03bcl\r\n\n\n\u2022 5X HF Buffer 5 \u03bcl\r\n\n\n\u2022 dNTPs 0.5 \u03bcl\r\n\n\n\u2022 PE-PCR-III-F \\(3\u03bcM) 3.3 \u03bcl\r\n\n\n\u2022 Phusion Hot Start Flex 0.25 \u03bcl\r\n\n\n\u2022 PE-PCR-IV-XXX \\(3\u03bcM) 3.3 \u03bcl\r\n\n\n30 Combine 21 \u03bcl mix with 4 \u03bcl template \\(< 250 ng), with four 25 \u03bcl replicate reactions for each sample.  Mix by hand.\r\n\n\n31 Run the following cycling program: 98\u00b0C 30 s, \\[98\u00b0C 30 s, 83\u00b0C 30 s, 72\u00b0C 30 s] for 7 cycles total, 4\u00b0C hold.\r\n\n\nPAUSE POINT: Amplified reactions can be stored at 4 \u00b0C for a few hours or at -20 \u00b0C overnight.\r\n\n\n32 Pool replicate reactions for each sample and use AMPure XP beads to purify the final Illumina library for sequencing \\(see \u2018AMPure XP PCR cleanup\u2019).\r\n\n\nPAUSE POINT: Purified reactions can be stored at 4 \u00b0C for a few hours or at -20 \u00b0C overnight.\r\n\n\n33 Run purified samples on a gel to confirm the band size of the final library.  Load a 1% E-gel EX with ladder \\(10 \u03bcl E-Gel 1 Kb Plus DNA Ladder + 10 \u03bcl water) and samples \\(2 \u03bcl sample + 18 \u03bcl water).  Run for 10 min under the 'E-gel EX 1-2% 10 minute' program.\r\n\n\n34 Submit libraries for Illumina 250-250 paired end sequencing, with an 8 bp barcode on the reverse read.  Load 20% phiX or other high diversity DNA to offset the low diversity of amplicon samples."
+        },
+        {
+            "header": "Timing",
+            "content": "The times below are estimated for handling 4-8 samples at once.  Times would decrease by approximately half if only handling 1-2 samples.\r\n\n\n\r\n\n\n**Stage 1: Polyacrylamide bead formation**\r\n\n\nTIMING: 4 h\r\n\n\n\r\n\n\n**Optional: Cell lysis**\r\n\n\nTIMING: 1 d\r\n\n\n\r\n\n\n**Stage 2: Fusion PCR**\r\n\n\nTIMING: 4 h\r\n\n\n\r\n\n\n**Stage 3: Break ABIL emulsions**\r\n\n\nTIMING: 5 h\r\n\n\n\r\n\n\n**Optional: Nested qPCR**\r\n\n\nTIMING: 4 h\r\n\n\n\r\n\n\n**Stage 4: Nested PCR**\r\n\n\nTIMING: 4 h\r\n\n\n\r\n\n\n**Stage 5: Illumina PCR**\r\n\n\nTIMING: 5 h"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/ismej.2015.124",
+                "date": "2015-09-23 12:37:55",
+                "title": "Massively parallel sequencing of single cells by epicPCR links functional genes with phylogenetic markers",
+                "authors": [
+                    "Sarah J Spencer",
+                    "Manu V Tamminen",
+                    "Sarah P Preheim",
+                    "Mira T Guo",
+                    "Adrian W Briggs",
+                    "Ilana L Brito",
+                    "David A Weitz",
+                    "Leena K Pitk\u00e4nen",
+                    "Francois Vigneault",
+                    "Marko PJuhani Virta",
+                    "and Eric J Alm"
+                ],
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 13445,
+                "identity": "a06844d3-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Manu Tamminen*",
+                "email": "mvtammin@mit.edu",
+                "orcid": "",
+                "institution": "Alm Lab, Massachusetts Institute of Technology",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Manu",
+                "middleName": "",
+                "lastName": "Tamminen*",
+                "suffix": ""
+            },
+            {
+                "id": 13454,
+                "identity": "a0685455-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Eric Alm",
+                "email": "ejalm@mit.edu",
+                "orcid": "",
+                "institution": "Alm Lab, Massachusetts Institute of Technology",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Eric",
+                "middleName": "",
+                "lastName": "Alm",
+                "suffix": ""
+            },
+            {
+                "id": 13444,
+                "identity": "a0684182-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Sarah Spencer*",
+                "email": "",
+                "orcid": "",
+                "institution": "Alm Lab, Massachusetts Institute of Technology",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Sarah",
+                "middleName": "",
+                "lastName": "Spencer*",
+                "suffix": ""
+            },
+            {
+                "id": 13446,
+                "identity": "a06847c8-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Sarah Preheim",
+                "email": "",
+                "orcid": "",
+                "institution": "Alm Lab, Massachusetts Institute of Technology",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Sarah",
+                "middleName": "",
+                "lastName": "Preheim",
+                "suffix": ""
+            },
+            {
+                "id": 13447,
+                "identity": "a068495a-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Mira Guo",
+                "email": "",
+                "orcid": "",
+                "institution": "Weitz Lab, Harvard University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Mira",
+                "middleName": "",
+                "lastName": "Guo",
+                "suffix": ""
+            },
+            {
+                "id": 13448,
+                "identity": "a0684bea-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Adrian Briggs",
+                "email": "",
+                "orcid": "",
+                "institution": "AbVitro, Inc.",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Adrian",
+                "middleName": "",
+                "lastName": "Briggs",
+                "suffix": ""
+            },
+            {
+                "id": 13449,
+                "identity": "a0684d66-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Ilana Brito",
+                "email": "",
+                "orcid": "",
+                "institution": "Alm Lab, Massachusetts Institute of Technology",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Ilana",
+                "middleName": "",
+                "lastName": "Brito",
+                "suffix": ""
+            },
+            {
+                "id": 13450,
+                "identity": "a0684ec6-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "David Weitz",
+                "email": "",
+                "orcid": "",
+                "institution": "Weitz Lab, Harvard University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "David",
+                "middleName": "",
+                "lastName": "Weitz",
+                "suffix": ""
+            },
+            {
+                "id": 13451,
+                "identity": "a0685014-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Leena Pitk\u00e4nen",
+                "email": "",
+                "orcid": "",
+                "institution": "Virta Lab, University of Helsinki",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Leena",
+                "middleName": "",
+                "lastName": "Pitk\u00e4nen",
+                "suffix": ""
+            },
+            {
+                "id": 13452,
+                "identity": "a0685175-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Francois Vigneault",
+                "email": "",
+                "orcid": "",
+                "institution": "AbVitro, Inc.",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Francois",
+                "middleName": "",
+                "lastName": "Vigneault",
+                "suffix": ""
+            },
+            {
+                "id": 13453,
+                "identity": "a06852c6-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Marko Virta",
+                "email": "",
+                "orcid": "",
+                "institution": "Virta Lab, University of Helsinki",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Marko",
+                "middleName": "",
+                "lastName": "Virta",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2015-09-23 12:39:02",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2015.094",
+        "doiUrl": "https://doi.org/10.1038/protex.2015.094",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2609202,
+                "identity": "dec547c0-f3b7-41da-944b-20751abd3b86",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:45",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 49815,
+                "visible": true,
+                "origin": "",
+                "legend": "Workflow of epicPCR   A) Microbial cells in acrylamide suspension are mixed into emulsion oil. The emulsion droplets are polymerized into polyacrylamide beads containing single cells. The emulsion is broken and the cells in the polyacrylamide beads are treated enzymatically to destroy cell walls, membranes and protein components, and expose genomic DNA. B) Polyacrylamide-trapped, permeabilized microbial cells are encapsulated into an emulsion with fusion PCR reagents. C) Fusion PCR first amplifies a target gene with an overhang of 16S rRNA gene homology. With a limiting concentration of overhang primer, the target gene amplicon will anneal and extend into the 16S rRNA gene, forming a fusion product that continues to amplify from a reverse 16S rRNA gene primer. D) The fused amplicons only form in the emulsion compartments where a given microbial cell has the target functional gene. E) After breaking the emulsion the fused amplicons are prepared for next-gen sequencing. The resulting DNA sequences are concatemers of the target functional gene and the 16S rRNA gene of the same cell.",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-4095/v1/figure_1.png"
+            },
+            {
+                "id": 2609203,
+                "identity": "cf99af93-c1d8-4af5-8039-d765ab27e6a9",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:45",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 10273,
+                "visible": true,
+                "origin": "",
+                "legend": "Primer design for epicPCR   A) Fusion PCR joins together two amplicons in a single reaction. The amplification first proceeds exponentially for the functional target gene from primers F1 and R1-F2\u2019 and linearly for the 16S ribosomal RNA gene from primer R2. Primer R1-F2\u2019 adds an overhang to the target gene amplicon that is specific to the start of 16S ribosomal RNA gene. Primers F1 and R2 are in excess over R1-F2\u2019, causing its depletion during the early cycles of PCR. After depletion of R1-F2\u2019, the 16S ribosomal RNA-specific overhang of the target gene amplicon primes the 16S ribosomal RNA gene creating a fused product. This fused product is subsequently exponentially amplified by F1 and R2. B) In the nested reaction, successful fusion products are amplified with Illumina adapters while partial fusion products are dampened by blocking primers. The blocking primers, added in excess, anneal to the universal 519R sequence but do not extend from the primer end due to a 3\u2019 3-carbon-spacer. Instead, extension occurs from the 3\u2019 end of partial fusion products into the overhang region of the blocking primer, adding a string of A bases to the partially fused pieces. This A tail prevents partially fused pieces from annealing, extending, and generating spurious fusion products.",
+                "description": "",
+                "filename": "figure2.png",
+                "url": "https://assets.researchsquare.com/files/nprot-4095/v1/figure_2.png"
+            },
+            {
+                "id": 13465023,
+                "identity": "12a13d83-b166-4ffa-bca2-919ae0afc904",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:45:18",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 225778,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-4095/v1/b4b9a60a-1b90-4608-89bd-ea8adbe95636.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "single cell, parallel sequencing, emulsion, fusion PCR, cell isolation",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "Many microbial communities are characterized by high genetic diversity. 16S ribosomal RNA sequencing can determine community members, and metagenomics can determine the functional diversity, but resolving the functional role of individual cells in high-throughput remains an unsolved challenge. Here, we describe epicPCR \\(Emulsion, Paired Isolation, and Concatenation PCR), a new technique that links functional genes and phylogenetic markers in uncultured single cells, providing a throughput of hundreds of thousands of cells with costs comparable to one genomic library preparation. We demonstrate the utility of our technique in a natural environment by profiling a sulfate-reducing community in a freshwater lake, revealing both known sulfate reducers and discovering new putative sulfate reducers. Our method is adaptable to any conserved genetic trait and translates genetic associations from diverse microbial samples into a sequencing library that answers targeted ecological questions. Potential applications include identifying functional community members, tracing horizontal gene transfer networks, and mapping ecological interactions between microbial cells.",
+        "manuscriptTitle": "epicPCR (Emulsion, Paired Isolation, and Concatenation PCR)",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2015-10-12 22:21:21",
+                "doi": "10.1038/protex.2015.094",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a067ecb5-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "October 12th, 2015",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3387,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 3388,
+                "name": "Microbiology"
+            },
+            {
+                "id": 3389,
+                "name": "Molecular Biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2015-10-12 22:21:21",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

@@ -1,0 +1,314 @@
+{
+    "identity": "nprot-6257",
+    "title": "Thiol-linked alkylation for the metabolic sequencing of RNA \\(SLAMseq)",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "In thiol-linked alkylation for the metabolic sequencing of RNA \\(SLAMseq), nascent RNA is labeled by the addition of 4-thiouridine \\(s<sup>4</sup>U) to cell culture growth medium. After RNA extraction, RNA is subjected to iodoacetamide treatment that covalently attaches a carboxyamidomethyl-group to s<sup>4</sup>U by nucleophilic substitution. Reverse-transcription during library preparation specifically misincorporates G instead of A complementary to alkylated s<sup>4</sup>U positions. Hence, s<sup>4</sup>U incorporation events can be identified in sequencing data sets as T>C conversions. Working time for alkylation and QuantSeq library preparation are indicated. See Figure 1."
+        },
+        {
+            "header": "Reagents",
+            "content": "**Reagents**\r\n\n\n\r\n\n\n- 2-Propanol \\(Sigma-Aldrich, cat. no. 59300) \r\n\n\n- 4-Thiouridine \\(Sigma-Aldrich, cat. no. T4509), protect from light\r\n\n\n- Chloroform:Isoamyl Alcohol 24:1 \\(Applichem, cat. no. A1935)\r\n\n\n- DMSO \\(Sigma-Aldrich, cat. no. 41640)\r\n\n\n- Ethanol absolute \\(VWR Chemicals, cat. no 20821.321)\r\n\n\n- Glycerol \\(Sigma-Aldrich, cat. no G5516)\r\n\n\n- Glycogen \\(20 mg/ml) \\(Roche, cat. no. 10901393001) \\(optional)\r\n\n\n- Iodoacetamide \\(Sigma-Aldrich, cat. no. I1149), protect from light\r\n\n\n- MgCl<sub>2</sub> \\(Sigma-Aldrich, cat. no. M2670)\r\n\n\n- Sodium phosphate monobasic monohydrate \\(NaH<sub>2</sub>PO<sub>4</sub>, monobasic; Sigma-Aldrich, cat. no. S9638)\r\n\n\n- Di-Sodium hydrogen phosphate dehydrate \\(Na<sub>2</sub> HPO<sub>4</sub>, dibasic; Merck, cat. no. 106580)\r\n\n\n- Nuclease-free water\r\n\n\n- OmniPur\u00ae DTT \\(Merck, cat. no 3870)\r\n\n\n- Phosphate buffered saline \\(PBS; 10\u00d7, commercially available)\r\n\n\n- QuantSeq 3\u00b4 mRNA-Seq Library Kit for Illumina \\(Lexogen, cat. no. 015)\r\n\n\n- Sodium acetate \\(NaOAc, Sigma Aldrich, cat. no. 71180)\r\n\n\n- Sodium chloride \\(NaCl, Merck, cat. no. 106404)\r\n\n\n- Tris base \\(Sigma-Aldrich, cat. no. T6066)\r\n\n\n- TRIzol<sup>TM</sup> Reagent \\(Ambion, Life Technologies, cat. no. 15596018) \r\n\n\n- Optional: Bacterial Alkaline Phosphatase \\(Invitrogen, cat. no. 18011015)\r\n\n\n- Optional: Cell viability assay, e.g. CellTiterGlo\u00ae Luminescent Cell Viability assay \\(Promega, cat. no. G7570)\r\n\n\n- Optional: mESCs \\(clone AN3-12), derived from C57BL/6x129 F1 females, obtained from IMBA Haplobank \\(U. Elling _et al._, accepted for publication in Nature)\r\n\n\n- Optional: Phosphodiesterase I \\(Worthington Biochemical, cat. no. LS003926)\r\n\n\n- Optional: Uridine \\(Sigma-Aldrich, cat. no. U6381)\r\n\n\n\r\n\n\n\r\n\n\n**Buffers**\r\n\n\n\r\n\n\n_Bacterial Alkaline Phosphatase storage buffer:_\r\n\n\n10 mM Tris-HCl pH 8, 120 mM NaCl, 50% \\(v/v) glycerol\r\n\n\n\r\n\n\n_Phosphodiesterase I storage buffer:_\r\n\n\n0.1 M NaCl, 15 mM MgCl<sub>2</sub>\r\n\n\n\r\n\n\n_Sodium phosphate buffer \\(NaPO<sub>4</sub>, pH 8)_\r\n\n\nPrepare 1 M stocks solutions of NaH<sub>2</sub>PO<sub>4</sub>\u00a0\\(monobasic) and Na<sub>2</sub>HPO<sub>4</sub>\u00a0\\(dibasic): Dissolve 138 g of NaH<sub>2</sub>PO<sub>4</sub>\u2022H<sub>2</sub>O \\(monobasic) in H<sub>2</sub>O to make a final volume of 1 L and dissolve 142 g of Na<sub>2</sub>HPO<sub>4</sub> \\(dibasic) in H<sub>2</sub>O to make a final volume of 1 L.\r\n\n\nTo prepare 200 ml of 0.5 M sodium phosphate buffer \\(pH 8), mix 93.2 mL of 1 M Na<sub>2</sub>HPO<sub>4</sub> and 6.8 ml of 1 M NaH<sub>2</sub>PO<sub>4</sub> and add 100 ml of H<sub>2</sub>O. Control pH after buffer preparation using a pH meter."
+        },
+        {
+            "header": "Equipment",
+            "content": "- Standard molecular biology and cell culture lab equipment. \r\n\n\n- Illumina high-throughput sequencing machine \\(such as Illumina HiSeq 2500).\r\n\n\n- Optional: HPLC with a Supelco Discovery C18 \\(bonded phase silica 5 \u03bcM particle, 250 \u00d7 4.6 mm) reverse phase column \\(Bellefonte, PA, USA)"
+        },
+        {
+            "header": "Procedure",
+            "content": "_General considerations:_\r\n\r\n\r\nThe ability to determine de novo synthesized \\(s\n4\nU labeled) transcripts by SLAMseq will depend on \\(1) the cellular s\n4\nU uptake kinetics, labeling time and s\n4\nU concentration, \\(2) the overall transcriptional activity of the cell type and \\(3) the library sequencing depth. These parameters need to be taken into account when designing a SLAMseq experiment, particularly when employing short s\n4\nU pulse labeling, where sequencing depth demands adjustments to the given cellular parameters.\r\n\r\n\r\nWe highly recommend testing optimal concentrations of s\n4\nU for the cell line of interest by assessing cellular toxicity \\(e.g. using CellTiterGlo\u00ae Luminescent Cell Viability assay, Promega after manufacturer\u2019s instructions) and s\n4\nU incorporation rates \\(e.g. by HPLC, see below) prior to the sequencing experiment in order to meet s\n4\nU -labeling conditions that do not affect gene expression or cellular viability. \r\n\r\n\r\n\r\n\r\n\r\n**s\n4\nU Labeling of the cells \\(pulse/chase)**\r\n\r\n\r\n_Protect s\n4\nU from light._\r\n\r\n\r\nPulse labeling:\r\n\r\n\r\n- Seed cells the day before the labelling experiment in a density that allows exponential growth for the duration of the experiment \\(50-80% confluency).\r\n\r\n\r\n- Prepare cell culture growth medium supplemented with non-toxic concentrations of s\n4\nU \\(i.e. 100 \u00b5M for mESCs; Note, this concentration can vary for different cell types).\r\n\r\n\r\n- Remove media from the cells and replace with s\n4\nU -containing media to start the pulse labeling.\r\n\r\n\r\n_Note, that regular exchange of fresh s\n4\nU-containing media \\(i.e. every three hours) can significantly enhance s4U incorporation._\r\n\r\n\r\n- Take off media at the time-points of interest and lyse cells directly in TRIzol\u00ae.\r\n\r\n\r\n- Store samples at -80\u00b0C or directly proceed with RNA isolation.\r\n\r\n\r\nPulse/chase labeling:\r\n\r\n\r\n- After pulse labeling \\(see above), remove s\n4\nU -containing media from the cells.\r\n\r\n\r\n- Wash cells twice with 1 X PBS.\r\n\r\n\r\n- Add cell culture growth medium containing 100 X excess of uridine \\(compared to s\n4\nU concentration in the pulse) to cells.\r\n\r\n\r\n- Take off media at the time-points of interest and lyse the cells directly in TRIzol\u00ae.\r\n\r\n\r\n- Store samples at -80\u00b0C or directly proceed with RNA isolation.\r\n\r\n\r\n\r\n\r\n\r\n**RNA isolation**\r\n\r\n\r\n_DTT is added during RNA isolation to keep the sample under reducing conditions._\r\n\r\n\r\n- Thaw lysate and incubate 5 min at room temperature\r\n\r\n\r\n- Add 200 \u00b5l chloroform per 1 ml of TRIzol\u00ae\r\n\r\n\r\n- Shake tube vigorously for 15 sec\r\n\r\n\r\n- Incubate at room temperature for 2-3 min\r\n\r\n\r\n- Spin down at 16,000 x g for 15 min at 4\u00b0C\r\n\r\n\r\n- Transfer aqueous phase to new tube\r\n\r\n\r\n- Add 1/100 volume of 10 mM DTT \\(0.1 mM final concentration), 1 volume 2-propanol and optionally 1 \u00b5l glycogen \\(20 mg/ml)\r\n\r\n\r\n- Vortex well\r\n\r\n\r\n- Incubate 10 min at room temperature\r\n\r\n\r\n- Spin down at 16,000 x g for 20 min at 4\u00b0C\r\n\r\n\r\n- Discard supernatant\r\n\r\n\r\n- Add 500 \u00b5l 75% EtOH and 5 \u00b5l of 10 mM DTT, vortex well\r\n\r\n\r\n- Spin down at 7,500 x g for 5 min at room temperature\r\n\r\n\r\n- Remove supernatant, let the pellet dry for ~5-10 min and resuspend in appropriate amount of water supplemented with 1 mM DTT \\(final concentration)\r\n\r\n\r\n- Incubate for 10 min at 55\u00b0C\r\n\r\n\r\n- Measure concentration by Nanodrop and freeze RNA at -80\u00b0C or proceed to the next step\r\n\r\n\r\nProceed with _\u201cDigestion to single Nucleosides\u201d_ in order to prepare the samples for HPLC analysis and control s\n4\nU incorporation rates or to _\u201cThiol modification\u201d_ in order to alkylate s\n4\nU for subsequent library preparation and sequencing.\r\n\r\n\r\n\r\n\r\n\r\n**Optional: Digestion to single nucleosides and HPLC analysis**\r\n\r\n\r\n_Note: Single nucleoside digestion and HPLC analysis is optional but highly recommended to confirm adequate RNA labeling conditions, a necessary requirement for a successful SLAMseq experiment. Because HPLC-analysis is less sensitive compared to SLAMseq, s\n4\nU -incorporation is only detectable at later labeling timepoints \\(i.e. \u22653 h after labeling with 100 \u00b5M s\n4\nU in mESC)._\r\n\r\n\r\n- Prepare the reaction to digest and dephosphorylate total RNA to single nucleosides as described in Table 1.\r\n\r\n\r\n- Incubate overnight \\(\u226516h) at 37\u00b0C\r\n\r\n\r\n- Add 6 \u00b5l 3 M NaOAc \\(pH 5.2), 150 \u00b5l ice-cold 100% EtOH and 30 \u00b5l 10 mM DTT \\(1 mM final concentration), vortex\r\n\r\n\r\n- Incubate 10 min at -80\u00b0C\r\n\r\n\r\n- Spin down at 12,500 x g for 5 min at room temperature\r\n\r\n\r\n- Transfer supernatant to a new tube\r\n\r\n\r\n- Add 30 \u00b5l 10 mM DTT and 270 \u00b5l ice-cold 100% EtOH, incubate for 10 min at -80\u00b0C\r\n\r\n\r\n- Spin down at 12,500 x g for 5 min at room temperature\r\n\r\n\r\n- Transfer supernatant to a new tube\r\n\r\n\r\n- Evaporate supernatant in speed-vac to complete dryness\r\n\r\n\r\n- Dissolve sample in 50 \u00b5l H\n2\nO. Store at -20\u00b0C if necessary.\r\n\r\n\r\n- Take 25 \u00b5l of the digested RNA sample and add 75 \u00b5l H\n2\nO\r\n\r\n\r\n- For the uridine and s\n4\nU standards, prepare the stock solutions from 2 mg/ml uridine and 0.1 mg/ml s\n4\nU stock solutions as described in Table 2.\r\n\r\n\r\nPrepare the standard dilutions as described in Table 3.\r\n\r\n\r\n- Load the samples and the standards on HPLC. HPLC is performed on a Supelco Discovery C18 \\(bonded phase silica 5 \u00b5M particle, 250 x 4.6 mm) reverse phase column. For running conditions refer to \\(Spitzer et al., 2014) and \\(Andrus and Kuimelis, 2001).\r\n\r\n\r\n\r\n\r\n\r\n**Thiol modification \\(Iodoacetamide treatment)**\r\n\r\n\r\n- Prepare the reaction mix for each Iodoacetamide \\(IAA) treatment reaction as described in Table 4.\r\n\r\n\r\n- Incubate reaction at 50\u00b0C for 15 min\r\n\r\n\r\n- Stop reaction by quenching the reaction with 1 \u00b5l 1M DTT\r\n\r\n\r\n- Add 1 \u00b5l glycogen \\(20 mg/ml), 5 \u00b5l NaOAc \\(3M, pH 5.2), 125 \u00b5l EtOH 100%, vortex and precipitate for 30 min at -80\u00b0C\r\n\r\n\r\n- Spin down at 16,000 x g for 30 min\r\n\r\n\r\n- Wash with 1 ml 75% EtOH, vortex\r\n\r\n\r\n- Spin down at 16,000 x g for 10 min\r\n\r\n\r\n- Remove supernatant and let the pellet dry for 5-10 min\r\n\r\n\r\n- Resuspend in appropriate volume \\(5-10 \u00b5l) H\n2\nO \r\n\r\n\r\n- Proceed with RNA quality control and library preparation\r\n\r\n\r\n\r\n\r\n\r\n**Library preparation for High-Throughput Sequencing**\r\n\r\n\r\nFor mRNA SLAMseq, we recommend 3\u00b4 end sequencing using the QuantSeq 3\u2032 mRNA-Seq Library Prep Kit for Illumina \\(Lexogen) according to the manufacturer\u2019s instructions \\(QuantSeq FWD kit).\r\n\r\n\r\n\r\n\r\n\r\n_Considerations for sample sequencing: As standard approach, we performed SLAMseq on an Illumina HiSeq 2500 machine. Sequencing depth needs to be adjusted to s\n4\nU incorporation, which is dependent on the experimental s\n4\nU labeling time, the cellular s\n4\nU uptake kinetics and the overall transcriptional activity of the cell type. As a rough estimate \\(based on experiments using mouse embryonic stem cells), we recommend for longer labeling times \\(i.e. >3h) 10-20 million and for short pulse labelling \\(i.e. <3h) 30-50 million reads per library for efficient quantification of s\n4\nU-labeled transcripts. We recommend sequencing reactions in single read 100 \\(SR100) mode, which recovers ~70% of all labeled transcripts in mESCs under steady-state labeling conditions \\(i.e. 100 \u00b5M s\n4\nU-labeling for 24 h)._\r\n\r\n\r\n\r\n\r\n\r\n**Data analysis**\r\n\r\n\r\nIn principle, any self-assembled bioinformatics analysis pipeline can be employed to recover and quantify T>C-conversion containing reads. Bioinformatics analysis in the publication associated with this protocol has been performed using Digital Unmasking of Nucleotide conversion-containing K-mers \\(DUNK) \\(see full description and availability from\u00a0http://t-neumann.github.io/slamdunk). SLAM-DUNK \\(Neumann et al., manuscript in preparation) is a fully automated, modular and T>C-conversion-aware alignment software package streamlining SLAMseq data analysis. Briefly, SLAM-DUNK comes with several statistics and diagnostic plotting functions as well as a MultiQC \\(http://multiqc.info) plugin to make SLAMseq data analysis and integration available to bench-scientists. \r\n\r\n\r\nSLAM-DUNK executes the following four main steps:\r\n\r\n\r\n\\(1) SLAM-DUNK uses NextGenMap \\(Sedlazeck et al., 2013) to map the SLAMseq reads to a reference genome.\r\n\r\n\r\n\\(2) Reads with a high number of mismatches and reads that map to more than one annotated 3\u2032 UTR are discarded.\r\n\r\n\r\n\\(3) SLAM-DUNK uses VarScan2 \\(Koboldt et al., 2012) to identify genuine SNPs between the reference and the sequenced genomes.\r\n\r\n\r\n\\(4) SLAM-DUNK counts the number of T>C containing reads\u00a0and estimates the fraction of labeled transcripts\u00a0for each gene individually. SNP positions\u00a0and read positions with a low base quality value are automatically excluded.\r\n\r\n\r\nThe final output of SLAM-DUNK reports for each transcript the genomic coordinates and the UTR region, the T content of the UTR region, the number of mapped reads \\(raw counts and norm. counts), the number of T>C conversion-containing reads, the coverage over T positions, the T>C conversion rate, and the number of multimapping reads."
+        },
+        {
+            "header": "Tables",
+            "content": "<p>Due to technical limitations, tables 1-4 have been placed in the supplementary file section for access. <p>\r\n<p>Table 1 Reaction setup to digest and dephosphorylate total RNA to single nucleosides.</p>\r\n<p>Table 2 Stock solutions of standards used in HPLC analysis.</p>\r\n<p>Table 3 Dilution of standards used in HPLC analysis.</p>\r\n<p>Table 4 Reaction setup for iodoacetamide-treatment of s^4^U-labeled total RNA.</p>"
+        },
+        {
+            "header": "References",
+            "content": "Andrus, A., and Kuimelis, R.G. \\(2001). Analysis and purification of synthetic nucleic acids using HPLC. Curr Protoc Nucleic Acid Chem Chapter 10, Unit 10.5\u201310.5.13.\r\n\n\n\r\n\n\nKoboldt, D. C. et al. VarScan 2: somatic mutation and copy number alteration discovery in cancer by exome sequencing. Genome Res 22, 568\u2013576 \\(2012).\r\n\n\n\r\n\n\nSedlazeck, F. J., Rescheneder, P. & Haeseler, von, A. NextGenMap: fast and accurate read mapping in highly polymorphic genomes. Bioinformatics 29, 2790\u20132791 \\(2013).\r\n\n\n\r\n\n\nSpitzer, J., Hafner, M., Landthaler, M., Ascano, M., Farazi, T., Wardle, G., Nusbaum, J., Khorshid, M., Burger, L., Zavolan, M., et al. \\(2014). PAR-CLIP \\(Photoactivatable Ribonucleoside-Enhanced Crosslinking and Immunoprecipitation): a step-by-step protocol to the transcriptome-wide identification of binding sites of RNA-binding proteins. Meth. Enzymol. 539, 113\u2013161."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "We thank G. Krssakova and K. Mechtler \\(IMP) for assistance with high-performance liquid chromatography analysis and all laboratory members for support and discussions. Highthroughput\r\n\n\nsequencing was performed at the VBCF NGS Unit \\(www.vbcf.ac.at). This work was supported by grants from the European Research Council \\(ERC-StG-338252) and the Austrian Science Fund \\(Y-733-B22 START, W-1207-B09 and SFB F43-22) to S.L.A."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nmeth.4435",
+                "date": "2017-09-18 19:23:09",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 15080,
+                "identity": "a12b1571-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Stefan Ameres",
+                "email": "stefan.ameres@imba.oeaw.ac.at",
+                "orcid": "",
+                "institution": "Institute of Molecular Biotechnology (IMBA), Vienna Biocenter Campus (VBC), 1030 Vienna, Austria",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Stefan",
+                "middleName": "",
+                "lastName": "Ameres",
+                "suffix": ""
+            },
+            {
+                "id": 15078,
+                "identity": "a12b0ab8-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Veronika A. Herzog",
+                "email": "",
+                "orcid": "",
+                "institution": "Institute of Molecular Biotechnology (IMBA), Vienna Biocenter Campus (VBC), 1030 Vienna, Austria",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Veronika",
+                "middleName": "A.",
+                "lastName": "Herzog",
+                "suffix": ""
+            },
+            {
+                "id": 15079,
+                "identity": "a12b11f9-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Brian Reichholf",
+                "email": "",
+                "orcid": "",
+                "institution": "Institute of Molecular Biotechnology (IMBA), Vienna Biocenter Campus (VBC), 1030 Vienna, Austria",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Brian",
+                "middleName": "",
+                "lastName": "Reichholf",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2017-09-13 15:27:35",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2017.105",
+        "doiUrl": "https://doi.org/10.1038/protex.2017.105",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2609900,
+                "identity": "bf903776-3587-4aee-a642-7abb7b832b9e",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:16",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 96568,
+                "visible": true,
+                "origin": "",
+                "legend": "SLAMseq   Workflow associated with thiol-linked alkylation for the metabolic sequencing of RNA (SLAMseq).",
+                "description": "",
+                "filename": "figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-6257/v1/figure_1.jpg"
+            },
+            {
+                "id": 13465456,
+                "identity": "0567f354-aa86-4c0d-8e49-7a6d5eb65cbd",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:46:43",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 190533,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-6257/v1/8bc3034f-b1da-42a1-a3bb-5446016a9efc.pdf"
+            },
+            {
+                "id": 2609901,
+                "identity": "420dced4-46ca-4e02-ae92-b90cd0cc985f",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:16",
+                "extension": "jpg",
+                "order_by": 2,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 517470,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 1   Reaction setup to digest and dephosphorylate total RNA to single nucleosides.",
+                "description": "",
+                "filename": "supplement2.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-6257/v1/supplement_2.jpg"
+            },
+            {
+                "id": 2609902,
+                "identity": "0e19549d-0f7e-47e9-aeea-3cfdcaeca69b",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:16",
+                "extension": "jpg",
+                "order_by": 3,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 243418,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 2   Stock solutions of standards used in HPLC analysis.",
+                "description": "",
+                "filename": "supplement3.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-6257/v1/supplement_3.jpg"
+            },
+            {
+                "id": 2609904,
+                "identity": "f999447b-7841-496f-b402-3489cdb76194",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:16",
+                "extension": "jpg",
+                "order_by": 4,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 371478,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 3   Dilution of standards used in HPLC analysis.",
+                "description": "",
+                "filename": "supplement4.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-6257/v1/supplement_4.jpg"
+            },
+            {
+                "id": 2609906,
+                "identity": "b7457481-f20d-48be-aaae-ca6f95807a78",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:17",
+                "extension": "jpg",
+                "order_by": 5,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 415066,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 4   Reaction setup for iodoacetamide-treatment of s^4^U-labeled total RNA.",
+                "description": "",
+                "filename": "supplement5.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-6257/v1/supplement_5.jpg"
+            }
+        ],
+        "financialInterests": "The authors declare competing financial interest. A patent application related to this work has been filed.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "4-thiouridine, RNA, RNA modifications, metabolic labeling, RNA kinetics, gene expression",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "Gene expression profiling by high-throughput sequencing reveals qualitative and quantitative changes in RNA species at steady-state but obscures the intracellular dynamics of RNA transcription, processing and decay. We developed thiol\\(SH)-linked alkylation for the metabolic sequencing of RNA \\(SLAMseq), an orthogonal chemistry-based epitranscriptomics-sequencing technology that uncovers 4-thiouridine \\(s<sup>4</sup>U)-incorporation in RNA species at single-nucleotide resolution. In combination with well-established metabolic RNA labeling protocols and coupled to standard, low-input, high-throughput RNA sequencing methods, SLAMseq enables rapid access to RNA polymerase II-dependent gene expression dynamics in the context of total RNA. SLAMseq facilitates the dissection of fundamental mechanisms that control gene expression in an accessible, cost-effective, and scalable manner. \r\n\n\nThis protocol accompanies Herzog et al., Nature Methods, DOI: 10.1038/nmeth.4435.",
+        "manuscriptTitle": "Thiol-linked alkylation for the metabolic sequencing of RNA (SLAMseq)",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2017-09-25 16:25:42",
+                "doi": "10.1038/protex.2017.105",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 5
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a12a7e4c-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "September 25th, 2017",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 4044,
+                "name": "Biochemistry"
+            },
+            {
+                "id": 4045,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 4046,
+                "name": "Molecular Biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2017-09-25 16:25:42",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

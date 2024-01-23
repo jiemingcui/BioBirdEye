@@ -1,0 +1,347 @@
+{
+    "identity": "nprot-5027",
+    "title": "DSBCapture: _in situ_ single-nucleotide resolution DNA double-strand break mapping",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "DSBCapture is a substantially improved DSB mapping methodology derived from BLESS<sup>1</sup> that maps DSBs _in situ_ to single-nucleotide resolution. The procedure involves the ligation of a modified Illumina adapter to DSBs in fixed nuclei. The subsequent lysis of the nuclei and the fragmentation of the DNA generates a second free end, to which a second modified Illumina adapter is ligated. PCR amplification of the ligated DNA fragments generates a library that can be directly sequenced on the Illumina platform. DSBs are decoded to single-nucleotide resolution in single-end sequencing, where the first base sequenced identifies the site of _in situ_ DSB formation. The DSBCapture workflow is depicted in **Fig.1**. DSBCapture can be universally applied for the study of DSBs; these can for example be endogenous, drug-induced or nuclease cleavage sites. The complete experimental procedure takes approximately 8 days. We suggest using 20 million cells per sample: 10 million for the full procedure and 10 million for a control performed without T4 DNA ligase in the first ligation reaction. \r\n\n\n\r\n\n\n<a href=\"#figures\" data-url=\"http://www.nature.com/protocolexchange/system/uploads/4619/thumbnail/DSBCapture_workflow.png?1468846387\">See figure in Figures section.</a>"
+        },
+        {
+            "header": "Reagents",
+            "content": "\u2022 Cells\r\n\n\n\u2022 Cell culture medium\r\n\n\n\u2022 Fetal Bovine Serum \r\n\n\n\u2022 Formaldehyde \\(Pierce, cat. no. 28908)\r\n\n\n\u2022 2 M Glycine\r\n\n\n\u2022 PBS \\(- CaCl<sub>2</sub> / - MgCl<sub>2</sub>)\r\n\n\n\u2022 Lysis buffer: \r\n\n\n- 10 mM Tris-HCl pH 8\r\n\n\n- 10 mM NaCl\r\n\n\n- 1 mM EDTA\r\n\n\n- 1 mM EGTA\r\n\n\n- 0.2 % NP40 substitute \\(Sigma, 74385)\r\n\n\n- freshly added: cOmplete Roche protease inhibitors \\(Roche, REF: 11873580001)\r\n\n\n- freshly added: 1 mM DTT\r\n\n\n\u2022 Nucleus Break buffer:\r\n\n\n- 10 mM Tris-HCl pH 8\r\n\n\n- 150 mM NaCl\r\n\n\n- 1 mM EDTA\r\n\n\n- 1 mM EGTA\r\n\n\n- 0.3 % SDS\r\n\n\n- freshly added: 1 mM DTT\r\n\n\n\u2022 1 \u00d7 NEBuffer 2 \\(pH 7.9 at 25 \u00b0C):\r\n\n\n- 10 mM Tris-HCl\r\n\n\n- 50 mM NaCl \r\n\n\n- 10 mM MgCl<sub>2</sub>\r\n\n\n- freshly added: 1 mM DTT\r\n\n\n\u2022 1 \u00d7 W&B buffer: \r\n\n\n- 5 mM Tris-HCl pH 7.5\r\n\n\n- 1 mM EDTA\r\n\n\n- 1 M NaCl\r\n\n\n\u2022 Proteinase K \\(Ambion, cat. no. AM2546)\r\n\n\n\u2022 PMSF \\(Sigma, cat. no. 93482)\r\n\n\n\u2022 Quick Blunting Kit \\(NEB, cat. no. E1201L)\r\n\n\n\u2022 Blunting Buffer \\(NEB, cat. no. E1201L)\r\n\n\n\u2022 BSA \\(NEB, cat. no. B9000S)\r\n\n\n\u2022 Klenow Fragment 3\u2019-5\u2019 exo- \\(NEB, cat. no. M0212L)\r\n\n\n\u2022 dATP \\(Promega, cat. no. U120D)\r\n\n\n\u2022 T4 Ligase Reaction Buffer \\(NEB, cat. no. B0202S)\r\n\n\n\u2022 T4 DNA Ligase \\(NEB, cat. no. M0202M)\r\n\n\n\u2022 Lambda Exonuclease \\(NEB, cat. no. M0262L)\r\n\n\n\u2022 Lambda Exonuclease Reaction Buffer \\(NEB, cat. no. M0262L)\r\n\n\n\u2022 Nuclease free water \\(e.g. Ambion cat. no. AM9937)\r\n\n\n\u2022 Dynabeads MyOne Strepdavidin C1 \\(Invitrogen, cat. no. 65001)\r\n\n\n\u2022 Modified P5 Illumina adapter \\(for sequence see end of protocol)\r\n\n\n\u2022 Modified P7 Illumina adapter \\(for sequence see end of protocol)\r\n\n\n\u2022 PCR F and PCR R primers \\(for sequence see end of protocol)\r\n\n\n\u2022 NEBNext PCR High Fidelity 2X PCR Master Mix \\(NEB, cat. no. M0541L)\r\n\n\n\u2022 MinElute PCR Purification Kit \\(Qiagen, cat. no. 28004) or MinElute Gel Extraction Kit \\(Qiagen, cat. no. 28604) depending on method of DNA extraction \\(pippin versus manual, respectively)\r\n\n\n\u2022 KAPA Library Quantification Kit \\(Kapa Biosystems, cat. no. kk4824)\r\n\n\n\u2022 Propoan-2-ol \\(molecular biology grade)\r\n\n\n\u2022 Ethanol \\(molecular biology grade)\r\n\n\n\u2022 GlycoBlue \\(Invitrogen, cat. no. AM9515)\r\n\n\n\u2022 1 M Potassium acetate\r\n\n\n\u2022 3 M Sodium acetate pH 5.2 \\(for pH adjustment during PCR clean up using Qiagen kit; e.g. Thermo Fisher Scientific, cat. no. R1181) \r\n\n\n\u2022 Triton X-100 \r\n\n\n\u2022 Trypan blue"
+        },
+        {
+            "header": "Equipment",
+            "content": "\u2022 Manual Pipettes\r\n\n\n\u2022 Pipette tips\r\n\n\n\u2022 Tissue culture facilities and equipment \r\n\n\n\u2022 Light microscope \r\n\n\n\u2022 Cell counting equipment\r\n\n\n\u2022 Haemocytometer or Ibidi slides \\(Ibidi, cat. no. 80621)\r\n\n\n\u2022 Sonicator e.g. Biorupter\r\n\n\n\u2022 Rotator\r\n\n\n\u2022 4 \u00b0C room or incubator\r\n\n\n\u2022 37 \u00b0C incubator\r\n\n\n\u2022 Thermocycler\r\n\n\n\u2022 Vortex\r\n\n\n\u2022 Centrifuge with refrigeration capability \\(e.g. Eppendorf 5810R) \r\n\n\n\u2022 Microcentrifuge with refrigeration capability \\(e.g. Eppendorf 5415R)\r\n\n\n\u2022 Water bath\r\n\n\n\u2022 Heat block\r\n\n\n\u2022 ThermoMixer e.g. Eppendorf comfort\r\n\n\n\u2022 Gel electrophoresis equipment\r\n\n\n\u2022 Magnetic rack \\(1.5 or 2 mL)\r\n\n\n\u2022 Bioanalyser \\(Agilent) or TapeStation \\(Agilent) or similar \\(with high sensitivity reagents)\r\n\n\n\u2022 DNA quantification equipment \\(e.g. Qubit fluorimeter, Thermo Fisher Scientific)\r\n\n\n\u2022 Quantitative PCR machine \\(if performing library quantification)\r\n\n\n\u2022 Falcon tubes\r\n\n\n\u2022 2 mL Eppendorf tubes\r\n\n\n\u2022 Eppendorf LoBind tubes \\(1.5 or 2 mL, depending on type of magnetic rack used)\r\n\n\n\u2022 Sonication tubes \\(Diagenode, cat. no. C30010010)\r\n\n\n\u2022 PCR tubes\r\n\n\n\u2022 0.2 \u03bcM filter \\(e.g. Millipore, cat. no. SLGP033RS) and syringe\r\n\n\n\u2022 Access to an Illumina sequencer \r\n\n\n\u2022 Optional: BluePippin \\(Sage Science)"
+        },
+        {
+            "header": "Procedure",
+            "content": "**Day 1: Cell fixation**\r\n\n\n\r\n\n\nNote: centrifugation steps were performed in a bench top centrifuge e.g. Eppendorf 5810R. Once cells have been harvested, work with cells in Falcon tubes.\r\n\n\n\r\n\n\n1. Grow cells to 70 % confluency\r\n  Note: We suggest using 20 million cells per sample: 10 million for the full procedure and 10 million for a control performed without T4 DNA ligase in the first ligation reaction.\r\n\n\n2. Wash cells with PBS \\(-/-)\r\n  3. Detach cells using trypsin \\(e.g. HeLa/U2OS) or accutase \\(e.g. NHEKs)\r\n  4. Add an equal amount of complete growth medium to the detached cells\r\n  5. Transfer cells to a Falcon tube and centrifuge at 1300 rpm for 5 min at room temperature to pellet the cells\r\n  6. Remove the supernatant, re-suspend cells in complete medium and count\r\n  7. Make a single cell suspension \\(by pipetting up and down 10 times) of 1 million cells/1.5 mL in DMEM 10 % FBS \\(maximum of 25 million cells / 50 mL Falcon tube)\r\n  8. To the single cell suspension add formaldehyde to a final concentration of 2 %\r\n  9. Rotate \\(7 rpm) at room temperate for 30 min\r\n  10. Add 2 M glycine to achieve a final concentration of 125 mM\r\n  11. Rotate \\(7 rpm) for a further 5 min at room temperature\r\n  12. Chill samples on ice for 10 min\r\n  From this point forward work on ice for the rest of the day unless stated otherwise.\r\n\n\n13. Centrifuge cells at 1200 rpm for 5 min at 4 \u00b0C with the break switched off\r\n  14. Remove the supernatant, tap tube against hand to loosen the pellet and add ice cold PBS \\(same volume as was removed)\r\n  Note: we suggest loosening pellet by tapping, rather than re-suspending using pipettes, to avoid loss of material.\r\n\n\n15. Invert tube 5 times\r\n  16. Centrifuge the cells at 1200 rpm for 5 min at 4 \u00b0C with the break switched off\r\n  17. Remove the supernatant, tap tube against hand to loosen the pellet and add ice cold PBS \\(same volume as was removed)\r\n  18. Store fixed cells in PBS at 4 \u00b0C over night or alternatively proceed immediately to day 2\r\n  \r\n\n\n\r\n\n\n**Day 2: Isolation of nuclei**\r\n\n\n\r\n\n\nNote: centrifugation steps were performed in a bench top centrifuge e.g Eppendorf 5810R. Work with cells in Falcon tubes. Work on ice unless stated otherwise.\r\n\n\n\r\n\n\n19. Centrifuge cells at 1200 rpm for 5 min at 4 \u00b0C with the break switched off\r\n  20. Remove supernatant, tap tube against hand to loosen the pellet\r\n  21. Add chilled Lysis buffer \\(see reagents; 200 \u03bcL/10\n6\ncells) \r\n  22. Invert tube gently until the pellet is re-suspended\r\n  23. Incubate for 90 min at 4 \u00b0C rotating at 7 rpm\r\n  24. Centrifuge cells at 1200 rpm for 5 min at 4 \u00b0C with the break switched off\r\n  25. Remove supernatant and tap tube against hand to loosen the pellet \\(image cells, see **Fig.2b** for representative images of cells at this point)\r\n  26. Add **room temperature** Nucleus Break buffer \\(see reagents; 200 \u03bcl/10\n6\ncells) \r\n  27. Invert tube gently until the pellet is re-suspended\r\n  28. Incubate at 37 \u00b0C for 45 min whilst gently rotating\r\n  29. Centrifuge cells at 1200 rpm for 5 minutes at **room temperature** with the break switched off. Note: room temperature is required to avoid the precipitation of SDS.\r\n  30. Remove the supernatant. Pellet may be loose, remove as much supernatant as possible without disturbing the pellet\r\n  31. Add chilled 1 \u00d7 NEBuffer 2 \\(see reagents) + 0.1 % Triton X-100 \\(freshly added) so that the final volume in the tube is equivalent to 10 million cells/mL \r\n  32. Re-suspend by pipetting up and down and transfer nuclei to 2 ml Eppendorf tubes \\(10 million nuclei/tube i.e. 1 mL/tube)\r\n  Note: familiarise yourself with steps 33-35 before proceeding.\r\n\n\n33. Place samples on ice and add Proteinase K \\(20 mg/ml) to a final concentration of 100 \u03bcg/ml \r\n  34. Vortex samples briefly at minimum power and then incubate for 8 minutes at 37 \u00b0C in a water bath\r\n  35. Work quickly: Place samples on ice and immediately add an equal volume of NEBuffer 2 + 0.1 % Triton X-100 \\(freshly added) + 1:50 PMSF \\(freshly added; filter buffer through 0.2 \u03bcm filter before adding)\r\n  36. Invert tubes to mix \r\n  Note: now that cells are in 2 ml Eppendorf tubes centrifuge samples in a bench top microcentrifuge \\(e.g. Eppendorf 5415R).\r\n\n\nCritical steps applying to all centrifugation steps until the nuclei are lysed: the pellet may not be visible in the tube by eye. Centrifuge with the hinge of the Eppendorf tube facing outwards so that the pellet will accumulate against the wall of the tube at the side with the hinge. Knowing the position of the pellet carefully remove as much of the supernatant as possible \\(approximately 50 \u03bcL can be left behind). If the pellet is accidentally removed it may be visible in the pipette tip. Do not discard the supernatant, but transfer it to another Eppendorf tube. Check the supernatant for nuclei \\(see below) \u2013 if the supernatant contains nuclei, centrifuge the supernatant again with a spin speed 1000 g greater than the indicated spin speed. Remove the supernatant and add the recovered nuclei back to the original tube \\(this is most easily done by adding the wash buffer or reaction buffer for the subsequent step to the pelleted nuclei and then transferring the nuclei/buffer solution back the original tube. Also make sure that the supernatant from this repeated centrifugation step is free from nuclei. Different cell types behave differently during the centrifugation steps and thus require slightly different spin-speeds. It is important not to loose material during the wash steps so we recommend checking the supernatant for nuclei after each centrifugation step and to re-centrifuge if necessary. Checking for nuclei: mix 10 \u03bcL of supernatant with 10 \u03bcL trypan blue and visualise nuclei using a light microscope. We use Ibidi slides to aid this process.  \r\n\n\n37. Centrifuge the nuclei at 1200 g for 10 min at 4 \u00b0C and remove the supernatant \r\n  38. Add chilled 1 \u00d7 NEBuffer 2 + 0.1 % Triton X-100 \\(freshly added) \\(100 \u03bcL /10\n6\ncells). Close tube and invert rapidly to re-suspend the pellet \r\n  39. Centrifuge the nuclei at 1200 g for 10 min at 4 \u00b0C and remove the supernatant\r\n  40. Add chilled 1 \u00d7 NEBuffer 2 + 0.1% Triton X-100 \\(freshly added) \\(100 \u03bcL/10\n6\ncells). Close tube and invert rapidly to re-suspend the pellet \r\n  Image nuclei: see **Fig.2c** for representative images of nuclei at this point.\r\n\n\n41. Store nuclei at 4 \u00b0C overnight or alternatively proceed immediately to day 3\r\n  \r\n\n\n\r\n\n\n**Day 3: _In situ_ adapter ligation \\(modified P5 Illumina adapter)**\r\n\n\n\r\n\n\nWork on ice unless specified otherwise.\r\n\n\nNote: anneal the modified P5 Illumina adapter with its complement before use \\(see methods in manuscript).\r\n\n\n\r\n\n\n42. Centrifuge the nuclei at 1200 g for 10 min at 4 \u00b0C and remove the supernatant\r\n  43. Add chilled 1 \u00d7 Blunting Buffer + 100 \u03bcg/ml BSA \\(200 \u03bcl/10\n6\nnuclei). Close tube and invert rapidly to re-suspend the pellet \r\n  44. Centrifuge the nuclei at 1200 g for 10 min at 4 \u00b0C and remove the supernatant.\r\n  45. Add 1 \u00d7 Blunting Buffer + 100 \u03bcg/ml BSA to the pellet to create a final volume of roughly 86 \u03bcl/tube, add:\r\n  \r\n\n\n- 10 \u03bcl 1 mM dNTPs\r\n\n\n- 4 \u03bcl Blunting Enzyme Mix\r\n\n\n\r\n\n\n46. Mix gently by pipetting up and down 10 times\r\n  47. Incubate the nuclei for 45 min at 25 \u00b0C, shaking at 800 rpm for 10 sec every 5 min\r\n  48. Wash the nuclei 3 \u00d7 in chilled 1 \u00d7 NEBuffer 2 + 0.1 % Triton X-100 \\(freshly added) \\(100 \u03bcl/10\n6\nnuclei) \r\n  49. Centrifuge the nuclei at 2200 g for 10 min at 4 \u00b0C, between each wash and remove the supernatant. After the addition of wash buffer close the tube and invert rapidly to re-suspend the pellet \r\n  50. Add chilled 1 \u00d7 NEBuffer 2 **without** Triton X-100 \\(100 \u03bcl/10\n6\nnuclei). Close tube and invert rapidly to re-suspend the pellet \r\n  51. Centrifuge the nuclei at 2200 g, remove the supernatant and leave behind approximately 50 \u03bcl \\(if less than 50 \u03bcl was left behind add more 1 \u00d7 NEBuffer 2 to make volume up to 50 \u03bcl, add:\r\n  \r\n\n\n- 0.5 \u03bcl 10 mM dATP\r\n\n\n- 3 \u03bcl Klenow Fragment exo-\r\n\n\n\r\n\n\n52. Mix gently by pipetting up and down 10 times\r\n  53. Incubate the nuclei at 37 \u00b0C for 45 min, shaking at 800 rpm for 10 sec every 10 min \r\n  54. Wash the nuclei 3 \u00d7 in chilled 1 \u00d7 NEBuffer 2 + 0.1% Triton X-100 \\(freshly added) \\(100 \u03bcl/10\n6\nnuclei) \r\n  55. Centrifuge the nuclei at 2200 g for 10 min at 4 \u00b0C between each wash and remove the supernatant. After the addition of wash buffer close the tube and invert rapidly to re-suspend the pellet \r\n  56. Add chilled 1 \u00d7 T4 Ligase Reaction Buffer + 0.1 % Triton X-100 \\(freshly added) \\(100 \u03bcl/10\n6\nnuclei), close the tube and invert rapidly to re-suspend the pellet \r\n  57. Centrifuge nuclei at 2200 g for 10 min at 4 \u00b0C\r\n  58. Remove the supernatant\r\n  59. Add chilled 1 \u00d7 T4 Ligase Reaction Buffer **without** Triton X-100 \\(100 \u03bcl /10\n6\nnuclei), close the tube and invert rapidly to re-suspend the pellet \r\n  60. Centrifuge the nuclei at 2200 g for 10 min at 4 \u00b0C. Remove the supernatant, leaving behind approximately 40 \u03bcl, add:\r\n  \r\n\n\n- 10 \u03bcl 10 \u03bcM modified P5 Illumina adapter\r\n\n\n- 0.6 \u03bcl T4 DNA Ligase \\(2,000,000 units/mL)\r\n\n\n            \r\n\n\n61. Prepare one control without ligase \\(10 million nuclei)\r\n  62. Mix gently by pipetting up and down 10 times\r\n  63. Incubate at 16 \u00b0C for 15-20 h, shaking at 350 rpm, every 45 min for 15 sec. \r\n  \r\n\n\n\r\n\n\n**Day 4: Excess adapter removal and DNA extraction**\r\n\n\n\r\n\n\n Work at room temperature unless specified otherwise.\r\n\n\n\r\n\n\n64. Wash nuclei twice in 1 \u00d7 W&B buffer + 0.1 % Triton X-100 \\(freshly added) \\(100 \u03bcl/10\n6\nnuclei) \r\n  65. Centrifuge nuclei at 3500 g for 10 min at 25 \u00b0C between each wash and remove the supernatant. After the addition of wash buffer close the tube and invert rapidly to re-suspend the pellet. \r\n  Note: when checking supernatant for nuclei, first dilute the supernatant in water, otherwise aggregates form upon the addition of trypan blue). \r\n\n\n66. Add 1 \u00d7 Lambda Exonuclease reaction buffer \\(50 \u03bcl/10\n6\nnuclei), close the tube and invert rapidly to re-suspend the pellet \r\n  67. Centrifuge nuclei at 3500 g for 10 min at 25 \u00b0C\r\n  68. Remove the supernatant\r\n  69. Make volume up to 50 \u03bcl/10 million cells using 1 \u00d7 Lambda Exonuclease reaction buffer\r\n  70. Add 50 units of Lambda Exonuclease \r\n  71. Mix gently by pipetting up and down 10 times\r\n  72. Incubate at 37 \u00b0C for 30 min \r\n  From here on in work at 4 \u00b0C unless specified otherwise.\r\n\n\n73. Add chilled 1 \u00d7 NEBuffer 2 + 0.1 % Triton X-100 \\(freshly added) \\(100 \u03bcl/10\n6\nnuclei), close the tube and invert rapidly to re-suspend the pellet \r\n  74. Centrifuge at 4500 g for 10 min at 4 \u00b0C\r\n  75. Remove the supernatant\r\n  76. Add chilled 1 \u00d7 NEBuffer 2 + 0.5 % Triton X-100 \\(freshly added) \\(100 \u03bcl/10\n6\nnuclei), close the tube and invert rapidly to re-suspend the pellet \r\n  Note: set aside 5 \u03bcl. \r\n\n\n77. Add 20 mg/ml Proteinase K to a final concentration of 200 \u03bcg/ml\r\n  78. Incubate for 30 min at 55 \u00b0C, shaking at 800 rpm\r\n  79. Incubate for 30 min at 65 \u00b0C, shaking at 800 rpm\r\n  Note: whilst the nuclei are digesting image the nuclei using the 5 \u03bcl that were set aside \\(see **Fig.2d** for representative images of nuclei at this point).\r\n\n\n80. Centrifuge the sample at maximum speed for 1 min\r\n  81. Place the samples on ice and divide each tube into 2 \\(500 \u03bcl per tube)\r\n  82. Add 214 \u03bcl 1 M potassium acetate per tube\r\n  83. Vortex for 5 sec\r\n  84. Add 2 \u03bcl GlycoBlue per tube\r\n  85. Vortex for 5 sec\r\n  86. Add 500 \u03bcl ice cold propan-2-ol per tube\r\n  87. Vortex at max speed until the aqueous and organic phases have mixed\r\n  88. Chill samples on ice for 20 min, store at -80 \u00b0C overnight \r\n  Note: samples are stable at this point and can be stored for longer periods at -80 \u00b0C.\r\n\n\n\r\n\n\n\r\n\n\n**Day 5: DNA fragmentation**\r\n\n\n\r\n\n\nWork on ice unless stated otherwise.\r\n\n\n\r\n\n\n89. Centrifuge samples for 30 min at max speed, 4 \u00b0C\r\n  90. Remove the supernatant\r\n  91. Add 500 \u03bcl ice cold 70 % ethanol per tube\r\n  92. Vortex for 5 sec \r\n  93. Centrifuge for 5 min at max speed, 4 \u00b0C\r\n  94. Remove the supernatant \r\n  95. Add 500 \u03bcl ice cold 70 % ethanol per tube\r\n  96. Vortex for 5 sec \r\n  97. Centrifuge for 5 min at max speed, 4 \u00b0C\r\n  98. Remove any remaining ethanol\r\n  99. Air dry pellets\r\n  100. Dissolve each pellet in 90 \u03bcl of nuclease-free water\r\n  101. Incubate samples at 55 \u00b0C, shaking at 800 rpm for 1 h\r\n  102. Centrifuge for 1 min at maximum speed, pool two tubes of one kind together \\(180 \u03bcl total)\r\n  Note: material may be extremely gloopy, this is normal and expected. \r\n\n\n103. Transfer material to a sonication tube and sonicate: we use the Biorupter plus on HIGH setting with parameters: 30 seconds ON; 30 seconds OFF for a total of approx. 25 cycles, with the water bath chilled to 4 \u00b0C\r\n  Note: aim for an average fragment length of 200-500 bp. After 15 cycles, image 1 \u03bcl DNA on an agarose gel to determine the average fragment length and assess whether further cycles of sonication are necessary.\r\n\n\n104. Once the desired fragment length has been obtained transfer DNA to LoBind Eppendorf tube \r\n  Note: work with DNA in LoBind Eppendorf tubes wherever possible.\r\n\n\n105. Quantify DNA \\(e.g. Qubit fluorimeter) \r\n  106. Store samples at -20 \u00b0C or alternatively proceed directly to day 6\r\n  \r\n\n\n\r\n\n\n**Day 6: Second adapter ligation \\(modified P7 Illumina adapter)**\r\n\n\n\r\n\n\n Work at room temperature unless specified otherwise.\r\n\n\nNote: anneal the modified P7 Illumina adapter with its complement before use \\(see methods in manuscript).\r\n\n\n\r\n\n\n107. Use 5 \u03bcl Dynabeads MyOne Strepdavidin C1 per 50 \u03bcg of DNA \r\n  Note: 10 million cells should yield over 50 \u03bcg of DNA but if less DNA is available use as much as possible; we have also performed experiments using 20 \u03bcg and observed a similar number of peaks \\(see: **Supplementary Fig. 4c** in the manuscript). \r\n\n\n108. Wash beads twice with 1 mL 1 \u00d7 W&B buffer + 0.1 % Triton X-100 \\(freshly added)\r\n  109. Add an equal volume of 2 \u00d7 W&B buffer + 0.2% Triton X-100 \\(freshly added) to the DNA to create a 1 \u00d7 final concentration  \r\n  110. Add the DNA to the beads \\(50 \u03bcg of DNA to 5 \u03bcl beads/tube, make volume up to 0.6 mL using 1 \u00d7 W&B buffer + 0.1% Triton X-100 \\(freshly added)) and rotate at 7 rpm for 45 min at 4 \u00b0C\r\n  111. Place tubes onto magnetic rack to capture the beads and remove the supernatant \r\n  112. Wash beads 3 \u00d7 in 1 mL 1 \u00d7 W&B buffer + 0.1 % Triton X-100 \\(freshly added)\r\n  Critical step: when washing the beads, replace buffer immediately after removing it. Do not let the beads dry.\r\n\n\n113. Re-suspend the beads in 42 \u03bcl 1 \u00d7 Blunting Buffer, add:\r\n  \r\n\n\n- 0.8 \u03bcl 10 \u00d7 Blunting Buffer\r\n\n\n- 0.25 \u03bcl BSA \\(20 mg/mL) \r\n\n\n- 5 \u03bcl 1 mM dNTPs  \r\n\n\n- 2 \u03bcl Blunting Enzyme Mix\r\n\n\n\r\n\n\n114. Incubate for 45 min at 25 \u00b0C, shaking at 800 rpm every 5 min for 10 sec \r\n  115. Wash beads 3 \u00d7 in 1 ml 1 \u00d7 W&B buffer + 0.1 % Triton X-100 \\(freshly added)\r\n  Critical step: when washing the beads, replace buffer immediately after removing it. Do not let the beads dry.\r\n\n\n116. Re-suspend sample in 23 \u03bcl 1 \u00d7 NEBuffer 2 without Triton X-100, add:\r\n  \r\n\n\n- 0.5 \u03bcl 5 mM dATP\r\n\n\n- 1.5 \u03bcl Klenow Fragment exo-\r\n\n\n  \r\n\n\n117. Incubate at 37 \u00b0C for 45 min, every 10 min shake for 10 sec at 800 rpm\r\n  118. Wash beads 3 \u00d7 in 1 ml 1 \u00d7 W&B buffer + 0.1 % Triton X-100 \\(freshly added)\r\n  Critical step: when washing the beads, replace buffer immediately after removing it. Do not let the beads dry.\r\n\n\n119. Re-suspend sample in 39.4 \u03bcl 1 \u00d7 T4 Ligase Reaction Buffer, add:\r\n  \r\n\n\n- 10 \u03bcl 10 \u03bcM modified P7 Illumina adapter\r\n\n\n- 0.6 \u03bcl T4 DNA Ligase \\(2,000,000 units/mL)\r\n\n\n   \r\n\n\n120. Ligate for 15-20 h at 16 \u00b0C, every 45 min shake samples for 1 min at 1200 rpm \r\n  \r\n\n\n\r\n\n\n**Day 7: Library amplification**\r\n\n\n\r\n\n\n121. Wash beads 3 \u00d7 in 1 ml W&B buffer + 0.1 % Triton X-100 at room temperature\r\n  Critical step: when washing the beads, replace buffer immediately after removing it. Do not let the beads dry.\r\n\n\n122. Re-suspend beads in 25 \u03bcl nuclease free water\r\n  123. Place samples on ice\r\n  From this point forward work on ice for the rest of the day unless stated otherwise.\r\n\n\n124. Perform PCR: each 25 \u03bcl sample will make up 5 reactions\r\n  Note: Multiple PCR R \\(reverse) primers are available \\(see end of protocol). Each has a different barcode sequence to enable multiplexing of samples on the Illumina platform during sequencing. If multiple samples will be sequenced together in one sequencing reaction ensure that each sample is amplified with a different PCR R primer. Ensure to record the AD number of the primer used to amplify each sample. The AD numbers reflect Illumina TruSeq adapter sequences and thus DSBCapture libraries can be sequenced like Illumina TruSeq libraries \\(i.e. single index, 6 bp).\r\n\n\n125. PCR reagents per reaction:\r\n  \r\n\n\n- 1.25 \u03bcl 20 \u03bcM F primer\r\n\n\n- 1.25 \u03bcl 20 \u03bcM R primer\r\n\n\n- 5 \u03bcl Beads\r\n\n\n- 17.5 \u03bcl nuclease free water\r\n\n\n- 25 \u03bcl NEBNext High-Fidelity 2 \u00d7 Master Mix\r\n\n\n\r\n\n\nNote: after the addition of all reagents pipette sample up down, do not centrifuge as this will cause the beads to pellet.\r\n\n\n126. Cycling parameters \\(total of 15 cycles):\r\n  \r\n\n\n1. 98 \u00b0C for 30 sec\r\n  2. 98 \u00b0C for 10 sec\r\n  3. 65 \u00b0C for 30 sec\r\n  4. 72 \u00b0C for 30 sec\r\n  Loop back to 2. 14 times, for a total of 15 cycles\r\n\n\n5. 72 \u00b0C for 5 min\r\n  \r\n\n\n127. Centrifuge to pellet the beads and recover PCR product \\(supernatant). Store the PCR product at -80 \u00b0C or alternatively proceed directly to day 8. Beads can now be discarded.  \r\n  \r\n\n\n\r\n\n\n**Day 8: Size selection, quantification and sequencing** \r\n\n\n\r\n\n\n128. Either pass the PCR sample through a Qiagen MinElute PCR clean up column \\(100 \u03bcl PCR product / column) and then load sample into BluePippin gel extraction system \\(1.5 % agarose cassette) and extract 250-1200 bp OR omit PCR clean up step and directly load PCR product into 2 % hand cast agarose gel; manually extract band at 250-1200 bp and then clean up the DNA using Qiagen MinElute gel extraction kit.\r\n  Note: if performing manual gel extraction: the DNA concentration can sometimes be low and therefore the DNA may not always be visible, in such cases cut the gel using the reference ladder as a guide and continue. The DNA will be visible on the subsequent Bioanalyser profile.\r\n\n\n129. Run sample on Bioanalyser or TapeStation \\(high sensitivity chip) to determine the library size. All negative controls should not contain any DNA. See anticipated results \\(**Fig.3**)\r\n  130. Quantify DNA using the KAPA Library Quantification Kit \r\n  131. Proceed to sequencing and store excess DNA at -20 \u00b0C\r\n  \r\n\n\n\r\n\n\n**Oligonucleotide sequences**\r\n\n\n\r\n\n\nModifications: P = phosphorylated, ==*== = phosphorothioate linkage, Btn = biotin\r\n\n\nOligonucleotides are shown in the 5\u2019-3\u2019 orientation \r\n\n\nOligonucleotides have HPLC purity\r\n\n\n\r\n\n\n\u2022 Modified P5 Illumina adapter:\r\n\n\n\r\n\n\nBtnA**ATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC**T\r\n\n\n\r\n\n\n\u2022 Control modified P5 Illumina adapter:  \r\n\n\n\r\n\n\nA**ATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATC**T\r\n\n\n\r\n\n\n\u2022 Modified P5 Illumina adapter complement / Control modified P5 Illumina adapter complement: \r\n\n\n\r\n\n\nPGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTAGATCTCGGTGGTCGCCGTATCATT\r\n\n\n\r\n\n\n\u2022 Modified P7 Illumina adapter: \r\n\n\n\r\n\n\nPGATCGGAAGAGCACACGTCTGAACTCCAGTCAC\r\n\n\n\r\n\n\n\u2022 Modified P7 Illumina adapter complement: \r\n\n\n\r\n\n\nGTGACTGGAGTTCAGACGTGTGCTCTTCCGATC*T\r\n\n\n\r\n\n\n\u2022 PCR Forward primer: \r\n\n\n\r\n\n\nAATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGA\r\n\n\n\r\n\n\nReverse primers contain Illumina barcodes \\(AD); the number refers to the sequence of the barcode. \r\n\n\nNote: PCR amplify each sample with a different reverse primer to enable multiplexing of samples during sequencing. If only one sample is made choose any PCR R Primer. If two samples are to be sequenced together choose either the combination of AD06 and AD12 or AD05 and AD19. If 3 or more samples are to be sequenced together choose AD06 and AD12 plus any others or AD05 and AD19 plus any others \\(see: TruSeq Library Prep Pooling Guide\n2\nfor more information on multiplexing).\r\n\n\n\u2022 PCR R reverse primer AD01: CAAGCAGAAGACGGCATACGAGATCGTGATGTGACTGGAGTTCAGACGTGT\r\n\n\n\u2022 PCR R reverse primer AD02: CAAGCAGAAGACGGCATACGAGATACATCGGTGACTGGAGTTCAGACGTGT\r\n\n\n\u2022 PCR R reverse primer AD03: CAAGCAGAAGACGGCATACGAGATGCCTAAGTGACTGGAGTTCAGACGTGT\r\n\n\n\u2022 PCR R reverse primer AD04: CAAGCAGAAGACGGCATACGAGATTGGTCAGTGACTGGAGTTCAGACGTGT\r\n\n\n\u2022 PCR R reverse primer AD05: CAAGCAGAAGACGGCATACGAGATCACTGTGTGACTGGAGTTCAGACGTGT\r\n\n\n\u2022 PCR R reverse primer AD06: CAAGCAGAAGACGGCATACGAGATATTGGCGTGACTGGAGTTCAGACGTGT\r\n\n\n\u2022 PCR R reverse primer AD12: CAAGCAGAAGACGGCATACGAGATTACAAGGTGACTGGAGTTCAGACGTGT\r\n\n\n\u2022 PCR R reverse primer AD19: CAAGCAGAAGACGGCATACGAGATCGTTTCACGTGACTGGAGTTCAGACGTGT"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "**Fig.3** shows a completed DSBCapture library that is ready for sequencing.\r\n\n\n\r\n\n\n<a href=\"#figures\" data-url=\"http://www.nature.com/protocolexchange/system/uploads/4623/thumbnail/Expected_results.png?1468846630\">See figure in Figures section.</a>"
+        },
+        {
+            "header": "References",
+            "content": "1. Crosetto, N. et al. Nucleotide-resolution DNA double-strand break mapping by next-generation sequencing. Nat. Methods 10, 361-365 \\(2013).\r\n  2. Illumina Guide. TruSeq Library Prep Pooling. URL http://support.illumina.com/content/dam/illumina-support/documents/documentation/chemistry_documentation/samplepreps_truseq/truseqsampleprep/truseq-library-prep-pooling-guide-15042173-01.pdf \\(2015)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nmeth.3960",
+                "date": "2016-08-15 08:53:03",
+                "title": "DSBCapture: in situ capture and sequencing of DNA breaks",
+                "authors": [
+                    "Stefanie V Lensing",
+                    "Giovanni Marsico",
+                    "Robert H\u00e4nsel-Hertsch",
+                    "Enid Y Lam",
+                    "David Tannahill",
+                    "and Shankar Balasubramanian"
+                ],
+                "journal": "Nature Methods",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 14023,
+                "identity": "a0c01be9-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Shankar Balasubramanian ",
+                "email": "sb10031@cam.ac.uk",
+                "orcid": "",
+                "institution": "Department of Chemistry, University of Cambridge",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Shankar",
+                "middleName": "",
+                "lastName": "Balasubramanian",
+                "suffix": ""
+            },
+            {
+                "id": 14018,
+                "identity": "a0c00fbe-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Stefanie Lensing",
+                "email": "",
+                "orcid": "",
+                "institution": "Cancer Research UK Cambridge Institute, University of Cambridge",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Stefanie",
+                "middleName": "",
+                "lastName": "Lensing",
+                "suffix": ""
+            },
+            {
+                "id": 14019,
+                "identity": "a0c01391-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Giovanni Marsico",
+                "email": "",
+                "orcid": "",
+                "institution": "Cancer Research UK Cambridge Institute, University of Cambridge",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Giovanni",
+                "middleName": "",
+                "lastName": "Marsico",
+                "suffix": ""
+            },
+            {
+                "id": 14020,
+                "identity": "a0c01582-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Robert H\u00e4nsel-Hertsch",
+                "email": "",
+                "orcid": "",
+                "institution": "Cancer Research UK Cambridge Institute, University of Cambridge",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Robert",
+                "middleName": "",
+                "lastName": "H\u00e4nsel-Hertsch",
+                "suffix": ""
+            },
+            {
+                "id": 14021,
+                "identity": "a0c01880-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Enid Lam",
+                "email": "",
+                "orcid": "",
+                "institution": "Cancer Research UK Cambridge Institute, University of Cambridge",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Enid",
+                "middleName": "",
+                "lastName": "Lam",
+                "suffix": ""
+            },
+            {
+                "id": 14022,
+                "identity": "a0c01a53-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "David  Tannahill",
+                "email": "",
+                "orcid": "",
+                "institution": "Cancer Research UK Cambridge Institute, University of Cambridge",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "David",
+                "middleName": "",
+                "lastName": "Tannahill",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2016-07-19 17:36:32",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2016.52",
+        "doiUrl": "https://doi.org/10.1038/protex.2016.52",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2609501,
+                "identity": "37889309-f5df-409e-a208-cda52440144f",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:58",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 204094,
+                "visible": true,
+                "origin": "",
+                "legend": "DSBCapture workflow   (a) DNA processing (1) DSBs in fixed nuclei are blunt-end repaired, (2) A-tailed and (3) ligated to a biotinylated (black ball) modified P5 Illumina adapter (orange lines). (4) Excess adapters are removed by Lambda Exonuclease digestion; (5) DNA is extracted from lysed nuclei and fragmented by sonication, (6) bead-captured (hollow ball) and blunted-end repaired, (7) A-tailed, and (8) ligated to a modified P7 Illumina adapter (purple lines). (9) Captured break sites are PCR amplified, (10) size-selected, (11) quantified and (12) sequenced. (b) Sequencing of the completed DSBCapture library. Large black arrow indicates the site at which sequencing is initiated; the first base sequenced is the site of _in situ_ DSB formation.",
+                "description": "",
+                "filename": "figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-5027/v1/figure_1.jpg"
+            },
+            {
+                "id": 2609500,
+                "identity": "a4b60850-099c-426c-8e0a-492145685e50",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:58",
+                "extension": "jpg",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 373867,
+                "visible": true,
+                "origin": "",
+                "legend": "Representative images of cells and nuclei at various stages   (a) cells in culture, (b) cells after treatment with Lysis buffer (two different cell lines are shown), (c) nuclei after an 8 min treatment with Proteinase K and (d) nuclei prior to lysis with Proteinase K. ",
+                "description": "",
+                "filename": "figure2.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-5027/v1/figure_2.jpg"
+            },
+            {
+                "id": 2609504,
+                "identity": "e1f1cb1d-56bf-4a3a-b1fc-adf531258d78",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:58",
+                "extension": "jpg",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 61428,
+                "visible": true,
+                "origin": "",
+                "legend": "Expected results: DNA library   Bioanalyser profiles of the DNA products from DSBCapture libraries. The anticipated result of a DSBCapture library is shown (+). No product should be present in the negative controls performed. Shown are controls performed without T4 DNA ligase during the first (-T4.1) or second (-T4.2) ligation reactions and for a control performed with the non-biotinylated control modified P5 lllumina adapter (C). ",
+                "description": "",
+                "filename": "figure3.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-5027/v1/figure_3.jpg"
+            },
+            {
+                "id": 13465328,
+                "identity": "1558a54e-1598-459b-a82f-e94036538292",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:46:18",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 416440,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-5027/v1/d1f5bfa8-6e35-4cca-9990-d1e045c0729c.pdf"
+            },
+            {
+                "id": 2609502,
+                "identity": "c4d22895-2aa3-4860-b5bd-4da612566c48",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:58",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 340767,
+                "visible": true,
+                "origin": "",
+                "legend": "Version 1 of Protocol   Version 1 of Protocol   Procedure steps 109 & 110 modified \r\n- Ashleigh Carver, Editorial Assistant, Nature Protocols, 12/09/2016",
+                "description": "",
+                "filename": "supplement0.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-5027/v1/supplement_0.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "double-strand DNA break, double-strand DNA break mapping, next generation sequencing, molecular biology, DNA damage, G-quadruplex, Transcription",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "DSBCapture is a double-strand DNA break \\(DSB) mapping methodology that maps DSBs _in situ_ to single-nucleotide resolution. DSBs are captured through the ligation of a modified Illumina adapter to broken DNA ends inside isolated, fixed nuclei. Break sites are subsequently decoded to single-nucleotide resolution by Illumina sequencing. \r\n\n\n\r\n\n\n--------------------------------------------\r\n\n\nCOMMENTS\r\n\n\nProcedure steps 109 & 110 modified \r\n\n\n- Ashleigh Carver, Editorial Assistant, Nature Protocols, 12/09/2016",
+        "manuscriptTitle": "DSBCapture: in situ single-nucleotide resolution DNA double-strand break mapping",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2016-08-23 15:28:43",
+                "doi": "10.1038/protex.2016.52",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a0bfbe8f-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "August 23rd, 2016",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3657,
+                "name": "Cell biology"
+            },
+            {
+                "id": 3658,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 3659,
+                "name": "Molecular Biology"
+            },
+            {
+                "id": 3660,
+                "name": "Genetics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2016-08-23 15:28:43",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

@@ -1,0 +1,306 @@
+{
+    "identity": "nprot-2190",
+    "title": "Three-dimensional colocalization analysis in immunostained sections of human pancreas",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Technological advances in microscopy have increased resolution to a point where sub-cellular compartments can be visualized.  The new insight about the distribution of different cellular structures such as secretory vesicles has spurred a need for analytical tools to examine and quantify the localization of different cellular components.  This type of insight has proven invaluable for structure/function analyses.  Using this approach, we recently showed that alpha cells within human pancreatic islets contain acetylcholine-releasing vesicles that do not colocalize with glucagon granules \\(Rodriguez-Diaz et al., 2011).  We performed colocalization analysis on human pancreatic sections immunostained for different cellular components \\(**Fig. 1**).  The colocalization analysis was performed according to Barlow and colleagues \\(Barlow et al., 2010) based on the fluorescence intensity of the different endocrine cell and nerve fiber markers acquired in separate channels \\(i.e., detectors).  Colocalization was defined as the detection of a fluorescence signal from two separate channels in the same voxel \\(3D pixel).  We used the Pearson\u2019s Correlation Coefficient as a quantitative measure of colocalization of the different markers.  \r\n\n\n\r\n\n\nIn brief, sections of human pancreata were co-immunostained either for glucagon and vesicular acetylcholine transporter \\(vAChT) or insulin and C-peptide.  DAPI was used as a nuclear counter-stain.  Immunostaining was performed as described previously \\(Cabrera et al., 2006; Cabrera et al., 2008; Jacques-Silva et al., 2010).  The colocalization analysis was performed using Volocity software on z-stacks of high resolution confocal images acquired using a Leica DMLFSA SP5microscope with a 60x oil immersion objective \\(1.4 numerical aperture).  The z-stacks were adjusted to span the full thickness of the pancreatic tissue sections \\(<sub>40 \u00b5m).  The x-y resolution ranged from </sub>20 to 240 nm and the z-resolution was 0.125 - 0.7 \u00b5m depending on the zoom factor and the step size in the z-stacks.  Different zoom factors were used to image whole islets with varying diameters and the option for \u201coptimized\u201d step size was selected to achieve the highest z-resolution on our equipment.  Automatic selection of either, glucagon and vAChT-positive objects \\(i.e., cells) or insulin and C-peptide-positive objects was based on fluorescence intensity.  A threshold value for the detection was set to three standard deviations \\(3x SD) of the minimum intensity \\(Barlow et al., 2010).  We performed the analysis in two steps: **1)** we first found \u201cobjects\u201d that were immunoreactive to two of the markers to be colocalized and we created regions of interest \\(ROIs) based on these objects; **2)** we performed the colocalization analysis within these ROIs.  To find the objects, a series of preset algorithms \\(i.e., protocols) available in Volocity was set up \\(**Fig. 2**).  Selection of the relevant objects was optimized with user feedback by eliminating objects by size \\(volume).  Eliminated objects typically had smaller volume than granules containing endocrine or nerve markers.  Colocalization analysis of either glucagon and vAChT or insulin and C-peptide was performed within the ROIs generated from the found objects using 3x SD threshold values for each of the channels \\(**Fig. 3**).  Thresholded values of the Pearson\u2019s Correlation Coefficient were used for quantification and fitting. \r\n\n\n\r\n\n\nWe describe below the step-by-step protocol for the colocalization analysis using Volocity software.  In principal, this analysis procedure is applicable to images acquired with fluorescence imaging techniques other than confocal laser scanning microscopy with higher spatial resolution such as Stimulated Emission Depletion microscopy \\(STED) or Photo-Activated Localization Microscopy \\(PALM)."
+        },
+        {
+            "header": "Reagents",
+            "content": "**\u2022  Antibodies:**  \r\n\n\n- Rabbit anti-vAChT \\(Synaptic Systems, 139103).\r\n\n\n- Rabbit anti-vAChT \\(Sigma, V5387). \r\n\n\n- Mouse anti-glucagon \\(Sigma, G2654). \r\n\n\n- Guinea pig anti-swine insulin \\(Dako, A0564).\r\n\n\n- Rabbit anti-C-peptide \\(GeneTex, GTX14181)."
+        },
+        {
+            "header": "Equipment",
+            "content": "**\u2022  Computer** \\(workstation) that meets minimum requirements specified by the software manufacturer.  Here, we used a DELL Precision 690 workstation with 64bit Windows operating system, 16GB of random access memory \\(RAM), and 1TB hard drive.  The system was upgraded with an Nvidia GeForce 8800 GTX graphics card with 768MB built-in memory.\r\n\n\n**CAUTION**  Large capacity hard drive and RAM \\(\u2265 8GB) are needed to perform the analysis in a timely manner and to avoid frequent software crashes. \r\n\n\n**\u2022 Volocity** software version 5.5 or higher with the \u201cQuantitation\u201d module \\(Perkin Elmer)."
+        },
+        {
+            "header": "Procedure",
+            "content": "**1.**  Create Volocity libraries from raw data files.  Drag raw data file\\(s) into pre-created library\\(s) to import calibrated images.  \r\n\n\n\r\n\n\n**CAUTION**  Image calibration is typically encoded in the raw data generated with microscopes from most manufacturers \\(e.g., Leica, Zeiss, Nikon, etc).  Do not import z-stacks as \u201ctiff\u201d files because image calibration will be lost.  Volocity can read raw data files from most manufacturers.  If only \u201ctiff\u201d files are available, reassembly of the z-stacks in the proper order and calibration of the image dimensions are required.\r\n\n\n\r\n\n\n**2.**  Select a raw image from the library \\(list of images on the left) and switch to the \u201cMeasurements\u201d view within the library by clicking the \u201cMeasurements\u201d tab \\(see **Fig. 2**).\r\n\n\n \r\n\n\n**CAUTION**  Do not manipulate images to be analyzed as noise removal or background subtraction will influence the analysis.\r\n\n\n\r\n\n\n**3.**  Under the \u201cMeasurements\u201d view, build the analysis algorithm sequence from the list of existing protocols \\(i.e., algorithms; **Fig. 2a**).  Drag the appropriate protocols from the list of protocols and stack them in the specified sequence exactly as shown in **Fig 2a**.\r\n\n\n\r\n\n\n**CRITICAL STEP**  Order of the algorithm sequence must be maintained for proper analysis.\r\n\n\n\r\n\n\n**4.**  In the \u201cFind Objects\u201d protocol, select the appropriate channel for the marker to be analyzed and set the threshold to 3x standard deviations \\(3x SD) \\(**Fig. 2a**).  Display the threshold popup window by clicking the cog icon and change \u201cThreshold using\u201d to \u201cSD\u201d and set the \u201cLower Limit\u201d value to 3 \\(**Fig. 2b**). \r\n\n\n\r\n\n\n**5.**  To execute the analysis, either click \u201cUpdate Feedback\u201d under the \u201cMeasurement\u201d tab of the program \\(next to the \u201cFile\u201d tab) or select \u201cAutomatically Update Feedback\u201d.\r\n\n\n\r\n\n\n**CAUTION**  If working with large datasets, we recommend updating the feedback/analysis manually to avoid frequent software stall/crashes.\r\n\n\n\r\n\n\n**6.**  The results of the analysis are displayed automatically and found objects are highlighted \\(**Fig. 2b**).  Since the last step in the protocol is to \u201cMake ROIs from objects\u201d, the found objects are selected as regions of interest \\(ROIs) automatically \\(**Figs. 2b** and **3a**).\r\n\n\n\r\n\n\n**CAUTION**  Do not click outside the ROIs if one of the ROI tools is selected because that will deselect the ROIs and will require repeating Steps 5 & 6.\r\n\n\n\r\n\n\n**7.**  Switch to the \u201cColocalization\u201d view in the library by clicking the \u201cColocalization\u201d tab and select the appropriate channels to be analyzed.  Only 2 channels can be selected at any given time.\r\n\n\n**8.**  Use the same threshold values as in **Step 4** \\(i.e., 3x SD) to set the minimum intensity value for each channel \\(see **Fig. 3c**).\r\n\n\n\r\n\n\n**CRITICAL STEP**  Threshold absolute values corresponding to 3xSD can be obtained from **Step 4** \\(see **Fig. 2b**) for the corresponding channels by \u201cmousing\u201d over the lower limit bar in the intensity histogram.  \r\n\n\n\r\n\n\n**9.**  Graphical and numerical results of the colocalization analysis are displayed automatically \\(**Fig. 3b-d**).\r\n\n\n\r\n\n\n**CAUTION**  Colocalization results are shown based on thresholded and non-thresholded \\(\u201cGlobal\u201d) analysis; use the results in the \u201cThresholded Statistics\u201d field."
+        },
+        {
+            "header": "Timing",
+            "content": "Time taken to complete the analysis will highly depend on the computing speed and the number of islets analyzed to accomplish statistical power of analysis.  It will also depend on the user\u2019s experience and familiarity with Volocity.  In our hands, it took 4 \u2013 6 min/islet to complete the analysis following the steps described in the **PROCEDURE**."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "Please refer to the figures for representative results."
+        },
+        {
+            "header": "References",
+            "content": "1. Rodriguez-Diaz, R., et al. Alpha cells secrete acetylcholine as a non-neuronal paracrine signal priming beta cell function in humans. Nat Med 17, 888-892 \\(2011)\r\n  2.  Barlow, A.L., Macleod, A., Noppen, S., Sanderson, J. & Gu\u00e9rin, C.J. Colocalization analysis in fluorescence micrographs: verification of a more accurate calculation of pearson's correlation coefficient. Microsc Microanal 16, 710-724 \\(2010).\r\n  3.  Cabrera, O., et al. The unique cytoarchitecture of human pancreatic islets has implications for islet cell function. Proc Natl Acad Sci U S A 103, 2334-2339 \\(2006).\r\n  4.  Cabrera, O., et al. Glutamate is a positive autocrine signal for glucagon release. Cell Metab 7, 545-554 \\(2008).\r\n  5.  Jacques-Silva, M.C., et al. ATP-gated P2X3 receptors constitute a positive autocrine signal for insulin release in the human pancreatic beta cell. Proc Natl Acad Sci U S A 107, 6465-6470 \\(2010)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "We thank Alexander Formoso for help with data analyses and Kevin Johnson for histological work.  Researchers involved in this work were funded by the Diabetes Research Institute Foundation \\(DRIF), NIH grants F32DK083226 \\(M.H.A), R56DK084321 & R01DK084321 \\(A.C.).  Research support was also provided to P-O.B through the Juvenile Diabetes Research Foundation, the Swedish Research Council, the Novo Nordisk Foundation, the Swedish Diabetes Association and The Family Erling-Persson Foundation, the World Class University program through the National Research Foundation of Korea funded by the Ministry of Education, Science and Technology \\(R31-2008-000-10105-0), the Berth von Kantzow\u2019s Foundation, the Knut and Alice Wallenberg Foundation, VIBRANT \\(FP7-228933-2), Skandia Insurance Company, Ltd, Strategic Research Program in Diabetes at Karolinska Institutet, Torsten and Ragnar S\u00f6derberg\u2019s Foundation."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nm.2371",
+                "date": "2011-09-08 17:59:39",
+                "title": "Alpha cells secrete acetylcholine as a non-neuronal paracrine signal priming beta cell function in humans",
+                "authors": [
+                    "Rayner Rodriguez-Diaz",
+                    "Robin Dando",
+                    "M Caroline Jacques-Silva",
+                    "Alberto Fachado",
+                    "Judith Molina",
+                    "Midhat H Abdulreda",
+                    "Camillo Ricordi",
+                    "Stephen D Roper",
+                    "Per-Olof Berggren",
+                    "and Alejandro Caicedo"
+                ],
+                "journal": "Nature Medicine",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 11857,
+                "identity": "9faefd0a-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Midhat H. Abdulreda",
+                "email": "mabdulreda@med.miami.edu",
+                "orcid": "",
+                "institution": "Diabetes Research Institute, University of Miami Miller School of Medicine",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Midhat",
+                "middleName": "H.",
+                "lastName": "Abdulreda",
+                "suffix": ""
+            },
+            {
+                "id": 11858,
+                "identity": "9faf00b1-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Rayner Rodriguez-Diaz",
+                "email": "",
+                "orcid": "",
+                "institution": "Diabetes Research Institute, University of Miami Miller School of Medicine and Karolinska Institutet",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Rayner",
+                "middleName": "",
+                "lastName": "Rodriguez-Diaz",
+                "suffix": ""
+            },
+            {
+                "id": 11859,
+                "identity": "9faf03b0-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Per-Olof Berggren",
+                "email": "",
+                "orcid": "",
+                "institution": "Diabetes Research Institute, University of Miami; The Rolf Luft Research Center for Diabetes & Endocrinology, Karolinska Institutet, Stockholm, Sweden; Division of Integrative Biosciences&Biotechnology, University of Science and Technology, Pohang, Korea",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Per-Olof",
+                "middleName": "",
+                "lastName": "Berggren",
+                "suffix": ""
+            },
+            {
+                "id": 11860,
+                "identity": "9faf0555-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Alejandro Caicedo",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Medicine, Diabetes Research Institute, Physiology & Biophysics, Neuroscience Program, University of Miami Miller School of Medicine",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Alejandro",
+                "middleName": "",
+                "lastName": "Caicedo",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2011-09-16 18:19:44",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2011.258",
+        "doiUrl": "https://doi.org/10.1038/protex.2011.258",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2608338,
+                "identity": "d4dfadb8-05b1-4118-9d3e-1120c449d8d6",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:09",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 376437,
+                "visible": true,
+                "origin": "",
+                "legend": "*Immunostaining of human pancreatic islets shows segregation of glucagon and vAChT in different granules within human alpha cells.*     Shown is an immunostained section (~40 \u00b5m) of a human pancreas with DAPI (blue) nuclear counter-stain (*a*), vAChT (green) (*b*), and glucagon (red) (*c*) within an islet.  (*d*) this panel shows an overlay of *a \u2013 c*.  (*e*) Shows an overlay of *b* and *c* highlighting compartmentalization of glucagon and vAChT into different granules within alpha cells only.  Images are shown as maximum projections of z-stacks of confocal images.  Scale bar = 50 \u00b5m.   ",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-2190/v1/figure_1.png"
+            },
+            {
+                "id": 2608339,
+                "identity": "f163901f-0405-4f1f-a3af-0f362ac36ab9",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:09",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 466220,
+                "visible": true,
+                "origin": "",
+                "legend": "*Finding objects for colocalization analysis in Volocity.*     (*a*) Screenshot showing an islet in the \u201cMeasurements\u201d view in Volocity software.  The left inset shows a magnified view of the sequence of the analysis protocols (algorithms) to find objects (cells) based on glucagon (red) and vAChT (green) immunostaining intensities.  (*b*) Screenshot showing the results of the protocol sequence as highlighted objects found after executing the protocol sequence.   The inset shows the popup window displayed by clicking on the cog icon.  In this popup window, threshold values are set to 3x standard deviations (SD) of the minimal fluorescence intensity in the selected channel.  Absolute intensity values corresponding to the 3x SD threshold value are displayed on top of the intensity histogram by \u201cmousing\u201d over the lower limit bar (thick red vertical line).  ",
+                "description": "",
+                "filename": "figure2.png",
+                "url": "https://assets.researchsquare.com/files/nprot-2190/v1/figure_2.png"
+            },
+            {
+                "id": 2608341,
+                "identity": "dc468bf0-5992-4713-837a-19cf68a6783b",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:09",
+                "extension": "png",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 803397,
+                "visible": true,
+                "origin": "",
+                "legend": "*Colocalization analysis using Volocity.*     (*a*) Maximum projection of a z-stack of a confocal image of a human pancreatic islet immunostained for glucagon (red), vAChT (green), and DAPI as nuclear counter-stain (blue).  ROIs (outlined) were generated from the glucagon and vAChT-positive objects (i.e., cells) that were found in *Steps 4 \u2013 6* of the *PROCEDURE* and were used for the colocalization analysis using different combinations of channels (2 at a time).  (*b-d*) Screenshots of the \u201cColocalization\u201d view in Volocity showing the graphical and numerical results of the colocalization analysis performed on glucagon and vAChT (*b*), glucagon and DAPI (*c*), and insulin and C-peptide stained islet cells (*d*).  The insets in (*b-d*) show the \u201cThresholded\u201d and \u201cGlobal\u201d or non-thresholded statistics of the colocalization of the selected channels.  These results show representative colocalization analysis of partially colocalized glucagon with vAChT (Pearson\u2019s Correlation Coefficient = 0.272), complete segregation of glucagon and DAPI (-0.13), and strong colocalization of insulin with C-peptide (0.613).  The upper inset in (*c*) shows the field where absolute intensity values corresponding to a threshold of 3x SD for each channel are set in *Step 8* in the *PROCEDURE*.   ",
+                "description": "",
+                "filename": "figure3.png",
+                "url": "https://assets.researchsquare.com/files/nprot-2190/v1/figure_3.png"
+            },
+            {
+                "id": 13464728,
+                "identity": "c6f8838c-19ab-4602-a10a-349a8e138b3d",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:44:30",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 1903876,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-2190/v1/ac78e731-fdc9-4dcc-b707-93d6dc95db5b.pdf"
+            }
+        ],
+        "financialInterests": "No Conflicts disclosed",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Colocalization analysis, human islets, beta cells, alpha cells, vesicular acetylcholine transporter, vAChT, insulin, C-peptide, glucagon, confocal microscopy",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "We describe here how to perform colocalization analysis in different endocrine cells of human pancreatic tissue.  Immunostained endocrine cells were imaged using high resolution three-dimensional \\(3D) confocal microscopy.  The analysis of the 3D images was performed using Volocity software based on the fluorescence intensity of the different markers acquired in separate channels.  The described procedure can be used for colocalization analysis in immunostained tissues other than pancreatic islets.  Special attention should be paid to the limits of the imaging resolution and quality for proper colocalization analyses, especially, those involving sub-cellular compartments.  Execution of the described procedure will highly depend on the computer processing speed; in our hands, it took a few minutes per islet.  However, the overall time of analysis will vary significantly depending on the sampling size to accomplish statistical power of analysis.",
+        "manuscriptTitle": "Three-dimensional colocalization analysis in immunostained sections of human pancreas",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2011-09-19 12:00:38",
+                "doi": "10.1038/protex.2011.258",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9faeaff9-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "September 19th, 2011",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 2632,
+                "name": "Cell biology"
+            },
+            {
+                "id": 2633,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 2634,
+                "name": "Structural biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2011-09-19 12:00:38",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

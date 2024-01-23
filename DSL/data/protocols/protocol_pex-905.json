@@ -1,0 +1,511 @@
+{
+    "identity": "pex-905",
+    "title": "<p>Extraction of nuclei from archived post-mortem tissues for single-nucleus sequencing applications </p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>\tAdvancements in technology have allowed researchers to preform large-scale transcriptomic studies at the level of a single-cell. Droplet-based cell isolation has become a favorite in the field for its scalability and simplicity of use with either in-house fluidic set-ups<sup>1,2</sup>, or commercially available equipment (10x Genomics)<sup>3</sup>. This technique is particularly interesting for tissues with highly heterogeneous cellular compositions like intestine<sup>4</sup>, lung<sup>5</sup>, spinal cord<sup>6</sup>, and brain<sup>7,8</sup>. There has been particular interest in deconvoluting brain architecture and function, which at its base, starts by accurately identifying all the cells types present<sup>9-11</sup>. However, truly harnessing the power of individual cellular transcriptomes comes with assessing differences between those transcriptomes in different physiological states. This is of particular value for complex diseases where multiple genes contribute with additive effects, making it difficult to identify changes in tissues homogenates<sup>12</sup>. The chemical dissociation of tightly interconnected brain cells and other cell-types has been found to alter transcription profiles<sup>13,14</sup>. Given that nuclear transcriptomes closely reflect the cell\u2019s cytosolic profile<sup>15,16</sup>, isolating the nuclei from brain tissue has proven to be an excellent strategy for single-cell level studies. &nbsp;Likewise, other tissues that have either been frozen for long term storage or that are formed by syncytium, such as in skeletal muscles<sup>17,18</sup>, could benefit from this approach.&nbsp;</p><p><u>Development of the Protocol</u></p><p>\tNumerous protocols for isolating nuclei from brain cells have been published; some rely on the additional purification by fluorescence assisted cell sorting (FACS)<sup>19</sup>, which is costly and not readily available for all researchers, while others have made adjustments to the microfluidics component<sup>10</sup>, which can also be a limiting to many labs. Our protocol has been developed for use with the commercially available Chromium\u2122 Single Cell Controller. This is a highly optimized system that allows scalable single-cell capture. We have adapted our protocol to allow the system to efficiently capture nuclei from archived tissue. Our preparation produces stable and easily quantifiable nuclear suspension even when using archived tissue. We have used this approach to successfully compare the gene expression differences in the post-mortem prefrontal cortex of depressed patients who died by suicide compared to psychiatrically healthy controls<sup>20</sup>. The protocol has also been successfully applied to collect single-nucleus transcriptomic data from surgical samples of glioblastoma<sup>21</sup>.&nbsp;</p><p><u>Overview of the procedure</u></p><p>\tThe experimental workflow (<strong>Fig. 1</strong>) begins with dounce-homogenization in low concentration detergent for cellular lysis. Integral to the protocol are numerous wash steps to reduce ambient nucleic acid contamination. Determination of the nuclei numbers and concentration are assessed by a cell counter or hemocytometer. The concentration of the nuclei suspension is important to reduce aggregation, particularly in tissues that have undergone long-term storage and are thus more likely to be damaged, fragile and inclined to aggregate. &nbsp;</p><p><u>Comparison with other methods</u></p><p>\tAs previously mentioned, single-nucleus RNA sequencing (snRNA-seq) protocols exist using FACs which is harder to scale, as well as droplet based protocols which use in house set-ups. Early protocols used relatively fresh frozen tissue, which is not available from most tissue banks where samples are likely to have undergone long term storage<sup>9-11</sup>. Moreover, when studying specific phenotypes for which it is hard to obtain tissues, it is not always possible to select for short post-mortem intervals (PMIs) and archival times. Early protocols were also limitedly applied to the high-quality tissue which may not be an option for answering certain types of research questions. </p><p>\tAs with several more recently published potocols<sup>22-24</sup>, we have been able to adapt our nuclear prep to be compatible with a 10X Chromium system which is more likely to be available as a service platform. Furthermore, the wet-lab aspect of the protocol will produce nuclei suitable for multiple post-nuclei capture application such as, whole genome sequencing for the study of somatic mutations or <u>A</u>ssay for <u>T</u>ransposase-<u>A</u>ccessible <u>C</u>hromatin (ATAC-seq) as supported by preliminary results from our lab. </p><p>\tEach of the more recently developed protocols have their own strengths and weaknesses and, in some cases, adaptations for specific tissue types such as macro-dissections for white matter regions<sup>24</sup>. The strength of our protocol is that it is effective and mostly unaffected by variations in PMI or archival times of the samples <strong>(Fig 2)</strong>. Some of these protocols also incorporate ultra-centrifugation<sup>25</sup>, which is time consuming and requires specialized equipment. We are able to circumvent the additional challenges that arise with archived tissue such as, the fragility of the cells and organelles upon thawing which typically results in large amounts of debris and ambient RNA than can either, interfere with droplet formation, or be integrated into droplet increasing background sequencing noise.&nbsp;Here, we show that brain tissue which has been stored at -80<sup>o</sup>C for as long as 25 years, can produce high quality single-nuclei suspensions.</p><p>\tDirectly applying either the cell preparation protocol or the demonstration protocol for nuclei developed from 10x Genomics did not produce useable results (<strong>Fig. 3</strong>) , but is effective for samples from cell culture. The modifications made here are primarily for use with post-mortem tissue that has been archived for long periods of time but can also be applied to any post mortem frozen sample. Similar to previous studies<sup>10,11</sup>, we did apply a few modifications to the standard&nbsp;bioinformatic analysis to addresses a number of issues which arise with droplet-bases single-nucleus sequencing. First, we assembled a pre-mRNA reference to account for unprocessed transcripts found in the nucleus<sup>26</sup>. Second, given that previous studies have consistently shown fewer identifiable transcripts in glial cells<sup>10,11</sup> we performed &nbsp;customized barcode filtering to include cells with a wider range of UMIs but removed noise. With these minor modifications to the analysis our wet lab approach produced much improved data compared to the demonstration protocol from 10X Genomics.</p><p><u>Experimental design</u></p><p>The most important factors to take into consideration while designing single-cell or single-nucleus RNA-seq experiments is the potential batch effects. Given that the Chromium system only allows for the capture of 8 samples at a time and that for many experiments that total number of samples to be analyzed may be greater than eight, it may be preferable to create a balanced experimental design if possible. This will help limit the effects of batch to batch variability. For example, if two phenotypic or treatment groups are to be compared, it would be ideal to include equal numbers of samples from each group in every batch. Moreover, other potential co-variates to take into consideration include age, PMI, and sex. It may be possible to account for the effects of these variables by matching samples by these parameters within each batch. &nbsp;</p><p>In cases where cell-type specific gene-expression data has been previously published, or single-cell or nucleus gene expression datasets are available, these data can be used for comparison to help determine whether that cell-types identified, and single-nucleus transcriptomic profiles detected reflect, previously published literature. In cases where such datasets are not available it may be informative to prepare bulk samples in parallel or to perform sequencing for fluorescence assisted nuclei sorting (FANS) purified populations of expected cell-types based on known markers to validate the cell-type identification from the single-nucleus transcriptomic data<sup>27</sup>. High-throughput <em>in situ</em> hybridization (ISH)<sup>28</sup> and ISH based nuclei sorting<sup>27</sup> have also been used to confirm experimentally determined cell-types from snRNA-seq. In the case of complex tissues, it can be useful to perform careful dissection and even to cryosection the tissue before preparing nuclei to ensure that the approximate cell-type composition for each sample will be comparable<sup>11,24</sup>.&nbsp;&nbsp;</p><p>Another strategy which has been recently applied to increase cost-effectiveness as well as to aid in batch effect correction is combining male and female samples in a single capture followed by using the expression of sex-specific, X-chromosome genes such as <em>XIST</em> and Y-chromosome genes such as <em>SRY</em><sup>29,30</sup><em>, </em>or the chromosome accessibility ratios for sex-chromosome versus autosomes<sup>31</sup><em> </em>to separate the cells from each sample. Since both samples are captured on the same lane of the microfluidic chip, it may be possible to account for lane to lane variability using this approach. Moreover, the use of cryosections of histological grade tissue blocks may be a good strategy for accounting for uniform input from a micro-anatomicallly heterogeneous region such as the cerebral cortex<sup>11,23</sup>. </p><p><u>Expertise needed to implement the protocol</u></p><p>This protocol requires access to a 10X Genomics\u2019 Chromium system and corresponding reagents or an in-house droplet based single-nucleus sequencing system. A hemocytometer or cell-counting microscope will be required for determining proper loading concentration. Wet-lab work will require familiarity with standard molecular biology approaches such as cDNA synthesis, and sequencing library preparation. </p><p><u>Advantages and Limitations</u></p><p>We are unable to get information about cytoplasmic transcription. Some tissue types may require additional processing such as FACS. Representation of all cell types may not be uniform as different cell types are differentially susceptible to lysis during the isolation procedure.&nbsp;</p><p><br></p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tissue samples: This protocol was successfully applied for processing frozen archived post-mortem prefrontal cortex tissue from the Douglas Bell Canada Brain Bank, post-mortem intestinal tissue (with modifications), and surgical samples of tumor tissue<sup>21</sup>. Use of post-mortem tissues was approved by the Institutional Review Board of the Douglas Hospital.</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NP-40 detergent at 10% concentration (Abcam, cat. no. ab142227)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bovine Serum Albumin Fraction V (BioShop, cat. no. ALB001.25)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tris (BioShop, cat. no. TRS003.5)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NaCl (BioShop, cat. no. SOD001.1)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MgCl<sub>2</sub>.6H<sub>2</sub>O (BioShop, cat. no. MAG510)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HCl (BioShop, cat. no. HCL333)</p><p>CAUTION: Concentrated HCl is highly corrosive and should be handled wearing PPE inside a fume hood.&nbsp;</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KCl (BioShop, cat. no. POC308)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KOH (BioShop, cat. no. PHY202)</p><p>CAUTION: Concentrated KOH is highly corrosive and should be handed wearing PPE inside a fume hood.</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tricine (BioShop, cat. no. TRI001)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Glycerol&nbsp;&nbsp;&nbsp;(BioShop, cat. no. GLY001)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Protector RNAse Inhibitor (Millipore Sigma, 3335399001)</p><p>CRITICAL: Other RNAse inhibitors may not be compatible with the protocol and may result in low yield of nuclei.</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Optiprep\u2122 Density Gradient Medium, 60% iodixanol (weight/volume) (Millipore Sigma, D1556-250)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gibco\u2122 PBS, pH 7.4 (1X), (Thermo Fisher Scientific, cat. no. 10010203)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deionized water</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ethanol 100% (Sigma, cat. no. 459836-500ML)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Trypan Blue Stain (0.4%) (Thermo Fisher Scientific, cat. no. T10282)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hoechst stain (Invitrogen, cat. no. H1399)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chromium Single Cell 3' Library &amp; Gel Bead Kit v2 (10X Genomics Inc, cat. no. 120237)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chromium Single Cell A Chip Kit (10X Genomics Inc, cat. no. 120236)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPRIselect Reagent Kit (Beckman Coulter, cat. no. B23318)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tween 20 (Bio-Rad, cat. no. 1610781)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Buffer EB (250mL) (Qiagen, cat. no. 19086)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Glycerin (glycerol), 50% (v/v) Aqueous Solution (Ricca Chemical Company (or other), cat. no. 3290-32)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DynaBeads MyOne\u2122 Silane Beads (5mL) (Thermo Fisher, cat. no. 37002D)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Low TE Buffer (10 mM Tris-HCl pH 8.0, 0.1 mM EDTA, 100mL) (Thermo Fisher, cat. no. 12090-015)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nuclease-Free Water (Thermo Fisher, cat. no. AM9937)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TapeStation High Sensitivity D1000 Sample Buffer (Agilent, cat. no. 5067-5603)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TapeStation High Sensitivity D1000 ScreenTape (Agilent, cat. no. 5067-5584)</p><p><strong>Software for sequence alignment and gene-barcode counting</strong></p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CellRanger version 2.1.0</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bcl2fastq2, version 2.19</p><p><strong>Software for secondary analysis in R</strong></p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Seurat, version 2.3.0 or higher</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mixtools (1.1.0)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DeconRNASeq (1.18.0)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R, version 3.4 or higher</p><p>REAGENT SETUP</p><p>The following reagents should be prepared ahead of time:</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Prepare 1M NaCl, 100mM MgCl<sub>2</sub>, 1M MgCl<sub>2</sub>, 1M KOH solutions in ddH<sub>2</sub>O in separate 50 mL centrifuge tubes and store at room temperature (21-22<sup>o</sup>C for our laboratory).</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Prepare 250 mL of 10% (weight/volume) BSA solution in a glass bottle by dissolving crystalline BSA in ddH<sub>2</sub>O at room temperature. Store at 4<sup>o</sup>C for up to 1 month. Keep crystalline BSA at -20<sup>o</sup>C.</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Prepare 250 mL of 1M Tris HCl buffer in a glass bottle by dissolving in ddH<sub>2</sub>O. Adjust pH to 7.4 by adding HCl dropwise. Store at room temperature. This is a time-consuming step.</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Prepare 250 mL of 0.5M Tricine KOH buffer in a glass bottle by dissolving Tricine in ddH<sub>2</sub>O and adjusting pH to 7.8 by adding 1M KOH dropwise. Store at room temperature. This is a time-consuming step.</p><p>Buffer recipes provided are calculated assuming preparation of 8 samples for capture using a full Chromium chip.</p><p><strong>Optiprep\u2122 diluent (altered as per Kriaucionis et al., 2009)</strong><sup><strong>32</strong></sup><strong>: </strong>Combine the following in a 250 mL glass bottle. Store at room temperature.</p><p>Component,\tVolume (in \u03bcL),\tFinal concentration</p><p>1. 1M KCl,\t15000,\t150 mM</p><p>2. 1M MgCl<sub>2</sub>.6H2O<sub>, </sub>500, 5 mM</p><p>3. 0.5M Tricine-KOH (pH 7.8), 4000, 20 mM</p><p>4. Deionized water, 80500, \u2013</p><p>5. Total volume, 100000, \u2013</p><p><strong>Optiprep\u2122 solutions: </strong>Using Optiprep\u2122 diluent solution dilute the Optiprep\u2122 reagent (60% weight/volume iodixanol) to make 50% weight/volume and 29% weight/volume solutions of iodixanol in separate 50 mL centrifuge tubes. Protect from light and store at room temperature.</p><p><strong>Lysis buffer (LB): </strong>Combine the listed components in a 50 mL centrifuge tube. This buffer should be made fresh and kept at 4<sup>o</sup>C or on ice.</p><p>Component, Volume (in \u03bcL), Final concentration</p><p>1. 1M Tris-HCl pH 7.4, 200, 10 mM</p><p>2. 1M NaCl,\t200, 10 mM</p><p>3. 100 mM MgCl<sub>2</sub>, 600, 3 mM</p><p>4. NP-40 (10%), 100, 0.05% (v/v)</p><p>5. Deionized water, 18900,\t\u2013</p><p>6. Total volume, 200000, \u2013</p><p><strong>Nuclei wash buffer (NWB): </strong>Combine the listed components in a 250 mL glass bottle. This buffer should be made fresh and kept at 4<sup>o</sup>C or on ice.</p><p>Component, Volume (in \u03bcL), Final concentration</p><p>1. 10% BSA, 100000, 5% (w/v)</p><p>2. Glycerol, 500, 0.25% (v/v)</p><p>3. Protector RNAse inhibitor, 200, 40 units/mL</p><p>4. 1X PBS, ~100000, 0.5X</p><p>5. Total volume, ~200000, \u2013</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Scalpel</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Spatula</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Weighing boat</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Weighing scale</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Refrigerated bench-top centrifuge for 5mL tubes (Eppendorf, model 5430R)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Refrigerated bench-top centrifuge for 15 mL tubes (Beckman Coulter, model Allegra X-14R)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Countess\u00ae II FL Automated Cell Counter (Thermo Fisher Scientific, cat. no. AMAQAF1000)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Countess\u00ae II FL Automated Cell Counter Chamber Slides (Thermo Fisher Scientific, cat. no. C10228)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Flowmi\u2122 Cell Strainer, 40 \u03bcm (Bel-Art, cat. no. H13680-0040)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MACS\u00ae SmartStrainers, 30 \u03bcm&nbsp;(Miltenyi Biotec, cat. no. 130-098-458)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7 ml Tissue Grinder, Dounce (Wheaton, cat. no. 357542)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15 ml centrifuge tubes (Corning, cat.no.&nbsp;430791)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Centrifuge tube, 50 mL screw cap (Sarstedt, SAR62547205)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DNA LoBind Microcentrifuge Tubes (Eppendorf\u2122, cat. no. 022431021)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;250 mL glass bottles</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DNA LoBind Microcentrifuge Tubes 5.0 ml (Eppendorf, cat. no. 30108310)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INCYTO C-Chip Disposable Hemocytometers (SKC Films Inc., cat. no. DHCN012 or DHCN015)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PCR Tubes 0.2 ml 8-tube strips (Eppendorf, cat. no. 0030124286)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10mL serological pipette</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Invitrogen EVOS FL Auto Cell Imaging System (Thermo Fisher Scientific)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chromium Controller (10X Genomics)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Microseal 'B' Adhesive Seals (Bio-Rad, cat. no. MSB1001)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;twin.tec 96-Well PCR Plate Semi-skirted LoBind (25) (Eppendorf, cat. no. 30129504)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Divided Polystyrene Reservoirs (25mL, 50) (VWR, cat. no. 41428-960)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;200UL Filter Tips (Rainin, cat. no. 17007961)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pipet-Lite Multi Pipette L8-200XLS+ (Rainin, cat. no. 17013805)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Flowmi 40\u03bcm Cell Strainers (Sigma-Aldrich, cat. no. BAH136800040-50EA)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TapeStation 2200 (Agilent) or equivalent equipment</p><p>EQUIPMENT SETUP</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Precool both centrifuges to 4<sup>o</sup>C. </p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Set up EVOS FL Auto microscope with 10X magnification, bright field and DAPI channels.</p><p><strong>Computational requirements </strong></p><p>Linux OS with minimum requirements for running CellRanger as described on the 10X Genomics\u2019 webpage must be met.&nbsp;</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "Procedure\nTissue preparation (Timing 1-4 hours)\n1.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Cut using a scalpel and weigh 30-50mg of frozen tissue per sample. Keep tissue on dry ice while cutting to minimize degradation. Transfer to a 1.5mL microcentrifuge tube using a spatula and place back on dry ice. Clean scalpel and spatula with 70% ethanol between samples. Use a fresh weigh boat for each sample. Alternatively, this step could be replaced by cryosectioning a fresh frozen histology grade dissection of tissue and collecting several sections such that the total weight is between 30-50 mg.\nCAUTION: Post-mortem human tissue can contain pathogens. Take precautions including wearing PPE and seek medical attention if the scalpel breaks your skin.\nNuclei extraction (Timing 2-3 hours)\n2.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Transfer tissue using spatula to douncing tube on ice. Add 3mL of ice-cold lysis buffer and dounce with loose pestle 10 times and 5 more times with the tight pestle.\nCRITICAL: Use proper douncing technique to ensure proper mechanical breakdown of tissue. Proceed slowly and avoid bubbles. Grind tissue against the bottom of the tube using the douncer with each stroke.\n3.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Transfer homogenized tissue to a 15mL centrifuge tube by pouring and add 2 mL of chilled lysis buffer. Incubate on ice for 5 minutes gently swirling to mix 2 times during incubation.\n4.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Add 5 ml of chilled wash buffer to lysed tissue to quench lysis. Swirl to mix.\n5.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Place 30 \u03bcm MACs SmartStrainer on a 15mL centrifuge tube. Pipette lysed tissue suspension on top of filter to remove cell debris and large clumps. In case of blocked flow through the filter, tap filter gently to encourage the suspension to flow through.\n6.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0In the precooled Allegra-14X centrifuge, spin down the lysed tissue suspensions at 500g for 5 minutes at 4\u00b0C.\n7.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Decant supernatant into a waste beaker without disrupting the nuclei pellet.\nCAUTION: The supernatant should be treated as biohazardous waste and treated with bleach before disposal.\nCRITICAL: Pour out supernatant in a single motion as repeated pouring motions can dislodge the pellet. If the pellet dislodges during decanting slowly remove the supernatant using a pipette.\n8.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Using a 10 mL serological pipette add 10mL of nuclei wash buffer to the pelleted nuclei and gently pipet 8-10 times to mix.\n9.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Repeat step 5-7 using the resuspended nuclei.\n10.\u00a0\u00a0\u00a0Using a 10 mL serological pipette add 5mL of nuclei wash buffer to the pelleted nuclei and gently pipet 8-10 times to mix.\n11.\u00a0\u00a0\u00a0Repeat steps 6-7 using the resuspended nuclei.\n12.\u00a0\u00a0\u00a0Using a 1000 \u03bcL pipette tip, add 1mL of nuclei wash buffer to pelleted nuclei and gently pipet 8-10 times to mix.\n13.\u00a0\u00a0\u00a0Add 1 mL of 50% working solution of Optiprep\u2122 and mix well to make 2 mL of 25% iodixanol solution containing nuclei.\n14.\u00a0\u00a0\u00a0Prepare Optiprep\u2122 cushion of 2ml of 29% Optiprep\u2122 solution in a 5ml Eppendorf centrifuge tube.\n15.\u00a0\u00a0\u00a0Gently add the 2ml nuclei suspension on top of the Optiprep\u2122 cushion by pipetting slowly against the wall of the tube to avoid mixing.\n16.\u00a0\u00a0\u00a0In the precooled Eppendorf centrifuge, spin the tubes containing nuclei layered over Optiprep\u2122 cushion at 10,000g for 30 minutes at 4\u00b0C.\n17.\u00a0\u00a0\u00a0Carefully pour out the supernatant leaving the least amount of volume in the tube without disrupting the pellet.\n?TROUBLESHOOTING\n18.\u00a0\u00a0\u00a0Using a 1000 \u03bcL pipette tip, resuspend the nuclei pellets in 500 \u03bcL or less of nuclei wash buffer. Gently pipette 8-10 times or until nuclei are resuspended.\n19.\u00a0\u00a0\u00a0For a quick estimate of nuclei concentration, mix 10 \u03bcL of the nuclei suspension with 10 \u03bcL of Trypan blue in a separate tube. Load 10 \u03bcL of the mixture onto a Countess hemocytometer slide. Count nuclei on the Countess hemocytometer and measure range of sizes. For human neurons the average diameter of the nuclei should be around 10 \u03bcm. Trypan blue is a live dead stain and properly isolated nuclei should have be marked as dead cells.\n20.\u00a0\u00a0\u00a0Using the estimated count from the Countess dilute cells to around 500,000 cells/ mL or 500 cells/ \u03bcL by adding an appropriate volume of nuclei wash buffer. It may be possible to increase these concentrations for capturing more nuclei.\nCRITICAL: If the concentration of nuclei is too high it can result in aggregation which will prevent efficient capture of single nuclei in subsequent steps.\n21.\u00a0\u00a0\u00a0Add Hoechst stain to the resuspended nuclei at a 1:2000 dilution.\nNuclei concentration assessment and capture (Timing 45 mins)\nImmediately prior to loading the Hoechst stained nuclei on the Chromium system, check to make sure the nuclei are well segregated (nuclei may clump) and recheck sample concentration using a fluorescent microscope like the Evos FL Auto (Thermofisher)\n22.\u00a0\u00a0\u00a0OPTIONAL: Use a 1mL pipette to take a minimum of 200 \u03bcL of the sample and filter it through a 40\u03bcm Flowmi pipette tip filter before counting and loading.\u00a0This will get rid of the clumped nuclei and large debris that can clog the microfluidics of Chromium chips.\n23.\u00a0\u00a0\u00a0Load 10\u03bcL of sample onto a disposable hemocytometer slide and into the Evos.\nCRITICAL: Make sure to pipette the full volume of the nuclei suspension several times before loading for accurate counts.\n24.\u00a0\u00a0\u00a0Set the Evos to 10X magnification and image the entire hemocytometer grid field of view in DAPI and bright field.\u00a0This image makes counting nuclei easier and serves as a record as well (\nFig. 3g\n).\n25.\u00a0\u00a0\u00a0In parallel to steps 22-24, make the RT Master Mix and\naliquot appropriate volumes of master mix and water into PCR tubes according to the number of nuclei to be targeted for capture, referring to the Chromium protocol CG00052 Rev. D or later.\n?TROUBLESHOOTING\nCRITICAL: The Chromium capture rate for nuclei from archived tissue is lower (~20% less) than the capture rate for cells. To account for this, it is necessary to adjust the count used to determine loading volume. We empirically determined that choosing the loading volume by using a count that is 30% less than observed count worked best for our samples. This adjustment may vary from tissue type to tissue type. For example, if the sample has a concentration of 500 nuclei/\u03bcL, the sample volume should be loaded as if it has 350 cells/\u03bcL (70% of 500 cells) in order to get the targeted nuclei to recover.\nCRITICAL: Resuspend nuclei by pipette mixing the full volume several times immediately before loading to prevent aggregation of nuclei.\n26.\u00a0\u00a0\u00a0Load the Chromium Chip and harvest the nuclei captured in droplet (i.e. GEMs) according to the Chromium protocol CG00052 Rev. D\nLibrary preparation and sequencing (Timing )\n27.\u00a0\u00a0\u00a0Reverse transcription, cDNA amplification, and library preparation are performed according to the Chromium protocol CG00052 Rev. D. Libraries can be sequenced on an Illumina sequencer. Sequencing two samples per lane of a HiSeq 4000 machine can yield ~100,000 reads per nucleus based on default CellRanger parameters and provide sufficient information for cell-type identification and differential expression analysis. Downstream analysis options for the sequencing results are described in Box 1.\nBox 1: Downstream data analysis\nAlignment, Demultiplexing, and Generation of Counts Matrix (Time: variable)\nSince our experiments utilized human nuclei, we built a pre-mRNA reference using the cellranger mkref (Cellranger version 2.0.1) command. Default parameters were used, starting with the refdata-cellranger-GRCh38-1.2.0 transcriptome and as per the instructions provided on the 10X Genomics website. For mouse tissue the corresponding pre-mRNA reference would need to be created for the mouse genome. We demultiplexed reads by sample index using the cellranger mkfastq command (Cellranger v2.1.0), aligned FASTQ files to the custom transcriptome, demultiplexed cell barcodes, counted the UMIs corresponding to genes using the cellranger count command and default parameters. These steps may be performed with custom code if desired.\nCustom Filtering to Recover Low Transcript Number Cell Types (Time: variable)\nWhile there are many options for software to be used for downstream analysis of snRNA-seq data such as scater\n33\n, SC3\n34\n, Monocle3\n35\n, etc., we used the Seurat R package (version 2.2.0, 2.3.0)\n36\n.\u00a0Unfiltered gene barcode matrices for each sample were loaded into R using the Read10X function. At this step, cell names can be modified such that the subject name, batch, and biological condition are appended to them. Seurat objects were created corresponding to each sample using the CreateSeuratObject function with the imported unfiltered gene-barcode matrices provided as the raw data. Individual Seurat objects for each sample were combined sequentially using the MergeSeurat function. No filtering or normalization was performed up to this step. Since we were working with a single nucleus dataset, all mitochondrial genes that are transcribed from the mitochondrial genome were removed, along with genes not detected in any cell. More recently several methods have been developed to align multiple datasets of snRNA-seq and other single-cell level data\n28,37\nwhich can be used for combining the data from individual subjects if inter-individual variability or batch effects are deemed to have a large influence on the results.\nFor preliminary filtering, some nuclei with very low number of genes detected (>110) and nuclei with very high numbers of UMIs detected (in the top 0.5%) were removed as low-quality nuclei and potential multiplets respectively. These cut-offs are arbitrary but can be based upon the distribution of the data. For example, in our dataset there was a sharp increase in the number of UMIs from 16,393 at the 99.5\nth\npercentile to 102,583 at the maximum which probably represents the multiplets in the dataset.\nIf the dataset contains multiple cell-types which are expected to be heterogenous in terms of the number of molecules of RNA present per nucleus (such as when the nuclei of different cell-types are known to be of very different size), the following approach can be used for removing low quality cells without unduly biasing the filtering against nuclei which biologically contain fewer molecules . For our dataset, given the known trend for higher number of RNA molecules in neuronal nuclei compared to glial nulcei\n10,11,38\n, the distribution of number of UMIs was fit with three normal distributions using the normalmixEM function from the mixtools\n39\npackage. The rationale is that the filtered barcodes contain a population of low quality \u201cnoise\u201d barcodes that have a very low numbers of UMIs on average, a population of non-neuronal cells that have an intermediate numbers of UMIs and a population of neuronal cells that have a high numbers of UMIs. After fitting\u00a0the normal distributions, only the barcodes with a high probability (> 0.95) of belonging to either the putative \u201cnon-neuronal\u201d or putative \u201cneuronal\u201d distributions, and a low probability (<0.05) of belonging to the \u201cnoise\u201d distribution were retained for further analysis. As an example,\u00a0in our publication, for a subset of 20 subjects, applying our custom filtering approximately doubled the total number of cells but increased the number of non-neuronal cells by almost 6 times\n20\n."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p>Troubleshooting advice can be found in Table 1. </p><p><strong>Table 1: </strong>Troubleshooting table. </p><p><strong>Step: </strong>17</p><p><strong>Problem: </strong>Absence of visible pellet after Optiprep<sup>TM</sup> cushion centrifugation</p><p><strong>Possible reason:</strong> A large pellet may indicate presence of excessive debris rather than high nuclei yield and absence of a pellet is not necessarily cause for concern. However, in certain cases it may indicate very low yield of nuclei. </p><p><strong>Solution: </strong>Continue with downstream steps assuming the location of the nuclei based on the direction in which the tube is placed within the centrifuge and assess nuclei yield under the microscope. If very low nuclei yield is observed, consider increasing the amount of input material. </p><p><strong>Step:</strong> 25</p><p><strong>Problem: </strong>Number of nuclei captured does not meet the expected number based on the table provided by the 10x loading guidelines</p><p><strong>Possible reason:</strong> The capture rate for nuclei may not be the same as that for cells. </p><p><strong>Solution:</strong> Empirically determine the difference between the capture rate expected and observed and adjust loading volume accordingly. </p><p>  </p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>Step 1, 1 hour for 8 samples if cutting pieces using a scalpel, up to 4 hours if collecting cryosections</p><p>Step 2-21, 2-3 hours</p><p>Step 22-26, 45 minutes </p><p>Step 27, can be split into two 4 hours blocks on 2 days&nbsp;</p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>We expect our single-nuclei extraction protocol to produce high quality single-nucleus suspensions <strong>(Fig. 3)</strong> from frozen archived post-mortem tissues. The nuclear suspensions are relatively free from debris and do not show substantial aggregation of nuclei even after 16 hours of refrigeration, upon visual inspection <strong>(Fig. 3-f)</strong>. Capture of single-nuclei using these nuclear suspensions on a microfluidic device for droplet-based snRNA-seq or snATAC-seq reproducibly produces high-quality libraries with sufficient cDNA yield for sequencing <strong>(Fig. 4)</strong>. Moreover, the variability in sample parameters such as PMI, archival time, pH and RIN did not affect most of the quality metrics of snRNA-seq results with this nuclei extraction protocol (<strong>Fig. 2</strong>).</p>"
+        },
+        {
+            "header": "References",
+            "content": "<p><br></p><p>1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Macosko, Evan&nbsp;Z.<em>, et al.</em> Highly Parallel Genome-wide Expression Profiling of Individual Cells Using Nanoliter Droplets. <em>Cell</em> <strong>161</strong>, 1202-1214 (2015).</p><p>2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Zilionis, R.<em>, et al.</em> Single-cell barcoding and sequencing using droplet microfluidics. <em>Nat Protoc</em> <strong>12</strong>, 44-73 (2017).</p><p>3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Zheng, G.X.Y.<em>, et al.</em> Massively parallel digital transcriptional profiling of single cells. <strong>8</strong>, 14049 (2017).</p><p>4.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Haber, A.L.<em>, et al.</em> A single-cell survey of the small intestinal epithelium. <em>Nature</em> <strong>551</strong>, 333 (2017).</p><p>5.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wang, Y.<em>, et al.</em> Pulmonary alveolar type I cell population consists of two distinct subtypes that differ in cell fate. <em>Proceedings of the National Academy of Sciences</em> <strong>115</strong>, 2407-2412 (2018).</p><p>6.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sathyamurthy, A.<em>, et al.</em> Massively Parallel Single Nucleus Transcriptional Profiling Defines Spinal Cord Neurons and Their Activity during Behavior. <em>Cell reports</em> <strong>22</strong>, 2216-2225 (2018).</p><p>7.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hrvatin, S.<em>, et al.</em> Single-cell analysis of experience-dependent transcriptomic states in the mouse visual cortex. <em>Nature neuroscience</em> <strong>21</strong>, 120-129 (2018).</p><p>8.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hochgerner, H., Zeisel, A., L\u00f6nnerberg, P. &amp; Linnarsson, S. Conserved properties of dentate gyrus neurogenesis across postnatal development revealed by single-cell RNA sequencing. <em>Nature neuroscience</em> <strong>21</strong>, 290-299 (2018).</p><p>9.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lake, B.B.<em>, et al.</em> Neuronal subtypes and diversity revealed by single-nucleus RNA sequencing of the human brain. <em>Science</em> <strong>352</strong>, 1586-1590 (2016).</p><p>10.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Habib, N.<em>, et al.</em> Massively parallel single-nucleus RNA-seq with DroNc-seq. <em>Nature Methods</em> <strong>14</strong>, 955 (2017).</p><p>11.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lake, B.B.<em>, et al.</em> Integrative single-cell analysis of transcriptional and epigenetic states in the human adult brain. <em>Nat Biotechnol</em> <strong>36</strong>, 70-80 (2018).</p><p>12.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sullivan, P.F., Neale, M.C. &amp; Kendler, K.S. Genetic epidemiology of major depression: review and meta-analysis. <em>The American journal of psychiatry</em> <strong>157</strong>, 1552-1562 (2000).</p><p>13.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lacar, B.<em>, et al.</em> Nuclear RNA-seq of single neurons reveals molecular signatures of activation. <em>Nature Communications</em> <strong>7</strong>, 11022 (2016).</p><p>14.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;van den Brink, S.C.<em>, et al.</em> Single-cell sequencing reveals dissociation-induced gene expression in tissue subpopulations. <em>Nature Methods</em> <strong>14</strong>, 935 (2017).</p><p>15.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Grindberg, R.V.<em>, et al.</em> RNA-sequencing from single nuclei. <em>Proceedings of the National Academy of Sciences</em> <strong>110</strong>, 19802-19807 (2013).</p><p>16.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lake, B.B.<em>, et al.</em> A comparative strategy for single-nucleus and single-cell transcriptomes confirms accuracy in predicted cell-type expression from nuclear RNA. <em>Scientific reports</em> <strong>7</strong>, 6031 (2017).</p><p>17.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cutler, A.A., Jackson, J.B., Corbett, A.H. &amp; Pavlath, G.K. Non-equivalence of nuclear import among nuclei in multinucleated skeletal muscle cells. <em>Journal of Cell Science</em> <strong>131</strong>(2018).</p><p>18.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Berridge, B.R., Bolon, B. &amp; Herman, E. Chapter 10 - Skeletal Muscle System. in <em>Fundamentals of Toxicologic Pathology (Third Edition)</em> (eds. Wallig, M.A., Haschek, W.M., Rousseaux, C.G. &amp; Bolon, B.) 195-212 (Academic Press, 2018).</p><p>19.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Krishnaswami, S.R.<em>, et al.</em> Using single nuclei for RNA-seq to capture the transcriptome of postmortem neurons. <em>Nat Protoc</em> <strong>11</strong>, 499-524 (2016).</p><p>20.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nagy, C.<em>, et al.</em> Single-nucleus RNA sequencing shows convergent evidence from different cell types for altered synaptic plasticity in major depressive disorder. <em>bioRxiv</em> (2018).</p><p>21.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jessa, S.<em>, et al.</em> Stalled developmental programs at the root of pediatric brain tumors. <em>Nature genetics</em> <strong>51</strong>, 1702-1713 (2019).</p><p>22.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mathys, H.<em>, et al.</em> Single-cell transcriptomic analysis of Alzheimer\u2019s disease. <em>Nature</em> <strong>570</strong>, 332-337 (2019).</p><p>23.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Velmeshev, D.<em>, et al.</em> Single-cell genomics identifies cell type\u2013specific molecular changes in autism. <em>Science</em> <strong>364</strong>, 685 (2019).</p><p>24.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;J\u00e4kel, S.<em>, et al.</em> Altered human oligodendrocyte heterogeneity in multiple sclerosis. <em>Nature</em> <strong>566</strong>, 543-547 (2019).</p><p>25.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sorrells, S.F.<em>, et al.</em> Immature excitatory neurons develop during adolescence in the human amygdala. <em>Nature Communications</em> <strong>10</strong>, 2748 (2019).</p><p>26.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Proudfoot, N.J., Furger, A. &amp; Dye, M.J. Integrating mRNA Processing with Transcription. <em>Cell</em> <strong>108</strong>, 501-512 (2002).</p><p>27.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Amamoto, R.<em>, et al.</em> Probe-Seq enables transcriptional profiling of specific cell types from heterogeneous tissue by RNA-based isolation. <em>eLife</em> <strong>8</strong>, e51452 (2019).</p><p>28.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Welch, J.D.<em>, et al.</em> Single-Cell Multi-omic Integration Compares and Contrasts Features of Brain Cell Identity. <em>Cell</em> <strong>177</strong>, 1873-1887.e1817 (2019).</p><p>29.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Skelly, D.A.<em>, et al.</em> Single-Cell Transcriptional Profiling Reveals Cellular Diversity and Intercommunication in the Mouse Heart. <em>Cell reports</em> <strong>22</strong>, 600-610 (2018).</p><p>30.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Qu, K.<em>, et al.</em> Individuality and variation of personal regulomes in primary human T cells. <em>Cell systems</em> <strong>1</strong>, 51-61 (2015).</p><p>31.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cusanovich, D.A.<em>, et al.</em> The cis-regulatory dynamics of embryonic development at single-cell resolution. <em>Nature</em> <strong>555</strong>, 538-542 (2018).</p><p>32.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kriaucionis, S. &amp; Heintz, N. The Nuclear DNA Base 5-Hydroxymethylcytosine Is Present in Purkinje Neurons and the Brain. <em>Science</em> <strong>324</strong>, 929-930 (2009).</p><p>33.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;McCarthy, D.J., Campbell, K.R., Lun, A.T.L. &amp; Wills, Q.F. Scater: pre-processing, quality control, normalization and visualization of single-cell RNA-seq data in R. <em>Bioinformatics (Oxford, England)</em> <strong>33</strong>, 1179-1186 (2017).</p><p>34.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kiselev, V.Y.<em>, et al.</em> SC3: consensus clustering of single-cell RNA-seq data. <em>Nature Methods</em> <strong>14</strong>, 483-486 (2017).</p><p>35.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cao, J.<em>, et al.</em> The single-cell transcriptional landscape of mammalian organogenesis. <em>Nature</em> <strong>566</strong>, 496-502 (2019).</p><p>36.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Butler, A., Hoffman, P., Smibert, P., Papalexi, E. &amp; Satija, R. Integrating single-cell transcriptomic data across different conditions, technologies, and species. <em>Nature Biotechnology</em> <strong>36</strong>, 411 (2018).</p><p>37.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Stuart, T.<em>, et al.</em> Comprehensive Integration of Single-Cell Data. <em>Cell</em> <strong>177</strong>, 1888-1902.e1821 (2019).</p><p>38.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Darmanis, S.<em>, et al.</em> A survey of human brain transcriptome diversity at the single cell level. <em>Proceedings of the National Academy of Sciences</em> <strong>112</strong>, 7285-7290 (2015).</p><p>39.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Benaglia, T., Chauveau, D., Hunter, D.R. &amp; Young, D.S. mixtools: An R Package for Analyzing Mixture Models. <em>2009</em> <strong>32</strong>, 29 (2009).</p><p><br></p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>GT holds a Canada Research Chair (Tier 1) and a NARSAD Distinguished Investigator Award. He is supported by grants from the Canadian Institute of Health Research (CIHR) (FDN148374 and EGM141899),</p><p>We acknowledge the expert help of the Douglas-Bell Canada Brain Bank staff (Jos\u00e9e Prud\u2019homme, Ma\u00e2mar Bouchouka and Annie Baccichet), and the technology development team at the McGill University and Genome Quebec Innovation Centre. The Douglas-Bell Canada Brain Bank is supported in part by funding from the Canada First Research Excellence Fund, awarded to McGill University for the Healthy Brains for Healthy Lives project, and from the Fonds de recherche du Qu\u00e9bec - Sant\u00e9 (FRQS) through the Quebec Network on Suicide, Mood Disorders and Related Disorders.&nbsp;</p><p><br></p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41593-020-0621-y",
+                "date": "2020-04-27 16:56:37",
+                "title": "Single-nucleus transcriptomics of the prefrontal cortex in major depressive disorder implicates oligodendrocyte precursor cells and excitatory neurons",
+                "authors": [
+                    "Corina Nagy",
+                    "Malosree Maitra",
+                    "Arnaud Tanti",
+                    "Matthew Suderman",
+                    "Jean-Francois Th\u00e9roux",
+                    "Maria Antonietta Davoli",
+                    "Kelly Perlman",
+                    "Volodymyr Yerko",
+                    "Yu Chang Wang",
+                    "Shreejoy J. Tripathy",
+                    "Paul Pavlidis",
+                    "Naguib Mechawar",
+                    "Jiannis Ragoussis",
+                    "Gustavo Turecki"
+                ],
+                "journal": "Nature Neuroscience",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 591563,
+                "identity": "2120e21e-8df2-42fd-b20e-8ee8a157a35c",
+                "order_by": 1,
+                "name": "Malosree Maitra",
+                "email": "",
+                "orcid": "",
+                "institution": "McGill Group for Suicide Studies, Douglas Mental Health University Institute",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Malosree",
+                "middleName": "",
+                "lastName": "Maitra",
+                "suffix": ""
+            },
+            {
+                "id": 591564,
+                "identity": "5d50a8aa-8500-4704-9044-baa1b0a9d5c2",
+                "order_by": 2,
+                "name": "Corina Nagy",
+                "email": "",
+                "orcid": "",
+                "institution": "McGill Group for Suicide Studies, Douglas Mental Health University Institute",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Corina",
+                "middleName": "",
+                "lastName": "Nagy",
+                "suffix": ""
+            },
+            {
+                "id": 591565,
+                "identity": "8f177adf-c045-4882-8940-939eab32c900",
+                "order_by": 3,
+                "name": "Yu Chang Wang",
+                "email": "",
+                "orcid": "",
+                "institution": "McGill University and Genome Quebec Innovation Centre, Department of Human Genetics, McGill University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Yu",
+                "middleName": "Chang",
+                "lastName": "Wang",
+                "suffix": ""
+            },
+            {
+                "id": 591566,
+                "identity": "82c25ee2-ca75-4a92-87ea-2673e17a5813",
+                "order_by": 4,
+                "name": "Camila Nascimento",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Psychiatry, University of Sao Paolo",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Camila",
+                "middleName": "",
+                "lastName": "Nascimento",
+                "suffix": ""
+            },
+            {
+                "id": 591567,
+                "identity": "7c9a0145-b146-4057-8170-e34c35cb40db",
+                "order_by": 5,
+                "name": "Matthew Suderman",
+                "email": "",
+                "orcid": "",
+                "institution": "MRC Integrative Epidemiology Unit, University of Bristol",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Matthew",
+                "middleName": "",
+                "lastName": "Suderman",
+                "suffix": ""
+            },
+            {
+                "id": 591568,
+                "identity": "8476062c-8d41-4a80-9bec-843d46bda922",
+                "order_by": 6,
+                "name": "Jean-Francois Th\u00e9roux",
+                "email": "",
+                "orcid": "",
+                "institution": "McGill Group for Suicide Studies, Douglas Mental Health University Institute",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jean-Francois",
+                "middleName": "",
+                "lastName": "Th\u00e9roux",
+                "suffix": ""
+            },
+            {
+                "id": 591569,
+                "identity": "4007f76f-7cb0-4253-a901-78203f4a1e82",
+                "order_by": 7,
+                "name": "Naguib Mechawar",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Psychiatry, McGill University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Naguib",
+                "middleName": "",
+                "lastName": "Mechawar",
+                "suffix": ""
+            },
+            {
+                "id": 591570,
+                "identity": "cd138d16-8c0f-49ce-999d-5ae3b68d45f2",
+                "order_by": 8,
+                "name": "Jiannis Ragoussis",
+                "email": "",
+                "orcid": "",
+                "institution": "McGill University and Genome Quebec Innovation Centre, Department of Human Genetics, McGill University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jiannis",
+                "middleName": "",
+                "lastName": "Ragoussis",
+                "suffix": ""
+            },
+            {
+                "id": 591571,
+                "identity": "357017fb-44a3-4437-ac00-6519fafaaa91",
+                "order_by": 9,
+                "name": "Gustavo Turecki",
+                "email": "gustavo.turecki@mcgill.ca",
+                "orcid": "",
+                "institution": "Department of Psychiatry, McGill University",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Gustavo",
+                "middleName": "",
+                "lastName": "Turecki",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2020-04-27 16:02:42",
+        "currentVersionCode": 3,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-905/v3",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-905/v3",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 3355000,
+                "identity": "3018c57f-78e2-4d2e-8fcc-564239b887a9",
+                "added_by": "auto",
+                "created_at": "2020-11-03 16:44:35",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 99042,
+                "visible": true,
+                "origin": "",
+                "legend": "Schematic representation of the steps of the protocol. Frozen tissue is dissected, homogenized by douncing, lysed, and then washed, filtered, and centrifuged several times until a single-nucleus suspension is obtained.",
+                "description": "",
+                "filename": "Figure1SNucProtcropped.png",
+                "url": "https://assets.researchsquare.com/files/pex-905/v3/102537c00be882ef0da4016d.png"
+            },
+            {
+                "id": 3355001,
+                "identity": "e12933c4-05d9-459a-94d1-49f7fd330d05",
+                "added_by": "auto",
+                "created_at": "2020-11-03 16:44:35",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 533613,
+                "visible": true,
+                "origin": "",
+                "legend": "Effect of sample quality parameters on single-nucleus capture and sequencing metrics. The archival time, post mortem interval (PMI), age, and pH of the brains accounted for less than 10% of the variation in number of cells (nuclei) retained after filtering, median number of genes per nucleus, and median no of UMIs (unique molecular identifiers) per nucleus. The RIN of the samples had had a significant negative effect on the number of nuclei captured, especially for RIN < 4, but did not have a large effect on the median numbers of genes or UMIs.",
+                "description": "",
+                "filename": "Figure2SNucProtcropped.png",
+                "url": "https://assets.researchsquare.com/files/pex-905/v3/75414ce29feb2bfc851c3533.png"
+            },
+            {
+                "id": 3355002,
+                "identity": "0fdea64d-16d5-4b17-bf4b-8ccc7904f5a2",
+                "added_by": "auto",
+                "created_at": "2020-11-03 16:44:36",
+                "extension": "png",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 1144110,
+                "visible": true,
+                "origin": "",
+                "legend": "Images of extracted nuclei. (a-d) Before optimization, using the 10X Genomics demonstrated protocol, the extracted nuclei from two different samples (a and b) show large amounts of debris and the size distribution is skewed towards larger sizes (> 10 \u00b5m). After optimization, representative images of nuclei extracted from two samples (c and d) show much less debris and a size-distributions are centered around 10 \u00b5m, as expected for human brain nuclei. Images were acquired with the Countess Cell Counter using Trypan blue for staining. Note that extracted nuclei should be marked as dead cells, as seen. (e-f) Extracted nuclei do not tend to aggregate even after (e) 2.5 hours or (f) 16 hours of storage at 4oC. Note that the size distribution after 16 hours is still centered around 10 \u00b5m, indicate an absence of aggregation. (g) Representative images of extracted nuclei stained with Hoechst (1:2000) acquired at 10X magnification on the Evos microscope.",
+                "description": "",
+                "filename": "Figure3SNucProtcropped.png",
+                "url": "https://assets.researchsquare.com/files/pex-905/v3/71c4a6a2fe7df3f8c3b7bd16.png"
+            },
+            {
+                "id": 3355003,
+                "identity": "9e1ada34-7bdc-4268-959d-a6487eb72679",
+                "added_by": "auto",
+                "created_at": "2020-11-03 16:44:36",
+                "extension": "png",
+                "order_by": 4,
+                "title": "Figure 4",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 335005,
+                "visible": true,
+                "origin": "",
+                "legend": "cDNA traces and quality metrics for snRNA-seq libraries before and after optimization of nuclei extraction. (a) A FANS based nuclei isolation of single-nucleus suspensions resulted in very low yield cDNA libraries whereas (b) the optimized nuclei extraction protocol resulted in good yield of cDNA in the expected size range. Perkin Elmer Caliper traces are shown for snRNA-seq cDNA libraries. (c) With similar numbers of sequencing reads and median reads per cell, the libraries produced using the optimized nuclei extraction protocol has much higher median numbers of genes and UMIs per cell as can be seen from the elbow blot produced by Cellranger as well as the tabulated summary metrics. (d) Our nuclei extraction protocol is compatible with 10X Genomics\u2019 commercial snATAC-seq protocol, as can be seen from the Tapestation trace of a successfully constructed snRNA-seq library from archived post-mortem human brain tissue.",
+                "description": "",
+                "filename": "Figure4SNucProtcropped.png",
+                "url": "https://assets.researchsquare.com/files/pex-905/v3/94b0714cc72def4fe702fa2c.png"
+            },
+            {
+                "id": 13552411,
+                "identity": "cd123ef7-b505-4e57-b39f-297ef7cadd6a",
+                "added_by": "auto",
+                "created_at": "2021-09-17 02:32:50",
+                "extension": "pdf",
+                "order_by": 1,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 1137285,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "2020.04.27SNucProtocolPaperProtocolExchange.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-905/v3_covered.pdf"
+            },
+            {
+                "id": 13504301,
+                "identity": "471a61d8-0578-4c93-b980-b4acbedc74bb",
+                "added_by": "auto",
+                "created_at": "2021-09-16 23:22:44",
+                "extension": "pdf",
+                "order_by": 1,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 1137260,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "2020.04.27SNucProtocolPaperProtocolExchange.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-905/v2_covered.pdf"
+            },
+            {
+                "id": 13503315,
+                "identity": "fae886f6-c12e-4e6e-9877-69ae56f115a9",
+                "added_by": "auto",
+                "created_at": "2021-09-16 23:18:14",
+                "extension": "pdf",
+                "order_by": 1,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 1139102,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "2020.04.27SNucProtocolPaperProtocolExchange.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-905/v1_covered.pdf"
+            },
+            {
+                "id": 3355011,
+                "identity": "77b5926c-b92e-4ce0-9907-c49cf36a0e3c",
+                "added_by": "auto",
+                "created_at": "2020-11-03 16:45:21",
+                "extension": "pdf",
+                "order_by": 1,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 1253965,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "2020.04.27SNucProtocolPaperProtocolExchange.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-905/v3_stamped.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests. ",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": true,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "nuclei extraction, single nucleus suspension, snRNA-seq, snATAC-seq",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>Single-cell and single-nucleus sequencing techniques are a burgeoning field with various biological, biomedical, and clinical applications. Numerous high and low-throughput methods have been developed for sequencing the RNA and DNA content of single cells. However, for all these methods the key requirement is high quality input of a single-cell or single-nucleus suspension. Preparing such a suspension is the limiting step when working with fragile, archived tissues of variable quality. This hurdle can prevent such tissues from being extensively investigated with single-cell technologies. We describe a protocol for preparing single-nucleus suspensions within the span of a few hours that reliably works for multiple post-mortem and archived tissues types using standard lab equipment. Moreover, these preparations are compatible with single-nucleus RNA-seq and ATAC-seq using the 10X Genomics\u2019 Chromium system.&nbsp;</p><p><br></p>",
+        "manuscriptTitle": "Extraction of nuclei from archived post-mortem tissues for single-nucleus sequencing applications",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2020-05-14 10:46:14",
+                "doi": "10.21203/rs.3.pex-905/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            },
+            {
+                "code": 2,
+                "date": "2020-05-19 17:03:29",
+                "doi": "10.21203/rs.3.pex-905/v2",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            },
+            {
+                "code": 3,
+                "date": "2020-11-03 16:44:34",
+                "doi": "10.21203/rs.3.pex-905/v3",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "0e1af0b3-36b2-495b-88c4-ac538257c3ae",
+        "owner": [],
+        "postedDate": "November 3rd, 2020",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 103112,
+                "name": "Neuroscience"
+            },
+            {
+                "id": 103113,
+                "name": "Biological techniques"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2020-11-03 16:44:34",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

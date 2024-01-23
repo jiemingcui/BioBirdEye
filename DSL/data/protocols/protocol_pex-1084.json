@@ -1,0 +1,362 @@
+{
+    "identity": "pex-1084",
+    "title": "<p>Climate-informed multispecies assessment model methods for determining biological references points and Acceptable Biological Catch.</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>Here we present a protocol for deriving climate-informed multi-species reference points for fisheries management. This approach builds of the sloping harvest control rule and maximum sustainable yield biomass proxy approaches currently implemented in the Bering sea (Alaska, USA) and modified to derive harvest recommendations as part of the CEATTLE multi-species stock assessment model<sup>1 </sup>(https://archive.afsc.noaa.gov/refm/docs/2019/EBSmultispp.pdf) for walleye pollock (<em>Gadus chalcogrammus</em>), Pacific cod (<em>G. microcephalus</em>), and arrowtooth flounder (<em>Atheresthes stomias</em>). The CEATTLE model has been updated annually and included as an appendix to the BSAI walleye pollock stock assessment since 2016 as part of the Bering Sea fishery stock assessment process.</p><p><br></p><p>The CEATTLE model is fit to historical survey and fishery data as well as hindcasts (1979-2017) of oceanographic conditions from a high resolution ROMSNPZ model for the Bering Sea (see<sup>1</sup> for more detail). We used hindcasts (1979-2017) (coupled regional oceanographic -nutrient-phytoplankton- zooplankton model; see2).The same ROMSNPZ model is then projected to derive harvest recommendations under future climate scenarios . Details of projection realizations that composed the ensemble members are available in <sup>2\u20134</sup>.</p><p><br></p><p>Future projections include selected models from the CMIP5 suite where the high resolution ROMSNPZ model is forced with boundary conditions from Coupled Model Intercomparison Project Phase 5 global climate model projections of atmospheric and oceanic circulation under climate change. Structural differences among global climate models can result in divergent trajectories; as part of the interdiscipilinary Alaska Climate Integrated Modeling project, three global climate models from a subset of the CMIP5 esemble members that reasonably replicated ice dynamics in the Bering sea were selected for this study: 1) the Geophysical Fluid Dynamics Laboratory (GFDL) \u2013 ESM 2M (ESM2M) <sup>5</sup>; 2) the National Center for Atmospheric Research (NCAR) Community Earth Systems Model (CESM) <sup>6</sup>; and 3) the MIROC ESM <sup>7</sup>.These three models were selected because they projected a broad range of global patterns for precipitation and SST, and provided contrasting views of future ocean conditions in the EBS. Output from these models under two representative concentration pathways or RCPs (4.5 and 8.5; 8) were used to drive the Bering10K regional ROMSNPZ model. RCP 8.5 and 4.5 represent a high-baseline carbon emission scenario and a moderate mitigation scenario, respectively.&nbsp;</p><p><br></p><p>This resulted in a suite of 6 projections of Eastern Bering Sea conditions including bottom and surface temperature, summer \"cold pool\", and large zooplankton (key prey resource) abundance during spring and fall (critical periods for juvenile pollock and cod survival). We additionally included a persistence scenario as our \"null\" climate-constant scenario (i.e., average of 2006-2016 conditions).</p><p><br></p><p>We use these scenarios to derive 1) projections without harvest (unfished spawning biomass) and 2) projections where in each year harvest was set to the sustainable limit using current management approaches (sloping harvest control rule and harvest rate that results in 40% of unfished spawning biomass). This approach is detailed below and is also used in <sup>1</sup>.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p>No reagents were used.</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>The CEATTLE and recruitment models are programed in AD Model Builder release version 11.6 (http://www.admb-project.org); the ROMSNPZ model is programmed in&nbsp;Regional Ocean Modeling System version 3.2; AIC analyses were conducted with R version 3.5.3 (2019-03-11) https://www.r-project.org.</p><p><br></p><p>Custom code was created for the multispecies stock assessment model (CEATTLE), recruitment model and projections, ROMSNPZ CMIP5 projections, and threshold analyses and plotting. Details can be found in <sup>1,2,9</sup>. All code is publicly available at the following github site and will be archived via Zenodo upon publication: https://github.com/kholsman/EBM_Holsman_NatComm.</p><p><br></p><p>Supporting code for simulations using this protocol are also available at: https://github.com/kholsman/ACLIM-CEATTLE.</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "To determine\u00a0ABC given the sloping harvest control rule for pollock, Pacific cod, and arrowtooth flounder in each simulation year\u00a0project the population forward using estimated parameters from the multispecies mode of the CEATTLE model fit to data from 1979-2017 and retrospective modeled data; recruitment in each projection year is dynamic and is based on biomass in simulation year\u00a0and future environmental covariates from the Bering10K model downscaled projections.\nFor each annual timestep in the projection period:\n1. For each environmental covariate create the \"persistence\" projection using the average of the last 10 years of the hindcast ROMSNPZ model (i.e., constant future climate conditions).\n2. Determined average\u00a0climate-naive B\n0\nvalues in years 2095-2099 by projecting the model forward without harvest (i.e. F = 0)\u00a0for each species under the persistence scenario (i.e., mean historical climate conditions).\n3. Iteratively solve for F\n40%,\ni.e., the\u00a0harvest rate that results in an average spawning biomass (B40\n%\n) during 2095-2099 that is 40% of\u00a0B\n0\nfor pollock and Pacific cod simultaneously with arrowtooth\u00a0flounder set to the historical average (as arrowtooth flounder is a major predator of pollock and historical F for arrowtooth flounder is much lower than F\n40%\n).\n4. Once\u00a0F\n40%\nfor pollock and Pacific cod are found, iteratively solve for F\n40%\nfor arrowtooth flounder.\n5. To derive a climate informed\u00a0ABC\u00a0in each simulation year, the North Pacific Marine Fishery Council (hereafter, \u201cCouncil\u201d) Tier 3 sloping harvest control rule with an ecosystem cutoff at\u00a0B\n20%\nis applied such that:\na. if B\ny\nat the start of the simulaiton year is < 40% of\u00a0B\n0\n, F\nABC\n= F\n40%\nb. if (B\ny\n/ 0.4B\n0\n) > 0.05, F\nABC\n= F\n40%\n*( ( (B\ny\n/ 0.4B\n0\n) - 0.05 ) / (1 - 0.05) )\nc. else, F\nABC\n= 0\nwhere B\ny\nis the spawning biomass at the start of the simulation year for each climate scenario based on climate effects on recruitment, predation mortality, and growth, -- i.e., the climate-informed B\ny."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": ""
+        },
+        {
+            "header": "Time Taken",
+            "content": ""
+        },
+        {
+            "header": "Anticipated Results",
+            "content": ""
+        },
+        {
+            "header": "References",
+            "content": "<p><br></p><p>1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Holsman, K. K., Ianelli, J. N., Aydin, K. &amp; Spies, I. Multi-species supplement: 2019 Climate-enhanced multi-species Stock Assessment for walleye pollock, Pacific cod, and arrowtooth flounder in the Eastern Bering Sea. in&nbsp;<em>NPFMC Stock Assessment and Fishery Evaluation Report for the Groundfish Resources of the Bering Sea/Aleutian Islands Regions</em>1\u201343 (2019).</p><p>2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hermann, A. J.&nbsp;<em>et al.</em>Projected biophysical conditions of the Bering Sea to 2100 under multiple emission scenarios.&nbsp;<em>ICES J. Mar. Sci.</em><strong>76</strong>, 1937\u20131937 (2019).</p><p>3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hermann, A. J.&nbsp;<em>et al.</em>Projected future biophysical states of the Bering Sea.&nbsp;<em>Deep Sea Res. Part II Top. Stud. Oceanogr.</em><strong>134</strong>, 30\u201347 (2016).</p><p>4.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hollowed, A. B.&nbsp;<em>et al.</em>Integrated Modeling to Evaluate Climate Change Impacts on Coupled Social-Ecological Systems in Alaska&nbsp;&nbsp;.&nbsp;<em>Frontiers in Marine Science&nbsp;&nbsp;</em>&nbsp;<strong>6</strong>, 775 (2020).</p><p>5.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dunne, J. P.&nbsp;<em>et al.</em>GFDL\u2019s ESM2 global coupled climate-carbon earth system models. Part I: Physical formulation and baseline simulation characteristics.&nbsp;<em>J. Clim.</em><strong>25</strong>, 6646\u20136665 (2012).</p><p>6.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kay, J. E.&nbsp;<em>et al.</em>The community earth system model (CESM) large ensemble project\u202f: A community resource for studying climate change in the presence of internal climate variability.&nbsp;<em>Bull. Am. Meteorol. Soc.</em><strong>96</strong>, 1333\u20131349 (2015).</p><p>7.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Watanabe, S.&nbsp;<em>et al.</em>MIROC-ESM 2010: Model description and basic results of CMIP5-20c3m experiments.&nbsp;<em>Geosci. Model Dev.</em><strong>4</strong>, 845\u2013872 (2011).</p><p>8.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;van Vuuren, D. P.&nbsp;<em>et al.</em>The representative concentration pathways: an overview.&nbsp;<em>Clim. Change</em><strong>109</strong>, 5\u201331 (2011).</p><p>9.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Holsman, K. K., Ianelli, J., Aydin, K., Punt, A. E. &amp; Moffitt, E. A. A comparison of fisheries biological reference points estimated from temperature-specific multi-species and single-species climate-enhanced stock assessment models.&nbsp;<em>Deep. Sea Res. Part II Top. Stud. Oceanogr.</em><strong>134</strong>, 360\u2013378 (2016).</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>Multiple NOAA National Marine Fisheries programs provided support for ACLIM including Fisheries and the Environment (FATE), Stock Assessment Analytical Methods (SAAM) Science and Technology North Pacific Climate Regimes and Ecosystem Productivity, the Integrated Ecosystem Assessment Program (IEA), NOAA Research Transition Acceleration Program (RTAP), the Alaska Fisheries Science Center (ASFC), the Office of Oceanic and Atmospheric Research (OAR) and the National Marine Fisheries Service (NMFS). Additionally, the International Council for the Exploration of the Sea (ICES) and the North Pacific Marine Science Organization (PICES) provided support for Strategic Initiative for the Study of Climate Impacts on Marine Ecosystems (SI-CCME) workshops, which facilitated development of the ideas presented in this paper. The scientific views, opinions, and conclusions expressed herein are solely those of the authors and do not represent the views, opinions, or conclusions of NOAA, the Department of Commerce, ICES, or PICES.</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41467-020-18300-3",
+                "date": "",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 1251990,
+                "identity": "e439d49a-1348-4365-8d94-3fd3836fa919",
+                "order_by": 0,
+                "name": "Kirstin Holsman",
+                "email": "kirstin.holsman@noaa.gov",
+                "orcid": "https://orcid.org/0000-0001-6361-2256",
+                "institution": "National Oceanic and Atmospheric Administration, Alaska Fisheries Science Center, Seattle, WA. USA",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Kirstin",
+                "middleName": "",
+                "lastName": "Holsman",
+                "suffix": ""
+            },
+            {
+                "id": 1251991,
+                "identity": "5be4f20b-314c-4c00-acb4-a3632279fada",
+                "order_by": 1,
+                "name": "Alan Haynie",
+                "email": "",
+                "orcid": "",
+                "institution": "National Oceanic and Atmospheric Administration, Alaska Fisheries Science Center, Seattle, WA. USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Alan",
+                "middleName": "",
+                "lastName": "Haynie",
+                "suffix": ""
+            },
+            {
+                "id": 1251992,
+                "identity": "0baf4e96-29e9-4d93-a031-c4a9e80d4153",
+                "order_by": 2,
+                "name": "Anne Hollowed",
+                "email": "",
+                "orcid": "",
+                "institution": "National Oceanic and Atmospheric Administration, Alaska Fisheries Science Center, Seattle, WA. USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Anne",
+                "middleName": "",
+                "lastName": "Hollowed",
+                "suffix": ""
+            },
+            {
+                "id": 1251993,
+                "identity": "3293b64c-a40e-45a3-9c41-0650efc830d2",
+                "order_by": 3,
+                "name": "Jonathan C. P. Reum",
+                "email": "",
+                "orcid": "",
+                "institution": "National Oceanic and Atmospheric Administration, Alaska Fisheries Science Center, Seattle, WA. USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jonathan",
+                "middleName": "C. P.",
+                "lastName": "Reum",
+                "suffix": ""
+            },
+            {
+                "id": 1251994,
+                "identity": "8eb5ab71-b97b-457a-886e-5f925d8753c5",
+                "order_by": 4,
+                "name": "Kerim Ayind",
+                "email": "",
+                "orcid": "",
+                "institution": "National Oceanic and Atmospheric Administration, Alaska Fisheries Science Center, Seattle, WA. USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Kerim",
+                "middleName": "",
+                "lastName": "Ayind",
+                "suffix": ""
+            },
+            {
+                "id": 1251995,
+                "identity": "2abbb46a-71c1-44e1-95c4-9f1d7c2a3a74",
+                "order_by": 5,
+                "name": "Albert Hermann",
+                "email": "",
+                "orcid": "",
+                "institution": "Joint Institute for the Study of the Atmosphere and Ocean, University of Washington, Seattle, WA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Albert",
+                "middleName": "",
+                "lastName": "Hermann",
+                "suffix": ""
+            },
+            {
+                "id": 1251996,
+                "identity": "5fe3c556-b87f-4ed5-b5b7-16ba39f76607",
+                "order_by": 6,
+                "name": "Wei Cheng",
+                "email": "",
+                "orcid": "",
+                "institution": "Joint Institute for the Study of the Atmosphere and Ocean, University of Washington, Seattle, WA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Wei",
+                "middleName": "",
+                "lastName": "Cheng",
+                "suffix": ""
+            },
+            {
+                "id": 1251997,
+                "identity": "826615e4-2c28-4a69-906b-3c77644eaacb",
+                "order_by": 7,
+                "name": "Amanda Faig",
+                "email": "",
+                "orcid": "",
+                "institution": "School of Aquatic and Fishery Sciences, University of Washington, Seattle, WA 98195, U.S.A",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Amanda",
+                "middleName": "",
+                "lastName": "Faig",
+                "suffix": ""
+            },
+            {
+                "id": 1251998,
+                "identity": "f61ac79d-c279-449f-b628-4526fdfdac6a",
+                "order_by": 8,
+                "name": "James Ianelli",
+                "email": "",
+                "orcid": "",
+                "institution": "National Oceanic and Atmospheric Administration, Alaska Fisheries Science Center, Seattle, WA. USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "James",
+                "middleName": "",
+                "lastName": "Ianelli",
+                "suffix": ""
+            },
+            {
+                "id": 1251999,
+                "identity": "526f96fd-d7d2-40d0-848e-ef014cd73cd3",
+                "order_by": 9,
+                "name": "Kelly Kearney",
+                "email": "",
+                "orcid": "",
+                "institution": "Joint Institute for the Study of the Atmosphere and Ocean, University of Washington, Seattle, WA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Kelly",
+                "middleName": "",
+                "lastName": "Kearney",
+                "suffix": ""
+            },
+            {
+                "id": 1252000,
+                "identity": "411c8ebd-d083-493d-a27a-18b8dc5ef938",
+                "order_by": 10,
+                "name": "Andre Punt",
+                "email": "",
+                "orcid": "",
+                "institution": "School of Aquatic and Fishery Sciences, University of Washington, Seattle, WA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Andre",
+                "middleName": "",
+                "lastName": "Punt",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2020-07-31 07:59:27",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1084/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1084/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13596286,
+                "identity": "dafdc869-e351-4ada-ab58-93a7d0ab45b5",
+                "added_by": "auto",
+                "created_at": "2021-09-17 05:27:49",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 196948,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1084/v1/571712c0-e513-4e6c-96cc-a0185d1ef1a3.pdf"
+            },
+            {
+                "id": 2582579,
+                "identity": "4dc18576-9e94-42c2-9a7b-c8b68efd8fb8",
+                "added_by": "auto",
+                "created_at": "2020-09-24 17:28:13",
+                "extension": "pdf",
+                "order_by": 1,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 3828172,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "EBSmultispp2019.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1084/v1/EBSmultispp2019.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Fishery, Climate change, Alaska, ABC, biological reference points, maximum sustainable yield, stock assessment",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>Stepwise methodology for determining climate-informed multispecies biological references points for sustainable fishery harvest. This approach follows the status quo North Pacific Marine Fishery Council reviewed multispecies assessment methodology and represents a precautionary approach that minimizes inflation of Acceptable Biological Catch (ABC) due to predator release&nbsp;and also minimizes potential non-intuitive compound effects of climate change and fishing under declining conditions (i.e., whereby a climate informed&nbsp;B<sub>0&nbsp;</sub>declines with climate-change and produces a lower target biomass such as B<sub>40%</sub>).</p>",
+        "manuscriptTitle": "Climate-informed multispecies assessment model methods for determining biological references points and Acceptable Biological Catch.",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2020-09-24 17:28:12",
+                "doi": "10.21203/rs.3.pex-1084/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "6f9ad672-f5fc-47e9-a3d5-a9475c321773",
+        "owner": [],
+        "postedDate": "September 24th, 2020",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 252305,
+                "name": "Climate science"
+            },
+            {
+                "id": 252306,
+                "name": "Ocean sciences"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2020-09-24 17:28:12",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

@@ -1,0 +1,290 @@
+{
+    "identity": "nprot-5373",
+    "title": "SMiLE-seq: Selective Microfluidics-based Ligand Enrichment followed by sequencing",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "In the past, in vitro binding models of TFs were defined based on low-throughput techniques and thus had limited resolution and accuracy. With technological developments, the ability to measure and predict binding sites has improved. A large leap came in form of B1H assay<sup>1</sup>, PBM<sup>2</sup> and HT-SELEX<sup>3</sup> technologies as these high-throughput assays have produced DNA binding specificity data for hundreds of TFs. Despite these significant technological advances though, all currently available in vitro binding models cover together less than half of the known or predicted TFs<sup>4,5,6,7</sup>. One of the underlying reasons is the laborious and technically complex nature of TF DNA binding analyses because TFs are often difficult to express or exhibit altered DNA binding preferences in an in vitro context. Another complicating factor is the ability of many TFs to bind DNA either in obligate or facultative heterodimer configurations, whose DNA binding properties remain vastly unexplored<sup>8</sup>. \r\n\n\n\r\n\n\nWe tackled this challenge by developing a novel, semi-automated technology SMiLE-seq that enables the robust identification of DNA binding specificities of TF monomers, homo- and heterodimers. SMiLE-seq exploits the resolving power of a microfluidics-based technology, MITOMI<sup>9</sup>, to perform a rigorous on-chip isolation of interacting TF-DNA complexes in a reagent-effective manner \\(**Figure 1**):\r\n\n\n<a href=\"http://www.nature.com/protocolexchange/system/uploads/4883/original/compressed_figure1_ONP.jpg?1478899003\" > <img src=\"http://www.nature.com/protocolexchange/system/uploads/4883/thumbnail/compressed_figure1_ONP.png?1478899003\" > </a> \r\n\n\n**Figure 1. SMiLE-seq set-up.** **A.** _SMiLE-seq set-up. Each SMiLE-seq device consists of a PDMS chip \\(approximately 2 x 5 cm) bonded to a plasma-activated glass slide. The SMiLE-seq device is placed on the microscope table and is connected to the microcontroller-based control unit. The microscope camera, connected to an external display, enables chip observation during a SMiLE-seq experiment._ **B.** _Schematic design of a SMiLE-seq microchip. Blue and green colors denote flow and control layers respectively. Each unit of the device is connected to the collector unit on one side and the capillary pump on the other11. All units of the device are connected together by the continuous flow channel with four inlets \\(F1-F4) and three outlets \\(F5-F7). Switching between these two access modes can be done through the use of control micro valves \\(C1-C11)._\r\n\n\n\r\n\n\n\r\n\n\nEach SMiLE-seq experiment starts with the in vitro expression of TFs of interest and generation of target DNA libraries. The expressed TFs are then mixed with DNA libraries and loaded onto the microfluidic chip through passive capillary-based pumping. The antibody-captured immobilized TF-DNA complexes are then trapped on-chip with the deflectable valves \\(paralleling the workflow in <sup>9</sup>) and the unbound material is removed through a washing step. The protein-DNA complexes are then disrupted by Proteinase K treatment and the bound DNA is collected by flashing PBS through the chip. Recovered DNA is then amplified and sequenced. The resulting read data is processed by a dedicated HMM-based motif discovery pipeline that is used to de novo identify the binding preferences of the tested TFs. \r\n\n\n\r\n\n\nThe advantages of SMiLE-seq include its ability to cover a wide affinity range, in contrast to HT-SELEX, which is more biased towards strong affinity binders. This difference is explained by the distinct experimental procedures of both assays to isolate and recover bound DNA. Specifically, SMiLE-seq does not use difficult-to-calibrate, salt-heavy washing buffers to purify molecular complexes. These buffers are used to disrupt non-specific interactions, but in practice, they tend to bias against medium- and low-affinity binders, while being not entirely effective in eliminating non-specifically bound DNA molecules<sup>3</sup>. Another advantage is that SMiLE-seq is not limited by the length of DNA baits, which is a drawback of the PBM assay<sup>2</sup>. \r\n\n\n\r\n\n\nUsing SMiLE-seq, we were able to derive novel TF motifs and to refine DNA binding models for TF monomers and dimers belonging to different structural families. Importantly, we also demonstrated that SMiLE-seq can be used to study the DNA binding specificities of full-length TFs that have so far resisted a comprehensive DNA binding characterization."
+        },
+        {
+            "header": "Reagents",
+            "content": "**Reagents and Equipment**\r\n\n\n\r\n\n\n**For PDMS chip fabrication:**\r\n\n\n\u2022 flow and control layer molds \\(can be ordered from JD photo tools \\( \"http://www.jdphoto.co.uk/\":http://www.jdphoto.co.uk/ ) or fabricated using photolithography techniques)\r\n\n\n\u2022 Sylgard 184 silicon base and curing agent\r\n\n\n\u2022 TINKER mixer compatible plastic cups\r\n\n\n\u2022 Plastic Petri dishes \\(150 mm x 15 mm)\r\n\n\n\u2022 TMCS\r\n\n\n\u2022 Scalpels\r\n\n\n\u2022 Biopsy punchers \r\n\n\n\u2022 Spin-coater\r\n\n\n\u2022 O2 Plasma chamber\r\n\n\n\u2022 Glass slides \\(VWR with cut edges, Cat # ECN 631-1550)\r\n\n\n\r\n\n\n**For SMiLE:** \r\n\n\n\u2022 automated control set-up: solenoid valves \\(Pneumadyne, Cat#MSV10-8) connected to a WAGO programmable logic controller \\(PLC), ModBus 750-881 \\(WAGO Corp.), to pressure gauges, and to an external compressed air source\r\n\n\n\u2022 luer lock syringes with flat ends, plastic tubing \\(to connect the pieces of the set-up together and connectors) \\(Moesch.com, selected according to the tubing size)\r\n\n\n\u2022 CoDeSyS package \\(freely available at \"www.codesys.com\":http://www.codesys.com )\r\n\n\n\u2022 Inverted microscope\r\n\n\n\u2022 Tygon tubing \\(COLE PARMER, 30m tube tygon S54HL 0.51mm)\r\n\n\n\u2022 Metal pins \\(Unimed, stainless steel tubing AISI 104, OD 0.65mm, ID 0.35mm and length 8mm)\r\n\n\n\u2022 BSA-biotin \\(Pierce, Cat# 29130), PBS \\(Dulbeco), Neutravidin \\(Pierce, Cat# 31000), biotinilated anti-eGFP antibody \\(Abcam, Cat# ab6658), TE buffer \\(Life Technologies), Proteinase K \\(Life Technologies, Cat# 25530049)\r\n\n\n\u2022 KAPA HiFi PCR kit \\(KAPA Biosystems)\r\n\n\n\u2022 TnT\u00ae SP6 High-Yield Wheat Germ master mix, Promega Cat# L3261\r\n\n\n\u2022 Single-stranded randomized libraries and Cy5-labeled extension primer \\(order from IDT)\r\n\n\n\u2022 Klenow 3\u2019-5\u2019 exo- \\(NEB Cat# M0212)\r\n\n\n\u2022 NEBuffer 2 \\(NEB)\r\n\n\n\u2022 MinElute PCR purification kit \\(QIAGEN)\r\n\n\n\u2022 Bench-top thermo cycler\r\n\n\n\u2022 HiSeq or NextSeq500 Illumina sequencer\r\n\n\n\r\n\n\n**For SMiLE-seq data analysis:**\r\n\n\nPerl scripts:\r\n\n\n\u2022 _fa2filtered.pl_\r\n\n\n\u2022 _bc.pl_\r\n\n\n\u2022 _ht_selex_opt.pl_\r\n\n\n\u2022 _padseq.pl_\r\n\n\n\u2022 _cons2init_sym.pl_\r\n\n\n\u2022 _cons2init.pl_\r\n\n\n\u2022 _extract_trans.pl_\r\n\n\n\u2022 _extract_pwm.pl_\r\n\n\n\r\n\n\nC programs:\r\n\n\n\u2022 _mamot_ \\( \"http://bcf.isb-sib.ch/mamot/\":http://bcf.isb-sib.ch/mamot/ )\r\n\n\n\r\n\n\nPrograms and perl scripts can be found on our FTP-site at:\r\n\n\n\"ftp://ccg.vital-it.ch/pwmtools/\":ftp://ccg.vital-it.ch/pwmtools/\r\n\n\n\r\n\n\nThe directory bin on FTP contains binary files compiled on Linux/CentOS 6."
+        },
+        {
+            "header": "Procedure",
+            "content": "**PDMS chip fabrication:**\r\n\n\n\r\n\n\n\u2022 Place molds into a TMCS vapor chamber.\r\n\n\n\u2022 Mix 30g Base + 6g curing agent \\(or other amount, keep 5:1 ratio) in a clean plastic cup.\r\n\n\n\u2022 Mix for 1 minute \\(2200 rpm), degas for 2 minutes \\(2400 rpm) \\(TINKER mixer).\r\n\n\n\u2022 Pour onto control layer mold and place mold in vacuum chamber.\r\n\n\n\u2022 Mix 10g Base + 0.5g curing agent \\(20:1 ratio) in a clean plastic cup.\r\n\n\n\u2022 Mix for 1 minute and degas for 2 minutes.\r\n\n\n\u2022 Spin coat onto flow layer at 2400 rpm for 35 sec, ramp time 15 sec.\r\n\n\n\u2022 Remove control layer mold from vacuum chamber, making sure that no bubbles remain on the surface.\r\n\n\n\u2022 Place the control and flow layer in a 80\no\nC convection oven and incubate for 30 minutes.\r\n\n\n\u2022 Remove casts from oven, cut out control layer, punch holes, and align to flow layer.\r\n\n\n\u2022 Put aligned device back into 80\no\nC oven and incubate for at least 90 minutes.\r\n\n\n\u2022 Remove devices from oven and punch holes in a flow layer. Use a puncher of a 2.5-4 mm diameter to make holes on \u201csample collectors\u201d \\( \"Figure 1B\":http://www.nature.com/protocolexchange/system/uploads/4883/original/compressed_figure1_ONP.jpg?1478899003 ) to which samples will be pipetted directly.\r\n\n\n\u2022 Bond PDMS chips to glass slides and use within the following 10 to 30 min.\r\n\n\n\r\n\n\n\f\r\n\n\n**SMiLE-seq procedure:**\r\n\n\n\r\n\n\n**1. Sample preparation**\r\n\n\n\r\n\n\n**1.1.** Set up the expression mix for the TFs as follows:\r\n\n\n- 3 ul ITT mix \\(TnT\u00ae SP6 High-Yield Wheat Germ master mix)\r\n\n\n-  100 ng plasmid DNA \\(the pF3A-eGFP or pF3A-mCherry expression vector\n10\ncontaining the ORF of interest)\r\n\n\n-  Nuclease-free ddH2O till 5 ul total volume\r\n\n\nIncubate at 25\no\nC for 3 hours or longer.\r\n\n\n\r\n\n\n**1.2.** Synthesize the target dsDNA libraries:\r\n\n\nOrder randomized libraries as single stranded oligos as well as the oligo containing a Cy5 5\u2018-fusion: /5Cy5/CAA GCA GAA GAC GGC ATA CG from IDT, resuspend it to achieve concentrations of 200uM and 500uM respectively. Mix: 5 ul NEBuffer 2 \\(NEB), 5ul dNTPs, 0.5 ul Cy5 labeling primer \\(500 uM) \\(IDT), 1.5 ul library oligos \\(200 uM) \\(IDT), 37 ul ddH2O. Incubate as follows:\r\n\n\n\u2022 94\no\nC  - 5 min\r\n\n\n\u2022 50\no\nC  - 60 sec\r\n\n\n\u2022 place tubes on ice\r\n\n\n\u2022 add 1 ul of Klenow 3\u2019 \u2013 5\u2019 exo- \r\n\n\n\u2022 37\no\nC \u2013 60 min\r\n\n\n\u2022 keep at 0\no\nC\r\n\n\nUse MinElute to purify the obtained double-stranded libraries, elute in 12 ul of EB. Dilute the libraries 1:10 in ddH2O and add 50 ng of poly-dIdC \\(Sigma) to each 10 ul of diluted libraries.\r\n\n\n\r\n\n\n**1.3.** Mix the DNA baits with TFs of interest in small PCR tubes:\r\n\n\n2uL expressed non-purified TF, 2 uL diluted dsDNA library, and 2 uL of a partner TF \\(if applicable). Incubate the mixtures for 30 min for most of the factors except for KRAB ZFPs for which extended incubation times up to 180 min might be required. \r\n\n\n\r\n\n\n**2. Chip set up**\r\n\n\n\r\n\n\n**2.1.** Connect the microchip to the automated set-up:\r\n\n\nMove the inverted microscope close to the WAGO automated set-up \\( \"Figure 1A\":http://www.nature.com/protocolexchange/system/uploads/4883/original/compressed_figure1_ONP.jpg?1478899003 ). Place the clean freshly assembled microfluidic chip on the microscope table. \r\n\n\n**2.2.** Connect the control tubing C1 to C11 to the chip as shown on \"Figure 1B\":http://www.nature.com/protocolexchange/system/uploads/4883/original/compressed_figure1_ONP.jpg?1478899003 . Set the operational control pressure of control tubing lines to ~12 psi using pressure gauges. \r\n\n\n**2.3.** Open CoDeSyS software and load the custom \u201cSMiLE-automated\u201d script. \\(CoDeSyS is a package for industrial automation, which translates user-defined sample processing operations into a sequence of commands for microvalve control). Go to \u201cPLC_Visu\u201d tab. Optional: Use WebVisu mobile \\(WAGO Corp.) application for the remote set-up control.\r\n\n\n\r\n\n\n**3. SMiLE \\(Selective Microfluidics-based Ligand Enrichment)**\r\n\n\n\r\n\n\n**3.1.** Plug the tubes pre-filled with BSA-biotin, PBS, Neutravidin and anti-eGFP antibody to the Inlets F1, F2, F3 and F4 respectively \\( \"Figure 1B\":http://www.nature.com/protocolexchange/system/uploads/4883/original/compressed_figure1_ONP.jpg?1478899003 ).\r\n\n\n**3.2.** Activate the CoDeSys script using Online -> Connect and then Online -> Run. Start the chip processing by pressing the \u201cChip Priming\u201d button on the \u201cPLC_Visu\u201d control panel. \\(This step will build up the surface chemistry needed for immunochemical protein pull-down.)\r\n\n\n**3.3.** When the button \u201cLoad samples\u201d jumps to red on the \u201cPLC_Visu\u201d panel, pipette the content of individual PCR tubes \\(TF of interest mixed with DNA baits) in individual chip wells of the sample collectors \\( \"Figure 1B\":http://www.nature.com/protocolexchange/system/uploads/4883/original/compressed_figure1_ONP.jpg?1478899003 ).\r\n\n\n**3.4.** Press the red \u201cLoad samples\u201d button. This will activate the on-chip sample loading by capillary force. \r\n\n\n**3.5.** When the \u201cElute\u201d button jumps to red \\(approximately 40 min after loading), mix 20 uL of TE with 3 uL of Proteinase K \\(Life Technologies) and load the mixture in a tygon tube and plug the tube to the Inlet 1. Plug a clean empty tygon tube \\(DNA collection tube) to the Outlet 2.\r\n\n\n**3.6.** Press the \u201cElute\u201d button and wait 30 min.\r\n\n\n**3.7.** Collect the TF-bound DNA from the tube plugged to the Outlet 2.\r\n\n\n\r\n\n\n**4. Library amplification and sequencing**\r\n\n\n\r\n\n\n**4.1.** Amplify the recovered DNA using HiFi KAPA polymerase as follows: for the PCR mix, use 10 uL of 5xHF KAPA buffer, 1.5 ul of dNTPs \\(supplied with the kit), 0.5 ul of primer GA2seq FW \\(10uM), 0.5 ul of primer GA2seq RV \\(10 uM), 0.5 ul of KAPA HiFi polymerase and then add eluted DNA and then top up with ddH2O for a total volume of 50 ul. PCR amplify the DNA using a 2 min 95\no\nC hot start followed by 17 cycles of \\(98\no\nC for 20 sec, 65\no\nC for 15 sec, and 72\no\nC for 90 sec) and 2 min at 72\no\nC.\r\n\n\n**4.2.** Purify the PCR product using a MinElute kit from QIAGEN and elute the DNA in 10 uL of EB.\r\n\n\n**4.3.** Sequence the pooled libraries on a HiSeq or NextSeq500 instrument \\(Illumina) as 2-4% spike-ins to a sequencing lane loaded with other DNA libraries containing compatible Illumina adapters \\(typically originating from ChIP-seq or RNA-seq experiments). \r\n\n\n\r\n\n\nDetailed information about primers, barcodes and libraries used in the original study can be retrieved from Isakova et al 2016, Nature Methods, Supplementary Table 6. \r\n\n\n\r\n\n\n**5. SMiLE-seq data analysis**\r\n\n\n\r\n\n\n**5.1.** Parsing of raw sequencing reads \r\n\n\n- Demultiplex and trim raw Illumina reads to 30 bp corresponding to the randomized DNA region using FASTX-tools \\(http://hannonlab.cshl.edu/fastx_toolkit/). \r\n\n\n- Count the identical reads, collapse them in one, and subsequently order according to occurrence from most to least abundant \\(using FASTX-tools). \r\n\n\n- Identify the consensus binding sequences \\(seeds) through MEME motif discovery\n12\n: \r\n\n\n\r\n\n\nCommand:\r\n\n\nmeme\n-mod zoops -dna -minw 4 -maxw 20 -nmotifs 10 -maxsize 1000000\r\n\n\n\r\n\n\nUse non-collapsed reads to calculate read statistic and perform PWM training using HMM as described below.\r\n\n\n\r\n\n\n**5.2.** HMM motif training \r\n\n\n5.2.1. Define the initial parameters:\r\n\n\n\u2022 Use a MEME-derived seed in IUPAC format. Modify the seed by adding 1 extra 'N' on each side to allow for a more flexible motif search using the HMM-based program \\(see optimization steps).\r\n\n\n\u2022 Set the read length in bp corresponding to the length of the randomized region. For the presented scenario, this value is 30bp.\r\n\n\n\u2022 Set the background probability of each nucleotide. This value depends on the library and is measured in step 5.2.2.\r\n\n\n\u2022 Set the number of sequences to sample randomly to train the HMM. In our case, we used 10'000 or 25'000 sequences.\r\n\n\n\u2022 Set the number of Baum-Welch iterations to train the HMM. Default is 20.\r\n\n\n\u2022 Set the prior probability for a sequence to contain a binding site. This influences the initial state of the HMM. High values allow more \"stringent training\", i.e. to get a more information rich matrix. Use 0.5 as a default value.\r\n\n\n\r\n\n\n5.2.2. Filter and randomly shuffle the input fasta file to remove:\r\n\n\n\u2022 'N' containing sequences \r\n\n\n\u2022 sequences that are larger than the expected read length\r\n\n\n\u2022 multiple instance of a sequence  \r\n\n\n \r\n\n\nCommand:\r\n\n\nfa2filtered.pl < read_length > <  < fasta_file > | filtered2unique.pl > < filtered_fasta_file >\r\n\n\n\r\n\n\nwhere:\r\n\n\n < read_length >  defines the read length in bp. Here, it is set at 30bp.\r\n\n\n < fasta_file >  defines the sequence library from which a PWM should be trained, in fasta format.\r\n\n\n < filtered_fasta_file > defines the output file address.\r\n\n\n\r\n\n\n5.2.3. Write an HMM and train it on a subset of randomly selected sequences using mamot\n13\n. This step can be done using _ht_selex_opt.pl_ but is detailed here for clarity:\r\n\n\n\r\n\n\n\u2022 Estimate the nucleotide background distribution.\r\n\n\nCommand:\r\n\n\n   bc.pl < < filtered_fasta_file >\r\n\n\n  \r\n\n\nwhere:\r\n\n\n  < filtered_fasta_file >   are the filtered sequences from step 5.2.2.\r\n\n\n\r\n\n\n\u2022 Add a given number of background bases on each side of the sequences. Additionally, this script turns 'U' to 'T' characters \\(in case of RNA sequences) and eliminates all non DNA characters from the sequence. The sequences are reformatted into a mamot usable format. At the end, only select a given number \\(between 10'000 and 25'000) of sequences for the training.\r\n\n\n\r\n\n\nCommand:\r\n\n\n./padseq.pl < left_flank > < right_flank > < bckg > < < filtered_fasta_file > | head -n < n_seq > > < seq_file >\r\n\n\n\r\n\n\nwhere:\r\n\n\n< left_flank >            sets the number of background nucleotides to add on the left of the sequence. Set it to \u201c1\u201d. \r\n\n\n< right_flank >          sets the number of background nucleotides to add on the right of  the sequence. Set it to \u201c1\u201d. \r\n\n\n< bckg >                       coma-separated background probabilities of each base \\(a,c,g,t), e.g. '0.25,0.25,0.25,0.25' which would be a uniform background. This has been measured at the first step of 5.2.3. \r\n\n\n< filtered_fasta_file > defines sequences to use. This file has been created at step 5.2.2.\r\n\n\n< n_seq >               defines the number of sequences to sample from < filtered_fasta_file > for later training. Use a number between 10'000 and 25'000.\r\n\n\n< seq_file >                  defines the output file.\r\n\n\n\r\n\n\n5.2.4. Generate a file containing an HMM model in the format required by mamot. The model design is described in the method figure:\nSee figure in Figures section.\nCommands:\r\n\n\n\u2022 to search a palyndromic motif\r\n\n\n./cons2init_sym.pl < seed > < read_len > < bckg > < prior_TFBS_prob > > < hmm_model_file >\r\n\n\n\u2022 to search a non-palyndromic motif\r\n\n\n./cons2init.pl < seed > < read_len > < back > < prior_TFBS_prob > > < hmm_model_file >\r\n\n\n \r\n\n\nwhere:\r\n\n\n< seed >              is the seed sequence.\r\n\n\n< read_len >       is the length of the reads in the sequence file \\(30bp).\r\n\n\n< bckg >           are comma-separated background probabilities for each base  \\(a,c,g,t), e.g '0.25,0.25,0.25,0.25' for a uniform background. This has been measured at step 5.2.3.\r\n\n\n< prior_TFBS_prob >   is the prior probability of a sequence to contain a true binding site.\r\n\n\n  \r\n\n\nThe number of nodes in the forward \\(F) and reverse \\(R) paths are given by the number of characters in the seed. The initial emission probabilities of a node are set according to the corresponding character in the seed. Here is a list of prior probabilities for each possible character:\r\n\n\n\r\n\n\n  A = 0.70 0.10 0.10 0.10 \r\n\n\n     C = 0.10 0.70 0.10 0.10\r\n\n\n     G = 0.10 0.10 0.70 0.10\r\n\n\n     T = 0.10 0.10 0.10 0.70\r\n\n\n     R = 0.40 0.10 0.40 0.10\r\n\n\n     Y = 0.10 0.40 0.10 0.40\r\n\n\n     M = 0.40 0.40 0.10 0.10\r\n\n\n     K = 0.10 0.10 0.40 0.40\r\n\n\n     W = 0.40 0.10 0.10 0.40\r\n\n\n     S = 0.10 0.40 0.40 0.10\r\n\n\n     B = 0.10 0.30 0.30 0.30\r\n\n\n     D = 0.30 0.10 0.30 0.30\r\n\n\n     H = 0.30 0.30 0.10 0.30\r\n\n\n     V = 0.30 0.30 0.30 0.10\r\n\n\n     N = 0.25 0.25 0.25 0.25\r\n\n\n\r\n\n\nThe initial transition probability from START to its successor nodes depends on the prior probability of a sequence to contain a true binding site \\(< prior_TFBS_prob >). \r\n\n\nIf this is set to 0.8 then START->FB will be 0.4 \\(0.8/2), START->RB will be 0.4 \\(0.8/2) and START->II will be 0.2 \\(1-0.8).\r\n\n\n\r\n\n\n5.2.5. Run _mamot_ on the model generated at step 5.2.4. \r\n\n\n\r\n\n\nCommand:\r\n\n\nmamot -B -w 1.0 -i < iter > -t -p -m < hmm_model_file > < seq_file > 2 > /dev/null\r\n\n\n\r\n\n\nwhere: \r\n\n\n< iter >         is the number of Baum-Welch iterations used to train the model \\(20).\r\n\n\n< hmm_model_file >   is the file containing the HMM model.\r\n\n\n< seq_file >  is the file containing the sequences needed to train the model. This file has been generated at step 5.2.3.\r\n\n\n\r\n\n\nThe output file from mamot is called FinalModel.\r\n\n\n  \r\n\n\n5.2.6. Extract transition probabilities and PWMs from mamot results.\r\n\n\n\r\n\n\n Command:\r\n\n\n./extract_trans.pl ==>== FinalModel\r\n\n\n./extract_pwm.pl ==<== FinalModel"
+        },
+        {
+            "header": "References",
+            "content": "1. Meng, X., Brodsky, M. H. & Wolfe, S. A. A bacterial one-hybrid system for determining the DNA-binding specificity of transcription factors. Nat. Biotechnol. 23, 988\u2013994 \\(2005).\r\n  2. Berger, M. F. & Bulyk, M. L. Universal protein-binding microarrays for the comprehensive characterization of the DNA-binding specificities of transcription factors. Nat. Protoc. 4, 393\u2013411 \\(2009).\r\n  3. Jolma, A. et al. Multiplexed massively parallel SELEX for characterization of human transcription factor binding specificities. Genome Res. 20, 861\u2013873 \\(2010).\r\n  4. Fulton, D. L. et al. TFCat: the curated catalog of mouse and human transcription factors. Genome Biol. 10, R29 \\(2009).\r\n  5. Vaquerizas, J. M., Kummerfeld, S. K., Teichmann, S. A. & Luscombe, N. M. A census of human transcription factors: function, expression and evolution. Nat. Rev. Genet. 10, 252\u2013263 \\(2009).\r\n  6. Kulakovskiy, I. V. et al. HOCOMOCO: expansion and enhancement of the collection of transcription factor binding sites models. Nucleic Acids Res. 44, D116\u2013D125 \\(2016).\r\n  7. Deplancke, B., Alpern, D. & Gardeux, V. The Genetics of Transcription Factor DNA Binding Variation. Cell 166, 538\u2013554 \\(2016).\r\n  8. Jolma, A. et al. DNA-dependent formation of transcription factor pairs alters their binding specificity. Nature 527, 384\u2013388 \\(2015).\r\n  9. Maerkl, S. J. & Quake, S. R. A systems approach to measuring the binding energy landscapes of transcription factors. Science 315, 233\u2013237 \\(2007).\r\n  10. Isakova, A., Berset, Y., Hatzimanikatis, V. & Deplancke, B. Quantification of Cooperativity in Heterodimer-DNA Binding Improves the Accuracy of Binding Specificity Models. J. Biol. Chem. 291, 10293\u201310306 \\(2016).\r\n  11. Zimmermann, M., Hunziker, P. & Delamarche, E. Valves for autonomous capillary systems. Microfluid. Nanofluidics 5, 395\u2013402 \\(2008).\r\n  12. Bailey, T. L. & Elkan, C. Fitting a mixture model by expectation maximization to discover motifs in biopolymers. Proc. Int. Conf. Intell. Syst. Mol. Biol. ISMB Int. Conf. Intell. Syst. Mol. Biol. 2, 28\u201336 \\(1994).\r\n  13. Sch\u00fctz, F. & Delorenzi, M. MAMOT: hidden Markov modeling tool. Bioinforma. Oxf. Engl. 24, 1399\u20131400 \\(2008)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "We would like to thank Prof. Sebastian Maerkl \\(EPFL) for his\u00a0guidance in applying microfluidic technologies, Rene Dreos \\(EPFL) for helpful discussions on data analysis, our lab members Dr. Daniel Alpern, Pernille Rainer, and Riccardo Dainese for performing validation experiments for our study. We also thank Drs. Keith Harshman and Bastien Mangeat for their assistance in sample sequencing, as well as the VITAL-IT infrastructure to support our computational analyses. This work has been supported by funds from the Swiss National Science Foundation \\(#31003A_162735 and #CRSII3_147684),\u00a0by SystemsX.ch Special Opportunity Project 2015/323, and by Institutional support from the Ecole Polytechnique F\u00e9d\u00e9rale de Lausanne \\(EPFL)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nmeth.4143",
+                "date": "2017-01-17 10:46:14",
+                "title": "SMiLE-seq identifies binding motifs of single and dimeric transcription factors",
+                "authors": [
+                    "Alina Isakova",
+                    "Romain Groux",
+                    "Michael Imbeault",
+                    "Pernille Rainer",
+                    "Daniel Alpern",
+                    "Riccardo Dainese",
+                    "Giovanna Ambrosini",
+                    "Didier Trono",
+                    "Philipp Bucher",
+                    "and Bart Deplancke"
+                ],
+                "journal": "Nature Methods",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 14256,
+                "identity": "a0d6f9cd-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Bart Deplancke",
+                "email": "bart.deplancke@epfl.ch",
+                "orcid": "",
+                "institution": "Deplancke Lab, EPFL. Laboratory of System Biology and Genetics, Institute of Bioengineering, \u00c9cole Polytechnique F\u00e9d\u00e9rale de Lausanne (EPFL), CH-1015 Lausanne, Switzerland",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Bart",
+                "middleName": "",
+                "lastName": "Deplancke",
+                "suffix": ""
+            },
+            {
+                "id": 14252,
+                "identity": "a0d6eb76-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Alina Isakova",
+                "email": "",
+                "orcid": "",
+                "institution": "Deplancke Lab, EPFL. Laboratory of System Biology and Genetics, Institute of Bioengineering, \u00c9cole Polytechnique F\u00e9d\u00e9rale de Lausanne (EPFL), CH-1015 Lausanne, Switzerland",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Alina",
+                "middleName": "",
+                "lastName": "Isakova",
+                "suffix": ""
+            },
+            {
+                "id": 14253,
+                "identity": "a0d6f06e-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Romain  Groux",
+                "email": "",
+                "orcid": "",
+                "institution": "Computation Cancer Genomics group, Swiss Institute for Experimental Cancer Research (ISREC), \u00c9cole Polytechnique F\u00e9d\u00e9rale de Lausanne (EPFL), Switzerland",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Romain",
+                "middleName": "",
+                "lastName": "Groux",
+                "suffix": ""
+            },
+            {
+                "id": 14254,
+                "identity": "a0d6f476-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Giovanna Ambrosini",
+                "email": "",
+                "orcid": "",
+                "institution": "Computation Cancer Genomics group, Swiss Institute for Experimental Cancer Research (ISREC), \u00c9cole Polytechnique F\u00e9d\u00e9rale de Lausanne (EPFL), Switzerland",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Giovanna",
+                "middleName": "",
+                "lastName": "Ambrosini",
+                "suffix": ""
+            },
+            {
+                "id": 14255,
+                "identity": "a0d6f732-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Philipp Bucher",
+                "email": "",
+                "orcid": "",
+                "institution": "Computation Cancer Genomics group, Swiss Institute for Experimental Cancer Research (ISREC), \u00c9cole Polytechnique F\u00e9d\u00e9rale de Lausanne (EPFL), Switzerland",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Philipp",
+                "middleName": "",
+                "lastName": "Bucher",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2016-11-14 00:22:52",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2016.089",
+        "doiUrl": "https://doi.org/10.1038/protex.2016.089",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2609580,
+                "identity": "fece812b-829d-436b-9096-bc6be140fc5d",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:02",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 379848,
+                "visible": true,
+                "origin": "",
+                "legend": "SMiLE-seq set-up.    A. SMiLE-seq set-up. Each SMiLE-seq device consists of a PDMS chip (approximately 2 x 5 cm) bonded to a plasma-activated glass slide. The SMiLE-seq device is placed on the microscope table and is connected to the microcontroller-based control unit. The microscope camera, connected to an external display, enables chip observation during a SMiLE-seq experiment. B. Schematic design of a SMiLE-seq microchip. Blue and green colors denote flow and control layers respectively. Each unit of the device is connected to the collector unit on one side and the capillary pump on the other^11^. All units of the device are connected together by the continuous flow channel with four inlets (F1-F4) and three outlets (F5-F7). Switching between these two access modes can be done through the use of control micro valves (C1-C11). ",
+                "description": "",
+                "filename": "figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-5373/v1/figure_1.jpg"
+            },
+            {
+                "id": 2609582,
+                "identity": "0c26682e-8935-417b-9c95-dc62023ea2ee",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:02",
+                "extension": "jpg",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 82778,
+                "visible": true,
+                "origin": "",
+                "legend": "HMM scheme ",
+                "description": "",
+                "filename": "figure2.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-5373/v1/figure_2.jpg"
+            },
+            {
+                "id": 13465095,
+                "identity": "7e8e8812-fe78-4bd9-b9a8-a9c2bbec034f",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:45:39",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 357501,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-5373/v1/1ee074c2-6fca-442d-a05d-c3ec5c3cdaa5.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Microfluidics, Transcription Factor (TF), DNA binding motif, gene regulation, in vitro methods, high-throughput sequencing, semi-automated technology.",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "Selective Microfluidics-based Ligand Enrichment followed by sequencing \\(SMiLE-seq) is a rapid, semi-automated method aimed at resolving the DNA binding specificities of full-length transcription factors \\(TFs). The core of SMiLE-seq is a cross talk-devoid microfluidic platform that performs selection of DNA that is specifically bound to TFs from a pool of randomized DNA. Coupled to high-throughput sequencing, this platform allows the characterization of TF DNA binding preferences at an unprecedented resolution in just a single day. Unlike other, already established\u00a0in vitro technologies that also aim to determine TF binding specificities, SMiLE-seq operates at micro scale and requires minute amounts of biological material. Moreover, it produces specificity models that characterize even low-affinity and transient molecular interactions and that have equal to superior predictive power than previously reported motifs. Finally, SMiLE-seq enables motif detection for monomers, homodimers, as well as heterodimers. SMiLE-seq should therefore prove highly valuable in deriving unbiased quantitative specificity models for single and dimeric, full-length TFs.",
+        "manuscriptTitle": "SMiLE-seq: Selective Microfluidics-based Ligand Enrichment followed by sequencing",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2017-01-17 10:50:42",
+                "doi": "10.1038/protex.2016.089",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a0d68660-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "January 17th, 2017",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3743,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 3744,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 3745,
+                "name": "Molecular Biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2017-01-17 10:50:42",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

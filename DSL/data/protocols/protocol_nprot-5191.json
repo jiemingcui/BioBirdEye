@@ -1,0 +1,220 @@
+{
+    "identity": "nprot-5191",
+    "title": "False Discovery Controlled Metabolite Annotation of Imaging Mass Spectrometry Data",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Metabolomics is a crucial scientific domain, promising important advances in cell biology, physiology, and medicine. Metabolomics complements genomics, transcriptomics, and proteomics by analyzing the instantaneous state of biochemical processes and revealing the contributions of non-genetic factors. \r\n\n\n\r\n\n\nThe introduction of high-mass-resolution \\(HR) MS that discriminates compounds differing by merely a few mDa promises to achieve unprecedented reliability of metabolite annotation in MS. Imaging MS combines this analytical specificity with spatially resolved measurements where mass spectra are acquired over a grid of pixels directly from a section of tissue, cell culture, or agar to produces images showing directly the distribution of metabolites across a sample. However, due to the lack of bioinformatics for automated molecular annotation, HR imaging MS is not routinely used for untargeted metabolomics and has been restricted mainly to targeted imaging of a few metabolites only. An additional obstacle is the lack of a metabolomics-compatible approach for estimating False Discovery Rate \\(FDR)\r\n\n\n\r\n\n\nOur framework takes as input: 1) an HR imaging MS dataset in the imzML format, 2) a database of metabolite sum formulas in a CSV format, e.g., exported from HMDB 17, 3) an adduct of interest \\(e.g., +H, +Na, or +K for positive ionization mode). For a specified FDR level \\(e.g., 0.1), the framework provides molecular annotations: a list of metabolites from the database detected as present in the sample."
+        },
+        {
+            "header": "Equipment",
+            "content": "The computation required for this protocol has been implmented in Python 2.7 and is available from:\r\n\n\nhttps://github.com/alexandrovteam/pySM\r\n\n\n\r\n\n\nExample data is provided along with the code."
+        },
+        {
+            "header": "Procedure",
+            "content": "The following procedure details how to use the pySM library \\(https://github.com/alexandrovteam/pySM) to perform FDR controlled annotation. \r\n\n\n\r\n\n\n\r\n\n\n \"\nSee figure in Figures section.\n\":http://www.nature.com/protocolexchange/system/uploads/4803/original/thefigure_workflow_detailed.png?1474008322\r\n\n\n\r\n\n\n\r\n\n\nThe pipeline has two core parts: Calculation of Metabolite Signal Match \\(MSM) scores for every molecular formula in a metabolite database. Reporting of molecular formula at a specified FDR\r\n\n\n\r\n\n\nInstallation\r\n\n\n1) Obtaining the code\r\n\n\na. Create a convenient directory, for example spatial_metabolomics and clone the repository into there:\r\n\n\nb. mkdir spatial_metabolomics\r\n\n\nc. cd spatial_metabolomics\r\n\n\nd. git clone https://github.com/alexandrovteam/pySM\r\n\n\n2) We recommend installing pySM and its dependencies inside a virtual environment as follows.\r\n\n\na. Next, if you have Anaconda installation of Python, follow the installation instructions Setting up a virtual environment using conda. Otherwise, follow the instructions Setting up a virtual environment using virtualenv.\r\n\n\nb. Setting up a virtual environment using conda\r\n\n\ni. Initialize and activate an 'pySM' environment with all the dependencies:\r\n\n\nii. cd pySM\r\n\n\niii. conda env create\r\n\n\niv. source activate pySM\r\n\n\nv. Install pySM package with pip:\r\n\n\nvi. pip install . -r requirements.txt\r\n\n\nc. Setting up a virtual environment using virtualenv\r\n\n\ni. Setup and activate a new virtual environment:\r\n\n\nii. pip install virtualenv\r\n\n\niii. virtualenv venv\r\n\n\niv. source venv/bin/activate\r\n\n\nv. Install pySM and dependencies with pip:\r\n\n\nvi. cd pySM\r\n\n\nvii. pip install . -r requirements.txt\r\n\n\nAnnotating a dataset\r\n\n\n1) Inputs\r\n\n\na. To process a dataset three things are needed: 1. a high-resolution imaging MS dataset; 2. a metabolite database 3. a configuration file\r\n\n\n\r\n\n\n2) Dataset\r\n\n\nData should be in the .imzML format. The pipeline is designed for and was tested on centroided data.\r\n\n\n\r\n\n\n3) Database\r\n\n\nThe database is a CSV with columns for id, name, exact_mass, formula\r\n\n\n\r\n\n\n4) Configuration file\r\n\n\nA complete example configuration can be found here \\(https://github.com/alexandrovteam/pySM/blob/master/pySM/example/example_config.json). The following parameters should be set individually for every dataset, other parameters can generally be left at their default values\r\n\n\n\r\n\n\n\"name\":\"dataset_short_name\",\r\n\n\n\"image_generation\":\\{\r\n\n\n\"ppm\": \r\n\n\n},\r\n\n\n\"file_inputs\":\\{\r\n\n\n\"data_file\":\"/path/to/imaging_ms_dataset.imzML\",\r\n\n\n\"database_load_folder\":\"/path/to/tmp_folder_for_storing_isotope_patterns\",\r\n\n\n\"results_folder\":\"/path/to/folder_for_storing_results\",\r\n\n\n\"database_file\":\"/path/to/database.csv\"\r\n\n\n},\r\n\n\n\"fdr\":\\{\r\n\n\n\"pl_adducts\":\\[\r\n\n\n\\{\"adduct\":\"+H\"},\r\n\n\n\\{\"adduct\":\"+Na\"},\r\n\n\n\\{\"adduct\":\"+K\"}\r\n\n\n],\r\n\n\n},\r\n\n\n\"isotope_generation\":\\{\r\n\n\n\"charge\":\\[\r\n\n\n\\{\"polarity\":\"+\", \"n_charges\":1}\r\n\n\n],\r\n\n\n\"isocalc_sig\":0.01,\r\n\n\na. name: a short name for the dataset, if \"name\":\"\" the imzml filename will be used\r\n\n\nb. ppm: the m/z window for ion images\r\n\n\nc. file_inputs: path for loading data/storing results\r\n\n\nd. fdr: false discovery rate properties\r\n\n\ne. pl_adducts: real adducts to search for\r\n\n\nf. isotope_generation:\r\n\n\ng. charge: polarity and charge state to search for \\(the pipeline currently only supports one charge state at a time). e.g. for negative mode singly charged use \"charge\":\\[ \\{\"polarity\":\"-\", \"n_charges\":1} ],\r\n\n\nh. isocalc_sig: peaks are predicted with a gaussian shape. This parameter is the sigma parameter. sigma = FWHM/2.3548.\r\n\n\ni. isocalc_resoultion is not mass spectral resolution, it is the digitisation rate of the isotope patterns\r\n\n\n5) Calculating MSM Scores\r\n\n\na. The spatial_metabolomics module runs the pipeline for calculating MSM scores. To calculate MSM scores for a whole dataset and database simply pass the configuration file to the run_pipeline function:\r\n\n\nfrom pySM import spatial_metabolomics\r\n\n\njson_filename = '/path/to/config.json'\r\n\n\nspatial_metabolomics.run_pipeline\\(json_filename)\r\n\n\n6) This will then write the MSM score for every combination of molecular formula and target adduct found in the metabolite database to a text file in the \"results_folder\" specified in the config file. Additionally a randomly selected set of decoy adducts will be chosen for , and their MSM scores calculated. \\(The number of decoy adducts is controlled by the config parameter fdr\\n_im).\r\n\n\n\r\n\n\n7) Reporting FDR\r\n\n\na. The main use of FDR control is to report which molecular formulas are annotated at a fixed FDR. This uses the results file generated by spatial_metabolomics.run_pipeline and the target and decoy adducts specified in the configuration file.\r\n\n\n\r\n\n\nfrom  pySM import spatial_metabolomics, fdr_measures\r\n\n\njson_filename = '/path/to/config.json'\r\n\n\nresults_fname = spatial_metabolomics.generate_output_filename\\(spatial_metabolomics.get_variables\\(json_filename),\\[],'spatial_all_adducts')\r\n\n\ntarget_adducts,decoy_adducts = fdr_measures.get_adducts\\(json_filename)\r\n\n\nfdr = fdr_measures.decoy_adducts\\(results_fname,target_adducts,decoy_adducts)\r\n\n\nb. To print a list of molecular-formula for each target adduct that have an MSM score which results in an FDR of less than fdr_target.\r\n\n\nfdr_target=0.1\r\n\n\nprint fdr.decoy_adducts_get_pass_list\\(fdr_target,n_reps=20,col='msm')"
+        },
+        {
+            "header": "Timing",
+            "content": "5) the majority of the time is taken calculating the MSM scores, this depends on the number of pixels in the dataset and the number of peaks per spectra but is usually approximately one hour per dataset.\r\n\n\nThe first time a particular combination of isotope generation parameters is used, isotope patterns must be generated for each molecule in the database. This can take several hours."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nmeth.4072",
+                "date": "2017-01-11 10:18:33",
+                "title": "FDR-controlled metabolite annotation for high-resolution imaging mass spectrometry",
+                "authors": [
+                    "Andrew Palmer",
+                    "Prasad Phapale",
+                    "Ilya Chernyavsky",
+                    "Regis Lavigne",
+                    "Dominik Fay",
+                    "Artem Tarasov",
+                    "Vitaly Kovalev",
+                    "Jens Fuchser",
+                    "Sergey Nikolenko",
+                    "Charles Pineau",
+                    "Michael Becker",
+                    "and Theodore Alexandrov"
+                ],
+                "journal": "Nature Methods",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 14130,
+                "identity": "a0cc5165-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Andrew Palmer",
+                "email": "research.palmer@gmail.com",
+                "orcid": "",
+                "institution": "Alexandrov Team, EMBL",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Andrew",
+                "middleName": "",
+                "lastName": "Palmer",
+                "suffix": ""
+            },
+            {
+                "id": 14131,
+                "identity": "a0cc57db-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Theodore Alexandrov",
+                "email": "",
+                "orcid": "",
+                "institution": "Alexandrov Team, EMBL",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Theodore",
+                "middleName": "",
+                "lastName": "Alexandrov",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2016-11-04 13:37:44",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2017.003",
+        "doiUrl": "https://doi.org/10.1038/protex.2017.003",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2609553,
+                "identity": "633983bb-840c-42fb-9d12-6d3c62d02e3e",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:00",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 1021571,
+                "visible": true,
+                "origin": "",
+                "legend": "FDR controlled annotation   Workflow for FDR controlled annotation of imaging mass spectrometry data",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-5191/v1/figure_1.png"
+            },
+            {
+                "id": 13465055,
+                "identity": "35005a19-0f44-46a6-b0e1-44065500216a",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:45:28",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 553349,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-5191/v1/4d39b5a3-285d-4602-a74e-75882b532b13.pdf"
+            }
+        ],
+        "financialInterests": "TA is the scientific director and a shareholder of SCiLS GmbH, a company providing software for imaging mass spectrometry. MB was an employee of Bruker Daltonik GmbH, a company providing instrumentation and software for imaging mass spectrometry.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "false discovery rate, imaging mass spectrometry, metabolomics",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "In this protocol we explain how to perform false discovery rate controlled metabolite annotation of data acquired with high-resolving-power imaging mass spectrometry. This translates the spectral data into biological annotations for further analysis.",
+        "manuscriptTitle": "False Discovery Controlled Metabolite Annotation of Imaging Mass Spectrometry Data",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2017-01-11 10:23:28",
+                "doi": "10.1038/protex.2017.003",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a0cbb9d2-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "January 11th, 2017",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3698,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 3699,
+                "name": "Mathematics and computing"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2017-01-11 10:23:28",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

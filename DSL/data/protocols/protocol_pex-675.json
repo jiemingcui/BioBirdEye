@@ -1,0 +1,230 @@
+{
+    "identity": "pex-675",
+    "title": "<p>Genome wide quantification of A-to-I RNA editing activity</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>Adenosine to inosine (A-to-I) RNA editing is a common and critical RNA modification, affecting millions of sites in the human genome. The vast majority of RNA editing activity, mediated primarily by ADAR (ADAR1), occurs in noncoding parts of the transcriptome<sup>1</sup>. The typical target consists of a long noncoding dsRNA formed by pairing of two inverted copies of repetitive elements<sup>2</sup>. In particular, the human transcriptome harbors more than a million copies of the ~300bp-long <em>Alu</em> repeat. Due to their abundance, pairing of two neighboring <em>Alu </em>elements is common, resulting in long dsRNAs. Millions of editing sites have been identified within human <em>Alu</em> repeats<sup>2\u20138</sup>, accounting for almost all editing activity in the human transcriptome. </p><p>Comparative analysis of ADAR activity across multiple samples is as yet an unmet challenge. For this purpose, one desires a single quantitative measure representing the global editing behavior in each sample. Since virtually all human editing events take place in <em>Alu</em> repeats<sup>8</sup>, we define and present here the <em>Alu</em> Editing Index (AEI), a robust measure that retains the full <em>Alu</em> editing signal. We provide a software package, enabling a straight-forward calculation of the AEI for multiple samples from raw RNA-sequencing data.</p><p>For any set of pre-determined genomic regions, the editing index is defined as the weighted average of the observed editing levels over all adenosines, where the weights are the total coverage of each site<sup>9</sup>. It avoids the need to quantify the editing level per-site and accounts for the editing activity, including editing events residing in low-coverage regions, while maintaining a very low false discovery rate including lowly-covered regions. For convenience, we multiply this by 100, so that the index describes the per-cent level of editing in the set of regions. In human, virtually all ADAR activity occurs within <em>Alu</em> elements<sup>5\u20138</sup>, spanning ~11% of the human genome. Thus, we study hereafter the <em>Alu</em> Editing Index (AEI), which is the weighted average over tens of millions of genomic adenosine sites located within <em>Alu</em> sequences. Note that the same approach can be used for other sets of genomic regions in any organism, as long as editing therein is strong enough to allow for sufficiently large signal-to-noise ratio (SNR). </p><p>To estimate the noise, mismatches due to technical and biological source rather than <em>bona</em> <em>fide</em> A-to-I editing, we calculate \"control indexes\", measuring the abundance of other types of mismatches (many times the highest of these &nbsp;is the C-to-T index,&nbsp;as it represents both a common genomic mutation and C-to-U RNA editing).</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": ""
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>A computer (or cluster) capable of running SAMtools and BEDTools.</p><p>For installation instructions, please see the installation guide at <a href=\"https://github.com/a2iEditing/RNAEditingIndexer\" target=\"_blank\">https://github.com/a2iEditing/RNAEditingIndexer</a>&nbsp;</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "Step A \u2013 Alignment\nFirst, remove duplicates and align the reads to the reference genome using your aligner of choice. Retain uniquely mapped reads only. Sorting and indexing your BAM files can save run-time later, but is not necessary.\nStep B \u2013 Running RNAEditingIndexer\nThe BAM files and the corresponding reference genome are to be used as the input to the RNAEditingIndexer. We recommend using either a virtual environment such as conda or to use the provided Docker image).\nFor human, the RNAEditingIndexer averages (by default) on Alu repeats. For mouse, the default regions are B1 and B2 repeats. If your genome doesn\u2019t have built-in support you will need to prepare the needed regions, annotations and SNPs files as described in the documentation.\nThis step uses all the programs described in the documentation (BamUtils, SAMtools, and BEDTools). It is recommended to check both the logs and the output to the screen for errors as some errors will not abort the execution"
+        },
+        {
+            "header": "Troubleshooting",
+            "content": ""
+        },
+        {
+            "header": "Time Taken",
+            "content": ""
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>This section describes the most common (and thus the default) output. More complex output files can be generated, please check the full documentation at <a href=\"https://github.com/a2iEditing/RNAEditingIndexer/tree/master/Docs\" target=\"_blank\">https://github.com/a2iEditing/RNAEditingIndexer/tree/master/Docs</a>.</p><p><br></p><p>A successful run of the RNAEditingIndexer should produce a CSV output file containing the sample metadata (e.g. name, path, etc.) and the \u201cediting\u201d index (i.e. the weighted-average mismatch rate over the regions of interest) for each mismatch type selected (by default, all 6 strand-insensitive mismatch types). &nbsp;The A-to-I editing level is the A2GEditingIndex. The noise level may be estimated (conservatively) by the C2TEditingIndex. A signal to noise ratio below 2 or 3 is a signature of unreliable results. You can then use the values per sample \u00ad<u>as is,</u> with or without baseline subtraction. No further normalization is required.</p><p><br></p><p>Please note that it is <u>extremely unlikely to receive exactly zero</u> as the index values for all mismatch types. If this appears in the output, the most likely scenario is that the calculation failed for this sample.</p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tan, M. H. <em>et al.</em> Dynamic landscape and regulation of RNA editing in mammals. <em>Nature</em> <strong>550</strong>, 249\u2013254 (2017).</p><p>2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Porath, H. T., Knisbacher, B. A., Eisenberg, E. &amp; Levanon, E. Y. Massive A-to-I RNA editing is common across the Metazoa and correlates with dsRNA abundancee. <em>Genome Biol.</em> <strong>18</strong>, 185 (2017).</p><p>3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bazak, L. <em>et al.</em> A-to-I RNA editing occurs at over a hundred million genomic sites, located in a majority of human genes. <em>Genome Res.</em> <strong>24</strong>, 365\u2013376 (2014).</p><p>4.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ramaswami, G. &amp; Li, J. B. RADAR: A rigorously annotated database of A-to-I RNA editing. <em>Nucleic Acids Res.</em> <strong>42</strong>, D109-13 (2014).</p><p>5.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kim, D. D. Y. <em>et al.</em> Widespread RNA editing of embedded Alu elements in the human transcriptome. <em>Genome Res.</em> <strong>14</strong>, 1719\u20131725 (2004).</p><p>6.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Blow, M., Futreal, A. P., Wooster, R. &amp; Stratton, M. R. A survey of RNA editing in human brain. <em>Genome Res.</em> <strong>14</strong>, 2379\u20132387 (2004).</p><p>7.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Athanasiadis, A., Rich, A. &amp; Maas, S. Widespread A-to-I RNA editing of Alu-containing mRNAs in the human transcriptome. <em>PLoS Biol.</em> <strong>2</strong>, e391 (2004).</p><p>8.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Levanon, E. Y. <em>et al.</em> Systematic identification of abundant A-to-I editing sites in the human transcriptome. <em>Nat. Biotechnol.</em> <strong>22</strong>, 1001\u20131005 (2004).</p><p>9.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bazak, L., Levanon, E. Y. &amp; Eisenberg, E. Genome-wide analysis of Alu editability. <em>Nucleic Acids Res.</em> <strong>42</strong>, 6876\u20136884 (2014).</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>We thank Orshay Gabay, Ilana Buchumenski, Ariel Fieglin, Yishay Pinto and other lab members for assistance in data analysis and many helpful comments. EYL was supported by JDRF Innovative Grant (1-INO-2018-639-A-N) and the Israel Science Foundation (1380/14). EE was supported by the Israel Science Foundation (2673/17 and 1945/18).</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41592-019-0610-9",
+                "date": "2019-10-21 16:51:05",
+                "title": "Genome-wide quantification of ADAR adenosine-to-inosine RNA editing activity",
+                "authors": [
+                    "Shalom Hillel Roth",
+                    "Erez Y. Levanon",
+                    "Eli Eisenberg"
+                ],
+                "journal": "Nature Methods",
+                "logo": ""
+            },
+            {
+                "unpublished": "\"Genome wide quantification of A-to-I RNA editing activity\";  Shalom Hillel Roth, Erez Y. Levanon, Eli Eisenberg; In revision in Nature Methods"
+            }
+        ],
+        "authors": [
+            {
+                "id": 128607,
+                "identity": "6a9fad17-3f88-4212-a2ca-6dc3ccdb6079",
+                "order_by": 1,
+                "name": "Shalom Hillel Roth",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0003-3773-0798",
+                "institution": "The Mina and Everard Goodman Faculty of Life Sciences, Bar-Ilan University, Ramat Gan 5290002, Israel",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Shalom",
+                "middleName": "Hillel",
+                "lastName": "Roth",
+                "suffix": ""
+            },
+            {
+                "id": 128606,
+                "identity": "c14b3f7d-69e8-49b7-b41f-0701cdfbfaf3",
+                "order_by": 2,
+                "name": "Erez Y. Levanon",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-3641-4198",
+                "institution": "The Mina and Everard Goodman Faculty of Life Sciences, Bar-Ilan University, Ramat Gan 5290002, Israel",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Erez",
+                "middleName": "Y.",
+                "lastName": "Levanon",
+                "suffix": ""
+            },
+            {
+                "id": 128608,
+                "identity": "d5ff8e2a-1066-4f6d-a588-b868cb592665",
+                "order_by": 3,
+                "name": "Eli Eisenberg",
+                "email": "elieis@post.tau.ac.il",
+                "orcid": "https://orcid.org/0000-0001-8681-3202",
+                "institution": "Raymond and Beverly Sackler School of Physics and Astronomy and 3Sagol School of Neuroscience, Tel Aviv University, Tel Aviv, Israel",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Eli",
+                "middleName": "",
+                "lastName": "Eisenberg",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2019-08-08 08:37:52",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.2.12827/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.2.12827/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13477732,
+                "identity": "f10d527f-677c-4cdd-8c08-8d1adf013c49",
+                "added_by": "auto",
+                "created_at": "2021-09-16 21:32:54",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 156110,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-675/v1/4a964d90-f5cd-4d31-8c4d-6bb908d28f6d.pdf"
+            }
+        ],
+        "financialInterests": "The author declare no competing financial interests. The code is freely available for non-commercial use.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "ADAR, Editing, RNA Editing, A-to-I RNA Editing, Global Editing, Computational tool",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>Adenosine to inosine (A-to-I) RNA editing by the ADAR enzymes is a common RNA modification, preventing false activation of the innate immune system by endogenous dsRNAs. Methods for quantification of ADAR activity are sought after, due to an increasing interest in the role of ADARs in cancer and auto-immune disorders, as well as attempts to harness the ADAR enzymes for RNA engineering. Here we present the <em>Alu</em> Editing Index (AEI), a robust and simple-to-use computational tool devised for this purpose that produces a single number representing the global editing level from BAM files. &nbsp;The AEI tool is available at <a href=\"https://github.com/a2iEditing/RNAEditingIndexer\" target=\"_blank\">https://github.com/a2iEditing/RNAEditingIndexer</a></p>",
+        "manuscriptTitle": "Genome wide quantification of A-to-I RNA editing activity",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2019-10-24 10:56:44",
+                "doi": "10.21203/rs.2.12827/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "d42f6327-251a-4686-bb3d-076edfa96632",
+        "owner": [],
+        "postedDate": "October 24th, 2019",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 20166,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 20167,
+                "name": "Genetics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2019-10-24 10:56:44",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

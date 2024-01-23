@@ -1,0 +1,265 @@
+{
+    "identity": "nprot-2053",
+    "title": "Identification of Molecular Subtypes in Pancreatic Adenocarcinoma with Predictive and Prognostic Importance",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Pancreatic ductal adenocarcinoma \\(PDA) is an invariably lethal disease. There is variable and often disappointing responses seen when deploying the standard treatment, gemicitabine alone or in combination with other chemotherapeutic agents in unselected PDA populations. Seeking to extend the new paradigm of personalized medicine to PDA, we performed an integrative analysis of transcriptional profiles of human primary PDA tumors \\(n = 143) and cell lines \\(n = 35). We have defined 62 gene \\(PDAssigner) signature that classifies the human PDA tumors into three subtypes \\(classical, QM-PDA and exocrine-like tumors) and present evidence that two \\(classical and QM-PDA) of these three are present in human and mouse PDA cell lines. Interestingly, we found that PDA subtype classification is an independent predictor of overall survival, and patients with classical PDA subtype tumors have significantly better survival than those with QM-PDA tumors.  Intriguingly, treatment of PDA cell lines with gemcitabine or erlotinib shows significantly differential and opposing responses between classical and QM-PDA subtypes. Herein, we describe computational protocols for a broadly integrative approach to subtype discovery in cancer and analysis that identifies gene expression signature with prognostic and possible predictive significance in primary patient samples.\r\n\n\n\r\n\n\n**Non-Matrix Factorization Algorithm.** \r\n\n\n\r\n\n\nInstead of characterizing gene expression profiles in terms of thousands of genes, non-negative matrix factorization \\(NMF) attempts to find a reduced-order model that describes the principal data structures in terms of a relatively small number of coordinates. In this regard, NMF is similar to more familiar dimensionality reduction methods, such as principal component analysis, except that NMF\u2019s non-negativity constraint produces a \u201cparts-based\u201d composite picture of the overall gene expression profile. It has been suggested that this composite picture lends itself to biological interpretation more readily than other dimensionality reduction methods<sup>1</sup>.\r\n\n\n\r\n\n\nBecause the focus of NMF is to capture the principal gene patterns, it is not generally possible to recapitulate all details of the original gene expression profile based solely on the reduced-order, NMF model.  That is to say there will be differences between the original profile and the recapitulated profile. Moreover, for any given data set, the reduced-order model derived from the NMF algorithm will not be unique\u2014there will be slight differences in the model depending on the initial conditions used by the NMF algorithm to iteratively search for the best \\(i.e. most representative) model. However, when the gene expression clusters are well-differentiated in the data, the model will be relatively insensitive to the initial conditions used in the model search; hence differences between one model and another will be small.\r\n\n\n\r\n\n\nAs with most dimensionality reduction methods, one can make use of the reduced-order, NMF model to build a pattern classifier. The pattern classifier can then be used to classify each of the samples into subtypes. If the gene expression clusters are well-separated in the data set, then it follows from the above discussion that there will be only slight differences in the respective pattern classifiers derived from the models, hence there will be little variation on the subtype assignment. Consensus matrices visually capture this variation by color-coding the frequency with which any two samples appear in the same cluster. The frequency can vary from 0% of the pattern classifiers \\(blue) in which case the two samples never appear in the same cluster, to 100% of the pattern classifiers \\(red) in which case the two samples always appear in the same cluster.\r\n\n\n\r\n\n\nWhile the consensus plot provides a visually understandable graphical representation of clustering robustness, for the purpose of selecting the order of the reduced-order model, it is desirable to have a scalar quantity that can be used to compare overall robustness for differing numbers of clusters. The cophenetic coefficient<sup>1</sup> accomplishes this by quantifying the diffuseness of the boundaries between blue and red regions in the consensus plot. Predominantly sharp, crisp boundaries yield a cophenetic coefficient near 1 and correspond to well-differentiated sample clusters, whereas diffuse boundaries yield a cophenetic coefficient closer to 0 and correspond to poorly-differentiated sample clusters."
+        },
+        {
+            "header": "Procedure",
+            "content": "**Part I. Computational Analysis for Subtype Identification**\r\n\n\n\r\n\n\nIn this section, we will describe the methods used to preprocess the microarray data, merge different gene expression microarray datasets, NMF analysis for the identification of subtypes and SAM analysis to identify subtype-specific gene signature. \r\n\n\n\r\n\n\n\r\n\n\n**A. Preprocessing of Microarray Data**\r\n\n\n\r\n\n\nPreprocess the CEL files from different platforms of Affymetrix microarrays before further analysis. Use R \\(frame work for statistical computing) and Bioconductor\n2\n\\(open source software for bioinformatics) for the preprocessing.\r\n\n\n\r\n\n\n**1. Preprocessing using Bioconductor package \"affy\".**  Make sure that the required CEL files are in the same directory where R has been started. The R code for this step is as follows:\r\n\n\n\r\n\n\nCode for preprocessing CEL files by robust multiarray \\(RMA) statistics\r\n\n\n\r\n\n\n _library\\(affy)_\r\n\n\n _data <- ReadAffy\\()_\r\n\n\n _data_rma <- rma\\(data)_\r\n\n\n _data_exp <- exprs\\(data_rma)_\r\n\n\n \r\n\n\nNote: The expression values are in log\n2\nscale.\r\n\n\n\r\n\n\nCode for mapping probesets to gene symbol\r\n\n\n _library\\(hgu133plus2.db)_  \r\n\n\n _x = unlist\\(as.list\\(hgu133plus2SYMBOL)_\r\n\n\n \r\n\n\n Note that here \"hgu133plu2.db\" has been used as an example for those microarrays done using Affymetrix GeneChip Human U133Plus 2.0 array. Install and include the relevant library depending on the type of Affymetrix array used. _x_ will contain the gene symbol corresponding each probe.\r\n\n\n \r\n\n\n _data_exp_1 <- cbind\\(x, data_exp)_\r\n\n\n _write.table\\(data_exp_1,\"hgu133plus2_genesonly.txt\", row.names=FALSE,sep=\"\\t\",quote=FALSE)_\r\n\n\n\r\n\n\n This will provide a table of RMA processed gene expression profile data with gene symbols. The samples are in columns and genes are in rows.\r\n\n\n\r\n\n\n**2. Correcting batch effect.** We have microarrays from microdissected  \\(UCSF) PDA performed in different batches \\(years - 2006, 2007 and 2008). Correct batch effects using R based software \"ComBat\":http://jlab.byu.edu/ComBat/Abstract.html\n3\n. Prepare two files - gene expression index file and sample information file. Gene expression index file is a delimited text file with first column containing gene names or probe IDs and rest of the columns with samples and gene expression indices. Sample information file contains first column with Array name, second column with sample name and third column with batch numbers \\(eg., 1, 2, ...). \r\n\n\n\r\n\n\nDownload and install \"ComBat\":http://jlab.byu.edu/ComBat/Abstract.html as described in the website. Use \"ComBat\":http://jlab.byu.edu/ComBat/Abstract.html  as follows. \r\n\n\n\r\n\n\nNote: Make sure to execute \"ComBat\":http://jlab.byu.edu/ComBat/Abstract.html in its installed directory or include the directory in the _Source_ comment below.\r\n\n\n\r\n\n\n_Source\\(\"ComBat.R\")_\r\n\n\n_ComBat\\(\"your expression file name\", \"your sample information\")_\r\n\n\n\r\n\n\nThe results with batch adjusted data will be written in the same directory.\r\n\n\n\r\n\n\n**3. Assessing Array Quality.** We performed normalized unscaled standard error \\(NUSE)\n4\nto assess the quality of the arrays. NUSE is available as a part of \"_affyPLM_\":http://www.bioconductor.org/packages/2.6/bioc/vignettes/affyPLM/inst/doc/QualityAssess.pdf \\(a model based quality control assessment of Affymetrix GeneChips) Bioconductor package. Assess microarray quality as follows.\r\n\n\n\r\n\n\n_library\\(affy)_\r\n\n\n_library\\(affyPLM)_\r\n\n\n_data<-ReadAffy\\()_\r\n\n\n\r\n\n\nNote: Make sure that the required CEL files are in the same directory where R has been started. \r\n\n\n\r\n\n\n_Pset<-fitPLM\\(data)_\r\n\n\n\r\n\n\nNote - _fitPLM_ fits a specified robust linear model to the probe level data. It calculates the standard error \\(SE) estimates for each gene on each array.\r\n\n\n\r\n\n\n_NUSE\\(Pset, main = \"NUSE\")_\r\n\n\n\r\n\n\n_NUSE_ accounts for differences in variability between genes across arrays. It standardizes the SE for each gene on each array calculated from _fitPLM_  such that the median SE for that gene is 1 across all arrays. The above comment will produce a graph with y-axis representing the median SE for each array and helps to compare across arrays. Arrays with median SE or NUSE score of lesser than 1 + 0.25 and greater than 1 - 0.25 were further considered as better quality microarrays for our study. \r\n\n\n\r\n\n\nIn addition, obtain the NUSE statistics using the following R code.\r\n\n\n\r\n\n\n_NUSE\\(Pset, type = \"stats\")_\r\n\n\n\r\n\n\nThose arrays with specified NUSE criteria can be used for further analysis.\r\n\n\n\r\n\n\n**4. Merging of different microarray datasets.**  We used distance weighted discrimination \\(DWD)\n5 6\nalgorithm to merge different microarray datasets from different microarray platforms or laboratory. For this purpose, download Java based DWD and install it as described on the DWD description page. Before DWD-merging, screen each dataset for probesets/genes with standard deviation \\(SD) greater than 0.8. Also, select unique genes in the case where many probesets represent a single gene. This can be done by selecting only the gene-specific probe with the highest SD among all probes for that given gene. Additionally, remove those probes that do not map to any gene. The R code for this screening is available in the Attachments or Figures section of this article. You can download and execute accordingly. Column \\(samples) normalize \\(N\\(0,1)) and row \\(probe or gene) normalize \\(by median centering) each dataset. Use the R code below for normalizing and merging datasets using DWD.\r\n\n\n\r\n\n\n_library\\(impute)_\r\n\n\n\r\n\n\n_dataUnique<-read.delim\\(\"file name\", stringsAsFactors=FALSE)_\r\n\n\n\r\n\n\nNote - _dataUnique_ should read the file generated from above SD filtering with unique genes as described above. The columns of the tab-delimited file should be samples \\(except first column being gene symbols) and rows should be genes.\r\n\n\n\r\n\n\n_imp<-impute.knn\\(dataUnique)_\r\n\n\n\r\n\n\n Column normalization\r\n\n\n _colMax <- apply\\(dataUnique,2,max, na.rm=TRUE);_\r\n\n\n            _colMin <- apply\\(dataUnique,2,min, na.rm=TRUE);_\r\n\n\n            _scaleFactor <- 1.0/\\(colMax-colMin);_\r\n\n\n            _for \\(i in 1:dim\\(dataUnique) ==\\[== 2]) \\{_\r\n\n\n                _dataUnique\\[,i] <- \\(dataUnique\\[,i]-colMin\\[i])*scaleFactor\\[i];_\r\n\n\n            _}_\r\n\n\n\r\n\n\nRow median centering\r\n\n\n _rowMed <- apply\\(dataUnique,1,median, na.rm=TRUE);_\r\n\n\n _dataUnique<-dataUnique-rowMed_\r\n\n\n_outFile1<- paste\\(strsplit\\(exprFile,\".txt\"),\"_sd\",sdCutoff,\"_col_Norm_row_Med\",\".txt\",sep=\"\");_\r\n\n\n        _dataUnique1<-cbind\\(data\\[,1],dataUnique)_\r\n\n\n        _colnames\\(dataUnique1) ==\\[== 1]<-\"Genes\"_\r\n\n\n\r\n\n\n _write.table\\(file=\"outFile\", dataUnique1, quote=FALSE, row.names=FALSE, sep=\"\\t\");_\r\n\n\n      _}_\r\n\n\n\r\n\n\nNote: Ensure that the final output file is numeric \\(e.g., avoid 1e-2, instead 0.01).\r\n\n\n\r\n\n\nMerge the two individual SD screened and preprocessed datasets using installed Java based \"DWD\":https://genome.unc.edu/dwd/. Remove the second row with dataset identifier added by DWD in the output file. Perform row median centering of the merged dataset before proceeding to the next step. \r\n\n\n\r\n\n\n\r\n\n\n**5. NMF analysis.** The subtypes of PDA were identified in merged and row median centered microarray datasets using the non-negative matrix factorization \\(NMF) algorithm\n1\n. R code for the NMF algorithm was downloaded from GenePattern website at the Broad Institute. Perform the NMF analysis as follows:\r\n\n\n\r\n\n\n_source\\(\"/directory/nmfconsensus.R\")_\r\n\n\n\r\n\n\nNote: make sure to include the directory where NMF R code is located. \r\n\n\n\r\n\n\n_nmfconsensus<-\\(input.ds=\"merged file name in tab-delimited format\",k.init=2,k.final=5,num.clusterings=20,maxniter=500, error.function=\"euclidean\")_\r\n\n\n\r\n\n\nThe output graphics and other required files will be saved in the directory where the code is executed. The \"consensus.all.k.plot.pdf\" file provides a sample x sample consensus matrix for different k's and cophentic coefficient plot. Files with names ending with \".gct\" provide the classes for each sample. \r\n\n\n\r\n\n\n**SAM Analysis.** \"Significant analysis of microarrays\":http://www-stat.stanford.edu/~tibs/SAM/\n7\nwas performed using a Bioconductor package, \"siggenes\":http://www.bioconductor.org/packages/2.0/bioc/html/siggenes.html. The analysis was performed to identify gene signatures specific to each PDA subtypes identified by NMF analysis. Perform the analysis as follows:\r\n\n\n\r\n\n\n_library\\(siggenes)_\r\n\n\n\r\n\n\n_dataMerged<-read.delim\\(\"DWD merged file name\", stringsAsFactors=FALSE)_\r\n\n\n\r\n\n\nNumeric matrix was generated from above file.\r\n\n\n\r\n\n\n_dataMerged_m<-matrix\\(as.numeric\\(unlist\\(dataMerged ==\\[== ,2:dim\\(dataMerged) ==\\[== 2]])),nrow=dim\\(dataMerged) ==\\[== 1], ncol=\\(dim\\(dataMerged) ==\\[== 2])-1)_\r\n\n\n\r\n\n\nNote - The file used for this purpose is DWD merged files in tab-delimited format.\r\n\n\n\r\n\n\n_colnames\\(data_m)<-colnames\\(data)\\[2:\\(dim\\(dataMerged]_\r\n\n\n_rownames\\(data_m)<-data\\[,1]_\r\n\n\n\r\n\n\nReading the classes for each sample from NMF output file\r\n\n\n\r\n\n\n_con<-read.delim\\(\"consensus.k.3.gct\", stringsAsFactors=FALSE)_\r\n\n\n\r\n\n\n_m<-match\\(con\\[,1],colnames\\(dataMerged))_\r\n\n\n\r\n\n\n_dataMerged_m1<-dataMerged_m\\[,m]_\r\n\n\n\r\n\n\n_sam.out<-sam\\(dataMerged_m1,con\\[,2],rand=123,gene.names=rownames\\(dataMerged_m1))_\r\n\n\n\r\n\n\n_genes<-summary\\(sam.out,12.2)@row.sig.genes_ \r\n\n\n\r\n\n\nNote - number \"12.2\" is an example of delta value from SAM analysis and it varies from analysis to analysis and can be chosen based on false discovery rate \\(FDR) and false positive scores. We chose FDR < 0.001 and false positive being almost zero.\r\n\n\n\r\n\n\nFinal dataset with SAM selected genes\r\n\n\n_dataMerged_genes<-cbind\\(rownames\\(dataMerged_m1),dataMerged_m1\\[genes, ])_\r\n\n\n\r\n\n\n_write.table\\(dataMerged_genes,\"SAM genes selected dataset.txt\", sep=\"\\t\", quote=FALSE,row.names=FALSE)_\r\n\n\n\r\n\n\nFinally, generate a Heatmap with above data file using \"Cluster\":http://rana.lbl.gov/EisenSoftware.htm software\n8\nand viewed using GenePattern's \"Hierarchical Clustering Viewer\":http://www.broadinstitute.org/cgi-bin/cancer/software/genepattern/modules/gp_modules.cgi\n9\nMap the signatures from SAM onto other datasets as follows:\r\n\n\n\r\n\n\n_data_others<-read.delim\\(\"other datasets name.txt\", stringsAsFactors=FALSE_\r\n\n\n\r\n\n\n_map<-match\\(names\\(genes),data_others\\[,1])_\r\n\n\n_w<-which\\(\\!is.na\\(map))_\r\n\n\n_data_others_SAM<-data_others\\[map\\[w],]_\r\n\n\n\r\n\n\n_write.table\\(data_others,\"other datasets mapped with PDAssigner genes.txt\",sep=\"\\t\",quote=FALSE,row.names=FALSE)_\r\n\n\n\r\n\n\nPerform the Hierarchical clustering using the procedure described above.  \r\n\n\n\r\n\n\n**Part II. Statistics for Clinical Outcome.**\r\n\n\n\r\n\n\nUse overall survival data from patients for univariate and multivariate analysis. \r\n\n\n\r\n\n\nUse the log-rank test for univariate associations with survival. Perform survival \\(Kaplan-Meier) curve and log-rank test using web-based GenePattern software SurvivalCurve and SurvivalDifference, respectively. Provide a tab-delimited file with sample id, class for each sample \\(subtype information in our case), censor \\(0 - censored and 1 - not censored) and overall survival \\(in days) as an input for the program.\r\n\n\n\r\n\n\n Use the Cox proportional hazards model for multivariate modeling of survival using the R package _survival_.  \r\n\n\n\r\n\n\n_library\\(survival)_\r\n\n\n\r\n\n\n_sur<-read.delim\\(\"survival.txt\", stringsAsFactors=FALSE)_\r\n\n\n\r\n\n\nNote: _survival.txt_ should have one column each for sample name, class or subtype information, censored data \\(0 - censor, 1 - not censored), time \\(in days, weeks or years), grade, stage in the same order.\r\n\n\n\r\n\n\n_coxph\\(formula = Surv\\(as.numeric\\(sur\\[,4]), as.numeric\\(sur\\[,3]))~as.factor\\(sur\\[,2]), data = sur)_\r\n\n\n\r\n\n\n where sur\\[,4] should be time, sur\\[,3] should be censored data \\(0 or 1), sur\\[,2] should be class or subtype \\(if not in factors, _as.factor_ will convert to factors). Similarly, grade or stage can be analyzed.\r\n\n\n\r\n\n\nApply Fisher\u2019s exact test \\(available in R package, _stats_) to investigate the relationships among subtype, stage and grade."
+        },
+        {
+            "header": "References",
+            "content": "1. Brunet, J.P., Tamayo, P., Golub, T.R. & Mesirov, J.P. Metagenes and molecular pattern discovery using matrix factorization. Proc Natl Acad Sci U S A 101, 4164-4169 \\(2004).\r\n  2. Gentleman, R.C., et al. Bioconductor: open software development for computational biology and bioinformatics. Genome Biol 5, R80 \\(2004).\r\n  3. Johnson, W.E., Li, C. & Rabinovic, A. Adjusting batch effects in microarray expression data using empirical Bayes methods. Biostatistics 8, 118-127 \\(2007).\r\n  4. Bolstad, B.M., et al. Quality control of Affymetrix GeneChip data.\r\n  . in Bioinformatics and Computational Biology Solutions using R and\r\n\n\nBioconductor \\(eds. Gentleman, R., Carey, V., Dudoit, S., Irizarry, R. & Huber, W.) \\(Springer, New York, 2005).\r\n\n\n5. Herschkowitz, J.I., et al. Identification of conserved gene expression features between murine mammary carcinoma models and human breast tumors. Genome Biol 8, R76 \\(2007).\r\n  6. Benito, M., et al. Adjustment of systematic microarray data biases. Bioinformatics 20, 105-114 \\(2004).\r\n  7.Tusher, V.G., Tibshirani, R. & Chu, G. Significance analysis of microarrays applied to the ionizing radiation response. Proc Natl Acad Sci U S A 98, 5116-5121 \\(2001).\r\n\n\n8. Eisen, M.B., Spellman, P.T., Brown, P.O. & Botstein, D. Cluster analysis and display of genome-wide expression patterns. Proc Natl Acad Sci U S A 95, 14863-14868 \\(1998).\r\n  9. Kuehn, H., Liberzon, A., Reich, M. & Mesirov, J.P. Using GenePattern for gene expression analysis. Curr Protoc Bioinformatics Chapter 7, Unit 7 12 \\(2008)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nm.2344",
+                "date": "2011-03-17 14:49:14",
+                "title": "Subtypes of pancreatic ductal adenocarcinoma and their differing responses to therapy",
+                "authors": [
+                    "Eric A Collisson",
+                    "Anguraj Sadanandam",
+                    "Peter Olson",
+                    "William J Gibb",
+                    "Morgan Truitt",
+                    "Shenda Gu",
+                    "Janine Cooc",
+                    "Jennifer Weinkle",
+                    "Grace E Kim",
+                    "Lakshmi Jakkula",
+                    "Heidi S Feiler",
+                    "Andrew H Ko",
+                    "Adam B Olshen",
+                    "Kathleen L Danenberg",
+                    "Margaret A Tempero",
+                    "Paul T Spellman"
+                ],
+                "journal": "Nature Medicine",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 11713,
+                "identity": "9f992d7f-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Joe Gray",
+                "email": "grayjo@ohsu.edu",
+                "orcid": "",
+                "institution": "Oregon Health and Science University",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Joe",
+                "middleName": "",
+                "lastName": "Gray",
+                "suffix": ""
+            },
+            {
+                "id": 11709,
+                "identity": "9f992415-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Anguraj Sadanandam",
+                "email": "",
+                "orcid": "",
+                "institution": "Ecole Polytechnique Federale de Lausanne",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Anguraj",
+                "middleName": "",
+                "lastName": "Sadanandam",
+                "suffix": ""
+            },
+            {
+                "id": 11710,
+                "identity": "9f99274f-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Eric Collisson",
+                "email": "",
+                "orcid": "",
+                "institution": "University of California at San Francisco",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Eric",
+                "middleName": "",
+                "lastName": "Collisson",
+                "suffix": ""
+            },
+            {
+                "id": 11711,
+                "identity": "9f99296f-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "William Gibb",
+                "email": "",
+                "orcid": "",
+                "institution": "Genomic Health",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "William",
+                "middleName": "",
+                "lastName": "Gibb",
+                "suffix": ""
+            },
+            {
+                "id": 11712,
+                "identity": "9f992b7e-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Douglas Hanahan",
+                "email": "",
+                "orcid": "",
+                "institution": "Ecole Polytechnique Federale de Lausanne",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Douglas",
+                "middleName": "",
+                "lastName": "Hanahan",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2011-03-17 14:43:26",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2011.231",
+        "doiUrl": "https://doi.org/10.1038/protex.2011.231",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13464582,
+                "identity": "8dcff43f-c4a3-4806-b271-85713d8a8670",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:43:54",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 152700,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-2053/v1/4f5107a2-c33e-4729-b518-5dedca2ea170.pdf"
+            },
+            {
+                "id": 2608250,
+                "identity": "320216db-3c37-4a83-993f-15b796f4c0cb",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:03",
+                "extension": "r",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 3223,
+                "visible": true,
+                "origin": "",
+                "legend": "ScreenExpression.r   To screen variable and unique genes   This R code can be used to screen for those genes with standard deviation greater than certain cutoff. In addition, in cases where multiple probes are available for a single gene, it selects only one probe with highest standard deviation for that gene. ",
+                "description": "",
+                "filename": "supplement0.r",
+                "url": "https://assets.researchsquare.com/files/nprot-2053/v1/supplement_0.r"
+            }
+        ],
+        "financialInterests": "William Gibb is an employee of Genomic Health.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "cancer subtypes, pancreatic cancer, NMF, DWD",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "In this protocol, we describe methodologies used in the Nature Medicine manuscript \u201cSubtypes of Pancreatic Ductal Adenocarcinoma and their Differing Response to Therapy\u201d. Herein, we describe the computational pipeline used to identify subtypes of pancreatic ductal adenocarcinoma and their associated gene signature using integrated analysis of various gene expression profiles with clinical outcome.",
+        "manuscriptTitle": "Identification of Molecular Subtypes in Pancreatic Adenocarcinoma with Predictive and Prognostic Importance",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2011-04-04 08:16:09",
+                "doi": "10.1038/protex.2011.231",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9f98c943-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "April 4th, 2011",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 2548,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 2549,
+                "name": "Biotechnology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2011-04-04 08:16:09",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

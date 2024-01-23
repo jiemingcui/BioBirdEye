@@ -1,0 +1,243 @@
+{
+    "identity": "nprot-6005",
+    "title": "inoFISH: inosine fluorescence _in situ_ hybridization for visualizing adenosine to inosine RNA editing in single mammalian cells",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Please note that much of this protocol is adapted from Arjun Raj\u2019s RNA FISH protocol database: https://sites.google.com/site/singlemoleculernafish/home , accessed on April 30, 2017. Some text has also been copied for clarity from the main text of the Brief Communication \\(Mellis  et al. , Nat. Methods, 2017) with which this Protocol is associated.\r\n\n\n\r\n\n\nAdenosine to inosine RNA editing is a frequently observed type of RNA editing. Here we present inoFISH, a method for visualizing adenosine to inosine editing at a defined site in a transcript of interest. Discriminating edited from unedited RNA via RNA fluorescence  in situ hybridization \\(RNA FISH) is difficult because it relies on the hybridization of oligonucleotide probes to visualize the target of interest. Short oligonucleotides bind nonspecifically while long oligonucleotides cannot discriminate single-base differences. We thus use a \u2018toehold probe\u2019 strategy to reduce the initial hybridization region of our detection probes in order to confer selectivity based on single-nucleotide differences in the target RNA. Our scheme takes advantage of the fact that inosine preferentially binds to cytosine rather than thymine by using two detection probes that compete to target the unedited, adenosine-bearing sequence using a thymine, and the edited, inosine-bearing sequence using a cytosine. Upon specific binding, the \u201cmask\u201d sequence is released by strand displacement to stabilize hybridization. However, single oligonucleotides are still prone to nonspecific binding, so we simultaneously use smFISH \\(the \u201cmRNA guide\u201d probe) to target a constant region of mRNA, coupled to a unique fluorophore . The mRNA guide shows us where to look for specific detection probes.\r\n\n\n\r\n\n\nThe workflow for inoFISH is as follows:\r\n\n\n1. Select a target editing site in a transcript of interest\r\n  2. Use bulk assay techniques, such as gDNA PCR and RT-PCR with Sanger sequencing,\r\n  to preliminarily check for any editing at this site in biological samples of interest\r\n\n\n3. Ensure that the target site is compatible with inoFISH probe design\r\n  4. Design a small panel of candidate inoFISH probe sets\r\n  5. Screen candidate inoFISH probe sets for optimal signal-to-noise ratio\r\n       a. Computational calling of spots with manual curation of spot intensity thresholds\r\n\n\n     b. This analysis pipeline is particularly time-consuming for detection probe spots,\r\n\n\nwhich require more frequent inspection than normal smFISH spots to distinguish\r\n\n\nthem from background autofluorescence\r\n\n\n6. Conduct inoFISH experiments\r\n       a. Computational calling of spots with manual curation of spot intensity thresholds 7. Editing level estimation and downstream analyses\r\n\n\nPlease note that inoFISH experiments are time-consuming, due to the both the time required to experimentally optimize and validate a probe set and the time required to perform manual quality controls of detection probe spot calls. We strongly recommend familiarizing oneself with the basic smFISH protocol and analysis pipeline using rajlabimagetools prior to starting an inoFISH experiment."
+        },
+        {
+            "header": "Reagents",
+            "content": "Cell culture supplies\r\n\n\n\u25cf Lab-Tek 2-well chambered coverglasses, Fisher, 12-565-471\r\n\n\n\u25cf Lab-Tek 8-well chambered coverglasses, Fisher, 12-565-470\r\n\n\nReagents for fixation, wash, hybridization, anti-fade\r\n\n\n\u25cf NF H2O, Ambion 4387936\r\n\n\n\u25cf Formamide, Ambion AM9342 \\(Aliquot and store at 4C; bring to room temperature before\r\n\n\nmaking buffers. Some people say this stuff goes bad really rapidly, but we haven't had a\r\n\n\nlot of trouble with that.)\r\n\n\n\u25cf 20xSSC, Ambion AM9765\r\n\n\n\u25cf Dextran Sulfate, Sigma D8906-50G \\(store at 4C)\r\n\n\n\u25cf 10xPBS, Ambion AM9624\r\n\n\n\u25cf Glucose oxidase, Sigma G2133-10KU \\(Dissolve 37mg in 10mL of 50mM Sodium\r\n\n\nAcetate, pH ~5.5 \\(diluted from 3M, pH 5.5) for a 3.7mg/mL stock. Make a bunch of\r\n\n\naliquots and store at -20C. Each aliquot is good for ~20+ freeze/thaws.)\r\n\n\n\u25cf Catalase, Sigma C3515-10MG\r\n\n\n\u25cf Tris pH 8, Ambion AM9856\r\n\n\n\u25cf 10% glucose solution \\(wherever)\r\n\n\n\\(For ethanol precipitation if you are coupling probes manually)\r\n\n\n\u25cf 3M Sodium Acetate, pH 5.5, Ambion AM9740\r\n\n\nWorking solutions\r\n\n\n\u25cf Fixation solution:\r\n\n\n\u25cb 5mL 10x PBS\r\n\n\n\u25cb 5mL 37% formaldehyde \\(100% formalin)\r\n\n\n\u25cb 40mL NF H 2O  \\(can leave in hood at RT for months).\r\n\n\n\r\n\n\n\u25cf Wash buffer:\r\n\n\n\u25cb 5mL 20x SSC\r\n\n\n\u25cb 5mL formamide\r\n\n\n\u25cb 40mL NF H 2O  \\(can leave in the hood at RT for months).\r\n\n\n\r\n\n\n\u25cf 70% EtOH:\r\n\n\n\u25cb 35mL 95% EtOH\r\n\n\n\u25cb 15mL NF H 2O  \\(lasts forever).\r\n\n\n\r\n\n\n\u25cf Hybridization buffer:\r\n\n\n    3\r\n\n\n\u25cb Add 1g dextran sulfate to 7mL NF H 2O  and mix by rotation for a while \\(could take several minutes to a half an hour). Then add 1mL formamide and 1mL 20x SSC and volume up to 10mL \\(volume by eye in a 15mL Falcon tube is fine). Store at -20C in 500\u03bcL aliquots; good for years.\r\n\n\n\r\n\n\n\u25cf Anti-fade buffer:\r\n\n\n\u25cb Note on catalase: vortex thoroughly before use. Try not to keep the bottle open\r\n\n\nvery long because it is sometimes prone to contamination.\r\n\n\n\u25cb For the antifade buffer, use 850\u03bcl NF H 2O  , 100\u03bcl 20x SSC, 40\u03bcl 10% glucose,\r\n\n\n10\u03bcl Tris. Use 900\u03bcl of this for a pre-wash before adding the actual antifade solution itself. To the remaining 100\u03bcl, add 1\u03bcl each of glucose oxidase and catalase; this is the antifade solution for use with Cy5/Quasar 670.\r\n\n\n\r\n\n\nWe use the following dyes for inoFISH:\r\n\n\n\u25cf Guide probe: Cal Fluor 610 \\(Stellaris probes, Biosearch Technologies)\r\n\n\n\u25cf Detection probes: Cy3 and Cy5\r\n\n\n\u25cf Counterstain RNA FISH fluorophores: Atto 700, sometimes Atto 488 if your samples\r\n\n\nhave very low autofluorescence\r\n\n\nNotes: It can be fairly tricky to separate Cy3 and Cal Fluor 610/Alexa 594. To do this, we use the narrow band Cy3 filter set \\(SP102v1) and the custom filter set from Omega for Cal Fluor 610/Alexa 594. These filters could probably be optimized further, as well.\r\n\n\n\r\n\n\nMaterials for bulk assays of RNA editing\r\n\n\n\u25cf miRNeasy Mini Kit, Qiagen, 217004\r\n\n\n\u25cf DNeasy Blood & Tissue Kit, Qiagen, 69504\r\n\n\n\u25cf SuperScript III First-Strand Synthesis System, ThermoFisher, 18080051\r\n\n\n\u25cf Platinum\u00ae Taq DNA Polymerase High Fidelity, Invitrogen, 11304011\r\n\n\n\u25cf ExoSAP-ITTM PCR Product Cleanup Reagent, ThermoFisher, 78200.200.UL"
+        },
+        {
+            "header": "Equipment",
+            "content": "Microscopy\r\n\n\nPretty much any widefield microscope will work for smFISH. You want to have a good light source, a good camera, and a good objective. For example, we used:\r\n\n\nNikon Ti-E automated widefield fluorescence microscope equipped with Plan Apo 1.4 NA 100x objective, automated stage, Pixis 1024BR Cooled CCD camera \\(Princeton Instruments), Prior Lumen 220 light source.\r\n\n\nWe use the following filter sets:\r\n\n\n \r\n\n\nSP104v2|Chroma|Atto 647N, Cy5|HQ630/20x|Q649LP|HQ667/30m\r\n\n\n\r\n\n\nSP105|Chroma|Atto 700|HQ682/12x|Q697LP|HQ721/42m\r\n\n\n\r\n\n\n41028|Chroma|Atto 488/YFP|HQ500/20x|Q515LP|HQ535/30m\r\n\n\n\r\n\n\nSP102v1|Chroma|Cy3, TAMRA|HQ546/11x|Q557LP|HQ567/15m\r\n\n\n\r\n\n\nCustom filter set|Omega|Cal Fluor 610, Alexa 594|590DF10|610DRLP|630DF30\r\n\n\n\r\n\n\n31000v2|Chroma|DAPI|AT350/50x|400DCLP|D460/50m\r\n\n\n\r\n\n\nNote that there are of course many other filters that could work for this; these are just the ones we use.\r\n\n\n\r\n\n\nSoftware\r\n\n\nFor inoFISH probe design, we use the same probe design package developed in the Raj lab for\r\n\n\nSNP FISH: snpfishdesign.  https://bitbucket.org/arjunrajlaboratory/snpfishdesign\r\n\n\nFor inoFISH image analysis, we recommend using the rajlabimagetools software package, which the Raj lab maintains. Depends on MATLAB \\(see rajlabimagetools documentation for MATLAB version information). https://bitbucket.org/arjunrajlaboratory/rajlabimagetools/wiki/Home"
+        },
+        {
+            "header": "Procedure",
+            "content": "Core inoFISH protocol\r\n\n\nThis is the basic inoFISH protocol used in several steps of the experimental procedure, below. This protocol is consistent with our in-house inoFISH protocol, available in this Google Doc, which we will continuously update as we tweak experimental conditions as we find them to be useful:  https://goo.gl/ujxex1 . The procedure as of May 3, 2017, used for inoFISH experiments in the publication associated with this protocol, is as follows:\r\n\n\nPre-inoFISH\r\n\n\nCell fixation\r\n\n\nNOTE: All steps should be done in chemical hood with ventilation.\r\n\n\nTime required: Fixation: 15 minutes; Permeabilization: at least 1 hour.\r\n\n\nFor multi-chambered slides \\(cultured cells):\r\n\n\n1. Aspirate off media with vacuum.\r\n  2. Add 1 mL PBS per well to rinse, aspirate off.\r\n  3. Repeat 1 mL PBS rinse and aspirate.\r\n         5\r\n\n\n 4. Add 1 mL Fixation solution to each well. Allow to fix cells for 10 minutes. Aspirate off fixation solution.\r\n\n\na. Keep fixing time consistent between experiments.\r\n\n\n5. Meanwhile, label the sample\u2019s plate with the fixing date. Make sure covers and chamber\r\n  of chambered coverslips are labeled \\(to keep track of wells).\r\n\n\n6. Add 1 mL PBS per well to rinse, aspirate off. Repeat.\r\n  7. Add 1 mL 70% ethanol per well.\r\n  8. Parafilm the plate to prevent evaporation of ethanol.\r\n  a. Store at 4C \\(for minimum 1 hour, up to 3 months).\r\n\n\ninoFISH\r\n\n\nDAY 1: Hybridization\r\n\n\n----Prep of probes in hybridization buffer----\r\n\n\nTime required: 20 minutes, including thawing of probe stocks\r\n\n\nPer well of sample \\(double numbers for 2-well plate):\r\n\n\n9. Add 50\u03bcL hybridization buffer to Eppendorf tube \\(1.5 mL).\r\n  a. Hybridization buffer is viscous from dextran sulfate, so vortex then spin down 10. Add each of the following to the 50\u03bcL hybridization buffer:\r\n\n\na. 1 uL editing site detection single oligo probes at a stock concentration of 0.3-1.2 \u03bcM \\(usually 2 of them at 1\u03bcL each, A/I in Cy3/Cy5)\r\n\n\nb. 1 uL mask oligo \\(has common sequence for both SNP probes, added such that mask:probe molar ratio is between 1:1 and 1.5:1; with two detection probes, the range of mask stock concentrations would be 0.6 - 3.6uM)\r\n\n\nc. 1 uL guide probe \\(a typical RNA FISH probe with no tiled oligo at the SNP position, ideally in Cal Fluor 610). For Cal Fluor 610, we use 1uL of 5uM guide probe stock.\r\n\n\n----Hybridization----\r\n\n\nTime required: 5-15 minutes, depending on the number of samples\r\n\n\n11. Aspirate off 70% ethanol from fixed cell sample well.\r\n  12. Add 1 mL wash buffer to each sample well.\r\n  a. Allow sample to equilibrate for 2-3 minutes.\r\n\n\n13. Aspirate off wash buffer and tilt chamber to get residual liquid.\r\n  a. Be quick so other samples don\u2019t dry out.\r\n\n\n14. Add 50 \u03bcL of probe-containing hybridization buffer as a drop in center of sample.\r\n  a. Use clean tweezers to place a clean 18 x 18 mm coverslip onto the drop.\r\n\n\nb. Tap down slide gently with tweezers to spread liquid.\r\n\n\n15. Create \u201cmoisturizer\u201d using 1\u20442 of Kimwipe rolled, tied into a pretzel, and saturated with\r\n  750\u03bcL of 2X SSC.\r\n\n\n16. Replace chamber cover, culture plate cover, and and seal with parafilm.\r\n  17. Put in 37\u00b0C incubator overnight \\(or at least 4 hours).\r\n  6\r\n\n\n DAY 2: Wash, Anti-fade \\(GluOx, Catalase, DAPI), and Imaging\r\n\n\nTime required: 35 minutes\r\n\n\n----Remove Coverslip, 1st wash----\r\n\n\n18. Take out samples from 37\u00b0C incubator, remove parafilm. 19. Add 1 mL wash buffer to each sample well.\r\n  20. Use clean tweezers to remove coverglass insert.\r\n  a. Don\u2019t crush the sample, discard coverglass insert.\r\n\n\n21. Aspirate off wash buffer and replace with 1 mL fresh wash buffer. 22. Replace chamber and plate covers, parafilm.\r\n  23. Put back into 37\u00b0C incubator for 30 minutes.\r\n  24. Start thawing DAPI \\(with 10 minutes left to spare).\r\n  ----2nd wash/DAPI----\r\n\n\nTime required: 35 minutes\r\n\n\n25. Remove sample from incubator and remove parafilm.\r\n  26. Aspirate off wash buffer, add another 1 mL of wash buffer to each sample well. 27. Add 1 uL DAPI \\(50 ug/mL stock) to each sample well.\r\n  28. Replace covers, parafilm and put back into 37\u00b0C incubator for 30 minutes.\r\n  29. Meanwhile, set up microscope.\r\n  ----Glucose Oxidase Prep----\r\n\n\nTime required: 10 minutes\r\n\n\nGlucose Oxidase \\(GluOx) is required to reduce photobleaching of Cy5 by dissolved oxygen Glucose + Oxygen in sample --\\(GluOx)--> less O2 in sample. Glucose oxidase stock enzyme is aliquoted out and frozen for storage. Note: Glucose oxidase tends to lose potency with repeated freeze/thaw cycles. In order to keep it working as well as possible, either thaw it out right when needed or by putting it at 4C for 10 minutes until ready to add, then immediately refreeze it. After about 20 freeze thaws, it\u2019s time for a new aliquot.\r\n\n\n30. During 2nd wash, prepare \"Anti-Fade\" buffer, ~1 mL volume for each Cy5 sample \\(for each well \u2192 double numbers for 2-well plate).\r\n  31. Split anti-fade buffer into 100 & 900 \u03bcL volumes for each well.\r\n  a. 100 \u03bcL is for enzymatic solution, 900 \u03bcL is just buffer for equilibrating sample.\r\n\n\n32. Vortex catalase in its amber vial or aliquots from 4\u00b0C.\r\n  33. Take out glucose oxidase from -20\u00b0C only when ready to add.\r\n  34. Add 1 \u03bcL of oxidase enzyme and 1 \u03bcL of catalase to 100 \u03bcL anti-fade buffer.\r\n  ----Final Wash and addition of glucose oxidase solution \\(for Cy5)----\r\n\n\nTime required: 5 minutes\r\n\n\n35. Aspirate off wash buffer and add 1 mL of 2X SSC at room temperature, wait 1 minute.\r\n  36. Aspirate off 2X SSC and add 900 \u03bcL of anti-fade \\(no enzyme) buffer to each sample\r\n  well. Allow to equilibrate for 1 minute at room temperature then aspirate.\r\n\n\n37. Add 100 \u03bcL of Anti-fade with GluOx and Catalase to center of sample.\r\n  38. Use clean tweezers to add clean coverslip to lightly squash & reduce O2.\r\n  7\r\n\n\n ----Imaging----\r\n\n\nTime required: usually 10-15 minutes per 100x field of view \\(time per sample depends on the number and size of cells you want to capture, as well as exposure times)\r\n\n\nSample is now ready for imaging. Imaging can be done over several hours \\(store at 4\u00b0C in between imaging sessions; at this temperature samples may also be stored overnight with 1mL 2X SSC in the well prior to imaging). If imaging for > 4 hours in a single well, replace that well\u2019s 100uL Anti-fade + GluOx and Catalase every 4 hours. As with regular smFISH, to image a cell properly, each image stack should cover the entire body of a cell \\(start blurry at the bottom of the cell, and end blurry at the top of the cell).\r\n\n\ninoFISH image analysis pipeline\r\n\n\nThis is the computational workflow that we use for analyzing inoFISH experiments. It is time-consuming. For an experiment with\n200 imaged cells spread over two experimental conditions the full image data analysis pipeline will often take\n16 working hours  to complete. All image inspection and spot calling is conducted entirely in the rajlabimagetools software package. We strongly recommend familiarizing oneself with this software and its use in simpler smFISH experiments prior to starting an inoFISH experiment: https://bitbucket.org/arjunrajlaboratory/rajlabimagetools/wiki/workedExample .\r\n\n\nThe full documentation wiki for rajlabimagetools is here: https://bitbucket.org/arjunrajlaboratory/rajlabimagetools/wiki/browse/ . The SNP FISH analysis pipeline guide is here, and it is directly compatible with inoFISH guide-detection probe colocalization analyses: https://bitbucket.org/arjunrajlaboratory/rajlabimagetools/wiki/SNPFISH%20Colocalization%20Us er%20Guide .\r\n\n\nPlease see the rajlabimagetools wiki for a complete description of how to organize your image files and load them into rajlabimagetools. In brief,\r\n\n\n1. Cell segmentation\r\n  2. Preliminary processing and spot calling\r\n  3. Manual inspection of spot intensity thresholds in all channels, with particularly careful\r\n  attention paid to detection probe channels.\r\n\n\na. NOTE: This is the single most time-consuming and difficult step of inoFISH\r\n\n\nexperiments. We have developed multiple tools in rajlabimagetools that allow you to inspect individual fluorescent channels and collections of channels. See the wiki for details.\r\n\n\nb. We recommend having a second person, ideally someone who also works with smFISH data, review your spot calls. We found this type of analysis review to rapidly improve the quality of detection probe spot calls.\r\n\n\ni. This will be time-consuming for your colleague, as well.\r\n\n\n     8\r\n\n\n 4. Gaussian spot position fitting\r\n\n\na. This process refines spot position estimates.\r\n\n\n5. Guide-detection spot colocalization\r\n  6. Manual inspection of colocalization events with re-review of detection spot calls\r\n  a. NOTE: This is time-consuming. We again recommend having a colleague review your results as a sanity check.\r\n\n\nb. Review your spot calls multiple times for consistency.\r\n\n\nc. Re-threshold spots as needed and update Gaussian fitters/spot colocalizers\r\n\n\nautomatically.\r\n\n\n7. Pixel-shift colocalization analysis\r\n  8. Extraction and exporting of processed data as required for downstream analyses. Some examples of data tables that you might find useful are demonstrated in worked examples in the wiki: https://bitbucket.org/arjunrajlaboratory/rajlabimagetools/wiki/SNPFISH%20Colocalization %20User%20Guide .\r\n  Overall experimental procedure\r\n\n\nSelect a target editing site in a transcript of interest\r\n\n\n1. Identify the genomic coordinates of the editing site of interest.\r\n  2. Download a RefSeq-annotated reference genomic sequence of the full transcript with\r\n  the editing site. We will use this for RT-PCR primer design and for inoFISH probe design. We use the UCSC browser tool with the following options:\r\n\n\na. Sequence Retrieval Region Options:\r\n\n\ni. 5\u2019 UTR Exons\r\n\n\nii. CDS Exons\r\n\n\niii. 3\u2019 UTR Exons\r\n\n\niv. One FASTA record per region, 0 upstream, 0 downstream\r\n\n\nv. Split UTR and CDS exons into separate FASTA records\r\n\n\nb. Sequence Formatting Options:\r\n\n\ni. Exons in upper case, everything else in lower case\r\n\n\n3. Download reference genome sequence corresponding to the locus around the editing\r\n  site, about 400-bp upstream and 400-bp downstream. We only need this for gDNA PCR primer design.\r\n\n\nUse bulk assay techniques, such as gDNA PCR and RT-PCR with Sanger sequencing, to preliminarily check for any editing at this site in biological samples of interest\r\n\n\n4. Design gDNA PCR and RT-PCR primers such that your product will contain amplified sequence at the editing site. We recommend designing primers such that your products:\r\n  a. Have the editing site 100bp - 400bp from both ends of the amplicon \\(or from internal Sanger sequencing primer sites).\r\n\n\n   9\r\n\n\n b. Are < 1-kbp in length\r\n\n\nc. Optional: design additional internal Sanger sequencing primers for each\r\n\n\npredicted PCR product such that the editing site is still 100bp - 400bp from the\r\n\n\nprimers.\r\n\n\n5. Culture two replicates of a biological sample of interest.\r\n  6. Harvest genomic DNA from one replicate your cultured sample of interest. We have\r\n  used the DNeasy Blood & Tissue Kit \\(Qiagen) for cultured human cell lines, but feel free\r\n\n\nto use whatever works for you. Store at -20C until ready to perform PCR.\r\n\n\n7. Harvest total RNA from one replicate of your cultured sample of interest. We have used\r\n  the miRNeasy Mini Kit \\(Qiagen) for cultured human cell lines. Store at -80C until ready to\r\n\n\nperform RT-PCR.\r\n\n\n8. Perform gDNA PCR. We have used Platinum\u00ae Taq DNA Polymerase High Fidelity.\r\n  9. Perform RT-PCR.\r\n  a. For RT we have used the SuperScript III First-Strand Synthesis System with included oligo-dT primers.\r\n\n\nb. For PCR we have used Platinum\u00ae Taq DNA Polymerase High Fidelity.\r\n\n\n10. Check amplification by running on an agarose gel \\(with Ethidium Bromide or SYBR\r\n  Safe).\r\n\n\n11. Eliminate residual dNTPs with ExoSAP-IT.\r\n  12. Sanger sequence gDNA PCR and RT-PCR products.\r\n  13. Verify RNA editing by comparing Sanger sequencing traces at the editing site in gDNA\r\n  PCR and RT-PCR products. At the editing site the genomic product should be homozygous A, whereas the RT product should have a mixed A, G trace \\(or entirely G if editing is 100% efficient at this site).\r\n\n\nCheck inoFISH compatibility of target editing site\r\n\n\n14. Computationally isolate the RT-PCR product Sanger sequencing results for the 81-bp region \\(40-bp upstream and 40-bp downstream) of the target editing site.\r\n  15. In RT-PCR results, ensure that there are no other nearby heterozygous SNPs, indels, or RNA editing sites leading to transcript base variation near the specific editing site of interest.\r\n  a. CRITICAL STEP: if the transcript has additional base variation near the particular editing site of interest, it may not be possible to design detection probes \\(usually 20-nt - 35-nt) such that the only variation in the detection probe target sequence is the editing site of interest.\r\n\n\nDesign inoFISH guide and detection probes\r\n\n\n16. Perform smFISH probe design for the full transcript as previously described *****cit. a. CRITICAL STEP: if the transcript is too short or contains too many repetitive\r\n  sequences to fit at least 24 oligonucleotide guide probes, then the inoFISH guide may not work, and inoFISH may fail for this target.\r\n\n\n10\r\n\n\n 17. Perform inoFISH detection probe design for the editing site. We use the SNV FISH snpfishdesign pipeline, as previously described. In order to create detection probes that target the unedited and edited versions of the editing site, use a \u201cSNPList\u201d file with a \u201cSNP\u201d at the position \\(coordinate on reference chromosome) of the editing site with alleles T/C. \r\n\n\na. CRITICAL STEP: it must be possible to design detection probes overlapping the editing site or inoFISH will fail.\r\n\n\n18. The inoFISH detection probe design pipeline will provide one detection probe per editing status and shorter probe-complementary masks of three different lengths. inoFISH experiments require at least: both detection probes and one mask. Since the masks are unmodified oligos, we recommend ordering all three options preemptively in the interest of efficient probe set optimization \\(discussed below).\r\n  Screen candidate inoFISH probe sets for optimal signal-to-noise ratio\r\n\n\n19. For a small set of combinations of detection probe concentrations and mask length conditions, culture replicates of some simple control samples, for which you have at least RT-PCR with Sanger sequencing as a baseline rough estimate of cell population-wide editing level at the site of interest.\r\n  a. Note: if you have other estimates of editing level at this site in these samples, such as RT-PCR with restriction endonuclease digestion or high-read-depth RNA-seq data, even better\\!\r\n\n\n20. Use the above core inoFISH protocol for each candidate probe set concentration and mask length condition.\r\n  a. Note: If considering more than two probe set conditions, it may make sense to stage FISH experiments over several days, as imaging of detection probe spots often require time-consuming, long exposure times.\r\n\n\n21. Complete the above inoFISH image analysis pipeline for each candidate probe set condition.\r\n  22. Compare colocalization rates and pixel-shift false-positive colocalization across probe set conditions. Proceed to the next step of the experimental procedure if you have a probe set condition with an observed colocalization rate and a pixel-shift rate with which you can power an experiment of interest.\r\n  a. See the associated publication\u2019s Supplementary Note for a discussion of the quantitative analysis of inoFISH experiments.\r\n\n\nb. If none of the probe set conditions produce satisfactory colocalization rates and pixel-shift rates, try a couple other conditions. However, please note that we have encountered a one editing site for which we were unable to generate a probe set after testing six probe set conditions. We are not sure why this site was resistant\r\n\n\nto probe design\r\n\n\n23. Ensure that swapping the dyes conjugated to your optimal probe set\u2019s detection probes\r\n  also gives you a good signal-to-noise \\(colocalization-to-pixel-shift) ratio.\r\n\n\nConduct inoFISH experiments and editing level analyses\r\n\n\n24. Use your optimal probe set in a set of experiments of interest. Make sure that they are powered to detect the effect size for which you are interested in testing. For a discussion of quantitative editing level analysis, see the Supplementary Note of the manuscript with which this protocol is associated."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "1. Low colocalization efficiency \\(<15%)\r\n  \r\n\n\nIf not intrinsic to the probe set, which it may be, this may be due to:\r\n\n\n\u25cf Low detection probe concentration\r\n\n\n\u25cf Excessively short detection probe channel exposure times on microscope\r\n\n\n\u25cf Overly conservative detection spot call thresholds\r\n\n\n\r\n\n\n\u25cf Increase detection probe stock\r\n\n\nconcentration \\(and\r\n\n\nmask accordingly)\r\n\n\n\u25cf Increase detection\r\n\n\nprobe exposure times\r\n\n\n\u25cf Additional re-review of\r\n\n\nspot calls\r\n\n\n\r\n\n\n2. High pixel-shift colocalization rate \\(>25% of colocalization efficiency per detection probe)\r\n  \r\n\n\nIf not intrinsic to the probe set, which it may be, this may be due to:\r\n\n\n\u25cf Inappropriately short wash steps\r\n\n\n\u25cf Excessively low intensity\r\n\n\nthreshold for detection spots\r\n\n\n\u25cf Short pixel-shift distance\r\n\n\n\r\n\n\nMake sure you have precisely timed the wash steps on day 2 of the protocol\r\n\n\n\u25cf Re-review your detection spot calls; ask a colleague to do the same\r\n\n\n\u25cf If you are using non-default\r\n\n\ncolocalization distances, you may need to adjust the pixel-shift distance accordingly \\(make it at least twice as large as the initialDistance parameter of the colocalizer)"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "At a minimum, an inoFISH experiment will result in:\r\n\n\n\u25cf smFISH data on the transcript of interest. For each transcript, inoFISH will give:\r\n\n\n\u25cb Cell to which it belongs\r\n\n\n\u25cb Spot position within the 3D image of the cell\r\n\n\n\u25a0 Nuclear localization if properly counterstained with DAPI\r\n\n\n\u25cb Editing status label, with frequency equal to the detection efficiency\r\n\n\nTherefore, an inoFISH experiment will return data on single-cell transcript expression levels in the cells processed, on the editing status of a representative sample of these transcripts, and on the subcellular localization of transcripts with associated editing statuses. Please see the analyses in the manuscript with which this protocol is associated for example results tables extracted from processed inoFISH imaging data. The full repository of those data, with documentation in README files, is here: https://www.dropbox.com/sh/j5umuneita1nck9/AAA4W4I648glUUhePJfXyaRaa?dl=0 ."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "SHR, IAM and AR conceived of the paper, SHR and IAM performed experiments, IAM, RG, and AR wrote custom software, IAM, SHR and AR analyzed the data, IAM, SHR and AR wrote the paper. We thank Drs. Nishikura and Sakurai for helpful discussions, as well as Caroline Bartman and Benjamin Emert for comments and suggestions. We thank Marshall Levesque and Paul Ginart for their development and documentation of SNP FISH. IAM acknowledges support from NIH/NIGMS  T32GM007170 \\(University of Pennsylvania MSTP), NIH/NHGRI T32HG000046 and NIH/NINDS F30NS100595  and SHR from NIH  1F32GM120929-01A1 and AR from an NSF CAREER Award 1350601, NIH New Innovator 1DP2OD008514, NIH/NIBIB R33 EB019767, and NIH 4DN U01 HL129998, and NIH Center for Photogenomics  RM1 HG007743 ."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nmeth.4332",
+                "date": "2017-06-16 15:12:42",
+                "title": "Visualizing adenosine-to-inosine RNA editing in single mammalian cells",
+                "authors": [
+                    "Ian A Mellis",
+                    "Rohit Gupte",
+                    "Arjun Raj",
+                    "and Sara H Rouhanifard"
+                ],
+                "journal": "Nature Methods",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 14844,
+                "identity": "a115bc58-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Sara Rouhanifard",
+                "email": "sara.rouhanifard@gmail.com",
+                "orcid": "",
+                "institution": "Arjun Raj Lab, University of Pennsylvania",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Sara",
+                "middleName": "",
+                "lastName": "Rouhanifard",
+                "suffix": ""
+            },
+            {
+                "id": 14841,
+                "identity": "a115b4c1-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Ian Mellis",
+                "email": "",
+                "orcid": "",
+                "institution": "Arjun Raj Lab, University of Pennsylvania",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Ian",
+                "middleName": "",
+                "lastName": "Mellis",
+                "suffix": ""
+            },
+            {
+                "id": 14842,
+                "identity": "a115b853-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Rohit Gupte",
+                "email": "",
+                "orcid": "",
+                "institution": "Arjun Raj Lab, University of Pennsylvania",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Rohit",
+                "middleName": "",
+                "lastName": "Gupte",
+                "suffix": ""
+            },
+            {
+                "id": 14843,
+                "identity": "a115bab0-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Arjun Raj",
+                "email": "",
+                "orcid": "",
+                "institution": "Arjun Raj Lab, University of Pennsylvania",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Arjun",
+                "middleName": "",
+                "lastName": "Raj",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2017-06-01 17:45:14",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2017.056",
+        "doiUrl": "https://doi.org/10.1038/protex.2017.056",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13465029,
+                "identity": "465e6a4f-25d7-4a99-aaf6-a91a2b694f61",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:45:22",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 183057,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-6005/v1/081cecb3-63f2-4045-8a61-e2951a1bb226.pdf"
+            }
+        ],
+        "financialInterests": "AR receives royalties and consulting income from Biosearch Technologies related to Stellaris RNA FISH.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "FISH, fluorescence in situ hybridization, post-transcriptional regulation, RNA editing, adenosine deamination",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "inoFISH is a fluorescence _in situ_ hybridization-based method for visualizing adenosine to inosine editing of bases at a known position in a transcript of interest in single mammalian cells. In preparation for inoFISH, one designs probe sets to the target transcript and to the target editing site based on the full transcript sequence and the position of the editing site. To perform inoFISH, samples are fixed and permeablized, then the guide probe and the detection probes are simultaneously hybridized to target transcripts in the cells. After washes, the samples are ready to image on a fluorescence microscope. Lastly, one calls guide and detection probe spots in the collected images and performs colocalization analysis to identify unedited and edited transcripts of interest in the observed samples. 10%-50% of transcripts will be so labeled, depending on the probe set. Counterstaining of cellular compartments may be combined with inoFISH to characterize subcellular localization of edited transcripts.",
+        "manuscriptTitle": "inoFISH: inosine fluorescence in situ hybridization for visualizing adenosine to inosine RNA editing in single mammalian cells",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2017-06-16 15:13:32",
+                "doi": "10.1038/protex.2017.056",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a1156187-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "June 16th, 2017",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3955,
+                "name": "Biochemistry"
+            },
+            {
+                "id": 3956,
+                "name": "Genetics"
+            },
+            {
+                "id": 3957,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 3958,
+                "name": "Molecular Biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2017-06-16 15:13:32",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

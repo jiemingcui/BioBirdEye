@@ -1,0 +1,358 @@
+{
+    "identity": "nprot-4681",
+    "title": "Molecular Dynamics \\(MD) for Cancer control Protocol",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "The computer simulation of dynamics in molecular systems is widely used in molecular physics, biotechnology, medicine, chemistry and material sciences to predict physical and mechanical properties of new samples of matter. \r\n\n\nIn the molecular dynamics method there is a polyatomic molecular system in which all atoms are interacting like material points, and behavior of the atoms is described by the equations of classical mechanics. This method allows doing simulations of the system of the order of 106 atoms in the time range up to 1 microsecond. Despite of some limitations such approximation may describe the dynamics of macromolecules at the atomic level. However, this method does not consider the chemical reactions and the formation or breaking of chemical bonds. For these purposes there are approaches which combine classical and quantum mechanics simulations.\r\n\n\nThe behavior of each atom can be described as Newton\u2019s equation of motion.\r\n\n\nResultant force is the gradient of the potential, which includes the sum of all interactions of atoms in the system. For pairs of atoms there are different types of interactions: covalent and hydrogen bonds, Coulomb and van der Waals interactions. For triplets of atoms - the bond angles interactions, and for fours - torsion angles interactions.\r\n\n\nThe fundamental point of integration procedure is the choice of the value of the integration step \u0394t. Step should be less than the period of the fastest motions in the system. For organic molecules the characteristic time of the valence oscillations of the C-H bond is 10 fs. Thus, for full-atom systems we usually choose value of the integration step 1-2fs. Initial velocities usually are randomly selected according to Maxwell distribution for a given temperature.\r\n\n\nIn the context of molecular modeling, a force field refers to the form and parameters of mathematical functions used to describe the potential energy of a system of particles \\(typically molecules and atoms). Force field functions and parameter sets are derived from both experimental work and high-level quantum mechanical calculations. \"All-atom\" force fields provide parameters for every type of atom in a system, including hydrogen, while \"united-atom\" force fields treat the hydrogen and carbon atoms in each terminal methyl and each methylene bridge as a single interaction center. \"Coarse-grained\" force fields, which are frequently used in long-time simulations of proteins and membranes, provide even more crude representations for increased computational efficiency.\r\n\n\nThe potential energy in the different force fields is common; however they may differ considerably by the calculation of individual contributions and parameterization.\r\n\n\nThe energy of the covalent bonds is approximated by a harmonic potential.\r\n\n\nSpring constant and the equilibrium bond length are chosen to reproduce the geometry and vibrational frequencies of simple model compounds. The main drawback of such representation of valence bonds is that at a great distance for two atoms the bond does not break, and the energy of the system increases dramatically which can lead to artifacts. Most software packages allow to fix valence bonds in the calculation using algorithms SHAKE \\[1] and LINKS  \\[2]. This approach allows to increase the integration step to 4-5 fs. \r\n\n\nThe potential energy of the bond angles is also represented as harmonic potential.\r\n\n\nSpring constant and the equilibrium value of the angle are selected the same like for bonds to reproduce the equilibrium geometry and vibrational frequency of simple molecules.\r\n\n\nThe torsion angle for the atoms i, j, k, and l is the dihedral angle between the planes which are defined by atoms ijk and jkl. The angle is 0\u00b0 when molecule is in cis-conformation.\r\n\n\nThere are two common energy potentials for dihedral angles: periodic function and potential Ryckaerta-Bellemans.\r\n\n\nBoth potentials can give an error in the case of aliphatic hydrocarbons where the transition between the cis and trans conformations are sterically hindered. Therefore for a more precise description of system behavior there the non-bonded interactions \\(Coulomb and van der Waals forces) between the outermost atoms of the torsion angle, so called \u201c1-4 interactions\u201d. \r\n\n\nIn MD atoms are material points and the existence of electrons is not taken into account. However, the electron density distribution in the molecule is unevenly and partial charge of each atom is used to describe the distribution of electron density in the force fields. \r\n\n\nFor non-bonded interactions the potential energy is not calculated for each pair of atoms in the system but only for atoms located at a distance of less than a certain value - the cutoff radius. \r\n\n\nIn structured environments, such as lipid bilayers, using cut-off radius can lead to artifacts so for these systems special approximations are applied to take into account long range Coulomb interactions.\r\n\n\nThe most common approach is calculating forces using the method of Ewald sums. In this method the sum of all pair interactions is done in the reverse Fourier space. A modified method of Ewald sums is PME \\(Particle Mesh Ewald) is based on fast Fourier transforms in the summation in reciprocal space.\r\n\n\nDuring MD simulation atoms may be at too small distance to each other \\(in the forbidden region of the potential field) and at the next step the atom can receive the excess kinetic energy, which subsequently lead to the warming of the system. To avoid this situation, there are special algorithms - thermostats. Here we discuss only two thermostats.\r\n\n\nFor keeping the temperature of the system constant it is heated externally with fixed temperature   Velocity is scaled at each step.\r\n\n\nThis thermostat has some drawbacks. It does not satisfy canonical Gibbs distribution and does not take into account the law of equipartition of kinetic energy of the molecule degrees of freedom. In the computational experiments with small molecular systems it was observed pumping of energy from high to low frequency vibration modes.\r\n\n\nThe thermostat becomes an integral part of the system by adding an artificial variable s, coupled with \u201cmass\u201d Q> 0.\r\n\n\nEnsembles with constant pressure are often used in molecular dynamics simulations. In particular this can be applied to systems where there are different phases \\(lipid-water sysrems as example). The most common barostats are Berendsen and Parrinello-Raman.\r\n\n\nThe pressure tensor   can be calculated using the virial theorem of Clausius.\r\n\n\nAll program software for molecular modeling can be divided by two groups:\r\n\n\n1) Molecule/topology builders and visualization. In this type of programs there is graphical interface which allows visualizing different molecules and their editing, building of initial systems. Some examples: Automated Topology Builder \\(ATB) - automated molecular topology building service for small molecules; UCSF Chimera - 3D molecular viewer, amino acid rotamers and other building functions; Visual Molecular Dynamics \\(VMD) - 3D molecular viewer, molecule building, analysis of MD trajectories; PyMOL - Python based molecular viewer and editor, has a lot of additional plugins; RasMol  - fast viewer of molecular systems;\r\n\n\n2) Programs for running MD simulations. LAMMPS - has potentials for soft and solid-state materials and coarse-grain systems, uses spatial-decomposition techniques to partition the simulation domain into small 3d sub-domains; GROMACS - has potentials for all types of biological systems, extremely fast due to algorithmic and processor-specific optimization, typically running 3-10 times faster than many simulation programs; NAMD - has potentials for biological molecules, written using the Charm++ parallel programming model, noted for its parallel efficiency and often used to simulate large systems \\(millions of atoms); SCIGRESS \u2013 is molecular modelling, computational chemistry and materials science software suite, has MM2 and MM3 force fields, using DFT, semi-empirical methods, parallel MD, docking.\r\n\n\nFirst is setting the main aim of simulation: which properties and characteristics are needed to get from the MD trajectories of certain object. The second is choosing the software and finally after all computational procedures \u2013 analysis of the results and conclusions. \r\n\n\nParameters for MD simulation are: temperature, pressure, time step, duration of simulation, ensemble type and force \ufb01eld which fits the best for the chosen type of system. \r\n\n\nThe microcanonical ensemble maintains constant number of particles \\(N), constant volume \\(V) and constant total energy \\(E), so it is also known as the NVE ensemble. The canonical ensemble keeps a constant number of particles, constant volume and constant temperature \\(T), so it is also called the NVT ensemble. The isothermal-isobaric ensemble keeps constant number of particles, constant pressure and constant temperature, so it is also known as the NPT ensemble. The NPT ensemble is the most important in chemistry, because many chemical processes are performed under constant pressure and temperature. \r\n\n\nPeriodic boundary conditions are a set of boundary conditions that are often used to simulate a large system by modeling a small part that is far from its edge. \r\n\n\nMolecular dynamics is typically applied to small systems containing thousands of particles. Unless the behaviors near the walls \\(surface effects) are of interest, they can be eliminated and periodic boundary conditions are employed to simulate the bulk material. Particles are generated in a volume V which is called the primary cell. \r\n\n\nThe bulk is assumed to be composed of the primary cell surrounded by its exact replicas to model a macroscopic sample. The image cells not only have the same size and shape as the primary one but also contain particles that are images of the particles in the primary cell. Cells are separated by open boundaries so particles can freely enter or leave any cell. When particles leave the cell, their images simultaneously enter the cell through the opposite face. Therefore the shape of the cells must be space filling. The number of image cells needed depends on the range of intermolecular forces. When the forces are sufficiently short ranged \\(e.g. in truncated Lennard-Jones model), only image cells that adjoin the primary cell are needed \\(minimum image convention). For squares in two dimensions, there are eight adjacent image cells whereas for cubes in three dimensions, the number of adjacent images is 26. \r\n\n\nAtomic structure is an important information about a protein activity and function, since structure and function are known to be interconnected. This information can be obtained by X-ray, nuclear magnetic resonance \\(NMR), and other less used techniques in the field of crystallography. However, knowledge of all-atom structure represents only the first step towards a full complete understanding of proteins functionality. Bioinformatics, MD and other computational procedures, coupling static structure with its dynamics and fluctuations study, could overcome the limitations of alone crystallography and provide useful structural and functional insights.\r\n\n\nX-ray usually provides a protein modeling a static single conformation \\[3], even though indirect information about potential conformations, flexibility and rigidity can be inferred from B-factor \\(isotropic and anisotropic), thermal motion parameters, and theoretical estimates. NMR exploits the relaxation parameters \\[4]. Some advanced techniques \u2013 multi-start simulated annealing refinement \\[5], multi-copy refinement \\[6], multi-path simulated annealing refinement \\[7], time-averaging with multiple refinements \\[8], dynamic-ensemble refinement \\[9] \u2013 have been proposed to study conformational back-bone and side-chain mobility, but MD remains fundamental in order to gain direct insights on protein motion and behavior. Protocols of simultaneous determination of protein native structure and its dynamics have been advocated as vital approaches to capture structural and functional variability \\[10]. \r\n\n\nMD has been used to better elucidate about potential thermodynamics \\(estimating enthalpy and entropy) \\[11], stability, folding and unfolding disorders \\[12, 13], structural variants of selected motifs and domains as well as mutated proteins \\[14-16], in order to foster advancement in the field of protein engineering, protein behavior in different environments, protein-protein interactions \\[17], from molecular docking \\[18] to the formation of macromolecular complexes \\[19], enzyme dynamics, binding \\[20] and kinetics. MD has promising applications for new drugs design and discovery \\[21].\r\n\n\nFor these purposes, MD has been coupled with X-ray, NMR, Atomic Force Microscopy \\(AFM), Electron Microscopy \\(EM), spectroscopy, and other experimental imaging procedures, or even integrating all of them in an ambitious multi-scale macromolecular simulation \\[22-28]. So far little efforts have been made to investigate the advantages and the drawbacks of the crystallization techniques via MD \\[29].\r\n\n\nDifferent crystallization techniques have been proposed during the decades, like classical vapor drop hanging and its variant sitting drop, dialysis, cryo-temperature, batch, and even in space \\(using techniques like free interface diffusion or FID, counter-ion diffusion, CID).\r\n\n\nRecently a novel crystallization technique based on LB \\(Langmuir-Blodgett) has been proposed in order to improve crystal growth \\[30, 31]. Using MD analysis, we show how LB-based crystals and space ones can be compared with classically grown crystals.\r\n\n\nFurther, MD can be used for nanomedicine. Nanomedicine is the medical application of nanotechnology. Nanomedicine ranges from the medical applications of nanomaterials, to nanoelectronic biosensors and possible future applications of molecular nanotechnology. Current problems for nanomedicine involve understanding the issues related to toxicity and environmental impact of nanoscale materials.\r\n\n\nMD simulation method can be used in different fields of nanomedicine. Here we just overview nanotoxicology part: prediction of interaction of the fullerene and its derivative with biomembrane.\r\n\n\nNowadays with increasing production of nanoparticles the problem of its toxicity is becoming more and more important. Fullerenes and its derivatives are being tested continuously to be used in different fields of nanomedicine \\[33]. As an object of our research we have chosen fullerene C60 and its tris-malonic derivative \u2013 radical scavenges \u2013 to test its interaction with biomembrane. These radical scavengers have shown to protect cell growth from various toxins that can induce apoptotic injuries in vitro \\[34, 35] in different cell types such as neuronal cells \\[36], hepatoma cells \\[37] and epithelial cells \\[38]. \r\n\n\nMD simulations allow to study the process of penetration of nanoparticles through biomembranes in all-atom computational models. For understanding the toxic properties of our molecules we calculated potential of mean force for the systems: fullerene and tris-malonic fullerene with biomembrane. This method allows to analyze the interaction energy between molecules and membrane as function of the distance.\r\n\n\nThe analysis of the trajectories of the equilibrium molecular dynamics shows that during the first nanoseconds of the simulation fullerene comes to be adsorbed onto the area of lipid heads. However, on the third nanosecond it spontaneously into the tail region \\(Figure 2.2.1) what is consistent with \\[39]. The average speed of this jump is approximately 0.35 m/s. \r\n\n\nFrom the Fig. 2.2.1  one can see that fullerene in the beginning overcomes the energy barrier of 10 kJ/mol to pass the lipid heads. The energy minimum \\(-34 kJ/mol) is located at the distance of 0.75 nm from the center of the membrane. This means that being close to the membrane fullerene molecules got inside the membrane and stays in the region of hydrophobic tails. \r\n\n\nFullerenes, being hydrophobic molecules, in water solution aggregate in clusters. To study the permeability of the membrane for a fullerene cluster, we assembled a system, consisting of 10 fullerene placed above the surface of the membrane \\(Figure 2.2.2.). At the initial time the fullerenes did not contact with each other or membrane, but after a few nanoseconds, they aggregate and absorb in the head area. After 4 ns one of the eight fullerenes in the aggregate penetrates the membrane, other seven latter follow it. As a result, after 100 ns 9 of 10 fullerenes penetrate into the membrane.\r\n\n\nThe presence of fullerene in the membrane does not significantly affect its basic physical properties. However, the membrane is deformed by the addition of a large number of fullerenes: it curves \\(Figure 4), the area per lipid head is reduced from 69 to 56 \u00c52, while thickness is increased of 0.5 nm. In general such changes upon the penetration of a large number of fullerenes into the membrane could preface further formation of a pore, a micelle or a membrane rupture, which were not observed due to the limited simulation time and/or the restrained size of the system.\r\n\n\nIn the simulation with C3, it was adsorbed in the area of hydrophilic lipid heads on the first nanosecond and further preferably remained in this area, rather than in the bulk \\(Figure 2.2.3). The calculations showed that the molecule of C3 has a stable and well-structured hydration shell of 40 water molecules. \r\n\n\nAs can be seen from the plot of potential of mean force, the penetration of membrane appears to be energetically unfavorable for C3 derivative \u2013 with decrease of the distance between C3 and the membrane the repulsive force driving the fullerene away increases. Such a hindered penetration may occur because of a negative charge carried by C3 as well as due to a high energetical cost of the water shell dissociation which is essential for C3 to pass through the membrane. \r\n\n\nWe conclude that MD simulations can be used for predictions of toxicity of different molecules to biological objects. The non-modified fullerene \\(a single molecule and a cluster of ten molecules) spontaneously penetrate the membrane and remain there throughout the entire simulation time. After entry into the eukaryotic membrane, fullerenes remain at a distance of about 1 nm from the center of the membrane. Cluster of fullerenes deform membrane causing its curvature and changing of thickness. This fact means that C60 is potentially toxic molecule for eukaryotic cells. C3 does not penetrate eukaryotic membranes and causes no changes in their structure \u2013 the toxicity of this molecule is lower than C60."
+        },
+        {
+            "header": "Equipment",
+            "content": "- One of the previously mentioned software for MD design and visualization."
+        },
+        {
+            "header": "Procedure",
+            "content": "**MD for proteomics**\r\n\n\n1. Take some proteins \\(for example, lysozyme, proteinase K and thaumatin) crystallized by different methods;\r\n  2. Put all proteins inside the box; \r\n  3. Solvate all proteins; \r\n  4. Perform minimization;\r\n  5. Perform equilibration of the system running it for 10 ns at different temperatures \\(for example, 300 and 500 K), in order to understand the stability of proteins \\(it is expected that under higher temperature protein can have much more conformations then at low temperatures, so we can study better for short time the potential energy surface of the protein);\r\n  6. characterize the protein status for example, investigating its radius of gyration, which is indicative of the level of compaction in the structure, i.e. how folded or unfolded the polypeptide chain is, or the root mean square deviation \\(RMSD); for comparison purpose, normalize it \\(for example, using a scaling law of Rg \u221d N2/5 \\[32] for the radius of gyration or computing the normalized root-mean-square deviation or error, NRMSD or NRMSE)."
+        },
+        {
+            "header": "References",
+            "content": "1. S. Miyamoto, K.K.K., An analytical version of the shake and rattle algorithm for rigid water models. J. Comput. Chem, 1992. 13: p. 952\u2013962.\r\n  2. B. Hess, H.B., H.J. Berendsen, J.G.E.M. Fraaije, A linear constrant solver for molecular simulation. J. Comput. Chem, 1997. 18: p. 1463\u20131472.\r\n  3. DePristo, M.A., P.I. de Bakker, and T.L. Blundell, Heterogeneity and inaccuracy in protein structures solved by X-ray crystallography. Structure, 2004. 12\\(5): p. 831-8.\r\n  4. Kay, L.E., Protein dynamics from NMR. Nat Struct Biol, 1998. 5 Suppl: p. 513-7.\r\n  5. Rice, L.M., Y. Shamoo, and A.T. Brunger, Phase improvement by multi-start simulated annealing refinement and structure-factor averaging. Journal of Applied Crystallography, 1998. 31: p. 798-805.\r\n  6. Burling, F.T. and A.T. Brunger, Thermal Motion and Conformational Disorder in Protein Crystal-Structures - Comparison of Multi-Conformer and Time-Averaging Models. Israel Journal of Chemistry, 1994. 34\\(2): p. 165-175.\r\n  7. Liu, X.G., et al., Averaging tens to hundreds of icosahedral particle images to resolve protein secondary structure elements using a Multi-path Simulated Annealing optimization algorithm. Journal of Structural Biology, 2007. 160\\(1): p. 11-27.\r\n  8. Levin, E.J., et al., Ensemble refinement of protein crystal structures: validation and application. Structure, 2007. 15\\(9): p. 1040-52.\r\n  9. Klepeis, J.L., et al., Long-timescale molecular dynamics simulations of protein structure and function. Current Opinion in Structural Biology, 2009. 19\\(2): p. 120-127.\r\n  10. Karplus, M. and J. Kuriyan, Molecular dynamics and protein function. Proceedings of the National Academy of Sciences of the United States of America, 2005. 102\\(19): p. 6679-6685.\r\n  11. Levitt, M., et al., Potential-Energy Function and Parameters for Simulations of the Molecular-Dynamics of Proteins and Nucleic-Acids in Solution. Computer Physics Communications, 1995. 91\\(1-3): p. 215-231.\r\n  12. Beck, D.A. and V. Daggett, Methods for molecular dynamics simulations of protein folding/unfolding in solution. Methods, 2004. 34\\(1): p. 112-20.\r\n  13. Day, R. and V. Daggett, All-atom simulations of protein folding and unfolding. Adv Protein Chem, 2003. 66: p. 373-403.\r\n  14. Friedland, G.D., et al., A Correspondence Between Solution-State Dynamics of an Individual Protein and the Sequence and Conformational Diversity of its Family. Plos Computational Biology, 2009. 5\\(5).\r\n  15. Kondrashov, D.A., et al., Protein structural variation in computational models and crystallographic data. Structure, 2007. 15\\(2): p. 169-77.\r\n  16. Morrow, J.K. and S.X. Zhang, Computational Prediction of Protein Hot Spot Residues. Current Pharmaceutical Design, 2012. 18\\(9): p. 1255-1265.\r\n  17. Wass, M.N., A. David, and M.J.E. Sternberg, Challenges for the prediction of macromolecular interactions. Current Opinion in Structural Biology, 2011. 21\\(3): p. 382-390.\r\n  18. Ritchie, D.W., Recent progress and future directions in protein-protein docking. Current Protein & Peptide Science, 2008. 9\\(1): p. 1-15.\r\n  19. Terentiev, A.A., N.T. Moldogazieva, and K.V. Shaitan, Dynamic proteomics in modeling of the living cell. Protein-protein interactions. Biochemistry \\(Mosc), 2009. 74\\(13): p. 1586-607.\r\n  20. Aqvist, J., V.B. Luzhkov, and B.O. Brandsdal, Ligand binding affinities from MD simulations. Accounts of Chemical Research, 2002. 35\\(6): p. 358-365.\r\n  21. Bienstock, R.J., Computational Drug Design Targeting Protein-Protein Interactions. Current Pharmaceutical Design, 2012. 18\\(9): p. 1240-1254.\r\n  22. Kohn, J.E., et al., Evidence of Functional Protein Dynamics from X-Ray Crystallographic Ensembles. Plos Computational Biology, 2010. 6\\(8).\r\n  23. Connelly, L., et al., Effects of point substitutions on the structure of toxic Alzheimer's beta-amyloid channels: atomic force microscopy and molecular dynamics simulations. Biochemistry, 2012. 51\\(14): p. 3031-8.\r\n  24. Chan, K.Y., et al., Cryo-Electron Microscopy Modeling by the Molecular Dynamics Flexible Fitting Method. Biopolymers, 2012. 97\\(9): p. 678-686.\r\n  25. Evans, J.E. and N.D. Browning, Enabling direct nanoscale observations of biological reactions with dynamic TEM. Journal of Electron Microscopy, 2013. 62\\(1): p. 147-156.\r\n  26. Jana, S., et al., Study of microheterogeneous environment of protein Human Serum Albumin by an extrinsic fluorescent reporter: A spectroscopic study in combination with Molecular Docking and Molecular Dynamics Simulation. Journal of Photochemistry and Photobiology B-Biology, 2012. 112: p. 48-58.\r\n  27. Lv, C.M., et al., Low Folding Cooperativity of Hp35 Revealed by Single-Molecule Force Spectroscopy and Molecular Dynamics Simulation. Biophysical Journal, 2012. 102\\(8): p. 1944-1951.\r\n  28. Frauenfelder, H., et al., A unified model of protein dynamics. Proceedings of the National Academy of Sciences of the United States of America, 2009. 106\\(13): p. 5129-5134.\r\n  29. Burnley, B.T., et al., Modelling dynamics in protein crystal structures by ensemble refinement. Elife, 2012. 1: p. e00311.\r\n  30. Pechkova, E. and C. Nicolini, Protein nucleation and crystallization by homologous protein thin film template. Journal of Cellular Biochemistry, 2002. 85\\(2): p. 243-251.\r\n  31. Pechkova, E. and C. Nicolini, Protein nanocrystallography: a new approach to structural proteomics. Trends in Biotechnology, 2004. 22\\(3): p. 117-122.\r\n  32. Hong, L. and J.Z. Lei, Scaling Law for the Radius of Gyration of Proteins and Its Dependence on Hydrophobicity. Journal of Polymer Science Part B-Polymer Physics, 2009. 47\\(2): p. 207-214.\r\n  33. Bosi, S., et al., Fullerene derivatives: an attractive tool for biological applications. Eur J Med Chem, 2003. 38\\(11-12): p. 913-23.\r\n  34. Lin, A.M.Y., et al., Carboxyfullerene prevents iron-induced oxidative stress in rat brain. Journal of Neurochemistry, 1999. 72\\(4): p. 1634-1640.\r\n  35. Lin, A.M.Y., et al., Local carboxyfullerene protects cortical infarction in rat brain. Neuroscience Research, 2002. 43\\(4): p. 317-321.\r\n  36. Dugan, L.L., et al., Carboxyfullerenes as neuroprotective agents. Proceedings of the National Academy of Sciences of the United States of America, 1997. 94\\(17): p. 9434-9439.\r\n  37. Huang, Y.L., et al., Blockage of apoptotic signaling of transforming growth factor-beta in human hepatoma cells by carboxyfullerene. European Journal of Biochemistry, 1998. 254\\(1): p. 38-43.\r\n  38. Straface, E., et al., C3-fullero-tris-methanodicarboxylic acid protects epithelial cells from radiation-induced anoikia by influencing cell adhesion ability. FEBS Lett, 1999. 454\\(3): p. 335-40.\r\n  39. Qiao, R., et al., Translocation of C60 and its derivatives across a lipid bilayer. Nano Lett, 2007. 7\\(3): p. 614-9."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1371/journal.pone.0102487",
+                "date": "2016-03-10 11:26:50",
+                "title": "Comparative Computational Study of Interaction of C60-Fullerene and Tris-Malonyl-C60-Fullerene Isomers with Lipid Bilayer: Relation to Their Antioxidant Effect",
+                "authors": [
+                    "Marine E. Bozdaganyan",
+                    "Philipp S. Orekhov",
+                    "Alexey K. Shaytan",
+                    "Konstantin V. Shaitan",
+                    "and Claudio M. Soares"
+                ],
+                "journal": "PLoS ONE",
+                "logo": ""
+            },
+            {
+                "doi": "10.1016/B978-0-12-800453-1.00005-1",
+                "date": "2016-03-10 11:27:12",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            },
+            {
+                "doi": "10.1615/CritRevEukaryotGeneExpr.20140102",
+                "date": "2016-03-10 11:28:50",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 13848,
+                "identity": "a0ad5d1e-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Claudio Nicolini",
+                "email": "clannicolini@gmail.com",
+                "orcid": "",
+                "institution": "Claudio Ando Nicolini's Lab, NanoWorld, USA; HC Professor Nanobiotechnology, Lomonosov Moscow State University, Russia; Foreign Member Russian Academy of Sciences; President NWI Fondazione EL.B.A. Nicolini; Editor-in-Chief NWJ, Santa Clara, USA",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Claudio",
+                "middleName": "",
+                "lastName": "Nicolini",
+                "suffix": ""
+            },
+            {
+                "id": 13849,
+                "identity": "a0ad60ab-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Marine  Bozdaganyan",
+                "email": "",
+                "orcid": "",
+                "institution": "Claudio Ando Nicolini's Lab, NanoWorld, USA; Lomonosov Moscow State University (MSU), Moscow, Russia; Fondazione EL.B.A. Nicolini ",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Marine",
+                "middleName": "",
+                "lastName": "Bozdaganyan",
+                "suffix": ""
+            },
+            {
+                "id": 13850,
+                "identity": "a0ad62df-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Nicola Luigi Bragazzi",
+                "email": "",
+                "orcid": "",
+                "institution": "Claudio Ando Nicolini's Lab, NanoWorld, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Nicola",
+                "middleName": "Luigi",
+                "lastName": "Bragazzi",
+                "suffix": ""
+            },
+            {
+                "id": 13851,
+                "identity": "a0ad6517-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Philippe  Orekhov",
+                "email": "",
+                "orcid": "",
+                "institution": "Claudio Ando Nicolini's Lab, NanoWorld, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Philippe",
+                "middleName": "",
+                "lastName": "Orekhov",
+                "suffix": ""
+            },
+            {
+                "id": 13852,
+                "identity": "a0ad669b-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Eugenia Pechkova",
+                "email": "",
+                "orcid": "",
+                "institution": "Claudio Ando Nicolini's Lab, NanoWorld, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Eugenia",
+                "middleName": "",
+                "lastName": "Pechkova",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2016-03-10 11:50:26",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2016.016",
+        "doiUrl": "https://doi.org/10.1038/protex.2016.016",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2609394,
+                "identity": "05f3b70b-bf8f-444a-83d2-941e51dd76b5",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:53",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 56071,
+                "visible": true,
+                "origin": "",
+                "legend": "Averaged RMSD for all proteins at 300 K (A) and 500 K (B). Blue line is classically (HD) crystallized proteins, red is LB and green is space grown crystals.  ",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-4681/v1/figure_1.png"
+            },
+            {
+                "id": 2609395,
+                "identity": "06ef6993-2987-4e70-a44a-75e73b879681",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:53",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 108347,
+                "visible": true,
+                "origin": "",
+                "legend": "Normalized gyration radius of all proteins prepared by different techniques at 300 K (A) and 500 K (B). Blue line is classically (HD) crystallized proteins, red is LB and green is space grown crystals.  ",
+                "description": "",
+                "filename": "figure2.png",
+                "url": "https://assets.researchsquare.com/files/nprot-4681/v1/figure_2.png"
+            },
+            {
+                "id": 2609397,
+                "identity": "0afa7436-65bc-48fd-9d1c-b4b2dc7e57be",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:54",
+                "extension": "png",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 549423,
+                "visible": true,
+                "origin": "",
+                "legend": "A. Distance between center of mass of the fullerene and center of mass of the membrane during the simulation. On the third nanosecond fullerene spontaneously \u201cjump\u201d into the membrane (shown with an arrow). B. Snapshot of the system with the fullerene insi",
+                "description": "",
+                "filename": "figure3.png",
+                "url": "https://assets.researchsquare.com/files/nprot-4681/v1/figure_3.png"
+            },
+            {
+                "id": 2609401,
+                "identity": "2d456536-94ff-4780-afe8-cb4690067702",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:54",
+                "extension": "png",
+                "order_by": 4,
+                "title": "Figure 4",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 354754,
+                "visible": true,
+                "origin": "",
+                "legend": "Snapshots of the membrane and ten fullerenes in the initial moment of time and after 100 ns of simulation.",
+                "description": "",
+                "filename": "figure4.png",
+                "url": "https://assets.researchsquare.com/files/nprot-4681/v1/figure_4.png"
+            },
+            {
+                "id": 2609399,
+                "identity": "274156a3-4d2f-43c2-99f6-212e03c8d816",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:54",
+                "extension": "png",
+                "order_by": 5,
+                "title": "Figure 5",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 570072,
+                "visible": true,
+                "origin": "",
+                "legend": "A. Tris-malonic fullerene on the surface of the membrane  B. The probability distribution of location of the tris-malonic fullerene at different distances from the center-of-mass of membrane.  C. Potential of mean force profile for tris-malonic fullerene ",
+                "description": "",
+                "filename": "figure5.png",
+                "url": "https://assets.researchsquare.com/files/nprot-4681/v1/figure_5.png"
+            },
+            {
+                "id": 13465101,
+                "identity": "451a2d59-8367-465c-be6c-02b77fc46dac",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:45:40",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 1629502,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-4681/v1/9a95be54-f33c-44fe-b768-3f5be025e70e.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Langmuir-Blodgett (LB)-based crystallography",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "In the present protocol, we describe how molecular dynamics \\(MD) can be applied for studying Langmuir-Blodgett \\(LB)-based crystal proteins. MD can therefore play a major role in nanomedicine, as well as in personalized medicine.",
+        "manuscriptTitle": "Molecular Dynamics (MD) for Cancer control Protocol",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2016-03-15 14:30:39",
+                "doi": "10.1038/protex.2016.016",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a0a6b1f6-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "March 15th, 2016",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3572,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 3573,
+                "name": "Mathematics and computing"
+            },
+            {
+                "id": 3574,
+                "name": "Nanoscience and technology"
+            },
+            {
+                "id": 3575,
+                "name": "Biochemistry"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2016-03-15 14:30:39",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

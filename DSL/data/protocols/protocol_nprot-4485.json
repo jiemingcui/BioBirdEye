@@ -1,0 +1,260 @@
+{
+    "identity": "nprot-4485",
+    "title": "EpiGBS lab protocol",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "We describe a reduced representation bisulfite sequencing method, named epiGBS, for cost-effective exploration and comparative analysis of DNA methylation and genetic variation in hundreds of samples of species de novo, without requiring a reference genome.  This method uses genotyping-by-sequencing of bisulfite-converted DNA, followed by reliable de novo reference construction, mapping, variant calling and SNP/methylation variation distinction. The output can be loaded directly in IGV for visualization, and in RnBeads for analysis of differential methylation."
+        },
+        {
+            "header": "Reagents",
+            "content": "DNA isolation kit : Macherey-Nagel nucleospin plant II \r\n\n\nQubit\u00ae 2.0 Fluorometric dsDNA HS Assay Kit \\(Q32851 Life technologies)\r\n\n\nPstI \\(NEB, R0140S)\r\n\n\nBSA \\(NEB, B9000S)\r\n\n\nT4 DNA ligase \\(NEB, M0202M/L)\r\n\n\nnon-phosphorylated adapters \\(see supplementary data manuscript)\r\n\n\nQiaquick PCR cleanup \\(Qiagen, 28104)\r\n\n\nAgencourt AMPure XP \\(Beckman coulter, A63880)\r\n\n\n5-methylcytosine dNTP Mix \\(Zymo research, D1030)\r\n\n\nDNA polymerase I \\(NEB, M0209S)\r\n\n\nEZ DNA Methylation-Lightning\u2122 Kit \\(Zymo Research)\r\n\n\n5 \u00b5L KAPA HiFi HotStart Uracil+ ReadyMix \\(Kapa Biosystems)\r\n\n\nillumina PE PCR Primer \\(see supplementary data manuscript)\r\n\n\nHigh Sensitivity DNA chip on a 2100 Bioanalyzer system \\(Agilent)\r\n\n\nHiSeq v4 reagents"
+        },
+        {
+            "header": "Equipment",
+            "content": "Qubit\u00ae 2.0 Fluorometer\r\n\n\nBiometra Tgradient \\(ramping speed 5 degrees / s)\r\n\n\n2100 Bioanalyzer system \\(Agilent)\r\n\n\nIllumina Hiseq 2500 sequencer; Rapid Run Mode Paired-End sequencing; HiSeq Control Software \\(v2.2.38)"
+        },
+        {
+            "header": "Procedure",
+            "content": "**A - DNA Extraction**\r\n\n\n1. Homogenise plant material by bead-beating frozen leaf tissue in a 2 mL eppendorf tube with 2-3 mm stainless steel beads. No more than 100 mg of fresh tissue was used per sample. \r\n  2. Take samples with beads from the freezer and store in liquid nitrogen. \r\n  3. Per batch of 12 samples put the tubes in a tissuelyzer 24 adapter set block, which is partially submerged in liquid nitrogen to avoid thawing during sample placement. \r\n  4. After 30 seconds of shaking at 30 hz / 1800 oscillations per minute, submerge the tubes in liquid nitrogen, then perform a second round of 30 second shaking.  \r\n  5. Isolate DNA from the samples. For most plant species mentioned, we isolated DNA using the Macherey-Nagel nucleospin plant II kit \\(manuscript : for details see Supplementary Excel file \u201cDetailed sample description\u201d) for individual tubes. We followed the manufacturer\u2019s protocol with the following modifications. Cell lysis was performed using Cell lysis buffer PL1 for 30 instead of 10 minutes. After filtration through the pink nucleospin filter the flow-through is carefully pipetted to a fresh 1.5 mL tube, avoiding the pellet, which is often formed at this stage. An additional centrifuge round was used to avoid a small pellet; the clear liquid was used in following steps according the manufacturer\u2019s protocol. As restriction enzymes are very sensitive to proteins and other contamination we only selected samples with high purity, specifically 260/280 and 260/230 ratios of at least 1.8 and 1.5 respectively). DNA concentration was determined using Qubit\u00ae 2.0 Fluorometric dsDNA HS Assay Kit \\(Q32851 Life technologies).\r\n  \r\n\n\n**B: PstI Restriction digestion**\r\n\n\n6. Per individual, digest 400 ng of genomic DNA \\(gDNA) overnight \\(17hrs) at 37\u00b0C in a volume of 40 \u00b5L containing 1x NEBuffer 3.1, 125 \u00b5g BSA \\(NEB, B9000S) and 2 \u00b5L / 40 units of PstI \\(NEB, R0140S). Following digestion, ligate barcoded adapters to the fragments. \\(for Csp6I alternative; see \u201cMethods Csp6I Laboratory work\u201d)\r\n  \r\n\n\n**C : Adapter ligation**\r\n\n\nTo minimize the possibility of misidentifying samples as a result of sequencing or adapter synthesis error, all pair-wise combinations of barcodes differed by a minimum of three mutational steps, barcode lengths were modulated from 4 to 6 bp to maximize the nucleotide balance of the bases at each position in the overall set of sequencing reads \\(manuscript : Supplementary Fig. 1d). Samples were pooled and processed per species after ligation. \r\n\n\n7. For the ligation, combine 1200 pg of both forward and reverse barcoded adapters \\(manuscript : Supplementary table Ab) in a 60 \u00b5L reaction containing 40 \u00b5L gDNA digest, 1x T4 DNA ligase buffer and 4000K units T4 DNA ligase \\(NEB, M0202M/L) and ligate for 3hrs at 22\u00b0C followed by 4\u00b0C overnight, no inactivation afterward.\r\n  \r\n\n\n**D: Cleanup and size selection**\r\n\n\n8. Perform per-species pooling in order to assess the quality of libraries. \r\n  9. When pooled, reduce the total library volume by Qiaquick PCR cleanup \\(Qiagen, 28104) to 60 \u00b5L. \r\n  10. Size select the libraries using a 0.8x Agencourt AMPure XP \\(Beckman coulter, A63880) purification favoring >200 bp DNA fragments and elute in a total volume of 24 \u00b5L.\r\n  \r\n\n\n**E: Nick translation**\r\n\n\nDue to the use of non-phosphorylated adapters, epiGBS libraries contain nicks between the 3\u2019 fragment overhang and the 5\u2019 non-phosphorylated adapter nucleotide.\r\n\n\n11. To prevent the loss of ssDNA adapter strands \\(at the nicked position) during bisulfite treatment, repair the nick \\(see Supplementary Fig. 10) by a 1-hour nick translation reaction at 15\u00b0C in a reaction of 25 \u00b5L containing 18 \u00b5L of the purified library, 2,5 uL of 10 mM 5-methylcytosine dNTP Mix \\(Zymo research, D1030), 1x NEBuffer 2 and 7,5 units DNA polymerase I \\(NEB, M0209S).\r\n  \r\n\n\n**Optional GBS PCR**\r\n\n\nAt this stage an optional GBS PCR can be performed to check the library quality. \r\n\n\n12. Perform GBS PCR using the epiGBS PCR protocol \\(see below). The average size of the amplified GBS library was expected to be bigger than the amplified epiGBS library. \r\n  13. Assess the quality of these PCR-libraries by analyzing 1 \u00b5L on a High Sensitivity DNA chip on a 2100 Bioanalyzer system \\(Agilent).\r\n  \r\n\n\n**F: Bisulphite treatment and purification**\r\n\n\nFor bisulfite treatment 20 \u00b5L of the nick-translated library was used. \r\n\n\n14. Perform Bisulfite treatment using the EZ DNA Methylation-Lightning\u2122 Kit \\(Zymo Research) with the following program: 8 minutes 98\u00b0C, 1 hour at 54 \u00b0C followed by up to 20h at 4\u00b0C, all according to the manufacturer\u2019s protocol. \r\n  \r\n\n\n**G: EpiGBS PCR**\r\n\n\n15. Perform library amplification per species in four individual 10 \u00b5L reactions containing 1 \u00b5L ssDNA template, 5 \u00b5L KAPA HiFi HotStart Uracil+ ReadyMix \\(Kapa Biosystems), 3 pmol of each illumina PE PCR Primer \\(manuscript : Supplementary Table 1b). Temperature cycling consisted of 95\u00b0C for 3 min followed by 18 cycles of 98\u00b0C for 10 s, 65\u00b0C for 15 s, 72\u00b0C for 15 s with a final extension step at 72\u00b0C for 5 min. \r\n  16. Pool the replicate PCR products and quantify using a Qubit\u00ae dsDNA HS Assay Kit \\(Life Technologies). \r\n  17. Assess the quality of the Libraries analyzing 1 \u00b5L on a High Sensitivity DNA chip on a 2100 Bioanalyzer system \\(Agilent). Libraries were considered suitable for sequencing if the majority of DNA fragments were between 150\u2013400 bp and no adapter dimers were found. Typically, epiGBS PCR reactions of 18 cycles of a non-pooled plant sample yield 3-12 ng/\u00b5L of PCR-product.\r\n   \r\n\n\n18. When the \u2018per species\u2019 pooled libraries pass quality control they can be further pooled according to concentration and number of samples in the species pool so that each individual sample was expected to yield an equal number of clusters on the Illumina flowcell. \r\n  \r\n\n\n19. Perform A \u2018nano run\u2019 on the Illumina MiSeq to quantify per-sample expected relative read count yield. Based on the read counts obtained from this run, pool the individual nick-translated digestion-ligations in such a manner that an equal number of reads would be expected per individual. \r\n  \r\n\n\n20. Finally, perform Rapid Run Mode Paired-End sequencing on an Illumina HiSeq2500 sequencer using the HiSeq v4 reagents and the latest version of the HiSeq Control Software \\(v2.2.38), which optimizes the sequencing of low-diversity libraries \\(http://res.illumina.com/documents/products/technotes/technote-hiseq-low-diversity.pdf). As the first five cycles of a sequencing run are used to calculate the color matrix, our barcode design achieves almost perfect balance of the first 5 nucleotides when equal numbers of sequences are obtained per forward read or \u201cA\u201d barcode. The reverse read or \u201cB\u201d barcodes do not have this requirement, hence only barcodes of four nucleotides were used.\r\n  \r\n\n\n**Methods Csp6I Laboratory work**\r\n\n\nConstruct the Csp6I epiGBS libraries in similar fashion as the PstI epiGBS libraries with the following modifications: The restriction digestion reaction contained 1x FD buffer and 4 \u00b5L / 40 units of Csp6I \\(ThermoFisher Scientific, FD0214). The ligation reaction contained 2400 pg of both A and B adapters \\(both adjusted for the Csp6I sticky end). While in the PstI protocol we used fully methylated adapters \\(both strand I and II methylated) for the Csp6I protocol we used hemi-methylated adapters. The adapter strands that were resynthesized \\(incorporating 5mC dNTP\u2019s) by nick translation were not methylated as all cytosines are replaced by methylated 5mC \\(manuscript : see Supplementary Fig. 10). Final library amplification for Csp6I yielded 4 - 8 ng / \u00b5L product for an epiGBS PCR of 18 cycles of a library only containing Arabidopsis sample A29."
+        },
+        {
+            "header": "Timing",
+            "content": "Standard : 3 days excluding dna isolation\r\n\n\nUsing optional Miseq nano sequencing before final pooling: 4 days excluding dna isolation"
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "Essential for the protocol is perfect digestion of the gDNA. This can be inhibited by poor quality DNA and ethanol residues in gDNA sample.\r\n\n\n\r\n\n\nThe best way to aproach this protocol is to start early in the week so the whole protocol can be performed in a 3 day sequence: \r\n\n\nday 1: digestion; \r\n\n\nday 2: ligation; \r\n\n\nday 3: pooling/purification, size selection, nick repair, BS conversion and purification, EpiGBS pcr. \r\n\n\n\r\n\n\nThe overnight digestion / ligation might not be neccesary for all species.\r\n\n\nWhen pooling the adapter ligated reactions only a subsample is pooled \\(amount dependent on number of samples). If perfect read distribution is wanted an option miseq nano run can be performed with subsequent repooling according to individual read counts."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "PCR will give sufficient product after 14 to 18 pcr cycles, depending on the amount of samples pooled and the species used.\r\n\n\n\r\n\n\nSee also figure 1a \\[step 8] of manuscript: Lab protocol for typical epiGBS library"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nmeth.3763",
+                "date": "2016-02-09 22:14:01",
+                "title": "epiGBS: reference-free reduced representation bisulfite sequencing",
+                "authors": [
+                    "Thomas P van Gurp",
+                    "Niels C A M Wagemaker",
+                    "Bj\u00f6rn Wouters",
+                    "Philippine Vergeer",
+                    "Joop N J Ouborg",
+                    "and Koen J F Verhoeven"
+                ],
+                "journal": "Nature Methods",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 13678,
+                "identity": "a097417f-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Niels Wagemaker",
+                "email": "nwagemaker@science.ru.nl",
+                "orcid": "",
+                "institution": "Radboud University Nijmegen",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Niels",
+                "middleName": "",
+                "lastName": "Wagemaker",
+                "suffix": ""
+            },
+            {
+                "id": 13679,
+                "identity": "a097450d-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Philippine Vergeer",
+                "email": "",
+                "orcid": "",
+                "institution": "Wageningen University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Philippine",
+                "middleName": "",
+                "lastName": "Vergeer",
+                "suffix": ""
+            },
+            {
+                "id": 13680,
+                "identity": "a0974a65-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Thomas  van Gurp",
+                "email": "",
+                "orcid": "",
+                "institution": "NIOO",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Thomas",
+                "middleName": "van",
+                "lastName": "Gurp",
+                "suffix": ""
+            },
+            {
+                "id": 13681,
+                "identity": "a0974c23-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Koen Verhoeven",
+                "email": "",
+                "orcid": "",
+                "institution": "NIOO",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Koen",
+                "middleName": "",
+                "lastName": "Verhoeven",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2016-01-27 10:23:26",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2016.006",
+        "doiUrl": "https://doi.org/10.1038/protex.2016.006",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2609354,
+                "identity": "7f765d6d-2f93-4de0-83d5-ccee7b67d57d",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:52",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 838375,
+                "visible": true,
+                "origin": "",
+                "legend": "Lab protocol   epiGBS lab protocol   Genomic DNA (1) is digested with PstI (or other restriction enzyme of choice) (2) for sample 1-n. After barcoded adapter ligation (3) fragments are pooled (4), QIAquick PCR purified, and subjected to 0.8x SPRI size selection (5). Nick translation (6) is used to repair the nicks between the adapter and the restriction fragment. Fragments are bisulfite converted (7) and PCR amplified (8).",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-4485/v1/figure_1.png"
+            },
+            {
+                "id": 13464914,
+                "identity": "8a6fd68c-fc6b-4c78-9fb1-bb2683d5c881",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:45:06",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 442414,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-4485/v1/312334c5-3c49-47e9-9b70-5a00985bb0e0.pdf"
+            }
+        ],
+        "financialInterests": "none",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "EpiGBS, epigenetics, genomics, methylation, de novo, reference",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "Lab protocol of the Brief Communication, \"epiGBS: a reference-free reduced representation bisulfite sequencing technique.\"",
+        "manuscriptTitle": "EpiGBS lab protocol",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2016-02-15 11:10:55",
+                "doi": "10.1038/protex.2016.006",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a095d3cb-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "February 15th, 2016",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3521,
+                "name": "Genetics"
+            },
+            {
+                "id": 3522,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 3523,
+                "name": "Plant sciences"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2016-02-15 11:10:55",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

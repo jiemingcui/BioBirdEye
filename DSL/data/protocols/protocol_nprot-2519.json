@@ -1,0 +1,314 @@
+{
+    "identity": "nprot-2519",
+    "title": "A Protocol for Conducting Computational Experiments on the Domain Structure of Low Dimensional Ferroelectrics",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Low dimensional ferroelectrics, i.e., ferroelectrics with extreme geometrical confinement along some dimensions, are under active investigations for their important roles in device miniaturization and functional device development.<sup>1,2</sup> People are particularly concerned about the regular responses of domain structures in low dimensional ferroelectrics to the application of external fields. Nevertheless, to synthesize ferroelectric nanostructures of regular size and shape is still a difficult issue at present, not to say the experimental probe and control of nanoscale ferroelectric domain structures. A natural way to come out the predicament is to conduct computational experiments. \r\n\n\n\r\n\n\nWith appropriate modeling and simulating the physical processes, computational experiments can provide us convincing results to test the correctness of theory, interpret the results of hands-on experiments, and more importantly, to predict new regularity and phenomenon. Especially for situations where hands-on experiments are not feasible or quite expensive, conducting computational experiments is an attractive alternative. This is why recently computational physics has achieved great advance and becomes an important and individual subject of physics other than just an assistant tool of theoretical physics. \r\n\n\n\r\n\n\nA complete computational experiment consists of several parts, including physical modeling, programming, simulation, result analysis and post processing. Physical processes are represented through numerically solving the governing equations, which depend on the theoretical description of the processes. Accordingly, different simulation methods could be adopted. For ferroelectrics, a quantity of simulation methods has been developed, including thermodynamic ones like phase-field model \\(PFM)<sup>3,4</sup>, atomistic level simulations, e.g., molecular dynamic simulation \\(MD)<sup>5</sup>and effective Hamiltonian simulation \\(EH)<sup>6</sup>, and first-principle calculations \\(FPC)<sup>7</sup>, etc. \r\n\n\n\r\n\n\nBasing on an example of phase-field model for ferroelectric nanoplatelet, in this protocol we present the procedures of conducting computational experiments on low dimensional ferroelectrics using a personal computer \\(PC). The detail of the phase-field model and derivation of finite element method to solve the electromechanical fields can be found in the associated publication."
+        },
+        {
+            "header": "Equipment",
+            "content": "1. A personal computer \\(PC) with a typical operating system \\(Windows/Linux).\r\n  2. C language compiler \\(the program is assumed written in C language), e.g., Visual C++ \\(http://www.microsoft.com) for Windows systems, or GNU Compiler Collection \\(http://gcc.gnu.org) for Linux systems.\r\n  3. MATLAB \\(http://www.mathworks.com) \\(version 7.1 or above)."
+        },
+        {
+            "header": "Procedure",
+            "content": "**I. Physical modeling of low dimensional ferroelectrics**\r\n\n\n1. Determine your model system. You should determine the dimensionality of the system \\(i.e., 0-D nanoplatelet 1-D nanowire and 2-D nanofilm), material, and electric and mechanical boundary conditions, which are recommended to be written as optional tags in your program. In this demo, we consider a PbTiO\n3\nferroelectric nanoplatelet under surface traction and open-circuit condition as shown in **Figure 1**.\r\n  \r\n\n\n2. Construct the system\u2019s free energy. In general, the free energy of a ferroelectric is a functional of polarization, and should incorporate the effects of polarization inhomogeneity, elastic and electric fields. It can be written as a sum of the bulk free energy \\(including a Landau-type potential, gradient energy, elastic energy and electric energy) and surface free energy.\r\n  \r\n\n\n**Tip**: The construction of free energy is very important in phase-field model of ferroelectrics. The governing equation, i.e., the Time Dependent Ginzburg\u2013Landau \\(TDGL) equation, describes that the evolution of domain structure toward its equilibrium is driven by the decrease of the system\u2019s free energy.\r\n\n\n**Caution**: The free energy should be generally constructed under the thermodynamic framework.\r\n\n\n\r\n\n\n3. Design your experiment. In our case, the experiment is to apply mechanical loads to the nanoplatelet to affect its domain structure. \r\n  \r\n\n\n**II. Programming**\r\n\n\nThe flow diagram of phase-field simulation at a given condition \\(e.g., fixed temperature, open-circuited and mechanical load) is as shown in **Figure 2**. Followings are the main functional parts of the corresponding program.\r\n\n\n\r\n\n\n1. Initialization. In this part of program, the parameters and variables needed for simulation would be defined and initialized. It is recommended to write this part in a way that it can either use the default values of the parameters and variables or read them from input files. \r\n  \r\n\n\n**Tip**: For numerical accuracy and convenience, it is recommended to make the parameters and variables dimensionless so that their values fall into a suitable range. \r\n\n\n \r\n\n\n2. Grid division of the system. This process would generate some tables, from which you can easily find out the information of the nodes and elements, such as its coordinates, adjacent nodes and elements. In our case, we make the following tables,\r\n  Tnode ----Each row stores a node\u2019s number, coordinates and adjacent elements, \r\n\n\nTnodes---- Each row stores a node\u2019s number and its adjacent nodes,\r\n\n\nTelement---- Each row stores an element\u2019s number, coordinates and its nodes.\r\n\n\n\r\n\n\n**Tip**: These tables can largely simplify the calculation of element stiffness matrices, element node displacement/potential vectors, and the assemblage of global stiffness matrices and displacement/potential vectors. \r\n\n\n\r\n\n\n3. Calculation of element stiffness matrices and the assemblage of global stiffness matrices. In most cases, the stiffness matrices \\(including elastic and electric) can be considered unchanged during the process, therefore the calculation only need to be done by once. \r\n    \r\n\n\n**Tip**: According to the boundary conditions, the computation size and accuracy requirement, the electric and elastic fields can be solved by different methods, such as conjugate gradient method \\(CGM), finite-element method \\(FEM), and fast Fourier transformation \\(FFT). For our case of a ferroelectric nanoplatelet with a moderate size, finite-element method is suitable to solve the electric and elastic fields.\r\n\n\n\r\n\n\n4. Calculation of the elastic field. Calculate the element node displacement vectors, and assemble them into the global node displacement vector. Solve the equation \\[K\nu\n]\\{U}=\\{F\nu\n}. This should be done at each step of polarization evolution. \r\n  \r\n\n\n5. Calculation of the electric field. Calculate the element node potential vectors, and assemble them into the global node potential vector. Solve the equation \\[K\n\u03c6\n]\\{\u0424}=\\{F\n\u03c6\n}. This should be done at each step of polarization evolution. \r\n  \r\n\n\n**Tip**: Iterative methods, e.g. the Gauss-Seidel iteration method, would be suitable to equations \\[K\nu\n]\\{U}=\\{F\nu\n} and \\[K\n\u03c6\n]\\{\u0424}=\\{F\n\u03c6\n}. \r\n\n\n\r\n\n\n6. Calculation of the evolution force and polarization field at next step. Simple explicit difference methods or semi-implicit Fourier-spectral algorithms\n8\ncan be used to solve the governing equation, i.e., the TDGL equation.\r\n  \r\n\n\n7. Error analysis. Calculate the error between the polarization field at this step and next step. If the error is small enough, end program; otherwise, repeat steps 3-6. \r\n  \r\n\n\n8. Input and output. In our case, the input  includes a parameter file storing the value of parameters and a configuration file storing the initial polarization field. The output  includes a log file recording the monitoring information during the simulation and files storing the polarization field at selected steps.  \r\n  \r\n\n\n**III. Simulation**\r\n\n\nWe would like to simulate how the mechanical load affects the formation of domain structure in the nanoplatelet. \r\n\n\n\r\n\n\n1. Prepare a set of parameter files. In our case, the parameter files differ only in the value of surface traction.  \r\n  \r\n\n\n2. For each parameter files, compile and run the program. \r\n  \r\n\n\n**Tip**: You can also make some modifications on the original program, so that the whole simulation can be fulfilled by running the program by once. \r\n\n\n\r\n\n\n**IV. Result analysis & Post processing**\r\n\n\nAt this stage, we assume that there is an output file storing the polarization field, e.g., p_final.txt. The file stores the node\u2019s number, its coordinates and the polarization components. Now we will show how to use MATLAB \\(http://www.mathworks.com) to visualize the domain structures. \r\n\n\n \r\n\n\n1. Start MATLAB. \r\n  \r\n\n\n2. Import file p_final.txt into the Workspace as shown in Figure 3. \r\n  \r\n\n\n3. Run the following commands to obtain a vector plot the domain structure as shown in **Figure 4a**, \r\n  \r\n\n\n quiver3\\(p_final\\(:,3),p_final\\(:,2),p_final\\(:,4),p_final\\(:,6),p_final\\(:,5),p_final\\(:,7));\r\n\n\n axis equal; \r\n\n\n axis off;\r\n\n\n\r\n\n\n4. Run the following commands to add a color plot of the polarization magnitude to **Figure 4a** as shown in **Figure 4b**,\r\n  \r\n\n\n meshing=\\[10 3 30];\r\n\n\n nx=meshing\\(1)+1;\r\n\n\n ny=meshing\\(2)+1;\r\n\n\n nz=meshing\\(3)+1;\r\n\n\n m=0;\r\n\n\n for i=1:nx\r\n\n\n     for j=1:ny\r\n\n\n         for k=1:nz\r\n\n\n             m=m+1;\r\n\n\n             P\\(i,j,k)=\\(p_final\\(m,5)**p_final\\(m,5)+p_final\\(m,6)**p_final\\(m,6)+p_final\\(m,7)*p_final\\(m,7))^0.5;\r\n\n\n         end\r\n\n\n     end\r\n\n\n end\r\n\n\n \\[x,y,z]=meshgrid\\(\\[0:ny-1],\\[0:nx-1],\\[0:nz-1]);\r\n\n\n Xslice=\\[0,ny-1];Yslice=\\[0,nx-1];Zslice=\\[0,nz-1];\r\n\n\n hold on;h =slice\\(x,y,z,P,Xslice,Yslice,Zslice);\r\n\n\n set\\(h,'LineStyle','none');\r\n\n\n\r\n\n\n5. Change the colormap to your preference. For example, run the following commands to as shown in **Figure 4c**,\r\n  \r\n\n\n color_round=\\[1 0 1];color_floor=\\[0 1 0];\r\n\n\n n_color=64;\r\n\n\n for i=1:n_color\r\n\n\n    map\\(i,1)=color_round\\(1)+\\(i-1)*\\(color_floor\\(1)-color_round\\(1))/\\(n_color-1);\r\n\n\n    map\\(i,2)=color_round\\(2)+\\(i-1)*\\(color_floor\\(2)-color_round\\(2))/\\(n_color-1);\r\n\n\n    map\\(i,3)=color_round\\(3)+\\(i-1)*\\(color_floor\\(3)-color_round\\(3))/\\(n_color-1);\r\n\n\n end\r\n\n\n colormap\\(map);"
+        },
+        {
+            "header": "Timing",
+            "content": "In our case of a 10\u00d73\u00d730 meshing nanoplatelet at a given surface traction and open-circuited condition, the simulation time of polarization evolution from random toward equilibrium ranges from tens of minutes to several hours on a PC \\(3.00 GHz, 1.75GB internal memory). In general, the time of a simulation would strongly depend on the size of system, the algorithms, the required calculation accuracy, the computer performance and the simulated process. When phase transition happens, the simulation time would be much longer."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "I. How can I make sure whether the results are right?\r\n\n\n1. Repeat some solved problems with your own program. \r\n  2. Compare the results of FEM with those of other methods, such as finite difference method. \r\n  3. Analyze whether the results are physical. \r\n  \r\n\n\nII. If the polarization field does converge to a suitable range: \r\n\n\n1. Check whether time step is too large. \r\n  2. Check the other parameters. \r\n  3. Check whether the elastic and electric field are calculated correctly. \r\n  \r\n\n\n**Tip**: Write the program based a former one, and make sure the former program is correct. \r\n\n\n\r\n\n\nIII. If the calculation of the elastic/electric field does not converge: \r\n\n\n1. Check the correctness of the tables that used to generate the stiffness matrices and force vectors. \r\n  2. Check whether you have appropriately handled the boundary conditions.  \r\n  3. Try other algorithms."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "Results of the experiment are presented in **Figure 5**. The results indicate that mechanical loads can affect the nucleation and balance of the vortices in the nanoplatelet, and lead to various equilibrium vortex domain structures."
+        },
+        {
+            "header": "References",
+            "content": "1. Scott, J. F. Nanoferroelectrics: statics and dynamics. J. Phys.: Condens. Matter 18, R361 \\(2006). \r\n  2. R\u00f8rvik, P. M., Grande, T. & Einarsrud, M.-A. One-dimensional nanostructures of ferroelectric perovskites. Adv. Mater. 23, 4007-4034 \\(2011).\r\n  3. Chen, L. Q. Phase-Field Method of Phase Transitions/Domain Structures in Ferroelectric Thin Films: A Review. J. Am. Ceram. Soc. 91, 1835\u20131844 \\(2008). \r\n  4. Chen, W. J, Zheng, Y. & Wang, B. Phase field simulations of stress controlling the vortex domain structures in ferroelectric nanosheets. Appl. Phys. Lett. 100, 062901 \\(2012).\r\n  5. Phillpot, S. R., Sinnott, S. B. & Asthagiri, Atomic-Level Simulation of Ferroelectricity in Oxides: Current Status and Opportunities. A. Annu. Rev. Mater. Res. 37, 239 \\(2007).\r\n  6. Zhong, W., Vanderbilt, D & Rabe, K. M. First-principles theory of ferroelectric phase transitions for perovskites: The case of BaTiO3. Phys. Rev. B 52, 6301 \\(1995).\r\n  7. Shimada, T., Umeno, Y. & Kitamura, T. Ab initio study of stress-induced domain switching in PbTiO3. Phys. Rev. B 77, 094105 \\(2008).\r\n  8. Chen, L.Q., Shen J. Applications of semi-implicit Fourier-spectral method to phase field equations. Computer Physics Communications 108, 147 \\(1998)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "Helpful discussions with Dr. D. C. Ma and Dr. S. P. Lin are gratefully acknowledged. The authors also acknowledge the financial support of the National Natural Science Foundation of China \\(NSFC) \\(Nos. 10902128, 11232015, 50802026, 10972239). Y. Z. also thanks support by the Fundamental Research Funds for the Central Universities to Micro&Nano Physics and Mechanics Research Laboratory, New Century Excellent Talents in University, Research Fund for the Doctoral Program of Higher Education, Fok Ying Tung Foundation, Natural Science Funds for Distinguished Young Scholar of Guangdong Province of China, and Educational Commission of Guangdong Province of China."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/srep00796",
+                "date": "2012-11-14 16:03:31",
+                "title": "Vortex Domain Structure in Ferroelectric Nanoplatelets and Control of its Transformation by Mechanical Load",
+                "authors": [
+                    "W. J. Chen",
+                    "Yue Zheng",
+                    "and Biao Wang"
+                ],
+                "journal": "Scientific Reports",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 12216,
+                "identity": "9fdcdfd4-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Zheng Yue",
+                "email": "zhengy35@mail.sysu.edu.cn",
+                "orcid": "",
+                "institution": "State Key Laboratory of Optoelectronic Materials and Technologies, Sun Yat-sen University, Guangzhou 510275, China. School of Physics and Engineering, Sun Yat-sen University, Guangzhou 510275, China.",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Zheng",
+                "middleName": "",
+                "lastName": "Yue",
+                "suffix": ""
+            },
+            {
+                "id": 12217,
+                "identity": "9fdce1a1-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Wang  Biao",
+                "email": "wangbiao@mail.sysu.edu.cn",
+                "orcid": "",
+                "institution": "State Key Laboratory of Optoelectronic Materials and Technologies, Sun Yat-sen University, Guangzhou 510275, China. School of Physics and Engineering, Sun Yat-sen University, Guangzhou 510275, China.",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Wang",
+                "middleName": "",
+                "lastName": "Biao",
+                "suffix": ""
+            },
+            {
+                "id": 12215,
+                "identity": "9fdcdca9-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Chen Weijin",
+                "email": "",
+                "orcid": "",
+                "institution": "State Key Laboratory of Optoelectronic Materials and Technologies, Sun Yat-sen University, Guangzhou 510275, China. School of Physics and Engineering, Sun Yat-sen University, Guangzhou 510275, China.",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Chen",
+                "middleName": "",
+                "lastName": "Weijin",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2012-11-15 14:33:55",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2012.054",
+        "doiUrl": "https://doi.org/10.1038/protex.2012.054",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2608579,
+                "identity": "e5238a92-98a2-4992-bd79-eb0ae91f5d55",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:20",
+                "extension": "tif",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 368056,
+                "visible": true,
+                "origin": "",
+                "legend": "Scheme of the model system.    A ferroelectric nanoplatelet under surface traction and open-circuited condition. ",
+                "description": "",
+                "filename": "figure1.tif",
+                "url": "https://assets.researchsquare.com/files/nprot-2519/v1/figure_1.tif"
+            },
+            {
+                "id": 2608580,
+                "identity": "9c87d154-cba7-4c86-9cb9-9ef0327f3ae5",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:20",
+                "extension": "tif",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 275902,
+                "visible": true,
+                "origin": "",
+                "legend": "Flow diagram of phase-field simulation.    The polarization evolution is simulated at a given condition, e.g., T=300K, open-circuited and zero mechanical load. Finite element methods are used to solve the elastic and electric fields. ",
+                "description": "",
+                "filename": "figure2.tif",
+                "url": "https://assets.researchsquare.com/files/nprot-2519/v1/figure_2.tif"
+            },
+            {
+                "id": 2608582,
+                "identity": "4417a2e3-28f1-41bb-b874-dc22c971bd87",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:20",
+                "extension": "tif",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 1339782,
+                "visible": true,
+                "origin": "",
+                "legend": "Scheme of importing file p_final.txt into MATLAB and illustration of the data.    Each row of the p_final matrix stores a node number, node coordinates and polarization components. ",
+                "description": "",
+                "filename": "figure3.tif",
+                "url": "https://assets.researchsquare.com/files/nprot-2519/v1/figure_3.tif"
+            },
+            {
+                "id": 2608584,
+                "identity": "138d27a9-1ae0-431e-97c8-acd31151cde0",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:20",
+                "extension": "tif",
+                "order_by": 4,
+                "title": "Figure 4",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 2046952,
+                "visible": true,
+                "origin": "",
+                "legend": "Some result of visualizing the domain structure of a nanoplatelet by using MATLAB.    (a) A vector plot the domain structure using quiver3() function. (b) Adding a color plot of the polarization magnitude using slice() function. (c) A plot after changing the colormap to your preference. ",
+                "description": "",
+                "filename": "figure4.tif",
+                "url": "https://assets.researchsquare.com/files/nprot-2519/v1/figure_4.tif"
+            },
+            {
+                "id": 2608587,
+                "identity": "4c47e4fb-8ec7-418a-b146-9b99a77a48a8",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:20",
+                "extension": "tif",
+                "order_by": 5,
+                "title": "Figure 5",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 1134528,
+                "visible": true,
+                "origin": "",
+                "legend": "Anticipated results.    Snapshots of the domain morphologies during the polarization evolution for a nanoplatelet under different surface traction but with the same initial random perturbation at T=300K.",
+                "description": "",
+                "filename": "figure5.tif",
+                "url": "https://assets.researchsquare.com/files/nprot-2519/v1/figure_5.tif"
+            },
+            {
+                "id": 13464654,
+                "identity": "780a8a96-62fb-466d-a000-eb08e71b30a3",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:44:12",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 2839718,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-2519/v1/d82ec44d-6f19-41ef-bf6e-26958b170651.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Low dimensional ferroelectrics, Domain structure, Phase-field, Computational experiment",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "In this protocol we present the typical procedures of conducting computational experiments on the domain structure of low dimensional ferroelectrics using a personal computer \\(PC). Based on an example of the phase-field model \\(PFM) for ferroelectric nanoplatelet, a computational experiment consisting of physical modeling, programming, simulation, result analysis and post processing, will be illustrated. Our physical model appropriately takes into account the effects of boundary conditions, inhomogeneous elastic and electrostatic fields, ambient temperature, size and shape of the low dimensional ferroelectrics, which makes it convenient to conduct a series of virtual experiments, e.g., applying external mechanical or electric field to affect the domain structure of nanostructures.",
+        "manuscriptTitle": "A Protocol for Conducting Computational Experiments on the Domain Structure of Low Dimensional Ferroelectrics",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2012-11-16 10:10:30",
+                "doi": "10.1038/protex.2012.054",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9fdc82a7-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "November 16th, 2012",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 2827,
+                "name": "Nanoscience and technology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2012-11-16 10:10:30",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

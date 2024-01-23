@@ -1,0 +1,231 @@
+{
+    "identity": "nprot-5967",
+    "title": "Collecting and processing single-particle cryo-EM data with tilts",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Preferred specimen \\(particle) orientation has been a recurring problem in the field of single-particle cryoEM, and leads to directional resolution anisotropy. In the accompanying paper to this protocol, we show that tilted single-particle data collection is able to ameliorate the effects of preferred specimen orientation and reach near-atomic resolutions. For the most part, a tilted data collection and processing scheme is identical to conventional single-particle cryo-EM. Here, we will highlight some key differences of tilted single-particle cryo-EM data collection and processing."
+        },
+        {
+            "header": "Reagents",
+            "content": "Gold grids need to be used in order to minimize beam-induced movement, which becomes increasingly exaggerated at high tilt angles. Gold grids can be purchased from commercial sources \\(e.g. UltrAuFoil from Quantifoil) or home-made."
+        },
+        {
+            "header": "Equipment",
+            "content": "Any transmission electron microscope with a tiltable stage. Both positive and negative stage alpha can be set. However some microscopes would have a more stable direction of tilt, which can be quantitatively evaluated using a number of different methods. Also, stable stages, such as those on the Titan Krios or the Talos Arctica, will generally facilitate data collection."
+        },
+        {
+            "header": "Procedure",
+            "content": "**Grid Preparation**\r\n\n\n1) All sample preparation and vitirifcation steps are performed in accordance to conventional single-particle cryo-EM analysis.\r\n\n\n2) The only salient difference is the requirement of gold grids over carbon grids. At the time of writing, gold grids have provided superior results, but any grid substrate that minimizes beam-induced movement can be employed in the future. For the most part, vitrification is identical between holey carbon and holey gold grids, although some differences might be observed, most notably that blotting times tend to be shorter for gold grids. We have also observed slight differences in particle concentration and extent of preferred particle orientation on grids, both of which are specimen dependent. \r\n\n\n\r\n\n\n**Data Collection**\r\n\n\nThis utilizes the latest Leginon system for data collection. See troubleshooting section for other variations.\r\n\n\n3) When grid is in microscope, obtain correct eucentric height for the square.\r\n\n\n4) Tilt the stage to desired tilt angle by changing the stage alpha parameter.\r\n\n\n5) Acquire low-magnification square image and queue up holes, at tilt.\r\n\n\n6) Collect high-magnification images of the queued up locations at the specified tilt angle.\r\n\n\n\r\n\n\nSee troubleshooting section for alternative approaches to data collection.\r\n\n\n\r\n\n\n**Data Processing**\r\n\n\n7) Data processing can be performed conventionally, as per general single-particle cryo-EM procedures.\r\n\n\n8) Per-particle CTF estimation must be performed in order to account for the gradient of defocus values present within each micrograph taken at a tilt angle. Per-particle estimation of CTF can be performed using \"GCTF\":http://www.mrc-lmb.cam.ac.uk/kzhang/. Examples of the commands can be found in the GCTF user guide. In addition to the generic options \\(-apix, -kV, -cs, -ac, -dstep, etc), the options relevant for tilted images would be: \r\n\n\n\r\n\n\n-do_local_refine 1 \r\n\n\n-do_validation 1 \r\n\n\n-boxsuffix .box \\(or .star)\r\n\n\n\r\n\n\nWhereby the command assumes that all micrographs are located in the \"Micrographs\" directory, and that GCTF is run in the parent directory \\(one directory above). \r\n\n\n\r\n\n\n9) 2D classification, 3D classification, and 3D refinement can be performed as per conventional processing in all software packages using per-particle defocus values as input.\r\n\n\n\r\n\n\n**Results Analysis**\r\n\n\n10) Euler angle distribution serves as a direct evaluation of the degree of preferred orientation \\(still) present.\r\n\n\n11) For a more quantitive directional resolution anisotropy assessment, 3DFSC can be used. 3DFSC can be downloaded from \"here\":https://github.com/nysbc/Anisotropy. The resulting volume is essentially a collection of 1D FSC samples conically along all directions."
+        },
+        {
+            "header": "Timing",
+            "content": "As in conventional single-particle data collection. When using a data collection scheme that tilts prior to obtaining a high-magnification image, such as that employed by SerialEM, <sub>30 seconds can be typically added for each exposure. Otherwise, the time per high-magnification exposure should take  </sub>2 minutes, depending on the data collection software and imaging parameters."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "**Using different data collection strategies**\r\n\n\n\r\n\n\nDepending on the employed software and its features, different strategies can be employed for tilted data collection. Ideally, one would obtain the atlas \\(and optionally the square and hole images) at 0\u00b0, but the high-magnification images would be obtained at a fixed tilt angle. This can be achieved in SerialEM, whereby the tilt angle for the high-magnification image is set independently of the tilt angle for all other low magnification images, thus enabling the user to perform all operations at an angle of 0\u00b0, but obtain the high-magnification image at a fixed tilt. This requires that the eucentric height be identified for each high-magnification target. Note however, at the time of this writing, not all software packages support streamlined switching between untilted \\(low magnification) images and tilted \\(high-magnification) images. In addition to the technique described above, one can also collect an entire dataset at tilt. For this one would collect the atlas with the stage alpha set to some tilt angle, and perform all data collection at a fixed tilt angle. Both of the above procedures, as well as the one described in the \"procedure\" section, have been successfully employed.\r\n\n\n\r\n\n\nIt should be kept in mind that some programs like to have CTF information prior to picking \\(e.g. Relion), in which case, it would make sense to first run a global CTF estimation, then pick particles, and then use the resulting particle coordinates to re-do local CTF estimation on a per-particle basis in GCTF."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "A set of single-particles, each with different defocus values"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "The work was supported by Agency for Science, Technology and Research Singapore \\(to Y.Z.T.); the Leona M. and Harry B. Helmsley Charitable Trust Grant 2017-PG-MED001 \\(to D.L.); the US National Institutes of Health \\(NIH) \\(DP5 OD021396-01 to D.L.)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nmeth.4347",
+                "date": "2017-07-31 13:15:13",
+                "title": "Addressing preferred specimen orientation in single-particle cryo-EM through tilting",
+                "authors": [
+                    "Yong Zi Tan",
+                    "Philip R Baldwin",
+                    "Joseph H Davis",
+                    "James R Williamson",
+                    "Clinton S Potter",
+                    "Bridget Carragher",
+                    "and Dmitry Lyumkis"
+                ],
+                "journal": "Nature Methods",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 14835,
+                "identity": "a114543a-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Dmitry Lyumkis",
+                "email": "dlyumkis@salk.edu",
+                "orcid": "",
+                "institution": "Lyumkis Lab (Salk Institute)",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Dmitry",
+                "middleName": "",
+                "lastName": "Lyumkis",
+                "suffix": ""
+            },
+            {
+                "id": 14836,
+                "identity": "a1145764-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Yong Zi Tan",
+                "email": "",
+                "orcid": "",
+                "institution": "New York Structural Biology Center/Columbia University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Yong",
+                "middleName": "Zi",
+                "lastName": "Tan",
+                "suffix": ""
+            },
+            {
+                "id": 14837,
+                "identity": "a1145931-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Philip Baldwin",
+                "email": "",
+                "orcid": "",
+                "institution": "New York Structural Biology Center",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Philip",
+                "middleName": "",
+                "lastName": "Baldwin",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2017-05-30 19:21:28",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2017.055",
+        "doiUrl": "https://doi.org/10.1038/protex.2017.055",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13465205,
+                "identity": "26053027-4413-4ce1-aaa7-a95eda9ff58e",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:45:55",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 130018,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-5967/v1/10ba0ef9-cf83-4b9b-beba-990df6f1a0b5.pdf"
+            }
+        ],
+        "financialInterests": "none",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "single-particle cryo-EM, resolution anisotropy, tilts, preferred specimen orientation",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "Here we present a strategy for tackling preferred specimen orientation in single-particle cryogenic electron microscopy \\(cryo-EM) by employing tilts during data collection and quantifying the resulting directional resolution and density isotropy using a 3D Fourier Shell Correlation \\(FSC) algorithm. These techniques enabled structure determination of the influenza hemagglutinin \\(HA) trimer, which adopts a highly preferred orientation, to near-atomic resolution. They also improved both isotropy and global resolution for ribosomal biogenesis intermediates, which adopt a moderately preferred orientation. This protocol describes data collection and image processing strategies for employing tilts in single-particle cryo-EM.",
+        "manuscriptTitle": "Collecting and processing single-particle cryo-EM data with tilts",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2017-07-31 13:18:55",
+                "doi": "10.1038/protex.2017.055",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a113f055-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "July 31st, 2017",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3950,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 3951,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 3952,
+                "name": "Structural biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2017-07-31 13:18:55",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

@@ -1,0 +1,392 @@
+{
+    "identity": "nprot-4273",
+    "title": "Analysis of axonal growth in organotypic neural cultures",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Organotypic cultures are multicellular in vitro models that preserve both cytoarchitecture and cell interactions that form the tissue, providing a closer approximation to in vivo models in comparison with dissociated cell cultures. Previous studies in our lab proposed a method for dorsal root ganglia \\(DRG) and spinal cord slice \\(SC) organotypic 3D cultures to study motor and sensory axonal regeneration \\(Allodi et al., 2011). Although these models are useful to study how different factors and substrates affect axonal growth, manual sample analysis can be inaccurate, tiresome and highly time-consuming. Therefore, we have developed a computer-aided method, using the Neurite-J plug-in, to analyze the neurite outgrowth in those organotypic cultures \\(Torres-Esp\u00edn et al., 2014), which can also be applied to other types of explants. This program, implemented as a plug-in for ImageJ software, markedly reduces the time needed in the manual analysis, improves the accuracy and increases the amount of information obtained from each sample. Therefore, the organotypic 3D cultures and the computed aided method constitute a powerful and useful tool to obtain valuable data of neurite growth under different conditions \\(Allodi et al., 2011, 2013, 2014; Daud et al., 2012; Farrell et al., 2012; Auer et al., 2013; Forostyak et al., 2013; Jin et al., 2013; Parsons 2013; Riggio et al., 2013; Torres-Esp\u00edn et al., 2013, 2014; Gerardo-Nava et al., 2014; Schizas et al., 2014a,b; Assun\u00e7\u00e3o-Silva et al., 2015; Chitsaz et al., 2015; Geuna et al., 2015; Kraus et al., 2015; M\u00f2dol et al., 2015; Park  et al., 2015; Parra et al., 2015; Phatak et al., 2015; Tong et al., 2015; Gonzalez-Perez et al., 2016; Santos et al., 2016). The objective of the present work is to provide the protocol of our DRG and SC slice cultures, from the animal to the image analysis, that will allow studying neurite outgrowth in reliable in vitro models.\r\n\n\n\r\n\n\n**Advantages, limitations and adaptations:** \r\n\n\n\r\n\n\nIn vitro single cell systems are typically used to study axonal regeneration, but loss of the tissue structure may limit the biological significance of the results. Organotypic cultures are a useful system that allows studying whole organs and tissues under in vitro controlled conditions, increasing the in vivo approximation of the results. Moreover, maintenance of tissue structure and cell to cell interaction make organotypic cultures a powerful approach in neuroscience allowing the investigator to study cells in their appropriate environment. However, these culture models have the difficulty of reliable quantification of axonal outgrowth, thus Neurite-J was developed to overcome this drawback. Hand-operated application of the modified Sholl method implies that the researcher manually selects the outline of the organotypic body in a freehand manner, expands the selection to a selected distance, then quantifies the number of intersections \\(sometimes in order of hundreds), expands again the shape and repeats the procedure again and again until the longest neurite is found and measured. This may take several minutes for every single picture, limiting the amount of cultures that can be analyzed in a reasonable time. Moreover, manual counting is subject to variability introduced by the researcher. Automation of the process allows markedly decreasing the analysis time, and improving the reliability of the measurements. The presented computer-aided analysis makes feasible the application of Sholl methods to organotypic cultures images, making the analysis faster, more powerful and reproducible than by simple measures."
+        },
+        {
+            "header": "Reagents",
+            "content": "- Ice\r\n\n\n- Gey's balanced salt solution \\(Sigma)\r\n\n\n- Glucose solution 30mg/ml \\(Sigma)\r\n\n\n- Poly-d-lysine \\(PDL, Sigma)\r\n\n\n- Rat tail type I collagen \\(BD Biosciences)\r\n\n\n- Neurobasal medium \\(Gibco)\r\n\n\n- 10X basal Eagle\u2019s medium \\(Gibco)\r\n\n\n- 50X B27 supplement \\(Gibco)\r\n\n\n- 100X Glutamine \\(200 mM, Sigma)\r\n\n\n- 100X Penicillin/Streptomicin \\(Sigma)\r\n\n\n- 4% paraformaldehyde in phosphate buffer saline \\(PBS)\r\n\n\n- Tris buffer \\(TB)\r\n\n\n- Tris buffer saline \\(TBS)\r\n\n\n- TBS-0,1% Tween 20 \\(TBS-L)\r\n\n\n- TBS-0,3% Triton X100 \\(TBS-T)\r\n\n\n- Citrate buffer\r\n\n\n- Methanol\r\n\n\n- Ethanol\r\n\n\n- Antibodies\r\n\n\n- Specific antibody serum: for example if the secondary antibody is made in goat, use the normal goat serum for antibody incubation.\r\n\n\n- Mowiol mounting medium \\(10% of Mowiol in glycerol supplemented with 0.6% of DABCO and DAPI) \r\n\n\n- 7.5% sodium bicarbonate solution \\(Gibco)\r\n\n\n- Neurotrophic factors \\(NF)\r\n\n\n- BSA \\(or HSA)\r\n\n\n- Sterile distilled H2O \\(H2Od)\r\n\n\n- Milli-Q filtered H2O \\(Millipore)\r\n\n\n- Sodium Azide"
+        },
+        {
+            "header": "Equipment",
+            "content": "- Cell culture room\r\n\n\n- Incubator\r\n\n\n- Inverted microscope\r\n\n\n- Epifluorescence microscope with digital camera\r\n\n\n- Cabin\r\n\n\n- Dissection microscope in the cabin\r\n\n\n- Automatic tissue chopper \\(McIlwain) and disposable blades\r\n\n\n- Tissue Chopper nylon sheets\r\n\n\n- Automatic pipette set\r\n\n\n- Automatic pipette tips \\(sterile)\r\n\n\n- Pipettes\r\n\n\n- Wet bath\r\n\n\n- Round coverslips \\(sterile)\r\n\n\n- 30mm Petri dishes \\(Iwaki)\r\n\n\n- 24-well plates \\(Iwaki)\r\n\n\n- Syringes and in-line sterile filters \\(0.45 \u00b5m, Sterilin) \r\n\n\n- Orbital shaker in the incubator\r\n\n\n- Dissection tools: syringes \\(1ml), G27 needles, scissors, Dumont #5 forceps, microspoon, blade.\r\n\n\n- Computer with ImageJ and NeuriteJ plug-in installed"
+        },
+        {
+            "header": "Procedure",
+            "content": "**Neurotrophic factors preparation:**\r\n\n\n\r\n\n\nIt is recommended to reconstitute the lyophilized neurotrophic factor \\(NF) in sterile milli-Q H2O not less than 100\u00b5g/ml, which can then be further diluted. Lyophilized neurotrophic factors, although stable at room temperature for 3 weeks, should be stored desiccated below -18\u00b0C. Upon reconstitution solutions should be stored at 4\u00b0C between 2-7 days and for future use below -18\u00b0C. For long term storage it is recommended to add a carrier protein \\(0.1% BSA or HSA in milli-Q H2O filtered in the culture room). Prevent freeze-thaw cycles. The 100\u00b5g/ml solution of NF will be further diluted to have a working solution. For example, we usually prepare dilutions \\(1:20) to get a 5\u00b5g/ml working solution. Then, 1\u00b5l of this solution is added to the matrix \\(0.5ml volume) to obtain a final concentration of NF of 10ng/ml.\r\n\n\n\r\n\n\n**Matrix preparation \\(for 500\u00b5l):**\r\n\n\nMaterials :\r\n\n\n450\u00b5l rat tail collagen \r\n\n\n50\u00b5l 10X basal Eagle\u2019s medium\r\n\n\n2\u00b5l  7.5% sodium bicarbonate solution\r\n\n\n\r\n\n\nMix 50\u00b5l of 10x medium with the bicarbonate solution, then, if working with NFs, add 1\u00b5l of NF stock solution \\(at 5\u00b5g/ml, final concentration: 10ng/ml, see above), and at the end add the collagen \\(keep in ice to avoid gelification). Mix well and make a fast spining in a small spining centrifuge. \r\n\n\n\r\n\n\n30\u00b5l of the matrix are added on polilysinated round coverslips placed in 24 dish-wells \\(for DRG) or in small petri dishes \\(for SC slices, 3 coverslipes per dish). Keep at least two hours in the incubator to allow proper gelification. Coating the coverslips with PDL before adding the collagen drop improves the adhesion of the 3D matrix.\r\n\n\n\r\n\n\n**Slice preparation and culture:**\r\n\n\nRats of postnatal day 7 are anesthetized by hypothermia and decapitated. The spinal cord \\(lumbar segments) and DRG \\(low thoracic and lumbar) are dissected over a cold plate, placed in cold Gey\u2019s balanced salt solution enriched with glucose \\(final concentration 6mg/ml), and cleaned from blood and meningeal debris. The samples are transferred to a fresh cold Gey\u2019s-glucose solution. Spinal cords are then cut with a McIlwain Tissue Chopper into 350\u00b5m thick slices. Collect and maintain the slices in ice-cold Gey\u2019s solution. Transfer the tissue explants \\(both spinal cord slices and DRG) on the collagen droplets \\(30\u00b5l each) previously prepared in petri dishes or 24 well plate and kept at 37\u00b0C. Use a microspoon to transfer the samples. Embed each tissue explants with another 30\u00b5l drop of collagen \\(maintain the collagen solution in ice during the process to avoid gelification). Transfer the dishes into the incubator \\(5% CO2, 37\u00b0C) until the matrix is gelled, that takes approximately 40 min. Add Neurobasal complete warm medium \\(500\u00b5l in 24 well plates and 1.5ml in the petri dish). Incubate the cultures on the orbital shaker inside the incubator.\r\n\n\n\r\n\n\n**Immunostaining of slices:**\r\n\n\n1. Fix cultures with 4% PFA, pH 7.4 for \u00bd hour at room temperature in the dishes.\r\n  2. Wash with TBSL 20 minutes at room temperature in a shaker x 2.\r\n  3. Remove the slices from the culture dish and put them in a 24 wells box \\(if they are still attached to the round coverslips put each single slice in a well using forceps, if they are detached put a maximum of two slices per well using a small brush).\r\n  4. Put citrate buffer pH 6.1 in a glass tube and heat it in a microwave untill boiling.\r\n  5. Pour citrate buffer on the wells and leave the slices for at least 1 hour at room temperature.\r\n  6. Wash with TBSL 5 minutes at room temperature in a shaker.\r\n  7. Incubate in Methanol 50% \\(in H2Od) x 10 min.\r\n  8. Incubate in Methanol 70% \\(in H2Od) x 20 min.\r\n  9. Incubate in Methanol 100% \\(in H2Od) x 20 min.\r\n  10. Wash with TBSL 20 min x 2 in a shaker.\r\n  11. Incubate with primary antibody for 48 hours at 4\u00b0C in TBS containing 0.3% Triton X100 and specific serum \\(1.5%). Remember to use the specific serum from the host of the secondary antibody. \r\n  12. Wash with TBSL 1h x 3 in a shaker.\r\n  13. Incubate with secondary antibody overnight at 4\u00b0C in TBS with 0.3% Triton X100 and specific serum \\(the same as in step 11). Remember to filter the secondary antibody with a syringe and in-line sterile filter \\(0.45 \u00b5m, Sterilin). Add biotin after the filtration; do not filter the biotin solution.\r\n  14. Wash with TBSL 1h x 2 in a shaker.\r\n  15. Wash with TBS 1h in a shaker. \r\n  16. Wash with TB 1h in a shaker.\r\n  17. Make dehydratation directly in the wells if the slices are still attached to the round coverslips or mount the slices on a gelatine coated coverslip and let them dry at 35/40\u00b0C on a heating plate.\r\n  18. Incubate in ETOH 70% x 1 min.\r\n  19. Incubate in ETOH 96% x 1 min.\r\n  20. Incubate in ETOH 96% x 1 min.\r\n  21. Incubate in ETOH 100% x 1 min.\r\n  22. Incubate in ETOH 100% x 1 min.\r\n  23. Dry from the ethanol and cover with Mowiol containing DAPI \\(1:1000).\r\n  \r\n\n\n**Imaging and analysis:**\r\n\n\nThe analysis of the axonal/neurite growth in the cultures is done using the Neurite-J software developed by our group. Neurite-J is an \"ImageJ\":http://rsbweb.nih.gov/ij/index.html plug-in that works as an adaption of the Sholl method providing a semi-automatic tool for neurite outgrowth quantification in organotypic cultures. Neurite-J gives a good description of neurite growth providing counts of neurite number and neurite area at different distances from the organotypic explant, as well as some measures of the explant. You can download the plugin and the manual user from \"here\":http://imagejdocu.tudor.lu/doku.php?id=plugin:analysis:neurite-j:start\r\n\n\n\r\n\n\nMicrophotographs for quantitative analysis are taken using an epifluorescence microscope with a digital camera \\(in our case Olympus BX51 microscope with a DP50 camera). The images are captured with at least a 10X objective to ensure that the resolution is enough to see all the neurites. Usually, the neurite arbor does not fit into a single image, requiring a mosaic of multiple pictures to cover the entire field. The culture images are reconstructed and automatically photomerged using Adobe Photoshop CS4 \\(any software allowing the creation of mosaics should work). Due to the particular features of different microscopes and cameras, we recommend first capturing the images using different settings and running the analysis to define the optimal conditions. Identifying the best options for imaging the cultures is essential to obtain the best performance of Neurite-J plug-in.\r\n\n\n\r\n\n\nConceptually we divided the analysis process in two steps. \r\n\n\n1. The first phase is intended for image enhancement and generation of a measurable image.\r\n  2. The second step is the semi-automatic measurements. The algorithm is incorporated in a frame window to provide a user-friendly interface allowing the researcher to interact with the plug-in while interventions are requested.  \r\n  The steps to install and use the plug-in for neurite grow quantification are described in the Neurite-J user \"manual.\":http://imagejdocu.tudor.lu/doku.php?id=plugin:analysis:neurite-j:start The mathematical analysis of neurite growth measurements are discussed in Neurite-J: An Image-J plug-in for axonal analysis in organotypic cultures \\(Torres-Esp\u00edn et al., 2014)."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "Our methods for culturing DRG and spinal cord slices and analyzing axonal growth have been successfully used to acquire valuable data in different conditions \\(see listed references). For example, with these methods we demonstrated that sensory and motor neurons, from DRG and spinal cord slice cultures respectively, respond selectively to different neurotrophic factors in vitro. Neurite growth from DRG sensory neurons is enhanced by GDNF \\(glial-derived neurotrophic factor) and NGF \\(nerve growth factor) but not by BDNF \\(brain-derived neurotrophic factor) or NT-3 \\(neurotrophin-3). On the other hand, BDNF, GDNF and FGF-2 \\(fibroblast growth factor) promoted neuritogenic activity of motor neurons in SC slices \\(Allodi et al., 2011, 2013; Torres-Esp\u00edn et al., 2014). Moreover, our cultures provide a tool to study not only the phenomena but also the underlying mechanisms of neuritogenesis by both sensory and motor neurons. Thus, we could demonstrate that the specificity of FGF-2 for motor axonal growth is related to FGF-2 enhancing the interaction between FGFR-1 \\(fibroblast growth receptor 1) and PSA-NCAM \\(polysialylated neuronal cell adhesion molecule) \\(Allodi et al., 2013). Interestingly, these organotypic cultures allow not only the study of the effect of free substances added to the culture, but also of more complex conditions. For instance, the administration and concentration of the neurotrophic factors \\(and potentially other drugs) can be finely controlled using slow release systems, showing enhanced neuritogenesis with respect to free neurotrophins \\(Santos et al., 2016). The culture containing matrix can also be seeded with pro-regenerating cells. For example, co-culturing spinal cord slices with mesenchymal stem cells \\(Torres-Esp\u00edn et al., 2013) or Schwann cells \\(Allodi et al., 2011, 2014) demonstrated the potentiality of these cells to influence neurite growth. In addition, it is possible in these cultures to study the effect of extracellular matrix components by modifying the collagen gel with the addition of molecules such as laminin or fibronectin, which illustrate the substratum preference of sensory and motor neurons \\(Gonzalez-Perez et al., 2016).\r\n\n\n\r\n\n\nFinally, and probably more important, the results obtained in vitro with our methods demonstrated to have high translation to in vivo studies. Thus, the enhancement of neurite outgrowth by mesenchymal stem cells in spinal cord slices was transferred to promote motor axons regeneration in a rat model of ventral root avulsion \\(Torres-Esp\u00edn et al., 2013). The effect of FGF-2 in motor neuritogenesis was observed in vivo in a sciatic nerve injury model where transplantation of FGF-2 genetically modified Schwann cells promoted motor neuron regeneration \\(Allodi et al., 2014). The influence of substrate molecules seen in vitro was also observed in vivo when introducing these matrices in a sciatic nerve repair model \\(Gonzalez-Perez et al., 2016).\r\n\n\n\r\n\n\nIn summry, organotypic cultures in combination with our analyzing software Neurite-J provide a very useful toolbox for the investigation of axonal regeneration in vitro, for the screening of molecules and cells that may enhace regeneration, as a high throughput screening method for potential treatments to be translated to in vivo models."
+        },
+        {
+            "header": "References",
+            "content": "Allodi I, Casals-D\u00edaz L, Santos-Nogueira E, Gonzalez-Perez F, Navarro X, Udina E \\(2013) FGF-2 low molecular weight selectively promotes neuritogenesis of motor neurons in vitro. Mol Neurobiol 47:770-781.\r\n\n\nAllodi I, Guzm\u00e1n-Lenis M-S, Hern\u00e0ndez J, Navarro X, Udina E \\(2011) In vitro comparison of motor and sensory neuron outgrowth in a 3D collagen matrix. J Neurosci Methods 198:53\u201361.\r\n\n\nAllodi I, Mecollari V, Gonz\u00e1lez-P\u00e9rez F, Eggers R, Hoyng S, Verhaagen J, Navarro X, Udina E \\(2014) Schwann cells transduced with a lentiviral vector encoding Fgf-2 promote motor neuron regeneration following sciatic nerve injury. Glia 62:1736-1746.\r\n\n\nAssun\u00e7\u00e3o-Silva RC, Oliveira CC, Ziv-Polat O, Gomes ED, Sahar A, Sousa N, Silva NA, Salgado AJ \\(2015) Induction of neurite outgrowth in 3D hydrogel-based environments. Biomed Mater. 20:10:051001.\r\n\n\nAuer M, Allodi I, Barham M, Udina E, Neiss WF, Navarro X, Klimaschewski L \\(2013) C3 exoenzyme lacks effects on peripheral axon regeneration in vivo. J Peripher Nerv Syst. 18:30-36.\r\n\n\nChitsaz D, Morales D, Law C, Kania A \\(2015) An automated strategy for unbiased morphometric analyses and classifications of growth cones in vitro. PloS one. 10:e0140959.\r\n\n\nDaud MF, Pawar KC, Claeyssens F, Ryan AJ, Haycock JW \\(2012) An aligned 3D neuronal-glial co-culture model for peripheral nerve studies. Biomaterials. 33:5901-5913.\r\n\n\nFarrell K and Kothapalli CR \\(2012) Tissue engineering approaches for motor neuron pathway regeneration. J Regen Med. doi:10.4172/2325-9620.1000102\r\n\n\nForostyak O, Romanyuk N, Verkhratsky A, Sykova E, Dayanithi \\(2013) Plasticity of calcium signaling cascades in human embryonic stem cell-derived neural precursors. Stem cells and development. 22:1506-1521.\r\n\n\nGerardo-Nava J, Hodde D, Katona I, Bozkurt A, Grehl T, Steinbusch HW, Weis J, Brook GA \\(2014) Spinal cord organotypic slice cultures for the study of regenerating motor axon interactions with 3D scaffolds. Biomaterials. 35:4288-4296.\r\n\n\nGeuna S, Raimondo S, Fregnan F, Haastert\u2010Talini K, Grothe C \\(2016) In vitro models for peripheral nerve regeneration. Eur J Neurosci 43:287-96 .\r\n\n\nGonzalez-Perez F, Al\u00e9 A, Santos D, Barwig C, Freier T, Navarro X, Udina E \\(2016) Substratum preferences of motor and sensory neurons in postnatal and adult rats. Eur J Neurosci 43:431-442 . \r\n\n\nJin J, Limburg S, Joshi SK, Landman R, Park M, Zhang Q, Kim HT, Kuo AC \\(2013) Peripheral nerve repair in rats using composite hydrogel-filled aligned nanofiber conduits with incorporated nerve growth factor. Tissue Eng Part A. 19:2138-2146.\r\n\n\nKraus D, Boyle V, Leibig N, Stark GB, Penna V \\(2015) The Neuro-spheroid\u2014A novel 3D in vitro model for peripheral nerve regeneration. J Neurosci Methods. 246:97-105.\r\n\n\nM\u00f2dol L, Santos D, Cobianchi S, Gonz\u00e1lez-P\u00e9rez F, L\u00f3pez-Alvarez V, Navarro X \\(2015) NKCC1 activation is required for myelinated sensory neurons regeneration through  JNK-dependent pathway. J Neurosci 35:7414-7427.\r\n\n\nPark SJ, Park JS, Yang HN, Yi SW, Kim CH, Park KH \\(2015) Neurogenesis is induced by electrical stimulation of human mesenchymal stem cells co-cultured with mature neuronal cells. Macromol Biosci. 15:1586-1594.\r\n\n\nParra LM, Hartmann M, Schubach S, Li Y, Herrlich P, Herrlich A \\(2015) Distinct intracellular domain substrate modifications selectively regulate ectodomain cleavage of NRG1 or CD44. Mol Cell Biol 35:3381\u20133395. \r\n\n\nParsons XH \\(2013) Human stem cell derivatives retain more open epigenomic landscape when derived from pluripotent cells than from tissues. J Regen Med. 1:1000103.\r\n\n\nPhatak NR, Stankowska DL, Krishnamoorthy RR \\(2015) Transcription factor Brn-3b overexpression enhances neurite outgrowth in PC12 cells under condition of hypoxia. Cel Mol Neurobiol 35:769-783. \r\n\n\nRiggio C, Nocentini S, Catalayud MP, Goya GF, Cuschieri A, Raffa V, del R\u00edo JA \\(2013) Generation of magnetized olfactory ensheathing cells for regenerative studies in the central and peripheral nervous tissue. Int J Mol Sci. 14:10852-10868.\r\n\n\nSantos D, Giudetti G, Micera S, Navarro X, del Valle J \\(2016) Focal release of neurotrophic factors by biodegradable microspheres enhance motor and sensory axonal regeneration in vitro and in vivo. Brain Res. doi: 10.1016/j.brainres.2016.01.051..\r\n\n\nSchizas N, Andersson B, Hilborn J, Hailer NP \\(2014a) Interleukin\u20101 receptor antagonist promotes survival of ventral horn neurons and suppresses microglial activation in mouse spinal cord slice cultures. J Neurosci Res. 92:1457-1465.\r\n\n\nSchizas N, Rojas R, Kootala S. Andersson B, Pettersson J, Hilborn J, Hailer NP \\(2014b) Hyaluronic acid-based hydrogel enhances neuronal survival in spinal cord slice cultures from postnatal mice. J Biomater Appl. 286:825-836.\r\n\n\nTong LL, Ding YQ, Jing HB, Li XY, Qi JG \\(2015) Differential motor and sensory functional recovery in male but not female adult rats is associated with remyelination rather than axon regeneration after sciatic nerve crush. NeuroReport. 26:429-437.\r\n\n\nTorres-Esp\u00edn A, Quintanilla DL, For\u00e9s J, Allodi I, Gonz\u00e1lez F \\(2013) Neuroprotection and axonal regeneration after lumbar ventral root avulsion by reimplantation and mesenchymal stem cells transplant combined therapy. Neurotherapeutics 10:354\u2013365.\r\n\n\nTorres-Esp\u00edn A, Santos D, Gonz\u00e1lez-P\u00e9rez F, del Valle J, Navarro X \\(2014) Neurite-J: An Image-J plug-in for axonal analysis in organotypic cultures. J Neurosci Methods 236:26\u201339."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "The work developed in our laboratory was funded by the European Community Seventh Framework Programme \\(FP7-HEALTH-2011) under grant agreements 278612 \\(BIOHYBRID), 280778 \\(MERIDIAN) and 611687 \\(NEBIAS), and by funds from CIBERNED and TERCEL of the Instituto de Salud Carlos III of Spain."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1016/j.jneumeth.2011.03.006",
+                "date": "2015-09-09 00:02:51",
+                "title": "In vitro comparison of motor and sensory neuron outgrowth in a 3D collagen matrix",
+                "authors": [
+                    "Ilary Allodi",
+                    "M\u00f3nica-Sof\u00eda Guzm\u00e1n-Lenis",
+                    "Joaquim Hern\u00e0ndez",
+                    "Xavier Navarro",
+                    "and Esther Udina"
+                ],
+                "journal": "Journal Of Neuroscience Methods",
+                "logo": ""
+            },
+            {
+                "doi": "10.1016/j.jneumeth.2014.08.005",
+                "date": "2015-09-09 00:03:39",
+                "title": "Neurite-J: An Image-J plug-in for axonal growth analysis in organotypic cultures",
+                "authors": [
+                    "A. Torres-Esp\u00edn",
+                    "D. Santos",
+                    "F. Gonz\u00e1lez-P\u00e9rez",
+                    "J. del Valle",
+                    "and X. Navarro"
+                ],
+                "journal": "Journal Of Neuroscience Methods",
+                "logo": ""
+            },
+            {
+                "doi": "10.1007/s12035-012-8389-z",
+                "date": "2015-09-09 00:04:39",
+                "title": "FGF-2 Low Molecular Weight Selectively Promotes Neuritogenesis of Motor Neurons In Vitro",
+                "authors": [
+                    "Ilary Allodi",
+                    "Laura Casals-D\u00edaz",
+                    "Eva Santos-Nogueira",
+                    "Francisco Gonzalez-Perez",
+                    "Xavier Navarro",
+                    "and Esther Udina"
+                ],
+                "journal": "",
+                "logo": ""
+            },
+            {
+                "doi": "10.1002/glia.22712",
+                "date": "2015-09-09 00:05:56",
+                "title": "Schwann cells transduced with a lentiviral vector encoding Fgf-2 promote motor neuron regeneration following sciatic nerve injury",
+                "authors": [
+                    "Ilary Allodi",
+                    "Vasil Mecollari",
+                    "Francisco Gonz\u00e1lez-P\u00e9rez",
+                    "Ruben Eggers",
+                    "Stefan Hoyng",
+                    "Joost Verhaagen",
+                    "Xavier Navarro",
+                    "and Esther Udina"
+                ],
+                "journal": "",
+                "logo": ""
+            },
+            {
+                "doi": "10.1523/JNEUROSCI.4079-14.2015",
+                "date": "2015-09-09 00:06:36",
+                "title": "NKCC1 Activation Is Required for Myelinated Sensory Neurons Regeneration through JNK-Dependent Pathway",
+                "authors": [
+                    "L. Modol",
+                    "D. Santos",
+                    "S. Cobianchi",
+                    "F. Gonzalez-Perez",
+                    "V. Lopez-Alvarez",
+                    "and X. Navarro"
+                ],
+                "journal": "Journal Of Neuroscience",
+                "logo": ""
+            },
+            {
+                "doi": "10.1016/j.brainres.2016.01.051",
+                "date": "2016-02-22 23:16:09",
+                "title": "Focal release of neurotrophic factors by biodegradable microspheres enhance motor and sensory axonal regeneration in vitro and in vivo",
+                "authors": [
+                    "Daniel Santos",
+                    "Guido Giudetti",
+                    "Silvestro Micera",
+                    "Xavier Navarro",
+                    "and Jaume del Valle"
+                ],
+                "journal": "",
+                "logo": ""
+            },
+            {
+                "doi": "10.1111/ejn.13057",
+                "date": "2016-02-22 23:16:54",
+                "title": "Substratum preferences of motor and sensory neurons in postnatal and adult rats",
+                "authors": [
+                    "Francisco Gonzalez-Perez",
+                    "Albert Al\u00e9",
+                    "Daniel Santos",
+                    "Christina Barwig",
+                    "Thomas Freier",
+                    "Xavier Navarro",
+                    "Esther Udina",
+                    "and Paul Bolam"
+                ],
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 13552,
+                "identity": "a0721314-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Xavier Navarro",
+                "email": "Xavier.Navarro@uab.cat",
+                "orcid": "",
+                "institution": "Neuroplasticity and Regeneration",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Xavier",
+                "middleName": "",
+                "lastName": "Navarro",
+                "suffix": ""
+            },
+            {
+                "id": 13546,
+                "identity": "a07203b2-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Abel Torres-Esp\u00edn",
+                "email": "",
+                "orcid": "",
+                "institution": "Faculty of Rehabilitation Medicine, University of Alberta",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Abel",
+                "middleName": "",
+                "lastName": "Torres-Esp\u00edn",
+                "suffix": ""
+            },
+            {
+                "id": 13547,
+                "identity": "a0720993-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Ilary Allodi",
+                "email": "",
+                "orcid": "",
+                "institution": "Karolinska Institutet, Department of Neuroscience",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Ilary",
+                "middleName": "",
+                "lastName": "Allodi",
+                "suffix": ""
+            },
+            {
+                "id": 13548,
+                "identity": "a0720c41-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Daniel Santos",
+                "email": "",
+                "orcid": "",
+                "institution": "Neuroplasticity and Regeneration",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Daniel",
+                "middleName": "",
+                "lastName": "Santos",
+                "suffix": ""
+            },
+            {
+                "id": 13549,
+                "identity": "a0720de6-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Francisco Gonz\u00e1lez-P\u00e9rez",
+                "email": "",
+                "orcid": "",
+                "institution": "Neuroplasticity and Regeneration",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Francisco",
+                "middleName": "",
+                "lastName": "Gonz\u00e1lez-P\u00e9rez",
+                "suffix": ""
+            },
+            {
+                "id": 13550,
+                "identity": "a0720f5f-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Esther Udina",
+                "email": "",
+                "orcid": "",
+                "institution": "Neuroplasticity and Regeneration",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Esther",
+                "middleName": "",
+                "lastName": "Udina",
+                "suffix": ""
+            },
+            {
+                "id": 13551,
+                "identity": "a072119c-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Jaume del Valle",
+                "email": "",
+                "orcid": "",
+                "institution": "Neuroplasticity and Regeneration",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jaume",
+                "middleName": "del",
+                "lastName": "Valle",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2016-02-22 23:47:38",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2016.014",
+        "doiUrl": "https://doi.org/10.1038/protex.2016.014",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2609238,
+                "identity": "e6cbf720-5653-4d80-b6cf-1040e69e8987",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:47",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 2075684,
+                "visible": true,
+                "origin": "",
+                "legend": "Protocol diagram   Protocol diagram   Diagram of the sequential steps from the animal to the graph described in the present protocol",
+                "description": "",
+                "filename": "figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-4273/v1/figure_1.jpg"
+            },
+            {
+                "id": 13465028,
+                "identity": "65304b7d-0bb8-4f1c-ad76-b3143c1d8ace",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:45:22",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 313251,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-4273/v1/d0f011ed-4434-41c9-8c42-81876d615675.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Axonal growth, Spinal cord slice culture, Dorsal root ganglia culture, Neurite-J, ImageJ",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "Organotypic cultures are multicellular in vitro models that preserve both cytoarchitecture and cell interactions that form the tissue, providing a closer approximation to in vivo models in comparison with dissociated cell cultures. Previous studies in our lab proposed a method of dorsal root ganglia \\(DRG) and spinal cord slice \\(SC) organotypic 3D cultures to study motor and sensory axonal regeneration. Although these models are useful to study how different factors and substrates affect axonal growth, manual sample analysis can be inaccurate, tiresome and high time-consuming. Therefore, we have developed a computer-aided method, using the Neurite-J plug-in, to analyze the neurite outgrowth in organotypic cultures, that can also be applied to other types of explants. This program, implemented as a plug-in for ImageJ software, markedly reduces the time needed in the manual analysis, improves the accuracy and increases the amount of information obtained from each sample. Therefore, these organotypic 3D cultures and the computed aired method are a powerful and useful tool to obtain valuable data of neurite growth in different conditions. The objective of the present work is to provide the protocol of our DRG and SC slice cultures, from the animal to the image analysis, that will allow studying neurite outgrowth in a reliable in vitro model.\r\n\n\n\r\n\n\n<a href=\"#figures\" data-url=\"http://www.nature.com/protocolexchange/system/uploads/4273/thumbnail/Protocol_diagram.png?1456182365\">See figure in Figures section.</a>",
+        "manuscriptTitle": "Analysis of axonal growth in organotypic neural cultures",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2016-03-01 16:53:42",
+                "doi": "10.1038/protex.2016.014",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a071b352-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "March 1st, 2016",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3429,
+                "name": "Neuroscience"
+            },
+            {
+                "id": 3430,
+                "name": "Biological techniques"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2016-03-01 16:53:42",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

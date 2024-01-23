@@ -1,0 +1,236 @@
+{
+    "identity": "nprot-6745",
+    "title": "Comparative analysis of metabolism in parasitic worms",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Comparative analyses of metabolism of various species leads to better understanding of similarities and differences in biology among them. This could lead to insights into their specific niche-related adaptations. Moreover, when contrasted with host organism\u2019s metabolism, such comparisons are likely to yield important insights that may be leveraged to specifically target parasites. \r\n\n\n\r\n\n\n<a href=\"#figures\" data-url=\"http://www.nature.com/protocolexchange/system/uploads/6579/original/metabolism_comparison_protocol_figure.jpg?1523557719\">See figure in Figures section.</a>\r\n\n\n\r\n\n\n**Figure 1. Overview of the protocol.** The dashed lines represent an optional step to ascertain lenient completion of modules for applications sensitive to false negatives.\r\n\n\n\r\n\n\nAs shown in **Figure 1**, many different approaches can be taken for metabolic comparisons. In this protocol we describe multiple different analysis, especially in context of the work done for the 50 helminth initiative. Since the primary objective was to see a large scale overview of metabolic potential for different groups of helminths, many of the approaches included a phylogenetic analysis at the end.\r\n\n\nPathway Tools package<sup>1</sup> was used to reconstruct individual metabolic network of each species based on reference pathways in the Biocyc database<sup>2</sup>. These can then be analyzed to discover vitamin and amino acid auxotrophies. \r\n\n\nKEGG database<sup>3</sup> also has reference pathways. Many of these are relevant to helminth biology. These pathways can be reconstructed using the input ECs \\(Enzyme Commission numbers) for each species. These species-specific metabolic networks can then be compared either based on overall coverage \\(i.e. % of enzymes present), or diversity of extent of coverage in a species group. The networks can also be analyzed to identify species-specific chokepoint enzymes. A chokepoint in a directed network is a node with either a single outgoing or a single incoming edge. This means that the chokepoint enzyme either uniquely consumes or uniquely produces a substrate. This makes the enzyme an especially interesting drug target. The identified chokepoints can then be used to generate a phylogenetic tree to see whether closely related species share chokepoints in general.\r\n\n\nKEGG also defines smaller networks, which may be part of multiple larger pathways. These are called \u201cmetabolic modules\u201d. Since these are relatively smaller, they are more amenable to topological analysis. We use every species\u2019 enzyme annotations to find which KEGG metabolic modules are \u201ccomplete\u201d in the species \\(i.e. every enzyme needed to produce the final substrate, if given the initial substrate\\(s), is annotated). This analysis follows Tyagi et al.<sup>4</sup>. The identified complete modules can then be used to generate a phylogenetic tree which can be used to identify any unexpected evolutionary patterns in the metabolic potential of helminths. Since every single indispensable enzymatic step in a module needs to be present for the module to be deemed complete, this analysis is especially sensitive to false negatives. To guard against this, a \u201clenient completion\u201d is also analyzed, which allows absence of up to 1 enzyme potentially due to misannotation or missed genecalls4. Any phylogenetic peculiarities identified using module completion that are also supported by lenient completion analysis are likely to be true.\r\n\n\nUsing just the EC numbers associated with each species, one could directly generate phylogenetic trees which offer a simple overview of metabolic potential evolution. In general, however, the data at this level is more noisy and more insights are obtained by looking at the data at the module or pathway level."
+        },
+        {
+            "header": "Reagents",
+            "content": "KEGG database v70.\r\n\n\nBiocyc Database.\r\n\n\nmodDFS tool."
+        },
+        {
+            "header": "Equipment",
+            "content": "Computer cluster."
+        },
+        {
+            "header": "Procedure",
+            "content": "**Step A: Pathway Tools based reconstruction to find auxotrophies**\r\n\n\n\r\n\n\nThe input to Step A is a high-confidence EC set for the parasitic worms. \r\n\n\n1. Run Pathway Tools pipeline for each species using Biocyc database. It uses a set of rules to assign evidence scores for pathway predictions based on: presence of most of the ECs for a pathway, presence of unique ECs, presence of the first two steps \\(for a degradation pathway), presence of the last two steps \\(for a biosynthetic pathway), presence of >50% enzymes \\(for energy metabolism pathways). It also uses taxonomic pruning, wherever information is available, to reduce false-positives\r\n  2. Analyze biosynthesis pathways for vitamins and amino acids. These can then be compared to identify species or species-group specific auxotrophies.\r\n  The output from Step A is a table showing each species\u2019 biosynthetic capability of vitamins and amino acids.\r\n\n\n\r\n\n\n**Step B: Reconstructed KEGG pathways and chokepoints comparison**\r\n\n\nThe input to Step B is a high-confidence EC set for the parasitic worms. \r\n\n\n1. From the reference pathways in KEGG database, remove those that aren\u2019t relevant to helminths. This is done by including only the KEGG pathways that have at least one reference pathway for a nematode/platyhelminth species in the KEGG database. This meant excluding pathways such as \u2018Carbon fixation in photosynthetic organisms\u2019, even if some of the enzymes implicated in these pathways are found in helminths. In addition, some manual curation may be needed. E.g. excluding caffeine metabolism, which does have a reference pathway for some nematodes \\(\nC. elegans\nand\nC. briggsae\nKEGG v70) but is deemed unlikely to be of relevance to most helminths studied by us. For KEGG v70, this leaves 65 KEGG pathways deemed to be \u2018helminth-relevant\u2019.\r\n  2. Coverage is defined as the fraction of all reference pathway ECs that are annotated in a given species. Calculate coverage for every helminth-relevant KEGG metabolic pathway.\r\n  3. Coverage is compared separately among different groups of worms. These groups are either phylum level \\(platyhelminths and nematodes) or subsets thereof \\(cestodes and trematodes for platyhelminths and parasites from different clades of nematodes). Some comparisons are done among only the parasites. This means defining groups like \u2018Clade IVa-\u2019 \\(all Clade IVa worms except the free living e.g.\nRhabditophanes\n) and \u2018Clade V-\u2019 \\(all Clade V worms except the free living e.g.\nC. elegans\nand\nP. pacificus\n). The comparisons are performed using Wilcoxon tests, and FDR corrected P-values \\(corrected using the Benjamini-Hochberg procedure) are used to assign significance \\(P<0.05).\r\n  4. Coverage diversity is compared between different worm groups. The coefficient of variation of pathway coverage is used to measure the variation in coverage of these pathways among these groups. Comparisons are also performed across all worms between different \u2018superpathways\u2019 \\(e.g. combining all \u2018amino acid metabolism\u2019 pathways together). Wilcoxon test over the distribution of coefficient of variation is performed for these comparisons.\r\n  5. The chokepoint enzymes are identified according to Taylor et al\n5\n, with the following modification: the metabolic networks analyzed are not the entire reference reaction sets in KEGG, but only the subnetworks formed by the reactions annotated in the species of interest \\(including ECs from hole-filling), resulting in more organism-specific metabolic networks.  Chokepoints are reported in context of these species-specific networks. \r\n  6. Clustering of species based on detected chokepoint enzymes is performed. This is just a presence-absence based clustering using the Jaccard similarity index and Ward-linkage method. \r\n  7. Generate a phylogenetic tree to see whether closely related species share chokepoints in general.\r\n  The output from Step B is statistical metrics \\(P-values) for comparison between worm groups for pathway coverage extent and coverage diversity. It also yields a set of species-specific chokepoints and a phylogenetic tree based on presence-absence of those chokepoints. \r\n\n\n\r\n\n\n**Step C: KEGG metabolic module completion analysis.**\r\n\n\n\r\n\n\nThe input to Step C is a high-confidence EC set for the parasitic worms. \r\n\n\n1. Presence/absence of KEGG metabolic \u2018modules\u2019 are ascertained using the modDFS algorithm\n4\n. The algorithm starts from the final product of the module and systematically traverses all those nodes which can produce this product by a chain of substrate-product relations. \r\n  2. Species clustering based on presence/absence of modules is performed using Ward-linkage based on the Jaccard similarity index. Generate a phylogenetic tree to see whether closely related species share metabolic modules in general.\r\n  3. For applications that are sensitive to false negatives, a \u201clenient completion\u201d is also ascertained\n4\n.\r\n  4. Species clustering based on lenient presence/absence of modules is performed using Ward-linkage based on the Jaccard similarity index. Generate a phylogenetic tree to see whether closely related species share metabolic modules in general.\r\n  The output from Step C is a table showing which KEGG metabolic modules are either strictly or leniently complete in which worm species. When interpreting these results it must be remembered to only use the lenient completion results to remove potential false negatives.\r\n\n\n\r\n\n\n**Step D: Species and group comparison based on EC content.**\r\n\n\nThe input to Step D is a high-confidence EC set for the parasitic worms.\r\n\n\n1. Species clustering based on presence/absence of ECs is performed using Ward-linkage based on the Jaccard similarity index. Generate a phylogenetic tree to see whether closely related species share metabolic potential defined simply by presence of individual ECs.\r\n  The output from Step D is a phylogenetic tree which can be used to find potential peculiarities in metabolic potential evolution."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "The output from the protocol is a set of multiple comparisons between worm groups based on high confidence EC annotations."
+        },
+        {
+            "header": "References",
+            "content": "1. Karp, P.D. et al. Pathway Tools version 19.0 update: software for pathway/genome informatics and systems biology. Brief Bioinform 17, 877-90 \\(2016).\r\n  2. Caspi, R. et al. The MetaCyc database of metabolic pathways and enzymes and the BioCyc collection of pathway/genome databases. Nucleic Acids Res 40, D742-53 \\(2012).\r\n  3. Kanehisa, M. et al. Data, information, knowledge and principle: back to metabolism in KEGG. Nucleic Acids Res 42, D199-205 \\(2014).\r\n  4. Tyagi, R., Rosa, B.A., Lewis, W.G. & Mitreva, M. Pan-phylum Comparison of Nematode Metabolic Potential. PLoS Negl Trop Dis 9, e0003788 \\(2015).\r\n  5. Taylor, C.M. et al. Discovery of anthelmintic drug targets and drugs using chokepoints in nematode metabolic pathways. PLoS Pathog 9, e1003505 \\(2013)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 15643,
+                "identity": "a16813ff-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Makedonka Mitreva",
+                "email": "mmitreva@wustl.edu",
+                "orcid": "",
+                "institution": "MGI, Washington University in St. Louis",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Makedonka",
+                "middleName": "",
+                "lastName": "Mitreva",
+                "suffix": ""
+            },
+            {
+                "id": 15640,
+                "identity": "a1680ade-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Rahul Tyagi",
+                "email": "",
+                "orcid": "",
+                "institution": "Mitreva Lab (MGI, Washington University in St. Louis)",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Rahul",
+                "middleName": "",
+                "lastName": "Tyagi",
+                "suffix": ""
+            },
+            {
+                "id": 15641,
+                "identity": "a1680f9d-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Swapna Seshadri",
+                "email": "",
+                "orcid": "",
+                "institution": "Hospital for Sick Children, Toronto, Ontario, Canada",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Swapna",
+                "middleName": "",
+                "lastName": "Seshadri",
+                "suffix": ""
+            },
+            {
+                "id": 15642,
+                "identity": "a168123e-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "John Parkinson",
+                "email": "",
+                "orcid": "",
+                "institution": "Hospital for Sick Children, Toronto, Ontario, Canada",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "John",
+                "middleName": "",
+                "lastName": "Parkinson",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2018-04-12 18:42:48",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2018.048",
+        "doiUrl": "https://doi.org/10.1038/protex.2018.048",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2610106,
+                "identity": "407ace35-5285-449b-a470-4a846b9d2a40",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:25",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 362811,
+                "visible": true,
+                "origin": "",
+                "legend": "Overview of the protocol   The dashed lines represent an optional step to ascertain lenient completion of modules for applications sensitive to false negatives.\r\n",
+                "description": "",
+                "filename": "figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-6745/v1/figure_1.jpg"
+            },
+            {
+                "id": 13465721,
+                "identity": "6f7c4b55-2d5d-456b-8618-d5f766079d59",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:47:56",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 189865,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-6745/v1/280ea9db-ea38-4253-abca-0d095fd1962d.pdf"
+            }
+        ],
+        "financialInterests": "none",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "metabolism,  enzymes, helminths, nematoda, platyhelminthes, metabolic pathways, auxotrophy, metabolic pathway coverage, metabolic pathway diversity",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "Ascertaining metabolic potential of parasites is an important step in understanding their biology, and getting insights into host-parasite interactions. Here we describe a computational protocol to use a set of high confidence predictions for enzymes encoded in worm genomes for comparative analyses at different levels of pathway resolution. This also includes analysis of chokepoint enzymes in the organism\u2019s metabolic pathway.",
+        "manuscriptTitle": "Comparative analysis of metabolism in parasitic worms",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2018-04-17 13:21:01",
+                "doi": "10.1038/protex.2018.048",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a163bfa0-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "April 17th, 2018",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 4244,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 4245,
+                "name": "Biotechnology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2018-04-17 13:21:01",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

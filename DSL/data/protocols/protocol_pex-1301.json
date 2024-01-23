@@ -1,0 +1,293 @@
+{
+    "identity": "pex-1301",
+    "title": "<p>High-throughput single-cell joint analysis of histone modifications and gene expression by Paired-Tag</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>Covalent modifications to histone proteins play critical roles in regulating cell-type-specific gene expression programs in multi-cellular organisms<sup>1,2</sup>. Sigle-cell methods for profiling histone modifications<sup>3-9</sup>&nbsp;were recently reported. However, integrative analysis of different histone modifications in heterogeneous tissues is very challenging because of the difficulty in aligning cell clusters defined based on different histone marks, which have different relationships to gene expression and cell states. Paired-Tag addresses this challenge by enabling simultaneous profiling of gene expression and histone modifications from the same individual cells. Cells of the same types in a heterogenous population could be grouped together based on their similar transcription profiles in the RNA component of the Paired-Tag profiles, and the different histone modification profiles could be directly obtained and integrated from the DNA component of the Paired-Tag datasets.</p><p><br></p><p>Paired-Tag builds upon a technique that we previously developed, Paired-seq<sup>10</sup>, which utilizes a combinatorial barcode indexing strategy<sup>11</sup>&nbsp;for joint analysis of gene expression and chromatin accessibilities in single cells. Paired-Tag combines Paired-seq with the CUT&amp;Tag strategy<sup>7</sup>. Like Paired-seq, Paired-Tag does not require specific instruments and can be performed in standard molecular biology laboratories. It is highly-scalable, capable of processing up to 500,000 nuclei in a single experiment. It generates joint histone modifications and gene expression profiles as effective as stand-alone single cell scRNA-seq and scChIP-seq assays.</p><p><br></p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PBS (Thermo Fisher Scientific, Cat#10010-23)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tris-HCl (Sigma, Cat#S7653)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MgCl<sub>2</sub>&nbsp;(Sigma, Cat#63069)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NaCl (Sigma, Cat#S7653)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KCl (Sigma, Cat#P9333)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Protease Inhibitor (Roche, Cat#05056489001)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RNase OUT (Invitrogen, Cat#10777-019)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUPERase IN (Invitrogen, Cat#AM2694)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IGEPAL CA-630 (Sigma, Cat#I8896)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sucrose (Sigma, Cat#S7903)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DTT (Sigma, Cat#D9779)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Triton-X100 (Sigma, Cat#T9823)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HEPES (Invitrogen, Cat#15630106)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Spermidine (Sigma, Cat#85558)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Digitonin (Sigma, Cat#D141)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EDTA (Invitrogen, Cat#AM9261)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dNTP (NEB, Cat#N0447S)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Maxima Reverse H minus Reverse Transcriptase (Invitrogen, Cat#EP0751)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T4 DNA Ligase (NEB, Cat#M0202L)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NEBuffer 3.1 (NEB, Cat#B7203S)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SDS (Invitrogen, Cat#15553-035)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Protease K (NEB, Cat#P8107S)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SPRI beads (Beckman coulter, Cat#B23319)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Terminal Transferase (NEB, Cat#M0315S)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KAPA HiFi HS (KAPA, Cat#KK2502)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10X Cutsmart buffer&nbsp;(NEB, Cat#M7204S)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SbfI-HF (NEB, Cat#R3642)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FokI (NEB, Cat#R0109S)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NotI-HF (NEB, Cat#R3189)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NEB Q5 DNA Polymerase (NEB, Cat#M0491)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QIAquick PCR purification kit (QIAGEN, Cat#28104)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KAPA qPCR library quantification kit (Roche)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Barcodes plates and DNA primers, oligos (IDT)</p><p><br></p><p><strong><em>The reagents in this section can be stored at -20&nbsp;\u00b0C for up to 6 months</em></strong></p><p><u>Barcode Plates (R02, R03 plates):</u></p><p>1. Distribute the R02 and R03 barcoded oligos to two 96-well plates, respectively as: 6 \u00b5L barcoded oligos (R02 or R03, 100 \u00b5M), 5.5 \u00b5L Linker (R02 or R03, 100 \u00b5M), 38.5 \u00b5L H<sub>2</sub>O.</p><p>2. Seal the plates, heat for 5 mins at 95&nbsp;\u00b0C and slowly cool down to 12&nbsp;\u00b0C at the speed of 0.1&nbsp;\u00b0C/s.</p><p>3. Aliquot the each of the annealed barcodes plate into 4 working plates (each plate with 10 \u00b5L of annealed oligos in each well), sealed and stored at -20&nbsp;\u00b0C.</p><p><u>&nbsp;</u></p><p><u>P5 adaptor mix:</u></p><p>1. Mix the oligo DNA as (a) P5 complex: 25 \u00b5L P5-FokI (100 \u00b5M), 25 \u00b5L P5c-NNDC-FokI (100 \u00b5M); and (b) P5H complex: 25 \u00b5L P5H-FokI (100 \u00b5M), 25 \u00b5L P5Hc-NNDC-FokI (100 \u00b5M).</p><p>2. Heat both stock mixture tubes for 5 mins at 95&nbsp;\u00b0C and slowly cool down to 12\u00b0C at the speed of 0.1&nbsp;\u00b0C/s.</p><p>3. Mixed P5 complex with P5H complex (on the ice) at the ratio of 1:3, stored at -20&nbsp;\u00b0C.</p><p><u>&nbsp;</u></p><p><u>Barcoded RT primers:</u></p><p>Mix the oligo (RNA barcode R01) in 12 corresponding 1.5 mL low-binding tubes: 12.5 \u00b5L RNA_RE (#01 to #12 in the 12 tubes, 100 \u00b5M), 12.5 \u00b5L RNA_NRE (#01 to #12 matched with RNA_RE, 100 \u00b5M), and 75 \u00b5L H<sub>2</sub>O, stored at -20&nbsp;\u00b0C.</p><p><u>&nbsp;</u></p><p><u>Barcoded Protein A-Tn5:</u></p><p>1. Mix the oligo (DNA barcode R01) in 12 PCR tubes: 25 \u00b5L DNA_RE (#01 to #12 in the 12 tubes, 100 \u00b5M), 25 \u00b5L pMENTs (100 \u00b5M, same in the 12 tubes).</p><p>2. Heat the mixtures for 5 mins at 95&nbsp;\u00b0C and slowly cool down to 12&nbsp;\u00b0C at the speed of 0.1&nbsp;\u00b0C/s.</p><p>3. Mix 1 \u00b5L of annealed transposome DNA with 6 \u00b5L of unloaded proteinA-Tn5 (0.5 mg/mL), briefly vortex and quickly spun down.</p><p>4. The mixtures were incubated at room temperature for 30 min then at 4&nbsp;\u00b0C for an additional 10 min, stored at -20&nbsp;\u00b0C.</p><p><u>&nbsp;</u></p><p><u>Tn5-AdaptorA:</u></p><p>1. Mix the oligo as: 25 \u00b5L Adaptor A (100 \u00b5M), 25 \u00b5L pMENTs (100 \u00b5M).</p><p>2. Heat the mixture for 5 mins at 95&nbsp;\u00b0C and slowly cool down to 20&nbsp;\u00b0C at the speed of 0.1&nbsp;\u00b0C/s.</p><p>3. Mix 1 \u00b5L of annealed transposome DNA with 6 \u00b5L of unloaded Tn5 (0.5 mg/mL), briefly vortex and quickly spun down.</p><p>4. The mixtures were incubated at room temperature for 30 min then at 4&nbsp;\u00b0C for an additional 10 min. Dilute 10 X with dilution buffer (10 mM Tris-HCl pH7.5, 100 mM NaCl, 50% Glycol, 1 mM DTT), stored at -20&nbsp;\u00b0C.</p><p><br></p><p><u>1 mM dCTP:</u>&nbsp;2 \u00b5L dCTP (100 mM) + 198 \u00b5L ultrapure H<sub>2</sub>O.</p><p><br></p><p><strong><em>The reagents in this section can be stored at 4&nbsp;\u00b0C for up to 1 months</em></strong></p><p><u>0.2% NIB (Nuclei isolation buffer):</u></p><p>1. Prepare the 10% IGEPAL CA-630 by 1:10 dilution with PBS.</p><p>2. Prepare the 0.2% NIB as: 200 \u00b5L 10% IGEPAL CA-630, 0.5 g BSA, and add PBS to 10 mL.</p><p><br></p><p><u>2X TB (Tagmentation buffer):</u></p><p>1. Prepare the 2X TB as: 660 \u00b5L Tris-Ac (pH 7.8, 1 M), 440 \u00b5L K-Ac (3 M), 3.2 mL DMF, H<sub>2</sub>O (5.59 mL).</p><p>2. Aliquot the 2X TB to 1.5 mL tubes and stored at 4&nbsp;\u00b0C.</p><p>3. To avoid contamination, each experiment should use a new tube of 2X TB.</p><p><br></p><p><u>1M Spermidine:</u>&nbsp;145 mg in 1 mL ultrapure H<sub>2</sub>O.</p><p><u>10% IGEPAL-CA630:</u>&nbsp;100 \u00b5L + 900 \u00b5L ultrapure H<sub>2</sub>O.&nbsp;</p><p><u>2% Digitonin:</u>&nbsp;20 mg in 1 mL DMSO.</p><p><u>250 mM MgCl</u><sub><u>2</u></sub><u>:</u>&nbsp;250 \u00b5L MgCl<sub>2&nbsp;</sub>(1 M) + 750 \u00b5L&nbsp;ultrapure H<sub>2</sub>O.</p><p><u>&nbsp;</u></p><p><strong><em>The reagents in this section can be stored at RT for up to 1 months.</em></strong></p><p><u>40.4 mM EDTA:</u>&nbsp;80.8 \u00b5L EDTA (500 mM) + 919.2 \u00b5L ultrapure H<sub>2</sub>O.</p><p><br></p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Benchtop centrifuge (Eppendorf)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ThermoMixer (Eppendorf)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Swing bucket centrifuge (ThermoFisher)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Qubit Fluorometric Quantification (ThermoFisher)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Magnetic stands (96-well plate stand, PCR-tube stand)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fragment analyzer/Tapestation (Agilent)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Micropipetts (0.5-20 \u03bcl, 10-200 \u03bcl, 100-1000 \u03bcl)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RNase-free tubes (300 \u00b5L, 1.5 mL)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Maximum recovery tubes (1.5 mL, Axygen, MCT150LC)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;30 \u00b5m Cell-Tric (Sysmex, Cat#04-004-2326)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;96-well plates (Eppendorf, 0030603303)</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "A. Day 1: nuclei preparation and antibody staining\nA-1 Freshly prepare the following buffer:\n1. Prepare the Douncing Buffer (if processing mouse brain tissues) per sample as: 0.5 mL sucrose (1 M), 25 \u00b5L KCl (2 M), 10 \u00b5L MgCl\n2\n(1 M), 20 \u00b5L Tris-HCl (1 M), 2 \u00b5L DTT (1 M), 40 \u00b5L Protease Inhibitor (50 X), 50 \u00b5L SUPERase IN, 25\u00b5L RNase OUT and 1,328 \u00b5L H\n2\nO\n2. Prepare the Complete Buffer as: 40 \u00b5L HEPES (pH 7.5, 1 M), 75 \u00b5L NaCl (4 M), 1 \u00b5L spermidine (1 M), 40 \u00b5L Protease Inhibitor (50 X), 50 \u00b5L SUPERase IN, 25 \u00b5L (RNase OUT), 2 \u00b5L IGEPAL-CA630 (10%), 10 \u00b5L digitonin (2%), 8 \u00b5L EDTA (500 mM) and 1,749 \u00b5L H\n2\nO.\n3. Prepare the 0.2% NIB-RPI (RNase and Protease Inhibitor) as: 1 mL 0.2% NIB, 20 \u00b5L Protease Inhibitor (50X), 25 \u00b5L SUPERase IN and 12.5 \u00b5L RNaseOUT. Additional 0.2% NIB-RPI may be needed if there are multiple samples.\nA-2 Nuclei preparation:\nI, Cultured cells:\n1. Disassociated the cells according to culture protocol.\n2. Spin-down cells at 300 g for 5 mins, resuspended the cells in 1 mL (5 million cells) 0.2% NIB-RPI. Sit on ice for 5 min.\n3. Count the nuclei using cell counter.\nII, Mouse brain tissues:\n1. Prechill any tubes or tools, set the centrifuge to 4\u00a0\u00b0C.\n2. Add 10 \u00b5L 10% Triton-X100 in to the douncer (1 mL), add 1 mL Douncing Buffer.\n3. Transfer the tissue dissection into douncer.\n4. Use loose pestle 5-10 times gently followed by tight pestle for 15-20 times.\n5. Filter with 30 \u00b5m\u00a0Cell-Tric. Transfer to1.5 mL Maximum Recovery tubes. Spin down at 1000 g for 10 min.\n6. Wash with 1 mL Douncing Buffer, spin down again at 1,000 g for 10min.\n7. Resuspended the cells in 1 mL (5 million cells) 0.2% NIB-RPI. Sit on ice for 5 min.\n8. Count the nuclei using cell counter.\nA-3 Immuno-staining:\n1. Aliquot 300 k nuclei each into 12 Maximum Recovery tubes (total of 3.6 million nuclei); Species-mixing are recommended in at least one tube to estimate the potential collision rate.\n2. Spin down the nuclei at 1,000 g for 10 min and resuspended in 50 \u00b5L Complete Buffer.\n3. Add 2 \u00b5g antibodies to each tube and incubate the mixture with rotation at 4\u00a0\u00b0C overnight.\nB. Day2: multi-omics tagging and nuclei barcoding\nB-1 Freshly prepare the following buffer:\n1. Prepare the Complete Buffer in 2 mL or appropriate tube as: 40 \u00b5L HEPES (pH 7.5, 1 M), 75 \u00b5L NaCl (4 M), 1 \u00b5L spermidine (1 M), 40 \u00b5L Protease Inhibitor (50 X), 50 \u00b5L SUPERase IN, 25 \u00b5L (RNase OUT), 2 \u00b5L IGEPAL-CA630 (10%), 10 \u00b5L digitonin (2%), 8 \u00b5L EDTA (500 mM) and 1,749 \u00b5L H2O.\n2. Prepare the Med Buffer #1 in 1.5 mL tube as: 20 \u00b5L HEPES (pH 7.5, 1 M), 75 \u00b5L NaCl (4 M), 0.5 \u00b5L spermidine (1 M), 20 \u00b5L Protease Inhibitor (50 X), 25 \u00b5L SUPERase IN, 12.5 \u00b5L (RNase OUT), 1 \u00b5L IGEPAL-CA630 (10%), 5 \u00b5L digitonin (2%), 4 \u00b5L EDTA (500 mM) and 845 \u00b5L H2O.\n3. Prepare the Med Buffer #2 in 5 mL or other appropriate tube as: 60 \u00b5L HEPES (pH 7.5, 1 M), 225 \u00b5L NaCl (4 M), 1.5 \u00b5L spermidine (1 M), 60 \u00b5L Protease Inhibitor (50 X), 75 \u00b5L SUPERase IN, 37.5 \u00b5L (RNase OUT), 3 \u00b5L IGEPAL-CA630 (10%), 15 \u00b5L digitonin (2%) and 2,532 \u00b5L H2O.\nB-2 Nuclei washing and tagmentation:\n1. Spin down nuclei at 600 g for 10 mins at 4\u00b0C, resuspended with 50 \u00b5L Complete Buffer.\n2. Repeat step 1 for 1 additional time.\n3. Spin-down at 600 g for 10 mins at 4\u00b0C again, resuspended in 50 \u00b5L Med Buffer #1.\n4. Add 1 \u00b5L pA-Tn5 (#01-#12) for each tube, rotate at room temperature for 60 min.\n5. Spin-down nuclei at 300 g for 10 mins at 4\u00b0C, resuspended in 50 \u00b5L Med Buffer #2.\n6. Repeat step 5 for 2 additional times.\n7. Add 2 \u00b5L 250 mM MgCl\n2\n, incubate in at ThermoMixer, 550 r.p.m., 37\u00a0\u00b0C, for 1 hr. During this time, pre-melt the barcoded RT primers on ice and mixed well.\n8. Add 16.5 \u00b5L 40.4 mM EDTA. Spin-down at 1,000 g for 10 mins at 4\u00a0\u00b0C. Discard the\u00a0supernatant. Proceed to B-3 RT reaction immediately.\nB-3 Reverse transcription (RT) reaction:\n1. Distribute 4 \u00b5L each of RT primers mix (#01-#12) into 12 PCR tubes.\n2. Prepare the RT Mixture as: 52.8 \u00b5L 5X RT Buffer, 60 \u00b5L H2O, 52.8 \u00b5L PBS, 13.2 \u00b5L dNTP, 3.3 \u00b5L SUPERase IN and 1.65 \u00b5L RNase OUT.\n3. Resuspended the nuclei in 14 \u00b5L RT mix and transfer to each corresponding RT tube with the same 1st round barcode in tagmentation step (R01).\n4. Add 2 \u00b5L of Maxima H- Reverse Transcriptase into each tube. Perform the following program in a thermocycler: step1, 50 \u00b0C * 10 mins; step2, 8 \u00b0C * 12 s, 15 \u00b0C * 45 s, 20 \u00b0C * 45 s, 30 \u00b0C * 45 s, 42 \u00b0C * 2 mins, 50 \u00b0C * 5 mins, repeat step 2 for additional 2 times; step 3, 50 \u00b0C * 10 mins; step 4, hold at 12 \u00b0C.\n5. Combine nuclei from 12 tubes into a Maximum Recovery tube (ON ICE!!!), add 4.8 \u00b5L 5% Triton X-100 and gently mix by pipette up and down.\n6. Spin-down the nuclei at 1,000 g for 10 mins at 4\u00a0\u00b0C, discard the supernatant, resuspended in 1 mM 1X NEBuffer 3.1. Proceed to B-4 ligation-based barcoding immediately.\nB-4 Ligation-based barcoding:\n1. Prepare the of ligation mixture in 15 mL tubes as: 2,260 \u00b5L H2O, 500 \u00b5L 10X T4 DNA Ligase Buffer, 50 \u00b5L BSA (20 mg/mL), 100 \u00b5L 10X NEBuffer 3.1. Two tubes of this mixture are needed.\n2. Prepare the R02 Blocking Solution as: 264 \u00b5L R02 Blocker (100 \u00b5M), 250 \u00b5L 10X T4 DNA Ligase Buffer and 486 \u00b5L H\n2\nO.\n3. Prepare the R03 Termination Solution as: 264 \u00b5L R03 Quencher (100 \u00b5M), 500 \u00b5M EDTA (500 mM) and 236 \u00b5L H\n2\nO.\n4. Add the 1 mL nuclei (in Buffer 3.1) into the 1st tube of Ligation Mixture. Add 100 \u00b5L T4 DNA Ligase into the mixture and mixed well.\n5. Distribute the nuclei mixture into barcode plate R02: 40 \u00b5L nuclei mixture for each well. Seal the plate and incubate in a ThermoMixer at 37\u00a0\u00b0C, 300 r.p.m., for 30 mins.\n6. Use a multichannel pipette to add 10 \u00b5L of R02 Blocking Solution to each well and gently mix. Seal the plate. Continue the incubation for an additional 30 mins in a ThermoMixer at 37 \u00b0C, 300 r.p.m..\n7. Combine all the nuclei in a 15 mL tube (pre-washed with 0.5% BSA). Spin-down at 1,000 g, 10\u00a0\u00b0C for 10 mins. Discard the\u00a0supernatant, resuspended in 1 mM 1X NEBuffer 3.1.\n8. Add the 1 mL nuclei into the 2nd tube of Ligation Mixture. Add 100 \u00b5L T4 DNA Ligase into the mixture and mixed well.\n9. Distribute the nuclei mixture into barcode plate R03: 40 \u00b5L nuclei mixture for each well. Seal the plate and incubate in a ThermoMixer at 37\u00a0\u00b0C, 300 r.p.m., for 30 mins.\n10. Use multichannel pipette to add 10 \u00b5L of R03 Termination Solution to each well and gentle mixed. No further incubation is needed at this step.\n11. Combine all the nuclei in a 15 mL tube (pre-washed with 0.5% BSA). Spin-down at 1,000 g, 10\u00a0\u00b0C for 10 mins. Discard the\u00a0supernatant.\n12. Wash the nuclei once with cold PBS. Spin-down at 1,000g 10\u00a0\u00b0C for 10 mins and resuspended in 200 \u00b5L - 1 mL cold PBS (optimal concentration 1,000 cell/\u00b5L). Proceed to lysis and DNA Cleanup.\nB-5 Lysis and DNA Cleanup:\n1. Count the nuclei, divide 2k-4k nuclei (2.5k recommended) into sub-libraries (e.g. 96-well plate).\nPause Point:\nAliquoted nuclei can be stored at -80 \u00b0C for up to 6 months.\n2. Prepare the lysis mixture as below: 3 \u00b5L 10% SDS, 3 \u00b5L Protease K, 3 \u00b5L NaCl (4M) and add PBS to total of 30 \u00b5L (including the volume of barcoded nuclei in PBS) for one sub-library. Make appropriate amount for the number of sub-libraries needed.\n3. Add the lysis mix into nuclei. Seal the plate, incubate in a ThermoMixer at 55\u00a0\u00b0C, 850 r.p.m. for at least 2hr or overnight.\n4. Cool-down the mixture to RT. Cleanup the DNA use 1.0X (30 \u00b5L) SPRI beads and elute in 12.5 \u00b5L Ultrapure H\n2\nO. Store at -20\u00a0\u00b0C. During washing steps of the cleanup, please remove residual SDS as much as possible.\nPause Point:\nPurified DNA can be stored at -20 \u00b0C or -80 \u00b0C for up to 6 months.\nC. Day3: library construction\nC-1 TdT Tailing and pre-amplification\n1. Add 1 \u00b5L 10X TdT Buffer and 0.5 \u00b5L 1 mM dCTP into 12.5 \u00b5L purified DNA. Incubate at 95\u00a0\u00b0C for 5 mins. Quickly chill on ice for 5 mins.\n2. Add 1 \u00b5L of TdT to the mixture. Incubate at 37\u00a0\u00b0C for 30 mins followed by inactivation at 65 \u00b0C for 10 mins.\n3. Add the Anchor Mix (6 \u00b5L 5X KAPA Buffer, 0.6 \u00b5L 10 mM dNTP, 0.6 \u00b5L 10 \u00b5M Anchor-FokI-GH, 7.3 \u00b5L H\n2\nO and 0.6 \u00b5L KAPA HiFi HS DNA polymerase) to the reaction mix directly, and mix by pipette up and down. Perform the program in a thermocycler: step1, 95\u00a0\u00b0C * 3 mins; step2, 95\u00a0\u00b0C * 15 s, 47\u00a0\u00b0C * 60s, 68\u00a0\u00b0C * 120 s, 47\u00a0\u00b0C * 60 s, 68\u00a0\u00b0C * 120 s; repeat step2 for additional 15 times; step3, 72\u00a0\u00b0C * 10 mins; step 4, hold at 12\u00a0\u00b0C.\n4. Add the Preamp Mix (4 \u00b5L 5X KAPA Buffer, 0.5 \u00b5L 10 mM dNTP, 2 \u00b5L 10 \u00b5M PA-F, 2 \u00b5L 10 \u00b5M PA-R, 11 \u00b5L H\n2\nO and 0.5 \u00b5L KAPA HiFi HS DNA polymerase) to the reaction mix directly and mix by pipette up and down. Perform the program in a thermocycler: step1, 98\u00a0\u00b0C * 3 mins; step2, 98\u00a0\u00b0C * 20 s, 62\u00a0\u00b0C * 20 s, 72\u00a0\u00b0C * 150 s; repeat step 2 for additional 9 times; step 3, 72\u00a0\u00b0C * 120 s; step4, hold at 12\u00a0\u00b0C.\n5. Use 0.2X + 0.65 X (10\u00a0\u00b5L + 32.5 \u00b5L) of SPRI beads for double-size selection purification. Elute in 36 \u00b5L ultra-pure H\n2\nO, use 1 \u00b5L for Qubit quantification.\u00a0Recode the concentration\nx\nng/\u00b5L. Dependents on the cell type and numbers of cells per sub-library, in our hand typically x will in the range of 1 ng/\u00b5L to 30 ng/\u00b5L (see\nTroubleshooting\nfor details).\nPause Point:\nPurified DNA can be stored at -20 \u00b0C or -80 \u00b0C for up to 6 months.\nC-2 2nd adaptor tagging and digestion\n1. Transfer 17 \u00b5L of the purified amplified product into two 200 \u00b5L PCR tubes for DNA and RNA, respectively.\n2. For DNA part: add 2.5 \u00b5L 10X Cutsmart buffer, 1 \u00b5L SbfI-HF, 1 \u00b5L FokI, and 3.5 \u00b5L H\n2\nO.\n3. For RNA part: add 2 \u00b5L 10X Cutsmart buffer, 1 \u00b5L NotI-HF.\n4. Incubate at 37\u00a0\u00b0C for 60 mins.\n5. Use 1.25 X SPRI beads (31.3 \u00b5L for DNA, 25 \u00b5L for RNA). Elute both DNA and RNA in 10 \u00b5L H\n2\nO.\nPause Point:\nPurified DNA can be stored at -20 \u00b0C or -80 \u00b0C for up to 6 months.\n6. For DNA part: add 2 \u00b5L 10X T4 DNA Ligase Buffer, 1.5 \u00b5L P5 Adaptor Mix, 5 \u00b5L H\n2\nO and 1.5 \u00b5L T4 DNA Ligase. Incubate with the ligation program (4\u00a0\u00b0C * 10 mins, 10\u00a0\u00b0C 1* 5 min, 16\u00a0\u00b0C * 15 min, 25\u00a0\u00b0C * 45 min).\n7. For DNA part: Cleanup the ligation mixture with 1.25 X (25 \u00b5L) SPRI beads and elute in 30 \u00b5L H\n2\nO.\n8. For RNA part: add 10.5 \u00b5L 2X TB, y \u00b5L 1:10 diluted Tn5-AdaptorA (\ny = x * 0.2, titration may be needed for different batch of Tn5\n).\n9. For RNA part: The tagmentation reaction was carried out 550 r.p.m., 37\u00a0\u00b0C for 30 min in a ThermoMixer followed by cleaned up using QIAquick PCR purification kit and eluted in 30 \u00b5L 0.1X EB (QIAGEN).\nPause Point:\nPurified DNA can be stored at -20 \u00b0C or -80 \u00b0C for up to 6 months.\nC-3 Indexing PCR and sequencing\n1. For DNA libraries, prepare the PCR mix as: 30 \u00b5L purified template, 2 \u00b5L 10 \u00b5M TruSeq i7 indices, 2 \u00b5L 10 \u00b5M Universal P5 primer, 1 \u00b5L 10 mM dNTP, 10 \u00b5L 5X NEB Q5 Buffer, 4 \u00b5L H2O and 1 \u00b5L Q5 HiFi DNA polymerase. Run the program in a thermocycler: step1, 98\u00a0\u00b0C * 3 mins; step2, 98 \u00b0C * 10 s, 63 \u00b0C * 30 s, 72 \u00b0C * 60 s; repeat step2 for 8 cycles; step3, 72 \u00b0C * 60s; step4, hold at 12 \u00b0C.\n2. For RNA libraries, prepare the PCR mix as: 30 \u00b5L purified template, 2 \u00b5L 10 \u00b5M TruSeq i7 indices, 2 \u00b5L 10 \u00b5M NextEra N5 indices, 1 \u00b5L 10 mM dNTP, 10 \u00b5L 5X NEB Q5 Buffer, 4 \u00b5L H2O and 1 \u00b5L Q5 HiFi DNA polymerase. Run the program in a thermocycler: step1, 72\u00a0\u00b0C * 5 mins, 98\u00a0\u00b0C * 30s; step2, 98 \u00b0C * 10 s, 63 \u00b0C * 30 s, 72 \u00b0C * 60 s; repeat step2 for 8 cycles; step3, 72 \u00b0C * 60s; step4, hold at 12 \u00b0C.\n3. Use 0.5 \u00b5L (dilute 1000X) to run a qPCR to estimate the additional cycles needed (typically 0-4) to reach 10 nM. Run the additional cycles in a thermocycler: step1, 98\u00a0\u00b0C * 3 mins; step2, 98 \u00b0C * 10 s, 63 \u00b0C * 30 s, 72 \u00b0C * 60 s; repeat step2 for desired cycles; step3, 72 \u00b0C * 60s; step4, hold at 12 \u00b0C.\n4. Cleanup the libraries using 0.9 X (45 \u00b5L) SPRI beads, elute in 15-30 \u00b5L H\n2\nO. Use qPCR to quantify libraries. Store at -20\u00a0\u00b0C.\nPause Point:\nPurified libraries can be stored at -20 \u00b0C or -80 \u00b0C for up to 6 months.\n5. Use Agilent Fragment Analyzer to analysis the fragment distribution of libraries (\nFig. 1\n). If there is a clear band at ~245 bp (\nFig. 1c\n), repeat the size selection with 0.75X SPRI beads\u00a0or other size selection method\u00a0(see\nTroubleshooting\nfor details).\n6. Multiplex libraries and sequence with standard Illumina sequencing primers on commercial sequencing platforms. We have tested sequencing of Paired-Tag libraries on HiSeq 2500/4000, NextSeq 500 or NovaSeq 6000 platforms. Libraries should be loaded at recommended concentrations according to manufacturer\u2019s instructions. At least 50 and 100 sequencing cycles are needed for Read1 and Read2, respectively. For example: using PE 50 + 7 + 100 cycles (Read1 + Index 1 + Read2) on a NextSeq 500 platform with 150-cycle sequencing kits, or PE 100 +7 +100 cycles on a NovaSeq 6000 platform with 200-cycle sequencing kits.\nD. Initial data processing and QC\n1. All scripts for initial Paired-Tag data processing are available from GitHub (\nhttps://github.com/cxzhu/Paired-Tag\n). Download and perform the data pre-processing steps according to instructions on the GitHub repository.\n2. Initial Paired-Tag data processing includes (a) extract barcode sequences from Read2, (b) assign barcodes combinations to cellular barcodes references (assign barcode sequences to ID of 12 sample tubes and 2 rounds of 96 wells), (c) mapping the assigned reads to reference genome and (d) generating cell-to-features matrices for downstream analyses.\n3. The following metrics during initial Paired-Tag data processing can be used for quality control. For step 2(a), typically >85% and >75% of DNA and RNA reads will have full ligated barcodes. For step 2(b), >85% of both DNA and RNA reads can uniquely assigned to one cellular barcode with no more than 1 mismatch. For step 2(c), typically >85% of assigned reads can be mapped to the reference genome; depending on which histone mark targeted, from 60% to >95% of assigned DNA reads can be mapped to the reference genome.\n4. Cell-to-features matrices generated from initial data processing steps is a standard sparse matrix format which can be used for down-stream analyses with commonly used single-cell analysis software."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;After pre-amplification, typically ~30 \u2013 1,000 ng DNA will be recovered (around 1 ng/\u00b5L to 30 ng/\u00b5L measured by Qubit, when pre-amplified products were eluted in 36 \u00b5L). If the concentration is less than 0.2 ng/\u00b5L: (1) considering check the reagents used for pre-amplification steps (C1); (2) pre-amplification may be inhibited by residual SDS from B-5 step4, considering repeat this step (B-5 step4); (3) the quality of extracted nuclei may not be good enough for Paired-Tag experiment, considering perform a bulk ATAC-seq from extracted nuclei for QC. If the concentration is higher than 50 ng/\u00b5L, the amplified products are likely to be over-amplified barcode-adaptor dimers, please see the next paragraph for details.</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;If only bands at ~245 bp are observed for DNA and RNA libraries, the libraries are likely failed as barcode-adaptor dimers without any insertions are the dominant component. Possible solutions include (1) considering optimization of tissue dissociation and nuclei preparation steps, (2) removing the supernatant as much as possible in B-2 step9, B-3 step6, B-4 step7 and step11; (3) considering repeating the B-4 step12 once if enough nuclei (&gt;100k) are recovered.</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;If both bands of ~245 bp and 300-1000 bp exist for DNA or RNA libraries (<strong>Fig. 1c</strong>), indicating the presence of both libraries and barcode-adaptor dimers. (1) If a clear ~245 bp band exists, consider perform an additional 0.75X SPRI beads size selection (C-3 step4) (or other size selection method) to remove the primer-barcode dimers (~245 bp). (2) If there is no ~245 bp band but with significant fraction of fragments with length &lt; 300 bp (e.g.,&nbsp;<strong>Fig. 1c</strong>), consider reduce the amount of N5-Tn5 used in C-2 step8.</p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>Nuclei extraction (A-1 to A-2): 2 hr</p><p>Immuno-staining (A-3): overnight</p><p>Nuclei washing and tagmentation (B-2): 3.5 hr</p><p>Reverse transcription (B-3): 1.5 hr</p><p>Nuclei barcoding (B-4): 2 hr</p><p>Lysis and DNA cleanup (B-5): overnight or 3 hr</p><p>Preamplification (C-1): 4 hr</p><p>Adaptor tagging (C-2): 3 hr</p><p>Indexing PCR and QC (C-3): 3-5 hr</p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>The genomic DNA and cDNA libraries can be generated from desired number of nuclei, depending on how many sub-libraries were used for library construction. In our hands, the lengths of DNA fragments in genomic DNA libraries are typically between 300bp \u2013 700bp (average ~400bp), for those from cDNA libraries are mainly between 300 bp \u2013 1000 bp (average ~550bp) (<strong>Fig. 1a, b</strong>).</p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bernstein, B. E., Meissner, A. &amp; Lander, E. S. The mammalian epigenome.&nbsp;<em>Cell</em>&nbsp;<strong>128</strong>, 669-681, doi:10.1016/j.cell.2007.01.033 (2007).</p><p>2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Stadhouders, R., Filion, G. J. &amp; Graf, T. Transcription factors and 3D genome conformation in cell-fate decisions.&nbsp;<em>Nature</em>&nbsp;<strong>569</strong>, 345-354, doi:10.1038/s41586-019-1182-7 (2019).</p><p>3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wang, Q.<em>&nbsp;et al.</em>&nbsp;CoBATCH for High-Throughput Single-Cell Epigenomic Profiling.&nbsp;<em>Mol Cell</em>&nbsp;<strong>76</strong>, 206-216 e207, doi:10.1016/j.molcel.2019.07.015 (2019).</p><p>4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ai, S.<em>&nbsp;et al.</em>&nbsp;Profiling chromatin states using single-cell itChIP-seq.&nbsp;<em>Nat Cell Biol</em>&nbsp;<strong>21</strong>, 1164-1172, doi:10.1038/s41556-019-0383-5 (2019).</p><p>5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Grosselin, K.<em>&nbsp;et al.</em>&nbsp;High-throughput single-cell ChIP-seq identifies heterogeneity of chromatin states in breast cancer.&nbsp;<em>Nat Genet</em>&nbsp;<strong>51</strong>, 1060-1066, doi:10.1038/s41588-019-0424-9 (2019).</p><p>6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ku, W. L.<em>&nbsp;et al.</em>&nbsp;Single-cell chromatin immunocleavage sequencing (scChIC-seq) to profile histone modification.&nbsp;<em>Nat Methods</em>&nbsp;<strong>16</strong>, 323-325, doi:10.1038/s41592-019-0361-7 (2019).</p><p>7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kaya-Okur, H. S.<em>&nbsp;et al.</em>&nbsp;CUT&amp;Tag for efficient epigenomic profiling of small samples and single cells.&nbsp;<em>Nat Commun</em>&nbsp;<strong>10</strong>, 1930, doi:10.1038/s41467-019-09982-5 (2019).</p><p>8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Harada, A.<em>&nbsp;et al.</em>&nbsp;A chromatin integration labelling method enables epigenomic profiling with lower input.&nbsp;<em>Nat Cell Biol</em>&nbsp;<strong>21</strong>, 287-296, doi:10.1038/s41556-018-0248-3 (2019).</p><p>9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rotem, A.<em>&nbsp;et al.</em>&nbsp;Single-cell ChIP-seq reveals cell subpopulations defined by chromatin state.&nbsp;<em>Nat Biotechnol</em><strong>33</strong>, 1165-1172, doi:10.1038/nbt.3383 (2015).</p><p>10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Zhu, C.<em>&nbsp;et al.</em>&nbsp;An ultra high-throughput method for single-cell joint analysis of open chromatin and transcriptome.&nbsp;<em>Nat Struct Mol Biol</em>&nbsp;<strong>26</strong>, 1063-1070, doi:10.1038/s41594-019-0323-x (2019).</p><p>11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rosenberg, A. B.<em>&nbsp;et al.</em>&nbsp;Single-cell profiling of the developing mouse brain and spinal cord with split-pool barcoding.&nbsp;<em>Science</em>&nbsp;<strong>360</strong>, 176-182, doi:10.1126/science.aam8999 (2018).</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>We thank B. Li for bioinformatic support, S. Kuan and K. Jepsen for sequencing. We thank QB3 MacroLab&nbsp;for purifying the ProteinA-Tn5 enzyme. We thank S. Preissl, X. Hou, H. Huang, M. Yu and J. Song for discussion.&nbsp;</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41592-021-01060-3",
+                "date": "",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 11996667,
+                "identity": "5c1c5183-8ef8-4910-86af-a271bb508413",
+                "order_by": 0,
+                "name": "Chenxu Zhu",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0003-4216-6562",
+                "institution": "Ludwig Institute for Cancer Research, La Jolla, California, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Chenxu",
+                "middleName": "",
+                "lastName": "Zhu",
+                "suffix": ""
+            },
+            {
+                "id": 11996668,
+                "identity": "61bee205-50ac-4b29-94f7-0b11b2a27370",
+                "order_by": 1,
+                "name": "Yanxiao Zhang",
+                "email": "",
+                "orcid": "",
+                "institution": "Ludwig Institute for Cancer Research, La Jolla, California, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Yanxiao",
+                "middleName": "",
+                "lastName": "Zhang",
+                "suffix": ""
+            },
+            {
+                "id": 11996669,
+                "identity": "8f4df362-f15e-476c-b8f4-99e6ec157064",
+                "order_by": 2,
+                "name": "Yang Eric Li",
+                "email": "",
+                "orcid": "",
+                "institution": "Ludwig Institute for Cancer Research, La Jolla, California, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Yang",
+                "middleName": "Eric",
+                "lastName": "Li",
+                "suffix": ""
+            },
+            {
+                "id": 11996670,
+                "identity": "ee2c9aa9-e8c4-438f-b1f3-5ee2e4a7fd62",
+                "order_by": 3,
+                "name": "Jacinta Lucero",
+                "email": "",
+                "orcid": "",
+                "institution": "Computational Neurobiology Laboratory, The Salk Institute for Biological Studies, La Jolla, California, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jacinta",
+                "middleName": "",
+                "lastName": "Lucero",
+                "suffix": ""
+            },
+            {
+                "id": 11996671,
+                "identity": "7cf82343-b302-4668-a5d7-801d6de820a6",
+                "order_by": 4,
+                "name": "M. Margarita Behrens",
+                "email": "",
+                "orcid": "",
+                "institution": "Computational Neurobiology Laboratory, The Salk Institute for Biological Studies, La Jolla, California, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "M.",
+                "middleName": "Margarita",
+                "lastName": "Behrens",
+                "suffix": ""
+            },
+            {
+                "id": 11996672,
+                "identity": "c9efbeac-c4a0-46a5-9f16-ce23beae2709",
+                "order_by": 5,
+                "name": "Bing Ren",
+                "email": "biren@ucsd.edu",
+                "orcid": "https://orcid.org/0000-0002-5435-1127",
+                "institution": "Ludwig Institute for Cancer Research, 3Center for Epigenomics, Department of Cellular and Molecular Medicine, Institute of Genomic Medicine, Moores Cancer Center, University of California San Diego, School of Medicine, La Jolla, California, USA",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Bing",
+                "middleName": "",
+                "lastName": "Ren",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2020-12-15 06:12:02",
+        "currentVersionCode": 2,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1301/v2",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1301/v2",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13695089,
+                "identity": "d3c4ea8e-f569-45a6-94d5-0ddfd8ab406f",
+                "added_by": "auto",
+                "created_at": "2021-09-17 12:55:51",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 399311,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1301/v2/183f3477-a817-4cf7-8fc1-47b9d01ac4f7.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Paired-Tag, Single-cell multi-omics, Histone modifications, Gene expression",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>We describe here Paired-Tag, a high-throughput multi-omics method for joint profiling of histone modifications and gene expressions in single cells. The assay is based on a combinatorial barcoding indexing strategy that does not require special instruments. It can be performed with nuclei extracted from cultured cells or frozen tissues, in standard molecular biology laboratories.</p>",
+        "manuscriptTitle": "High-throughput single-cell joint analysis of histone modifications and gene expression by Paired-Tag",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2021-02-15 17:43:55",
+                "doi": "10.21203/rs.3.pex-1301/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 4
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            },
+            {
+                "code": 2,
+                "date": "2021-05-26 09:23:24",
+                "doi": "10.21203/rs.3.pex-1301/v2",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 16
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "dabdaaa5-b445-4604-8552-7b73ef2a0962",
+        "owner": [],
+        "postedDate": "May 26th, 2021",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 2428456,
+                "name": "Biochemistry"
+            },
+            {
+                "id": 2428457,
+                "name": "Genetics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2021-05-26 09:23:24",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

@@ -1,0 +1,464 @@
+{
+    "identity": "pex-1448",
+    "title": "<p>TRIAD: a transposition-based approach for gene mutagenesis by random short in-frame insertions and deletions for directed protein evolution</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>Access to reliable methods for gene randomization is essential for success in directed evolution experiments. Popular and practically useful methods must meet several key requirements: a good library generation protocol should create a large number of variants, avoid bias in gene composition or type of variant introduced, and be technically straightforward. When it comes to amino acid substitutions, several approaches (e.g. error-prone PCR, site-saturation mutagenesis starting with synthetic oligonucleotides) have been developed that partially or fully meet these criteria. In contrast, the use of <u>in</u>sertions and <u>del</u>etions (InDels) in directed evolution experiments has been curtailed by practical limitations in existing methodologies to randomly incorporate such changes within a sequence of interest. Therefore, while the effects of substitutions are extensively documented in the literature, the application of InDels in protein engineering has been sparse, with very few directed evolution campaigns on record that originate from such libraries. For example, the <u>r</u>andom <u>i</u>nsertion/<u>d</u>eletion (RID) mutagenesis protocol <sup>[1]</sup>, the first attempt towards creating InDel libraries, relies on a complex protocol involving random cleavage of single stranded DNA, so that random substitutions are introduced unintentionally alongside the target mutations. Two other early methods, segmental mutagenesis<sup>[2]</sup> and <u>Ra</u>ndom <u>i</u>nsertional-deletional <u>s</u>trand <u>e</u>xchange mutagenesis (RAISE <sup>[3]</sup>), do not control for the length of the InDel and consequently produce libraries that primarily contain frameshifted variants. In contrast, a codon-based protocol dubbed <u>co</u>don-<u>ba</u>sed <u>r</u>andom <u>de</u>letion (COBARDE<sup>[4]</sup>) gives a pool of multiple codon-based deletions with &lt;5% frameshifts but requires custom reprogramming of an oligonucleotide synthesizer to create mutagenic oligonucleotides. Alternatively, the viability of transposon-based protocols has been established for generating deletions of various sizes, up to gene truncation variants<sup>[5]</sup>. However, the only reported such protocol to create insertions, namely pentapeptide scanning mutagenesis<sup>[6]</sup>, merely gains access to insertions of defined size and sequence.</p><p>Here we present a set of procedures (dubbed TRIAD: Transposition-based Random Insertion And Deletion mutagenesis)<sup>[7]</sup> for random introduction of single short in-frame InDels of one, two or three nucleotide triplets (\u00b1 3, 6 or 9 bp) into a given DNA sequence. TRIAD consists of a single transposition reaction followed by successive cloning steps for the generation of deletions or insertions (Figure 1). TRIAD\u2019s first step is an in vitro Mu transposition reaction<sup>[8]</sup> that ultimately determines the location of the forthcoming single InDel event in each variant. The reaction is performed using engineered mini-Mu transposons, dubbed TransDel (Figure 1A) and TransIns (Figure 1B), that are inserted randomly within the target DNA sequence during the first step of TRIAD; resulting in the generation of transposon insertion libraries. The ends of TransDel and TransIns were designed to bring about deletion and insertion libraries, respectively. TransDel is functionally equivalent to the previously described MuDel transposon<sup>[5]</sup> with recognition sites for the type IIS restriction enzyme MlyI at both ends. Taking advantage of the transposon insertion mechanism, the positioning of MlyI sites within TransDel enables the deletion of 3 bp at random positions within the target sequence upon MlyI digestion and self-ligation (Figure 2A), as previously described<sup>[5]</sup>. This strategy was extended to the generation of longer contiguous deletions (i.e., -6 and -9 bp) with a second stage, involving the insertion and subsequent MlyI-mediated removal of custom-made cassettes (dubbed Del2 and Del3; Figure 1A and Figure 2). For the generation of insertions, a new transposon, TransIns, was designed as \u2013 in contrast to TransDel \u2013 an asymmetric transposon (Figure 1B and Figure 2B), bearing different end sequences (NotI on one end and MlyI on the other). The latter site marks subsequent insertion sites for the ligation of custom-made shuttle cassettes: Ins1, Ins2 and Ins3 carrying one, two and three randomized nucleotide triplets, respectively. Further digestion using a type IIS restriction enzyme (AcuI) removes most of the shuttle sequence but leaves triplet insertions behind (Figure 1B and Figure 2B).</p><p>The use of TRIAD has, so far, been reported in three published examples of InDel-based directed evolution of proteins, including a phosphotriesterase<sup>[7]</sup>, a therapeutic scFv antibody<sup>[9]</sup> and, most recently, an ancestral luciferase<sup>[10]</sup>.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p><strong>Enzymes</strong></p><p>FastDigest restriction endonucleases (Thermo Fisher Scientific). Enzymes used to prepare or remove TRIAD transposons and cloning cassettes include: BglII (FD0083), Eco57I (FD0344; isoschizomer of AcuI), SchI (FD1374; isoschizomer of MlyI), NotI (FD0593), SmaI (FD0663). Enzymes used to insert the gene of interest (GOI) withing the TRIAD-bespoke target vector may include (non-exhaustive list): NdeI (FD0583), NcoI (FD0573), BamHI (FD0054), XhoI (FD0694), HindIII (FD0504).</p><p>MuA transposase (Thermo Fisher Scientific, F750).</p><p>T4 DNA ligase (Thermo Fisher Scientific, EL0011).</p><p>DNA Polymerase I, Large (Klenow) Fragment (New England Biolabs, M210S).</p><p><br></p><p><strong>DNA extraction/purification kits</strong></p><p>GeneJET Plasmid Miniprep kit (Thermo Fischer Scientific, K0503).</p><p>GeneJET Plasmid Midiprep kit (Thermo Fischer Scientific, K0481).</p><p>Zymoclean Gel DNA Recovery kit (Zymo Research, D4001/D4002).</p><p>DNA Clean &amp; Concentrator-5 kit (Zymo Research, D4004) for DNA purification and concentration from reaction mixtures.</p><p><br></p><p><strong>Bacterial culture reagents</strong></p><p><em>E. cloni </em>10G ELITE electrocompetent cells (Lucigen, 60051-1/60051-2/60052-1/60052-2)</p><p>Culture media: LB Broth Miller (Formedium, LMM0104); LB-Agar Miller (Formedium, LMM0204); Recovery Medium (Lucigen, 80026-1).</p><p>Antibiotics: ampicillin (Melford, A40040-25); kanamycin (Melford, K22000-5); chloramphenicol (Duchefa Biochemie, C0113).</p><p><br></p><p><strong>Plasmids</strong> (NB: detailed construction are described in a previous reference<sup>[7]</sup>):</p><p>Target vectors housing the gene of interest: pID-Tet (See Supplementary file 1 for full sequence); pID-T7 (See Supplementary file 2). See also troubleshooting note 2.</p><p>Vectors housing engineered transposons: pUC57-TransDel (See Supplementary file 3); pUC57-TransIns (See Supplementary file 4);</p><p>Vectors housing selection cassettes for the deletion of 6 bp (pUC57-Del2; see Supplementary file 5) and 9 bp (pUC57-Del3; see Supplementary file 6);</p><p>Vectors housing selection cassettes for the insertion of 3 bp (pUC57-Ins1; see Supplementary file 7), 6 bp (pUC57-Ins2; see Supplementary file 8) and 9 bp (pUC57-Ins3; see Supplementary file 9).</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>Eppendorf ThermoMixer F1.5 (Eppendorf)</p><p>NanoDrop 2000 spectrophotometer (Thermo Fisher Scientific)</p><p>Electroporator Eporator (Eppendorf)</p><p>Electroporation cuvettes 1 mm gap (Geneflow, E6-0050)</p><p>Petri dishes, 14 mm diameter (Thermo Fisher, 10051622)</p><p>Incubator (<em>e.g., </em>Heratherm 104 L, Thermo Fischer Scientific) and shaker (<em>e.g.</em>, MaxQ6000, Thermo Fischer Scientific) for bacterial cell culture.</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "Prior to applying this protocol, the gene of interest (GOI) needs to be inserted in a TRIAD-bespoke target vector such as pID-T7 or pID-Tet (See troubleshooting note 1).\n1. Construction of transposon insertion libraries\nThis part describes how to generate transposon insertion libraries,\ni.e.\n, with transposon (either TransDel or TransIns) incorporated only in the GOI and not elsewhere in the target vector. Use TransDel to construct deletion libraries and TransIns for insertion libraries.\n1.1 Prepare TransDel or TransIns transposon.\nIsolate TransDel or TransIns from pUC57 by restriction digestion with BglII, electrophoresis and agarose gel purification. Perform separate reactions with either TransDel or TransIns.\nReaction (final volume: 20 \u00b5l\n)\n:\npUC57-Transposon: 1 to 2 \u00b5g\nFastDigest BglII: 1 \u00b5l\n10x FastDigest Green buffer: 2 \u00b5l\nNuclease-free water to 20 \u00b5l\nIncubate 30 minutes at 37 \u00b0C.\nSeparate the resulting DNA products by agarose gel electrophoresis and extract the fragment corresponding to the transposon (around 1 kb).\n1.2\nIn vitro t\nransposition reaction.\nTransposons are incorporated at each possible insertion site within the target vector during this step.\nReaction (final volume: 20 \u00b5l\n):\nTarget vector (containing GOI): 300 ng\nTransDel/TransIns (BglII-digested): 50 ng\n5X Reaction Buffer: 4 \u00b5l\nMuA Transposase: 1 \u00b5l\nNuclease-free water to 20 \u00b5l\nIncubate 1 to 2 hours at 30 \u00b0C then heat-inactivate for 10 min at 75 \u00b0C.\nPurify and concentrate DNA to 10 \u03bcl in nuclease-free water.\n1.3 Transform purified transposition product (corresponding to 3 to 15 ng of plasmid DNA) into electrocompetent\nE. coli\n.\nMix up to 2.5 \u00b5l or up to 5 \u00b5l of purified transposition product with 25 \u00b5l or 50 \u00b5l of electrocompetent cells, respectively (see troubleshooting note 2). Set voltage to 1.8 kV when using 1 mm gap electroporation cuvettes (alternatively, use up to 2.5 kV when using 2 mm gap electroporation cuvettes). Add Recovery Medium (or, alternatively, use SOC medium) to a final volume of 300 \u00b5l and incubate 1 hour under agitation at 37 \u00b0C.\nPlate up to 250 \u00b5l of this transformed culture mix on LB-Agar supplemented with 100 \u00b5g/ml ampicillin and 34 \u00b5g/ml chloramphenicol (LB-Agar Amp + Cam) and incubate overnight at 37 \u00b0C. Alternatively, inoculate 10 mL liquid LB Amp + Cam with the transformed culture mix and incubate under agitation at 37 \u00b0C overnight. To assess transposition efficiency, plate 0.1 to 1% of transformed cells on LB-Agar Amp + Cam and, after overnight incubation at 37 \u00b0C, calculate the number of transformants present in the total transformation mixture from the number of counted colonies.\n1.4 Extract plasmid library pool from\nE. coli\ntransformants.\nAfter growth, collect transformed\nE. coli\ncells and extract plasmid libraries. Depending on the conditions used for growth (solid or liquid growth):\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0If transformed cells were plated in a 14 cm Petri Dish, scrape colonies in 6 mL LB, transfer into three 2-ml Eppendorf tubes, pellet cells by centrifugation and extract plasmid pool from one tube (store the two others as back-ups) using a Midiprep kit.\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0If transformed cells were grown in a 10 mL liquid culture, collect cell pellet by centrifugation and extract plasmid directly from the collected pellet using a Midiprep kit.\nThis step ultimately yields an intermediate plasmid library pool in which the transposons (either TransDel or TransIns) are incorporated at any viable insertion site in the target vector (\ni.e.\n, the ampicillin resistance gene and the origin of replication are likely to be free of transposon at this stage).\n1.5 Extract GOI containing TransDel or TransIns from transposon plasmid library.\nDigest transposon plasmid library obtained during previous step by restriction endonucleases (RE) cutting at the extremities of the GOI (FastDigest RE1 and RE2).\nReaction (final volume: 20 \u00b5l\n):\nTransposon plasmid library: 1 to 2 \u00b5g\nFastDigest RE1 and RE2: 1 \u00b5l each\n10x FastDigest Green buffer: 2 \u00b5l\nNuclease-free water to 20 \u00b5l\nIncubate restriction digestion for 30 minutes at 37 \u00b0C.\nSeparate the resulting fragments by agarose gel electrophoresis. The reaction will generate four products, corresponding to\n(in decreasing size): (i) target vector backbone with transposon, (ii) target vector without transposon, (iii) GOI with transposon and (iv) GOI without transposon. Isolate band corresponding to fragment (iii) and purify the DNA from the agarose gel. The target vector (band ii) may also be isolated and purified at this stage (alternatively, the digested vector can be prepared extemporaneously).\n1.6 Ligate the GOI containing the transposon in the target vector.\nPerform cohesive end ligation based on ratio 1\nvs.\n3 to 5 (vector/insert) in 20 \u00b5l reactions with T4 DNA ligase. Digested vector amount should be between 10 and 50 ng (calculate insert quantity accordingly).\nReaction (final volume: 20 \u00b5l\n):\nTarget vector: 10 to 50 ng\nGOI with transposon: calculate quantity depending on fragment size\nT4 DNA ligase: 5 Weiss units (1 \u00b5l)\n10X T4 DNA Ligase buffer: 2 \u00b5l\nNuclease-free water to 20 \u00b5l\nIncubate 30 minutes at room temperature or overnight at 16 \u00b0C.\nPurify and concentrate ligation product in 10 \u00b5l nuclease-free water.\n1.7 Transform purified ligation mix (corresponding to 2.5 to 25 ng of plasmid DNA) into electrocompetent\nE. coli\ncells.\nSee step 1.3 for transformation and incubation conditions.\nTo estimate the transposon insertion library size, plate 0.1 to 0.5% of transformed cells on LB-Agar Amp + Cam and extrapolate the number of transformants present in the total transformation mixture from the number of resulting colonies.\n1.8 After growth, collect cells and extract plasmid pool corresponding to transposon insertion library.\nFollow procedure described in step 1.4.\n2. Construction of deletion libraries from TransDel insertion libraries\n2.1 Construction of single nucleotide triplet deletion libraries (as outlined by Jones\n[5]\n)\n2.1.1 Remove the TransDel transposon by digesting the TransDel insertion library plasmid pool with SchI.\nThis step yields a linearised single nucleotide triplet deletion library (\ni.e.\n, linear target vector containing the GOI minus 3 bp). The resulting linear plasmid library can be used to generate either single nucleotide triplet deletion library (go to step 2.1.2) or double and triple nucleotide triplet deletion libraries (go to step 2.2.2).\nReaction (final volume: 20 \u00b5l\n):\nTransDel insertion library plasmid pool: 1 to 2 \u00b5g\nFastDigest SchI: 1 \u00b5l\n10x FastDigest Green buffer: 2 \u00b5l\nNuclease-free water to 20 \u00b5l\nIncubate 30 minutes at 37 \u00b0C then heat-inactivate for 5 minutes at 80 \u00b0C.\nSeparate the resulting fragments by agarose gel electrophoresis and extract the digestion product corresponding to the target vector containing the GOI.\n2.1.2 Re-circularise the linear single nucleotide triplet deletion plasmid by intramolecular ligation.\nFor optimal intramolecular ligation, DNA concentration should be below 1 ng/\u00b5l.\nReaction (final volume: 50 \u00b5l\n):\nLinear DNA (vector+target gene): 10-50 ng\nT4 DNA Ligase: 5 Weiss units (1 \u00b5l)\n10X T4 DNA Ligase buffer: 5 \u00b5l\nNuclease-free water to 50 \u00b5l\nIncubate 30 minutes at room temperature. Purify and concentrate ligation product in 10 \u00b5l nuclease-free water.\n2.1.3\nTransform purified ligation mix (corresponding to 2.5 to 25 ng of plasmid DNA) into electrocompetent\nE. coli\ncells.\nSee step 1.3 for transformation conditions.\nPlate up to 250 \u00b5l of this transformed culture mix on LB-Agar Amp (100 \u00b5g/ml) and incubate overnight at 37 \u00b0C. Alternatively, inoculate 10 mL liquid LB Amp with the transformed culture mix and incubate overnight under agitation at 37 \u00b0C. To estimate library size, plate 0.1 to 0.5% of transformed cells on LB-Agar Amp and extrapolate the number of transformants present in the total transformation mixture from the number of resulting colonies.\n2.1.4 After growth, collect cells and extract plasmid library pool corresponding to single nucleotide triplet deletion library.\nFollow procedure described in step 1.4. After this step, the resulting single nucleotide triplet library can be stored as a DNA solution.\n2.2 Construction of double and triple nucleotide triplet deletion libraries\n2.2.1 Prepare Del 2 or Del3 selection cassette by digestion of pUC57-Del2 (or Del3) with SmaI.\nReaction (final volume: 20 \u00b5l\n):\npUC57-Del2 (or Del3): 1 to 2 \u00b5g\nFast-digest SmaI: 1 \u00b5l\n10x FastDigest Green buffer: 2 \u00b5l\nNuclease-free water to 20 \u00b5l\nIncubate 30 minutes at 37 \u00b0C\nSeparate the resulting fragments by agarose gel electrophoresis and extract the digestion product corresponding to the selection cassette (around 1 kb).\n2.2.2 Ligate the selection cassette (Del2 or Del3) in the linear single nucleotide triplet deletion plasmid library obtained at step 2.1.1\nPerform blunt-end ligation based on ratio 1\nvs.\n5 to 10 (vector/insert) in 20 \u00b5l reactions with T4 DNA ligase.\nReaction (final volume: 20 \u00b5l\n):\nSingle triplet deletion plasmid library: 10 to 50 ng\nSelection cassette (Del2/Del3): calculate quantity based on the size of the vector + GOI fragment\nT4 DNA ligase: 5 Weiss units (1 \u00b5l)\n10X T4 DNA Ligase buffer: 2 \u00b5l\nNuclease-free water to 20 \u00b5l\nIncubate 30 minutes at room temperature or overnight at 16 \u00b0C.\nPurify and concentrate ligation product in 10 \u00b5l nuclease-free water.\n2.2.3 Transform purified ligation mix (corresponding to 2.5 to 25 ng of plasmid DNA) into electrocompetent\nE. coli\ncells.\nSee step 1.3 for transformation and incubation conditions. Use culture media (LB-Agar or liquid LB) supplemented with 50 \u00b5g/ml kanamycin (Kan) at this step.\n2.2.4 After growth, collect cells and extract plasmid library pool corresponding to Del2 or Del3 insertion library.\nFollow procedure described in step 1.4.\n2.2.5\nRemove Del2 (or Del3) selection cassette by digesting the cassette insertion library plasmid pool with SchI.\nThis step yields a linearised double or triple nucleotide triplet deletion plasmid library from Del2 or Del3 insertion plasmid library, respectively. Follow procedure outlined at step 2.1.1.\n2.2.6 Re-circularise the double or triple nucleotide triplet plasmid library by intramolecular ligation.\nFollow procedure outlined at step 2.1.2.\n2.2.7 Transform purified ligation mix (corresponding to 2.5 to 25 ng of plasmid DNA) into electrocompetent\nE. coli\ncells.\nFollow procedure outlined at step 2.1.3.\n2.2.8 After growth, collect cells and extract plasmid library pool corresponding to double or triple nucleotide triplet deletion library.\nFollow procedure described in step 1.4. After this step, the resulting libraries can be stored in the form of DNA solutions.\n3. Construction of insertion libraries from TransIns insertion libraries\n3.1 Prepare InsX (X = 1, 2 or 3) selection cassette by double-digestion of pUC57-InsX with NotI and SchI.\nReaction (final volume: 20 \u00b5l\n):\npUC57-InsX: 1 to 2 \u00b5g\nFastDigest NotI: 1 \u00b5l\nFastDigest SchI: 1 \u00b5l\n10x FastDigest Green buffer: 2 \u00b5l\nNuclease-free water to 20 \u00b5l\nIncubate 30 minutes at 37 \u00b0C then heat-inactivate for 5 minutes at 80 \u00b0C.\nThis double digestion will yield 5 fragments (in descending size order: 1408 bp, 1152 bp (Ins1) / 1155 bp (Ins2) / 1158 bp (Ins3), 502 bp, 486 bp and 264 bp). Separate the fragments by agarose gel electrophoresis and extract the digestion product corresponding to the selection cassette (around 1.15 kb, second fragment in descending size order).\n3.2 Remove the TransIns transposon by sequential double-digestion of pUC57-InsX with NotI and SchI.\nFollow procedure outlined at step 3.1.\nThis step yields a linearised plasmid library with cuts randomly distributed within the GOI and allowing the subsequent introduction of nucleotide triplet insertions.\nSeparate the resulting fragments by agarose gel electrophoresis and extract the digestion product corresponding to the target vector containing the GOI.\n3.3 Ligate the InsX selection cassette in the linearised plasmid library obtained at step 3.2.\nFollow procedure outlined at step 2.2.2.\n3.4 Transform purified ligation mix (corresponding to 2.5 to 25 ng of plasmid DNA) into electrocompetent\nE. coli\ncells.\nSee step 2.2.3 for transformation and incubation conditions.\n3.5 After growth, collect cells and extract plasmid library pool corresponding to InsX insertion library.\nFollow procedure described in step 1.4.\n3.6\nRemove InsX selection cassette by digesting the cassette insertion library plasmid pool with Eco57I.\nThis step yields a linearised single, double or triple nucleotide triplet insertion plasmid library from Ins1, Ins2 or Ins3 insertion plasmid library, respectively. Digestion with Eco57I removes InsX leaving 2-base 3\u2019-overhangs to be removed in the next step.\nReaction (final volume: 20 \u00b5l\n):\nInsX insertion library plasmid pool: >2 \u00b5g\nFastdigest Eco57I: 1 \u00b5l\nSAM (20X): 1 \u00b5l\n10x FastDigest Green buffer: 2 \u00b5l\nNuclease-free water to 20 \u00b5l\nIncubate 30 minutes at 37 \u00b0C then heat-inactivate for 5 minutes at 80 \u00b0C.\nSeparate the resulting fragments by agarose gel electrophoresis and extract the digestion product corresponding to the target vector containing the GOI.\n3.7 Removal of 3\u2019-overhangs left by Eco57I using DNA Polymerase I, Large (Klenow) Fragment.\nThis step yields a linear plasmid library with random 1, 2 or 3 nucleotide triplet insertions within the GOI.\nPerform reaction in NEB buffer 2 supplemented with 33 \u00b5M of each dNTP (132 \u00b5M total dNTPs). Adjust ratio enzyme/DNA accordingly by using 1 unit of enzyme per \u00b5g of DNA to be treated. Incubate reaction for 15 min at 25 \u00b0C. Stop digestion by adding EDTA (around 10 mM final) and heating for 20 min at 80 \u00b0C. Purify and concentrate resulting DNA product in 10 \u00b5l Nuclease-free water.\n2.2.6 Re-circularise the insertion plasmid library by intramolecular ligation.\nFollow procedure outlined at step 2.1.2.\n2.2.7 Transform purified ligation mix (corresponding to 2.5 to 25 ng of plasmid DNA) into electrocompetent\nE. coli\ncells.\nFollow procedure outlined at step 2.1.3.\n2.2.8 After growth, collect cells and extract plasmid library pool corresponding to single, double or triple nucleotide triplet insertion library.\nFollow procedure described in step 1.4. After this step, the resulting libraries can be stored in the form of DNA solutions."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p><strong>Note 1:</strong> To enable TRIAD, any recognition sequences for MlyI (SchI), NotI and AcuI (Eco57I) in the GOI must be removed either by site-directed mutagenesis (<em>e.g., </em>by introducing a silent mutation that removes an eventual recognition sequences) or by designing and ordering a specific synthetic gene. Bespoke cloning vectors (<em>i.e.</em>, pID-Tet and pID-T7; supplementary files 1 and 2) have previously been assembled to host the GOI during the TRIAD procedure<sup>[7]</sup> and are available from the authors.</p><p><br></p><p><strong>Note 2:</strong> In our hands, 1 \u03bcl of purified and concentrated transposition reaction mix usually yields 10,000 to 50,000 CFUs using 25 \u03bcl of commercial electrocompetent cells. The use of high transformation efficiency cells (&gt;10<sup>9</sup> CFUs/\u03bcg) is recommended to generate highly diverse libraries at each relevant step of the TRIAD procedure.</p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>TRIAD should span just over 5 days when performing ligations and transformations on the same day  (see the timeline in Figure 1).</p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": ""
+        },
+        {
+            "header": "References",
+            "content": "<p>1. H. Murakami, T. Hohsaka, M. Sisido, <em>Nat Biotechnol </em><strong>2002</strong>, <em>20</em>, 76-81.</p><p>2. M. G. Pikkemaat, D. B. Janssen, <em>Nucleic Acids Res </em><strong>2002</strong>, <em>30</em>, E35-35.</p><p>3. R. Fujii, M. Kitaoka, K. Hayashi, <em>Nucleic Acids Res </em><strong>2006</strong>, <em>34</em>, e30.</p><p>4. J. Osuna, J. Yanez, X. Soberon, P. Gaytan, <em>Nucleic Acids Res </em><strong>2004</strong>, <em>32</em>, e136.</p><p>5. D. D. Jones, <em>Nucleic Acids Res </em><strong>2005</strong>, <em>33</em>, e80.</p><p>6. B. Hallet, D. J. Sherratt, F. Hayes, <em>Nucleic Acids Res </em><strong>1997</strong>, <em>25</em>, 1866-1867.</p><p>7. S. Emond, M. Petek, E. J. Kay, B. Heames, S. R. A. Devenish, N. Tokuriki, F. Hollfelder, <em>Nat Commun </em><strong>2020</strong>, <em>11</em>, 3469.</p><p>8. S. Haapa, S. Taira, E. Heikkinen, H. Savilahti, <em>Nucleic Acids Res </em><strong>1999</strong>, <em>27</em>, 2777-2784.</p><p>9. K. Skamaki,&nbsp;S. Emond, M. Chodorge, J. Andrews, D. G. Rees;&nbsp;D. Cannon;&nbsp;B. Popovic,&nbsp;A. Buchanan, R. R. Minter, F. Hollfelder, <em>Proc Natl Acad Sci U S A</em> <strong>2020</strong>, 117 (44), 27307-27318.</p><p>10.\tA. Schenkmayerova, G. P. Pinto, M. Toul, M. Marek, L. Hernychova, J. Planas-Iglesias, V. Liskova, D. Pluskal, M. Vasina, S. Emond, M. D\u00f6rr, R. Chaloupkova, D. Bednar, Z. Prokop, F. Hollfelder, U. T. Bornscheuer &amp; J. Damborsky, <em>Nature Communication</em> <strong>2021 </strong>(<em>in press</em>, DOI: 10.1038/s41467-021-23450-z).</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41467-020-17061-3 ",
+                "date": "2020-07-10 10:04:06",
+                "title": "Accessing unexplored regions of sequence space in directed enzyme evolution via insertion/deletion mutagenesis",
+                "authors": [
+                    "Stephane Emond",
+                    "Maya Petek",
+                    "Emily J. Kay",
+                    "Brennen Heames",
+                    "Sean R. A. Devenish",
+                    "Nobuhiko Tokuriki",
+                    "Florian Hollfelder"
+                ],
+                "journal": "Nature Communications",
+                "logo": ""
+            },
+            {
+                "doi": "10.1073/pnas.2002954117 ",
+                "date": "2020-10-17 00:20:12",
+                "title": "In vitro evolution of antibody affinity via insertional scanning mutagenesis of an entire antibody variable region",
+                "authors": [
+                    "Kalliopi Skamaki",
+                    "Stephane Emond",
+                    "Matthieu Chodorge",
+                    "John Andrews",
+                    "D. Gareth Rees",
+                    "Daniel Cannon",
+                    "Bojana Popovic",
+                    "Andrew Buchanan",
+                    "Ralph R. Minter",
+                    "Florian Hollfelder"
+                ],
+                "journal": "Proceedings of the National Academy of Sciences",
+                "logo": ""
+            },
+            {
+                "doi": "10.1038/s41467-021-23450-z",
+                "date": "",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 19975968,
+                "identity": "3cf8ba65-fd79-4ab7-adda-da3fc2838bf9",
+                "order_by": 0,
+                "name": "Stephane Emond",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-5160-0917",
+                "institution": "Department of Biochemistry, University of Cambridge",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Stephane",
+                "middleName": "",
+                "lastName": "Emond",
+                "suffix": ""
+            },
+            {
+                "id": 19975969,
+                "identity": "a874bf0b-7db1-4330-a8a3-ec0f6d6add8b",
+                "order_by": 1,
+                "name": "Florian Hollfelder",
+                "email": "fh111@cam.ac.uk",
+                "orcid": "https://orcid.org/0000-0002-1367-6312",
+                "institution": "Department of Biochemistry, University of Cambridge",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Florian",
+                "middleName": "",
+                "lastName": "Hollfelder",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2021-04-05 21:38:44",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1448/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1448/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 10336206,
+                "identity": "dca1d6c5-1a26-48e0-87fd-04bf5c0eb9ea",
+                "added_by": "auto",
+                "created_at": "2021-06-14 14:23:46",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 2024738,
+                "visible": true,
+                "origin": "",
+                "legend": "Schematic outline and timeline of the procedure for the generation of random InDel libraries\nA.\tGeneration of deletion libraries. \nStep 1: The TransDel insertion library is generated by in vitro transposition of the engineered transposon TransDel into the plasmid containing the target gene followed by the subcloning of the fragment comprising the target gene and the transposon into a fresh plasmid. \nStep 2: MlyI digestion removes TransDel together with 3 bp of the original target gene and generates a single break per target gene variant. \nStep 3a: Intramolecular ligation results in the reformation of the target gene minus 3 bp, yielding a library of single variants with a deletion of 1 triplet 1. \nStep 3b: DNA cassettes dubbed Del2 and Del3 are then inserted between the break in the target gene to generate Del2 and Del3 insertion libraries. \nStep 4b: MlyI digestion removes Del2 and Del3 together with 3 and 6 additional bp of the original GOI, respectively. \nStep 5b: Intramolecular ligation results in the reformation of the target gene minus 6 and 9 bp, yielding libraries of single variants with a deletion of 2 and 3 triplets, respectively. Red vertical lines indicate deletions.\nB.\tGeneration of insertion libraries. \nStep 1: The TransIns insertion library is generated by in vitro transposition of the engineered transposon into the target gene. \nStep 2: digestion by NotI and MlyI removes TransIns. \nStep 3: DNA cassettes dubbed Ins1, Ins 3 and Ins3 (with respectively 1, 2 and 3 randomized bp triplets at one of their extremities; indicated in blue) are then inserted between the break in the target gene to generate the corresponding Ins1, Ins2 and Ins3 insertion libraries. \nStep 4: AcuI digestion and 5\u2019end digestion by the Klenow fragment remove the cassettes, leaving the randomized triplet(s) in the original target gene. \nStep 5: Intramolecular ligation results in the reformation of the target gene plus 3, 6 and 9 random bp, yielding libraries of single variants with an insertion of 1, 2 and 3 triplets, respectively. Purple vertical lines indicate insertions.\n",
+                "description": "",
+                "filename": "EmondHollfelderFigure1.jpg",
+                "url": "https://assets.researchsquare.com/files/pex-1448/v1/9c7e54908adfd03ea6f4e7ff.jpg"
+            },
+            {
+                "id": 10336504,
+                "identity": "633ebf8c-c732-488e-a274-5ac1671c25c7",
+                "added_by": "auto",
+                "created_at": "2021-06-14 14:26:46",
+                "extension": "jpg",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 132918,
+                "visible": true,
+                "origin": "",
+                "legend": "Mechanism for the generation of InDels using TRIAD. \nThe target sequence is located on a plasmid with ampicillin resistance (bla) and neither the target sequence nor the plasmid contain any MlyI, NotI or AcuI restriction sites.\n(A) Generation of single, double and triple triplet nucleotide deletions. Step 1. Two MlyI recognition sites (5\u2019GAGTC(N)5\uf069) are positioned at each end of TransDel, 1 bp away from the site of transposon insertion. Transposition with TransDel results in the duplication of 5 bp (N4N5N6N7N8) of the target DNA at the insertion point. TransDel carries a selection marker (resistance gene against chloramphenicol; CamR) enabling the recovery of in vitro transposition products after transformation into E. coli. Step 2. MlyI digestion removes TransDel together with 8 bp of the target DNA (4 bp at each end), leaving blunt ends and resulting in the removal of a contiguous 3 bp sequence from the target DNA (N5N6N7). Step 3a. Self-ligation reforms the target DNA minus 3 bp, as previously described 14. Step 3b. Alternatively, blunt-ended cassettes Del2 or Del3 are ligated into the gap left upon TransDel removal for the generation of 6 and 9 bp deletions, respectively. Both Del2 and Del3 also contain two MlyI recognition sites advantageously positioned towards the ends of the cassettes. These cassettes also contain a different marker than TransDel (resistance gene against kanamycin; KanR) to avoid cross-contamination. Step 4b. MlyI digestion removes Del2 and Del3 together with respectively 3 and 6 additional bp of the original target DNA. In the case of Del2, MlyI digestion results in the removal of a 3 bp sequence (N2N3N4) on one side of the cassette. In the case of Del3, MlyI digestion results in the removal of two 3 bp sequence (N2N3N4) on both side of the cassette (N2N3N4 and N8N9N10). Step 5b. Self-ligation reforms the target DNA minus 6 or 9 bp. \n(B) Generation of single, double and triple randomized triplet nucleotide insertions. Step 1. TransDel is an asymmetric transposon with MlyI at one end and NotI at the other end. Both recognition sites are positioned 1bp away from TransIns insertion site. Upon transposition, 5 bp (N1N2N3N4N5) of the target DNA are duplicated at the insertion point of TransIns. Step 2. Double digestion with NotI and MlyI results in the removal of TransIns. Digestion with MlyI removes TransIns with 4 bp (N1N2N3N4) of the duplicated sequence at the transposon insertion site. Digestion with NotI leaves a 5', 4-base cohesive overhang. Step 3. DNA cassettes Ins1, Ins2 and Ins3 (Ins1/2/3) carrying complementary ends are ligated in the NotI/MlyI digested TransIns insertion site. Ins1, Ins2 and Ins3 carry respectively 1, 2 and 3 randomized bp triplets at their blunt-ended extremities ([NNN]1,2 or 3; indicated in purple). Ins1/2/3 contain two AcuI recognition sites (5\u2019CTGAAG(16/14)) strategically positioned towards their ends. One site is located so that AcuI will cleave at the point where the target DNA joins Ins1/2/3. The other site is positioned so that AcuI will cut inside Ins1/2/3 to leave the randomized triplet(s) with the target DNA. Step 4. Digestion with AcuI removes Ins1/2/3 leaving 3\u2019, 2-base overhangs with the target DNA (i.e., 5\u2019N5T on one end and 5\u2019TC on the end carrying the randomized triplet(s)). Digestion with the Large Klenow fragment generates blunt ends by removing the overhangs. This step also enables to discard the extra nucleotide (N5) from the sequence duplicated during the transposition. Step 5. Self-ligation reforms the target DNA with one, two or three randomized nucleotide triplets.",
+                "description": "",
+                "filename": "EmondHollfelderFigure2.jpg",
+                "url": "https://assets.researchsquare.com/files/pex-1448/v1/6abed9c904b0a7f7dfd7c810.jpg"
+            },
+            {
+                "id": 13699201,
+                "identity": "ce9b8ba9-a309-433a-81ff-2353ebfb4588",
+                "added_by": "auto",
+                "created_at": "2021-09-17 13:17:51",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 993191,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1448/v1/b1127136-9358-4775-a611-42bb9114c19e.pdf"
+            },
+            {
+                "id": 10336706,
+                "identity": "0bac6d43-2f50-4fda-8467-78cc91b289f4",
+                "added_by": "auto",
+                "created_at": "2021-06-14 14:29:46",
+                "extension": "gb",
+                "order_by": 1,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 8796,
+                "visible": true,
+                "origin": "",
+                "legend": "Supplementary file 1: full sequence and map of pID-Tet in GenBank format.",
+                "description": "",
+                "filename": "pIDTet.gb",
+                "url": "https://assets.researchsquare.com/files/pex-1448/v1/4bdfaa2345e5aced546abb4a.gb"
+            },
+            {
+                "id": 10336503,
+                "identity": "93df97de-8815-4067-aa60-9f198f0bc3bd",
+                "added_by": "auto",
+                "created_at": "2021-06-14 14:26:46",
+                "extension": "gb",
+                "order_by": 2,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 7175,
+                "visible": true,
+                "origin": "",
+                "legend": "Supplementary file 2: full sequence and map of pID-T7 in GenBank format.",
+                "description": "",
+                "filename": "pIDT7.gb",
+                "url": "https://assets.researchsquare.com/files/pex-1448/v1/40abf41ff1b42390e47d057f.gb"
+            },
+            {
+                "id": 10336509,
+                "identity": "3cedfc74-3598-44d7-a8b2-bbb4f2c1f878",
+                "added_by": "auto",
+                "created_at": "2021-06-14 14:26:46",
+                "extension": "gb",
+                "order_by": 3,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 8754,
+                "visible": true,
+                "origin": "",
+                "legend": "Supplementary file 3: full sequence and map of pUC57-TransDel in GenBank format.",
+                "description": "",
+                "filename": "pUC57TransDel.gb",
+                "url": "https://assets.researchsquare.com/files/pex-1448/v1/6cb659e9ce068a06f5bdde36.gb"
+            },
+            {
+                "id": 10336506,
+                "identity": "a1f7d6f2-38ed-48d1-aceb-39c5394215b9",
+                "added_by": "auto",
+                "created_at": "2021-06-14 14:26:46",
+                "extension": "gb",
+                "order_by": 4,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 8680,
+                "visible": true,
+                "origin": "",
+                "legend": "Supplementary file 4: full sequence and map of pUC57-TransIns in GenBank format.",
+                "description": "",
+                "filename": "pUC57TransIns.gb",
+                "url": "https://assets.researchsquare.com/files/pex-1448/v1/ab0c518d9eca5aaa114bfec1.gb"
+            },
+            {
+                "id": 10336505,
+                "identity": "9e8ffe61-75f2-4b98-bc79-0f148ac0cf42",
+                "added_by": "auto",
+                "created_at": "2021-06-14 14:26:46",
+                "extension": "gb",
+                "order_by": 5,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 9163,
+                "visible": true,
+                "origin": "",
+                "legend": "Supplementary file 5: full sequence and map of pUC57-Del2 in GenBank format.",
+                "description": "",
+                "filename": "pUC57Del2.gb",
+                "url": "https://assets.researchsquare.com/files/pex-1448/v1/3dfb3d4bf5931e1188438c56.gb"
+            },
+            {
+                "id": 10336510,
+                "identity": "a274a9f9-1a06-43c8-bb40-7e249225236d",
+                "added_by": "auto",
+                "created_at": "2021-06-14 14:26:47",
+                "extension": "gb",
+                "order_by": 6,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 9139,
+                "visible": true,
+                "origin": "",
+                "legend": "Supplementary file 6: full sequence and map of pUC57-Del3 in GenBank format.",
+                "description": "",
+                "filename": "pUC57Del3.gb",
+                "url": "https://assets.researchsquare.com/files/pex-1448/v1/078a3d5f1aefe972a0b0c742.gb"
+            },
+            {
+                "id": 10336707,
+                "identity": "5aa1f00c-2f3a-426d-a4e4-4257ebdfa42e",
+                "added_by": "auto",
+                "created_at": "2021-06-14 14:29:46",
+                "extension": "gb",
+                "order_by": 7,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 9258,
+                "visible": true,
+                "origin": "",
+                "legend": "Supplementary file 7: full sequence and map of pUC57-Ins1 in GenBank format.",
+                "description": "",
+                "filename": "pUC57Ins1.gb",
+                "url": "https://assets.researchsquare.com/files/pex-1448/v1/d763727654bf0614aebb0975.gb"
+            },
+            {
+                "id": 10336214,
+                "identity": "a95df0af-32f0-4121-9016-ac34eb87cb8c",
+                "added_by": "auto",
+                "created_at": "2021-06-14 14:23:47",
+                "extension": "gb",
+                "order_by": 8,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 9284,
+                "visible": true,
+                "origin": "",
+                "legend": "Supplementary file 8: full sequence and map of pUC57-Ins2 in GenBank format.",
+                "description": "",
+                "filename": "pUC57Ins2.gb",
+                "url": "https://assets.researchsquare.com/files/pex-1448/v1/ee86ebebe634bf0cc44003f7.gb"
+            },
+            {
+                "id": 10336708,
+                "identity": "74a41a5f-ce4e-45e6-afb1-ecf6a0bda332",
+                "added_by": "auto",
+                "created_at": "2021-06-14 14:29:47",
+                "extension": "gb",
+                "order_by": 9,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 9287,
+                "visible": true,
+                "origin": "",
+                "legend": "Supplementary file 9: full sequence and map of pUC57-Ins3 in GenBank format.",
+                "description": "",
+                "filename": "pUC57Ins3.gb",
+                "url": "https://assets.researchsquare.com/files/pex-1448/v1/d52b4aa7ca93f2a9d09511d7.gb"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "directed evolution, protein engineering, mutagenesis, insertions and deletions, in vitro transposition",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>Insertions and deletions (InDels) are among the most frequent changes observed in natural protein evolution, yet their potential has hardly been harnessed in directed evolution experiments. Here we describe the standard protocol for TRIAD (<u>T</u>ransposition-based <u>R</u>andom <u>I</u>nsertion <u>A</u>nd <u>D</u>eletion mutagenesis), a simple and efficient Mu transposon mutagenesis approach for generating libraries of single InDel variants with one, two or three triplet nucleotide insertions or deletions. This method has recently been employed in three published examples of InDel-based directed evolution of proteins, including a phosphotriesterase, a scFv antibody and an ancestral luciferase.</p>",
+        "manuscriptTitle": "TRIAD: a transposition-based approach for gene mutagenesis by random short in-frame insertions and deletions for directed protein evolution",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2021-06-14 14:23:44",
+                "doi": "10.21203/rs.3.pex-1448/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "7bd81388-31cd-4ed5-b2d3-e46069e583d9",
+        "owner": [],
+        "postedDate": "June 14th, 2021",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3426987,
+                "name": "Biochemistry"
+            },
+            {
+                "id": 3426988,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 3426989,
+                "name": "Chemical biology"
+            },
+            {
+                "id": 3426990,
+                "name": "Evolution"
+            },
+            {
+                "id": 3426991,
+                "name": "Molecular biology"
+            },
+            {
+                "id": 3426992,
+                "name": "Catalysis"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2021-06-14 14:23:44",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

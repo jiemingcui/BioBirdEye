@@ -1,0 +1,205 @@
+{
+    "identity": "nprot-5211",
+    "title": "TopoLink: A software to validate structural models using chemical crosslinking constraints",
+    "content": [
+        {
+            "header": "Procedure",
+            "content": "All details on the usage of the software are available at: \"http://leandro.iqm.unicamp.br/topolink\":http://leandro.iqm.unicamp.br/topolink\r\n\n\n\r\n\n\nThe TopoLink package must be run with: \r\n\n\ntopolink inputfile.inp > topolink.log \r\n\n\nwhere inputfile.inp is the parameter input file and topolink.log is the output log file of the run.\r\n\n\n\r\n\n\n**The basic TopoLink input file contains**: \r\n\n\n\r\n\n\n1. The name of the PDB file of the model to be evaluated. \r\n  2. The type of links to be computed. \r\n  3. The specification of the linker used and experimental observations. \r\n  \r\n\n\n1. **Name of model file and output of linkers computed**. \r\n  \r\n\n\nThe name of the input file is provided with: \r\n\n\npdbfile model.pdb\r\n\n\nand this definition can be overwritten by providing the name of the file in the command line, to facilitate the execution of TopoLink for multiple models with the same input file, as described above. \r\n\n\n\r\n\n\nTopoLink can output coordinates for the topological paths obtained, by using \r\n\n\nprintlinks yes\r\n\n\nlinkdir ./links\r\n\n\nwhere ./links is the directory where the PDB files of the links will be written \\(the directory must exist). Note that there can be many links, so multiple files will be created. The files created are simple PDB files which can be open in any structure visualization software together with the model PDB file to visualize the topological distance. For the execution of TopoLink in multiple models, it is recommended not to write link files, using printlinks no. \r\n\n\n\r\n\n\n2. **Types of links to be computed** \r\n  \r\n\n\nThe next important parameter of the TopoLink input file is the definition of which links are to be searched and computed. There are three options: \r\n\n\ncompute observed\r\n\n\ncompute all\r\n\n\ncompute reactive\r\n\n\nWhen using compute observed, only the links that were observed experimentally \\(see below) will be computed. \r\n\n\n\r\n\n\nIf compute all is used instead, all possible crosslinks will be computed. That means that, given the definition of the linker used, TopoLink will search for consistent topological distances for every pair of residues that could, by the chemical nature of the linker and the residues involved, be attached by the linker. \r\n\n\n\r\n\n\nFinally, compute reactive tells TopoLink to consider that only residues that were experimentally observed to react \\(by participating in observed crosslinks or dead-ends) are reactive. Then, TopoLink will search for topological distances consistent with the linker used only between these pairs of \"observed-reactive\" residues. \r\n\n\n\r\n\n\nAdditionally, the user may optionally choose to compute only the crosslinks between different chains of the PDB file, for instance to compute inter-proteins crosslinks in a complex. To do so, just add the \r\n\n\ninterchain\r\n\n\noption to the input file. All intra-protein links will be skiped. \r\n\n\n\r\n\n\n3. **Specification of linker types and experimental observations** \r\n  \r\n\n\nThe linker types and observations are specified in the TopoLink input file using an experiment-based structure, as described in \"http://leandro.iqm.unicamp.br/topolink/usage.shtml\":http://leandro.iqm.unicamp.br/topolink/usage.shtml \r\n\n\nLink types, reactive residues, and experimental observations \\(either crosslinks or deadends) are provided\r\n\n\nby the user with appropriate keywords."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "We thank Fapesp, projects 2010/16947-9,  2013/05475-7 and 2013/08293-7 for financial support."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 14157,
+                "identity": "a0d03431-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Leandro  Martinez",
+                "email": "leandromartinez98@gmail.com",
+                "orcid": "",
+                "institution": "Martinez's Molecular Modeling Lab, Institute of Chemistry - University of Campinas",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Leandro",
+                "middleName": "",
+                "lastName": "Martinez",
+                "suffix": ""
+            },
+            {
+                "id": 14158,
+                "identity": "a0d038f4-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Allan Ferrari",
+                "email": "",
+                "orcid": "",
+                "institution": "Institute of Chemistry - University of Campinas",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Allan",
+                "middleName": "",
+                "lastName": "Ferrari",
+                "suffix": ""
+            },
+            {
+                "id": 14159,
+                "identity": "a0d03d03-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Fabio Cesar Gozzo",
+                "email": "",
+                "orcid": "",
+                "institution": "Institute of Chemistry - University of Campinas",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Fabio",
+                "middleName": "Cesar",
+                "lastName": "Gozzo",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2016-09-20 15:01:15",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2017.035",
+        "doiUrl": "https://doi.org/10.1038/protex.2017.035",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2609557,
+                "identity": "fe438bb7-7bdd-40d1-823b-a1af1597e3c4",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:01",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 70289,
+                "visible": true,
+                "origin": "",
+                "legend": "Topological links observed on the protein surface.",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-5211/v1/figure_1.png"
+            },
+            {
+                "id": 13465392,
+                "identity": "b23b10ae-49cd-43e1-9668-51ff7a46dd8b",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:46:36",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 204578,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-5211/v1/56698fec-d30d-4499-902c-3c2f567ea581.pdf"
+            }
+        ],
+        "financialInterests": "none",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "chemical crosslinking, mass spectrometry, protein modeling, rosetta",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "TOPOLINK is a package to compute topological distances between atoms on the surface of proteins and validate structural models from cross-linking experimental data.\r\n\n\n\r\n\n\nThe package is available at:\r\n\n\n\r\n\n\n \"http://leandro.iqm.unicamp.br/topolink\":http://leandro.iqm.unicamp.br/topolink\r\n\n\n\r\n\n\nChemical cross-linking mass spectrometry is powerful experimental method for the evaluation of interatomic distances in biomolecular structures. These experiments provided upper bounds for the distances between residues, by the identification of pairs of atoms in the surface of protein which are within the linker reach.\r\n\n\n\r\n\n\nThe evaluation of structural models using chemical cross-linking depends on the determination of the topological, or surface-accessible, distances of the reactive residues in the model, and its comparison with experimental observations.\r\n\n\n\r\n\n\nTopoLink is a package designed to compute topological distances and evaluate structural models, structured with the experimental result in mind.\r\n\n\n\r\n\n\nThe user provides a description of the experiments performed, the types of cross-links that can be formed in each experiment, and an account of the experimental result, and TopoLink determines how consistent a structural model is consistent with that experimental results.\r\n\n\n\r\n\n\nFor doing so, TopoLink computes all possible cross-links of the structure and their consistency with experimental observations. It also provides means for the visualization of the topological distances on the protein structure.",
+        "manuscriptTitle": "TopoLink: A software to validate structural models using chemical crosslinking constraints",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2017-03-25 17:10:47",
+                "doi": "10.1038/protex.2017.035",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 1
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a0cfba9a-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "March 25th, 2017",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3710,
+                "name": "Biochemistry"
+            },
+            {
+                "id": 3711,
+                "name": "Computational biology and bioinformatics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2017-03-25 17:10:47",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

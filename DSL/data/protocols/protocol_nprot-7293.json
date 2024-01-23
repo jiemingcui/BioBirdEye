@@ -1,0 +1,334 @@
+{
+    "identity": "nprot-7293",
+    "title": "A single-cell chromatin immunocleavage sequencing \\(scChIC-seq)",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "We developed a single-cell chromatin immunocleavage sequencing method \\(scChIC-seq) based on the principle of ChIC, which measures the epigenetic profiles at a single-cell level. In scChIC-seq, chromatin is cleaved at sites of histone modifications or TF binding by MNase that is recruited to specific chromatin regions by a specific antibody either through direct covalent conjugation with the antibody \\(Ab-MNase) or through protein A-antibody interaction \\(Ab+PA-MNase). The direct covalent conjugation between antibody and MNase eliminates the Ab and PA interaction step. On chromatin, MNase cleaves DNA around the nucleosome with the histone modification into small fragments. To minimize DNA loss in library preparation, both target and non-target DNA fragments are recovered and ligated to the adaptors. Since the targets are smaller fragments compared to non-target DNA, they are preferentially amplified by selective PCR conditions and isolated by agarose gel electrophoresis and sequenced on NGS platforms."
+        },
+        {
+            "header": "Reagents",
+            "content": "**Reagents:**\r\n\n\n1. ProteinA recombinant \\(cat no. 21184, Thermo Fisher Scientific)\r\n  2. Nuclease micrococcal from _Strephylococcus aureus_ 500 UN \\(cat no. N3755, Sigma)\r\n  3. Deoxyribonuclease I from bovine pancrease 375KU \\(cat no. D5025, Sigma)\r\n  4. Traut\u2019s reagent \\(cat no. 26101, Thermo Fisher Scientific)\r\n  5. SMCC \\(cat no. 22360, Thermo Fisher Scientific)\r\n  6. H3K4me3 antibody \\(ChIPAb+ Trimethyl-Histone H3 \\[Lys4]) \\(cat no. 17-614, Millipore Sigma)\r\n  7. H3K27me3 antibody Anti-Trimethyl-Histone H3 \\[Lys27]) \\(cat no. 07-449, Millipore Sigma)\r\n  8. 16% formaldehyde solution \\(w/v) methanol-free \\(cat no. 28906, Pierce)\r\n  9. Proteinase K, 5 mL \\(cat no. 03 115 828 001, Sigma Aldrich)\r\n  10. Phenol-chloroform pH6.7/8.0 \\(cat no. 0883-100 ml, VWR life scientific)\r\n  11. Glycogen, 20 mg \\(cat no. 10901393001, Roche)\r\n  12. End-It\u2122 DNA End-Repair Kit \\(cat no. ER81050, Lucigen)\r\n  13. Klenow \\(3\u2019\u21925\u2019 Exo-) \\(cat no. M0212L, New England Biolabs)\r\n  14. T4 DNA ligase \\(cat no. M0202L, New England Biolabs)\r\n  15. Phusion High-Fidelity PCR master mix with HF buffer \\(cat no. M0531L, New England Biolabs)\r\n  16. MinElute Gel Extraction Kit \\(250) \\(cat no. 28606, Qiagen)\r\n  17. Qubit ds DNA HS Assay \\(cat no. Q32854, Invitrogen)\r\n  18. Buffer QG \\(cat no. 1014876, Qiagen)\r\n  19. Buffer EB \\(cat no. 19086, Qiagen)\r\n  20. PBS, Mg Ca free \\(cat no. 21+040+CV, Mediatech Inc.)\r\n  21. EDTA \\(0.5 M), pH8.0 \\(cat no. AM9260G, Thermo Fisher Scientific)\r\n  22. Glycerol \\(cat no. 17904, Thermo Fisher Scientific)\r\n  23. Tris \\(cat no. 17926, Thermo Fisher Scientific)\r\n  24. 5 M NaCl \\(cat no. AM9759, Thermo Fisher Scientific)\r\n  25. Triton\u2122 X-100 Surfact-Amps\u2122 Detergent Solution \\(cat no. 28313, Thermo Fisher Scientific)\r\n  26. UltraPure\u2122 SDS Solution, 10% \\(cat no. 24730020, Invitrogen)\r\n  27. Sodium Deoxycholate Detergent \\(cat no. 89905, Thermo Fisher Scientific)\r\n  28. CaCl, 1 M \\(cat no. 21115, Sigma-Aldrich)\r\n  29. Isopropanol, Molecular Biology Grade, Fisher BioReagents \\(cat no. BP2618500, Thermo Fisher Scientific)\r\n  30. EGTA 0.5M Solution pH 8.0 \\(cat no. E14100-50.0, Research Products International)\r\n  31. Sodium Acetate \\(3 M), pH 5.5 \\(cat no. AM9740, Invitrogen)\r\n  32. Ethanol \\(cat no. 09-0852-5-500ML-J, Sigma-Aldrich)"
+        },
+        {
+            "header": "Equipment",
+            "content": "**Non-consumables:**\r\n\n\n1. Magnetic stirrer \\(VWR International)\r\n  2. Tube rotator \\(Labnet International Inc.)\r\n  3. Thermal cycler \\(Thermo Fisher Scientific, Veriti Thermal Cycler)\r\n  4. Qubit\u2122 4 fluorometer \\(Thermo Fisher Scientific)\r\n  5. Tube centrifuge 5417 R \\(Eppendorf)\r\n  6. Mini centrifuge \\(Thermo Fisher Scientific)\r\n  7. Serological pipettes \\(Thermo Fisher Scientific)\r\n  8. Standard set of manual pipettes \\(2, 20, 200, 1000 \u03bcL and multi-channel if necessary)\r\n  9. Portable aspiration system VACUSIP \\(INTEGRA)\r\n  10. Water bath \\(Thermo Fisher Scientific)\r\n  11. Incubator IC-150MA \\(AS ONE)\r\n  12. E-Gel\u2122 Power Snap Electrophoresis System \\(Thermo Fisher Scientific)\r\n  13. Recommended single cell sorter:\r\n  BD FACSAria\r\n\n\n14. Recommended sequencer:\r\n  Illumina Sequencing Technology\r\n\n\n\r\n\n\n**Consumables:**\r\n\n\n1. 20 \u03bcL, 200 \u03bcL, 100 \u03bcL filter tips \\(DNase/RNase free)\r\n  2. 15 mL and 50 mL centrifuge tubes and conical tubes\r\n  3. 1.5 mL microcentrifuge tubes\r\n  4. 5 mL and 10 mL disposable serological plastic-pipets\r\n  5. 8-well strip PCR tubes with individual caps\r\n  6. Falcon\u00ae Cell Strainers, 40 \u00b5m\r\n  7. Conventional syringes and needles \\(BD)\r\n  8. Slide+A+Lyzer Dialysis Cassette 10,000 MWCO 0.1-0.5 ml \\(Thermo Fisher Scientific)\r\n  9. E-Gel<sup>TM</sup> EX Agarose Gel, 2% \\(Invitrogen)\r\n  10. illustra ProbeQuant G-50 Micro Columns \\(GE healthcare)"
+        },
+        {
+            "header": "Procedure",
+            "content": "**scChIC-Seq Supplementary Protocol \\(version from January, 2019)**\r\n\n\n\r\n\n\n**A. Method for crosslinking antibodies with MNase**  \r\n\n\n**Day 1:**\r\n\n\n1.Dialyze antibody \\(Ab) to remove any impurities with the primary amines against 500 mL PBS with EDTA \\(PBSE, PBS \\[magnesium and calcium free] with 1 mM EDTA) in a new plastic bucket as follows. Inject Ab \\(80-200 \u00b5L) using syringe with needle into a Slide+A+Lyzer Dialysis Cassette \\(10 k MWCO, 0.5 mL size, Thermo Fisher Scientific), incubate at room temperature for 1 hr while constant stirring using magnetic stirrer, transfer the cassette to the same bucket containing fresh 500 mL PBSE, and continue to stir overnight at 4\u00b0C using magnetic stirrer.\r\n\n\n_Note: Each Ab should be independently dialyzed in a separate bucket._\r\n\n\n\r\n\n\n**Day 2:**  \r\n\n\n2.Prepare MNase+Traut's Reagent as follows. \r\n\n\n\u30fbPierce Traut's Reagent \\(2-iminothiolane, Thermo Fisher Scientific)  is solubilized in water to 2 mg/mL \\(final conc. at 14.53 mM).\r\n\n\n\u30fbMNase \\(16,807 g/mol) is solubilized to 4 mg/mL \\(final conc. at 0.24 mM) in PBS containing 40% glycerol.\r\n\n\n\u30fbMix 6.4 \u00b5L 14.53 mM Traut's Reagent and 200 \u00b5L 0.24 mM MNase \\(Traut: MNase=2:1) in 1.5 mL tube. \r\n\n\n\u30fbIncubate at room temperature for 1 hr. \r\n\n\n\u30fbAccording to the following procedure, the reaction is desalted using four G50 columns per above reaction and pooled desalted products.\r\n\n\n\r\n\n\n**Desalting procedure:**\r\n\n\n\u30fbSnap-open the bottom of a column \\(G50 GE ProbeQuant +50 Micro columns, cat# 28+9034+08), loose the cap, spin 750xg for 30 sec.\r\n\n\n\u30fbAdd 600 \u00b5L PBSE, spin 750xg for 30 sec, dump the flow through. \\(Repeat once again)\r\n\n\n\u30fbAdd 600 \u00b5L PBSE, spin 750xg for 1 min. \r\n\n\n\u30fbLoad 50 \u00b5L reaction per a column and spin 750xg for 1 min.\r\n\n\n\u30fbCollect the eluent containing desalted reaction products.\r\n\n\n\r\n\n\n3. After dialysis, Ab is reacted with succinimidyl 4-\\(N-maleimidomethyl)cyclohexane-1-carboxylate \\(SMCC, Thermo Fisher Scientific) at molecular ratio of 1:20 as follows. \r\n  \u30fbMix 100 \u00b5g Ab \\(0.67 nmol) with 1.5 \u00b5L 3 mg/mL SMCC \\(8.97 nmol/\u00b5L) that is dissolved in DMSO.  \r\n\n\n_Note: Alternatively, to prepare for crosslinking PA with MNase, mix 100 \u00b5g PA \\(2.94 nmol) with 6.5 \u00b5L 3 mg/mL SMCC \\(8.97 nmol/\u00b5L) that is dissolved in DMSO._\r\n\n\n\u30fbIncubate at room temperature for 30 min. \r\n\n\n\u30fbDesalt using G50 columns, and eluents were pooled.\r\n\n\n\r\n\n\n4. For each of the desalted **Ab-SMCC \\(or PA-SMCC)**, add the desalted **MNase-traut** at molecular ratio of 1:10, incubate at room temperature for 1 hr, add 1 M Tris \\(pH 7.4) to final concentration at 50 mM to terminate the reaction, add glycerol to final concentration at 40% \\(v/v), and store at -20\u00b0C until use.\r\n  \r\n\n\n**B. scChIC-Seq protocol for single cells**\r\n\n\n**Day 1 \\(about 4 to 5 hours)**\r\n\n\n1. Prepare formaldehyde fixed cells as follows. _\\(about 1 hour)_ \r\n  Before fixing the cells, make sure that the cultured cells were evenly distributed in the cell culture medium. Into the medium, directly add 1/15 volume of 16% formaldehyde solution \\(w/v) methanol-free \\(Pierce prod no.28908). Incubate at room temperature for 5 min while gently mixing using tube-rotator. Then, add 1/10 volume of 1.25 M glycine to terminate the cell fixing. Incubate at room temperature for 5 min while gently mixing using tube-rotator. Centrifuge at 1,320 rpm, 4\u00b0C for 7 min to collect the fixed cells. Wash with PBS twice. Remain some PBS and divide into 10\n6\ncells per 1.5-mL tube. The tubes were snap-frozen on dry-ice, and store at -80\u00b0C until use.\r\n\n\n\r\n\n\n2. Pre-treat the fixed-cells using 1 mL RIPA buffer \\(Tris-EDTA buffer \\[pH7.5]+150 mM NaCl+0.2% SDS+0.1% NaDeoxycholate+1% Triton X-100) for 30 min rotating at room temperature. Rinse with 1 mL binding buffer \\(Tris-EDTA buffer \\[pH7.5]+200 mM NaCl+0.1% Triton X-100) twice, and resuspend in 1 mL binding buffer. _\\(about 40 minutes)_\r\n  _Note: This treatment is required for analysis of heterochromatic marker._\r\n\n\n\r\n\n\n3. Form antibody \\(Ab) and ProteinA-MNase \\(PA-MNase) complex \\(Ab+PA-MNase) \\(not needed if using the direct Ab-MNase conjugate \\(Ab-MNase). _\\(30 minutes)_\r\n  In 50 \u00b5L binding buffer \\(Tris-EDTA buffer \\[pH7.5]+200 mM NaCl+0.1% Triton X-100), add 0.72 \u00b5L PA-MNase \\(about 0.0129 nmol PA crosslink/\u00b5L), 0.5 \u00b5L Ab \\(for ChIPAb+ Trimethyl-Histone H3 \\[Lys4], Millipore Sigma Cat. # 17-614, Lot # 2726787, for control Normal Rabbit IgG, or for 1 mg/mL Anti-Trimethyl-Histone H3 \\[Lys27], Millipore Sigma Cat. # 07-449, Lot # 2826067). Incubate at 4\u00b0C for 30 min.\r\n\n\n\r\n\n\n4. Add above Ab+PA-MNase or Ab-MNase to the fixed-cells \\(10\n6\ncells) in the binding buffer, incubate at 4\u00b0C and gently mix using the tube-rotator for 30 min.\r\n  _Note: The amount of Ab+PA-MNase or Ab-MNase added to the fixed cells depend on the antibody and the concentration of the active cross-linked molecules. In our case, all of the above Ab+PA-MNase prepared from step 3 or 29.17 \u00b5L Ab-MNase glycerol stock was used in a reaction._\r\n\n\n\r\n\n\n5. Spin down the cells at 2,000 rpm for 2 min, rotate the tube 180 degree in the centrifuge and spin-down to the opposite side of the tube by centrifugation at 2,000 rpm for 1 min. Remove the supernatant \\(do not over-dry, work with wet pellet by leaving a small quantity of buffer). Add 200 \u00b5L wash buffer. Spin down the cells and remove supernatant as before. Repeat twice to do total of three wash. _\\(about 20 minutes)_\r\n  _Note: it is important to remove all excess nucleases._\r\n\n\n\r\n\n\n6. Rinse the cells with 1 mL Sorting buffer \\(Tris-EDTA buffer \\[pH7.5]+10 mM NaCl+0.1% Triton X-100). Resuspend in 200 \u00b5L Sorting buffer. Filter the cell solution using a cell strainer \\(Falcon\u00ae 40 \u00b5m Cell Strainer, product no. 352340). Keep sample on ice.\r\n  \r\n\n\n7. Using FACS, sort cells to a single cell into a 0.2 mL 8-Strip PCR Tubes that contain 20 \u00b5L Sorting buffer per tube. After sorting the cells, immediately spin-down to collect a single cell into the solution at the bottom of the tube. Keep samples on ice. _\\(about 1 hour)_\r\n  \r\n\n\n8. Activate MNase by adding 100 \u00b5L cold RSB per a PCR tube \\(10 mM Tris \\[pH7.5]+10 mM NaCl+0.1% Triton X-100+2 mM CaCl\n2\n). Incubate at 37\u00b0C for 3 min using water bath. _\\(about 20 minutes)_\r\n  \r\n\n\n9. Add 100 \u00b5L stop buffer \\(20 mM Tris \\[pH8.0] +20 mM NaCl+0.2% SDS+10 mM EGTA) containing 1 \u00b5L proteinase K. Mix well and incubate over-night at 65\u00b0C. \r\n  _Note: this step is the end of using PCR tube. From here, use 1.5-mL tube._\r\n\n\n\r\n\n\n**Day2 \\(about 9 hours)**    \r\n\n\n10. Purify DNA by Phenol-chloroform extraction. Add 125 \u00b5L Phenol-chloroform in 1.5 mL tube containing the reaction mixture from step 9. Vortex. Centrifuge for 5 min at 13 krpm. Prepare a new 1.5-mL tube containing 13.5 \u00b5L glycogen salt solution \\(1 \u00b5L 20 mg/mL Glycogen and 12.5 \u00b5L 3 M NaOAc \\[pH5.3]). Transfer the upper phase to the new tube. Add 330 \u00b5L 100% ethanol. Incubate on dry-ice for 20 min. Centrifuge for 15 min at 13 krpm at 4\u00b0C. Remove the supernatant \\(do not over-dry). Rinse pellets once using 400 \u00b5L cold 70% ethanol. Then, the pellet is air-dried briefly \\(do not over-dry) and resuspended in 4 \u00b5L Qiagen EB \\(Qiagen). _\\(about 2 hour)_\r\n  \r\n\n\n11. End-repair the DNA as follows using End-It\u2122 DNA End-Repair Kit \\(Lucigen) as follows.\r\n  2.75 \u00b5L H\n2\nO \r\n\n\n1 \u00b5L 10x dNTP mix\r\n\n\n1 \u00b5L 10x ATP mix \r\n\n\n1 \u00b5L 10x end-repair enzyme buffer \r\n\n\n0.25 \u00b5L End-repair enzyme mix\r\n\n\nAdd 6 \u00b5L to each tube and mix well. Incubate at 37\u00b0C for 20 min. Stop the reaction by adding 115 \u00b5L Tris-EDTA buffer \\[pH 7.5], 125 \u00b5L Phenol-Chloroform extraction as above. _\\(about 1 hour)_\r\n\n\n\r\n\n\n12. Vortex-mix well, spin as before. Transfer the upper phase to a new tube and precipitate DNA with 13.5 \u00b5L of following mixture \\(1 \u00b5L of 20 mg/ml Glycogen, 12.5 \u00b5L of 3 M NaOAc \\[pH5.3]) and 340 \u00b5L ethanol. Incubate on dry ice for 20 minutes and centrifuge at 13 krpm for 15 minutes at 4\u00b0C. Remove supernatant and rinse pellet with 400 \u00b5L cold 70% ethanol. Remove supernatant and air dry pellets \\(do not over-dry). Resuspend pellet in 5 \u00b5L Qiagen EB \\(Qiagen). _\\(about 1 hour)_\r\n  \r\n\n\n13. Add A to DNA ends \\(10 \u00b5L reaction).\r\n  2.7\u00b5L H\n2\nO\r\n\n\n1 \u00b5L 10x NEB2 \r\n\n\n1 \u00b5L 10mM dATP\r\n\n\n0.3 \u00b5L Klenow Exo-\r\n\n\nAdd 5 \u00b5L to each tube and mix, then transfer all to PCR tube. Incubate at 37\u00b0C for 20 min, 75\u00b0C for 20 min, then 4\u00b0C to store. _\\(about 50 minutes)_\r\n\n\n\r\n\n\n14. Adaptor ligation \\(15 \u00b5L reaction). \r\n  1.8 \u00b5L H\n2\nO \r\n\n\n0.8 \u00b5L 10x T4 DNA ligase buffer \r\n\n\n0.8 \u00b5L 15 \u00b5M Illumina Adaptor Oligo Mix \r\n\n\n0.4 \u00b5L 400 U/\u00b5L T4 DNA ligase. \r\n\n\n   Add 5 \u00b5L to each tube. Incubate at room temperature for 3 hr.  _\\(about 3 hours)_\r\n\n\n\r\n\n\n15. PCR amplification: Add 0.4 \u00b5L each 10 \u00b5M Indexing primer, 15.8 \u00b5L 2x Phusion Master Mix, 0.4 \u00b5L 10 \u00b5M common PCR primer 1.0.  Perform PCR: 98\u00b0C, 30 min; 25 cycles \\(98\u00b0C, 10 min; 68\u00b0C, 30 min; 72\u00b0C, 30 min); 72\u00b0C, 5 min; 4\u00b0C hold. _\\(about 1 hour)_\r\n  \r\n\n\n16. Pool PCR products and purify the DNA using MiniElute columns \\(Qiagen). Elute with a total of 40 \u00b5L 10 mM Tris, pH7.5. Load 16 \u00b5L PCR product onto a 2% E-gel \\(Thermo Fisher Scientific) without dilution, and agarose gel electrophoresis run for 22 min. Isolate the fragments of 140 to 350 bp in size by cutting out the desired gel and transfer them to 1.5-mL Eppendorf tubes. _\\(about 90 minutes)_\nSee figure in Figures section.\nFigure 1.\r\n\n\nShown is typical gel electrophoresis result.\r\n\n\nA. Each sample \\(lane 1-8) was run in individual well. B. Isolate the agarose gel with each DNA sample separately in each tube by cutting out 140-350 bp in size and remove excess agarose gel with no DNA to maximize the DNA purification efficiency in the following steps.\r\n\n\n\r\n\n\n17. Add 900 \u00b5L Buffer QG \\(Qiagen) per tube to solubilize the gel by rotating for 20 min at room temperature. Add 300 \u00b5L isopropanol to each tube. Transfer the solution to one Mini Column \\(700 \u00b5L first, and spin, and then transfer the remaining solution and spin). Wash once with 500 \u00b5l QG. Wash once with 700 \u00b5L PE wash buffer \\(with ethanol), spin for 10 sec, discard solution and then spin for 2 min. Elute DNA with 20 \u00b5L EB. _\\(about 30 minutes)_\r\n  \r\n\n\n18. Measure concentration of DNA sample using a Qubit dsDNA BR Assay Kit \\(Thermo Fisher Scientific) as follows.\r\n  Prepare assay mix:\r\n\n\n200 \u00b5L Qubit buffer\r\n\n\n1 \u00b5L dye\r\n\n\n\r\n\n\nAdd the assay mix to the control and sample solutions as follows.\r\n\n\nFor 0 ng/\u00b5L control: 190 \u00b5L assay mix + 10 \u00b5L control DNA solution\r\n\n\nFor 10 ng/\u00b5L control: 190 \u00b5L assay mix + 10 \u00b5L control DNA solution\r\n\n\nFor sample: 198 \u00b5L above mix + 2 \u00b5L DNA sample\r\n\n\n\r\n\n\n19. Incubate 1 min at room temperature. Measure by Qubit \\(double stranded DNA HS mode), calibrate DNA concentration by setting the volume mode 2 \u00b5L. _\\(about 10 minutes)_\r\n  \r\n\n\n20. Run NGS using DNA sample prepared at the desired concentration.\r\n  \r\n\n\n**C. ChIC-Seq protocol for small number of cells**\r\n\n\n**Day 1 \\(about 3 hour)**\r\n\n\n1. Prepare formaldehyde fixed cells as follows. _\\(about 1 hour)_ \r\n  Before fixing the cells, make sure that the cultured cells were evenly distributed in the cell culture medium. Into the medium, directly add 1/15 volume of 16% formaldehyde solution \\(w/v) methanol-free \\(Pierce prod no.28908). Incubate at room temperature for 5 min while gently mixing using tube-rotator. Then, add 1/10 volume of 1.25 M glycine to terminate the cell fixing. Incubate at room temperature for 5 min while gently mixing using tube-rotator. Centrifuge at 1,320 rpm, 4\u00b0C for 7 min to collect the fixed cells. Wash with PBS twice. Remain some PBS and divide into 10\n6\ncells per 1.5-mL tube. The tubes were snap-frozen on dry-ice, and store at -80\u00b0C until use.\r\n\n\n\r\n\n\n2. Pre-treat the fixed-cells using 1 mL RIPA buffer \\(Tris-EDTA buffer \\[pH7.5]+150 mM NaCl+0.2% SDS+0.1% NaDeoxycholate+1% Triton X-100) for 30 min rotating at room temperature. Rinse with 1 mL binding buffer \\(Tris-EDTA buffer \\[pH7.5]+200 mM NaCl+0.1% Triton X-100) twice, and resuspend in 1 mL binding buffer. _\\(about 40 minutes)_\r\n  _Note: This treatment is required for analysis of heterochromatic marker._\r\n\n\n\r\n\n\n3. Form antibody \\(Ab) and ProteinA-MNase \\(PA-MNase) complex \\(Ab+PA-MNase) \\(not needed if using the direct Ab-MNase conjugate \\(Ab-MNase). \\(30 minutes)\r\n  In 50 \u00b5L binding buffer \\(Tris-EDTA buffer \\[pH7.5]+200 mM NaCl+0.1% Triton X-100), add 0.72 \u00b5L PA-MNase \\(about 0.0129 nmol PA crosslink/\u00b5L), 0.5 \u00b5L Ab \\(for ChIPAb+ Trimethyl-Histone H3 \\[Lys4], Millipore Sigma Cat. # 17-614, Lot # 2726787, for control Normal Rabbit IgG, or for 1 mg/mL Anti-Trimethyl-Histone H3 \\[Lys27], Millipore Sigma Cat. # 07-449, Lot # 2826067). Incubate at 4\u00b0C for 30 min.\r\n\n\n\r\n\n\n4. Transfer pre-treated cells in binding buffer to desired cell concentration in 50 \u00b5L \\(for example, 3,000 cells/50 \u00b5L). Add this cell solution and the pre-incubated complex from step3 \\(Ab-PA-MNase or Ab-MNase), so the total volume becomes 100 \u00b5L. Incubate at 4\u00b0C and gently mix by the tube-rotator for 30 min. \\(30 minutes)\r\n  _Note: The amount of Ab+PA-MNase or Ab-MNase added to the fixed cells depend on the antibody and the concentration of the active cross-linked molecules. In our case, all of the above Ab+PA-MNase prepared from step 3 or 29.17 \u00b5L Ab-MNase glycerol stock was used in a reaction._\r\n\n\n\r\n\n\n5. Spin down the cells at 2,000 rpm for 2 min, rotate the tube 180 degree in the centrifuge and spin-down to the opposite side of the tube by centrifugation at 2,000 rpm for 1 min. Remove the supernatant \\(do not over-dry, work with wet pellet by leaving a small quantity of buffer). Add 200 \u00b5L wash buffer. Spin down the cells and remove supernatant as before. Repeat twice to do total of three wash. \\(about 20 minutes)\r\n  _Note: it is important to remove all excess nucleases._\r\n\n\nWash buffers: \r\n\n\n\\(Tris-EDTA buffer \\[pH7.5]+400 mM NaCl+1% Triton X-100) _use for Ab-PA-MNase reaction_\r\n\n\n\\(Tris-EDTA buffer \\[pH7.5]+150 mM NaCl+0.1% SDS+0.1% NaDeoxycholate+1% Triton X-100) _use for Ab-MNase reaction_\r\n\n\n\r\n\n\n6. Rinse with rinsing buffer \\(10 mM Tris \\[pH7.5]+10 mM NaCl+0.1% Triton X-100) as follows. Add 200 \u00b5L rinsing buffer, immediately spin at 2,000 rpm for 2 min, rotate tube in centrifuge and spin at 2,000 rpm for another 1 min, and remove supernatant \\(do not over-dry). _\\(about 10 minutes)_\r\n  \r\n\n\n7. Activate MNase by adding 40 \u00b5L RSB solution \\(RSB solution for MNase: 10 mM Tris \\[pH7.5]+10 mM NaCl+0.1% Triton X-100+2 mM CaCl\n2\n). Incubate at 37\u00b0C for 3 min using water bath. _\\(about 5 minutes)_\r\n  \r\n\n\n8. Add 100 \u00b5L stop buffer containing 1 \u00b5L proteinase K \\(Stop buffer: 20 mM Tris \\[pH8.0] +20 mM NaCl+0.2% SDS+10 mM EGTA), mix well and incubate over-night at 65\u00b0C. _\\(about 5 minutes)_\r\n  _Note: this step is the end of using PCR tube. From here, use 1.5-mL tube._\r\n\n\n\r\n\n\n**Day2 \\(about 8 hours)**\r\n\n\n9. Purify DNA by Phenol-chloroform extraction. Add 125 \u00b5L Phenol-chloroform in 1.5 mL tube containing the reaction mixture from step 8. Vortex. Centrifuge for 5 min at 13 krpm. Prepare a new 1.5-mL tube containing 13.5 \u00b5L glycogen salt solution \\(1 \u00b5L 20 mg/mL Glycogen and 12.5 \u00b5L 3 M NaOAc \\[pH5.3]). Transfer the upper phase to the new tube. Add 330 \u00b5L 100% ethanol. Incubate on dry-ice for 20 min. Centrifuge for 15 min at 13 krpm at 4\u00b0C. Remove the supernatant \\(do not over-dry). Rinse pellets once using 400 \u00b5L cold 70% ethanol. Then, the pellet is air-dried briefly \\(do not over-dry) and resuspended in 4 \u00b5L Qiagen EB \\(Qiagen). _\\(about 1 hour)_\r\n  \r\n\n\n10. End-repair the DNA as follows using End-It\u2122 DNA End-Repair Kit \\(Lucigen) as follows.\r\n  2.75 \u00b5L H\n2\nO \r\n\n\n1 \u00b5L 10x dNTP mix\r\n\n\n1 \u00b5L 10x ATP mix \r\n\n\n1 \u00b5L 10x end-repair enzyme buffer \r\n\n\n0.26 \u00b5L End-repair enzyme mix\r\n\n\nAdd 6 \u00b5L to each tube and mix well. Incubate at 37\u00b0C for 20 min. Stop the reaction by adding 115 \u00b5L Tris-EDTA buffer \\[pH 7.5], 125 \u00b5L Phenol-Chloroform extraction as above. _\\(about 30 minutes)_\r\n\n\n\r\n\n\n11. Vortex-mix well, spin as before. Transfer the upper phase to a new tube and precipitate DNA with 13.5 \u00b5L of following mixture \\(1 \u00b5L of 20 mg/ml Glycogen, 12.5 \u00b5L of 3 M NaOAc \\[pH5.3]) and 340 \u00b5L ethanol. Incubate on dry ice for 20 minutes and centrifuge at 13 krpm for 15 minutes at 4\u00b0C. Remove supernatant and rinse pellet with 400 \u00b5L cold 70% ethanol. Remove supernatant and air dry pellets \\(do not over-dry). Resuspend pellet in 5 \u00b5L Qiagen EB \\(Qiagen). _\\(about 1 hour)_\r\n  \r\n\n\n12. Add A to DNA ends \\(10 \u00b5L reaction).\r\n  2.7\u00b5L H\n2\nO\r\n\n\n1 \u00b5L 10x NEB2 \r\n\n\n1 \u00b5L 10mM dATP\r\n\n\n0.3 \u00b5L Klenow Exo-\r\n\n\nAdd 5 \u00b5L to each tube and mix, then transfer all to PCR tube. Incubate at 37\u00b0C for 20 min, 75\u00b0C for 20 min, then 4\u00b0C to store. _\\(about 50 minutes)_\r\n\n\n\r\n\n\n13. Adaptor ligation \\(15 \u00b5L reaction). \r\n  1.8 \u00b5L H\n2\nO \r\n\n\n1.4 \u00b5L 10x T4 DNA ligase buffer \r\n\n\n0.8 \u00b5L 15 \u00b5M Illumina Adaptor Oligo Mix \r\n\n\n1 \u00b5L of 400 U/\u00b5L T4 DNA ligase. \r\n\n\n   Add 5 \u00b5L to each tube. Incubate at room temperature for 3 hr.  _\\(about 3 hours)_\r\n\n\n\r\n\n\n14. PCR amplification: Add 0.4 \u00b5L each 10 \u00b5M Indexing primer, 15.8 \u00b5L 2x Phusion Master Mix, 0.4 \u00b5L 10 \u00b5M common PCR primer 1.0.  Perform PCR: 98\u00b0C, 30 min; 18 cycles \\(98\u00b0C, 10 min; 68\u00b0C, 30 min; 72\u00b0C, 30 min); 72\u00b0C, 5 min; 4\u00b0C hold. _\\(about 1 hour)_\r\n  \r\n\n\n15. Load 16 \u00b5L PCR product onto a 2% E-gel \\(Thermo Fisher Scientific) without dilution, and agarose gel electrophoresis run for 22 min. Isolate the fragments of 140 to 350 bp in size by cutting out the desired gel and transfer them to 1.5-mL Eppendorf tubes. \\(See a typical agarose gel electrophoresis result in Figure 1.) _\\(about 30 minutes)_\r\n  \r\n\n\n16. Add 900 \u00b5L Buffer QG \\(Qiagen) per tube to solubilize the gel by rotating for 20 min at room temperature. Add 300 \u00b5L isopropanol to each tube. Transfer the solution to one Mini Column \\(700 \u00b5L first, and spin, and then transfer the remaining solution and spin). Wash once with 500 \u00b5l QG. Wash once with 700 \u00b5L PE wash buffer \\(with ethanol), spin for 10 sec, discard solution and then spin for 2 min. Elute DNA with 20 \u00b5L EB. _\\(about 30 minutes)_\r\n  \r\n\n\n17. Measure concentration of DNA sample using a Qubit dsDNA BR Assay Kit \\(Thermo Fisher Scientific) as follows.\r\n  Prepare assay mix:\r\n\n\n200 \u00b5L Qubit buffer\r\n\n\n1 \u00b5L dye\r\n\n\n\r\n\n\nAdd the assay mix to the control and sample solutions as follows.\r\n\n\nFor 0 ng/\u00b5L control: 190 \u00b5L assay mix + 10 \u00b5L control DNA solution\r\n\n\nFor 10 ng/\u00b5L control: 190 \u00b5L assay mix + 10 \u00b5L control DNA solution\r\n\n\nFor sample: 198 \u00b5L above mix + 2 \u00b5L DNA sample\r\n\n\n\r\n\n\n18. Incubate 1 min at room temperature. Measure by Qubit \\(double stranded DNA HS mode), calibrate DNA concentration by setting the volume mode 2 \u00b5L. _\\(about 10 minutes)_\r\n  \r\n\n\n19. Run NGS using DNA sample prepared at the desired concentration."
+        },
+        {
+            "header": "Timing",
+            "content": "Crosslinking antibodies with MNase: 2 days\r\n\n\n\r\n\n\nTotal time for routine work: 4-6 days\r\n\n\nscChIC-Seq for single cells: 3 days\r\n\n\nChIC-Seq for small number of cells: 3 days\r\n\n\nSequencing: 1-3 days depending on sequencer and reagents"
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "For more information consult \"Troubleshooting_Protocol_Exchange.docx\":http://www.nature.com/protocolexchange/system/uploads/7485/original/Troubleshooting_Protocol_Exchange.docx?1548234948."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 16175,
+                "identity": "a1ab473d-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Keji Zhao",
+                "email": "zhaok@nhlbi.nih.gov   ",
+                "orcid": "",
+                "institution": "NIH",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Keji",
+                "middleName": "",
+                "lastName": "Zhao",
+                "suffix": ""
+            },
+            {
+                "id": 16174,
+                "identity": "a1ab441c-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Kosuke Nakamura",
+                "email": "",
+                "orcid": "",
+                "institution": "NIHS-NIH",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Kosuke",
+                "middleName": "",
+                "lastName": "Nakamura",
+                "suffix": ""
+            },
+            {
+                "id": 16176,
+                "identity": "a1ab4908-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Wai Lim Ku",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Wai",
+                "middleName": "Lim",
+                "lastName": "Ku",
+                "suffix": ""
+            },
+            {
+                "id": 16177,
+                "identity": "a1ab4ab7-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Weiwu Gao",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Weiwu",
+                "middleName": "",
+                "lastName": "Gao",
+                "suffix": ""
+            },
+            {
+                "id": 16178,
+                "identity": "a1ab4d18-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Kairong Cui",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Kairong",
+                "middleName": "",
+                "lastName": "Cui",
+                "suffix": ""
+            },
+            {
+                "id": 16179,
+                "identity": "a1ab4e8d-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Gangqing Hu",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Gangqing",
+                "middleName": "",
+                "lastName": "Hu",
+                "suffix": ""
+            },
+            {
+                "id": 16180,
+                "identity": "a1ab4fd1-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Qingsong Tang",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Qingsong",
+                "middleName": "",
+                "lastName": "Tang",
+                "suffix": ""
+            },
+            {
+                "id": 16181,
+                "identity": "a1ab5117-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Bing Ni",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Bing",
+                "middleName": "",
+                "lastName": "Ni",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2019-01-23 09:27:58",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2019.011",
+        "doiUrl": "https://doi.org/10.1038/protex.2019.011",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2610336,
+                "identity": "90ae5a6a-4e38-488e-88de-7a4539eabbe1",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:35",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 210430,
+                "visible": true,
+                "origin": "",
+                "legend": "Shown is typical gel electrophoresis result.   A. Each sample (lane 1-8) was run in individual well. B. Isolate the agarose gel with each DNA sample separately in each tube by cutting out 140-350 bp in size and remove excess agarose gel with no DNA to maximize the DNA purification efficiency in the following steps.",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-7293/v1/figure_1.png"
+            },
+            {
+                "id": 13466095,
+                "identity": "7828aafb-c199-4014-9ec8-3b9a4e69f1d3",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:49:32",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 351723,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-7293/v1/36f6c476-2a51-44a9-a955-2e0041286836.pdf"
+            },
+            {
+                "id": 2610333,
+                "identity": "ca269714-352b-4816-bae7-237b033c7952",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:35",
+                "extension": "docx",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 13941,
+                "visible": true,
+                "origin": "",
+                "legend": "Troubleshooting   Troubleshooting for scChIC-Seq",
+                "description": "",
+                "filename": "supplement0.docx",
+                "url": "https://assets.researchsquare.com/files/nprot-7293/v1/supplement_0.docx"
+            },
+            {
+                "id": 2610338,
+                "identity": "1e64279a-56f9-4b59-b3f5-20a9afe2815d",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:35",
+                "extension": "pptx",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 52592,
+                "visible": true,
+                "origin": "",
+                "legend": "scChIC-Seq scheme   scChIC-Seq scheme",
+                "description": "",
+                "filename": "supplement0.pptx",
+                "url": "https://assets.researchsquare.com/files/nprot-7293/v1/supplement_0.pptx"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "single cell, chromatin immunocleavage, sequencing, histone modification, micrococcal nuclease, cell typing",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "A single-cell chromatin immunocleavage sequencing \\(scChIC-seq) methodology for analyzing histone modifications, which involves targeting of the micrococcal nuclease \\(MNase) by tethering it to an antibody and selective PCR amplification of cleaved target sites.\r\n\n\n<a href=\"http://www.nature.com/protocolexchange/system/uploads/7487/original/scChIC-Seq_summarized_fig.pptx?1548298735\" > <img src=\"http://www.nature.com/protocolexchange/system/uploads/7487/original/scChIC-Seq_summarized_fig.pptx?1548298735\" > </a>",
+        "manuscriptTitle": "A single-cell chromatin immunocleavage sequencing (scChIC-seq)",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2019-02-05 14:40:06",
+                "doi": "10.1038/protex.2019.011",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a1aacf20-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "February 5th, 2019",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 4501,
+                "name": "Genetics"
+            },
+            {
+                "id": 4502,
+                "name": "Biotechnology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2019-02-05 14:40:06",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

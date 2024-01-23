@@ -1,0 +1,381 @@
+{
+    "identity": "nprot-3143",
+    "title": "Generation of Gaussian 09 Input Files for the Computation of <sup>1</sup>H and <sup>13</sup>C NMR Chemical Shifts of Structures from a Spartan\u201914 Conformational Search",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "NMR spectroscopy is the most useful tool for determining the structure of an unknown organic molecule. By coupling this approach with other analytical techniques \\(e.g. mass spectrometry) the structure of an unknown organic molecule can be elucidated. However, molecules of greater complexity continue to be isolated and/or prepared, and their associated analytical data are increasingly convoluted. Consequently, the assigned structures of these newly isolated compounds are sometimes incorrect, which leads to years of misguided effort \u201cchasing molecules that were never there\u201d <sup>1</sup>. Modern computational chemistry software packages \\(e.g., Spartan<sup>2,3</sup>, Gaussian 09<sup>4</sup>, and Jaguar<sup>5,6</sup>) have enabled the routine use of density functional theory \\(DFT) calculations for predicting spectroscopic properties of organic molecules. For example, one of us recently reported a protocol that described an approach using Gaussian 09 to compute NMR data for molecules that adopt conformational isomers<sup>7</sup>. An important, early part of this protocol required the use of the software application, MacroModel<sup>8</sup> \\(part of the Schr\u00f6dinger suite) to carry out a stochastic conformational search using the OPLS molecular mechanics force field. For each structure resulting from this conformational search, free energies and NMR shielding tensors were calculated. Using the free energy data, a Boltzmann factor was determined for each conformer, which was, in turn, converted into the relative mole fraction. The computed NMR data are averaged \\(using the mole fraction of each conformation), referenced, and scaled to generate a set of Boltzmann-weighted average chemical shifts. \r\n\n\n\r\n\n\nDue to the widespread use of Spartan for molecular mechanics calculations, we have prepared an addendum to this protocol that utilizes the structures resulting from a Spartan _Conformer Distribution_ calculation. As discussed in our original protocol,<sup>7</sup> molecules of increasing complexity are often accompanied by many conformational isomers. We have developed a Python script \\(e.g., \u201cwrite-g09-inputs-sdf.py\u201d) that generates two Gaussian 09 input files for each structure resulting from the conformational search. For convenience, we have provided an additional script \\(e.g., \u201cwrite-g03-inputs-sdf.py\u201d) that prepares Gaussian 03 input files. These input files include an _\u201c-opt_freq\u201d_ file for determining the optimal geometry and free energy along with an _\u201c-nmr\u201d_ file for calculating NMR shielding tensor data. The Python script expedites the DFT computations by greatly simplifying the preparation of the Gaussian input files. More specifically, the script extracts structural information from a \u201c.sdf\u201d file generated in Spartan, and the coordinates of each conformation are written into the Gaussian input files. The \u201c.sdf\u201d file type is routinely used for storing molecular information for multiple structures and can be produced by myriad software applications. The script provided in this protocol will be useful for writing Gaussian input files from \u201c.sdf\u201d files prepared in other chemistry software applications."
+        },
+        {
+            "header": "Equipment",
+            "content": "**Software required to carryout Python scripts**\r\n\n\n\u2022 Command-line interface application \\(Terminal in Mac OS X or Linux; or Command Prompt in Windows)\r\n\n\n\u2022 Python, version 2 or 3 \\(included with Mac OS X and Linux operating systems)\r\n\n\n\u2022 Python script editor \\(e.g., IDLE \\(see \"http://www.python.org/download/\":http://www.python.org/download/))\r\n\n\n\u2022 Text editing application \\(e.g., TextEdit in Mac OS X or Notepad in Windows)\r\n\n\n\r\n\n\n**Software requirements for calculations** \r\n\n\n\u2022 This protocol has been written for use with Spartan\u201914<sup>2,3</sup>; however, we have tested earlier versions of Spartan \\(e.g., Spartan\u201908) and found that they are also compatible with the following Procedure.\r\n\n\n\u2022 The approach described in the Procedure is amenable to any software application that is capable of performing a conformational search and exporting the family of conformers as a \u201c.sdf\u201d file \\(e.g., MacroModel<sup>8</sup> and ChemBio3D<sup>9</sup>).\r\n\n\n\r\n\n\n**Hardware requirements for use of Python scripts** \r\n\n\n\u2022 Most standard personal computers built after 2008 are capable of executing the Python scripts included in this protocol.\r\n\n\n\r\n\n\n**Hardware requirements for conformational search calculation**\r\n\n\n\u2022 A CPU with 4 GB of RAM and a dual-core processor is capable of performing the conformational search calculation for generating a family of conformers of the candidate structure. The hardware requirements for carrying out the DFT calculations in Gaussian 09 are described in ref. 7."
+        },
+        {
+            "header": "Procedure",
+            "content": "**Create input geometry and carry out a molecular mechanics conformational search in Spartan \u25cf TIMING 30 min \\(Steps 1 \u2013 8)** \r\n\n\n\r\n\n\n**1 |** _Draw cis-3-methylcyclohexanol in the Spartan workspace._ In Spartan select _File_ \u2192 _New_ to open the _Model Kit_ toolbar. Change the _Rings_ drop down menu to _Cyclohexane_ and click inside the workspace to add a parent cyclohexane molecule. Select the _Csp3_ button within the _Model Kit_ toolbar and click one of the yellow open valences on the cyclohexane ring. This operation will attach the methyl group. Select the _Osp3_ button within the _Model Kit_ toolbar and click a yellow open valence on the cyclohexane ring that is both two carbons separated from and _cis_ to the previously added methyl group. This will add an oxygen atom to the cyclohexane ring to give _cis_-3-methylcyclohexanol. Ensure that the overall structure is _cis_-3-methylcyclohexanol before continuing.\r\n\n\n\r\n\n\n**2 |**  _Quick and Crude Molecular Mechanics Geometry Optimization._ Cleanup the preliminary geometry by clicking the _Minimize_ button or selecting _Build_ \u2192 _Minimize_.\r\n\n\n\r\n\n\n**3 |** _Perform the conformational search._ Select _Setup_ \u2192 _Calculations._ A window will open. Change the _Calculate:_ drop down menu selection to _Conformer Distribution_. Change the two drop down menus to the right so that they display _Molecular Mechanics_ and _MMFF_. Check the box next to _Maximum:_ and change the conformers examined to \u201c1000\u201d. Click _Submit_ and a _Save As_ window will appear. Change the computational filename to \u201ccis-3-methylcyclohexanol\u201d, change the directory \\(i.e. folder) to a location that is convenient for storing the associated computational files, and click _Save_. Click _OK_ in the window that appears, which indicates that the conformational search has started.\r\n\n\n\r\n\n\n**4 |** After the conformational search has finished, a window confirming that the job has completed will appear. Click _OK_ in this window. When prompted to open a new document select _No_. Select _File_ \u2192 _Close_ to clear the workspace.\r\n\n\n\r\n\n\n**5 |** Select _File_ \u2192 _Open_ and locate the conformational search output file \u201ccis-3-methylcyclohexanol.spartan.\u201d \r\n\n\n\r\n\n\n**6 |** _Ensure that all expected conformers have been found by the calculation._ Select _Display_ \u2192 _Spreadsheet_ to open a window containing an entry for each structure found during the conformational search. A conformational search of _cis_-3-methylcyclohexanol is expected to yield six unique conformers.\r\n\n\n\r\n\n\n**7 |** _Export the library of conformers as a single \u201c.sdf\u201d file._ Select _File_ \u2192 _Save As\u2026_ to open a _Save As_ window. Enter \u201ccis-3-methylcyclohexanol\u201d as the filename, change the _Save as type:_ drop down menu selection to _MDL SD \\(*.sdf)_ and click _Save_. If a popup window appears with the title _Select molecules_, click _Write all molecules_ followed by _OK_. Click _OK_ in the popup window that confirms the file export. This step will export all structures from the conformational search to a single \u201c.sdf\u201d file\u2014\u201ccis-3-methylcyclohexanol.sdf\u201d\u2014located in the same directory as the conformational search output file.\r\n\n\n\r\n\n\n**8 |** _Examine the resulting \u201c.sdf\u201d file to ensure that the results of the conformational search were correctly exported \\(Optional)._ Open the \u201c.sdf\u201d file in a text-editing application \\(e.g., TextEdit in Mac OS X or Notepad in Windows) and check that an entry is included for all unique conformations. A unique entry typically begins with the text \u201cSpartan\u201d followed by a series of numbers. Additionally, structures are usually systematically labeled, for example, the first conformation is by default titled \u201cM0001\u201d.\r\n\n\n\r\n\n\n**Create Gaussian input files for each conformer \u25cf TIMING 15 min \\(Steps 9 \u2013 12)**\r\n\n\n\r\n\n\n**9 |** Download the \u201cwrite-g09-inputs-sdf.py\u201d \\(or \u201cwrite-g03-inputs-sdf.py\u201d if using Gaussian 03) Python script from \"**Supplementary Data 1**\":http://www.nature.com/protocolexchange/system/uploads/3133/original/Supplementary_Data_1.zip?1398228281 to the directory containing the \u201c.sdf\u201d file created in Step 7 \\(see Step 3 for directory location). If using Python version 2, download the \u201cwrite-g09-inputs-sdf.py\u201d script located in the Python-Version-2 directory within \"**Supplementary Data 1**\":http://www.nature.com/protocolexchange/system/uploads/3133/original/Supplementary_Data_1.zip?1398228281. \r\n\n\n**\u25b2 CRITICAL STEP** Users must download the Python script from \"**Supplementary Data 1**\":http://www.nature.com/protocolexchange/system/uploads/3133/original/Supplementary_Data_1.zip?1398228281 that is compatible with the particular versions of both Python \\(i.e., either version 2 or 3) and Gaussian \\(i.e., either version 09 or 03) that are to be used.\r\n\n\n\r\n\n\n**10 |**  _Editing the \u201cwrite-g09-inputs-sdf.py\u201d Python script to change the memory and number of processors used in Gaussian calculations \\(optional)._ To accommodate different users\u2019 needs, we have prepared the \u201cwrite-g09-inputs-sdf.py\u201d Python script so that it is convenient to change the amount of memory and the number of the processors allocated to the computationally intensive Gaussian 09 jobs. Open the \u201cwrite-g09-inputs-sdf.py\u201d Python script in IDLE or any other Python script editor. Adjust the amount of memory used in the Gaussian 09 optimization/frequency and NMR jobs by changing the number to the right of \u201c%mem=\u201d on line 86 and 113, respectively. Adjust the number of core processors used in the Gaussian 09 optimization/frequency and NMR jobs by changing the number to the right of \u201c%nproc=\u201d on line 87 and 114, respectively. Save the edited script file in the same directory as the \u201c.sdf\u201d file created in Step 9.\r\n\n\n\r\n\n\n**11 |**  In a command line interface application \\(i.e. Terminal for Mac OS X or Linux or Command Prompt for Windows) navigate to the directory that contains the \u201c.sdf\u201d file, the \u201cwrite-g09-inputs-sdf.py\u201d Python script and the associated computational files. \r\n\n\n\r\n\n\n**12 |**  Execute the \u201cwrite-g09-inputs-sdf.py\u201d Python script \\(or the edited script that may have been created in Step 10 by entering the following command:\r\n\n\n\r\n\n\n_> python write-g09-inputs-sdf.py cis-3-methylcyclohexanol.sdf_\r\n\n\n\r\n\n\nThe script will request the name of the candidate structure by displaying the following prompt:\r\n\n\n\r\n\n\n     _Enter the name of the candidate structure:_\r\n\n\n\r\n\n\nEnter \u201ccis-3-methylcyclohexanol\u201d as the candidate structure name. Avoid using spaces when entering the name of the candidate structure. If the script executes successfully, the following message will be displayed:\r\n\n\n\r\n\n\n_The script successfully performed the task of creating_\r\n\n\n_Gaussian input files for each unique structure within the_ \r\n\n\n_cis-3-methylcyclohexanol.sdf file and moved these input files to the_ \r\n\n\n_cis-3-methylcyclohexanol-gaussian_files directory._\r\n\n\n\r\n\n\nFor each unique conformation within the associated \u201c.sdf\u201d file, the script will create two Gaussian input files. The script also creates a new directory labeled \u201ccis-3-methylcyclohexanol-gaussian_files\u201d and moves all of the Gaussian input files into this newly created directory. The Gaussian input files labeled \u201ccis-3-methylcyclohexanol-opt_freq-conf-#.com\u201d are the input files for geometry optimization and frequency calculation. The Gaussian input files labeled \u201ccis-3-methylcyclohexanol-nmr-conf-#.com\u201d are the input files for NMR shielding tensor calculations. \r\n\n\n**? TROUBLESHOOTING**       \r\n\n\n\r\n\n\n**Perform DFT calculations in Gaussian 09 \\(cf. Procedure in ref. 7) \u25cf TIMING 1 h \\(Step 13)**\r\n\n\n\r\n\n\n**13 |**  To obtain the computed NMR data for the candidate structure, consult the Procedure in ref. 7 for instructions on using the resulting input files from Step 12 within Gaussian 09 to calculate \\(i) DFT-optimized conformer geometries, \\(ii) free energies using the \u201copt_freq-conf\u201d input files, and \\(iii) NMR shielding tensors using the \u201cnmr-conf\u201d input files. Additionally, the Procedure in ref. 7 includes Python scripts and detailed instructions for \\(i) assembling the free energy and NMR shielding tensor data into well-organized spreadsheet files, \\(ii) referencing and scaling the NMR data, \\(iii) determining the Boltzmann weighting factors of all conformers, and \\(iv) applying these weighting factors to generate the set of Boltzmann-weighted chemical shifts for the candidate structure. Details with regard to the choice of computational methodology \\(e.g., DFT functional and basis set preferences) are discussed in ref. 7. Additionally, the previously reported protocol\n7\nhighlights methods for determining the \u201cbest fit\u201d for a candidate structure when comparing experimental spectral data to the computed NMR chemical shifts. Alternative approaches to determining the \u201cbest fit\u201d have recently been reported by Goodman\n10,11\nand Sarotti\n12,13\n, and more traditional approaches are described in several excellent reviews\n14,15\n."
+        },
+        {
+            "header": "Timing",
+            "content": "A novice user can complete the Procedure described above in less than one hour. The time required to complete the molecular mechanics conformational search will increase with molecular complexity. However, in our experience this increase has not been substantial. Subsequent Gaussian computations will require significantly more computational time to complete, but the amount of active effort by the user is minimized because several steps have been automated with the use of Python scripts. A summary of the time required to complete various steps in the Procedure is shown below.\r\n\n\nSteps 1\u20134: <10 min of active effort; ca. 1\u201330 minutes to complete the conformational search depending on the structural complexity of the candidate structure.\r\n\n\nSteps 5\u20138: 15 min\r\n\n\nSteps 9\u201312: 15 min\r\n\n\nStep 13: ca. <60 min for the 3-methylcyclohexanols; timing depends on the number of conformational isomers and the structural complexity of the candidate structure."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "See \"**Supplementary Table**\":http://www.nature.com/protocolexchange/system/uploads/3141/original/Troubleshooting_Table.pdf?1398228281 for Troubleshooting."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "Following successful completion of the steps of the Procedure, six conformations of _cis_-3-methylcyclohexanol will be generated from the conformational search in Spartan, and the structure coordinates for each conformation will be exported to a \u201c.sdf\u201d file. Following execution of the Python script, \u201cwrite-g09-inputs-sdf.py\u201d, the directory \u201ccis-3-methylcyclohexanol-gaussian_files\u201d will be created, which will contain two Gaussian 09 input files for each conformation of the candidate structure. Once submitted to Gaussian 09, the input files having \u201copt_freq\u201d in their title will instruct Gaussian to perform a geometry optimization and frequency calculation of the included structural coordinates. Additionally, the input files having \u201cnmr\u201d in their title will instruct Gaussian to calculate NMR shielding tensors of the optimized geometry. For reference, we have provided the Spartan conformational search files and the \u201c.sdf\u201d file as \"**Supplementary Data 2**\":http://www.nature.com/protocolexchange/system/uploads/3135/original/Supplementary_Data_2.zip?1398228537 and \"**Supplementary Data 3**\":http://www.nature.com/protocolexchange/system/uploads/3137/original/Supplementary_Data_3.zip?1398228281, respectively. Additionally, the Gaussian 09 input files resulting from use of the Python script are included in \"**Supplementary Data 4**\":http://www.nature.com/protocolexchange/system/uploads/3139/original/Supplementary_Data_4.zip?1398228281."
+        },
+        {
+            "header": "References",
+            "content": "1. Nicolaou, K. C. & Snyder, S. A. Chasing molecules that were never there: misassigned natural products and the role of chemical synthesis in modern structure elucidation. _Angew. Chem. Int. Ed._ **44,** 1012\u20131044 \\(2005).\r\n  \r\n\n\n2. Hehre, W. J. A guide to molecular mechanics and quantum chemical calculations. Wavefunction, Inc., Irvine, CA, 2003. \r\n  \r\n\n\n3. Shao, Y., Molnar, L. F., Jung, Y., Kussmann, J. R., Ochsenfeld, C., Brown, S. T., Gilbert, A. T. B., Slipchenko, L. V., Levchenko, S. V., O Neill, D. P., DiStasio, R. A., Jr, Lochan, R. C., Wang, T., Beran, G. J. O., Besley, N. A., Herbert, J. M., Yeh Lin, C., Van Voorhis, T., Hung Chien, S., Sodt, A., Steele, R. P., Rassolov, V. A., Maslen, P. E., Korambath, P. P., Adamson, R. D., Austin, B., Baker, J., Byrd, E. F. C., Dachsel, H., Doerksen, R. J., Dreuw, A., Dunietz, B. D., Dutoi, A. D., Furlani, T. R., Gwaltney, S. R., Heyden, A., Hirata, S., Hsu, C.-P., Kedziora, G., Khalliulin, R. Z., Klunzinger, P., Lee, A. M., Lee, M. S., Liang, W., Lotan, I., Nair, N., Peters, B., Proynov, E. I., Pieniazek, P. A., Min Rhee, Y., Ritchie, J., Rosta, E., David Sherrill, C., Simmonett, A. C., Subotnik, J. E., Lee Woodcock, H., III, Zhang, W., Bell, A. T., Chakraborty, A. K., Chipman, D. M., Keil, F. J., Warshel, A., Hehre, W. J., Schaefer, H. F., III, Kong, J., Krylov, A. I., Gill, P. M. W. & Head-Gordon, M. Advances in methods and algorithms in a modern quantum chemistry program package. _Phys. Chem. Chem. Phys._ **8,** 3172 \\(2006).\r\n  \r\n\n\n4. Gaussian 09, Revision A, Frisch, M. J., Trucks, G. W., Schlegel, H. B., Scuseria, G. E., Robb, M. A., Cheeseman, J. R., Scalmani, G., Barone, V., Mennucci, B., Petersson, G. A., Nakatsuji, H., Caricato, M., Li, X., Hratchian, H. P., Izmaylov, A. F., Bloino, J., Zheng, G., Sonnenberg, J. L., Hada, M., Ehara, M., Toyota, K., Fukuda, R., Hasegawa, J., Ishida, M., Nakajima, T., Honda, Y., Kitao, O., Nakai, H., Vreven, T., Montgomery, J. A., Jr., Peralta, J. E., Ogliaro, F., Bearpark, M., Heyd, J. J., Brothers, E., Kudin, K. N., Staroverov, V. N., Kobayashi, R., Normand, J., Raghavachari, K., Rendell, A., Burant, J. C., Iyengar, S. S., Tomasi, J., Cossi, M., Rega, N., Millam, N. J., Klene, M., Knox, J. E., Cross, J. B., Bakken, V., Adamo, C., Jaramillo, J., Gomperts, R., Stratmann, R. E., Yazyev, O., Austin, A. J., Cammi, R., Pomelli, C., Ochterski, J. W., Martin, R. L., Morokuma, K., Zakrzewski, V. G., Voth, G. A., Salvador, P., Dannenberg, J. J., Dapprich, S., Daniels, A. D., Farkas, \u00d6., Foresman, J. B., Ortiz, J. V., Cioslowski, J., Fox, D. J. Gaussian, Inc., Wallingford CT, 2009.\r\n  \r\n\n\n5. Jaguar, version 8.0. http://www.schrodinger.com/citations/41/7/1/ \\(Schr\u00f6dinger, LLC, New York, NY, 2013).\r\n  \r\n\n\n6. Bochevarov, A. D., Harder, E., Hughes, T. F., Greenwood, J. R., Braden, D. A., Philipp, D. M., Rinaldo, D., Halls, M. D., Zhang, J., Friesner, R. A. Jaguar: a high-performance quantum chemistry software program with strengths in life and materials sciences. _Int. J. Quantum Chem._ **113,** 2110\u20132142 \\(2013).\r\n  \r\n\n\n7. Willoughby, P. H., Jansma, M. J. & Hoye, T. R. A guide to small-molecule structure assignment through computation of \\(<sup>1</sup>H and <sup>13</sup>C) NMR chemical shifts. _Nature Protocols_ **9,** 643\u2013660 \\(2014)\r\n  \r\n\n\n8. MacroModel, version 10.0. http://www.schrodinger.com/citations/41/11/1/ \\(Schr\u00f6dinger, LLC, New York, NY, 2013). \r\n  \r\n\n\n9. ChemBio3D Ultra 13.0 Suite. http://www.cambridgesoft.com/Ensemble_for_Biology/ChemBio3D/\r\n  \r\n\n\n10. Smith, S. G. & Goodman, J. M. Assigning the stereochemistry of pairs of diastereoisomers using GIAO NMR shift calculation. _J. Org. Chem._ **74,** 4597\u20134607 \\(2009).\r\n  \r\n\n\n11. Smith, S. G. & Goodman, J. M. Assigning stereochemistry to single diastereoisomers by GIAO NMR calculation: the DP4 probability. _J. Am. Chem. Soc._ **132,** 12946\u201312959 \\(2010).\r\n  \r\n\n\n12. Sarotti, A. M. & Pellegrinet, S. C. A multi-standard approach for GIAO <sup>13</sup>C NMR calculations. _J. Org. Chem._ **74,** 7254\u20137260 \\(2009).\r\n  \r\n\n\n13. Sarotti, A. M. Successful combination of computationally inexpensive GIAO <sup>13</sup>C NMR calculations and artificial neural network pattern recognition: a new strategy for simple and rapid detection of structural misassignments. _Org. & Biomol. Chem._ **11,** 4847\u20134859 \\(2013).\r\n  \r\n\n\n14. Lodewyk, M. W., Siebert, M. R. & Tantillo, D. J. Computational prediction of <sup>1</sup>H and <sup>13</sup>C chemical shifts: a useful tool for natural product, mechanistic, and synthetic organic chemistry. _Chem. Rev._ **112,** 1839\u20131862 \\(2012).\r\n  \r\n\n\n15. Tantillo, D. J. Walking in the woods with quantum chemistry\u2014applications of quantum chemical calculations in natural products research. _Nat. Prod. Rep._ **30,** 1079\u20131086 \\(2013)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "S.A.R. thanks Great Lakes Higher Education Guaranty Corporation and the Ripon College Center for Social Responsibility for funding. Additionally, we thank Thomas R. Hoye for helpful input and Joseph D. Scanlon, Jordan Buhle, and Michael Enright for feedback during manuscript preparation."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nprot.2014.042",
+                "date": "2014-04-22 15:09:52",
+                "title": "A guide to small-molecule structure assignment through computation of (1H and 13C) NMR chemical shifts",
+                "authors": [
+                    "Patrick H Willoughby",
+                    "Matthew J Jansma",
+                    "and Thomas R Hoye"
+                ],
+                "journal": "Nature Protocols",
+                "logo": ""
+            },
+            {
+                "doi": "10.1021/jo402627s",
+                "date": "2014-04-22 15:11:04",
+                "title": "Analysis of Seven-Membered Lactones by Computational NMR Methods: Proton NMR Chemical Shift Data are More Discriminating than Carbon",
+                "authors": [
+                    "Daniel J. Marell",
+                    "Susanna J. Emond",
+                    "Aman Kulshrestha",
+                    "and Thomas R. Hoye"
+                ],
+                "journal": "The Journal Of Organic Chemistry",
+                "logo": ""
+            },
+            {
+                "doi": "10.1021/np300248w",
+                "date": "2014-03-07 11:06:55",
+                "title": "Case Study of Empirical and Computational Chemical Shift Analyses: Reassignment of the Relative Configuration of Phomopsichalasin to That of Diaporthichalasin",
+                "authors": [
+                    "Susan G. Brown",
+                    "Matthew J. Jansma",
+                    "and Thomas R. Hoye"
+                ],
+                "journal": "Journal Of Natural Products",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 18731,
+                "identity": "01e1b1cf-2ad2-4e5d-9c24-d3231e5315fc",
+                "order_by": 0,
+                "name": "Patrick Willoughby",
+                "email": "willoughbyp@ripon.edu",
+                "orcid": "",
+                "institution": "Ripon College",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Patrick",
+                "middleName": "",
+                "lastName": "Willoughby",
+                "suffix": ""
+            },
+            {
+                "id": 18732,
+                "identity": "cd3819f3-eb6b-44be-b23a-2d4fe4729654",
+                "order_by": 1,
+                "name": "Spencer Reisbick",
+                "email": "",
+                "orcid": "",
+                "institution": "Ripon College",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Spencer",
+                "middleName": "",
+                "lastName": "Reisbick",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2014-04-25 22:38:21",
+        "currentVersionCode": 2,
+        "declarations": "",
+        "doi": "10.21203/rs.2.1186/v2",
+        "doiUrl": "https://doi.org/10.21203/rs.2.1186/v2",
+        "draftVersion": [],
+        "editorialEvents": [
+            {
+                "content": "https://doi.org/10.1038/protex.2014.015",
+                "type": "published",
+                "date": "2014-04-28T20:49:41+00:00"
+            }
+        ],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 15665604,
+                "identity": "4c2921fd-ab4e-4718-a846-734870711cb3",
+                "added_by": "auto",
+                "created_at": "2021-11-18 13:32:26",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 183297,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-3143/v2/6c6d74e8-0b77-4585-86de-de232c6ae34f.pdf"
+            },
+            {
+                "id": 133722,
+                "identity": "bd60cce6-9f1c-431e-9425-f5d967dcfb6d",
+                "added_by": "auto",
+                "created_at": "2019-10-21 16:16:43",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 51973,
+                "visible": true,
+                "origin": "",
+                "legend": "Supplementary Table   Troubleshooting Table",
+                "description": "",
+                "filename": "TroubleshootingTable.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-3143/v2/Troubleshooting_Table.pdf"
+            },
+            {
+                "id": 133723,
+                "identity": "4ab42f87-d227-49a3-8b9c-d3443a82e0a0",
+                "added_by": "auto",
+                "created_at": "2019-10-21 16:16:43",
+                "extension": "zip",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 14813,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "SupplementaryData1.zip",
+                "url": "https://assets.researchsquare.com/files/nprot-3143/v2/Supplementary_Data_1.zip"
+            },
+            {
+                "id": 133719,
+                "identity": "ffbcd258-a361-4871-b933-0dc59619646d",
+                "added_by": "auto",
+                "created_at": "2019-10-21 16:16:42",
+                "extension": "zip",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 61473,
+                "visible": true,
+                "origin": "",
+                "legend": "Supplementary Data 2   Representative Spartan Conformational Search Files   The \".spardir\" and \".spartan\" files resulting from a conformational search of _cis_-3-methylcyclohexanol in Spartan.",
+                "description": "",
+                "filename": "SupplementaryData2.zip",
+                "url": "https://assets.researchsquare.com/files/nprot-3143/v2/Supplementary_Data_2.zip"
+            },
+            {
+                "id": 133720,
+                "identity": "fd52f00d-b93e-49af-877c-2e3f6c508444",
+                "added_by": "auto",
+                "created_at": "2019-10-21 16:16:42",
+                "extension": "zip",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 4168,
+                "visible": true,
+                "origin": "",
+                "legend": "Supplementary Data 3   Representative \".sdf\" File   The \".sdf\" file obtained after exporting conformers of _cis_-3-methylcyclohexanol in Spartan.",
+                "description": "",
+                "filename": "SupplementaryData3.zip",
+                "url": "https://assets.researchsquare.com/files/nprot-3143/v2/Supplementary_Data_3.zip"
+            },
+            {
+                "id": 133721,
+                "identity": "0d261edd-d165-4465-b1ee-96c2b400c675",
+                "added_by": "auto",
+                "created_at": "2019-10-21 16:16:42",
+                "extension": "zip",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 10083,
+                "visible": true,
+                "origin": "",
+                "legend": "Supplementary Data 4   Representative Gaussian 09 Input Files   The Gaussian 09 input files resulting from use of the Python script in *Supplementary Data 1* with the \".sdf\" file in *Supplementary Data 3*.",
+                "description": "",
+                "filename": "SupplementaryData4.zip",
+                "url": "https://assets.researchsquare.com/files/nprot-3143/v2/Supplementary_Data_4.zip"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": false,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "NMR Computational Chemistry Organic Chemistry",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "This protocol describes an approach to preparing a series of Gaussian 09 computational input files for an ensemble of conformers generated in Spartan\u201914. The resulting input files are necessary for computing optimum geometries, relative conformer energies, and NMR shielding tensors using Gaussian. Using the conformational search feature within Spartan\u201914, an ensemble of conformational isomers was obtained. To convert the structures into a format that is readable by Gaussian 09, the conformers were first exported to a single \u201c.sdf\u201d file. A Python script was used to \\(i) read the structural information of each conformer within the \u201c.sdf\u201d file and \\(ii) write the corresponding atomic coordinates into a series Gaussian 09 input files. This approach decreases the amount of active effort required to compute NMR chemical shifts of a structure that populates an ensemble of conformers.",
+        "manuscriptTitle": "Generation of Gaussian 09 Input Files for the Computation of 1H and 13C NMR Chemical Shifts of Structures from a Spartan\u201914 Conformational Search",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2014-04-28 08:12:45",
+                "doi": "10.1038/protex.2014.015",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "protocol.exchange@nature.com",
+                    "identity": "protocol-exchange",
+                    "isNatureJournal": false,
+                    "hasQc": false,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+                    "title": "Protocol Exchange",
+                    "twitterHandle": ""
+                }
+            },
+            {
+                "code": 2,
+                "date": "2019-10-21 16:16:42",
+                "doi": "10.21203/rs.2.1186/v2",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "protocol.exchange@nature.com",
+                    "identity": "protocol-exchange",
+                    "isNatureJournal": false,
+                    "hasQc": false,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+                    "title": "Protocol Exchange",
+                    "twitterHandle": ""
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a02d0a03-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "October 21st, 2019",
+        "published": true,
+        "revision": "",
+        "status": "published-in-journal",
+        "subjectAreas": [
+            {
+                "id": 6539,
+                "name": "Chemistry"
+            },
+            {
+                "id": 6540,
+                "name": "Mathematics and computing"
+            },
+            {
+                "id": 6541,
+                "name": "Chemical biology"
+            },
+            {
+                "id": 6542,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 6543,
+                "name": "Synthetic chemistry"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": {
+            "articleIdentity": "nprot-3143",
+            "link": "https://doi.org/10.1038/protex.2014.015",
+            "journal": {
+                "identity": "protocol-exchange",
+                "isVorOnly": false,
+                "title": "Protocol Exchange"
+            },
+            "publishedOn": "2014-04-28 20:49:41",
+            "publishedOnDateReadable": "April 28th, 2014"
+        },
+        "versionCreatedAt": "2019-10-21 16:16:42",
+        "video": "",
+        "vorDoi": "10.1038/protex.2014.015",
+        "vorDoiUrl": "https://doi.org/10.1038/protex.2014.015",
+        "workflowStages": []
+    }
+}

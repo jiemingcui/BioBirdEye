@@ -1,0 +1,246 @@
+{
+    "identity": "nprot-2747",
+    "title": "NECO - A scalable algorithm for NEtwork COntrol",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Whether natural or man-made, real complex networks are often characterized by the following properties:\r\n\n\n\r\n\n\n\u2022 the dynamics is nonlinear;\r\n\n\n\u2022 the system has multiple stable states \\(or attractors);\r\n\n\n\u2022 the system is described by a large number of dynamical variables;\r\n\n\n\u2022 there are constraints on the physically implementable control interventions;\r\n\n\n\u2022 the network exhibits decentralized response to perturbations.\r\n\n\n\r\n\n\nThe final point, in particular, means that the system generally responds suboptimally to damage caused by external perturbations. Perturbations can propagate through the network, influencing components beyond those initially affected. In the recent associated publication by Cornelius et al. \\[1], it is shown that the same phenomenon can actually be used to design compensatory perturbations that can control a network. These interventions take advantage of the nonlinearity inherent to real networks, driving the system to a desired target state indirectly by bringing it to the so-called _basin of attraction_ of that state. This principle allows one to control a broad class of networks; indeed, situations where the target is not directly reachable are expected to be the rule rather than the exception.\r\n\n\n\r\n\n\nIn this protocol we present NECO, an algorithm and software for NEtwork COntrol that allows systematic identification of such control interventions. \r\n\n\n\r\n\n\n<a href=\"http://www.nature.com/protocolexchange/protocols/2747/uploads/2626\"><img width=\"100%\" SRC=\"http://www.nature.com/protocolexchange/system/uploads/2626/original/flowchart.jpg?1372325178\"></a>\r\n\n\n**Figure 1: Algorithm for identifying eligible control interventions.**\r\n\n\nThe flowchart depicts the steps of the network control algorithm implemented in this protocol. The box on the left describes the inputs, output, and parameters of the algorithm. For the motivation behind each of these parameters, as well as guidance in how to choose their values based on the time and length scales of a particular network, we refer the reader to ref. \\[1] \\(the mathematical notation used here is consistent with that used in that reference). For the correspondence between the mathematical objects here and the variables in the software implementation given in this protocol, we refer to the Procedure section below.\r\n\n\n\r\n\n\n\r\n\n\nNECO implements a scalable method\u2014originally introduced in ref. \\[1]\u2014for identifying compensatory perturbations in general networks of dynamical units under arbitrary constraints. The algorithm itself is depicted in flowchart form in Fig. 1, and is based on iteratively updating the initial state of the network with small, incremental perturbations, each of which is forecasted to move the system's trajectory closer to the target state while at the same time complying with the given constraints. This procedure is terminated once an eligible state that evolves to the target is found."
+        },
+        {
+            "header": "Equipment",
+            "content": "The source code provided with this protocol implements the control algorithm introduced in ref. \\[1] as a Python module called _neco_. The code is documented below and requires only the following freely-available software/libraries:\r\n\n\n\r\n\n\n-Python \\( \"http://www.python.org/\":http://www.python.org/ )\r\n\n\n-SciPy \\( \"http://www.scipy.org/\":http://www.scipy.org/ )\r\n\n\n-NumPy \\( \"http://www.numpy.org/\":http://www.numpy.org/ )"
+        },
+        {
+            "header": "Procedure",
+            "content": "The complex networks we envision controlling are the common case of nonlinear, dissipative dynamical systems, where the time evolution of the component dynamical variables is governed by ordinary differential equations \\(ODEs). The roles of the individual nodes and the structure of the network as a whole are assumed to be reflected in these ODEs. For example, if there is a link in the network from node _i_  to node _j_, one expects a term in the _j_-th differential equation involving the _i_-th state variable.Thus for the operational purpose of \u201ccontrol\u201d, we can completely characterize a given complex network by:\r\n\n\n\r\n\n\n\u2022 a \\(vector) function \u201cf\u201d that gives the \u201cright-hand side\u201d of the first-order ODEs defining the dynamics;\r\n\n\n\u2022 two \\(vector) functions \u201cg\u201d and \u201ch\u201d that define, respectively, the inequality and equality constraints on the eligible interventions.\r\n\n\n\r\n\n\nNote that from this point onward, we are no longer talking about NECO in the abstract, but rather in regard to its software implementation in Python. Thus f, g, and h here denote Python functions that are to be implemented by the user and input to _neco_. These should be regarded as distinct from the corresponding mathematical abstractions in Fig. 1, which are similarly labeled as F, g, and h \\(in Roman font) to facilitate comparison. In particular, the Python functions will generally take different arguments, and in a different order, than their abstract counterparts. For example, f\u2014the Python implementation of the derivatives function F\u2014can accept a number of optional parameters that are needed to compute the right-hand side of the ODEs, parameters that were omitted for notational clarity in Fig. 1.\r\n\n\n\r\n\n\nAlso, note that within the source code and from this point onward in this protocol, we use the letter 'y' instead of 'x' to denote the state of a dynamical system, to follow the library SciPy's notational conventions for systems of ODEs.\r\n\n\n\r\n\n\n**Defining the ODE system:**\r\n\n\n\r\n\n\nTo apply this software to find compensatory perturbations in a given dynamical system, one needs only to supply a Python function of the form\r\n\n\n\r\n\n\nf\\(y, t, param1, param2, \u2026),\r\n\n\n\r\n\n\nwhich, given a system state y and optional parameters param1, param2, etc., evaluates the right-hand side of the ordinary differential equations that govern the time evolution of the system. We anticipate that the user will frequently want to use this function for other purposes, e.g., integration of system orbits for the purposes of visualization. Thus, we have intentionally required the call signature of f to take the form above so that it can be used with SciPy's tools for ODEs \\(in particular their numerical integrator, odeint) without modification. Note, however, that _neco_ assumes that the ODE system described by f be autonomous\u2014that is, it has no explicit time dependence. Hence, even though the time variable t appears as a required second argument, it should not actually be used within the calculation of the return value of f. The condition of being autonomous does not sacrifice any generality, since every non-autonomous system of ODEs \\(those with an explicit dependence on t) can be transformed into an equivalent autonomous system by augmenting the state space with an additional \u201cdummy\u201d variable representing t, whose time derivative is then the constant 1.\r\n\n\n\r\n\n\nNote that we impose no specific conditions on the nature of the dynamics defined by f; notably, it can contain arbitrary nonlinearities and be arbitrarily high-dimensional. The only \\(mild) requirement is that f be differentiable with respect to the system state y, so that a Jacobian matrix can be calculated.\r\n\n\n\r\n\n\n**Defining constraints on the eligible interventions:**\r\n\n\n\r\n\n\nGiven the network state y0 at a particular time, one can specify the subset of network states y that are reachable through eligible perturbations from y0 using vector constraint functions of the form g\\(y) and h\\(y) for inequality and equality constraints, respectively. Each of these functions operates by taking a state y of the network and returning a NumPy array with lengths equal to the number of inequality or equality constraints, respectively. States that can be reached by eligible control perturbations are then those that satisfy g\\(y) <=  0 and h\\(y) == 0, where the inequality and equality are taken to apply individually to every element of the returned arrays.\r\n\n\n\r\n\n\nA common occurrence of inequality/equality constraints is one in which some dynamical variables \\(components of y) are allowed to be perturbed over a certain range and/or cannot be perturbed at all. This special case of component-wise constraints can always be expressed using g and h above, but, for convenience, we have provided the option to specify vectors of lower \\(lb) and upper \\(ub) bounds on eligible perturbed states y, which must then satisfy\r\n\n\n\r\n\n\nlb\\[i] <= y\\[i] <= ub\\[i],\r\n\n\n\r\n\n\nfor every component i. This includes in particular the case in which a state variable i cannot be perturbed at all, i.e., lb\\[i] = ub\\[i] = y0\\[i]. \r\n\n\n\r\n\n\nEach of lb, ub, g, and h is an optional keyword argument for the function _neco_. If either vector lb or vector ub is not supplied, the coordinates of the eligible states are assumed to be unbounded from below or above, respectively, before the imposition of any constraints specified by g\\(y) and/or h\\(y). Individual components can be made unbounded with respect to lb and ub by filling the appropriate positions in these vectors with the NumPy constants -inf and +inf, respectively. \r\n\n\n\r\n\n\n**Parameters for the control procedure:**\r\n\n\n\r\n\n\nThe enclosed implementation of NECO accepts a handful of parameters that govern its internal operation. For the motivation behind each of these parameters, as well as guidance in how to choose their values based on the time and length scales of a particular dynamical system, we refer the reader to ref. \\[1]. Each of these parameters is implemented as a keyword argument in the _neco_ Python function, which we summarize here:\r\n\n\n\r\n\n\neps0: Minimum size of the incremental perturbation at every iteration \\(eps0 > 0), to ensure that the algorithm makes a non-zero step every time.\r\n\n\neps1: Maximum size of the incremental perturbation at every iteration \\(eps1 > eps0), to ensure that the forecasted perturbation using the variational matrix is valid \\(at both the initial time and the forecasted time of closest approach to the target).\r\n\n\nit_max: Maximum number of iterations of the algorithm. If this number is exceeded before finding a compensatory perturbation, the function will return 1, indicating failure.\r\n\n\nt_max: Time window over which to search for the closest approach to the target at every iteration.\r\n\n\ndt: Integration time step. \r\n\n\nt_test: Time window over which to test convergence of the system's orbit to the target state \\(generally t_test >> t_max) \r\n\n\ntol: Numerical tolerance for convergence to the target state.\r\n\n\n\r\n\n\nThus, if a state y evolves to within a ball of radius tol around the target state, and within t_test time units, it is considered to be in the basin of attraction of the target and the algorithm declares success.\r\n\n\n\r\n\n\n**Other optional parameters:**\r\n\n\n\r\n\n\njac\\(y, t, param1, param2, \u2026): Function that computes the Jacobian matrix J of f as a 2D NumPy array, where J\\[i, j] = df\\[i]/dx\\[j]. If not supplied, the Jacobian will be calculated from f numerically.\r\n\n\ndist\\(y1, y2): Function that defines the distance between two states, y1 and y2, in the system under consideration. By default, the Euclidean norm is used.\r\n\n\nn_test: Every n_test iterations, test whether the current initial state attracts to the target. By default, n_test = 1.\r\n\n\nfull_output: If full_output is False, the method simply returns the final perturbed state. If full_output is True,  the method returns a dictionary containing more detailed information \\(see \"Return values\" below). This option is False by default.\r\n\n\nargs: A tuple of additional parameters \\(other than y and t) that will be passed to the derivatives function f and the Jacobian function jac \\(if supplied).\r\n\n\n\r\n\n\n**Return values:**\r\n\n\n\r\n\n\n\\(if full_output is False)\r\n\n\ny0_prime: The final perturbed state.\r\n\n\n\r\n\n\n\\(if full_output is True)\r\n\n\ninfo: Dictionary containing the following:\r\n\n\n\r\n\n\n y0: Sequence of intermediate perturbed states at every iteration. The last element, y0\\[-1], is then the final perturbed state.\r\n\n\n status: The value 0 indicates success, meaning that y0\\[-1] is an eligible state in the target's\r\n\n\n basin of attraction. The value 1 indicates that the maximum iteration limit was exceeded.\r\n\n\n n_iter: Total number of iterations taken before completion.\r\n\n\n time: Total run time of the method \\(in seconds).\r\n\n\n t_int, t_var, t_opt: Lists of run times \\(in seconds) taken at each iteration for three substeps \r\n\n\n\\(integrating the system equations, integrating the variational equation, and forecasting the optimal incremental perturbation, respectively).\r\n\n\n\r\n\n\n**How to invoke _neco_:**\r\n\n\n\r\n\n\nPlace the file named neco.py in a directory contained in your PYTHONPATH environment\r\n\n\nvariable. From that point, you will be able to import the control routine from the module of the same name:\r\n\n\n\r\n\n\nfrom neco import neco\r\n\n\n\r\n\n\n\u2026within any Python program. Once the differential equations defining the desired network have\r\n\n\nbeen implemented as a Python function f \\(as described in Procedure above), the control method can then be invoked within your script according to\r\n\n\n\r\n\n\noutput = neco\\(y0, yt, f, ****kwargs)\r\n\n\n\r\n\n\n\u2026where y0 and yt are the initial and desired target states of the network, respectively, and ****kwargs represents any \\(optional) additional arguments that one wishes to specify or change from their default values \\(constraints, the Jacobian matrix, iteration limits, and so on as described in the Procedure section above). For example, to invoke neco with minimum and maximum incremental perturbation sizes of 10\n-3\nand 10\n-2\n, respectively, and an integration time window of 10 time units, one would enter\r\n\n\n\r\n\n\noutput = neco\\(y0, yt, f, eps0=0.001, eps1=0.01, t_max=10)\r\n\n\n\r\n\n\n...and so on.\r\n\n\n\r\n\n\nAs part of this protocol we include the source code \\(neco_example.py) for two examples of finding control perturbations subject to constraints in a two-dimensional system defined by a particle under the influence of a 1D potential plus dissipation. These control problems are illustrated in Fig. 2 of ref. 1. These examples are provided mainly for the source code itself \\(in particular, to give guidance to those unfamiliar with Python on how to define a system of ODEs and call _neco_ with various parameters). To actually run the examples, simply invoke python on the example file from the command line\r\n\n\n\r\n\n\npython neco_example.py"
+        },
+        {
+            "header": "Timing",
+            "content": "The running time of the algorithm presented here depends on the size of the network. Specifically, in ref. \\[1], it is demonstrated that the asymptotic scaling of the running time is O\\(_n_<sup>2.5</sup>), where _n_ is the number of dynamical variables in the system."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "In ref. \\[1], we demonstrated our algorithm with a number of example applications, based on the source code implementation included here. These applications involved networks from various domains in the physical and biological sciences. In all cases, we had remarkable success in identifying eligible compensatory perturbations that could control the network under constraints that were appropriate to the particular system in question. In particular, in benchmark networks that were randomly-generated in such a way that compensatory perturbations were guaranteed to exist under the given constraints, our method succeeds in identifying them in 100% of cases. \r\n\n\n\r\n\n\nWe note as a final remark that, for clarity, this protocol describes and provides the code only for a simple \\(albeit, broadly applicable) implementation of our algorithm. It is, however, straightforward to extend and tailor various aspects of the method to suit different but related problems. For example, to\r\n\n\n\r\n\n\n\u2022 optimize a different function of the system's trajectory at every iteration \\(other than distance to the target);\r\n\n\n\u2022 find an eligible point further in the interior of the desired basin \\(as opposed to just inside the basin boundary). Such points have the advantage of making this control strategy more robust against\r\n\n\nnoise in the dynamics and uncertainty in the system parameters \\(we refer to the Supplementary Information of ref. \\[1]);\r\n\n\n\u2022 implement subsequent control interventions after monitoring how the system responds to the first one,  in a \u201cclosed loop\u201d control setting.\r\n\n\n\r\n\n\nThis protocol is thus best regarded not as a single algorithm or piece of software, but rather a class of iterative strategies for identifying network control interventions. The choice of the exact goal that these interventions are meant to accomplish in a particular problem is then left up to the experimenter. Details of how to modify the presented approach for the above extensions, as well as others, are beyond the scope of this protocol, but we encourage the reader to contact the authors \\(at \"cornelius@u.northwestern.edu\":mailto:cornelius@u.northwestern.edu or \"motter@northwestern.edu\":mailto:motter@northwestern.edu) for guidance in this area."
+        },
+        {
+            "header": "References",
+            "content": "1. Cornelius, S. P. et al. Realistic control of network dynamics. Nat. Commun. **4**:1942 \"doi:10.1038/ncomms2939\":http://dx.doi.org/10.1038/ncomms2939 \\(2013)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "The authors thank Takashi Nishikawa for illuminating discussions. This work was supported by NSF under Grant DMS-1057128, NCI under Grant 1U54CA143869-01, and a Northwestern-Argonne Early Career Investigator Award to A.E.M."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/ncomms2939",
+                "date": "2013-06-26 02:16:36",
+                "title": "Realistic control of network dynamics",
+                "authors": [
+                    "Sean P. Cornelius",
+                    "William L. Kath",
+                    "and Adilson E. Motter"
+                ],
+                "journal": "Nature Communications",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 12568,
+                "identity": "a009ac51-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Sean P. Cornelius",
+                "email": "cornelius@u.northwestern.edu",
+                "orcid": "",
+                "institution": "The Motter Group",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Sean",
+                "middleName": "P.",
+                "lastName": "Cornelius",
+                "suffix": ""
+            },
+            {
+                "id": 12569,
+                "identity": "a009b044-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Adilson E. Motter",
+                "email": "motter@northwestern.edu",
+                "orcid": "",
+                "institution": "The Motter Group",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Adilson",
+                "middleName": "E.",
+                "lastName": "Motter",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2013-06-26 02:55:09",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2013.063",
+        "doiUrl": "https://doi.org/10.1038/protex.2013.063",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2608778,
+                "identity": "a58865f0-c4d4-4c1a-8303-cadeb154ca91",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:28",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 729691,
+                "visible": true,
+                "origin": "",
+                "legend": "Algorithm for identifying eligible control interventions.   The flowchart depicts the steps of the network control algorithm implemented in this protocol. The box on the left describes the inputs, output, and parameters of the algorithm. For the motivation behind each of these parameters, as well as guidance in how to choose their values based on the time and length scales of a particular network, we refer the reader to ref. [1] (the mathematical notation used here is consistent with that used in that reference). For the correspondence between the mathematical objects here and the variables in the software implementation given in this protocol, we refer to the Procedure section below.",
+                "description": "",
+                "filename": "figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-2747/v1/figure_1.jpg"
+            },
+            {
+                "id": 13465031,
+                "identity": "adc2a4bc-305e-40af-8b13-1a132fbea53c",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:45:22",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 290666,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-2747/v1/69653deb-481d-46b7-b407-29f650e6e132.pdf"
+            },
+            {
+                "id": 2608776,
+                "identity": "be2cfb91-4c7e-47b2-9909-735196a6bde6",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:28",
+                "extension": "zip",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 4716,
+                "visible": true,
+                "origin": "",
+                "legend": "Supplementary File 1   Python source code for NECO   ZIP archive containing the source code for NECO (neco.py) and an example control problem (neco_example.py).",
+                "description": "",
+                "filename": "supplement0.zip",
+                "url": "https://assets.researchsquare.com/files/nprot-2747/v1/supplement_0.zip"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "control, complex networks, nonlinearity, algorithm, software",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "We present an algorithm for the control of complex networks and other nonlinear, high-dimensional dynamical systems. The computational approach is based on the recently-introduced concept of compensatory perturbations\u2014intentional alterations to the state of a complex system that can drive it to a desired target state even when there are constraints on the perturbations that forbid reaching the target state directly. Included here is ready-to-use software that can be applied to identify eligible control interventions in a general system described by coupled ordinary differential equations, whose specific form can be specified by the user. The algorithm is highly scalable, with the computational cost scaling as the number of dynamical variables to the power 2.5.",
+        "manuscriptTitle": "NECO - A scalable algorithm for NEtwork COntrol",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2013-06-27 15:31:34",
+                "doi": "10.1038/protex.2013.063",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a0095324-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "June 27th, 2013",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3021,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 3022,
+                "name": "Mathematics and computing"
+            },
+            {
+                "id": 3023,
+                "name": "Physics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2013-06-27 15:31:34",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

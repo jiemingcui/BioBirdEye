@@ -1,0 +1,487 @@
+{
+    "identity": "pex-1580",
+    "title": "<p>FRET-Seq: a High-Throughput FRET-Based Screening Platform to Improve FRET Biosensors in Mammalian Cells</p><p><br></p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>Developing<strong> </strong>protein-based imaging tools for monitoring the dynamics of protein tyrosine kinases (PTKs) in living cell is necessary to understand kinase activities. Genetically-encoded biosensors based on FRET (FRET biosensors) have been widely used to dynamically monitor the activity of PTKs in living cells with high spatiotemporal resolution <sup>1,2</sup>. The typical design of these FRET biosensors consists of two parts <sup>3</sup>: a pair of fluorescent proteins for FRET action, and a sensing region (e.g. a ligand region (SH2 domain) and a substrate peptide containing a tyrosine phosphorylation site). A flexible linker peptide is also used to connect each domain. However, the limitation in sensitivity, specificity, and dynamic range of biosensors have hindered their broader applications <sup>4,5</sup>. Several research groups have developed FRET biosensors <sup>2,6,7</sup>, but the general procedure for constructing FRET biosensors still involves trial and error. Thus, a more efficient method which allows for selection of biosensors with better performance in response to the PTK activity from a large number of biosensor variants is required.</p><p><br></p><p>Here, we introduced a systematic method to optimize the FRET biosensors for Fyn kinase directly in mammalian cell through function-based screening, which combines the advantages of several technologies, such as site-saturation mutagenesis, mammalian cell library, and high-throughput DNA sequencing. We also developed mammalian cell-based and function-based high-throughput screening by FACS to directly optimize the Fyn FRET biosensors for studying the activity of Fyn kinase. Because the FRET efficiency of intramolecular biosensors is primarily influenced by the distance and the relative orientation of the two fluorophores <sup>2</sup>, we chose to optimize the substrate sequence in the sensing region of FRET biosensors (ECFP/YPet pair) to increase sensitivity, specificity, and FRET dynamic range in reporting kinase activities. The step-by-step protocol for the Fyn FRET biosensor development is described.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p><strong>Bacteria and mammalian cells:</strong></p><p>- &nbsp;Human embryonic kidney cells (ATCC)</p><p>- &nbsp;Lenti-X 293T cells (Clontech Laboratories)</p><p>- &nbsp;DH5\u03b1 (NEB)</p><p>- &nbsp;ElectroMAX\u2122 DH10B\u2122 Cells (Invitrogen)</p><p><strong>&nbsp;</strong></p><p><strong>Molecular cloning and western blot reagents:</strong></p><p>- &nbsp;Q5 DNA polymerase (NEB)</p><p>- &nbsp;T4 ligation (New England Biolabs, NEB)</p><p>- &nbsp;Restriction enzymes, such as XbaI, EcoRI, SpeI (NEB)</p><p>- &nbsp;Restriction enzyme, such as Esp3I (Thermo Fisher Scientific)</p><p>- &nbsp;NNK degenerate primers and primers (Integrated DNA Technologies, IDT)</p><p>- &nbsp;Anti-GFP antibody (Abcam)</p><p>- &nbsp;Anti-Phosphotyrosine Antibody (Upstate)</p><p>- &nbsp;IPTG (Sigma-Aldrich) </p><p>- &nbsp;X-Gal (Sigma-Aldrich)</p><p>- &nbsp;Lysis buffer (Cell Signaling) </p><p>- &nbsp;4\u201320% Mini-PROTEAN\u00ae TGX\u2122 Precast Protein Gels (Bio-Rad)</p><p>- &nbsp;Zymoclean gel DNA recovery kit (Zymo Research)</p><p>- &nbsp;DNA Clean and Concentrator Kits (Zymo Research)</p><p>- &nbsp;GenElute\u2122 Plasmid Midiprep Kit (Sigma-Aldrich)&nbsp;</p><p>- &nbsp;Qiagen HiSpeed Plasmid Maxi kit (Qiagen)</p><p>- &nbsp;LB Broth (Thermo Fisher Scientific)</p><p>- &nbsp;Agar (Sigma-Aldrich)</p><p>- &nbsp;Ampicillin (Sigma-Aldrich)</p><p><strong>&nbsp;</strong></p><p><strong>Cell culture reagents:</strong></p><p>- &nbsp;Lipofectamine 3000 (Thermo Fisher Scientific)</p><p>- &nbsp;RPMI 1640 medium (Thermo Fisher Scientific)</p><p>- &nbsp;DMEM (Thermo Fisher Scientific) </p><p>- &nbsp;FBS (Thermo Fisher Scientific) </p><p>- &nbsp;Penicillin (Thermo Fisher Scientific)</p><p>- &nbsp;Streptomycin (Thermo Fisher Scientific) </p><p>- &nbsp;L-glutamine (Thermo Fisher Scientific)</p><p>- &nbsp;Streptomycin (Thermo Fisher Scientific)</p><p>- &nbsp;Sodium pyruvate (Thermo Fisher Scientific) &nbsp;&nbsp;</p><p>- &nbsp;PP1, an inhibitor of Src family kinases (Sigma-Aldrich)&nbsp;</p><p>- &nbsp;ProFection\u00ae mammalian transfection system (Promega)</p><p>- &nbsp;PEG-it virus precipitation solution (System Biosciences)</p><p>- &nbsp;Albumin bovine serum (BSA) (Sigma-Aldrich)&nbsp;</p><p>- &nbsp;Phosphate-buffered saline (PBS) (Sigma-Aldrich)&nbsp;</p><p>- &nbsp;RNeasy Mini Kit (Qiagen)</p><p>- &nbsp;RQ1 RNase-Free DNase (Promega)</p><p>- &nbsp;SuperScript IV reverse transcriptase (Thermo Fisher Scientific)</p><p>- &nbsp;RNaseOUT\u2122 Recombinant Ribonuclease Inhibitor (Thermo Fisher Scientific)</p><p><br></p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>-&nbsp;NanoDrop 2000 spectrophotometer (Thermo Fisher Scientific)</p><p>- &nbsp;Thermal cycler (Bio-Rad)</p><p>- &nbsp;Gel Documentation System (Bio-Rad)</p><p>- &nbsp;The Gene Pulser Xcell Electroporation System (Bio-Rad)</p><p>- &nbsp;Incubator (Thermo Fisher Scientific) </p><p>- &nbsp;Incubator at 37\u00b0C with 5% CO2 (Thermo Fisher Scientific)</p><p>- &nbsp;Shaker (Thermo Fisher Scientific) </p><p>- &nbsp;Centrifuge (Eppendorf)</p><p>- &nbsp;Vortex Mixer (Thermo Fisher Scientific)</p><p>- &nbsp;Nikon Eclipse Ti inverted microscope (Nikon)</p><p>- &nbsp;Flow cytometer (BD Accuri C6)</p><p>- &nbsp;Fluorescence activated cell sorting (FACS) machine (BD FACS Aria II Cell Sorter)</p><p>- &nbsp;Qubit fluorometer (Thermo Fisher Scientific)</p><p>- &nbsp;Illumina HiSeq4000 (Illumina)</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "1. Plasmid construction\n1.1\u00a0Plasmid preparation for the general template of the kinase biosensor\n1)\u00a0\u00a0Amplify gene fragments, including an enhanced cyan fluorescent protein (ECFP), a bacterial beta-galactosidase gene (LacZ), a derivative of yellow fluorescent protein (YPet), EV linker (116 amino acids)\n2\n, and a kinase domain (active/dead Fyn kinase or ZAP70 kinase) by polymerase chain reaction (PCR) using Q5 DNA polymerase.\n2)\u00a0\u00a0Ligate each gene fragment into the pSin lentiviral transfer vector between SpeI and EcoRI with T4 ligase. Several restriction sites are introduced as shown in Figure 1a. The final product is called pSin-ELYK, where E, L, Y, and K stand for ECFP, LacZ, YPet, and kinase domain, respectively (Figure 1a).\n3)\u00a0\u00a0Transform the ligation product to DH5\u03b1 with the mixture of IPTG and X-Gal, and seed cells onto the LB agar plate with ampicillin at 37\u2103 overnight.\n4)\u00a0\u00a0Select only blue colonies for plasmid purification.\n5)\u00a0\u00a0Verify the sequence of pSin-ELYK by Sanger sequencing (GENEWIZ) before use.\n1.2 Plasmid preparation for the Fyn self-activating FRET (saFRET) biosensor\n1)\u00a0\u00a0Replace the \u201cK\u201d domain in pSin-ELYK with the gene fragment of either active or dead Fyn kinase domain using T4 ligase.\n2)\u00a0\u00a0Replace the \u201cLacZ\u201d domain in pSin-ELYK with the Fyn-specific sensing domain (Figure 1b), including SH2 domain [1], a flexible linker, and a Fyn-specific substrate peptide (EKIEGTYGVV)\n8\n, using Golden Gate DNA assembly.\n3)\u00a0\u00a0Transform the DNA assembly product to DH5\u03b1 with the mixture of IPTG and X-Gal, and seed cells onto the LB agar plate with ampicillin at 37\u2103 overnight.\n4)\u00a0\u00a0Select only white colonies for plasmid purification.\n5)\u00a0\u00a0Verify the sequence of the Fyn saFRET biosensor by Sanger sequencing before use.\n1.3 Activity test of Fyn saFRET biosensors by a western blot\n1)\u00a0\u00a0Transfect purified plasmids of Fyn saFRET biosensors to HEK293T cells using Lipofectamin3000.\n2)\u00a0\u00a0After 36-48 h of transfection, harvest and lyse cells with lysis buffer.\n3)\u00a0\u00a0Centrifuge cells and collect supernatants.\n4)\u00a0\u00a0Mix supernatants with SDS-PAGE protein loading buffer, boil, and load the solution into SDS-PAGE gel.\n5)\u00a0\u00a0Following the general protocol for the western blot, the Anti-GFP antibody is used to target the biosensor, and the Anti-Phosphotyrosine antibody is used to target the phosphotyrosine. The gel image is taken by the gel documentation.\n1.4 Activity test of Fyn saFRET biosensors by a fluorescent microscope\n1)\u00a0\u00a0Transfect purified plasmids of Fyn saFRET biosensors to HEK293T cells using Lipofectamin3000.\n2)\u00a0\u00a0After 36-48 h of transfection, seed transfected cells on a fibronectin-coated glass-bottom dish and culture in 0.5% FBS DMEM medium for 12 h before being subjected to the inhibitor stimulation (such as 10 \u00b5g/mL of PP1 for Fyn kinase).\n3)\u00a0\u00a0The detailed experiment for imaging the activity of the biosensor in response to the PP1 is described in \u201cMicroscopy, Image Acquisition, and quantification\u201d.\n2. Biosensor Library Construction\nFour libraries are used for optimizing the FRET biosensor of a specific kinase (Figure 2).\n1.\u00a0\u00a0\u00a0There are two substrate libraries for FRET biosensor with active kinase domain (KA):\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Lib1-KA contains mutations on three amino acid residues upstream of the consensus tyrosine residue (Y) of the wild-type substrate (XXXY, where X represents any amino acid)\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Lib2-KA contains mutations on three amino acid residues downstream of the consensus tyrosine residue (Y) of the wild-type substrate (YXXX, where X represents any amino acid)\n2.\u00a0\u00a0\u00a0There are two substrate libraries for FRET biosensor with dead kinase domain (KD):\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Lib1-KD (similar to KA library)\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Lib2-KD (similar to KA library)\nThe procedure for constructing these FRET biosensor libraries is described below:\n1)\u00a0\u00a0The template for generating the biosensor library containing substrate variants is the sensing domain (Figure 1b).\n2)\u00a0\u00a0Use a pair of primers to generate the substrate libraries, including the forward primer targeting specific DNA sequences on the 5\u2019-end of the sensing domain and the reverse primer with the NNK degenerate codons targeting DNA sequences on the 3\u2019-end of the sensing domain, by PCR with Q5 DNA polymerase.\nFor example, there are three primers for generating Fyn biosensor libraries:\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0A sense primer\n5\u2019- ATCCCGTCTCACGCCCGCATGCATTGG TATTTTGGGAAGATCACTCGTCGGGAGTC C -3\u2019\n-\u00a0\u00a0\u00a0\u00a0\u00a0An antisense primer \u2013 Lib1\n5\u2019- GGATCGTCTCTTAGAGAGCTCCACGAC GCCGTAMNNMNNMNNGATCTTCTCAGAA CCCTCACCAGAACCC -3\u2019\n-\u00a0\u00a0\u00a0\u00a0\u00a0An antisense primer \u2013 Lib2\n5\u2019- GGATCGTCTCTTAGAGAGCTCMNNMN NMNNGTACGTGCCCTCGATCTTCTCAGA A CCCTCACCAGAACCC -3\u2019\n3)\u00a0\u00a0For the PCR condition, vary the annealing temperature from 55-70\u02daC and set the thermocycling condition at 20 cycles.\n4)\u00a0\u00a0Load PCR products of four substrate libraries in 1.5% agarose gel.\n5)\u00a0\u00a0Excise gels with the correct size and purify them using Zymoclean gel DNA recovery kit. Each substrate library is prepared in parallel for steps #6-12.\n6)\u00a0\u00a0Replace the LacZ domain of the pSin-ELYK template (Figure 1a) between Esp3I restriction sites with purified DNA fragments (from #5) of the sensing domain containing substrate libraries sites using the Golden Gate assembly.\n7)\u00a0\u00a0Purify and concentrate assembly products using the DNA Clean and Concentrator Kits.\n8)\u00a0\u00a0Add purified products (the volume < 2.5\n\u03bc\nL) from #7 to 25\n\u03bc\nL DH10B cells, and then added the mixture into a 0.1 cm cuvette for electroporation by the electroporation system.\n9)\u00a0\u00a0Recover electroporated cells in warm SOC medium at 37\u2103 for 1 h.\n10)\u00a0\u00a0\u00a0Transfer cells to 250 mL LB medium with ampicillin and culture at 37\u2103 for 12 h.\n11)\u00a0\u00a0\u00a0Collect cells from cell culture and extract the plasmids using Qiagen HiSpeed Plasmid Maxi kit. The purified plasmids are stored in 1 mL nuclease-free water at -20\u2103.\n12)\u00a0\u00a0\u00a0Verify the plasmids containing substrate libraries by Sanger sequencing, western blotting, and imaging before use.\n3. Generation of mammalian cell library\n3.1 Production of virus\n1)\u00a0\u00a0Seed 5\u2a2f10\n6\nof Lenti-X 293T cells in 100-mm cell culture dish with 10% FBS DMEM medium.\n2)\u00a0\u00a0On the next day, replace the medium with the fresh medium 3-6 h before transfection.\n3)\u00a0\u00a0Use the ProFection\u00ae mammalian transfection system for transfection. The mixture of viral packaging plasmids pCMV-\u25b38.9 and pCMV-VSVG, and the pSin plasmid containing biosensor variants are added in the calcium-phosphate reagent from the Profection system. Following the provided protocol, the solution is added to Lenti-X 293T cells.\n4)\u00a0\u00a0After 6 h of transfection, replace the medium with the fresh medium.\n5)\u00a0\u00a0After 48 h of transfection, collect the medium containing virus particles, filter them through 0.45\u00b5m filter (Sigma-Millipore), and concentrate using PEG-it virus precipitation solution for overnight at 4\u2103.\n6)\u00a0\u00a0Centrifuge virus precipitation solution to collect the virus pallet. Dissolve the virus pallet with PBS and stored at -20\u2103.\n7)\u00a0\u00a0Measure the viral titer by flow cytometry before use.\n3.2 Generation of mammalian cells containing biosensor libraries by virus transduction\n1)\u00a0\u00a0Seed 2\u2a2f10\n6\nHEK293T cells in 100-mm cell culture dish with 10% FBS DMEM medium.\n2)\u00a0\u00a0On the next day, replace the medium with the fresh medium 6 h before transduction.\n3)\u00a0\u00a0Add the concentrated virus with the MOI (multiplicity of infection) of 0.1 to HEK293T cell culture. Incubate cells for 36-48 h.\n4)\u00a0\u00a0Pass cells to the new cell culture dish when cell\u2019s density reaches about 90% confluence. Cells are also tested for the transduction efficiency by flow cytometer.\nAdd puromycin to the cell culture medium to allow only library-transduced cells to grow.\n4. Mammalian cell library screening by FACS\n1)\u00a0\u00a0Prepare several control groups of transfected/transduced HEK293T cells 1-2 weeks before sorting.\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Plain cells: to differentiate cells with or without fluorescent proteins\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Cells expressing ECFP: to gate for cells expressing ECFP only\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Cells expressing YPet: to gate for cells expressing YPet only\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Cells expressing both ECFP and YPet: to gate for cells expressing intermolecular FRET signal\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0The mixture of cells expressing either ECFP or YPet: to use as a negative gating of FRET signal\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Cells expressing the wild-type FRET biosensors with active kinase domain (KA): to gate for the active conformation of FRET biosensor (the high FRET ratio gate)\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Cells expressing the wild-type FRET biosensors with dead kinase domain (KD): to gate for the inactive conformation of FRET biosensor (the low FRET ratio gate)\n2)\u00a0\u00a0On the day of sorting, collect seven groups of cells in #1 and resuspend them in PBS with 5% BSA. They are used to create gating profiles for cell sorting in the BD FACS Aria II Cell Sorter. The information about excitation and emission of FACS is shown below.\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0For ECFP, the excitation wavelength is 405 nm, and the emission filter is 450/50 nm.\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0For YPet, the excitation wavelength is 488 nm, and the emission filter is 545/35 nm.\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0For FRET signal, the excitation wavelength is 405 nm, and the emission filter is 545/35 nm.\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0For FRET ratio, it is the ratio of emission of ECFP signal to FRET signal.\n3)\u00a0\u00a0Four groups of transduced HEK293T cells containing biosensor libraries, including 1) Lib1-KA, 2) Lib1- KD, 3) Lib2- KA, and 4) Lib2- KD, are used for identifying the kinase biosensor with better performance.\n4)\u00a0\u00a0Before sorting, collect some cells from each group to be used as the \u201cinput library\u201d for the high-throughput sequencing.\n5)\u00a0\u00a0During sorting, Lib1 with different kinase activity (KA or KD) are sorted by FACS into two groups (e.g. the high- or low-FRET-ratio gates) based on the individual FRET ratio (Figure 3) as shown below. Each sorted group contained about 1-5\u2a2f10\n5\ncells.\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0For Lib1 with KA, there are two sorted groups:\n-    Lib1-KAH (High FRET ratio with Active Kinase, KA)\n-    Lib1-KAL (Low FRET ratio with Active Kinase, KA)\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0For Lib1 with KD, there are two sorted groups:\n-    Lib1-KDH (High FRET ratio with Dead Kinase, KD)\n-   \u00a0Lib1-KDL (Low FRET ratio with Dead Kinase, KD)\n6)\u00a0\u00a0Similar to Lib1 in step#5, Lib2 with different kinase activity (KA or KD) are also sorted by FACS into two groups (Figure 3).\n7)\u00a0\u00a0After sorting, sorted cells are collected in 100% FBS.\n5. Illumina DNA sequencing of biosensor variants\n1)\u00a0\u00a0Extract total RNAs of each non-sorted (\nInput Library\n) and sorted cell (\nSorted Library\n) using RNeasy Mini Kit.\n2)\u00a0\u00a0Following the provided protocol with some additional step, such as incubating the column with RQ1 RNase-Free DNase to remove the genomic DNA. RNA from each group (from #1) is purified, quantified, and checked its quality by gel electrophoresis.\n3)\u00a0\u00a0Use the purified total RNA (~500 ng) as a template for cDNA synthesis using the SuperScript IV reverse transcriptase with a gene-specific primer.\n4)\u00a0\u00a0Add adaptor sequences with different indexes for Illumina sequencing into cDNA by PCR using Q5 DNA polymerase with low PCR cycles (< 16 cycles) as shown in Figure 4.\n5)\u00a0\u00a0Load the individual amplicon library with specific index to 2% agarose gel.\n6)\u00a0\u00a0Excise the gels with correct size of the library and purify them using Zymoclean gel DNA recovery kit.\n7)\u00a0\u00a0Verify the DNA sequence of purified amplicon libraries by Sanger sequencing and quantify them by Qubit prior to being sequenced by Illumina HiSeq4000 with 50-bp single-end sequencing.\n6. Analysis of sequencing results and selection of biosensors with high sensitivity\n1)  Separate FASTQ files from Illumina HiSeq4000 containing the sequence data of the substrate from each library by indexes.\n2)  Check their sequencing qualities using FastQC. Twelve sequencing data are used for identifying the substrate of the biosensor with better performance.\n3)  Extract only sequence data of the substrate domain with the following criteria.\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0The sequences must have Phred score > 20 at all positions covering the constant region of the substrate sequence.\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0The sequences must contain the \u201cTAC\u201d sequence encoding tyrosine.\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0The sequences must have 21 bp in length.\n4)\u00a0\u00a0Compute the frequency of unique sequences (\nf\nv\n) of each variant, , by normalizing the total reads of the variant by the total reads of all variants in the library according to\nf\nv\n= c\nv\n/ \u2211c\nk\n(Equation 1), where\u00a0represents the total number of unique variants in a sequenced library and\u00a0represents the total number of occurrences of a single variant denoted by the subscript.\n5)  Compute variant enrichment ratios (\nE\nv\n) to find the fold enrichment of that variant before (\nf\nv,input\n) and after (\nf\nv,sorted\n) sorting. The frequency of a single variant can then be compared between groups in calculating an enrichment ratio\n9\n. The enrichment ratio,\nE\nv\n, for any single variant,\nv\n, is calculated by dividing the frequency of the variant from the selected library,\nf\nv,sorted\n, over that from the input control,\nf\nv,input\n, according to\nE\nv\n= f\nv,sorted\n/ f\nv,input\n(Equation 2).\n6)  The criteria for selecting a biosensor with better performance is that the variants with\nE\nv\n> 1 in KAH and KDL groups and < 1 in KAL and KDH groups.\n7)  The data for each substrate sequence can be also visualized in the 4D plot using Matlab software. To achieve better illustration of the 4D-plot,\nE\nv\nof each group can be further normalized to\nE\nvn\nby\nE\nvn\n= log (\nE\nv\n) when\nE\nv\n\uff1e1, and\nE\nvn\n=\nE\nv\n-1\nwhen\nE\nv\n\u2264 1. These selected sequences with 4D analysis will be further evaluated by their product of\nE\nv\n(KAH) and\nE\nv\n(KDL) and calibrated with the product of WT biosensor to filter and identify biosensors with the best performance.\n7. Microscopy, Image Acquisition, and quantification\n1)\u00a0\u00a0Construct the biosensor with the predicted substrate sequence as described in \u201cPlasmid construction\u201d. Briefly, the substrate of the wild-type sensing domain is replaced by the predicted substrate sequence by PCR with a pair of primers, including:\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0The forward primer anneals to the 5\u2019-end of the sensing domain (SH2 domain).\n-\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0The reverse primer containing the predicted substrate sequence anneals to the 3\u2019-end of the sensing domain (linker and substrate).\nThe sensing domain with new substrate sequence is used to replace the LacZ of pSin-ELYK plasmid using Golden Gate assembly (Figure 1). The assembly product is later transformed, purified, and sequenced by Sanger sequencing before use.\n2)\u00a0\u00a0Transfect the purified biosensor plasmid into HEK293T cells using Lipofectamine 3000.\n3)\u00a0\u00a0Seed transfected cells on the fibronectin-coated glass-bottom dish and culture in 0.5% FBS DMEM for 12 h before being subjected to PP1 (10\n\u00b5\ng/mL) stimulation for Fyn.\n4)\u00a0\u00a0In the PP1 wash out experiment\uff0creplace the medium containing PP1 with normal medium after wash three times.\n5)\u00a0\u00a0Take images with a Nikon Eclipse Ti inverted microscope with a cooled charge-coupled device (CCD) camera with a 420DF20 excitation filter, a 450DRLP dichroic mirror, and two emission filters controlled by a filter changer (480DF30 for ECFP and 535DF35 for YPet).\n6)\u00a0\u00a0Acquire the time-lapse fluorescence images by MetaMorph 7.8 and the endpoint fluorescence images by MetaFluor 7.8 (Molecular Devices). The ECFP/FRET ratio images are calculated and visualized with the intensity modified display (IMD) method by Fluocell software\n10\n(Github\nhttp://github.com/lu6007/fluocell\n).\n7)\u00a0\u00a0For data presentation, the normalized values are shown to compare the differences among the experimental groups and to minimize the cell-cell heterogeneity. The pre-stimulation baseline for each cell is established by averaging the FRET ratio of each cell before stimulation."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p>1.&nbsp;&nbsp;&nbsp;The use of commercial electrocompetent cells (&gt;10<sup>10</sup> CFUs/\u03bcg) with high transformation efficiency and multiple transformations are recommended to generate highly diverse libraries. </p><p>2.&nbsp;&nbsp;&nbsp;For viral transduction, low viral MOI is recommended to generate cells containing low copy number of biosensor DNA library. The coverage of the library generation should be at least 10 folds of the library size.</p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": ""
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>Please see Associated Publication.&nbsp;</p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Zhang, J., Campbell, R. E., Ting, A. Y. &amp; Tsien, R. Y. Creating new fluorescent probes for cell biology. <em>Nat. Rev. Mol. cell Biol.</em> 3, 906\u2013918 (2002).</p><p>2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Komatsu, N. <em>et al.</em> Development of an optimized backbone of FRET biosensors for kinases and GTPases. <em>Mol. Biol. Cell</em> 22, 4647\u20134656 (2011).</p><p>3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wang, Y. <em>et al.</em> Visualizing the mechanical activation of Src. <em>Nature</em> 434, 1040\u20131045 (2005).</p><p>4.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Seong, J. <em>et al.</em> Distinct biophysical mechanisms of focal adhesion kinase mechanoactivation by different extracellular matrix proteins. <em>Proc. Natl. Acad. Sci.</em> 110, 19372\u201319377 (2013).</p><p>5.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Liu, L., He, F., Yu, Y. &amp; Wang, Y. Application of FRET biosensors in mechanobiology and mechanopharmacological screening. <em>Front. Bioeng. Biotechnol.</em> 8, 1299 (2020).</p><p>6.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Miyawaki, A. Visualization of the spatial and temporal dynamics of intracellular signaling. <em>Dev. Cell</em> 4, 295\u2013305 (2003).</p><p>7.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lindenburg, L. &amp; Merkx, M. Engineering genetically encoded FRET sensors. <em>Sensors</em> 14, 11691\u201311713 (2014).</p><p>8.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ouyang, M. <em>et al.</em> Sensitive FRET biosensor reveals fyn kinase regulation by submembrane localization. <em>ACS sensors</em> 4, 76\u201386 (2018).</p><p>9.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fowler, D. M. &amp; Fields, S. Deep mutational scanning: a new style of protein science. <em>Nat. Methods</em> 11, 801\u2013807 (2014).</p><p>10.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lu, S. <em>et al.</em> Computational analysis of the spatiotemporal coordination of polarized PI3K and Rac1 activities in micro-patterned live cells. <em>PLoS One</em> 6, e21293 (2011).</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>This work was supported in part by grants from NIH HL121365, GM125379, GM126016, R01EB03150, and CA204704 (Y. W.),DP1DK126138 (S.Z.), NSFC 31971324 (J.S.), and Zhejiang Provincial NSF LR20H160003 (J.S.).</p><p><br></p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41467-021-25323-x",
+                "date": "",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 38473547,
+                "identity": "f1ed10e0-22d6-4321-ba6f-829638afb4be",
+                "order_by": 0,
+                "name": "Longwei Liu",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Bioengineering, Institute of Engineering in Medicine, University of California, San Diego, 9500 Gilman Drive, La Jolla, CA, 92093-0435, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Longwei",
+                "middleName": "",
+                "lastName": "Liu",
+                "suffix": ""
+            },
+            {
+                "id": 38473548,
+                "identity": "51a08d9d-cd3c-4ee1-98b8-980957b70e09",
+                "order_by": 1,
+                "name": "Praopim Limsakul",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Bioengineering, Institute of Engineering in Medicine, University of California, San Diego, 9500 Gilman Drive, La Jolla, CA, 92093-0435, USA, and Division of Physical Science, Faculty of Science, Prince of Songkla University, Hat Yai, Songkhla 90110, Thailand",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Praopim",
+                "middleName": "",
+                "lastName": "Limsakul",
+                "suffix": ""
+            },
+            {
+                "id": 38499770,
+                "identity": "49280a55-f5c7-434f-9134-ed186854c538",
+                "order_by": 2,
+                "name": "Xianhui Meng",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Cell Biology and Bone Marrow Transplantation Center of the First Affiliated Hospital, Zhejiang University School of Medicine, Zhejiang 310058, P.R. China",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Xianhui",
+                "middleName": "",
+                "lastName": "Meng",
+                "suffix": ""
+            },
+            {
+                "id": 38499771,
+                "identity": "808f3093-c8e9-4c83-a768-a8b1cdf1940e",
+                "order_by": 3,
+                "name": "Yan Huang",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Chemistry and Chemical Engineering, Hunan University, Changsha 410082, P.R. China",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Yan",
+                "middleName": "",
+                "lastName": "Huang",
+                "suffix": ""
+            },
+            {
+                "id": 38499772,
+                "identity": "8ce6d994-4d87-48e8-a74c-ba6506d4193f",
+                "order_by": 4,
+                "name": "Reed E. S. Harrison",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Bioengineering, Institute of Engineering in Medicine, University of California, San Diego, 9500 Gilman Drive, La Jolla, CA, 92093-0435, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Reed",
+                "middleName": "E. S.",
+                "lastName": "Harrison",
+                "suffix": ""
+            },
+            {
+                "id": 38499773,
+                "identity": "b8dbb764-3526-47dc-86b0-8f5ea4ec9a37",
+                "order_by": 5,
+                "name": "Tse-Shun Huang",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Bioengineering, Institute of Engineering in Medicine, University of California, San Diego, 9500 Gilman Drive, La Jolla, CA, 92093-0435, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Tse-Shun",
+                "middleName": "",
+                "lastName": "Huang",
+                "suffix": ""
+            },
+            {
+                "id": 38499774,
+                "identity": "29f485d3-f042-4af7-b000-0e8ef965db4a",
+                "order_by": 6,
+                "name": "Yiwen Shi",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Bioengineering, Institute of Engineering in Medicine, University of California, San Diego, 9500 Gilman Drive, La Jolla, CA, 92093-0435, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Yiwen",
+                "middleName": "",
+                "lastName": "Shi",
+                "suffix": ""
+            },
+            {
+                "id": 38499775,
+                "identity": "e8bc96a0-a965-45dd-80bc-adfd5c29a158",
+                "order_by": 7,
+                "name": "Yiyan Yu",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Bioengineering, Institute of Engineering in Medicine, University of California, San Diego, 9500 Gilman Drive, La Jolla, CA, 92093-0435, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Yiyan",
+                "middleName": "",
+                "lastName": "Yu",
+                "suffix": ""
+            },
+            {
+                "id": 38499776,
+                "identity": "a25597ad-137b-4631-bc89-bb1e79dc46d6",
+                "order_by": 8,
+                "name": "Krit Charupanit",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Biomedical Sciences and Biomedical Engineering, Faculty of Medicine, Prince of Songkla University, Hat Yai, Songkhla 90110, Thailand",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Krit",
+                "middleName": "",
+                "lastName": "Charupanit",
+                "suffix": ""
+            },
+            {
+                "id": 38499777,
+                "identity": "5ee11061-c16d-4a80-8b96-0a793b0710c2",
+                "order_by": 9,
+                "name": "Sheng Zhong",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Bioengineering, Institute of Engineering in Medicine, University of California, San Diego, 9500 Gilman Drive, La Jolla, CA, 92093-0435, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Sheng",
+                "middleName": "",
+                "lastName": "Zhong",
+                "suffix": ""
+            },
+            {
+                "id": 38499778,
+                "identity": "e2d6ebd4-fedd-414d-b919-6bbd89910518",
+                "order_by": 10,
+                "name": "Shaoying Lu",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Bioengineering, Institute of Engineering in Medicine, University of California, San Diego, 9500 Gilman Drive, La Jolla, CA, 92093-0435, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Shaoying",
+                "middleName": "",
+                "lastName": "Lu",
+                "suffix": ""
+            },
+            {
+                "id": 38499779,
+                "identity": "ed8f8856-b99c-4970-844b-1b33351bffff",
+                "order_by": 11,
+                "name": "Jin Zhang",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Pharmacology, University of California, San Diego, 9500 Gilman Drive, La Jolla, CA, 92093-0435, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jin",
+                "middleName": "",
+                "lastName": "Zhang",
+                "suffix": ""
+            },
+            {
+                "id": 38499780,
+                "identity": "7ad923cc-fc1c-4cd0-b3ac-a7d4c9f15644",
+                "order_by": 12,
+                "name": "Shu Chien",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Bioengineering, Institute of Engineering in Medicine, and Department of Medicine, University of California, San Diego, 9500 Gilman Drive, La Jolla, CA, 92093-0435, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Shu",
+                "middleName": "",
+                "lastName": "Chien",
+                "suffix": ""
+            },
+            {
+                "id": 38499781,
+                "identity": "d6d9414d-3b0f-41a5-b99d-ab4fd79ade21",
+                "order_by": 13,
+                "name": "Jie Sun",
+                "email": "sunj4@zju.edu.cn",
+                "orcid": "",
+                "institution": "Department of Cell Biology and Bone Marrow Transplantation Center of the First Affiliated Hospital, Zhejiang University School of Medicine, Zhejiang 310058, P.R. China",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Jie",
+                "middleName": "",
+                "lastName": "Sun",
+                "suffix": ""
+            },
+            {
+                "id": 38473709,
+                "identity": "1682bea2-fdae-47c2-99f5-190ea88e4784",
+                "order_by": 14,
+                "name": "Yingxiao Wang",
+                "email": "yiw015@eng.ucsd.edu",
+                "orcid": "",
+                "institution": "Department of Bioengineering, Institute of Engineering in Medicine, University of California, San Diego, 9500 Gilman Drive, La Jolla, CA, 92093-0435, USA",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Yingxiao",
+                "middleName": "",
+                "lastName": "Wang",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2021-07-10 08:14:49",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1580/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1580/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 12583763,
+                "identity": "3502d0a9-5c94-4100-8b7e-52a03a18d0d2",
+                "added_by": "auto",
+                "created_at": "2021-08-19 16:31:44",
+                "extension": "tif",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 7941,
+                "visible": true,
+                "origin": "",
+                "legend": "Modularized templates for the library generation of biosensor variants\na, The ELYK template where E, L, Y, and K stand for ECFP, LacZ, YPet, and kinase domain. Restriction enzyme sites are indicated on the top.  \nb, The sensing region containing a SH2 domain, a flexible linker, and substrate variants. Restriction enzyme sites are indicated on the top.  ",
+                "description": "",
+                "filename": "Fig1.tif",
+                "url": "https://assets.researchsquare.com/files/pex-1580/v1/9a2515f3e0fbccb6970b039a.tif"
+            },
+            {
+                "id": 12583762,
+                "identity": "31222a31-3dd3-447a-aba1-bc33f9bce861",
+                "added_by": "auto",
+                "created_at": "2021-08-19 16:31:43",
+                "extension": "tif",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 23313,
+                "visible": true,
+                "origin": "",
+                "legend": "Domain structure of a saFRET biosensor with a fused kinase domain\na, Schematic representation of the domain structures of a Fyn saFRET biosensor. The sequence of the substrate peptide can be either EKIXXXYGVV or EKIEGTYXXX, where X represents any amino acid. The wild-type sequence of the substrate peptide is EKIEGTYGVV. \nb, The name of the library containing various sequences on the substrate region and different types of the kinase domain.",
+                "description": "",
+                "filename": "Fig2.tif",
+                "url": "https://assets.researchsquare.com/files/pex-1580/v1/5446a89d4b472d5ed99d6221.tif"
+            },
+            {
+                "id": 12583774,
+                "identity": "487c4785-241c-460f-a675-15eae4ab2230",
+                "added_by": "auto",
+                "created_at": "2021-08-19 16:34:44",
+                "extension": "tif",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 86968,
+                "visible": true,
+                "origin": "",
+                "legend": "FRET-based FACS screening\nThe mammalian cell libraries consist of biosensor variants with randomized sequences on the substrate peptide (Lib1-KA, Lib1-KD, Lib2-KA, and Lib2-KD) can be sorted into low (L) and high (H) FRET ratios (ECFP/FRET ratios) by FACS. ",
+                "description": "",
+                "filename": "Fig3.tif",
+                "url": "https://assets.researchsquare.com/files/pex-1580/v1/d3532a87ff4ce1d40d9ca4c1.tif"
+            },
+            {
+                "id": 12583765,
+                "identity": "bb8c5b46-9864-421d-80c0-2b95539013ad",
+                "added_by": "auto",
+                "created_at": "2021-08-19 16:31:44",
+                "extension": "tif",
+                "order_by": 4,
+                "title": "Figure 4",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 12133,
+                "visible": true,
+                "origin": "",
+                "legend": "The design of the amplicon library for high-throughput DNA sequencing\nFollowing the design of library preparation from Illumina, Inc., the sequence of interest is a part of sequences of the biosensor variants shown in the box.  ",
+                "description": "",
+                "filename": "Fig4.tif",
+                "url": "https://assets.researchsquare.com/files/pex-1580/v1/cdb8d366c251781ab11dd88e.tif"
+            },
+            {
+                "id": 13710589,
+                "identity": "8faf7d5f-9c13-43ad-8483-b3fad133c5eb",
+                "added_by": "auto",
+                "created_at": "2021-09-17 14:18:44",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 533173,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1580/v1/e71454bc-1d22-4cbb-8079-1530585e9676.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Biosensor, F\u00f6rster resonance energy transfer, High-throughput screening, Next generation sequencing, Protein engineering, Protein kinase ",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>Genetically-encoded biosensors based on FRET have been widely used to dynamically monitor the activity of protein tyrosine kinases (PTKs) in living cell with high spatiotemporal resolution. However, the limitation in sensitivity, specificity, and dynamic range of FRET biosensors have hindered their broader applications. Here, we introduced a systematic platform, FRET-Seq, which integrates high-throughput FRET sorting and next-generation sequencing, to identify FRET biosensors with better performance from large-scale libraries directly in mammalian cells. </p><p><br></p>",
+        "manuscriptTitle": "FRET-Seq: a High-Throughput FRET-Based Screening Platform to Improve FRET Biosensors in Mammalian Cells",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2021-08-19 16:31:38",
+                "doi": "10.21203/rs.3.pex-1580/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "cc640019-9ee4-4915-be36-3e372abc28b7",
+        "owner": [],
+        "postedDate": "August 19th, 2021",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 5620797,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 5620798,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 5620799,
+                "name": "Molecular biology"
+            },
+            {
+                "id": 5620800,
+                "name": "Chemical biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2021-08-19 16:31:38",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

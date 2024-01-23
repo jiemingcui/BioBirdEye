@@ -1,0 +1,282 @@
+{
+    "identity": "nprot-2675",
+    "title": "Integrating  telomeres into genome-wide ChIP-seq analyses",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Telomeres are essential for genome stability, which requires the integrity of their length and chromatin structure. Telomeric DNA usually contains tandem repeats of a short G-C rich motif that are also present at internal chromosomal loci in different model systems including Arabidopsis or humans<sup>1-7</sup>. \r\n\n\n\r\n\n\nSome caution should be taken when the chromatin structure of telomeres is analyzed. Telomeric chromatin organization studies are usually performed by immunocytolocalization or by chromatin immunoprecipitation \\(ChIP)<sup>7-11</sup>. When the epigenetic status of telomeres is studied by immunocytolocalization both, telomeres and subtelomeric regions, are analyzed. In turn, ChIP studies focused on telomeric chromatin structure display simultaneously telomeres and ITSs. The combination of immunocytolocalization and ChIP experiments could help to differentiate between telomeres and ITSs. However, a specific epigenetic mark might be found associated with telomeric repeats by ChIP, with the end of chromosomes by immunocytolocalization and might also be required for telomere function and, still, not associate with true telomeres. Instead, the epigenetic mark could be associated with subtelomeric regions and ITSs or just with subtelomeric ITSs<sup>7</sup>. \r\n\n\n\r\n\n\nWe have described two procedures based on ChIP experiments to analyze the chromatin structure of telomeres independently of ITSs in _Arabidopsis thaliana_<sup>12,13</sup>. In the first procedure, we performed ChIP experiments followed by digestion with the frequently cutting restriction enzyme Tru9I<sup>12</sup>. Since telomeres in Arabidopsis and in other model systems are essentially composed of perfect telomeric repeat arrays, they remain uncut after digestion with Tru9I<sup>6</sup>. In contrast, Arabidopsis ITSs are frequently cut because they are composed of short arrays of perfect telomeric repeats interspersed with degenerated repeats<sup>6,14-16</sup>. Thus, when Arabidopsis genomic DNA is digested with Tru9I and hybridized with a telomeric probe, most of the signals corresponding to ITSs disappear<sup>6</sup>. The use of Tru9I has allowed us to discover that Arabidopsis telomeres exhibit euchromatic features. They are labelled with euchromatic marks like H3K4me2, H3K9Ac and H4K16Ac<sup>12</sup>. However, this procedure is laborious.\r\n\n\n\r\n\n\nMore recently, we have developed a second method to analyze the chromatin structure of Arabidopsis telomeres independently of ITSs by analyzing ChIP-seq data<sup>12</sup>. Previous genome-wide chromatin structure studies performed by ChIP-seq did not differentiate between telomeres and ITSs. The application of this second method have confirmed our previous results and have shown that Arabidopsis telomeres associate with histone H3.3, which is incorporated in transcriptionally active regions, and are labelled with H3K27me3, a repressive euchromatic mark established by the PRC2 complex<sup>12,17</sup>. We interpreted that the presence of these epigenetic marks at telomeres might be due to their special chromatin organization or to the dynamic nature or their epigenetic marks<sup>17</sup>. \r\n\n\n\r\n\n\nHere, we describe a general and detailed protocol to analyze telomeric chromatin structure independently of ITSs by using ChIP-seq data. It can be applied to different model systems including humans."
+        },
+        {
+            "header": "Procedure",
+            "content": "Following, we describe the step-by-step procedure and remark some key features that should be taken into consideration. All the steps of the protocol are summarized in Figure 1. Those steps marked with an asterisk include some comments in the troubleshooting section. In addition, we have applied part of this protocol to several model organisms \\(see Table 1). Columns with red numbers in Table 1 correspond to the different steps.\r\n\n\n\r\n\n\nStep 1) Select an organism which genome had been sequenced and built. Sequencing should have been achieved near to completion.\r\n\n\n\r\n\n\nStep 2) Determine _in silico_ the number of sequences containing four perfect tandem telomeric repeats at ITSs. Similarly, determine the number of sequences containing five or more perfect tandem telomeric repeats. These numbers can be determined at the NCBI Mapviewer home \\(http://www.ncbi.nlm.nih.gov/mapview/), running a megablast search and using the Build reference database. The megablast search parameters are the following: automatically adjust parameters for short input sequences; expect threshold=10; max matches in a query range=0; match/mismatch scores=1,-2; gap cost=linear; word size=256 and without filters or repeat masking. The output of the megablast searches should appear ordered by chromosomes and by degree of score. Download the alignments as a Hit Table \\(text) and count the sequences with the highest evalues, which make perfect matches with the search sequences, using Microsoft Word. If the megablast search is performed with a sequence that contains four perfect tandem telomeric repeats, an specific ITS containing five perfect tandem repeats will reveal two overlapping sequences in the output and so on. The terminal perfect tandem telomeric repeat sequences should not be counted. \r\n\n\n\r\n\n\nStep 3) Determine the mean telomeric length of the biological source to be studied if it had not been previously published. The Terminal Restriction Fragments protocol \\(TRFs)\n18\ncould be used for that purpose. Different tissues of the same organism might have different telomeric lengths. In principle, if the length of telomeres varies in different tissues of the same organism, the mean telomeric length of the biological sources used to perform the ChIP-seq experiments should be determined. However, this might not be required for all the organisms \\(see table 1). See troubleshooting 3.\r\n\n\n\r\n\n\nStep 4) Determine the number of sequences containing four or more perfect tandem telomeric repeats at telomeres. For a specific biological source, essentially the same value is obtained with all the telomeric sequences independently of the number of repeats that they contain. This value is determined as follows: multiply the number of haploid chromosomes by 2 and by their average telomeric length expressed in bp. Then, divide the resulting value by the number of bp in each perfect telomeric repeat. \r\n\n\n\r\n\n\nStep 5) Divide the number of sequences containing four perfect tandem telomeric repeats at ITS between the number of the same type of sequences at telomeres. Repeat this step using the numbers obtained with sequences containing five or more perfect telomeric repeats. Select those sequences that render ratios equal or lower than 2%. See troubleshooting 5-1.\r\n\n\n\r\n\n\nA 2% ratio can be obtained with short stretches of perfect tandem telomeric repeats in different model organisms \\(see Table 1). This is because, whereas telomeres are essentially composed of perfect telomeric repeats, ITSs are usually composed of short stretches of perfect repeats interspersed with degenerated repeats. However, there are some organisms, like hamster, that contain more perfect telomeric repeats at internal chromosomal loci than at telomeres\n19,20\n. This protocol cannot be applied to them. See troubleshooting 5-2.\r\n\n\n\r\n\n\nStep 6) Perform ChIP-seq experiments that render longer reads than the sequence or sequences selected to analyze telomeres. Check the quality of the results by standard methods. Previously published ChIP-seq experiments can also be used to analyze telomeric chromatin structure. In these cases, the number of telomeric reads can easily be calculated at NCBI, using the Sequence Reads Archive software \\(http://www.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?). \r\n\n\n\r\n\n\nWe recommend to check the suitability of the ChIP-seq experiments for telomeric chromatin structure analyses. Specific quality controls should be performed. It might happen that a ChIP-seq experiment is fine to analyze genome-wide aspects of chromatin organization but not to analyze telomeres. This is because single sequences are used for the analysis of telomeres and some bias can arise along the ChIP-seq experiments during the cloning, amplification or sequencing of the telomeric sequences. The special architecture and repetitive nature of telomeres might favour those problems. The study of ChIP-seq experiments that have been repeated at least twice, starting with different samples of the same biological source, should help in this task. If similar results are obtained in the different repetitions of the same experiment, we consider the resulting ChIP-seq data suitable for telomeric chromatin structure analyses. See troubleshooting 6-1.\r\n\n\n\r\n\n\nIf previously published ChIP-seq experiments are analyzed, we recommend calculating the percentage of four tandem telomeric repeat reads in the input samples. In addition, we also recommend to calculate the number of four tandem telomeric repeat reads versus the number of reads corresponding to another genomic sequence, also in the input samples. Both types of numbers should remain similar in different experiments. However, we would rather prefer to analyze repetitions of the same ChIP-seq experiment that had been started with different samples of the same biological source. In this way, the bias of the immunoprecipitated samples should also be controlled. See troubleshooting 6-2.\r\n\n\n\r\n\n\nWe also recommend performing telomeric analyses using more than one telomeric sequence for each ChIP-seq run, if possible. Similar results should be obtained with sequences containing different number of perfect telomeric repeats, as far as the quality of the reads is good. See troubleshooting 6-3.\r\n\n\n\r\n\n\nStep 7) Count the number of telomeric reads in the input and immunoprecipitated DNA samples and normalize them against the total number of reads for each run. Determine the telomeric enrichments levels and represent them together with the results obtained for the rest of the genome. For example, the lg\n2\nIP/I could be represented for the whole genome, including telomeres.\r\n\n\n\r\n\n\n**Applications and target audience:**\r\n\n\nThis method can be applied to any model system, excluding those that contain many more perfect tandem telomeric repeats at ITSs than at telomeres. In addition, it could be used to analyze telomeric chromatin structure from previously published ChIP-seq experiments.\r\n\n\n\r\n\n\n**Advantages, limitations and adaptations**\r\n\n\nOur group has previously analyzed the chromatin structure of telomeres independently of ITSs using a frequently cutting restriction enzyme. However, the method described here is easier to achieve, can be applied to experiments already reported and to future ChIP-seq experiments.\r\n\n\n\r\n\n\nThis method cannot be applied to model systems that contain many more perfect tandem telomeric repeats at ITSs than at telomeres. However, in those cases, it could be applied to analyze the chromatin structure of ITSs instead of the chromatin structure of telomeres."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "The following considerations should be taken into account in the following steps of the procedure:\r\n\n\n\r\n\n\n**Step 3:**\r\n\n\n\r\n\n\nThe mean telomeric length of different Arabidopsis organs have been determined by TRFs and have been found to be very similar<sup>21</sup>.\r\n\n\n\r\n\n\n**Step 5:**\r\n\n\n\r\n\n\n5-1) We have selected a 2% ratio to play safe. There is always certain level of background when ChIP experiments are performed. For example, let\u2019s imagine that a promoter \\(seq A) is associated with a transcription factor and another DNA sequence \\(seq B) is not associated with it. If ChIP experiments are performed with antibodies against the transcription factor and the enrichment level of seq A versus seq B is analyzed by PCR, an enrichment level of 5-10 folds of seq A versus seq B would be a very good result. In these cases, it would be concluded that the transcription factor associates with the promoter \\(seq A). However seq B is still being pulling down in the ChIP experiment because of the experimental background of the technique. Therefore, in ChIP-seq experiments, a sequence composed of perfect tandem telomeric repeats that is poorly found at ITSs should not reflect the epigenetic status of ITSs because the telomeric background would impaired it. This sequence should reflect the epigenetic characteristics of telomeres. \r\n\n\n\r\n\n\n5-2) A stretch of perfect tandem telomeric repeats found more than 2% of the cases at ITSs might also be used for this procedure, whenever the level of background allows it. This background could be estimated for different organisms and experimental conditions by PCR<sup>12</sup>.\r\n\n\n\r\n\n\n**Step 6:**\r\n\n\n6-1) Telomeric chromatin structure analyses using ChIP-seq data have been previously reported in humans but without considering ITSs<sup>22-24</sup>. In one study focused on CD4+ T-cells, telomeres were found to be enriched in H3K4me3 \\(an euchromatic mark) and under-represented in H3K9me3 \\(an heterochromatic mark)<sup>22</sup>. In another study focussed on different human cell lines, telomeres were found to be enriched in H3K9me3<sup>23</sup>. The different results obtained in these two studies might be due to the different biological sources studied or to the different number of telomeric repeats used to analyze telomeres, which were not clearly stated in any of the manuscripts. However, they could also be due to the bias generated during the experimental procedure followed to obtain the ChIP-seq data. This concern emphasizes the need to determine the suitability of the ChIP-seq studies for telomeric chromatin structure analyses.\r\n\n\n\r\n\n\n6-2) We have analyzed the chromatin structure of Arabidopsis telomeres using some previously published ChIP-seq experiments but, first, we studied the suitability of these experiments to analyze telomeric chromatin structure<sup>13,17,25-27</sup>. We determined the percentage of the \\(CCCTAAA)4 reads in the input samples of all these experiments and found that they were comprised between 0.007% and 0.009%. We also determined the number of \\(CCCTAAA)4 reads and the number of reads corresponding to a centromeric sequence \\(CEN1: TTGGCTTTGTATCTTCTAACAAG) in the input samples of the same experiments. The \\(CCCTAAA)4/CEN1 ratios that we obtained varied between 0.4 and 0.7. Therefore, we assumed that those experiments were suitable to analyze telomeric chromatin structure. Our selection criteria for the ChIP-seq experiments were supported by the fact that we observed similar telomeric epigenetic features in Arabidopsis by analyzing ChIP-seq experiments and by using a different experimental approach<sup>12,13,17</sup>.\r\n\n\n\r\n\n\n6-3) We have obtained similar chromatin structure results in Arabidopsis using the sequence \\(CCCTAAA)4 \\(present at ITSs in 2% of the cases) than using the sequence \\(CCCTAAA)6 \\(present at ITSs in 1% of the cases)<sup>17</sup>."
+        },
+        {
+            "header": "References",
+            "content": "1. Blackburn, E. Telomeres and telomerase: their mechanisms of action and the effects of altering their functions. FEBS Lett. 579, 859-862 \\(2005). \r\n  \r\n\n\n2. Cech, T. Beginning to understand the end of the chromosome. Cell 43, 405-413 \\(2004).\r\n  \r\n\n\n3. Greider, C. Telomerase RNA levels limit the telomere length equilibrium. Cold Spring Harb. Symp. Quant. Biol. 71, 225-229 \\(2006).\r\n  \r\n\n\n4. Meyne, J. et al. Distribution of non-telomeric sites of the \\(TTAGGG)n telomeric sequence in vertebrate chromosomes. Chromosoma 99, 3-10 \\(1990).\r\n  \r\n\n\n5. Richards, E., Goodman, H., and Ausubel, F. The centromere region of Arabidopsis thaliana chromosome 1 contains telomere-similar sequences. Nucleic Acids Res. 19, 3351-3357 \\(1991).\r\n  \r\n\n\n6. G\u00e1mez-Arjona, F., L\u00f3pez-L\u00f3pez, C., Vaquero-Sedas, M., and Vega-Palas, M. On the organization of the nucleosomes associated with telomeric sequences. Biochim. Biophys. Acta 1803, 1058-1061 \\(2010).\r\n  \r\n\n\n7. Vaquero-Sedas, M., and Vega-Palas, M. On the chromatin structure of eukaryotic telomeres. Epigenetics 6, 1055-1058 \\(2011).\r\n  \r\n\n\n8. Braunstein, M., Rose, A., Holmes, S., Allis, C., and Broach, J. Transcriptional silencing in yeast is associated with reduced nucleosome acetylation. Genes Dev. 7, 592-604 \\(1993). \r\n  \r\n\n\n9. Hecht, A., Strahl-Bolsinger, S., and Grunstein, M. Spreading of transcriptional repressor SIR3 from telomeric heterochromatin. Nature 383, 92-96 \\(1996).\r\n  10. Orlando, V., and Paro, R. Mapping Polycomb-repressed domains in the bithorax complex using in vivo formaldehyde cross-linked chromatin. Cell 75, 1187-1198 \\(1993). \r\n  \r\n\n\n11. Wu, C., et al. The chromatin structure of specific genes: Disruption of chromatin structure during gene activity. Cell 16, 807-14 \\(1979).\r\n  \r\n\n\n12. Vaquero-Sedas, M., G\u00e1mez-Arjona, F., and Vega-Palas, M. Arabidopsis thaliana telomeres exhibit euchromatic features. Nucleic Acids Res. 39, 2007-2017 \\(2011).\r\n  \r\n\n\n13. Vaquero-Sedas, M., Luo C., and Vega-Palas, M. Analysis of the epigenetic status of telomeres by using ChIP-seq data. Nucleic Acids Res. 40, e163 \\(2012).\r\n  \r\n\n\n14. Lin, K., and Yan, J. Endings in the middle: current knowledge of interstitial telomeric sequences. Mutation Res. 658, 95-110 \\(2008).\r\n  \r\n\n\n15. Regad, F., Lebas, M., and Lescure, B. ITSs within the Arabidopsis thaliana genome. J. Mol. Biol. 239, 163-169 \\(1994).\r\n  \r\n\n\n16. Uchida, W., Matsunaga, S., Sugiyama, R., and Kawano, S. Interstitial telomere-like repeats in the Arabidopsis thaliana genome. Genes Genet. Syst. 77, 63-67 \\(2002).\r\n  \r\n\n\n17. Vaquero-Sedas, M., and Vega-Palas, M. Differential association of Arabidopsis telomeres and centromeres with Histone H3 variants. Sci. Rep. 3, 1202 \\(2013). \r\n  \r\n\n\n18. Kimura, M., et al. Measurement of telomere length by the Southern blot analysis of terminal restriction fragment lengths. Nat. Protoc. 5, 1596-1607 \\(2010).\r\n  \r\n\n\n19. Faravelli, M., Azzalin, C., Bertoni, L., Chernova, O., Attolini, C., Mondello, C., and Giulotto, E. Molecular organization of internal telomeric sequences in Chinese hamster chromosomes. Gene 283, 11-16 \\(2002). \r\n  \r\n\n\n20. Revaud, D., Mozziconacci, J., Sabatier, L., Desmaze, C., and Lavelle, C. Sequence-driven telomeric chromatin structure. Cell Cycle 8, 1099-100 \\(2009). \r\n  \r\n\n\n21. Zentgraf, U., Hinderhofer, K., and Kolb, D. Specific association of a small protein with the telomeric DNA-protein complex during the onset of leaf senescence in Arabidopsis thaliana. Plant Mol. Biol. 42, 429-438 \\(2000).\r\n  \r\n\n\n22. Rosenfeld, J., Wang, Z., Schones, D., Zhao, K., DeSalle, R. and Zhang, M. Determination of enriched histone modifications in non-genic portions of the human genome. BMC Genomics 10, 143 \\(2009). \r\n  \r\n\n\n23. Ernst, J., Kheradpour, P., Mikkelsen, T., Shoresh, N., Ward, L., Epstein, C., Zhang, X., Wang, L., Issner, R., Coyne, M., Ku, M., Durham, T., Kellis, M. and Bernstein, B. Mapping and analysis of chromatin state dynamics in nine human cell types. Nature 473, 43-49 \\(2011).\r\n  \r\n\n\n24. Galati, A., Micheli, E. and Cacchione, S. Chromatin structure in telomere dynamics. Front Oncol. 3, 46 \\(2013).\r\n  \r\n\n\n25. Stroud, H. et al. Genome-wide analysis of histone H3.1 and H3.3 variants in Arabidopsis thaliana. Proc. Natl. Acad. Sci. USA 109, 5370-5375 \\(2012).\r\n  \r\n\n\n26. Wollmann, H. et al. Dynamic deposition of histone variant H3.3 accompanies developmental remodeling of the Arabidopsis transcriptome. PLoS Genet. 8, e1002658 \\(2012).\r\n  \r\n\n\n27. Luo, C., Sidote, D,, Zhang, Y., Kerstetter, R., Michael, T., and Lam, E. Integrative analysis of chromatin states in Arabidopsis identified potential regulatory mechanisms for natural antisense transcript production. Plant J. \\(2012) doi: 10.1111/tpj.12017. \r\n  \r\n\n\n28. Siomos, M. and Riha, K. Telomeres and their biology. In Plant Genome Diversity Volume 1. J. F. Wendel et al., \\(eds.) 71-81 \\(2012).\r\n  \r\n\n\n29. Anchelin, M., Murcia, L., Alcaraz-P\u00e9rez, F., Garc\u00eda-Navarro, E. and Cayuela, M. Behaviour of telomere and telomerase during aging and regeneration in zebrafish. PLoS One 6, e16955 \\(2011)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1093/nar/gks730",
+                "date": "2013-04-02 15:45:55",
+                "title": "Analysis of the epigenetic status of telomeres by using ChIP-seq data",
+                "authors": [
+                    "M. I. Vaquero-Sedas",
+                    "C. Luo",
+                    "and M. A. Vega-Palas"
+                ],
+                "journal": "Nucleic Acids Research",
+                "logo": ""
+            },
+            {
+                "doi": "10.1038/srep01202",
+                "date": "2013-04-02 15:46:42",
+                "title": "Differential association of Arabidopsis telomeres and centromeres with Histone H3 variants",
+                "authors": [
+                    "Mar\u00eda I. Vaquero-Sedas and Miguel A. Vega-Palas"
+                ],
+                "journal": "Scientific Reports",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 12483,
+                "identity": "9ffc4e24-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Miguel Vega-Palas",
+                "email": "vega-palas@ibvf.csic.es",
+                "orcid": "",
+                "institution": "Instituto de Bioqu\u00edmica Vegetal y Fotos\u00edntesis (CSIC - U. of Seville), Avda. Am\u00e9rico Vespucio n\u00ba 49, 41092 Seville, Spain",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Miguel",
+                "middleName": "",
+                "lastName": "Vega-Palas",
+                "suffix": ""
+            },
+            {
+                "id": 12484,
+                "identity": "9ffc50b8-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Mar\u00eda Vaquero-Sedas",
+                "email": "",
+                "orcid": "",
+                "institution": "Instituto de Bioqu\u00edmica Vegetal y Fotos\u00edntesis (CSIC - U. of Seville), Avda. Am\u00e9rico Vespucio n\u00ba 49, 41092 Seville, Spain",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Mar\u00eda",
+                "middleName": "",
+                "lastName": "Vaquero-Sedas",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2013-04-05 14:14:35",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2013.039",
+        "doiUrl": "https://doi.org/10.1038/protex.2013.039",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2608704,
+                "identity": "1d979d30-285e-4677-b8db-a4b1cfccfed8",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:25",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 39411,
+                "visible": true,
+                "origin": "",
+                "legend": "Schematic representation of the steps of the protocol   Those steps marked with an asterisk include some comments in the troubleshooting section.",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-2675/v1/figure_1.png"
+            },
+            {
+                "id": 2608703,
+                "identity": "5dc6d036-5ad7-419e-b23b-55582e8e2d04",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:25",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 55279,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 1   Determination of the number of tandem telomeric repeats that could be used to analyze telomeric chromatin structure in different organisms",
+                "description": "",
+                "filename": "figure2.png",
+                "url": "https://assets.researchsquare.com/files/nprot-2675/v1/figure_2.png"
+            },
+            {
+                "id": 2608706,
+                "identity": "b9cc7e11-1999-40ee-90ca-dc8fe95cceff",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:25",
+                "extension": "pptx",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 63358,
+                "visible": true,
+                "origin": "",
+                "legend": "Figure 1 as a powerpoint slide   Schematic representation of the steps of the protocol    Those steps marked with an asterisk include some comments in the troubleshooting section.",
+                "description": "",
+                "filename": "figure3.pptx",
+                "url": "https://assets.researchsquare.com/files/nprot-2675/v1/figure_3.pptx"
+            },
+            {
+                "id": 13464854,
+                "identity": "019fcc1f-006c-4ea2-8106-58485b11fb08",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:44:52",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 225776,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-2675/v1/09ac0b20-99f3-43fe-a23a-147ad80d2af5.pdf"
+            },
+            {
+                "id": 2608708,
+                "identity": "c7395109-9106-41b2-ba24-296862723a2f",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:25",
+                "extension": "doc",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 32768,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 1 as a Word file   Determination of the number of tandem telomeric repeats that could be used to analyze telomeric chromatin structure in different organisms ",
+                "description": "",
+                "filename": "supplement0.doc",
+                "url": "https://assets.researchsquare.com/files/nprot-2675/v1/supplement_0.doc"
+            }
+        ],
+        "financialInterests": "Any",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "telomeres, epigenetics, chromatin, ChIP-seq, genome-wide analyses",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "Telomeric chromatin organization studies using Chromatin Immunoprecipitation \\(ChIP) might be challenged by the presence of Interstitial Telomeric Sequences \\(ITSs). In this protocol we describe a method to study the chromatin structure of telomeres independently of ITSs by analyzing ChIP-seq data. This method has been used successfully in _Arabidopsis thaliana_ and could be applied to other model systems including humans. It could greatly speed the knowledge of telomeres biology and their influence in aging, illness or cancer. The method requires that the mean telomeric lengths of the biological sources to be studied are known as well as the built DNA sequence of their chromosomes. First, the numbers of sequences with four or more perfect tandem telomeric repeats are determined _in silico_ at ITSs. These numbers are normalized to the corresponding numbers of sequences of the same type present at telomeres. Those sequences for which the ITSs/telomeres ratios are lower than 2% can be selected to analyze telomeres in ChIP-seq experiments. The ChIP-seq experiments to be studied should be suitable for telomeric chromatin structure analyses and render reads longer than the telomeric sequences selected. Finally, the levels of telomeric enrichments are determined and represented together with the values corresponding to the rest of the genome. This is the first protocol described to integrate telomeres independently of ITSs into genome-wide studies of chromatin organization.",
+        "manuscriptTitle": "Integrating  telomeres into genome-wide ChIP-seq analyses",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2013-04-08 09:06:26",
+                "doi": "10.1038/protex.2013.039",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9ffbef36-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "April 8th, 2013",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 2942,
+                "name": "Cell biology"
+            },
+            {
+                "id": 2943,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 2945,
+                "name": "Genetics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2013-04-08 09:06:26",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

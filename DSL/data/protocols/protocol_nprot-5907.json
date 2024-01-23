@@ -1,0 +1,181 @@
+{
+    "identity": "nprot-5907",
+    "title": "Genomic DNA Isolation from Tissue Samples and Library Prep for Tuba-Seq Barcode Analysis",
+    "content": [
+        {
+            "header": "Reagents",
+            "content": "gDNA Extraction:\r\n\n\n1. 20% SDS\r\n  2. 0.5M EDTA\r\n  3. 1M Tris 7.6\r\n  4. 5M NaCl\r\n  5. Saturated NaCl\r\n  6. Phenol:Chloroform:Isoamyl Alcohol \\(Thermo Fisher Scientific Cat #: 15593049)\r\n  7. Chloroform\r\n  8. Proteinase K \\(Life Technologies, Cat #: AM2544) \\[make 20 mg/mL stock]\r\n  9. \u201cBenchmark\u201d controls\r\n  NOTE: These need to be designed for your experiment, you can spike in as many known barcodes as you would like at varying amounts.  These \u201cbenchmarks\u201d will allow you to calculate the number of cells in each tumor.  We used three unique barcodes and spiked in 500,000 cells each.  You could also, for example, have 10 unique barcodes and spike them in at 10 different amounts to give yourself a ladder like standard.\r\n\n\nLibrary Preparation\r\n\n\n1. OneTaq \\(NEB, cat#: M0482L)\r\n  2. Custom primers\r\n  3. MinElute PCR Purification Kit \\(Qiagen, Cat#: 28006)"
+        },
+        {
+            "header": "Equipment",
+            "content": "1. Tissue homogenizer \\(Fisher Scientific, 301-5895-BSIINV)\r\n  2. 55 degree water bath, oven or warm room\r\n  3. Thermocycler\r\n  4. Table top centrifuge"
+        },
+        {
+            "header": "Procedure",
+            "content": "1. Digest tissue in 10 mL of lysis buffer.\r\n  1.1. Make Lysis Buffer:\r\n\n\nLysis Buffer \\(500ml):\r\n\n\n100mM NaCl \\(10ml 5M NaCl)\r\n\n\n20mM Tris 7.6  \\(50ml 1M Tris 7.6)\r\n\n\n10mM EDTA 8.0 \\(10ml 0.5M EDTA)\r\n\n\n0.5% SDS \\(12.5ml 20% SDS)\r\n\n\n1.2. Step 1: Place tissue in 50 mL conical tube in 10 mL of Lysis Buffer with 100 ul proteinase K \\(1:100 dilution of a 20mg/ml).\r\n\n\n1.3. Step 2: Add \u201cbenchmark\u201d controls to tube. \r\n\n\n1.4. Homogenize solution using the TissueMeiser, takes about 15-45 seconds depending on amount of tissue.\r\n\n\n1.5. Repeat for remaining samples.\r\n\n\nNOTE: Between every sample, sterilize TissueMeiser in water, followed by bleach, followed by 70% EtOH followed by PBS. Change water after every sample, other wash liquids can be used for 3-4 samples.\r\n\n\n1.6. Place tubes at 55C overnight. This can be done in a water bath or incubator.\r\n\n\n\r\n\n\n2. Phenol-Chloroform Extract and Precipitate gDNA\r\n  2.1. Take 500ul of the cell lysate from above digestion. \\(Make sure to mix well before taking the 500ul\u2026VORTEX)\r\n\n\n2.2. Add 300ul saturated NaCl\r\n\n\n2.3. Shake 200x spin 14K for 10 mins @ 4C\r\n\n\n2.4. Transfer 500ul to a new tube\r\n\n\n2.5. Add 500ul phenol/chloroform/IAA \\(if it is red use another bottle)\r\n\n\n2.6. Shake 200x spin 5 minutes at 13000rpm\r\n\n\n2.7. Withdraw top layer, don\u2019t be greedy \\(~400ul)\r\n\n\n2.8. Add equal volume chloroform\r\n\n\n2.9. Shake 200x and spin 5 minutes at max\r\n\n\n2.10. Transfer aqueous top layer \\(really don\u2019t be greedy) to 2.5 vol 100% ethanol \\(1.25ml) 1/30 vol 3M Sodium Acetate pH5.2\r\n\n\n2.11. Shake to precipitate\r\n\n\n2.12. Spin 2 minutes at 13000rpm, decant and wash with 70% Ethanol\r\n\n\n2.13. Spin 30 seconds at 13000rpm decant, withdraw all liquid, do not air dry too much.\r\n\n\n2.14. Add 200ul TE and put at 37C O/N\r\n\n\n2.15. Nanodrop, note 260/280 and 260/230\r\n\n\n\r\n\n\n3. Preparation of Sequencing Libraries\r\n  3.1. Prepare Master Mix:\r\n\n\n        32 ug gDNA\r\n\n\n        32 ul Primer Mix \\(10uM)\r\n\n\n        400 ul OneTaq \\(NEB)\r\n\n\n        H20 to 800 ul\r\n\n\n\r\n\n\nUniversal Forward Primer \\(5\u2019 \u2192 3\u2019): \r\n\n\nAATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCTGCGCACGTCTGCCGCGCTG\r\n\n\nReverse Primer \\(5\u2019 \u2192 3\u2019): \r\n\n\nCAAGCAGAAGACGGCATACGAGATNNNNNNGTGACTGGACTTCAGACGTGTGCTCTTCCGATCCAGGTTCTTGCGAACCTCAT\r\n\n\nNNNNNN = Multiplexing tag, design a different one for every sample.\r\n\n\n3.2. Split into 8 individual wells of an 8-strip PCR tube, spin down.\r\n\n\n3.3. Run PCR Program:\r\n\n\n        94C 10 min\r\n\n\n        32x:\r\n\n\n        94C 30sec\r\n\n\n        55C 30sec\r\n\n\n        68C 30sec\r\n\n\n        68C 7min\r\n\n\n        4C hold\r\n\n\n\r\n\n\n3.4. Pool PCR reactions back to 800ul volume\r\n\n\n3.5. Run out 100 ul of your PCR product on a 5% agarose gel.\r\n\n\n3.6. Gel extract product using the Qiagen MinElute Gel Purification Kit; Elute in 25 ul H20.\r\n\n\n3.7. Send samples for BioAnalyzer QC DNA 1000 assay to obtain molar concentration and confirm product size.\r\n\n\n3.8. Pool libraries. \r\n\n\nNOTE: You will have to decide how you want to pool your libraries. You could pool 1:1:1\u2026:1, you could also pool based on tissue weight, etc."
+        },
+        {
+            "header": "Timing",
+            "content": "Part 1 takes between 15 minutes and multiple hours depending on the number samples that need to be processed, there is then an overnight incubation.  Part 2 takes around an hour and requires another overnight step. Part 3 should take no more than a couple hours, but the time for this step depends on how quickly you can get your BioAnalyzer results back."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nmeth.4297",
+                "date": "2017-05-09 18:18:55",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 14699,
+                "identity": "a1092cb4-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Zoe Rogers",
+                "email": "znr@stanford.edu",
+                "orcid": "",
+                "institution": "Winslow Lab",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Zoe",
+                "middleName": "",
+                "lastName": "Rogers",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2017-04-17 04:05:32",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2017.091",
+        "doiUrl": "https://doi.org/10.1038/protex.2017.091",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13465047,
+                "identity": "c02abcf3-ef18-4c5a-8ffe-1f9d052a89b0",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:45:25",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 114015,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-5907/v1/51715155-3bbb-497b-9a07-a692c0afb71b.pdf"
+            }
+        ],
+        "financialInterests": "None",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Tuba-seq, barcoding, tumor suppressors, cancer",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "This protocol should be used in preparation from tumor barcode sequencing \\(Tuba-seq) with a goal of directly quantifying the tumor sizes within tissues.  This protocol could also be used to quantify cells from culture, but here we only discuss genomic DNA extraction from whole tissues.  The protocol begins with phenol-chloroform gDNA extraction of homogenized tissue.  Once gDNA has been harvested, the barcode containing region is amplified with custom primers which allow attachment of Illumina adapters in a single step.  Finally, we discuss how to pool samples before sending your library in for sequencing.  The entire process takes 3-4 days. This protocol accompanies Rogers et al, Nature Methods, published online May 22, 2017 \\(nmeth.4297).",
+        "manuscriptTitle": "Genomic DNA Isolation from Tissue Samples and Library Prep for Tuba-Seq Barcode Analysis",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2017-05-25 10:43:42",
+                "doi": "10.1038/protex.2017.091",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a1086205-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "May 25th, 2017",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3904,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 3905,
+                "name": "Genetics"
+            },
+            {
+                "id": 3906,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 3907,
+                "name": "Biological techniques"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2017-05-25 10:43:42",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

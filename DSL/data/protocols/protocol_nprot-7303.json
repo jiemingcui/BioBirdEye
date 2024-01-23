@@ -1,0 +1,466 @@
+{
+    "identity": "nprot-7303",
+    "title": "High-Throughput Screening Model to Quantify Re-Epithelialization Kinetics",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p><em>In vitro</em> scratch assays have been frequently employed to test the influence of bioactive substances on the processes of cell migration and proliferation<sup>3-9</sup>. These assays are carried out in multiwell plates and commonly rely on the manual introduction of a scratch in a confluent epithelial cell monolayer using a sterile pipette tip, razor blade, scraper or needle. The remaining epithelial cells will then migrate and proliferate into the scratched area until cell-cell contacts are reestablished<sup>10,11</sup>. In order to standardize and increase the throughput, significant improvements have been made to the <em>in vitro</em> wounding tools and methods, including the use of hand-guided pin or pipette tip arrays, robotically driven scratching-pin devices, chemically induced wounds, and laser ablation<sup>14,15</sup>. Furthermore, the assays have evolved from examining images acquired manually at fixed-time points to the use of automated fluorescent microscopy to monitor live cells expressing fluorescent markers<sup>10</sup>. Likewise, manual quantification of the scratched area has been substituted by the implementation of automated image segmentation algorithms that facilitate the analysis of high-throughput screenings<sup>17</sup>. Despite all these improvements, data analysis has been usually limited to the calculation of wound closure<sup>17,18</sup>, disregarding the kinetic information inherent to the healing process. In addition, effective processing and quantification of high-throughput image-based assays involve the integration of multiple image analysis and data extraction software tools that often require computer programming skills and/or purchase of a commercial license, increasing total experimental costs<sup>2</sup>. Here we present the procedure of an optimized high-throughput scratch assay using high-content microscopy and a mathematical model to quantify the kinetics of epithelial wound repair in individual wells through the calculation of biologically relevant parameters. The assay can be used for screening chemical compounds, bacterial suspensions<sup>2</sup>, and other bioactive substances for their effect on re-epithelialization kinetics. Furthermore, we developed the Kinetic Re-Epithelialization Analysis Pipeline (KREAP) that we implemented in Galaxy, thus providing an end-to-end workflow integrating different validated tools for reproducible image analysis, cell enumeration, re-epithelialization modeling, and HTML reporting<sup>19</sup>. KREAP is available for download and use as a virtual machine for both large and small-scale laboratories (<a href=\"https://erasmusmc-bioinformatics.github.io/KREAP/\" target=\"_blank\">https://erasmusmc-bioinformatics.github.io/KREAP/</a>).</p><p><br></p><p><strong>Development of the protocol: Quantification of re-epithelialization kinetics</strong></p><p>In order to quantify the re-epithelialization kinetics of gingival cells (i.e. Ca9-22 cell line) exposed to different bacterial suspensions using our standardized scratch assay, we developed an automated image segmentation pipeline using CellProfiler 2.2.0 (<a href=\"http://www.cellprofiler.org/\" target=\"_blank\">http://www.cellprofiler.org/</a>) which identifies and records the location of each cell within the well over time<sup>2</sup>. Given that the number of cells moving into the scratched area over time can be represented by a sigmoidal curve, we used a modified form of the Gompertz function<sup>20</sup> to quantify the kinetics of wound repair. The modified Gompertz function consists of three biologically comprehensible parameters: lag time (\u03bb parameter, in minutes), repair rate (\u03bc<sub>m</sub> parameter, cells/minute), and maximum number of infiltrating cells at the plateau of the growth curve (A parameter, in cells). This function was fitted through the number of infiltrating cells over time by a nonlinear least squares regression using the Levenberg-Marquardt algorithm<sup>21</sup> to reduce the sum of the squares of the errors between the modeled and measured data points in an iterative manner. Using this approach, we were able to obtain excellent and accurate fits, characterized by goodness of fit (R<sup>2</sup>) values close to one and low root-mean-square errors (RMSE), respectively.</p><p><br></p><p><strong>Experimental design</strong></p><p><strong>Selection of suitable cell line</strong>. For automated microscopy, it is preferable to select a cell line that grows in a single layer of cells, rather than in multilayers. Furthermore, it is important to evaluate the expression of relevant receptors (e.g. Toll-like receptors, epidermal growth factor receptor, etc.) in the candidate cell line as well as its responsiveness to chemical stimuli. Cells with a long doubling time (e.g. Caco-2 cell line) are less suitable for this set-up as they will require long periods of imaging. In addition, epithelial cell lines that form strong tight-junctions (e.g. Caco-2 cell line) may not allow the introduction of regular and reproducible scratches and for that reason are not ideal for this assay. </p><p><strong>Controls</strong>. Titration curves of the controls need to be carried out on each cell line to determine the optimal concentrations resulting in a large dynamic range between the positive and negative controls (<strong>Figure 1</strong> and <strong>Supplementary Fig. 1</strong>). A non-treated control should be included as a reference to determine whether the screened substances have a stimulating or attenuating effect on re-epithelialization kinetics. </p><p><strong>Z\u2019 factor calculation</strong>. The overall quality of each assay can be assessed by calculation of the Z\u2019 factor<sup>16</sup> defined by the means and variability of the positive and negative controls (<strong>Figure 1</strong>).  </p><p><br></p><p><strong>Limitations</strong> </p><p>The modified Gompertz function was implemented to describe positive growth curves. Therefore, if the growth curves resulting from a particular treatment does not resemble a sigmoidal curve, the modified Gompertz function cannot be used to calculate the kinetic parameters. This is often the case of treatments that lead to strong inhibitory effects on re-epithelialization where only few cells migrate into the scratched area during the timeframe of the assay. The KREAP \u201cData-Modeling\u201d tool flags the wells from which the parameter values could not be retrieved and the user can then examine the curves resulting from the measured data points over time as well as the image segmentation output (also see <a href=\"https://erasmusmcbioinformatics.github.io/KREAP/use_kreap_model_error\" target=\"_blank\">https://erasmusmcbioinformatics.github.io/KREAP/use_kreap_model_error</a>). Some treatments may induce cell death after the plateau of the growth curve has been reached, leading to a reduction in the number of infiltrating cells towards the end of the assay and lower R<sup>2</sup> values (&lt; 0.9). These adverse effects can be identified by inspection of the re-epithelialization curves generated by the KREAP tool that compares the measured and modeled data points. R<sup>2</sup> values lower than 0.9 are also flagged by KREAP to alert the user to examine the re-epithelialization curves.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p>\u2022 Oral epithelial cell lines, e.g. Ca9-22 (National Institute of Biomedical Innovation JCRB Cell Bank, cat. no. JCRB0625), HO-1-N-1 (National Institute of Biomedical Innovation JCRB Cell Bank, cat. no. JCRB0831) </p><p>\u2022 Skin keratinocytes, e.g. HaCat (AddexBio, cat. no. T0020001) <strong>! CAUTION</strong>. The cell lines should be routinely checked to ensure that they are authentic and not cross-contaminated (e.g. using short-tandem repeat analysis) or infected with mycoplasma (PCR-based detection). </p><p>\u2022 Cell culture medium, e.g. Dulbecco's Modified Eagle Medium (DMEM), DMEM/F12 (1:1) or Keratinocyte-Serum Free Medium (SFM) Gibco, cat. no. 61965-026, 31331-028, 17005-034 </p><p>\u2022 Heat inactivated fetal calf serum (FCS) (Gibco, cat. no. 10500)</p><p>\u2022 Penicillin-Streptomycin 100X (Sigma, P0781-20ML)</p><p>\u2022 0.25% Trypsin EDTA (1x) (Gibco, 25200-056)</p><p>\u2022 Sterile phosphate-buffered saline (PBS) (Gibco, 18912-014)</p><p>\u2022 CellTracker\u2122 Red CMTPX (Molecular Probes, cat no. C34552) (optional) </p><p>\u2022 Hoechst 33342 (Molecular Probes, cat no. H1399) <strong>! CAUTION</strong>. Hoechst stains are known mutagens and should be handled with care.</p><p>\u2022 Human transforming growth factor \u03b1 (hTGF\u03b1; R&amp;D Systems, cat. no. 239-A-100)</p><p>\u2022 Human epidermal growth factor (hEGF, Gibco, cat. no. PHG0311)</p><p>\u2022 Inhibitor of p38 (SB203580; Cell Signaling Technology, cat. no. 5633)</p><p>\u2022 Inhibitor of MEK1/2 (U0126, Cell Signaling Technology, cat. no. 9903) <strong>! CAUTION.</strong> The MEK1/2 inhibitor \\(U0126) may cause irritation to eyes, skin, and mucous membranes. </p><p><br></p><p><strong>REAGENT SETUP</strong></p><p><strong>Cell growth media</strong>. Add penicillin-streptomycin to the cell culture media to a final concentration of 1x and the inactivated FCS to a final concentration of 10%. Store at 4\u00baC.</p><p><strong>Hoechst 33342 stock solution (10 mg/ml) and working solution (1 mg/ml)</strong>. To prepare the stock solution, dissolve 100 mg lyophilized dye in 10 ml dimethyl sulfoxide (DMSO). Divide the stock solution into aliquots to avoid repeated freeze-thaw cycles. Store at -20\u00baC protected from light. This solution is stable for at least one year according to the manufacturer. To prepare the working solution, add 100 \u00b5l of the stock solution into 900 \u00b5l PBS and store at 2-6 \u00baC for a maximum of three months.</p><p><strong>CellTracker\u2122 Red CMTPX stock solution (100 \u00b5M)</strong>. Dissolve 50 \u00b5g lyophilized dye in 730 \u00b5l DMSO. Divide the solution into aliquots to avoid repeated freeze-thaw cycles. Store at -20\u00baC protected from light. This solution is stable for at least three months. Lyophilized dye is stable for at least one year according to the manufacturer.</p><p><strong>hTGF\u03b1 stock solution (10 \u00b5g/ml)</strong>. Reconstitute 100 \u00b5g hTGF\u03b1 in 1 ml 10 mM filter-sterilized acetic acid. Add this solution into 9 ml DMEM to obtain the stock solution. Divide into aliquots and store at -20\u00baC to avoid repeated freeze-thaw cycles. According to the manufacturer, this solution is stable for at least three months.</p><p><strong>hEGF stock solution (10 \u00b5g/ml)</strong>. Reconstitute 100 \u00b5g hEGF in 1 ml sterile PBS. Add this solution into 9 ml DMEM containing heat inactivated FCS to obtain the stock solution. Divide into aliquots and store at -20\u00baC to avoid repeated freeze-thaw cycles. According to the manufacturer, this solution is stable for one year.</p><p><strong>SB203580 stock solution (10 mM)</strong>. Reconstitute 5 mg of lyophilized inhibitor in 1.32 ml DMSO. Divide into aliquots and store at -20\u00baC to avoid repeated freeze-thaw cycles.</p><p><strong>U0126 stock solution (10 mM)</strong>. Reconstitute 5 mg of lyophilized inhibitor in 1.32 ml DMSO. Divide into aliquots and store at -20\u00baC to avoid repeated freeze-thaw cycles.</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>\u2022 75 cm<sup>2</sup> cell culture flasks (Corning Incorporated, cat. no. 430641U) </p><p>\u2022 Tissue culture-treated 96-well plates (BD Falcon, cat. no. 353219)</p><p>\u2022 Tissue culture-treated 96-well plates with flat bottom (Corning Incorporated, cat. no. 3599)</p><p>\u2022 Tissue culture-treated 96-well plates with round bottom (Corning Incorporated, cat. no. 3799)</p><p>\u2022 Multichannel pipette, 8-channel, 100 \u00b5l (Eppendorf Research Plus, cat. no. 3122000035)</p><p>\u2022 Disposable serological pipette 5 ml, 10 ml and 25 ml (Corning Incorporated, cat. no. 4051, 4101, and 4251)</p><p>\u2022 Reagent Reservoir 50 ml (Corning Incorporated, cat. no. 4870) </p><p>\u2022 Pipette 10 \u00b5l, 200 \u00b5l and 1 ml (Eppendorf Research Plus, cat. no. 3120000020, 3120000054, and 3120000062)</p><p>\u2022 Filter sterile tips 10 \u00b5l, 200 \u00b5l and 1 ml (Corning Incorporated, 4807, 4823, and 4809)</p><p>\u2022 Tips for multichannel pipette 2-200 \u00b5l (Eppendorf, cat. no. 0030073.428)</p><p>\u2022 Counting chamber (Brand, cat. no. 719520) </p><p>\u2022 HTSScratcher (Peira, <a href=\"https://www.peira.be/platforms/oncology-platforms\" target=\"_blank\">https://www.peira.be/platforms/oncology-platforms</a>)</p><p>\u2022 Laminar flow cabinet</p><p>\u2022 Laboratory vacuum pump </p><p>\u2022 Inverted microscope, e.g. Zeiss, Axiovert 40CFL</p><p>\u2022 Automated fluorescent microscope with controlled temperature and atmosphere, e.g. BD Pathway 855 Bioimaging System or similar</p><p>\u2022 Humidified tissue culture incubator (Thermo-Scientific, Forma Direct Heat CO<sub>2</sub> Incubator) </p><p>\u2022 KREAP (Kinetic Re-epithelialization Analysis Pipeline) virtual machine (<a href=\"https://erasmusmc-bioinformatics.github.io/KREAP/\" target=\"_blank\">https://erasmusmc-bioinformatics.github.io/KREAP/</a>)</p><p><br></p><p><strong>EQUIPMENT SETUP</strong></p><p><strong>Fluorescence Microscope</strong>. Hoechst 33342 and CellTracker\u2122 Red CMTPX images should be acquired using an excitation filter of 350 nm and 577 nm, respectively. Bright-field images serve as visual control for cell morphology and vitality. The microscope should be programmed to acquire fluorescent and bright-field images of the same field of each well every 20-30 minutes (recommended, but the time intervals can be adjusted according to the user\u2019s needs and cell line) using a 4x objective (40x magnification).</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "Cell culturing and seeding of cells. TIMING 3-7 days depending on the cell line\n1. Grow low-passage epithelial cells to 70-80% confluence in 75 cm\n2\ntissue culture flasks. Ca9-22 and HaCat cells should be grown in DMEM supplemented with 10% FCS, 100 U/ml penicillin and 100 \u03bcg/ml streptomycin. HO-1-N-1 cells should be cultured in DMEM/F12 (1:1) supplemented with 10% FCS, 100 U/ml penicillin and 100 \u03bcg/ml streptomycin.\nCRITICAL STEP\n. Always wear gloves when handling cells and work in a laminar flow cabinet. The cell culture environment should be kept clean, i.e. in absence of bacteria, molds and mycoplasma.\n2. Discard the growth culture media and wash the cells with 6 ml PBS.\n3. Discard the PBS and add 2 ml trypsin/EDTA and incubate at 37\u00baC for 3-5 minutes.\nCRITICAL STEP\n. Verify complete detachment of the cells under an inverted microscope.\n4. Add 8 ml of supplemented growth media into the flask and gently resuspend the cells by gently pipetting up and down.\n5. Take an aliquot of the cell suspension and determine the cell counts using a counting chamber. Dilute the cell suspensions in the corresponding growth media. The Ca9-22 cell suspension should be diluted to obtain 3.5 x 10\n5\ncells/ml; whereas HO-1-N-1 and HaCat cell suspensions should be diluted to obtain 3.0 x 10\n5\ncells/ml.\nCRITICAL STEP\n. The number of cells required to form an intact monolayer within the standardized timeframe depends on the cell type and thus, should be pre-determined for each cell line.\n6. Mix the cell suspension gently and add the suspension into a reagent reservoir.\n7. Using a multichannel pipette, add 100 \u00b5l of the cell suspension into each well of a 96-well plate with flat bottom (BD Falcon; recommended for imaging using the BD Pathway 855 Bioimaging System).\n8. Incubate for 16 hours in a humidified incubator at 37\u00baC with 5% CO\n2\n.\nCell starvation. TIMING 2 hours (might vary for other cell lines)\n9. Replace the growth media by 100 \u00b5l starvation media (i.e. FCS-free media) by aspiration of the culture medium without disturbing the cell monolayers. HaCat cells should be starved in keratinocyte serum-free medium (SFM). Starvation of Ca9-22 cells should be performed in FCS-free DMEM/F12, whereas HO-1-N-1 cells should be starved in FCS-free DMEM. SFM is not recommended when using Ca9-22 or HO-1-N-1 cells as it was shown to promote significant cell migration and proliferation in our setup that restricted the detection of exogenously added stimulatory compounds.\nCRITICAL STEP\n. The duration and the media used during starvation need to be optimized for each cell line. FCS deprivation should minimize cell migration and proliferation without inducing apoptosis or cell detachment.\n? TROUBLESHOOTING\n10. Incubate the cells (Ca9-22, HO-1-N-1 or HaCat cells) for 2 hours in a humidified incubator at 37\u00baC with 5% CO\n2\n.\nPreparation of master plate with treatment and control samples. TIMING 1.5 hours\n11. Prepare the treatments that you wish to test for their effect on re-epithelialization kinetics. An example of bacterial preparations is provided in\nFigure 2\n. Initial screenings can be performed in duplicates, but refined studies should be carried out with at least three technical replicates in two or more independent experiments.\nCRITICAL STEP\n. All treatments should be diluted in the starvation media.\n12. Prepare the positive and negative controls as indicated in\nFigure 3\n.\nCRITICAL STEP\n. Optimal concentrations of the controls should be determined by performing a titration for the target cell lines (\nSupplementary Fig. 1\n) and should result in a large dynamic range between the positive and negative controls (\nFigure 1\n).\n? TROUBLESHOOTING\n13. Prepare a master plate by adding 120 \u03bcl of each sample into the corresponding well.\nCRITICAL STEP\n. Exclude outer wells to avoid any possible edge-specific artifacts, e.g. due to evaporation of the medium. It is also recommended to add the samples into the wells in a randomized manner.\nFluorescent labelling with live-compatible dyes. TIMING 25 minutes\n14. Prepare a solution of starvation media with the fluorescent dyes. Add 10 \u03bcl of Hoechst 33342 working solution and optionally 100 \u03bcl of CellTracker\u2122 Red CMTPX stock solution into 5 ml starvation media to obtain a final concentration of 2 \u03bcg/ml and 2 \u03bcM, respectively.\nCRITICAL STEP\n. Nuclear labelling with Hoechst 33342 stain is crucial for accurate image segmentation and feature extraction with the automated image analysis pipeline presented in this protocol. Labelling of cellular cytoplasm with CellTracker\u2122 Red CMTPX can be performed to visualize cell boundaries. The concentrations of these dyes may need to be adjusted depending on the selected cell line. When using a different cell line, check that addition of the dyes at the desired concentration does not result in adverse effects in re-epithelialization kinetics.\n? TROUBLESHOOTING\n15. Add the labelling solution into a reagent reservoir and carefully aspirate the starvation media from the cells using a vacuum pump without disturbing the cell monolayer.\n16. Add 50 \u03bcl of the solution to each of the wells and incubate at 37\u00baC with 5% CO\n2\nfor 20 minutes.\nScratch assay and imaging. TIMING 5-16 hours depending on the cell line\n17. After 20 minutes of incubation with the labelling solution, perform a scratch in the cell monolayers of each well using the HTSScratcher to assure equally sized and reproducible scratches. Place the plate on the platform, slide the plate under the 96-pin array, press the array towards the bottom of the wells, and slide the array from left to right 3 times. Release pressure from the array and remove the plate from the platform.\nCRITICAL STEP\n. Rinse the array with water followed by ethanol before and after each experiment.\n? TROUBLESHOOTING\n18. Carefully aspirate the liquid from each well using the vacuum pump and wash the cells with 100 \u00b5l PBS. Repeat this step one more time.\n19. Aspirate the PBS out and immediately transfer 100 \u00b5l of each sample from the master plate to the corresponding wells in the assay plate using a multichannel pipette.\nCRITICAL STEP\n. Add 100-200 \u00b5l PBS in the outer wells to avoid differential evaporation of the samples.\n? TROUBLESHOOTING\n20. Start image acquisition. For the Ca9-22 or HO-1-N-1 cell lines, we recommend programming the microscope to acquire images every 20 minutes for a total of 5 hours. For the HaCat cell line, imaging intervals can be adjusted to 60 minutes for a total of 14-16 hours.\nCRITICAL STEP\n. The duration of the assay may vary depending on the cell line and can be determined by the time required for the positive control to achieve wound closure.\nImage and data analysis. TIMING 45 minutes\n21. For first time users, download the virtual machine (VM) containing the Kinetic Re-Epithelialization Analysis Pipeline (KREAP) toolbox as well as the VM player for your operating system via\nhttps://erasmusmc-bioinformatics.github.io/KREAP/\n. Import the VM into the player following the step-by-step instructions provided in the manual on the website.\n22. Create an index file (.txt) and a compressed plate folder (.zip) containing the acquired images organized in separate folders for each well. Indications on how to create these files are provided at\nhttps://erasmusmc-bioinformatics.github.io/KREAP/file_formats\n.\n23. Upload the compressed folder and index file into the Galaxy history via the \u201cGet data\u201d tool.\nCRITICAL STEP\n. Set the compressed folder\u2019s type to .zip in the upload menu.\n24. Run the KREAP Image Analysis tool to perform automated image segmentation. The results are reported in an HTML format and can be downloaded and stored locally. A manual is provided at\nhttps://erasmusmc-bioinformatics.github.io/KREAP/use_kreap_analysis\n.\n? TROUBLESHOOTING\n\ufeff\n25. Run the KREAP Data-Modeling tool to quantify re-epithelialization kinetics. The results are reported in an HTML format and can be downloaded and stored locally. A manual is provided at\nhttps://erasmusmc-bioinformatics.github.io/KREAP/use_kreap_modeling\n.\nCRITICAL STEP\n. Remember to set the time interval \\(min) between images in the index file.\n? TROUBLESHOOTING"
+        },
+        {
+            "header": "Timing",
+            "content": "**Cell culturing and seeding of cells**\r\n\n\nStep 1, growing cells to 70-80% confluence in 75 cm2 tissue culture flasks: 3-7 days depending on starting point and doubling time.\r\n\n\nStep 2-7, seeding cells in 96-well plates: ~15 minutes.\r\n\n\nStep 8, growing of cells into a cell monolayer: 16 hours \\(overnight).\r\n\n\n\r\n\n\n**Cell starvation** \r\n\n\nStep 9-10, cell starvation: 2 hours \\(might vary depending on the cell line).\r\n\n\n\r\n\n\n**Preparation of master plate \\(can be done in parallel with cell starvation)**\r\n\n\nSteps 11-13, preparation of master plate with treatment and control samples: 1.5 hours.\r\n\n\n\r\n\n\n**Fluorescent labelling \\(last 20 minutes of cell starvation)**\r\n\n\nSteps 14-16, labelling of cells with fluorescent dyes: 25 minutes.\r\n\n\n\r\n\n\n**Scratch assay and imaging**\r\n\n\nStep 17, performing scratches in the cell monolayers: less than 1 minute.\r\n\n\nStep 18-19, washing cells with PBS and addition of treatments into assay plate: ~5-7 minutes.\r\n\n\nStep 20, image acquisition: 5-16 hours \\(may vary depending on the cell line).\r\n\n\n \r\n\n\n**Image and data analysis**      \r\n\n\nStep 21, downloading and importing the KREAP toolbox into the VM player: ~1 hour \\(only required once).\r\n\n\nStep 22-23, creating and uploading input files for analysis with the KREAP toolbox: ~15 minutes.\r\n\n\nStep 24, performing automated image analysis of a 96-well plate: ~30 minutes.\r\n\n\nStep 25, determining re-epithelialization kinetics: less than 1 minute."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p>See <strong>Figure 4</strong> for troubleshooting.</p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>Representative growth curves for each of the target cell lines generated with the measured and modeled number of infiltrating cells over time upon treatment with the positive (i.e. hTGF\u03b1 and hEGF) and negative (i.e. p38 and MEK1/2 inhibitors) controls at the recommended concentrations are provided in <strong>Figure 5</strong>. As an example, we employed this protocol to analyze the influence of <em>Lactobacillus rhamnosus</em> GG (LGG) and <em>Porphyromonas gingivalis</em> (W83) on re-epithelialization of gingival cells. Ca9-22 cells were exposed to three dosages (MOI 5, 50 and 500) of these bacteria and the re-epithelialization kinetics were determined using the KREAP toolbox. Addition of LGG at the intermediate dosage tested led to an increased repair rate (P = 0.03) (<strong>Figure 6a</strong>) and a significantly higher number of cells inside the scratched area as compared to the non-treated control (<strong>Figure 6b, c</strong>). However, higher dosages of LGG resulted in reduced re-epithelialization. This could be attributed to the acidification of the media (down to pH 5) by LGG fermentation products, leading to cell death and suppressed wound closure, which was clearly reflected by the modeled A parameter (i.e. maximum number of cells) (<strong>Figure 6b</strong>). In contrast, we obtained a clear negative dosage effect upon exposure of gingival cells to increasing dosages of <em>P. gingivalis</em> (<strong>Figure 6a</strong>, <strong>b</strong>). At the higher dosage tested, <em>P. gingivalis</em> led to reduced migration of cells into the scratched area, resulting in a significantly lower number of infiltrated cells (P &lt; 0.001) as illustrated by the A parameter (<strong>Figure 6b, c</strong>). Nonetheless, we also showed that the repair rate (\u03bc<sub>m</sub>) was not significantly influenced by any of the <em>P. gingivalis</em> preparations (<strong>Figure 6a</strong>). After introduction of the scratch in the cell monolayer, the cells were not immediately affected by the presence of <em>P. gingivalis </em>(MOI 500) and started to migrate into the scratched area in an attempt to restore cell-cell contacts. However, during the course of the experiment migration of cells into the scratched area eventually ceased, resulting in an unresolved wound (<strong>Figure 6c</strong>) and a low A parameter value. </p>"
+        },
+        {
+            "header": "References",
+            "content": "1. Ebner, R. & Derynck, R. Epidermal growth factor and transforming growth factor-alpha: differential intracellular routing and processing of ligand-receptor complexes. Cell Regulation 2, 599-612 \\(1991).\r\n  2. Fernandez-Gutierrez, M. M. et al. Streptococcus salivarius MS-oral-D6 promotes gingival re-epithelialization in vitro through a secreted serine protease. Scientific Reports 7, 11100, doi:10.1038/s41598-017-11446-z \\(2017).\r\n  3. Oudhoff, M. J. et al. Histatins are the major wound-closure stimulating factors in human saliva as identified in a cell culture assay. FASEB journal : official publication of the Federation of American Societies for Experimental Biology 22, 3805-3812, doi:10.1096/fj.08-112003 \\(2008).\r\n  4. Oudhoff, M. J. et al. Histatins enhance wound closure with oral and non-oral cells. J. Dent. Res. 88, 846-850, doi:10.1177/0022034509342951 \\(2009).\r\n  5. Laheij, A. M., de Soet, J. J., Veerman, E. C., Bolscher, J. G. & van Loveren, C. The influence of oral bacteria on epithelial cell migration in vitro. Mediators of inflammation 2013, 154532, doi:10.1155/2013/154532 \\(2013).\r\n  6. Bhattacharya, R. et al. Effect of bacteria on the wound healing behavior of oral epithelial cells. PLoS ONE 9, doi:10.1371/journal.pone.0089475 \\(2014).\r\n  7. Yue, P. Y. K., Leung, E. P. Y., Mak, N. K. & Wong, R. N. S. A Simplified Method for Quantifying Cell Migration/Wound Healing in 96-Well Plates. Journal of Biomolecular Screening 15, 427-433, doi:10.1177/1087057110361772 \\(2010).\r\n  8. B\u00fcrk, R. R. A Factor from a Transformed Cell Line That Affects Cell Migration. Proceedings of the National Academy of Sciences 70, 369-372 \\(1973).\r\n  9. Coomber, B. L. & Gotlieb, A. I. In vitro endothelial wound repair. Interaction of cell migration and proliferation. Arteriosclerosis \\(Dallas, Tex.) 10, 215-222 \\(1990).\r\n  10. Liang, C. C., Park, A. Y. & Guan, J. L. In vitro scratch assay: a convenient and inexpensive method for analysis of cell migration in vitro. Nature protocols 2, 329-333, doi:10.1038/nprot.2007.30 \\(2007).\r\n  11. Riahi, R., Yang, Y., Zhang, D. D. & Wong, P. K. Advances in Wound-Healing Assays for Probing Collective Cell Migration. Journal of Laboratory Automation 17, 59-65, doi:10.1177/2211068211426550 \\(2012).\r\n  12. Huang, C., Jacobson, K. & Schaller, M. D. MAP kinases and cell migration. Journal of Cell Science 117, 4619-4628, doi:10.1242/jcs.01481 \\(2004).\r\n  13. Zhang, W. & Liu, H. T. MAPK signal pathways in the regulation of cell proliferation in mammalian cells. Cell Res 12, 9-18 \\(2002).\r\n  14. Simpson, K. J. et al. Identification of genes that regulate epithelial cell migration using an siRNA screening approach. Nat Cell Biol 10, 1027-1038, doi:http://www.nature.com/ncb/journal/v10/n9/suppinfo/ncb1762_S1.html \\(2008).\r\n  15. Yarrow, J. C., Perlman, Z. E., Westwood, N. J. & Mitchison, T. J. A high-throughput cell migration assay using scratch wound healing, a comparison of image-based readout methods. BMC biotechnology 4, 21, doi:10.1186/1472-6750-4-21 \\(2004).\r\n  16. Zhang, J.-H., Chung, T. D. Y. & Oldenburg, K. R. A Simple Statistical Parameter for Use in Evaluation and Validation of High Throughput Screening Assays. Journal of Biomolecular Screening 4, 67-73, doi:10.1177/108705719900400206 \\(1999).\r\n  17. Geback, T., Schulz, M. M., Koumoutsakos, P. & Detmar, M. TScratch: a novel and simple software tool for automated analysis of monolayer wound healing assays. BioTechniques 46, 265-274, doi:10.2144/000113083 \\(2009).\r\n  18. Zordan, M. D., Mill, C. P., Riese, D. J., 2nd & Leary, J. F. A high throughput, interactive imaging, bright-field wound healing assay. Cytometry. Part A : the journal of the International Society for Analytical Cytology 79, 227-232, doi:10.1002/cyto.a.21029 \\(2011).\r\n  19. Fernandez-Gutierrez, M. M., van Zessen, D. B. H., van Baarlen, P., Kleerebezem, M. & Stubbs, A. P. KREAP: An automated Galaxy Platform to Quantify Re-epithelialization Kinetics. GigaScience \\(2017).\r\n  20. Zwietering, M. H., Jongenburger, I., Rombouts, F. M. & van 't Riet, K. Modeling of the Bacterial Growth Curve. Applied and Environmental Microbiology 56, 1875-1881 \\(1990).\r\n  21. minpack.lm: R Interface to the Levenberg-Marquardt Nonlinear Least-squares Algorithm Found in MINPACK, Plus Support for Bounds. R package version 1.2-1. https://cran.r-project.org/package=minpack.lm \\(2016)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>We thank Prof. Joost Schalkwijk (Faculty of Medical Sciences, Radboud University, NL) for providing us with the HaCat keratinocyte cell line. Moreover, we want to acknowledge Koos Oosterhaven and Zeger Kruiswijk (NIZO Food Research, Ede, NL) for providing us with the<em> Lactobacillus rhamnosus </em>GG strain as well as Dr. Alexa M. G. A. Laheij (Academic Centre for Dentistry Amsterdam, Amsterdam, NL) for providing <em>P. gingivalis</em> W83.</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41598-017-11446-z",
+                "date": "2017-09-05 10:02:47",
+                "title": "Streptococcus salivarius MS-oral-D6 promotes gingival re-epithelialization in vitro through a secreted serine protease",
+                "authors": [
+                    "Marcela M. Fernandez-Gutierrez",
+                    "Peter P. J. Roosjen",
+                    "Eveline Ultee",
+                    "Maarten Agelink",
+                    "Jacques J. M. Vervoort",
+                    "Bart Keijser",
+                    "Jerry M. Wells",
+                    "Michiel Kleerebezem"
+                ],
+                "journal": "Scientific Reports",
+                "logo": ""
+            },
+            {
+                "doi": "10.1093/gigascience/giy078",
+                "date": "2018-06-28 18:19:31",
+                "title": "KREAP: an automated Galaxy platform to quantify in vitro re-epithelialization kinetics",
+                "authors": [
+                    "Marcela M Fernandez-Gutierrez",
+                    "David B H van\u00a0Zessen",
+                    "Peter van\u00a0Baarlen",
+                    "Michiel Kleerebezem",
+                    "Andrew P Stubbs"
+                ],
+                "journal": "GigaScience",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 84954,
+                "identity": "689ef265-28b5-4fb3-aaf0-5c786409b23a",
+                "order_by": 1,
+                "name": "Marcela M. Fernandez-Gutierrez",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0001-5314-9659",
+                "institution": "Host-Microbe Interactomics, Wageningen University and Research",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Marcela",
+                "middleName": "M.",
+                "lastName": "Fernandez-Gutierrez",
+                "suffix": ""
+            },
+            {
+                "id": 84955,
+                "identity": "5f41cacf-6c78-4060-ba52-f9c2872be9a3",
+                "order_by": 2,
+                "name": "Peter P. J.  Roosjen",
+                "email": "",
+                "orcid": "",
+                "institution": "Laboratory of Geo-Information Science and Remote Sensing, Wageningen University and Research",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Peter",
+                "middleName": "P. J.",
+                "lastName": "Roosjen",
+                "suffix": ""
+            },
+            {
+                "id": 84956,
+                "identity": "d1ce338d-897c-4c5b-9681-a0cea17d3b2a",
+                "order_by": 3,
+                "name": "David B. H. van Zessen",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Bioinformatics, Erasmus University Medical Centre",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "David",
+                "middleName": "B. H. van",
+                "lastName": "Zessen",
+                "suffix": ""
+            },
+            {
+                "id": 84957,
+                "identity": "5d2ef62f-0ee7-48cc-bcff-51da7ce062e6",
+                "order_by": 4,
+                "name": "Jerry M. Wells",
+                "email": "",
+                "orcid": "",
+                "institution": "Host-Microbe Interactomics, Wageningen University and Research",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jerry",
+                "middleName": "M.",
+                "lastName": "Wells",
+                "suffix": ""
+            },
+            {
+                "id": 84958,
+                "identity": "71a30053-4a76-4e6f-82be-29184710ea47",
+                "order_by": 5,
+                "name": "Peter van Baarlen",
+                "email": "",
+                "orcid": "",
+                "institution": "Host-Microbe Interactomics, Wageningen University and Research",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Peter",
+                "middleName": "van",
+                "lastName": "Baarlen",
+                "suffix": ""
+            },
+            {
+                "id": 84959,
+                "identity": "ba23c884-1bfe-4915-8a1b-661c8ab234b2",
+                "order_by": 6,
+                "name": "Andrew P. Stubbs",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Bioinformatics, Erasmus University Medical Centre",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Andrew",
+                "middleName": "P.",
+                "lastName": "Stubbs",
+                "suffix": ""
+            },
+            {
+                "id": 84960,
+                "identity": "28572929-4199-400b-a9dc-176811345220",
+                "order_by": 7,
+                "name": "Michiel Kleerebezem",
+                "email": "michiel.kleerebezem@wur.nl",
+                "orcid": "",
+                "institution": "Host-Microbe Interactomics, Wageningen University and Research",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Michiel",
+                "middleName": "",
+                "lastName": "Kleerebezem",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2019-01-29 16:12:01",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2019.015",
+        "doiUrl": "https://doi.org/10.1038/protex.2019.015",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2611396,
+                "identity": "67466820-c94e-4196-9728-655d65bfb3ad",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:52:14",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 284047,
+                "visible": true,
+                "origin": "",
+                "legend": "Assay Quality Assessment",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-7303/v1/figure_1.png"
+            },
+            {
+                "id": 2611397,
+                "identity": "511ac710-7114-461a-b805-b9c601537b17",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:52:14",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 240868,
+                "visible": true,
+                "origin": "",
+                "legend": "Preparation of bacterial suspensions",
+                "description": "",
+                "filename": "figure2.png",
+                "url": "https://assets.researchsquare.com/files/nprot-7303/v1/figure_2.png"
+            },
+            {
+                "id": 2611399,
+                "identity": "1a67732d-b1a4-4510-97e8-9beace1f3769",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:52:14",
+                "extension": "png",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 259364,
+                "visible": true,
+                "origin": "",
+                "legend": "Working concentrations of positive and negative controls",
+                "description": "",
+                "filename": "figure3.png",
+                "url": "https://assets.researchsquare.com/files/nprot-7303/v1/figure_3.png"
+            },
+            {
+                "id": 2611398,
+                "identity": "866db6de-1d34-4b27-81d5-a3258c1797a2",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:52:14",
+                "extension": "png",
+                "order_by": 4,
+                "title": "Figure 4",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 260612,
+                "visible": true,
+                "origin": "",
+                "legend": "Troubleshooting",
+                "description": "",
+                "filename": "figure4.png",
+                "url": "https://assets.researchsquare.com/files/nprot-7303/v1/figure_4.png"
+            },
+            {
+                "id": 2611400,
+                "identity": "cebca2d4-6705-44ca-b789-fc153bb61dd0",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:52:14",
+                "extension": "png",
+                "order_by": 5,
+                "title": "Figure 5",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 171343,
+                "visible": true,
+                "origin": "",
+                "legend": "Enumeration of infiltrating cells. The modified Gompertz model (black line) was fitted through the measured data points (colored dots) to estimate the repair rate (\u03bcm) and the maximum number of cells inside the scratched area at the plateau of the growth curve (A). Goodness of fit (R^2). Root-mean-square error (RMSE).",
+                "description": "",
+                "filename": "figure5.png",
+                "url": "https://assets.researchsquare.com/files/nprot-7303/v1/figure_5.png"
+            },
+            {
+                "id": 2611401,
+                "identity": "606193f5-6185-4134-9e67-b61a31d80c9f",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:52:14",
+                "extension": "png",
+                "order_by": 6,
+                "title": "Figure 6",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 1352222,
+                "visible": true,
+                "origin": "",
+                "legend": "Re-epithelialization kinetics of gingival cells upon exposure to bacterial preparations. (a) Repair rate represented by the \u03bcm parameter. (b) Maximum number of cells inside the scratched area represented by the A parameter. Bacterial suspensions were added at an MOI of 5, 50 and 500. The non-treated control consisted of FCS-free DMEM. Significant differences from the non-treated control were assessed by a one-way ANOVA (n \u2265 5; *, P < 0.05; **, P < 0.01; ***, P < 0.0001). (c) Image segmentation output at the start of the experiment (0 min) and after 5 hours (300 min) of incubation with LGG (MOI 50) and P. gingivalis W83 (MOI 500) in comparison with the non-treated control.",
+                "description": "",
+                "filename": "figure6.png",
+                "url": "https://assets.researchsquare.com/files/nprot-7303/v1/figure_6.png"
+            },
+            {
+                "id": 13467475,
+                "identity": "7d850503-c0ad-4521-a438-00e3e53fb67e",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:55:19",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 3047695,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-7303/v1/c0bf0ddf-764d-4c7c-ac9c-91c60f69e19e.pdf"
+            },
+            {
+                "id": 2611394,
+                "identity": "a6639343-8b54-4299-9f22-1bf2e8e2fea3",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:52:14",
+                "extension": "png",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 332409,
+                "visible": true,
+                "origin": "",
+                "legend": "*Supplementary Fig. S1*   *Optimal control concentrations on each target cell line*   Human transforming growth factor \u03b1 (hTGF) and human epidermal growth factor (hEGF) were used as positive controls. Inhibitors of p38 and MEK1/2 were used in combination as negative control. The repair rate is represented by the \u03bc~m~ parameter, whereas the A parameter represents the maximum number of cells inside the scratched area. The overall re-epithelialization performance (\u03bc~m~*A) was calculated relative to the non-treated control. (*a*) Ca9-22 gingival cell line. (*b*) HO-1-N-1 buccal cell line. (*c*) HaCat keratinocyte cell line. Significant differences from the non-treated control were assessed by a one-way ANOVA using a Dunnett\u2019s test for multiple comparisons (n \u2265 3; ==*==, P < 0.05; ==**==, P < 0.01; ==***==, P < 0.0001).",
+                "description": "",
+                "filename": "supplement0.png",
+                "url": "https://assets.researchsquare.com/files/nprot-7303/v1/supplement_0.png"
+            },
+            {
+                "id": 2611395,
+                "identity": "cb7cc357-bed0-4bb3-b672-9d06d53d79b2",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:52:14",
+                "extension": "png",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 174287,
+                "visible": true,
+                "origin": "",
+                "legend": "*Supplementary Fig. S2*   *Human transforming growth factor \u03b1 (hTGF\u03b1) promotes re-epithelialization through p38 and MEK1/2 activation*   Stimulation of Ca9-22 cells with hTGF\u03b1 in combination with either inhibitor reduced the repair rate (\u03bc~m~ parameter) to an intermediate level. Addition of hTGF\u03b1 in combination with both inhibitors decreased the repair rate to the level of the non-treated control, indicating that hTGF\u03b1 can promote both migration and proliferation through activation of p38 and MEK1/2, respectively. Significant differences from the non-treated control were assessed by a one-way ANOVA using a Dunnett\u2019s test for multiple comparisons (n = 6; ==*==, P < 0.05; ==***==, P < 0.0001).",
+                "description": "",
+                "filename": "supplement0.png",
+                "url": "https://assets.researchsquare.com/files/nprot-7303/v1/supplement_0.png"
+            }
+        ],
+        "financialInterests": "The authors declare that they have no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Scratch assay, image analysis, high-throughput, re-epithelialization, cell migration, modeling, microscopy",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p><em>In vitro</em> scratch assays provide an attractive method to study the regulation and mechanisms of epithelial cell proliferation and migration that are involved in wound repair. The assay is performed by introducing a scratch into a confluent cell monolayer and monitoring the re-epithelialization of the \u201cwound\u201d by acquiring images over time. Despite improvements to the method over the past years, high-throughput screenings often require the integration of multiple image analysis and data extraction software tools. We developed a high-throughput image-based scratch assay and an automated processing pipeline that employs a mathematical model to describe re-epithelialization kinetics. We implemented a processing pipeline in Galaxy called KREAP that provides an open source web-based platform to enable scientists from diverse backgrounds to perform reproducible and quantitative repair data analyses in less than 45 minutes.</p>",
+        "manuscriptTitle": "High-Throughput Screening Model to Quantify Re-Epithelialization Kinetics",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2019-06-24 18:07:19",
+                "doi": "10.1038/protex.2019.015",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 2
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a1ab84a3-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "June 24th, 2019",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 11822,
+                "name": "Cell biology"
+            },
+            {
+                "id": 11824,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 11825,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 11826,
+                "name": "Microbiology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2019-06-24 18:07:19",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

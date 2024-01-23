@@ -1,0 +1,357 @@
+{
+    "identity": "pex-1843",
+    "title": "<p>Prediction of intercellular communication networks using CellComm</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": ""
+        },
+        {
+            "header": "Reagents",
+            "content": ""
+        },
+        {
+            "header": "Equipment",
+            "content": ""
+        },
+        {
+            "header": "Procedure",
+            "content": "# Data\nWe applied CellComm to Spatial Transcriptomics data generated using the 10X Visium technology. This dataset was obtained from the article\nMultimodal Analysis of Composition and Spatial Architecture in Human Squamous Cell Carcinoma\n(\nCell\n182, 1661\u20131662) published by Andrew Ji and collaborators in 2020. This dataset profiled/analyzed the tumor and tumor microenvironment (TME) of cutaneous squamous cell carcinoma (cSCC). In summary, this work identified a tumor-specific keratinocyte (TSK) population that interacts with a fibrovascular niche.\n# Before starting...\nMore information about CellComm and additional tutorials can be found in https://github.com/edroaldo/fusca\nBefore you start you should create a folder for your analyses. It must contain the folders\nfiltered_feature_bc_matrix\n(containing the files matrix.mtx.gz, barcodes.tsv.gz and features.tsv.gz),\nspatial\n(containing the files aligned_fiducials. jpg, detected_tissue_image.jpg, scalefactors_json.json, tissue_hires_image.png, tissue_lowres_image.png and tissue_positions_list.csv) and a folder where the results (especially the figures) will be stored (here we called\nresults\n).\nThe files contained in folders\nfiltered_feature_bc_matrix\nand\nspatial\nare the outputs of Visium 10X technology and, therefore, it is possible to analyze any Visium 10X dataset.\n1. Install\nfusca\npackage - Framework for Unified Single-Cell Analysis.\n# Code:\ninstall.packages(\"devtools\")\nlibrary(\"devtools\")\ndevtools::install_github(\"edroaldo/fusca\")\n2. Load libraries.\n# Code:\nlibrary(\"dplyr\")\nlibrary(\"fusca\")\nlibrary(\"igraph\")\nlibrary(\"scales\")\nlibrary(\"ggplot2\")\n3.\u00a0Set the 1 - working directory as your analysis folder and 2 - base directory as your results folder.\n# Code\nsetwd(\"/workspace/Edroaldo/CellComm\")\nbd <- \"results\"\n4. Create a CellRouter object containing expression and image information from ST data.\nHere we use the function\nread10X\nto read or organize the objects in folder\nfiltered_feature_bc_matrix\n. Then we create the CellRouter object using the\nCreateCellRouter\nfunction and add the tissue image and data related to it using the\nread10XImage\nfunction.\nUsed parameters the\nCreateCellRouter\nfunction:\n- assay.type = \"ST\", defining spatial transcriptomics analysis.\n- min.genes = 100, defining the minimum number of genes that a cell must express to be considered.\n- min.cells = 25, defining the minimum number of cells that a gene is expressed (*counts* > 0) to be considered.\n- is.expr = 0, defining the minimum expression value (*counts*) a gene must have to be considered expressed.\nUsed parameters the\nread10XImage\nfunction:\n- assay.type = \"ST\", defining spatial transcriptomics analysis.\n# Code:\nsample_names <- c(\"Sample1\")\ndata <- read10X(\"filtered_feature_bc_matrix/\")\nimage_paths\u00a0<- c(\"spatial/tissue_lowres_image.png\")\nscalefactor_paths <- c(\"spatial/scalefactors_json.json\")\ntissue_paths <- c(\"spatial/tissue_positions_list.csv\")\ncellrouter <- CreateCellRouter(data, assay.type = \"ST\",\nmin.genes = 100, min.cells = 25, is.expr = 0)\ncellrouter <- read10XImage(cellrouter, assay.type = \"ST\",\nsample_names, image_paths, scalefactor_paths, tissue_paths)\n5. Preprocess the expression data.\nHere we use the function\nFindVariableGenes\nto identify the genes with the highest variance of expression, normalize and scale the expression data using the\nNormalize\nand\nscaleData\nfunctions and, for the last (\nscaleData\n), we use the 3000 most variable genes.\nUsed parameters the\nFindVariableGenes\nfunction:\n- assay.type = \"ST\", defining spatial transcriptomics analysis.\n- method = \"coefficient_variation\", defining the method for the identification of the most variable genes\n- pvalue = \"0.05\", defining the *p*-value threshold for the considered genes.\nUsed parameters the\nNormalize\nfunction:\n- assay.type = \"ST\", defining spatial transcriptomics analysis.\nUsed parameters the\nScaleData\nfunction:\n- assay.type = \"ST\", defining spatial transcriptomics analysis.\n- genes.use = character, defining the genes to center/scale. Here we used the 3000 most variable genes.\n- blocksize = numeric, defining the size of the blocks in which genes will be scaled.\n# Code:\nvar.genes <- FindVariableGenes(cellrouter, assay.type = \"ST\",\nmethod = \"coefficient_variation\", pvalue = 0.05)\nvar.genes <- var.genes[order(var.genes$adj.pvalue, decreasing = FALSE), ]\ncellrouter@var.genes <- rownames(var.genes[1:3000, ])\ncellrouter <- Normalize(cellrouter, assay.type = \"ST\")\ncellrouter <- scaleData(cellrouter, assay.type = \"ST\",\ngenes.use = cellrouter@var.genes, blocksize = nrow(cellrouter@assays$ST@ndata))\n6. Dimensionality reduction and clustering.\nThen we reduce the dimensionality of the data using linear methods, with Principal Component Analysis (PCA) using the\ncomputePCA\nfunction and non-linear methods, with the t-Distributed Stochastic Neighbor Embedding (t-SNE) using the\ncomputeTSNE\nfunction and the Uniform Manifold Approximation and Projection (UMAP) using the\ncomputeUMAP\nfunction. As a next step we identified transcriptional clusters using the\nfindClusters\nfunction.\nUsed parameters the\ncomputePCA\nfunction:\n- assay.type = \"ST\", defining spatial transcriptomics analysis.\n- seed = X, sets the seed of R\u2018s random number generator, which is useful for creating simulations or random objects/analysis that can be reproduced.\n- num.pcs = 50, defining the number of principal components to compute.\n- genes.use = character; defining the genes to compute the PCA. Here we used the 3000 most variable genes.\nUsed parameters the\ncomputeTSNE\nfunction:\n- seed = X, sets the seed of R\u2018s random number generator, which is useful for creating simulations or random objects/analysis that can be reproduced.\n- num.pcs = 8, defining the number of principal components to use in the tSNE calculation.\nUsed parameters the\ncomputeUMAP\nfunction:\n- seed = X, sets the seed of R\u2018s random number generator, which is useful for creating simulations or random objects/analysis that can be reproduced.\n- num.pcs = 8, defining the number of principal components to use in the UMAP calcularion.\n- metric = \"euclidean\", defining the distances between data points to compute.\n- n_neighbors = 15, defining the number of nearest neighbors.\n- spread = 1, defining the effective scale of embedded points.\n- min_dist = 0.1, defining how close the points appear in the final layout.\nUsed parameters the\nfindClusters\nfunction:\n- assay.type = \"ST\", defining spatial transcriptomics analysis.\n- num.pcs = 8, defining the number of principal components to use for clustering\n- nn.type = \"knn\", defining the method to find the *k*-nearest neighbors graph.\n- k = 20, defining the number of nearest neighbors to build a *k*-nearest neighbors graph.\n# Code:\ncellrouter <- computePCA(cellrouter, assay.type = \"ST\",\nseed = 42, num.pcs = 50, genes.use = cellrouter@var.genes)\nplot(cellrouter@pca$sdev)\ncellrouter <- computeTSNE(cellrouter,\nseed = 1, num.pcs = 8, max_iter = 1000)\ncellrouter <- computeUMAP(cellrouter,\nseed = 1, num.pcs = 8, metric = \"euclidean\", n_neighbors = 15, spread = 1, min_dist = 0.1)\ncellrouter <- findClusters(cellrouter, assay.type = \"ST\",\nnum.pcs = 8, nn.type = \"knn\", k = 20)\nplotReducedDimension(cellrouter, assay.type = \"ST\", reduction.type = \"tsne\", annotation = \"population\", annotation.color = \"colors\",\ndotsize = 1.5, showlabels = TRUE, labelsize = 5, convex = FALSE)\nplotReducedDimension(cellrouter, assay.type = \"ST\", reduction.type = \"umap\", annotation = \"population\", annotation.color = 'colors',\ndotsize = 1.5, showlabels = TRUE, labelsize = 5, convex = FALSE)\n7. Calculate the Tumor-Specific Keratinocytes (TSK) and Fibrovascular cell gene-sets score.\nUsed parameters the\nscoreGeneSets\nfunction:\n- assay.type = \"ST\", defining spatial transcriptomics analysis.\n- genes.list = character,\u00a0defining the genes to score.\n- bins = 25, defining the bin number to divide the expression data.\n# Code:\nTSK <- c('FEZ1', 'IL24', 'INHBA', 'KCNMA', 'LAMC2', 'MAGEA4', 'MMP10', 'NT5E')\nFibrovascular <- c('CAV1', 'CD93', 'ENG', 'FN1', 'ITGB1')\ngenelist <- list(TSK = TSK, Fibrovascular = Fibrovascular)\ncellrouter <- scoreGeneSets(cellrouter, assay.type = \"ST\", genes.list = genelist, bins = 25)\nplotSignatureScore(cellrouter, assay.type = 'ST', names(genelist), reduction.type='umap', threshold = 2, columns = 2, dotsize=0.5)\nplotSpatialClusters(cellrouter, assay.type = \"ST\", sample.name = \"Sample1\",\ncluster.column = \"population\", colors.column = \"colors\", point.size = 1.7,\nannotate_centroids = FALSE, title = NULL)\nplotSelectedClusters(cellrouter, assay.type = \"ST\", sample.name = \"Sample1\",\ncluster.column = \"population\", colors.column = \"colors\", point.size = 1.2,\nannotate_centroids = FALSE, title = NULL,\nselected_clusters = list(c(as.character(1:9))), facets = TRUE, num.cols = 3)\n8.\u00a0Transfer cell type annotations from the sc-RNAseq atlas of cSCC generated by Ji et al. 2020 to clusters identified from the ST data.\n# Code:\ntmp <- recode(as.character(cellrouter@assays$ST@sampTab$population),\n\"1\"=\"Fibrovascular-like\",\n\"7\"='TSK',\n\"4\"=\"Lymphoid-like1\",\n\"5\"=\"Lymphoid-like2\",\n\"6\"=\"Lymphoid-like2\",\n\"5\"=\"Basal-like\", # !\n\"8\"=\"KC-diff-like1\",\n\"9\"=\"KC-diff-like2\",\n\"2\"=\"KC-diff-like3\",\n\"3\"=\"KC-diff-like4\")\nnames(tmp) <- rownames(cellrouter@assays$ST@sampTab)\ndf <- data.frame(cluster = cellrouter@assays$ST@sampTab$population, celltype = tmp)\nrownames(df) <- rownames(cellrouter@assays$ST@sampTab)\ncellrouter <- addInfo(cellrouter, assay.type = \"ST\", sample.name = sample_names[[1]],\nmetadata = df, colname = \"celltype\",\nmetadata.column = \"celltype\")\nplotReducedDimension(cellrouter, assay.type = 'ST',\nreduction.type = 'umap', annotation=\"celltype\", annotation.color = 'celltype_color',\ndotsize=1, showlabels = FALSE, labelsize=2.5, convex=FALSE)\nplotSpatialClusters(cellrouter, assay.type = \"ST\", sample.name = \"Sample1\",\ncluster.column = \"celltype\", colors.column = \"celltype_color\",\npoint.size = 2, title = NULL, annotate_centroids = FALSE)\nTSK <- c('FEZ1', 'IL24', 'LAMC2', 'MMP10', 'NT5E')\nplotDRExpression(cellrouter, assay.type = \"ST\",\nreduction.type = \"umap\", dims.use = c(1, 2),\ngenelist = TSK[1:5], title = \"\", columns = 5, dotsize = 1, threshold = 5)\nTSK <- c('FEZ1', 'IL24', 'INHBA', 'KCNMA', 'LAMC2', 'MAGEA4', 'MMP10', 'NT5E')\ngene_plots <- plotSpatialExpression(cellrouter, assay.type = \"ST\", sample.name = \"Sample1\",\ngenes=c('TNC', 'MMP9'),\npoint.size = 1.7)\ngene_plots\n9. Identify cluster-specific gene signatures and marker genes.\nUsed parameters the *findSignatures* function:\n- assay.type = \"ST\", defining spatial transcriptomics analysis.\n- column = \"celltype\", defining the column with the groups in metadata.\n- pos.only = TRUE, defining to get only the up-regulated genes.\n- fc.threshold = 0.2, defining the fold change threshold.\n# Code:\nmarkers <- findSignatures(cellrouter, assay.type = \"ST\",\ncolumn = \"celltype\", pos.only = TRUE, fc.threshold = 0.2); gc();\nmarkers.top <- markers %>% group_by(population) %>% top_n(10, fc)\nmarkers.top <- as.data.frame(markers.top)\nplot <- plotSignaturesHeatmap(cellrouter, assay.type = 'ST',\nmarkers.top, genes.show = as.vector(markers.top$gene),\ncolumn.ann = 'celltype', column.color\u00a0= 'celltype_color',\nnum.cells = 700, threshold =\u00a02)\n# **# CellComm in *cluster-cluster* communication**\nNext, we used CellComm to infer spatially-informed cell-cell interactions by calculating an interaction score that takes into account the number of ligand-receptor interactions co-expressed between cell types and their spatial distances on the tissue.\n10. Calculate the mean expression of ligands and receptors per cluster.\nHere we accessed a list of ligand-receptor interactions published by Robin Browaeys and collaborators in 2020 (NicheNet: modeling intercellular communication by linking ligands to target genes. Nat Methods 17, 159\u2013162 (2020)) and averaged the expression of each ligand/receptor as well as the average mean expression of these in each transcriptional cluster of the spots using the\ncomputeValue\nand\ncalculateObservedMean\nfunctions.\nUsed parameters the\ncomputeValue\nfunction:\n- assay.type = \"ST\", defining spatial transcriptomics analysis.\n- genelist = character, defining the genes to use in the analysis.\n- column = \"celltype\", defining the column with the groups in metadata.\n- fun = \"mean\", statistical function to summary the gene expression data.\nUsed parameters the\npopulation.pairing\nfunction:\n- mean.expr = mean.expr, object defined/calculated by the *computeValue* function.\n- pairs = pairs, object with ligands/receptors pairs.\n- ligands = ligands, defining the list of genes annotated as ligands.\n- receptors = receptors, defining the list of genes annotated as receptors.\n- threshold = 0.25, threshold to select the genes in the population according to their mean expression.\nUsed parameters the\ncalculateObservedMean\nfunction:\n- mean.expr = mean.expr, object defined/calculated by the *computeValue* function.\n- interactions = interactions, object defined/calculated by the *population.pairing* function.\nUsed parameters the\nfindSignatures\nfunction:\n- assay.type = \"ST\", defining spatial transcriptomics analysis.\n- column = \"celltype\", defining the column with the groups in metadata.\n- pos.only = TRUE, defining to get only the up-regulated genes.\n- fc.threshold = 0.2, defining the fold change threshold.\n# Code:\nlr_network = readRDS(url(\"https://zenodo.org/record/3260758/files/lr_network.rds\"))# from NicheNet\nhead(lr_network)\npairs <- lr_network\npairs$Pair.Name <- paste(pairs$from, pairs$to, sep = \"_\")\nligands <- unique(lr_network$from)\nligands <- intersect(ligands, rownames(cellrouter@assays$ST@ndata))\nreceptors <- unique(lr_network$to)\nreceptors <- intersect(receptors, rownames(cellrouter@assays$ST@ndata))\nligands.receptors <- unique(c(ligands, receptors))\nmean.expr <- computeValue(cellrouter, assay.type = \"ST\",\ngenelist = ligands.receptors, \"celltype\", fun = \"mean\"); gc();\ninteractions <- population.pairing(mean.expr = mean.expr, pairs = pairs, ligands = ligands, receptors = receptors, threshold = 0.25)\ninteractions <- calculateObservedMean(mean.expr = mean.expr, interactions = interactions)\nhead(interactions)\nmarkers <- findSignatures(cellrouter, assay.type = \"ST\",\ncolumn = \"celltype\", pos.only = TRUE, fc.threshold = 0.2); gc();\n11. Calculate a null distribution of intracluster gene expression means.\nNext, CellComm shuffles cell state labels to calculate a null distribution of intracluster gene expression means and calculate an empirical\np\n-value, which is used to filter out ligand-receptor interactions observed by chance. This algorithm predicts potential cluster-cluster interaction networks based on ligand-receptor pairings observed more often than expected by chance.\nUsed parameters the\nclusterPermutation\nfunction:\n- assay.type = \"ST\", defining spatial transcriptomics analysis.\n- nPerm = 1000, defining the number of permutations.\n- interactions = interactions, object defined/calculated by the *population.pairing* function.\n- genelist = character, defining the genes to use in the analysis.\n- cluster.label = \"celltype\", defining the column with the groups in metadata.\nUsed parameters the\ncalculatePvalue\nfunction:\n- p = p, object defined/calculated by the *clusterPermutation* function.\n- nPerm = 1000, defining the number of permutations.\n- interactions = interactions, object defined/calculated by the *population.pairing* function.\n# Code:\ngenelist <- unique(c(interactions$ligand, interactions$receptor))\np <- clusterPermutation(cellrouter, assay.type = \"ST\",\ngenelist = genelist, interactions = interactions, cluster.label = \"celltype\", nPerm = 1000)\ninteractions.p <- calculatePvalue(p, nPerm = 1000, interactions2 = interactions)\n#saveRDS(interactions.p, file = paste(bd, \"/interactions_with_Pvalue_1000_cluster.rds\", sep = \"\"))\n#interactions.p <- readRDS(paste(basedir, \"/interactions_with_Pvalue_1000_cluster.rds\", sep = \"\"))\ntmp <- interactions.p[which(interactions.p$pvalue < 0.01),]\nhead(tmp)\n12. Calculate a network based on the number of interactions (ligand/receptors), cluster centroids and distances between these clusters.\nUsed parameters the\ncellnetwork3\nfunction:\n- threshold = 5, defining the number of elements in the pair for it to be selected.\nUsed parameters the\ncalculateCentroids\nfunction:\n- assay.type = \"ST\", defining spatial transcriptomics analysis.\n- sample.name = \"Sample1\", defining the name of the sample.\n- cluster.column = \"celltype\", defining the column with the groups in metadata.\n- cluster.type = \"Cluster\", defining the column where the clusters are indicated. It could be either 'Cluster' or 'Subcluster'.\nUsed parameters the\ncalculateDistanceMatrix\nfunction:\n- assay.type = \"ST\", defining spatial transcriptomics analysis.\n- sample.name = \"Sample1\", defining the name of the sample.\n- cluster.type = \"Cluster\", defining the column where the clusters are indicated. It could be either 'Cluster' or 'Subcluster'.\n- spot_distance = 100, defining the distance between the center of the spots.\n- normalize = FALSE, normalize the distances dividing by the total size of the tissue.\n# Code:\nmy_matrix <- interactionmatrix(tmp)\nhead(matrix)\nmy_graph <- cellnetwork3(tmp, threshold = 5)\ncellrouter <- calculateCentroids(cellrouter, assay.type = \"ST\", sample.name = \"Sample1\",\ncluster.column = \"celltype\", cluster.type = \"Cluster\")\ncellrouter <- calculateDistanceMatrix(cellrouter, assay.type = \"ST\", sample.name = \"Sample1\",\ncluster.type = \"Cluster\", spot_distance = 100, normalize = FALSE)\nplots <- predictCellInteractions(cellrouter, assay.type = \"ST\", sample.name = \"Sample1\",\ncluster.type = \"Cluster\", graph = my_graph, distance.threshold = 0.75)\ngridExtra::grid.arrange(grobs = plots, ncol = 3)\nplotSelectedClusters(cellrouter, assay.type = \"ST\", sample.name = \"Sample1\",\ncluster.column = \"celltype\", colors.column = \"celltype_color\",\nselected_clusters = list(c(\"TSK\", \"Fibrovascular-like\", \"KC-diff-like3\", \"Lymphoid-like2\", \"KC-diff-like4\")),\npoint.size = 1.5, title = NULL, annotate_centroids = TRUE)\n13. Comparison with the original publication.\nWe selected ligand-receptor pairs identified by CellComm based on the subset of ligands identified by the original publication, to make the analysis more comparable with the original publication. Specifically, we inferred ligand-receptor pairs between co-localized tumor-TME or TME-tumor interactions.\n# Code:\nx <- tmp[which(tmp$ligand %in% c(\"CCL2\", \"CCL5\", \"CTGF\", \"CXCL10\", \"CXCL16\", \"MMP9\", \"PGF\", \"TGFB1\", \"TIMP1\", \"TNC\", \"VEGFA\")), ]\n# Tumor -> Stroma\ntumor <- c(\"TSK_Fibrovascular-like\", 'TSK_Lymphoid-like2', \"TSK_KC-diff-like4\")\ngene.pairs <- plotPairDotplot(x, interactionList = tumor, num.pairs = 50)\nhead(gene.pairs$markers)\nprint(gene.pairs$plot)\n# Stroma -> Tumor\nTME <- c(\"Fibrovascular-like_TSK\", 'Lymphoid-like2_TSK', \"KC-diff-like4_TSK\")\ngene.pairs <- plotPairDotplot(x, interactionList = TME, num.pairs = 50)\nhead(gene.pairs$markers)\nprint(gene.pairs$plot)\nplotSelectedClusters(cellrouter, assay.type = \"ST\", sample.name = \"Sample1\",\ncluster.column = \"celltype\", colors.column = \"celltype_color\",\nselected_clusters = list(c(\"TSK\")), title = NULL, annotate_centroids = FALSE)\nplots <- plotSpatialExpression(cellrouter, assay.type = \"ST\", sample.name = \"Sample1\",\npoint.size = 1.7, genes = c(\"LRP1\", \"MMP9\", \"SDC1\", \"TNC\"))\ngridExtra::grid.arrange(grobs = plots, ncol = 3)\ndotplot(object = cellrouter, assay.type = \"ST\",\ngenes.use = c(\"LRP1\", \"MMP9\", \"SDC1\", \"TNC\"), column = 'celltype', thr = 0.5)\n# **# CellComm in *subcluster-subcluster* communication**\nWe used CellComm to subcluster spatially-resolved transcriptional clusters based on their spatial localization on the tissue, and performed a focused, spatially-resolved, high-resolution analysis of intercellular communication between TSKs, fibrovascular-like and lymphoid-like niche.\n# Code:\ncellrouter <- findSubclusters(cellrouter, assay.type = \"ST\", sample.name = \"Sample1\",\ncluster.column = \"celltype\", subcluster.column = \"Subpopulation\",\nmethod = \"mclust\")\nplotSpatialSubclusters(cellrouter, assay.type = \"ST\", sample.name = \"Sample1\",\ncluster.column = \"celltype\", subcluster.column = \"Subpopulation\",\nselected_clusters = list(c(\"TSK\")),\ntitle = NULL, annotate_centroids = FALSE)\nplotSpatialSubclusters(cellrouter, assay.type = \"ST\", sample.name = \"Sample1\",\ncluster.column = \"celltype\", subcluster.column = \"Subpopulation\",\nselected_clusters = list(c(\"Fibrovascular-like\")),\ntitle = NULL, annotate_centroids = FALSE)\nplotSpatialSubclusters(cellrouter, assay.type = \"ST\", sample.name = \"Sample1\",\ncluster.column = \"celltype\", subcluster.column = \"Subpopulation\",\nselected_clusters = list(c(\"Lymphoid-like2\")),\ntitle = NULL, annotate_centroids = FALSE)\n14.\u00a0Calculate the mean expression of ligands and receptors per subcluster.\nHere we accessed a list of ligand-receptor interactions published by Robin Browaeys and collaborators in 2020 (NicheNet: modeling intercellular communication by linking ligands to target genes. Nat Methods 17, 159\u2013162 (2020)) and averaged the expression of each ligand/receptor as well as the mean mean expression of these in each transcriptional subclusters of the spots using the *computeValueSubclusters* and *calculateObservedMean* functions.\nUsed parameters the *computeValueSubclusters* function:\n- assay.type = \"ST\", defining spatial transcriptomics analysis.\n- genelist = character, defining the genes to use in the analysis.\n- column = \"celltype\", defining the column with the groups in metadata.\n- fun = \"mean\", statistical function to summary the gene expression data.\n- clusters = character, defining the selected clusters.\nUsed parameters the *population.pairing* function:\n- mean.expr = mean.expr.sub, object defined/calculated by the *computeValueSubclusters* function.\n- pairs = pairs, object with ligands/receptors pairs.\n- ligands = ligands, defining the list of genes annotated as ligands.\n- receptors = receptors, defining the list of genes annotated as receptors.\n- threshold = 0.25, threshold to select the genes in the population according to their mean expression.\nUsed parameters the *calculateObservedMean* function:\n- mean.expr = mean.expr.sub, object defined/calculated by the *computeValueSubclusters* function.\n- interactions = interactions, object defined/calculated by the *population.pairing* function.\nUsed parameters the *findSignatures* function:\n- assay.type = \"ST\", defining spatial transcriptomics analysis.\n- column = \"celltype\", defining the column with the groups in metadata.\n- pos.only = TRUE, defining to get only the up-regulated genes.\n- fc.threshold = 0.2, defining the fold change threshold.\nlr_network = readRDS(url(\"https://zenodo.org/record/3260758/files/lr_network.rds\"))# from NicheNet\nhead(lr_network)\npairs <- lr_network\npairs$Pair.Name <- paste(pairs$from, pairs$to, sep = \"_\")\nligands <- unique(lr_network$from)\nligands <- intersect(ligands, rownames(cellrouter@assays$ST@ndata))\nreceptors <- unique(lr_network$to)\nreceptors <- intersect(receptors, rownames(cellrouter@assays$ST@ndata))\nligand.receptors <- unique(c(ligands, receptors))\nmean.expr.sub <- computeValueSubclusters(cellrouter, assay.type = \"ST\",\ngenelist = ligand.receptors, column = \"celltype\", fun = \"mean\",\nclusters = c(\"TSK\", \"Fibrovascular-like\", \"Lymphoid-like2\")); gc();\ninteractions <- population.pairing(mean.expr = mean.expr.sub, pairs, ligands = ligands, receptors = receptors, threshold = 0.25)\ninteractions <- calculateObservedMean(interactions, mean.expr.sub)\nhead(interactions)\nmarkers <- findSignatures(cellrouter, assay.type = 'ST',\ncolumn = 'Subpopulation', pos.only = TRUE, fc.threshold = 0.2); gc();\n15. Calculate a null distribution of intrasubcluster gene expression means.\nNext, CellComm shuffles cell state labels to calculate a null distribution of intrasubcluster gene expression means and calculate an empirical\np\n-value, which is used to filter out ligand-receptor interactions observed by chance. This algorithm predicts potential subcluster-subcluster interaction networks based on ligand-receptor pairings observed more often than expected by chance.\nUsed parameters the\nclusterPermutationSubcluster\nfunction:\n- assay.type = \"ST\", defining spatial transcriptomics analysis.\n- nPerm = 1000, defining the number of permutations.\n- interactions = interactions, object defined/calculated by the *population.pairing* function.\n- genelist = character, defining the genes to use in the analysis.\n- cluster.label = \"celltype\", defining the column with the groups in metadata.\n- clusters = character, defining the selected clusters.\nUsed parameters the\ncalculatePvalue\nfunction:\n- p = p, object defined/calculated by the\nclusterPermutation\nfunction.\n- nPerm = 1000, defining the number of permutations.\n- interactions = interactions, object defined/calculated by the *population.pairing* function.\ngenelist <- unique(c(interactions$ligand, interactions$receptor))\np <- clusterPermutationSubcluster(cellrouter, assay.type = \"ST\",\ngenelist = genelist, interactions = interactions, cluster.label = \"celltype\", nPerm = 1000,\nclusters = c(\"TSK\", \"Fibrovascular-like\", \"Lymphoid-like2\"))\ninteractions.p <- calculatePvalue(p, nPerm = 1000, interactions2 = interactions)\nsaveRDS(interactions.p, file = paste(bd, '/interactions_subcluster_with_Pvalue.rds', sep=\"\"))\ntmp <- interactions.p[which(interactions.p$pvalue < 0.01), ]\nhead(tmp)\n16. Calculate a network based on the number of interactions (ligand/receptors), subcluster centroids and distances between these subclusters.\nUsed parameters the\ncellnetwork3\nfunction:\n- threshold = 5, defining the number of elements in the pair for it to be selected.\nUsed parameters the\ncalculateCentroids\nfunction:\n- assay.type = \"ST\", defining spatial transcriptomics analysis.\n- sample.name = \"Sample1\", defining the name of the sample.\n- cluster.column = \"Subpopulation\", defining the column with the groups in metadata.\n- cluster.type = \"Subcluster\", defining the column where the clusters are indicated. It could be either 'Cluster' or 'Subcluster'.\nUsed parameters the\ncalculateDistanceMatrix\nfunction:\n- assay.type = \"ST\", defining spatial transcriptomics analysis.\n- sample.name = \"Sample1\", defining the name of the sample.\n- cluster.type = \"Subcluster\", defining the column where the clusters are indicated. It could be either 'Cluster' or 'Subcluster'.\n- spot_distance = 100, defining the distance between the center of the spots.\n- normalize = FALSE, normalize the distances dividing by the total size of the tissue.\n# Code:\nmy_matrix <- interactionmatrix(tmp)\nhead(matrix)\nmy_graph <- cellnetwork3(tmp, threshold = 5)\ncellrouter <- calculateCentroids(cellrouter, assay.type = \"ST\", sample.name = \"Sample1\",\ncluster.column = \"Subpopulation\", cluster.type = \"Subcluster\")\ncellrouter <- calculateDistanceMatrix(cellrouter, assay.type = \"ST\", sample.name = \"Sample1\",\ncluster.type = \"Subcluster\", spot_distance = 100, normalize = FALSE)\nplots <- predictCellInteractions(cellrouter, assay.type = \"ST\", sample.name = \"Sample1\",\ncluster.type = \"Subcluster\", graph = my_graph, distance.threshold = 0.35) # Cluster: distance.threshold = 0.75\ngridExtra::grid.arrange(grobs = plots, ncol = 3)\nplotSelectedClusters(cellrouter, assay.type = \"ST\", sample.name = \"Sample1\",\ncluster.column = \"celltype\", colors.column = \"celltype_color\",\nselected_clusters = list(c(\"Fibrovascular-like\", \"KC-diff-like3\", \"KC-diff-like4\", \"Lymphoid-like2\", \"TSK\")),\npoint.size = 1.5, title=NULL, annotate_centroids=TRUE)\nx <- tmp[which(tmp$ligand %in% c(\"CCL2\", \"CCL5\", \"CTGF\", \"CXCL10\", \"CXCL16\", \"MMP9\", \"PGF\", \"TGFB1\", \"TIMP1\", \"TNC\", \"VEGFA\")), ]\n17. Comparison with the original publication.\nWe selected ligand-receptor pairs identified by CellComm based on the subset of ligands identified by the original publication, to make the analysis more comparable with the original publication. Specifically, we inferred ligand-receptor pairs between co-localized tumor-TME or TME-tumor interactions.\n# Code:\n# Tumor -> Stroma\ntumor <- c(\"TSK-1_Fibrovascular-like-4\", \"TSK-2_Fibrovascular-like-4\", \"TSK-3_Fibrovascular-like-4\", \"TSK-4_Fibrovascular-like-4\")\ngene.pairs_01 <- plotPairDotplot(x, interactionList = tumor, num.pairs = 50)\nhead(gene.pairs_01$markers)\nplot(gene.pairs_01$plot)\n# Stroma -> Tumor\nTME <- c(\"Fibrovascular-like-4_TSK-1\", \"Fibrovascular-like-4_TSK-2\", \"Fibrovascular-like-4_TSK-3\", \"Fibrovascular-like-4_TSK-4\")\ngene.pairs_02 <- plotPairDotplot(x, interactionList = TME, num.pairs = 50)\nhead(gene.pairs_02$markers)\nplot(gene.pairs_02$plot)\nplotSelectedClusters(cellrouter, assay.type = \"ST\", sample.name = \"Sample1\",\ncluster.column = \"celltype\", colors.column = \"celltype_color\",\nselected_clusters = list(c(\"TSK\")), title = NULL, annotate_centroids = FALSE)\nplots <- plotSpatialExpression(cellrouter, assay.type = \"ST\", sample.name = \"Sample1\",\npoint.size = 1.7, genes = c(\"LRP1\", \"MMP9\", \"SDC1\", \"TNC\"),\ncluster.column = \"Subpopulation\", selected_clusters = c(\"Fibrovascular-like-4\", \"TSK-1\"))\ngridExtra::grid.arrange(grobs = plots, ncol = 3)\n18. Predict a gene regulatory network (GRN) and create/define a protein-protein interaction network (PPI) for intracellular signaling.\nThen we identified transcription factors and transcription regulators based on gene ontology annotations and defined two igraph objects (networks) containing the GRN and the PPI network using the *buildGRN* and *createPPI* functions. The PPI network used data from the *iRefIndex* database.\nUsed parameters the *buildGRN* function:\n- assay.type = \"ST\", defining spatial transcriptomics analysis.\n- species = \"Hs\", defining the species: *Hs* for *Homo Sapiens* or *Mm* for *Mus Musculus*.\n- genes.use = character, defining the genes to to include in the gene regulatory network.\n- blocksize = numeric, defining the size of the blocks in which genes will be scaled.\n- zscore = 4, defining the threshold to identify putative regulatory interactions.\n- filename = character, filename where the GRN data will be saved.\nUsed parameters the *createPPI* function:\n- filename = character, protein interaction data.\n- expr = cellrouter@assays$ST@ndata, gene expression in each cell.\n# Code:\nfilename <- paste(bd, \"/GRN_P4R1.R\", sep = \"\")\ngrn.data <- buildGRN(cellrouter, assay.type = \"ST\",\nspecies = \"Hs\", genes.use = rownames(cellrouter@assays$ST@ndata), blocksize = nrow(cellrouter@assays$ST@ndata), zscore = 4,\nfilename = filename)\nfilename <- \"9606.mitab.05-29-2019_zcat.txt\"\ninetwork <- createPPI(filename = filename, expr = cellrouter@assays$ST@ndata)\nfilename <- paste(bd, \"/9606.mitab.05-29-2019_zcat.R\", sep = \"\")\nsave(inetwork, file = filename)\n19. Create a weighted PPI network based on cell-type (cluster/subcluster-type) specific correlation coefficients.\nUsed parameters the *cellnetworksPPI2* function:\n- ppi = inetwork$network, defining the network as calculated by the *createPPI* function.\n- expr = cellrouter@assays$ST@ndata, defining the gene expression in each cell/spot.\n- samples = cellrouter@assays$ST@sampTab, defining the metadata information of the cells/spots.\n- column = \"Subpopulation\", defining the column with the groups in metadata.\n- corThr1 = 0.10, values smaller then corThr1 in the correlation matrix will be replaced by 0. Therefore, there will be no connections between the genes with value 0.\n- corThr2 = 0.25, keep gene-gene interactions with correlation higher than the threshold.\n- dir.prefix = \"\", defining the prefix of the directory where the files will be saved.\n# Code:\n#inetwork <- get(load(paste(basedir, \"/9606.mitab.05-29-2019_zcat.R\", sep = \"\")))\ncorTables <- cellnetworksPPI2(ppi = inetwork$network, expr = cellrouter@assays$ST@ndata,\nsamples = cellrouter@assays$ST@sampTab, column = 'Subpopulation',\ncorThr1 = 0.10, corThr2 = 0.25, dir.prefix = \"\")\ngrn.data <- get(load(paste(bd, '/GRN_P4R1.R', sep=\"\"))) # !\n20. Find paths between sources (receptors) and targets (transcription factors).\nWe had filtered out 1 - statistically significant interactions between subclusters (using a null distribution of intrasubcluster gene expression means), 2 - ligands identified by the original publication (*CCL2*, *CCL5*, *CTGF*, *CXCL10*, *CXCL16*, *MMP9*, *PGF*, *TGFB1*, *TIMP1*, *TNC*, *VEGFA*), 3 - interactions between tumor (TSK-1, -2, -3 and -4) and stroma (Fibrovascular-like-4). Now we define possible *sources* (receptors) and *targets/sinks* (all transcription factors in the expression data) of intracellular signaling. Then, we identify pathways connecting source and target populations using the *findpaths.simpleRJava* function.\nNext, CellComm calculates an activity score for each receptor-to-regulator path based on the assumption that critically important downstream transcriptional regulators have their regulons (predicted target genes in our reconstructed gene regulatory network) enriched in cell/cluster/subcluster type-specific signatures, implicating the transcriptional regulator as a major determinant of cell/cluster/subcluster type identity. This computational approach allows CellComm to predict putative signaling pathways and downstream transcriptional networks without prior knowledge of pathway structure. We used the *summarize.flow* function to Preprocess the output of *findpaths.simpleRJava* to a format acceptable by the function *activeSignaling* which in turn is responsible for identifying the transcriptional regulators for which their predicted regulons are significantly enriched in cluster or cell type-specific gene signatures. The *rankpaths* function computes and ranks pathways from cell surface receptors to downstream transcriptional regulators based.\nUsed parameters the\nfindpaths.simpleRJava\nfunction:\n- cellcomm = cellcomm, CellComm object.\n- sources.targets = sts2Sreceptor[[interaction]], list of cell surface receptors and downstream transcriptional regulators.\n- file = filename to save intermediary results.\n- dir = subfolder to save intermediary results.\n- maindir = basedir from which subfolders will be created.\nUsed parameters the\nsummarize.flow\nfunction:\n- files = files, list of files pointing to flow networks containing raw output from\nfindpaths.SimpleRJava\nfunction.\nUsed parameters the\nactiveSignaling\nfunction:\n- data = cellrouter@assaysSST@ndata, normalized gene expression data.\n- sampTab = cellrouter@assays$ST@sampTab, study metadata, containing a column identifying clusters or cell types.\n- grn = grn, the gene regulatory network previously reconstructed from the gene expression data.\n- markers = markers, result of running findSignatures. It is a table containing differential expression results.\n- summary = summary, output of function summary.flow.\n- fc = 0.2, fold change used as a node size parameter in igraph graph generated by CellComm and determine whether to show or not the label for that node.\nUsed parameters the\nrankpaths\nfunction:\n- summary = summary, the output of\nsummarize.flow\nfunction.\n- apathways = apathways$pathways, the output of\nactiveSignaling\nfunction.\n# Code:\ntfs <- intersect(grn.data$tfs, rownames(cellrouter@assays$ST@ndata))\nx <- rbind(gene.pairs_01$markers, gene.pairs_02$markers)\nhead(x, n = 3)\nsts2 <- list()\nfor(i in unique(x$celltypes)){\ntmp <- x[which(x$celltypes == i),]\nrs <- unique(tmp$receptor)\nsts2[[\"receptor\"]][[i]]$sources <- rs\u00a0# receptors\nsts2[[\"receptor\"]][[i]]$targets <- tfs # TFs (all)\n}\n# Example\n#head(sts2$receptor$`TSK-1_Fibrovascular-like-4`)\nwd_package <- getwd()\nsetwd(wd_package)\nmaindir <- paste0(wd_package, '')\n# tumor <- c(\"TSK-1_Fibrovascular-like-4\", \"TSK-2_Fibrovascular-like-4\", \"TSK-3_Fibrovascular-like-4\", \"TSK-4_Fibrovascular-like-4\")\n# TME <- c(\"Fibrovascular-like-4_TSK-1\", \"Fibrovascular-like-4_TSK-2\", \"Fibrovascular-like-4_TSK-3\", \"Fibrovascular-like-4_TSK-4\")\ninteractionList <- c(tumor, TME)\ncellcomm <- CreateCellComm()\nfor(interaction in interactionList){\ninteraction <- gsub(\" \", \".\", interaction)\nprint(interaction)\ncelltype <- strsplit(interaction, split = \"[_]\")[[1]][2]\ncat(\"Using \", celltype, \" coexpression network\\n\")\nfilename <- paste(celltype, \".txt\", sep='')\ndirname <- gsub((\"[.]\"), \".\", interaction)\ncellcomm <- findpaths.simpleRJava(cellcomm, sources.targets = sts2$receptor[[interaction]], file = filename, dir = dirname, maindir = maindir)\n}\nfiles <- list()\nfor(i in interactionList){\nf <- paste(strsplit(i, split = \"_\")[[1]][2], \".txt\", sep = \"\")\nfiles[[i]] <- f\n}\nsummary <- summarize.flow(files, prefix = \"\")\ngrn <- grn.data$GRN_table\ncolnames(grn) <- c(\"target\", \"reg\", \"zscore\", \"corr\")\nsampTab <- cellrouter@sampTab\napathways <- activeSignaling(data = cellrouter@assays$ST@ndata, sampTab = cellrouter@assays$ST@sampTab, grn = grn, markers = markers, summary = summary, fc = 0.2)\nnpaths <- rankpaths(summary, apathways$pathways)\noptions(repr.plot.width = 7, repr.plot.height = 7)\na1 <- signaling2TF(npaths, num.pathways = 20, interaction = tumor[1])\na2 <- signaling2TF(npaths, num.pathways = 20, interaction = tumor[2])\na3 <- signaling2TF(npaths, num.pathways = 20, interaction = tumor[3])\na4 <- signaling2TF(npaths, num.pathways = 20, interaction = tumor[4])\ncombined <- do.call(rbind, list(a1$df, a2$df, a3$df, a4$df))\ng <- ggplot(combined, aes(path, interaction)) + geom_point(aes(colour=score, size=score)) + #geom_tile(aes(fill = score2)) +\nscale_colour_gradientn(\"Activity score\",colours=c(\"midnightblue\",\"dodgerblue3\",\"white\",\"goldenrod1\",\"darkorange2\")) + theme_bw() +\nxlab(\"\") + ylab(\"\") +\ntheme(legend.position=\"top\", axis.text.x = element_text(size=rel(1), angle=45, hjust=1),\npanel.grid.minor = element_blank(),\naxis.ticks=element_blank(),#)+#,\npanel.border=element_rect(fill = NA, colour=alpha('black', 1),size=1)) +\nguides(colour = guide_colourbar(title.position=\"top\", title.hjust = 0.5),\nsize = guide_legend(title.position=\"top\", title.hjust = 0.5)) + coord_flip()\ng\na5 <- signaling2TF(npaths, num.pathways = 15, interaction = TME[1])\na6 <- signaling2TF(npaths, num.pathways = 15, interaction = TME[2])\na7 <- signaling2TF(npaths, num.pathways = 15, interaction = TME[3])\na8 <- signaling2TF(npaths, num.pathways = 15, interaction = TME[4])\ncombined <- do.call(rbind, list(a5$df, a6$df, a7$df, a8$df))\ng <- ggplot(combined, aes(path, interaction)) + geom_point(aes(colour=score, size=score)) + #geom_tile(aes(fill = score2)) +\nscale_colour_gradientn(\"Activity score\",colours=c(\"midnightblue\",\"dodgerblue3\",\"white\",\"goldenrod1\",\"darkorange2\")) + theme_bw() +\nxlab(\"\") + ylab(\"\") +\ntheme(legend.position=\"top\", axis.text.x = element_text(size=rel(1), angle=45, hjust=1),\npanel.grid.minor = element_blank(),\naxis.ticks=element_blank(),#)+#,\npanel.border=element_rect(fill = NA, colour=alpha('black', 1),size=1)) +\nguides(colour = guide_colourbar(title.position=\"top\", title.hjust = 0.5),\nsize = guide_legend(title.position=\"top\", title.hjust = 0.5)) + coord_flip()\ng"
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p>Step: 7</p><p>Problem: The function scoreGeneSets creates columns in the metadata table that, if run more than once, generates column names different from the desired one, with suffix \u201c.1\u201d, \u201c.2\u201d, etc.</p><p>Solution: If the function has been run more than once, it is suggested to delete the columns added in the metadata table.</p><p>&nbsp;</p><p>Step: 19</p><p>Problem: Networks with too many elements can cause java to crash.</p><p>Solution: Use higher values in the network trimming parameters, <em>corThr1</em>&nbsp;e <em>corThr2</em>.</p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>Time end-to-end for a beginner user should be around 4 hours (the computation of the null distribution/empirical <em>p</em>&nbsp;is the most computationally demanding step and, consequently, takes longer).</p><p><br></p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": ""
+        },
+        {
+            "header": "References",
+            "content": "<p>1. Ji, A. L. et al. Multimodal Analysis of Composition and Spatial Architecture in Human Squamous Cell Carcinoma. Cell. 182(2), 497-514 (2020).</p><p><br></p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>This work was supported by the following grants from the National Institutes of Health (NIH): RC2DK120535 (GQD, TEN), U01HL134812 (GQD, TEN), R24DK092760 (GQD, TEN), R01DK098241 (TEN), F32DK122715, K01DK129409 (WWS). E.L.d.R would like to thank CAPES \u2013 Coordination for the Improvement of Higher Education Personnel, Brazil. C.K. was supported by a postdoctoral fellowship from the German Research Foundation (DFG; grant KU 3580/1-1).</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41559-022-01722-1",
+                "date": "",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            },
+            {
+                "doi": "10.1038/s41556-022-00884-1",
+                "date": "",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 84342412,
+                "identity": "eba80740-1043-4669-8074-1fbf7076fac4",
+                "order_by": 0,
+                "name": "Edroaldo Lummertz da Rocha",
+                "email": "edroaldo.lummertz@ufsc.br",
+                "orcid": "https://orcid.org/0000-0003-0537-4223",
+                "institution": "Department of Microbiology, Immunology and Parasitology, Federal University of Santa Catarina, Florian\u00f3polis, SC, 88040-900, Brazil",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Edroaldo",
+                "middleName": "Lummertz da",
+                "lastName": "Rocha",
+                "suffix": ""
+            },
+            {
+                "id": 84342413,
+                "identity": "46a6b7ea-ce2b-40a4-ab6d-016032614e53",
+                "order_by": 1,
+                "name": "Caroline Kubaczka",
+                "email": "",
+                "orcid": "",
+                "institution": "Stem Cell Program, Boston Children's Hospital, Boston, MA 02115, USA; Division of Hematology/Oncology, Boston Children's Hospital and Dana Farber Cancer Institute, Boston, MA 02115, USA; Department of Biological Chemistry and Molecular Pharmacology, Harvard Medical School, Boston, MA 02115 USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Caroline",
+                "middleName": "",
+                "lastName": "Kubaczka",
+                "suffix": ""
+            },
+            {
+                "id": 84342414,
+                "identity": "b980ef7b-e4df-4692-94f9-9d34b1b6e009",
+                "order_by": 2,
+                "name": "Wade W. Sugden",
+                "email": "",
+                "orcid": "",
+                "institution": "Stem Cell Program, Boston Children's Hospital, Boston, MA 02115, USA; Division of Hematology/Oncology, Boston Children's Hospital and Dana Farber Cancer Institute, Boston, MA 02115, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Wade",
+                "middleName": "W.",
+                "lastName": "Sugden",
+                "suffix": ""
+            },
+            {
+                "id": 84342415,
+                "identity": "eef1ef25-2cc4-43f6-9ebb-7703460a32b1",
+                "order_by": 3,
+                "name": "Mohamad Najia",
+                "email": "",
+                "orcid": "",
+                "institution": "Stem Cell Program, Boston Children's Hospital, Boston, MA 02115, USA; Division of Hematology/Oncology, Boston Children's Hospital and Dana Farber Cancer Institute, Boston, MA 02115, USA; Department of Biological Chemistry and Molecular Pharmacology, Harvard Medical School, Boston, MA 02115 USA; Broad Institute of MIT and Harvard, Cambridge, MA, 02142, USA; Harvard-MIT Health Sciences & Technology, Massachusetts Institute of Technology",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Mohamad",
+                "middleName": "",
+                "lastName": "Najia",
+                "suffix": ""
+            },
+            {
+                "id": 84342416,
+                "identity": "9ed101c3-78ed-40ff-b462-fec287bf4c9d",
+                "order_by": 4,
+                "name": "Ran Jing",
+                "email": "",
+                "orcid": "",
+                "institution": "Stem Cell Program, Boston Children's Hospital, Boston, MA 02115, USA; Division of Hematology/Oncology, Boston Children's Hospital and Dana Farber Cancer Institute, Boston, MA 02115, USA; Department of Biological Chemistry and Molecular Pharmacology, Harvard Medical School, Boston, MA 02115 USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Ran",
+                "middleName": "",
+                "lastName": "Jing",
+                "suffix": ""
+            },
+            {
+                "id": 84342417,
+                "identity": "bb2ed625-286a-461b-9fa1-c954344c5356",
+                "order_by": 5,
+                "name": "Arianna Markel",
+                "email": "",
+                "orcid": "",
+                "institution": "Stem Cell Program, Boston Children's Hospital, Boston, MA 02115, USA; Division of Hematology/Oncology, Boston Children's Hospital and Dana Farber Cancer Institute, Boston, MA 02115, USA; Department of Biological Chemistry and Molecular Pharmacology, Harvard Medical School, Boston, MA 02115 USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Arianna",
+                "middleName": "",
+                "lastName": "Markel",
+                "suffix": ""
+            },
+            {
+                "id": 84342418,
+                "identity": "b3605a0d-7568-4d44-9853-1381330e88dc",
+                "order_by": 6,
+                "name": "Zachary LeBlanc",
+                "email": "",
+                "orcid": "",
+                "institution": "Stem Cell Program, Boston Children's Hospital, Boston, MA 02115, USA; Division of Hematology/Oncology, Boston Children's Hospital and Dana Farber Cancer Institute, Boston, MA 02115, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Zachary",
+                "middleName": "",
+                "lastName": "LeBlanc",
+                "suffix": ""
+            },
+            {
+                "id": 84342419,
+                "identity": "4778795d-3044-4455-a342-847238dcfe8c",
+                "order_by": 7,
+                "name": "Rafael dos Santos Peixoto",
+                "email": "",
+                "orcid": "",
+                "institution": "Undergraduate program in Automation and Control Engineering, Federal University of Santa Catarina, Florian\u00f3polis, SC, 88040-900, Brazil",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Rafael",
+                "middleName": "dos Santos",
+                "lastName": "Peixoto",
+                "suffix": ""
+            },
+            {
+                "id": 84342420,
+                "identity": "4c6d75ce-691d-481d-83a3-4910b8e953bd",
+                "order_by": 8,
+                "name": "Marcelo Falchetti",
+                "email": "",
+                "orcid": "",
+                "institution": "Graduate Program of Pharmacology, Center for Biological Sciences, Federal University of Santa Catarina, Florian\u00f3polis, SC, 88040-900, Brazil",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Marcelo",
+                "middleName": "",
+                "lastName": "Falchetti",
+                "suffix": ""
+            },
+            {
+                "id": 84342421,
+                "identity": "404267d5-7842-4712-8160-00e2fa17563e",
+                "order_by": 9,
+                "name": "James J. Collins",
+                "email": "",
+                "orcid": "",
+                "institution": "Broad Institute of MIT and Harvard, Cambridge, MA, 02142, USA; Harvard-MIT Health Sciences & Technology, Massachusetts Institute of Technology; Wyss Institute for Biologically Inspired Engineering, Harvard University, Boston, MA, USA; Institute for Medical Engineering and Science, Massachusetts Institute of Technology, Cambridge, MA, USA; Department of Biological Engineering, Massachusetts Institute of Technology, Cambridge,  MA, USA; Synthetic Biology Center, Massachusetts Institute of Technology, Cambridge, MA, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "James",
+                "middleName": "J.",
+                "lastName": "Collins",
+                "suffix": ""
+            },
+            {
+                "id": 84342422,
+                "identity": "17feac74-31b4-4a49-ad27-c5f4a2be07e6",
+                "order_by": 10,
+                "name": "Trista E. North",
+                "email": "",
+                "orcid": "",
+                "institution": "Stem Cell Program, Boston Children's Hospital, Boston, MA 02115, USA; Division of Hematology/Oncology, Boston Children's Hospital and Dana Farber Cancer Institute, Boston, MA 02115, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Trista",
+                "middleName": "E.",
+                "lastName": "North",
+                "suffix": ""
+            },
+            {
+                "id": 84342423,
+                "identity": "76edc4de-5681-4879-91a3-c7769f7ff150",
+                "order_by": 11,
+                "name": "George Q. Daley",
+                "email": "",
+                "orcid": "",
+                "institution": "Stem Cell Program, Boston Children's Hospital, Boston, MA 02115, USA; Division of Hematology/Oncology, Boston Children's Hospital and Dana Farber Cancer Institute, Boston, MA 02115, USA; Department of Biological Chemistry and Molecular Pharmacology, Harvard Medical School, Boston, MA 02115 USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "George",
+                "middleName": "Q.",
+                "lastName": "Daley",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2022-02-16 16:04:12",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1843/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1843/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 20278687,
+                "identity": "fff423bc-746a-4a57-9ed3-b4be052673b0",
+                "added_by": "auto",
+                "created_at": "2022-04-13 08:05:00",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 237314,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1843/v1/37b848b0-a460-4343-9ace-a43f138e9dcd.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "CellComm; scRNA-seq; spatial transcriptomics, cellular communication, intracellular signaling, Visium 10X",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>Intercellular communication is important for tissue development and homeostasis, and when dysregulated contributes to a multitude of pathobiological processes. Cells communicate with each other by several mechanisms, including direct cell-cell contacts between membrane-tethered ligands and receptors on the cell surface, through secreted molecules that bind their cognate receptor on the receiving cell, or alternative modalities such as exosomes. The study of cell-cell communication networks using single-cell genomic approaches is now under intensive investigation, and innovative algorithms to interpret the data, infer how cells interact and identify the downstream effectors of a putative binding of a ligand to its cognate receptor are critically needed. Here, we describe a protocol to run CellComm, a data-driven systems biology algorithm that integrates single-cell RNA-sequencing, protein interaction networks, and gene regulatory networks to infer which cells within a heterogeneous tissue are actively communicating, as well as their downstream transcriptional programs. When spatial transcriptomics data is available, CellComm additionally identifies spatially-resolved cell-cell interactions within the tissue.&nbsp;This protocol is associated with our Nature Cell Biology paper describing our algorithm: CellComm infers cellular crosstalk that drives hematopoietic stem and progenitor cell development.</p>",
+        "manuscriptTitle": "Prediction of intercellular communication networks using CellComm",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2022-04-13 08:04:56",
+                "doi": "10.21203/rs.3.pex-1843/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "712e188d-fa49-469d-b387-3ce4a5d123cd",
+        "owner": [],
+        "postedDate": "April 13th, 2022",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2022-04-13 08:04:56",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

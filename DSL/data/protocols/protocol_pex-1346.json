@@ -1,0 +1,191 @@
+{
+    "identity": "pex-1346",
+    "title": "<p>CleaveSeq: Scalable characterization of ribozyme-based RNA biosensors</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>DRIVER and CleaveSeq are methods for generation and characterization respectively of biosensors based on a self-cleaving ribozyme coupled to an RNA aptamer<sup>1</sup>. This protocol describes the steps of CleaveSeq that can be used to characterize a library of biosensors under multiple conditions.&nbsp;&nbsp;The number of distinct sequences that can be characterized in parallel are limited only by the number of NGS reads dedicated to this \u2013 typically thousands of sequences can be characterized using a single Illumina run.&nbsp;&nbsp;Each different condition, such as a different chemical addition or concentration, requires a separate tube for the reactions that form the steps of CleaveSeq, with them all combined after barcoding into a single Illumina run.&nbsp;&nbsp;Although the protocol below is written as a manual set of steps, the bulk of the procedure is amenable to operation on a liquid-handling robot.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chemicals to be tested</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T7 RNA Polymerase@50U/\u00b5l (NEB M0251)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RNApol Buffer@10x&nbsp;&nbsp;(NEB M0251)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rNTP@25mM/NTP (NEB N0466)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Omniscript Reverse Transcription Kit (Qiagen 205113)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T4 DNA Ligase Buffer@10x (NEB M0202)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T4 DNA Ligase@400U/\u00b5l (NEB M0202)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thermo Pol Buffer@10x (NEB B9004)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uracil-DNA Glycosylase (UDG)@5U/\u00b5l (NEB M0280)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Endonuclease IV@10U/\u00b5l (NEB M0304)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MgCl2@25mM (NEB B9021)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Salmon Sperm DNA diluted to 100\u00b5g/ml (Life Technologies AM9680)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hot Start Taq (NEB M0495)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TE8 (IDT 11-05-01-09)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kapa HiFi PCR Kit (Roche KK2101)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NEBNext Dual Unique Index Barcodes (NEB E6440, E6442, E6444, or E6446)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kapa Library Quantification Kit for Illumina (Roche KK4855, KK4824, KK4835, KK4854, or KK4873; depending on real-time PCR cycler used)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PhiX Control V3 (Illumina FC-110-3001)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Oligonucleotides</p><p>\t\to&nbsp;&nbsp;&nbsp;Library (see Procedure)</p><p>\t\to&nbsp;&nbsp;&nbsp;T7Promoter (IDT; AATTTAATACGACTCACTATAGG; PAGE-purified)</p><p>\t\to&nbsp;&nbsp;&nbsp;Z-Stop (IDT; /5Phos/G ACAGC GTTTTGTTTTGT CCC AC GCUGT C ACTGGA /iSpC3/ U TTTCTTTTT GCTGT TTC GTCC; PAGE-purified)</p><p>\t\to&nbsp;&nbsp;&nbsp;Ref_ZStop_W_R6R30m_X (IDT; GAC AGC GTT TTG TTT TGT CCC ACG CUG TCA CTG GA /iSp18/ UTT TCT TTT TGC TGT TTC GTC CTC GGC ATA GCA TCG CCT AAG TCA TTG ACA CGG ACT CAT CAG ACC GGA ATG ACA TCC AGT GAC AGC TTT GTT TGT TTC CC)</p><p>\t\to&nbsp;&nbsp;&nbsp;Ref_ZStop_W_R6R30n_X_cut (IDT; TTT CTT TTT GCT GTT TCG TCC TCG GCA TAG CTC GGC ACA CTT CAT TGA CAC GGA CTC ATC AGA CCG GAA CGT AAT CCA GTG ACA GCT TTG TTT GTT TCC C)</p><p>\t\to&nbsp;&nbsp;&nbsp;Ref_ZStop_clvd_R6R30o_X (IDT; /5Phos/GAC AGC GTT TTG TTT TGT CCC ACG CUG TCA CTG GA /iSp18/ UTT TCT TTT TGC TGT TTC GTC CTC GGC ATA GCA AGG ATT CCA TCA TTG ACA CGG ACT CAT CAG ACC GGA AGC ATA TCC AGT)</p><p>\t\to&nbsp;&nbsp;&nbsp;Ref_ZStop_clvd_R6R30p_X_lig_cut (IDT; TTT CTT TTT GCT GTT TCG TCC TCG GCA TAG CAG TGA ACC TCT CAT TGA CAC GGA CTC ATC AGA CCG GAA TCG AAT CCA GTG ACA GCG TTT TGT TTT GTC CCA CGC)</p><p>\t\to&nbsp;&nbsp;&nbsp;WFU (IDT; ACAC TCTTTCCCTACACGAC GCTCTTCCGATCT GGG AAACAAACAAA GCTG/3SpC3/)</p><p>\t\to&nbsp;&nbsp;&nbsp;ZFC (IDT; ACAC TCTTTCCCTACACGAC GCTCTTCCGATCT GCGT GGG ACAAAACAAAAC GC/3SpC3/)</p><p>\t\to&nbsp;&nbsp;&nbsp;XRC (IDT; GACTGGAGTTCAGACGTGT GCTCTTCCGATCT TTT CTTTTT GCTGT TTC GTCC/3SpC3/)</p><p>\t\to&nbsp;&nbsp;&nbsp;RD1 (IDT; ACAC TCTTTCCCTACACGAC GCTCTTCCGATCT)</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PCR Tubes (USA Scientific 1402-4700)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DNA Lo-bind tubes (Eppendorf 22431021)</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thermocycler</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Illumina Sequencer</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Real-time PCR Cycler</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "All steps up to and including reverse transcription should be carried out in an RNase-free environment using RNase-free reagents, tubes, and barrier pipette-tips.\nRecipes\nReference Mix\n1.\u00a0\u00a0\u00a0\u00a0\u00a0Mix the following ingredients to form 1000 \u00b5l of the reference mix@20nM\na.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0992\u00b5l TE8\nb.\u00a0\u00a0\u00a0\u00a0\u00a02\u00b5l Ref_ZStop_W_R6R30m_X oligo@10\u00b5M\nc.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a02\u00b5l Ref_ZStop_W_R6R30n_X_cut oligo@10\u00b5M\nd.\u00a0\u00a0\u00a0\u00a0\u00a02\u00b5l Ref_ZStop_clvd_R6R30o_X oligo@10\u00b5M\ne.\u00a0\u00a0\u00a0\u00a0\u00a02\u00b5l Ref_ZStop_clvd_R6R30p_X_lig_cut oligo@10\u00b5M\n2.\u00a0\u00a0\u00a0\u00a0\u00a0Dilute the reference mix to 50pM by mixing 2\u00b5l@20nM and 798\u00b5l of TE8 in a DNA Lo-Bind Eppendorf tube.\nPCR1 Oligo Mix\n1.\u00a0\u00a0\u00a0\u00a0\u00a0Mix the following ingredients to form 250\u00b5l of the PCR1 oligo mixture @4x\na.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0225\u00b5l TE8\nb.\u00a0\u00a0\u00a0\u00a0\u00a05\u00b5l WFU oligo@100\u00b5M\nc.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a05\u00b5l ZFC oligo@100\u00b5M\nd.\u00a0\u00a0\u00a0\u00a0\u00a05\u00b5l XRC oligo@100\u00b5M\ne.\u00a0\u00a0\u00a0\u00a0\u00a010\u00b5l RD1 oligo@100\u00b5M\nLibrary Preparation\n1.\u00a0\u00a0\u00a0\u00a0\u00a0Prepare library of transcription templates based on the sTRSV ribozyme with chosen loop sequences and preceded by the T7 RNA polymerase\u2019s promoter sequence.\n2.\u00a0\u00a0\u00a0\u00a0\u00a0Synthesize the library as a pool of oligonucleotides in the reverse-complement direction.\n3.\u00a0\u00a0\u00a0\u00a0\u00a0For example, for the native ribozyme, sTRSV, in this context, use the sequence: < TTTTTATTTTTCTTTTT GCTGT TTC GTCC TCAC GGAC TCATCAG ACCGGA AAGCACA TCCGGT G ACAGC TTTGTTTGTTT CCC TATAGTGAGTCGTATTAAATT >.\u00a0\u00a0Desired sequences, which may contain aptamers, replace the loop sequences, TCAC and AAGCACA, above (in reverse-complement orientation).\n4.\u00a0\u00a0\u00a0\u00a0\u00a0Anneal the library to an equimolar solution of the T7 promoter in the forward direction to allow runoff transcription.\n5.\u00a0\u00a0\u00a0\u00a0\u00a0Dilute the library to a concentration of 10nM\u00a0in TE8.\nTranscription\n1.\u00a0\u00a0\u00a0\u00a0\u00a0Prepare enough transcription master mix@2.5x for N reactions, by mixing in the following order:\na.\u00a0\u00a0\u00a0\u00a0\u00a0water to bring the total volume to 8N \u00b5l\nb.\u00a0\u00a0\u00a0\u00a0\u00a02.0N \u00b5l of 10x RNA Pol Buffer\nc.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a01.8N \u00b5l of rNTP@100mM\nd.\u00a0\u00a0\u00a0\u00a0\u00a00.4N \u00b5l of DTT@500mM\ne.\u00a0\u00a0\u00a0\u00a0\u00a02.0N \u00b5l of T7 RNA Polymerase@50U/\u00b5l\n2.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Add the following ingredients in the listed order in one PCR tube per reaction:\na.\u00a0\u00a0\u00a0\u00a0\u00a0water to bring the total volume to 20\u00b5l\nb.\u00a0\u00a0\u00a0\u00a0\u00a02 \u00b5l of the above library\nc.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0up to 11.8 \u00b5l of target chemical(s) (if chemicals are in DMSO, limit to 2\u00b5l to keep final DMSO concentration <= 10%)\nd.\u00a0\u00a0\u00a0\u00a0\u00a08\u00b5l of 2.5x transcription master mix\n3.\u00a0\u00a0\u00a0\u00a0\u00a0Vortex briefly and spin down mixtures.\n4.\u00a0\u00a0\u00a0\u00a0\u00a0Incubate at 37\u00baC for 30 minutes\n5.\u00a0\u00a0\u00a0\u00a0\u00a0Spin down products.\nReverse Transcription\n1.\u00a0\u00a0\u00a0\u00a0\u00a0While transcription is running, prepare 4\u00b5l/reaction of RT master mix @2x concentration, by mixing in the following order:\na.\u00a0\u00a0\u00a0\u00a0\u00a00.72N \u00b5l water to bring the total volume to 4N \u00b5l\nb.\u00a0\u00a0\u00a0\u00a0\u00a00.8N \u00b5l of Omniscript buffer@10x\nc.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a00.8N \u00b5l of Omniscript dNTPs@5mM\nd.\u00a0\u00a0\u00a0\u00a0\u00a01.28N \u00b5l of MgCl2@25mM\ne.\u00a0\u00a0\u00a0\u00a0\u00a00.4N \u00b5l of Omniscript enzyme@4U/\u00b5l\n2.\u00a0\u00a0\u00a0\u00a0\u00a0Remove 2\u00b5l of each transcription reaction to clean PCR tubes.\n3.\u00a0\u00a0\u00a0\u00a0\u00a0Add 2\u00b5l of stop oligonucleotide @4\u00b5M to each tube.\n4.\u00a0\u00a0\u00a0\u00a0\u00a0Vortex briefly and spin down mixture.\n5.\u00a0\u00a0\u00a0\u00a0\u00a0Add 4\u00b5l of RT master mix to each reaction\n6.\u00a0\u00a0\u00a0\u00a0\u00a0Vortex briefly and spin down mixture.\n7.\u00a0\u00a0\u00a0\u00a0\u00a0Incubate at 50\u00baC for 20 minutes.\n8.\u00a0\u00a0\u00a0\u00a0\u00a0Heat inactivate enzyme and refold cDNA at 95\u00baC for 2 minutes.\n9.\u00a0\u00a0\u00a0\u00a0\u00a0Spin down products.\nLigation\n1.\u00a0\u00a0\u00a0\u00a0\u00a0While reverse transcription is running, prepare 4\u00b5l/reaction of ligation master mix@5x concentration, by mixing in the following order:\na.\u00a0\u00a0\u00a0\u00a0\u00a01.0N \u00b5l water\nb.\u00a0\u00a0\u00a0\u00a0\u00a02.0N \u00b5l T4 DNA Ligase Buffer@10x\nc.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a01.0N \u00b5l T4 DNA Ligase@400U/\u00b5l\n2.\u00a0\u00a0\u00a0\u00a0\u00a0Add 8\u00b5l of water to the same tubes use for the reverse transcription.\n3.\u00a0\u00a0\u00a0\u00a0\u00a0Add 4\u00b5l of the ligation master mix to each reaction.\n4.\u00a0\u00a0\u00a0\u00a0\u00a0Vortex briefly and spin down mixture.\n5.\u00a0\u00a0\u00a0\u00a0\u00a0Incubate at 37\u00baC for 15 minutes\n6.\u00a0\u00a0\u00a0\u00a0\u00a0Heat inactivate enzyme at 65\u00baC for 10 minutes.\n7.\u00a0\u00a0\u00a0\u00a0\u00a0Spin down products.\nUDG/Exo digestion\n1.\u00a0\u00a0\u00a0\u00a0\u00a0While ligation is running, prepare 8\u00b5l/reaction of digestion master\nmix@1.25x\n, by mixing in the following order:\na.\u00a0\u00a0\u00a0\u00a0\u00a06.4N \u00b5l of water\nb.\u00a0\u00a0\u00a0\u00a0\u00a01.0N \u00b5l of Thermo Pol Buffer@10x\nc.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a00.4N \u00b5l of Reference Mix@50pM\nd.\u00a0\u00a0\u00a0\u00a0\u00a00.1N \u00b5l of UDG@5U/\u00b5l\ne.\u00a0\u00a0\u00a0\u00a0\u00a00.1N \u00b5l of Endoncuclease IV@10U/\u00b5l\n2.\u00a0\u00a0\u00a0\u00a0\u00a0Dilute ligation products 25x by adding 6\u00b5l of each reaction to a new PCR tube containing 144\u00b5l of TE8.\n3.\u00a0\u00a0\u00a0\u00a0\u00a0Vortex briefly and spin down mixtures.\n4.\u00a0\u00a0\u00a0\u00a0\u00a0Add 2\u00b5l of each reaction to 8\u00b5l of digestion master\nmix@1.25x\nin a new PCR tube.\n5.\u00a0\u00a0\u00a0\u00a0\u00a0Vortex briefly and spin down mixtures.\n6.\u00a0\u00a0\u00a0\u00a0\u00a0Incubate at 37\u00baC for 15 minutes.\n7.\u00a0\u00a0\u00a0\u00a0\u00a0Heat inactivate enzymes at 85\u00baC for 20 minutes.\n8.\u00a0\u00a0\u00a0\u00a0\u00a0Spin down products.\nNGS Adapter Addition\n1.\u00a0\u00a0\u00a0\u00a0\u00a0While digestion is running, prepare 4\u00b5l/reaction of PCR1 master mix@3.5x, by mixing in the following order:\na.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a00.37N \u00b5l of water\nb.\u00a0\u00a0\u00a0\u00a0\u00a00.08N \u00b5l of Thermo Pol Buffer@10x\nc.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a00.08N \u00b5l of MgCl2@25mM\nd.\u00a0\u00a0\u00a0\u00a0\u00a00.08N \u00b5l of Salmon Sperm DNA@100\u00b5g/ml\ne.\u00a0\u00a0\u00a0\u00a0\u00a00.04N \u00b5l of PCR1 oligonucleotide mixture@10x\nf.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a00.02N \u00b5l of Hot-Start Taq@200x\n2.\u00a0\u00a0\u00a0\u00a0\u00a0Add 4\u00b5l of PCR1 master mix to each digestion reaction in the same PCR tube.\n3.\u00a0\u00a0\u00a0\u00a0\u00a0Vortex briefly and spin down mixtures.\n4.\u00a0\u00a0\u00a0\u00a0\u00a0Run the following PCR cycling: (PCR1)\na.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Activation for 30s at 95\u00baC\nb.\u00a0\u00a0\u00a0\u00a0\u00a0Repeat for 5 cycles:\ni.\u00a0\u00a0\u00a0\u00a0\u00a030s at 95\u00baC\nii.\u00a0\u00a0\u00a0\u00a0\u00a030s at 57\u00baC\niii.\u00a0\u00a0\u00a0\u00a0\u00a030s at 68\u00baC\nc.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a060s at 68\u00baC\nd.\u00a0\u00a0\u00a0\u00a0\u00a0Hold at 4\u00baC\n5.\u00a0\u00a0\u00a0\u00a0\u00a0Dilute each tube 10x in place by adding 126\u00b5l of water, vortex briefly and spin down.\n6.\u00a0\u00a0\u00a0\u00a0\u00a0Spin down products.\nNGS Index Addition\n1.\u00a0\u00a0\u00a0\u00a0\u00a0While PCR1 is running, prepare 16.7\u00b5l/reaction of PCR2 master mix@1.5x, by mixing in the following order:\na.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a010.4N \u00b5l of water\nb.\u00a0\u00a0\u00a0\u00a0\u00a05.0N \u00b5l of Kapa HiFi Buffer@5x\nc.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a00.75N \u00b5l of Kapa dNTP\u2019s@10mM\nd.\u00a0\u00a0\u00a0\u00a0\u00a00.5N \u00b5l of Kapa HiFi Polymerase@50x\n2.\u00a0\u00a0\u00a0\u00a0\u00a0Also, prepare a 6.25x dilution of the NEBNext Unique Dual Index Primer Pairs by diluting in TE8 and aliquoting 6.25\u00b5l/well to new plates for future use.\n3.\u00a0\u00a0\u00a0\u00a0\u00a0In clean PCR tubes, add the following:\na.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a016.7\u00b5l of PCR2 master mix@1.5x\nb.\u00a0\u00a0\u00a0\u00a0\u00a06.25\u00b5l\u00a0\u00a0\u00a0\u00a0\u00a0of a unique dual index primer pair@0.8\u00b5M each (this is a 6.25x dilution of the stock dual index primers); each sample should use a distinct primer pair.\nc.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a02\u00b5l of the diluted product from PCR1\n4.\u00a0\u00a0\u00a0\u00a0\u00a0Vortex briefly and spin down mixtures.\n5.\u00a0\u00a0\u00a0\u00a0\u00a0Run the following PCR cycling: (PCR2)\na.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Activation for 180s at 95\u00baC\nb.\u00a0\u00a0\u00a0\u00a0\u00a0Repeat for 14 cycles:\ni.\u00a0\u00a0\u00a0\u00a0\u00a030s at 98\u00baC\nii.\u00a0\u00a0\u00a0\u00a0\u00a030s at 64\u00baC\niii.\u00a0\u00a0\u00a0\u00a0\u00a030s at 72\u00baC\nc.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a060s at 72\u00baC\nd.\u00a0\u00a0\u00a0\u00a0\u00a0Hold at 4\u00baC\n6.\u00a0\u00a0\u00a0\u00a0\u00a0Perform a 1.8 Ampure cleanup of products using manufacturer\u2019s instructions, elute products in 30\u00b5l of TE8.\n7.\u00a0\u00a0\u00a0\u00a0\u00a0Quantify products using Kapa Quantification Kit using manufacturer\u2019s instructions\na.\u00a0\u00a0\u00a0\u00a0\u00a0Expect each product to be 2-20nM\nSequencing Library Mixdown\n1.\u00a0\u00a0\u00a0\u00a0\u00a0Mix products above such the number of moles added to the mixture correspond to the relative number of NGS reads that are desired for each condition.\u00a0\u00a0For equal coverage the mixture should include the same number of moles of each component.\u00a0\u00a0A minimum of 50 usable reads per library entry is required and >100 is preferable.\u00a0\u00a0Note that after removal of low-quality reads, single-base errors, references, amplicons, and other undesired sequences, approximately half of the total reads are typically usable.\n2.\u00a0\u00a0\u00a0\u00a0\u00a0Compute the concentration of the mixture based on the contribution of each component.\n3.\u00a0\u00a0\u00a0\u00a0\u00a0Dilute the mixture with TE8 to the required concentration for the sequencing platform of choice.\u00a0\u00a0For example, for iSeq, dilute to 100pM, for other Illumina platforms dilute to 4nM.\n4.\u00a0\u00a0\u00a0\u00a0\u00a0Addition of ~10% PhiX to the library is recommended to reduce issues related to amplicon sequencing on Illumina platforms.\nSequencing\nSequencing should be performed using paired-end reads long enough to read the entirety of the longest library entry including prefixes, suffixes and an overlap of at least 10nt for the two reads.\u00a0\u00a0Typically, 2x75 is adequate for short loop sequences (<40 nt in the two loops combined), or 2x150 for longer libraries. Both indexes should also be read using 8 cycles each.\nData Analysis\nThe sequencing data should be demultiplexed into separate fastq files for each of the dual unique indexes by the sequencing platform such as Illumina basespace. Following this, the following steps should be performed:\n1.\u00a0\u00a0\u00a0\u00a0\u00a0Paired reads can be assembled using PEAR\n2\n2.\u00a0\u00a0\u00a0\u00a0\u00a0Joined fastq files can be preprocessed to form a text file of total reads of each unique sequence in each file. This can be done using shell scripts (such as fastq2counts.sh from\nhttp://github.com/btownshend/NGSDatabase\n) or other tools.\n3.\u00a0\u00a0\u00a0\u00a0\u00a0For each sequence in the library, there will be reads of that sequence prefixed by one of two sequences.\u00a0\u00a0Reads corresponding to uncleaved RNA will be prefixed the same as they were in the input library:\n. Reads corresponding to cleaved RNA will be prefixed with\n.\u00a0\u00a0For each sequence, find the counts, Nc and Nu, of cleaved and uncleaved reads.\n4.\u00a0\u00a0\u00a0\u00a0\u00a0Calculate cleavage of each sequence as Nc/(Nc+Nu).\n5.\u00a0\u00a0\u00a0\u00a0\u00a0Compare cleavage of each sequence under each condition tested.\u00a0\u00a0For example, if one condition included no added chemicals and another had a chemical addition, then the ratio of cleavages in those two conditions, which mapped to different fastq files from the demultiplexing, will give the fold change due to addition of the chemical."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Low final concentration may result from failure at any step.&nbsp;&nbsp;Use of negative and positive control throughout the process are recommended.&nbsp;&nbsp;For example, at least one sample run in parallel should be a fixed sequence with known cleavage properties and a no-template control should also be included.&nbsp;&nbsp;Additional no-template controls can be added before PCR1 and PCR2</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If final concentration is slightly lower than the required sequencing concentration, products can be concentrated by a further cleanup step (and subsequent re-quantification) or by evaporation.&nbsp;&nbsp;</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;References added during the digestion steps should result in 1-10% of the final reads. The presence or absence of these references in the NGS reads can be used to diagnose problems in the protocol.</p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>A CleaveSeq run, starting from a library of ribozyme-based sensors in the form of the DNA templates, through  generation of a library that can be submitted for next-generation sequencing, takes approximately 8 hours.  Sequencing time varies with the platform, but generally takes less than one day and analysis of the resulting sequence data approximately 2 hours.</p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>See&nbsp;<sup>1</sup>&nbsp;for example results.</p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>1. Townshend, B., Xiang, J., Manzanarez, G., Hayden, E. &amp; Smolke, C.&nbsp;<em>A multiplexed, automated evolution pipeline enables scalable discovery and characterization of biosensors</em>. http://biorxiv.org/lookup/doi/10.1101/2020.05.29.117960 (2020) doi:10.1101/2020.05.29.117960.</p><p>2. Zhang, J., Kobert, K., Flouri, T. &amp; Stamatakis, A. PEAR: a fast and accurate Illumina Paired-End reAd mergeR.&nbsp;<em>Bioinformatics (Oxford, England)</em>&nbsp;<strong>30</strong>, 614\u201320 (2014).</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41467-021-21716-0",
+                "date": "2021-03-04 11:03:59",
+                "title": "A multiplexed, automated evolution pipeline enables scalable discovery and characterization of biosensors",
+                "authors": [
+                    "Brent Townshend",
+                    "Joy S. Xiang",
+                    "Gabriel Manzanarez",
+                    "Eric J. Hayden",
+                    "Christina D. Smolke"
+                ],
+                "journal": "Nature Communications",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 9010836,
+                "identity": "8ef45b47-14c6-46b2-aa5c-a7ac6571ee2b",
+                "order_by": 0,
+                "name": "Brent Townshend",
+                "email": "bst@stanford.edu",
+                "orcid": "https://orcid.org/0000-0003-1927-6341",
+                "institution": "Stanford University",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Brent",
+                "middleName": "",
+                "lastName": "Townshend",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2021-01-21 01:45:45",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1346/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1346/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13694915,
+                "identity": "7b2e5bbd-32f6-4230-9577-7b149327e76c",
+                "added_by": "auto",
+                "created_at": "2021-09-17 12:54:58",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 189390,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1346/v1/a740857b-afc8-4f10-94cb-36a77611d638.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "aptamer, biosensor, ribozyme, RNA",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>Biosensors are key components in engineered biological systems, providing a means of measuring and acting upon the large biochemical space in living cells. CleaveSeq, described here, allows high-throughput characterization  aptamer-coupled ribozyme libraries.</p>",
+        "manuscriptTitle": "CleaveSeq: Scalable characterization of ribozyme-based RNA biosensors",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2021-05-26 10:38:12",
+                "doi": "10.21203/rs.3.pex-1346/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "63d3881d-2140-46b2-a3fb-e25ef32cb23c",
+        "owner": [],
+        "postedDate": "May 26th, 2021",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 2077086,
+                "name": "Molecular biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2021-05-26 10:38:12",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

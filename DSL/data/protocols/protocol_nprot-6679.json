@@ -1,0 +1,282 @@
+{
+    "identity": "nprot-6679",
+    "title": "NIVA: Numerical Islet Viability Assay Image Processing using OpenCV for LIVE/DEAD Viability/Cytotoxicity kit with Laser Scanning Microscopy",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Advances in optic devices and microscopes enable us to visualize micro- and nano-scale range of objects. In particular, the upgradations in imaging algorithms and softwares allow to get more appropriate images or data from various experiments. Since the architecture of Langerhans islet is unique, studying pancreatic islets with microscopes must consider its three-dimensional \\(3D) structure<sup>1</sup>. This difference in islet structure needed an alternate quantifying method, rather than assessing islet viability with fluorescence dyes on 2D images. Recently, advanced methods have been studied for staining methods and fluorescence dyes<sup>2, 3</sup>. In addition, some experimental protocols have already been established to manually determine the scoring of islet viability.<sup>4, 5</sup> Although several fluorescence-based staining protocols suggests their accuracy and immediacy, it is still ambiguous to quantify cell viability, especially in the 3D culture. Thus, approach to numerical assessment of islet viability with computer vision is timely required in order to properly describe the characteristics of objects.<sup>6</sup> In this protocol, we focused on the architecture of pancreatic islet, which is rugged sphere shaped and composition of different kinds of constitutive cells including \u03b1, \u03b2, and \u03b4 cells.<sup>7</sup>\r\n\n\nParticularly, this protocol described the pancreatic islet viability assessment based on color pixel intensity analysis. A widely used two color fluorescence dye viability kit, LIVE/DEAD\u2122 Viability/Cytotoxicity Kit for mammalian cells, was used. This kit works via two probes, calcein acetoxymethyl \\(calcein AM) with esterase activity, and ethidium homodimer \\(EthD-1) with plasma membrane.<sup>8</sup> After the staining process, confocal laser scanning microscopy \\(LSM 510 META, AxioObserver, Carl Zeiss) was carried out to qualitatively capture the images of islet. By setting the excitation wavelength at 488 nm for EthD-1 and 543 nm for calcein AM, data was collected from LSM with emission wavelength at 518 nm and 588 nm, respectively. It was followed by converting the binary images to colored images by painting live cells with green and dead cells with red, and then subsequently stacking multiple images along the z-axis to represent the 3D structure of islet. Finally, the converted image was processed to average projection of voxels \\(3D pixels)<sup>9</sup>, since existing methods in just 2D plane cannot represent the 3D architecture of islets.<sup>10</sup> Contrary to the preceding protocols that quantify these images manually with naked eye<sup>4, 11-13</sup>, here we suggest a protocol and its related algorithm for quantitatively analyzing islet viability with the obtained images from LIVE/DEAD\u2122 assay. Additionally, a prototype of islet viability operating software was developed based on computer vision library, named OpenCV. It generates the numerical values by combining the existing cell detection algorithms, color space conversion to luminance sensitive CIE L<sup>**</sup>a<sup>**</sup>b<sup>*</sup>, and intensity analysis with split color channel histograms. \r\n\n\nMore specifically, the program includes the following functions and processes \\(Figure 1). In the first step, a copy of the original image is converted to the mask \\(binary image) through step-by-step imaging processes containing Gaussian blur, color space conversion, threshold and morphological process. In these steps, the program removes background clearly. Two existing methods, threshold with Gaussian blur and morphological processing were adapted. Gaussian blur is essential process to remove the image noises and to smoothen the border lines. It enables users to detect cell contours easily and to remove the background fluorescence of the materials in solution. The threshold in CIE L<sup>**</sup>a<sup>**</sup>b<sup>*</sup> color space is similar to the high-pass luminance filter that processes the image by lower intensity boundary value given by the user. Finally, morphological process removes negligible size of islets \\(mostly far away from ROIs in z-axis) and impurities. After processing the mask image, the mask and the original image are bitwise operated and combined into one implying the clear removal of the background and small impurities. Following to it, implicit pixel data from the thresholded image is calculated to obtain the average intensity, contours of islets, and red/green color histogram. Finally, the numerical islet viability result is displayed on the user interface.\r\n\n\n<a href=\"http://www.nature.com/protocolexchange/system/uploads/6675/original/figure1.bmp?1526196729\" > <img src=\"http://www.nature.com/protocolexchange/system/uploads/6675/thumbnail/figure1.png?1526196729\" > </a>"
+        },
+        {
+            "header": "Equipment",
+            "content": "**Computer Specification**\r\n\n\nRecommended Computer Specifications\r\n\n\n\u2022 Processor \u2013 quad core 2.4GHZ\r\n\n\n\u2022 RAM \u2013 at least 4GB\r\n\n\n\u2022 Graphics Card \u2013 integrated graphics card is sufficient.\r\n\n\n\u2022 Operating System \u2013 Windows Vista, 7, 8, 10 or any other operating system can run win32 .dll files.\r\n\n\n\u2022 NIVA.exe was built to operate simple computer vision algorithms, thus high-end computer is not necessary. However, user would need more than 4GB RAM while using the megabyte images. Required memory depends on the image quality and size.\r\n\n\n\r\n\n\n**Software Setup**\r\n\n\n**ZEN / ZEN lite \\(blue edition)**\r\n\n\nWhen using the microscopes manufactured by Carl Zeiss, default microscope operating software, ZEN blue edition might be required \\(The program must be installed before the experiment). ZEN lite is also available for painting and modifying the max/min intensity range. This issue is dependent on the type or version of microscope, however freeware version from Carl Zeiss website is usually acceptable with simple image processing.\r\n\n\n\r\n\n\n**Download NIVA.exe**\r\n\n\nGo to the \"Github link\":https://github.com/DohoonCho/NIVA and download the program. The software and file were written based on 64-bit Windows 10."
+        },
+        {
+            "header": "Procedure",
+            "content": "**Imaging and exporting z-stack image from ZEN \\(blue edition)**\r\n\n\n1. Set up the channels in ZEN with the wavelength values of the fluorescence dye \\(the information is available in the manual of the kit). There will be only two channels, since the kit contains two staining probes.\r\n  2. Activate the \u2018Z-stack\u2019 checkbox in the Acquisition dimensions.\r\n  3. Select \u2018Z-stack tool\u2019 in the Multidimensional Acquisition tool group. Open the tool.\r\n  4. Set all values in the tool. Then click Start Auto Configuration. \\(You can also do this step manually)\r\n  5. Click on the Start Experiment button to start the experiment. The z-stack image will be provided with merged version, if not, merge the images from individual channels manually. \r\n  6. Set live-channel with green color and dead-channel with red color.\r\n  7. Move to Processing tab on the category. Find Orthogonal Projection and click on it.\r\n  8. Change Method Parameters tab to Average for general projection view. The consideration depends on the cell environment or gain factor that is used during the exposure, hence try both options and select better one. \r\n  _CAUTION\\!_ Make sure that the Thickness tab should include all of planar images.\r\n\n\n9. Click Max/Min button in Display window under the image overview. This process will revise red and green color intensity.\r\n  10. After the conversion, find Image Export in Method category. Export the image in proper format. The formats jpeg, jpg and JPEG XR are not recommended.\r\n  \r\n\n\n**How to run NIVA.exe with the image**\r\n\n\n11. Run NIVA.exe in your computer.\r\n  12. Load your image in the program. Supporting image formats are jpg, jpeg, bmp, png, tif and tiff. \r\n  _CAUTION\\!_ Although .jpg and .jpeg image file formats are available in this program, for the accurate image process, they are not recommended to use.\r\n\n\n\r\n\n\n**Image processing in NIVA.exe**\r\n\n\n13. Increase LowL value in the trackbar included in Values groupbox. The program will automatically blur and threshold the image. The LowL value stands for lower boundary intensity value in thresholding process \\(Figure 2).\n14. Once the LowL value is manipulated in step 13, the image that is loaded at the beginning will be changed in real-time. Observe the changed image in the program and find the appropriate values.\r\n  15. In step 14, gray colored contours will be shown in the image. Try to figure out the desired region of interest \\(ROI) with the contours.\r\n  16. Increase the Morph value in order to erase small objects that is to be disregarded. This will execute morphological process with n by n matrix, with a size of the value and the ellipse-like shapes \\(Figure 3).\n17. Click Calculate button in the groupbox. Then the respective percentage of red and green pixels will appear, as well as the normalized histogram \\(Figure 4).\n_CAUTION\\!_ Since both vertical and horizontal axis was normalized, the scale of red and green line is different.\r\n\n\n18. To obtain the accurate and reliable results, repeat the steps at least 5 times per each islet samples and use the average value to assess islet viability."
+        },
+        {
+            "header": "Timing",
+            "content": "Step 1-9, Imaging and exporting z-stack images from ZEN: 1 h ~ 1 h 30 min \r\n\n\nStep 10-17, Using NIVA.exe: maximum 10 min per image"
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "Step 1-10: If there is a problem using ZEN or ZEN lite, please refer to the microscope manual and its associated software.\r\n\n\nStep 11: If NIVA.exe doesn\u2019t run properly, check all .dll files attached in this program. Then, please check your operating system if it can support all Windows functions, because the program also uses .dll files in Win 32.\r\n\n\nStep 13: If the image doesn\u2019t change while changing the LowL value, try to release your mouse cursor on the trackbar. The program only recognizes a change of the value when the trackbar has been completely released.\r\n\n\nStep 18: If you have a lag while using the program, just try to restart program. It could be a memory allocation problem."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "The respective percentage of red and green pixels will be obtained, and this index can be used as a numerical supplement for representing a small difference in islet viability."
+        },
+        {
+            "header": "References",
+            "content": "1. Brissova, M. et al. Assessment of human pancreatic islet architecture and composition by laser scanning confocal microscopy. J Histochem Cytochem **53,** 1087-1097 \\(2005).\r\n  2. Bray, M.A. et al. Cell Painting, a high-content image-based assay for morphological profiling using multiplexed fluorescent dyes. Nat Protoc **11,** 1757-1774 \\(2016).\r\n  3. Nelson, C.D., Spear, R.N. & Andrews, J.H. Automated image analysis of live/dead staining of the fungus Aureobasidium pullulans on microscope slides and leaf surfaces. Biotechniques **29,** 874-880, 882 \\(2000).\r\n  4. Hanson, M.S. et al. A simplified approach to human islet quality assessment. Transplantation **89,** 1178-1188 \\(2010).\r\n  5. Papas, K.K., Suszynski, T.M. & Colton, C.K. Islet assessment for transplantation. Curr Opin Organ Transplant **14,** 674-682 \\(2009).\r\n  6. Danuser, G. Computer vision in cell biology. Cell **147,** 973-978 \\(2011).\r\n  7. Kim, A. et al. Islet architecture: A comparative study. Islets **1,** 129-136 \\(2009).\r\n  8. Haugland, R.P., Spence, M.T.Z., Johnson, I.D. & Basey, A. The handbook : a guide to fluorescent probes and labeling technologies, Edn. 10th. \\(Molecular Probes, Eugene, OR; 2005).\r\n  9. Wu, Q., Merchant, F.A. & Castleman, K.R. Microscope image processing. \\(Elsevier/Academic Press, Amsterdam ; Boston; 2008).\r\n  10. Poudel, A., Fowler, J.L., Zielinski, M.C., Kilimnik, G. & Hara, M. Stereological analyses of the whole human pancreas. Sci Rep **6,** 34049 \\(2016).\r\n  11. Bank, H.L. Assessment of islet cell viability using fluorescent dyes. Diabetologia **30,** 812-816 \\(1987).\r\n  12. Bank, H.L. Rapid assessment of islet viability with acridine orange and propidium iodide. In Vitro Cell Dev Biol **24,** 266-273 \\(1988).\r\n  13. Barnett, M.J., McGhee-Wilson, D., Shapiro, A.M. & Lakey, J.R. Variation in human islet viability based on different membrane integrity stains. Cell Transplant **13,** 481-488 \\(2004)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "This research was supported by the Bio & Medical Technology Development Program of the National Research Foundation \\(NRF) funded by the Ministry of Science & ICT\\(2018009960) and was also supported by the MSIP\\(Ministry of Science, ICT and Future Planning), Korea, under the \u201cICT Consilience Creative Program\u201d \\(IITP-R0346-16-1007) supervised by the IITP\\(Institute for Information & communications Technology Promotion)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 15517,
+                "identity": "a16061d0-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Jinah Jang",
+                "email": "jinahjang@postech.ac.kr",
+                "orcid": "",
+                "institution": "Biofabrication and Translational Medicine Lab (Dr.Jinah Jang's Research Group)",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Jinah",
+                "middleName": "",
+                "lastName": "Jang",
+                "suffix": ""
+            },
+            {
+                "id": 15515,
+                "identity": "a160570a-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Dohoon Cho",
+                "email": "",
+                "orcid": "",
+                "institution": "Biofabrication and Translational Medicine Lab (Dr.Jinah Jang's Research Group)",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Dohoon",
+                "middleName": "",
+                "lastName": "Cho",
+                "suffix": ""
+            },
+            {
+                "id": 15516,
+                "identity": "a1605e4b-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Jaewook Kim",
+                "email": "",
+                "orcid": "",
+                "institution": "Biofabrication and Translational Medicine Lab (Dr.Jinah Jang's Research Group)",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jaewook",
+                "middleName": "",
+                "lastName": "Kim",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2018-05-14 10:11:57",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2018.063",
+        "doiUrl": "https://doi.org/10.1038/protex.2018.063",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2610092,
+                "identity": "f9c56ea2-16e7-4065-967e-7029797dc3b2",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:24",
+                "extension": "bmp",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 20250054,
+                "visible": true,
+                "origin": "",
+                "legend": "Flowchart of the developed software   Original image from LSM with ZEN software is loaded with Windows explorer at the first. Then, through the imaging process including Gaussian blur, color space conversion, lightness high-pass threshold, and morphological process, the mask is developed in the memory. By combining the mask and the original image, the islet image is processed and saved in the memory. The next step is to calculate islet viability using pixel values in 8-bit 2D images of thresholded image. Histogram is made by splitting red and green color space in two matrices, summing the intensity values of them and deriving the respective color percentage. The results are displayed on the user interface.\r\n",
+                "description": "",
+                "filename": "figure1.bmp",
+                "url": "https://assets.researchsquare.com/files/nprot-6679/v1/figure_1.bmp"
+            },
+            {
+                "id": 2610095,
+                "identity": "ec9c1c09-6ab1-4fc7-876d-8a7555b08d76",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:25",
+                "extension": "bmp",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 20250054,
+                "visible": true,
+                "origin": "",
+                "legend": "LowL slider control   The value can be controlled from 0 to 100 at L value of CIE L^*^a^*^b^*^ colorspace. As the value increases, the region that has low intensity will be erased and filled with color scalar (0, 0, 0). The contours in final thresholded image that is displayed on the picturebox describes the boundaries of islet architectures.\r\n",
+                "description": "",
+                "filename": "figure2.bmp",
+                "url": "https://assets.researchsquare.com/files/nprot-6679/v1/figure_2.bmp"
+            },
+            {
+                "id": 2610093,
+                "identity": "05d5ec13-9c40-4654-be08-5a1abb7aa726",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:25",
+                "extension": "bmp",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 20250054,
+                "visible": true,
+                "origin": "",
+                "legend": "Adjust of Morph value   The value is increased by level of 2 sequentially from 1 to 11. In this procedure, small objects are erased due to n by n matrix operation using the morph value, thereby truncating the intensity of ellipse shaped morphology.",
+                "description": "",
+                "filename": "figure3.bmp",
+                "url": "https://assets.researchsquare.com/files/nprot-6679/v1/figure_3.bmp"
+            },
+            {
+                "id": 2610098,
+                "identity": "e707a145-0dfb-4bd2-b4a2-1a184c468446",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:25",
+                "extension": "bmp",
+                "order_by": 4,
+                "title": "Figure 4",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 20250054,
+                "visible": true,
+                "origin": "",
+                "legend": "Histograms development   After the histograms are developed, the respective percentage of green and red color intensity value can be calculated by integrating the area under the histogram and its summation followed by deriving the percentage. The histogram is then normalized and displayed on the other pop-up window.",
+                "description": "",
+                "filename": "figure4.bmp",
+                "url": "https://assets.researchsquare.com/files/nprot-6679/v1/figure_4.bmp"
+            },
+            {
+                "id": 13465751,
+                "identity": "dfdf1249-293e-46d6-bf50-c48cb0516adc",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:48:02",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 4132850,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-6679/v1/b7087a3f-e734-4266-9452-b91b3186dcef.pdf"
+            }
+        ],
+        "financialInterests": "The authors confirm that there are no known conflicts of interest associated with this publication and there has been no significant financial support for this work that could have influenced its outcome.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Islet, Viability Assay, OpenCV, Carl Zeiss, ZEN, LSM",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "The LIVE/DEAD viability assay is a widely applied technique to validate the qualitative analysis of viable pancreatic islet, and the scoring has to be done to quantify the image data manually. However, it is often associated with variations due to subjective judgment. In this protocol, the ultimate purpose of the developed software entitled \u201cNumerical Islet Viability Assay \\(NIVA)\u201d is to provide numerical information of islet viability via z-stack image from confocal laser scanning microscopy. The developed software can detect three dimensional structure of each islet with color voxels of them. OpenCVSharp was used with CSharp \\(C#) code to access color pixel value of the image and to process them followed by displaying the results on user interface. The protocol starts with an introduction of how to get z-stack image from ZEN \\(blue edition, Carl Zeiss), and the use of program NIVA.exe to gain islet viability based on the computer vision. Then, the manipulating guide for adjusting values and the examples of a sample are described. The result shows that the respective percentage of red and green color pixel values obtained across z-axis are computed through normalized histograms and numerical digits. This protocol will provide how to use this program, especially manipulating user-adjustable values and finding optimal values for analyzing islet viability. The data can be used for validating cell viability, or cytotoxicity during cell culture by using resultant image from the general LIVE/DEAD viability assay.",
+        "manuscriptTitle": "NIVA: Numerical Islet Viability Assay Image Processing using OpenCV for LIVE/DEAD Viability/Cytotoxicity kit with Laser Scanning Microscopy",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2018-06-12 11:21:40",
+                "doi": "10.1038/protex.2018.063",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a15efabb-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "June 12th, 2018",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 4220,
+                "name": "Biological techniques"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2018-06-12 11:21:40",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

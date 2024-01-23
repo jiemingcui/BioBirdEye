@@ -1,0 +1,295 @@
+{
+    "identity": "pex-877",
+    "title": "<p>Both A-to-G and C-to-T base editing in human cells with dual base editor (A&amp;C-BEmax) </p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>Base editors, including cytidine(CBE) and adenosine(ABE) editors, have been developed through fusion of nucleotide deaminases to nuclease impaired Cas9 variants <sup>1-4</sup>. The commonly used base editors BE3 and ABE7.10 typically generate C\u2022G to T\u2022A or A\u2022T to G\u2022C conversions within a ~5-nucleotide editing window on the target DNA respectively, without inducing DNA double strand breaks<sup>1, 2</sup>. These advantegies make them promising gene-editing tools in disease modeling<sup>3, 4</sup>, genetic breeding<sup>5</sup>, gene therapy<sup>6</sup> and other areas.Many efforts have been made to improve the performance of the base editors. Through recruitment of multiple cytidine deaminase domains to mutant Cas9 protein (CRISPR-X<sup>7</sup> or BE-Plus<sup>8</sup>), using activation-induced cytidine deaminase (AID) instead of APOBEC1<sup>9</sup>, or fusing deaminase with circularly permuted Cas9<sup>10</sup>, CBEs with wider editing window were created to increase the genomic diversification which has multiple use, such as directed protein evolution. However, CBE or ABE could only catalyze single type of nucleotide, either C\u2022G to T\u2022A or A\u2022T to G\u2022C, which limits the diversity of the products.&nbsp;&nbsp;</p><p>Through fusion of cytidine and adenosine deaminases to Cas9n (SpCas9 D10A), a dual base editor, A&amp;C-BEmax has been developed. A&amp;C-BEmax can generate simultaneous A-to-G and C-to-T base conversions in the same allele with increased CBE editing window and activity. As A&amp;C-BEmax generates more mutant allele types suggesting increased mutation spectra of the products, it exhibits a broad potential for investigation and modification of both coding and non-coding sequences at a single base resolution. As an example, we have demonstrated that A&amp;C-BEmax could generate various point mutations, including simultaneous C-to-T and A-to-G conversions, in the promoter of HBG1/2 in HUDEP-2 cells with a single sgRNA for the potential treatment of \u03b2-hemoglobinopathy. This protocol below contains the construction of the A&amp;C-BEmax and generation of site-specific point mutations in HUDEP-2 cells.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p><strong>General reagents</strong></p><p>Codon-optimized Cas9 (synthesized by BioSune)</p><p>PCR primers and oligonucleotides for plasmids construction (synthesized by BioSune)</p><p>ClonExpress MultiS One Step Cloning Kit (Vazyme, cat. no. C113-01)</p><p>TIANamp Genomic DNA Kit (TIANGEN Biotech, cat. no. DP304-03)</p><p>Agarose Gel DNA Recovery kit\uff08Generay Biotech, cat. no. GK2043\uff09</p><p>TIANprep Mini Plasmid Kit (TIANGEN Biotech, cat. no. DP103-03)</p><p>KOD\u2013Plus-Neo DNA Polymerase (TOYOBO, cat. no. KOD-401)</p><p>Fast Digest BbsI (ThermoFisher Scientific, cat. no. ER1012)</p><p>DH5\u03b1 competent cells (Vivacell, cat. no. M51010100)</p><p>HiScript II Q RT SuperMix (Vazyme).</p><p>Hieff\u2122 qPCR SYBR\u00ae Green Master Mix\uff08Yeasen, cat. no. 11201ES08\uff09</p><p>Puromycin dihydrochloride (sigma-Aldrich Japan, cat. no.P8833)</p><p>Kanamycin (Sangon-b, cat. no. A600286/KB0286)</p><p>Ampicillin (Sangon-a, cat. no. A100339/A0339)</p><p><a href=\"https://www.beyotime.com/d7008.htm\" rel=\"noopener noreferrer\" target=\"_blank\">T4 DNA Ligase</a> (Beyotime, cat. no. D7008)</p><p>Anti-CD235a-FITC (BioLegend, cat. no.349103)</p><p>Anti-CD49d-APC (Miltenyi, cat. no.304307)</p><p>6-well cell culture plates (Corning, cat. no. 3516)</p><p>12-well cell culture plates (Corning, cat. no. 3513)</p><p>24-well cell culture plates (Corning, cat. no. 3524)</p><p>48-well cell culture plates (Corning, cat. no. 3548)</p><p>96-well cell culture plates (Corning, cat. no. 3599</p><p><strong>Cell culture reagents</strong></p><p>Dulbecco\u2019s Modified Eagle\u2019s medium (DMEM, Thermo-Gibco\u2122, cat. no. C11995500BT)</p><p>Polybrene (Hexadimethrine bromide, Sigma, cat. no. H9268)</p><p>Polyethyleneimine (PEI, Polysciences, cat. no. 23966-2)</p><p>Fetal bovine serum (Gibco, cat. no. 16000-044)</p><p>2% Pen/Strep (Gibco, cat. no. 15140122)</p><p>Trypsin (Gibco, cat. no. 25200-056)</p><p>Serum-free expansion medium (SFEM; Stem Cell Technologies, cat. no. 09600)</p><p>Human Stem Cell Factor (SCF, PeproTech, cat. no. 09600 )</p><p>Erythropoietin (EPO, PeproTech, cat. no. 100-64)</p><p>Dexamethasone (DEX, Sigma, cat. no. D1756)</p><p>Doxycycline hyclate (DOX, Sigma cat. no.D9891-25G)</p><p>Holo-Transferrin Human (Sigma-Aldrich, cat. no.T0665)</p><p>Human Serum AB (GEMINI Bio-products,H56S001)</p><p>Recombinant Human Insulin (Sigma , cat. no.I9278)</p><p>Heparin (Sigma , cat. no.H3149)</p><p>IMDM (Gibco, cat. no.12440-053)</p><p>L-Glutamine (Gibco , cat. no.25030-164)</p><p><strong>Plasmids</strong></p><p>pCMV-ABE7.10 (Addgene Plasmid #102919)</p><p>AID-BE3 (Addgene Plasmid #100803)</p><p>pCMV_BE4max (Addgene Plasmid #112093)</p><p>pCMV-BE3 (Addgene Plasmid #73021)</p><p>psPAX2 (Addgene Plasmid #12260)</p><p>pMD2.G (Addgene Plasmid #12259)</p><p>pCMV-BE4max (Addgene Plasmid #112093)</p><p>pcDNA 3.1(+) eGFP (Addgene Plasmid #78583)</p><p>pLenti-BE3-P2A-Puro (Addgene Plasmid #110838)</p><p>pLenti-FNLS-P2A-GFP-PGK-Puro (Addgene Plasmid #110869)</p><p>LentiCRISPR v2 expressing plasmid (Addgene Plasmid #52961)</p><p><strong>Cells</strong></p><p>HEK293T cells (ATCC, cat. no. CRL-3216)</p><p>HUDEP-2 cells (Gift from Dr. Merlin Crossley, University of New South Wale)</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>Humidified incubator (ThermoFisher Scientific)</p><p>FACSAria III (BD Biosciences)</p><p>Tanon Gel Electrophoresis System</p><p>Applied Biosystems Veriti Thermocycler</p><p>Major Science Thermostatic metal water bath</p><p>Ultra-clear centrifuge tube (Beckman 344058)</p><p>NanoDrop 2000c (ThermoFisher Scientific)</p><p>Thermo Fisher Scientific centrifuge\uff08ThermoFisher Scientific\uff09</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "Part I: Base editing in HEK293T cells through transfection\nIn this section, we describe the construction of A&C-BEmax to achieve C\u2022G to T\u2022A and A\u2022T to G\u2022C substitutions in HEK293T cells, taking HBG site1 below for example.\nA: SgRNA plasmids cloning\n1. The oligonucleotide sequences are shown below:\nHBG site1\u00a0Oligo-up CACCGTTGACCAATAGCCTTGACA\nHBG site1\u00a0Oligo-dn AAACTGTCAAGGCTATTGGTCAAC\n2. Generate oligonucleotide duplex:\n15 \u03bcL Oligonucleotide-up (100 \u03bcM stock)\n15 \u03bcL Oligonucleotide-dn (100 \u03bcM stock)\nMix the reaction thoroughly by pipetting. Denature the oligonucleotides at 95\u00b0C for 5min followed by slowly cooling to room temperature. This process takes about 2 hours. Dilute oligonucleotide duplex 1:100 with ultrapure water for subsequent use.\n3. U6-sgRNA scaffold is amplified from PX458 (Addgene Plasmid #48138) and cloned into pcDNA 3.1(+) eGFP (Addgene Plasmid #78583) to generate U6-sgRNA(sp)-EF1\u03b1-GFP expression plasmids as described previously.\n11, 12\n4. Digest the U6-sgRNA(sp)-EF1\u03b1-GFP vector backbone:\n\u2460 10\u00d7 FastDigest Green Buffer 2 \u03bcI\n\u2461 Fast Digest BbsI 1 \u03bcI\n\u2462 Plasmid vector 1 \u03bcg\n\u2463 ddH2O up to 20 \u03bcI\n\u2464 Incubate the reaction at 37 \u00b0C for 20 minutes.\n5. Purify the linearized plasmid with the Agarose Gel DNA Recovery kit\n12\n.\n6. Ligate the annealed oligonucleotide duplex into the U6-sgRNA(sp)-EF1\u03b1-GFP plasmid as follow:\n\u2460 BbsI-linearized U6-sgRNA(sp)-EF1\u03b1-GFP vector 1 \u03bcI (~30 \u03bcg)\n\u2461 Diluted oligonucleotide duplexes 1 \u03bcl\n\u2462 10\u00d7T4 Buffer 1 \u03bcI\n\u2463 T4 DNA ligase 1 \u03bcI\n\u2464 ddH2O up to 10 \u03bcI\nMix by pipetting, centrifuge briefly, then incubate in a water bath at 16\u2103 for 30 minutes.\n7. Mix the ligation mixture 10 \u03bcl (from step 6) with 30 \u03bcl DH5\u03b1 competent cells, and incubate on ice for 10-30 minutes. Then heat shock at 42 \u00b0C water bath for 90s and then incubate on ice for 5 min. Add 1 ml LB medium (without antibiotics) and incubate at 37\u00b0C for 1 h with shaking, plate 100 \u03bcl of each transformation culture onto LB plates with corresponding antibiotics and incubate at 37 \u00b0C overnight (for about 12-16 hours). Inoculate two to four colonies into LB medium and incubate at 37 \u00b0C overnight with shaking. Extract plasmid DNA using TIANprep Mini Plasmid Kit the next day for verification of the correct clones.\nB: Construction of the A&C-BEmax and Lenti A&C-BEmax plasmid\n1. TadA-TadA* is amplified from pCMV-ABE7.10 (Addgene Plasmid #102919); AID is amplified from AID-BE3 (Addgene Plasmid #100803); two copies of uracil DNA glycosylase inhibitor (UGI) is amplified from pCMV_BE4max (Addgene Plasmid #112093) vector; the linker is synthesized by BioSune as depicted previously\n13\n. Assemble the construct as the following order, N-AID-TadA/TadA*-nCas9-C to generate A&C-BEmax plasmid with ClonExpress MultiS One Step Cloning Kit (Vazyme, cat. no. C113-01).\n2. PGK-puro-P2A-GFP is amplified from pLenti-FNLS-P2A-GFP-PGK-Puro (Addgene Plasmid #110869) and cloned into LentiCRISPR v2 vector (Addgene Plasmid #52961) to generate Lenti-P2A-GFP-PGK-puro plasmid. EF1a-AID-TadA-TadA*-nCas9 is amplified from A&C-BEmax and cloned into Lenti-P2A-GFP-PGK-puro vector to generate Lenti A&C-BEmax expression plasmid.\n3. U6-sgRNA scaffold and EF1\u03b1 promoter is amplified from PX458 (Addgene Plasmid #48138), UGI is amplified from pCMV_BE4max (Addgene Plasmid #112093) vector, assemble these fragment using the ClonExpress MultiS One Step Cloning Kit to generate Lenti U6-EF1\u03b1-UGI-P2A-GFP expression plasmid as above described.\n4. Linearize the Lenti U6-EF1\u03b1-UGI-P2A-GFP vector by BbsI, ligate the annealed oligos (HBG site1-up/dn) into the linearized vector with T4 DNA ligase to generate Lenti U6-HBG site1-EF1\u03b1-UGI-P2A-GFP construct.\nCritical step:\nThe optimal amount of vector backbone and inserts can be roughly calculated using 0.02 \u00d7 the number of base pairs of the DNA fragment.\nC: Cell transfection and genomic DNA preparation\nSeed 2 \u00d710\n5\nHEK293T cells into 24-well plates allowing approximately 80% confluency on the next day. On the second day, the cells are transfected with 750 ng of A&C-BEmax, 250 ng of sgRNA expression plasmid-HBG site1-U6-sg-EF1\u03b1-GFP using polyethyleneimine (1 \u03bcg plasmid : 3 \u03bcl PEI). Prepare transfection mixes in separate 1.5 ml tubes. Prepare A mix with 750ng A&C-BEmax and 250 ng of sgRNA expression plasmid into 50ul DMEM. Add 3ul PEI (Stock Concentration 1ug/ul) into 50 \u03bcl DMEM to get B mix.Vortex each mix well and incubate 5 minutes at room temperature. Combine A and B mix, vortex thoroughly and incubate for an additional 20 minutes at room temperature. Add the solution 100 \u03bcl to the HEK293T cells carefully. Three days later, harvest the cells and isolate genomic DNA using the Blood/Cell/Tissue DNA Isolation Kit as described previously\n12\n.\nD: Base editing efficiency evaluation\nThe DNA fragment containing the target-HBG site1 is obtained by PCR using KOD\u2013Plus-Neo DNA Polymerase and site-specific primers containing an adaptor sequence (Forward 5\u2032-ggagtgagtacggtgtgc-3\u2032; Backward 5\u2032-gagttggatgctggatgg-3\u2032) at the 5\u2032 end. Successfully edited results can be first discriminated by sanger sequencing chromatography. Detailed efficiency results are obtained from high-throughput deep sequencing data analyzed by BE-Analyzer\n14\nor CRISPResso2\n15\n.\nPart II: Generation of HUDEP-2 cell Clones\nA: HUDEP-2 cell culturing\nCulturing HUDEP-2 cells as previously described\n16\n. HUDEP-2 cells are expanded in StemSpan SFEM (SFEM, Stemcell Technologies) supplemented with dexamethasone (DEX, 1\u00b5M, Sigma), human stem cell factor (SCF, 50 ng/ml, PeproTech), erythropoietin (EPO, 3 IU/ml, PeproTech), 1% L-glutamine (Life Technologies), and 2% penicillin/streptomycin (Gibco), Doxycycline hyclate (Sigma, 1 \u00b5g/ml). 5000\u201310,000 HUDEP-2 cells are seeded each well in a 12- or 24-well plate. All cell lines used are maintained at 37 \u00b0C, 5% CO2 in the incubator.\nCritical step:\nThe cells double every day and should always be maintained below 8x10\n5\ncells/ml. Never grow over 1x10\n6\ncells/ml to keep cell healthy.\nB: Lentiviral infection of HUDEP-2 cells\n1. Base editing in HUDEP-2 cells through lentiviral infection.\nDay 1:\nLentiviral infection\nDetailed steps for virus packaging, purification and titration are described in a previous protocol\n12\n. Two lentiviruses are prepared separately, Lenti A&C-BEmax and Lenti U6-HBG site1-EF1\u03b1-UGI-P2A-GFP. Supplement Lenti A&C-BEmax lentivirus into 2 x10\n5\nHUDEP-2 cell culture to reach an MOI of 40 along with Lenti U6-HBG site1-EF1\u03b1-UGI-P2A-GFP lentivirus reach an MOI of 1.\nDay3-18:\nCell sorting and culturing\n48h after lentiviral transduction, 1 \u03bcg/mL (final concentration) puromycin is added into the expansion medium to enrich the transduced cells.\nAfter 3 days, most cells without resistance will die. Centrifuge the cell at 300 g for 5 min to remove cell debris. Maintain the cells in culture medium with puromycin (1 \u03bcg/mL final concentration) for another week.\nCritical step:\nThe volume of virus added is dependent on the amount of virus titer.\nDay19-21:\nGenomic DNA preparation and evaluation of base editing results\n\u2460 Harvest at least 8x10\n4\nHUDEP-2 cells for genomic DNA extraction using Blood/Cell/Tissue DNA Isolation Kit.\n\u2461 The DNA fragment containing the target HBG site1 is amplified through PCR using HUDEP-HBG site1-F(Merlin)/R(Merlin) primers and KOD\u2013Plus-Neo DNA Polymerase.\nThe primers sequences are as follows:\nHUDEP-HBG site1-F(Merlin): AGTGTGTGGACTATTAGTCAA\nHUDEP-HBG site1-R(Merlin): catggcgtctggactaggag\nPCR products are subjected to sanger sequencing chromatography to estimate editing efficiency. Examples of sanger sequencing analysis are displayed in Figure 1.\n2. Generating HUDEP-2 single cell clones (monoclonal cell population)\nSingle cell clones can be established from Lenti A&C-BEmax treated cells containing various genotypes to interrogate the relationships between the genotype and phenotype.\nDay 21-22: Seed cell into 96-well\nSeed HUDEP-2 cells into 96-well culture plates through limited dilution as previously described\n17\n. Diluted 30-50 HUDEP-2 cells into 12ml culture medium and seed 100ul of culture into one well of a 96-well plate\n17\n. The next day check the cell condition and label the wells that have only 1-3 cells for subsequent experiment.\nDay 23-34: Cell clone expansion and evaluation of editing efficiency\n\u2460 Expand the cell for about 10-11 days in a 96-well plate. Once cell clones have expanded to cover the bottom of the well, transfer the cells into larger size plates.\n\u2461 Harvest at least 8x10\n4\nHUDEP-2 cells for genomic DNA extraction using Blood/Cell/Tissue DNA Isolation Kit. DNA fragment containing the target site is pcr amplified for sanger sequencing as described above to identify the genotypes of single clones. Examples of sanger sequencing analysis are displayed in Figure 2. Detailed editing efficiency result i.e. indels, can be quantitated via deep sequencing as mentioned above.\nC: HUDEP-2 cell differentiation\n1. Erythroid Differentiation.\nHUDEP-2 cells are differentiated in a two-phase erythroid differentiation protocol. Phase 1 (day 1\u20134), cells are cultured in EDM-2 medium consisting of Iscove\u2019s modified Dulbecco\u2019s medium (IMDM; Gibco), 2%Human Serum AB (GEMINI Bio-products), 2 IU/ml Heparin, 10 \u03bcg/ml Recombinant Human Insulin, and 3 IU/ml erythropoietin (EPO, PeproTech), 330 \u03bcg/ml Holo-Transferrin Human (Sigma-Aldrich), 100 ng/ml SCF, 1 \u03bcg/mL doxycycline hyclate(DOX, Sigma), 2% penicillin\u2013streptomycin (Gibco), 1% L-glutamine. In Phase 2 (day 4-8), cells are cultured in EDM-3 with the same ingredients as EDM-2 but is absent of DOX and SCF.\nCritical step:\nThe length of culturing for phase I or II or the whole process is variable and dependent on the stage of differentiation required.\n2. RT-qPCR analysis of globin and erythroid markers\n\u2460 After 8 days of differentiation, the cell precipitation changes from white to dark red , then harvest 1x10\n5\ncells for total mRNA isolation by Trizol reagent according to the standard protocol\n18\n.\n\u2461 Isolated mRNA is reversely transcribed using HiScript II Q RT SuperMix (Vazyme) kit according to the manufacturer's protocol\n19\n.\n\u2462 Perform qPCR on the QuantiStudio 3 real-time PCR system (ABI) using Hieff\u00ae qPCR SYBR\u00ae Green Master Mix kit\uff08Yeasen\uff09to quantitate HBG and HBB expression level. Experimental operation and reagents shall be used according to the product brochure\n19\n. Primer sequences used for RT-qPCR are as follow\uff1a\nHBG: HBG- qPCR-F\u00a0ggttatcaataagctcctagtcc\nHBG- qPCR-R\u00a0acaaccaggagccttccca\nHBB: HBB- qPCR-F\u00a0tgaggagaagtctgccgttac\nHBB- qPCR-F\u00a0accaccagcagcctgccca\nCritical Step:\nEnsure that all apparatus and reagents to be used in the isolation procedure are RNase-free.\nAvoid cross-contamination and aerosol contamination."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": ""
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>qRT\u2013PCR: 1 day</p><p>Plasmids cloning: 3 days</p><p>Genotype identification: 2 days</p><p>HEK293T cells transduction: 3 days</p><p>Base editing in HUDEP-2 cells through lentiviral infection: 21 days</p><p>Plating HUDEP cells to Obtain a HUDEP-2 clonal cell population: 14 days </p><p>HUDEP-2 cells erythroid differentiation phase: 8 days</p><p>HTS and \u03b3-globin ratio regarding Statistics analysis: 3 days</p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": ""
+        },
+        {
+            "header": "References",
+            "content": "<p>1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Komor, A.et al. Programmable editing of a target base in genomic DNA without double-stranded DNA cleavage. Nature 533, 420-424 (2016).</p><p>2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gaudelli, N.M. et al. Programmable base editing of A\u2022 T to G\u2022 C in genomic DNA without DNA cleavage. Nature 551, 464-471 (2017).</p><p>3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yang, L. et al. Increasing targeting scope of adenosine base editors in mouse and rat embryos through fusion of TadA deaminase with Cas9 variants. Protein &amp; cell 9, 814-819 (2018).</p><p>4.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kim, K. et al. Highly efficient RNA-guided base editing in mouse embryos. Nat.Biotechnol.35, 435 (2017).</p><p>5.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Zong, Y. et al. Precise base editing in rice, wheat and maize with a Cas9-cytidine deaminase fusion. Nat.Biotechnol.35, 438 (2017).</p><p>6.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ryu, S.-M. et al. Adenine base editing in mouse embryos and an adult mouse model of Duchenne muscular dystrophy. Nat.Biotechnol.36, 536 (2018).</p><p>7.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hess, G.T. et al. Directed evolution using dCas9-targeted somatic hypermutation in mammalian cells. Nat.Methods 13, 1036 (2016).</p><p>8.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jiang, W. et al. BE-PLUS: a new base editing tool with broadened editing window and enhanced fidelity. Cell Res. 28, 855 (2018).</p><p>9.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ma, Y. et al. Targeted AID-mediated mutagenesis (TAM) enables efficient genomic diversification in mammalian cells. Nat.Methods 13, 1029 (2016).</p><p>10.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Huang, T.P. et al. Circularly permuted and PAM-modified Cas9 variants broaden the targeting scope of base editors. Nat.Biotechnol.37, 626 (2019).</p><p>11.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shao, Y. et al. CRISPR/Cas-mediated genome editing in the rat via direct injection of one-cell embryos. Nat.Protoc. 9, 2493 (2014).</p><p>12.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bi ,Y. et al. \u201cEfficient generation of site-specific point mutations in cell lines by hyper active CBEs (hyCBEs)\u201d Protocol Exchange (2020) DOI: 10.21203/rs.3.pex-841/v1</p><p>13.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chen, X., Zaro, J.L. &amp; Shen, W.C. Fusion protein linkers: property, design and functionality. Adv. drug deliv. rev. 65, 1357-1369 (2013).</p><p>14.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hwang, G.H. et al. Web-based design and analysis tools for CRISPR base editing. BMC Bioinformatics 19, 542 (2018).</p><p>15.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Clement, K. et al. CRISPResso2 provides accurate and rapid genome editing sequence analysis. Nat. Biotechnol. 37, 224-226 (2019).</p><p>16.&nbsp;&nbsp;&nbsp;Martyn, G.E. et al. Natural regulatory mutations elevate the fetal globin gene via disruption of BCL11A or ZBTB7A binding. Nat. Genet. 50, 498-503 (2018).</p><p>17.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vinjamur, D.S. &amp; Bauer, D.E. Growing and genetically manipulating human umbilical cord blood-derived erythroid progenitor (HUDEP) cell lines, in Erythropoiesis. Methods Mol. Biol. 275-284 (Springer, 2018).</p><p>18.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chomezynski, P. &amp; Mackey, K.J.B. Modification of the TRI reagent procedure for isolation of RNA from polysaccharide-and proteoglycan-rich sources. Biotechniques 19, 942-945 (1995).</p><p>19.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wang, L. et al. Reactivation of \u03b3-globin expression through Cas9 or base editor to treat \u03b2-hemoglobinopathies. Cell Res.30, 276-278 (2020).</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>This work was partially supported by grants from National Key R&amp;D Program of China (2019YFA0110802, 2018YFA0507001), the National Natural Science Foundation of China (No.81670470, 81873685, 31925011 and 91940306), grants from the Shanghai Municipal Commission for Science and Technology (18411953500) and the Innovation program of Shanghai Municipal Education Commission (2019-01-07-00-05-E00054), the support of ECNU Public Platform for innovation (011), and the Fundamental Research Funds for the Central Universities.</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41587-020-0527-y ",
+                "date": "",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 462409,
+                "identity": "0c735582-3273-4d6c-940e-58463bcf4f3e",
+                "order_by": 1,
+                "name": "Biyun Zhu",
+                "email": "",
+                "orcid": "",
+                "institution": "Institute of Biomedical Sciences and School of Life Sciences, East China Normal University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Biyun",
+                "middleName": "",
+                "lastName": "Zhu",
+                "suffix": ""
+            },
+            {
+                "id": 462413,
+                "identity": "d58f72fe-0aaa-4e14-9d87-a82eaa69bbfa",
+                "order_by": 2,
+                "name": "Xiaohui Zhang",
+                "email": "",
+                "orcid": "",
+                "institution": "Institute of Biomedical Sciences and School of Life Sciences, East China Normal University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Xiaohui",
+                "middleName": "",
+                "lastName": "Zhang",
+                "suffix": ""
+            },
+            {
+                "id": 462417,
+                "identity": "7e437267-db95-412e-8281-aff9c49c0c64",
+                "order_by": 3,
+                "name": "Liang Chen",
+                "email": "",
+                "orcid": "",
+                "institution": "\tInstitute of Biomedical Sciences and School of Life Sciences, East China Normal University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Liang",
+                "middleName": "",
+                "lastName": "Chen",
+                "suffix": ""
+            },
+            {
+                "id": 462427,
+                "identity": "9ce93fb6-a27d-4a9e-996b-d5c37c9a2a81",
+                "order_by": 4,
+                "name": "Liren Wang",
+                "email": "",
+                "orcid": "",
+                "institution": "\tInstitute of Biomedical Sciences and School of Life Sciences, East China Normal University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Liren",
+                "middleName": "",
+                "lastName": "Wang",
+                "suffix": ""
+            },
+            {
+                "id": 462410,
+                "identity": "25bb86cc-c0c6-4ced-88b9-b0548f51f702",
+                "order_by": 5,
+                "name": "Dali Li",
+                "email": "dalidalili@yahoo.com",
+                "orcid": "https://orcid.org/0000-0002-0046-8493",
+                "institution": "Institute of Biomedical Sciences and School of Life Sciences, East China Normal University",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Dali",
+                "middleName": "",
+                "lastName": "Li",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2020-04-02 10:24:42",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-877/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-877/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 1231942,
+                "identity": "30ef792f-3c5c-4ea5-aa15-75bb5a65fc96",
+                "added_by": "auto",
+                "created_at": "2020-06-02 17:07:47",
+                "extension": "tif",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 100560,
+                "visible": true,
+                "origin": "",
+                "legend": "Figure 1 Left, HUDEP-2 cells co-infected with Lenti A&C-BEmax and Lenti U6-HBG site1-EF1\u03b1-UGI-P2A-GFP carry mutations at 109C>T,113A>G,114C>T and 115C>T.",
+                "description": "",
+                "filename": "Figure1.tif",
+                "url": "https://assets.researchsquare.com/files/pex-877/v1/Figure1.tif"
+            },
+            {
+                "id": 1231943,
+                "identity": "88df0c27-9a2a-4f1e-8781-03b630cf33f8",
+                "added_by": "auto",
+                "created_at": "2020-06-02 17:07:47",
+                "extension": "tif",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 121502,
+                "visible": true,
+                "origin": "",
+                "legend": "Figure 2 Two clones bearing simultaneous mutations of 114C>T and 113A>G (clone # B-7) or single mutation of 114C> T (clone # B-16) are generated from HUDEP-2 cells co-infected with Lenti A&C-BEmax and Lenti U6-HBG site1-EF1\u03b1-UGI-P2A-GFP.",
+                "description": "",
+                "filename": "Figure2.tif",
+                "url": "https://assets.researchsquare.com/files/pex-877/v1/Figure2.tif"
+            },
+            {
+                "id": 13534974,
+                "identity": "d5cbcc14-c811-488c-a192-8194bfbe90c2",
+                "added_by": "auto",
+                "created_at": "2021-09-17 01:26:45",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 529894,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-877/v1/f4876de5-bb19-4c1c-bd58-6b71150fbe40.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Base editing, A&C-BEmax,Gene therapy, Human cells",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>As promising genome editing tools, cytidine (CBEs) and adenosine base editors (ABEs) efficiently catalyze C\u2022G to T\u2022A and A\u2022T to G\u2022C conversions, respectively. However, CBEs or ABEs only generate single type of nucleotide conversions, which limits the sequence diversity of edited site and therapeutic applications at certain circumstances. A dual base editor(A&amp;C-BEmax) has been developed to achieve both C\u2022G to T\u2022A and A\u2022T to G\u2022C mutations through fusion of cytidine and adenosine deaminases to Cas9n. In this protocol, we demonstrate the generation of diverse point mutations, including a simultaneous -113A-to-G and -114C-to-T conversions, in the hemoglobin gamma (HBG) gene promoter region in HUDEP-2 cells through A&amp;C-BEmax with a single sgRNA, leading to reactivation of \u03b3-globin for the potential treatment of \u03b2-hemoglobinopathy. A&amp;C-BEmax is a valuable tool not only for dissecting the function of genomic sequence at a single base resolution but also for the therapeutics of genetic disorders. This step-by-step protocol is related to the publication \u201cDual base editor catalyzes both cytidine and adenine base conversions in human cells\u201d in Nature Biotechnology.</p>",
+        "manuscriptTitle": "Both A-to-G and C-to-T base editing in human cells with dual base editor (A&amp;C-BEmax)",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2020-06-02 17:07:46",
+                "doi": "10.21203/rs.3.pex-877/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "63912318-70f6-4c2f-809d-fc0e2c62ad22",
+        "owner": [],
+        "postedDate": "June 2nd, 2020",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 78069,
+                "name": "Biochemistry"
+            },
+            {
+                "id": 78070,
+                "name": "Cell Biology"
+            },
+            {
+                "id": 78071,
+                "name": "Genetics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2020-06-02 17:07:46",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

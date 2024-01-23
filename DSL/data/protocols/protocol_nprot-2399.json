@@ -1,0 +1,401 @@
+{
+    "identity": "nprot-2399",
+    "title": "Identification of SNP Targeted Pathways From Genome-wide Association Study \\(GWAS) Data",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "In this protocol, starting with a list of SNPs found to be associated with a disease in a GWAS, we propose a novel methodology to determine disease related \\(SNP targeted) pathways through the identification of SNP targeted genes within these pathways. Multiple factors act on complex diseases. Since each factor would have modest effect on the disease development mechanism, it is challenging to identify significant individual factors. One possible reason of multifactorial diseases is the alterations in the activity of biological pathways. In this method, we hypothesize that these factors are crippling similar pathways in individuals. That's why pathways have higher explanatory power towards understanding disease development mechanism. To this end, our methodology starts with functionalization of several significant SNPs to identify effected genes. We then map these genes to a protein-protein interaction  \\(PPI) network and determine the connected subnetworks targeted by the SNPs. Next, we find the KEGG pathways in these subnetworks and determine the significance of the modifications on these pathways. The pathways are ranked according to the significance scores and are referred as the SNP targeted pathways. The protocol is outlined in \"Figure 1\":http://www.nature.com/protocolexchange/system/uploads/2146/original/PANOGA_NatProtExch_Figure1.doc?1338222198"
+        },
+        {
+            "header": "Equipment",
+            "content": "A computer with Windows or Linux OS and internet access.\r\n\n\n\r\n\n\nEQUIPMENT SETUP\r\n\n\n\r\n\n\nHardware requirements: We recommend a 1 GHz CPU or higher, a high-end graphics card, 500MB of available hard disk space, at least 1 GB of free physical RAM and a minimum screen resolution of 1,024 x 768. \r\n\n\n\r\n\n\nJava 2 platform: Standard Edition, version 5.0 or higher \\(Java SE 5 or higher). \\(http://java.sun.com/javase/downloads/index.jsp).\r\n\n\n\r\n\n\nData files: This protocol begins with a GWAS dataset containing SNP rsIDs vs. genotypic p-values in a tab-delimited text file or excel file, as detailed in \"Figure 2\":http://www.nature.com/protocolexchange/system/uploads/2149/original/PANOGA_NatProtExch_Figure2.doc?1338222756 . As a result of the preprocessing step of PANOGA, four additional files in SPOT, F-SNP, SNPnexus and SNPinfo input file formats are created. A sample PANOGA input file and SPOT, F-SNP, SNPnexus and SNPinfo input files are made available in PANOGA_protocol/data/ as sample_panoga_input.txt, sample_spot_input.txt, sample_fsnp_input.txt, sample_snpnexus_input.txt, sample_snpinfo_input.txt). In addition to the sample GWAS data, several additional data files are available for readers wishing to follow this protocol as a tutorial:\r\n\n\n\r\n\n\nhumanPPI.sif: contains a protein\u2013protein interaction \\(PPI) network in a sif file format, as detailed in \"Figure 2\":http://www.nature.com/protocolexchange/system/uploads/2149/original/PANOGA_NatProtExch_Figure2.doc?1338222756 . This file illustrates the SIF, which offers a straightforward means to import networks into Cytoscape as text.\r\n\n\n\r\n\n\nsample_spot_fsnp_snpnexus.pvals: contains SPOT and F-SNP weighted p-values \\(Pw-values) for each SNP associated gene. Each of these two Pw values combine functional information of a SNP and the genotypic p-value of a SNP, that is found to be significant in GWAS.\r\n\n\n\r\n\n\nCytoscape: Cytoscape is an open source network data integration, analysis, and visualization platform. Subnetwork identification and functional enrichment steps of PANOGA protocol are realized by Cytoscape plugins. Hence, to follow PANOGA protocol, users need to install Cytoscape version 2.6.3 by on a local computer by following the steps in Box 2 of the Cytoscape paper, published in Nature protocols. Although Cytoscape has newer versions, jActiveModules and ClueGO plugins are verified to work in Cytoscape version 2.6.3.\r\n\n\n\r\n\n\nExternal tools: PANOGA utilizes four external web-servers to functionalize SNPs, i.e., SPOT, F-SNP, SNPnexus, SNPinfo; jActiveModules plugin of Cytoscape to identify sub-networks; ClueGO plugin 60 of Cytoscape 68 for functional enrichment of the identified sub-networks. All of these web-servers, programs and plugins are freely available for academic use.\r\n\n\n\r\n\n\nPANOGA: PANOGA is composed of nine consecutive steps, plus a preprocessing step. The preprocessing step of PANOGA is realized by a java script \\(createpanogainput.jar). SNP functionalization steps of PANOGA are realized via sending the input files into four different web-servers \\(SPOT, F-SNP, SNPnexus, SNPinfo). The subnetwork identification step of PANOGA is realized by the jActiveModules plugin of Cytoscape. The remaining steps are performed via running java executable programs. The above-mentioned jar files of PANOGA can be downloaded at: http://akademik.bahcesehir.edu.tr/~bbgungor/panoga_protocol.zip"
+        },
+        {
+            "header": "Procedure",
+            "content": "Install PANOGA\r\n\n\n1) Set up necessary environment to run PANOGA \\(as detailed in EQUIPMENT SETUP).\r\n\n\n\r\n\n\n2) Download the PANOGA files at http://akademik.bahcesehir.edu.tr/~bbgungor/panoga_protocol.zip. Unzip the downloaded PANOGA_protocol.zip file and extract it. The executable jar files of PANOGA are found at: PANOGA_protocol/. \r\n\n\n\r\n\n\nPreprocess GWAS data\r\n\n\n3) Pick a disease name for your project, which can be any disease name \\(e.g., diabetes), not necessarily a standard OMIM disease name. In the following steps of PANOGA procedure,  we will refer to this disease name as $DISEASE_NAME.\r\n\n\nCRITICAL STEP Do not use space in the $DISEASE_NAME since it will corrupt the further steps of PANOGA procedure.\r\n\n\n\r\n\n\n4) Create a folder with your disease name under PANOGA_protocol/data/ and under PANOGA_protocol/out/ via typing the following commands:\r\n\n\n>cd PANOGA_protocol/data\r\n\n\n>mkdir $DISEASE_NAME\r\n\n\n>cd ../out\r\n\n\n>mkdir $DISEASE_NAME\r\n\n\n>cd ..\r\n\n\nReplace $DISEASE_NAME above with the disease name that you specified in Step 3.\r\n\n\n\r\n\n\n5) Format GWAS results input file following the instructions in \"Figure 2\":http://www.nature.com/protocolexchange/system/uploads/2149/original/PANOGA_NatProtExch_Figure2.doc?1338222756 , and save this file under PANOGA_protocol/data/$DISEASE_NAME/ using any input file name. e.g., PANOGA_protocol/data/diabetes/diabetes_panoga_input.txt or bipolar_gwas_result.xls. sample_panoga_input.txt file is also provided under: PANOGA_protocol/data/sample/.\r\n\n\n\r\n\n\n6) Run the java script \u201ccreatepanogainput.jar\u201d to create four separate input files that will be used in SNP to gene assignment and SNP functionalization steps of PANOGA:\r\n\n\n Replace $INPUT_FILE_NAME with your input file name, e.g. \\(diabetes_panoga_input.txt),  $DISEASE_NAME with your disease name and $PVALUE_THRESHOLD with genotypic  p-value threshold that you would like to use to restrict your SNPs based on their  significance for disease. The default $PVALUE_THRESHOLD is 0.05.\r\n\n\n >java -jar createpanogainput.jar $INPUT_FILE_NAME $DISEASE_NAME  $PVALUE_THRESHOLD\r\n\n\n e.g. java -jar createpanogainput.jar sample_panoga_input.txt sample 0.05\r\n\n\n This run generates $DISEASE_NAME_spot_input.txt, $DISEASE_NAME_fsnp_input.txt,\r\n\n\n $DISEASE_NAME_snpnexus_input.txt, $DISEASE_NAME_snpinfo_input.txt files under  PANOGA_protocol/data/$DISEASE_NAME.\r\n\n\n CRITICAL STEP Using an input filename with an extension other than .txt or .xls interferes  this step.\r\n\n\n\r\n\n\nAssign SNPs to Genes \r\n\n\n7) PANOGA procedure uses SPOT webserver 49 to assign SNPs to genes. Go to the SPOT webserver at: https://spot.cgsmd.isi.edu/submit.php. \r\n\n\n\r\n\n\n8) Click into \u201cUpload SNP File\u201d button; select  SPOT input file, i.e. $DISEASE_NAME_spot_input.txt.\r\n\n\n\r\n\n\n9) Change \u201cMaximum SNPs to output:\u201d parameter to 50,000  in SPOT webserver.\r\n\n\n \r\n\n\n10) If your $PVALUE_THRESHOLD \\(from Step 6) is different than 0.05, change it in the \u201cp-value threshold: \u201c parameter of SPOT webserver.\r\n\n\n\r\n\n\n11) Under \u201cLinkage Disequilibrium \\(LD) options\u201d select the appropriate HAPMAP sample among the available options in SPOT webserver.\r\n\n\n\r\n\n\n12) Click into \u201cRun\u201d button and download the result under \u201cPrimary Results\u201d section. Save the SPOT output as Tab-delimited file under PANOGA_protocol/data/ $DISEASE_NAME/$DISEASE_NAME_spot_output.txt.\r\n\n\n\r\n\n\n13) At this step, the users need to choose one of the following two options: option A to proceed with the full PANOGA procedure, including network oriented stages and functional information of SNPs; option B to proceed with only pathway oriented steps of PANOGA procedure. We highly recommend the users to follow the full PANOGA procedure \\(option A).\r\n\n\n \\(A) Proceed with the full PANOGA procedure\r\n\n\n Continue with Step 14.\r\n\n\n\\(B) Proceed with only pathway oriented steps of PANOGA procedure\r\n\n\n \\(i) Run the java script \u201cparsespotoutput.jar\u201d to get a list of gene symbols assigned  into typed SNPs.\r\n\n\n  >java -jar parsespotoutput.jar $DISEASE_NAME \r\n\n\n  This run will create the gene symbol file \\($DISEASE_NAME_partial_panoga_gene_\r\n\n\n  symbols.txt) under PANOGA_procedure/ClueGO/data/ and $DISEASE_NAME_    partial_panoga_gene2snp.txt file under PANOGA_procedure/data/\r\n\n\n  $DISEASE_NAME/.\r\n\n\n  \\(ii)Type the following command to perform functional enrichment of identified gene   symbols:\r\n\n\n  >cd ClueGO\r\n\n\n  Replace $DISEASE_NAME below with the disease name that you specified in Step   3.\r\n\n\n  >java -jar ClueGO_v1.4.command-line.jar -props clueGO.props -file1      data\\$DISEASE_NAME_partial_panoga_gene_symbols.txt -analysis-name    $DISEASE_NAME_partial_panoga -out out\r\n\n\n  At the end of this step, enrichment results of the gene symbols are saved under    PANOGA_procedure/ClueGO/out/\r\n\n\n  \\(iii) Run the java script \u201canalyzecluegooutput.jar\u201d to create SNP targeted pathway   lists and gene list for identified SNP targeted pathways.\r\n\n\n  >cd ..\r\n\n\n  >java \u2013jar analyzecluegooutput.jar $DISEASE_NAME\r\n\n\n  At the end of this step pathway based lists and gene list are created as explained   in the \u201cAnticipated Results\u201d section and \u201cPANOGA\u2019s Application to Human Complex   Diseases\u201d subsection of Introduction section.  \r\n\n\n\r\n\n\nInstall Cytoscape and its plugins\r\n\n\n14) Install Cytoscape version 2.6.3 by following its installation guide 69. Follow Cytoscape installation instructions to get the executable file. \r\n\n\n CRITICAL STEP Although Cytoscape has newer versions, jActiveModules and ClueGO  plugins are verified to work in Cytoscape version 2.6.3.\r\n\n\n\r\n\n\n15) Install jActiveModules and ClueGO version 1.4 plugins of Cytoscape. These plugins should be installed into Cytoscape_v2.6.3/plugins/ using the following options: option A to install jActiveModules plugin; option B to install ClueGO version 1.4 plugin:\r\n\n\n \\(A) Installing jActiveModules plugin \r\n\n\njActiveModules plugin is used to identify active sub-networks. Copy jActiveModules plugin from:\r\n\n\n  PANOGA_protocol/EXTERNAL_TOOLS/jActiveModules.jar\r\n\n\n  and save under Cytoscape_v2.6.3/plugins/.\r\n\n\n      \\(B) Installing ClueGO version 1.4 plugin \r\n\n\n\\(i) ClueGO plugin is used in the functional enrichment step of PANOGA. Copy .cluegoplugin, provided under PANOGA_protocol/ClueGO/ into the home directory of the user.\r\n\n\n\\(ii) Obtain ClueGO licence from its website \\(http://www.ici.upmc.fr/cluego/cluegoLicense.shtml) and save .lf file under home/.cluegoplugin/License/.l/ and .lcf file under home/.cluegoplugin/License/.lc/.\r\n\n\n       CRITICAL STEP Before running PANOGA, ensure that Cytoscape, jActiveModules and        ClueGO plugins are working properly.\r\n\n\n\r\n\n\nObtain Functional Information of SNPs\r\n\n\n16) PANOGA procedure utilizes SPOT 49, F-SNP 51, SNPnexus 73 and SNPinfo 50 webservers to functionalize SNPs. SNP functional information through SPOT web-server 49 is already obtained in the previous step while assigning SNPs to genes. Run \u201crunfsnp.jar\u201d to obtain SNP functional information from F-SNP webserver 51:\r\n\n\n Replace $DISEASE_NAME with the disease name that you specified in Step 3.\r\n\n\n >java -jar runfsnp.jar $DISEASE_NAME\r\n\n\n This step will save the F-SNP output into PANOGA_procedure/data/$DISEASE_NAME/ $DISEASE_NAME_fsnp_output.txt.\r\n\n\n\r\n\n\n17) Go to the SNPnexus webserver at: http://www.snp-nexus.org/. Under \u201cBatch Query\u201d option, Browse SNPnexus input file, i.e.  $DISEASE_NAME_snpnexus_input.txt.\r\n\n\n\r\n\n\n18) Under \u201cAnnotation Categories\u201d-> \u201cRegulatory Elements\u201d, select \u201dConserved Transcription Factor Binding Sites \\(TFBS)\u201d option and click \u201cRun\u201d button.\r\n\n\n\r\n\n\n19) Download the result under \u201cRegulatory Elements\u201d section via clicking into TXT icon. Save the SNPnexus output as text file under PANOGA_procedure/data/$DISEASE_NAME/$DISEASE_NAME_snpnexus_output.txt. \r\n\n\n\r\n\n\n20) Go to the SNPinfo webserver at: http://snpinfo.niehs.nih.gov/snpfunc.htm. Browse and upload SNPinfo input file, i.e.  $DISEASE_NAME_snpinfo_input.txt.\r\n\n\n\r\n\n\n21) Click \u201cSubmit\u201d button and download the results via clicking into \u201cExport To Excel\u201d button under \u201cSNP Function Prediction Results\u201d. Save the SNPInfo output as csv file under PANOGA_procedure/data/$DISEASE_NAME/$DISEASE_NAME_snpinfo_output.csv. \r\n\n\n\r\n\n\nPrepare the Gene Attributes data \r\n\n\n22) PANOGA needs the attributes file \\(in .pvals format) to identify the sub-networks \\(using jActive Modules plugin 59). This file has two weighted P-values \\(SPOT Pw and F-SNP Pw values) for each gene, where the weighted P-value combines the genotypic p-value of a SNP with the functional information of a SNP that is associated with the gene. The following steps of the PANOGA procedure will create an attributes file similar to the provided sample_panoga_spot_fsnp.pvals file at PANOGA_procedure/. Run  \u201ccombinespotfsnp.jar\u201d to combine SPOT and F-SNP output files:\r\n\n\n Replace $DISEASE_NAME with the disease name that you specified in Step 3.\r\n\n\n>java -jar combinespotfsnp.jar $DISEASE_NAME\r\n\n\n\r\n\n\n23) Run \u201cincorporatesnpnexus.jar\u201d to incorporate functional information from SNPnexus. Replace $DISEASE_NAME with the disease name that you specified in Step 3.\r\n\n\n>java -jar incorporatesnpnexus.jar $DISEASE_NAME \r\n\n\nThis run will create the gene attributes file \\($DISEASE_NAME_spot_fsnp_snpnexus.pvals) under PANOGA_procedure/data/$DISEASE_NAME/.\r\n\n\n\r\n\n\nObtain network data \r\n\n\n24) Decide which human protein-protein interaction \\(PPI) dataset you would like to use as your initial network\u2014follow option A to use the default human PPI network or option B to use a customized PPI network.\r\n\n\n \\(A) Using the default human PPI network\r\n\n\n  A user can work with the default human PPI network supplied in the PANOGA    installation package. The default human PPI network is available in sif format in:   PANOGA_protocol/data/humanPPI.sif.\r\n\n\n  \\(B) Using another PPI network\r\n\n\n      A user can work with their own human PPI network. Since Cytoscape 68 accepts  networks in many different file formats \\(e.g., .sif, .gml, .xgmml, .xls, SBML,  BioPAX, PSI-MI.), the user has the option to choose the network that they want  to  work with.\r\n\n\n\r\n\n\nLoad network data\r\n\n\n25) Start Cytoscape via following option A for Windows users, option B for Linux users.\r\n\n\n\\(A) Windows Users\r\n\n\n Run Cytoscape.exe.\r\n\n\n\\(B) Linux Users\r\n\n\n       Run ./cytoscape.sh.\r\n\n\n\r\n\n\n26) Decide how you would like to load network data into Cytoscape. Cytoscape allows to import networks from a local or remote computer, or from Web Services\u2014follow option A to import a network file from a local computer, option B from a remote computer or option C to use Web Services. We recommend PANOGA users to follow option A to load network data.\r\n\n\n \\(A) Loading the default human PPI network from a local computer\r\n\n\n     \\(i) Assemble your network data into a SIF file, as described in \"Figure 2\":http://www.nature.com/protocolexchange/system/uploads/2149/original/PANOGA_NatProtExch_Figure2.doc?1338222756 \r\n\n\n     \\(ii) Import human PPI network using File->Import->Network commands of Cytoscape.  The user is free to load any human PPI network, as long as the official HUGO gene  symbols are used as node identifiers. A sample human PPI network is also provided  at: PANOGA_procedure/data/humanPPI.sif.\r\n\n\n       \\(B) Loading a PPI network from a remote computer\r\n\n\n Follow the procedure described at: \r\n\n\n http://wiki.cytoscape.org/Cytoscape_User_Manual/#Cytoscape_User_Manual .2BAC8-Creating_Networks.Load_Networks_from_a_Remote_Computer_.28URL_import.29\r\n\n\n      \\(C) Loading a PPI network using Web Services\r\n\n\n Follow the procedure described at: \r\n\n\n http://wiki.cytoscape.org/Cytoscape_User_Manual/ImportingNetworksFromW ebServices\r\n\n\n\r\n\n\nImport gene attributes\r\n\n\n27) Assign values \\(two attributes for each identified gene) to nodes \\(genes) using File->Import->Attribute/Expression Matrix commands of Cytoscape and selecting the gene attributes file \\($DISEASE_NAME_spot_fsnp_snpnexus.pvals) that is created in Step 23. A sample gene attributes file \\(sample_spot_fsnp_snpnexus.pvals) is also provided at PANOGA_procedure/data/sample/.\r\n\n\n\r\n\n\nIdentify sub-networks\r\n\n\n28) Start jActiveModules plugin from Cytoscape->Plugins->jActiveModules. \r\n\n\n\r\n\n\n29) Select SPOTPvaluesig and FSScorePvaluesig from Expression Attributes panel.\r\n\n\n\r\n\n\n30) In the General Parameters panel, set \u201cNumber of Modules\u201d parameter as 1000. \u201cOverlap Threshold\u201d parameter defines max percent of overlap between any two identified subnetworks. The default value used in PANOGA_protocol is 0.5. \r\n\n\n\r\n\n\n31) Click \u201cFind Modules\u201d to identify active sub-networks.\r\n\n\n\r\n\n\n32) Save the result as text file into PANOGA_procedure/data/$DISEASE_NAME/$DISEASE_ NAME_jactivemodules_output.txt via clicking into \u201cSave All Results\u201d button on \u201cResults Panel\u201d. Replace $DISEASE_NAME with the disease name that you specified in Step 3.\r\n\n\n\r\n\n\nParse jActiveModules output\r\n\n\n33) Create a folder with your disease name under PANOGA_protocol/ClueGO/data/ and under PANOGA_protocol/ClueGO/out/ via typing the following commands:\r\n\n\n >cd ClueGO/data\r\n\n\n >mkdir $DISEASE_NAME\r\n\n\n >cd ../out\r\n\n\n >mkdir $DISEASE_NAME\r\n\n\n >cd ../..\r\n\n\n Replace $DISEASE_NAME above with the disease name that you specified in Step 3.\r\n\n\n\r\n\n\n34) Run \u201cparsejactivemodulesoutput.jar\u201d to create individual files containing gene symbols for each identified sub-network:\r\n\n\n Replace $DISEASE_NAME with the disease name that you specified in Step 3. \r\n\n\n >java -jar parsejactivemodulesoutput.jar $DISEASE_NAME\r\n\n\n At the end of this step, for the sub-networks with scores higher than 3, individual files  containing gene symbols are saved under PANOGA_procedure/ClueGO/data/ $DISEASE_NAME/ and the number of subnetworks created is printed on the screen.\r\n\n\n\r\n\n\nFunctional enrichment of subnetworks\r\n\n\n35) Decide which pathway resource you would like to use for the functional enrichment of the identified subnetworks. ClueGO 60 assigns a set of genes into KEGG 61 or BioCarta pathways\u2014follow option A to assign genes into KEGG pathways, option B to assign genes into Biocarta pathways.\r\n\n\n      \\(A) Identifying KEGG pathways\r\n\n\n  Use the clueGO.props file provided under PANOGA_procedure/ClueGO/. In order to   identify KEGG pathways, make sure that under the \u201cSelect Ontologies\u201d title    \u201cSelectedOntologySources=KEGG_14.03.2012\u201d in the ClueGO properties file    \\(clueGO.props).\r\n\n\n \\(B) Identifying BioCarta pathways\r\n\n\n   In order to identify BioCarta pathways, under the \u201cSelect Ontologies\u201d title change   \u201cSelectedOntologySources = REACTOME_BioCarta_07.04.2011\u201d in the ClueGO   properties file \\(PANOGA_procedure/ClueGO/clueGO.props).\r\n\n\n\r\n\n\n36) At this step, the users need to choose one of the following two options, depending on their operating systems: Windows Users, follow option A; Linux Users, follow option B. For both options, replace $DISEASE_NAME with the disease name that you specified in Step 3, $NUMBER_OF_SUBNETWORKS with the number of subnetworks, as created in Step 34. Type the following command to perform functional enrichment for each of the identified sub-networks using the clueGO.props file created in Step 35:\r\n\n\n\\(A) Windows Users\r\n\n\n >java \u2013jar functionalenrichment.jar $DISEASE_NAME  $NUMBER_OF_SUBNETWORKS\r\n\n\n\\(B) Linux Users\r\n\n\n >./functionalenrichment.sh $DISEASE_NAME $NUMBER_OF_SUBNETWORKS  \\($OPTIONAL_JAVA_PATH)\r\n\n\n If java is installed as root user, skip $OPTIONAL_JAVA_PATH and run as:\r\n\n\n e.g. ./functionalenrichment.sh diabetes 508\r\n\n\n If java is already installed on a different path, specify $OPTIONAL_JAVA_PATH and  run as:\r\n\n\n e.g. ./functionalenrichment.sh diabetes 508 ../../jre1.7.0_04/bin\r\n\n\n  At the end of this step, enrichment results of each of the identified sub-networks are   saved  under PANOGA_procedure/ClueGO/out/$DISEASE_NAME/ for both options.\r\n\n\n\r\n\n\nCombine functional enrichment results\r\n\n\n37) Run the java script \u201ccombinesubnetworkpathways.jar\u201d to create SNP targeted pathway lists and gene list for identified SNP targeted pathways. Replace $DISEASE_NAME with the disease name that you specified in Step 3,  $NUMBER_OF_SUBNETWORKS with the number of subnetworks, as created in Step 34.\r\n\n\n>java \u2013jar combinesubnetworkpathways.jar $DISEASE_NAME $NUMBER_OF_SUBNETWORKS\r\n\n\nAt the end of this step pathway based lists and gene list are created as explained in the \u201cAnticipated Results\u201d section and \u201cPANOGA\u2019s Application to Human Complex Diseases\u201d subsection of Introduction section.\r\n\n\n\r\n\n\nVisualize SNP targeted genes in a KEGG pathway map\r\n\n\n38) Create a directory under PANOGA_protocol/out/ to store gene attribute files for each pathway, via typing the following command:\r\n\n\n >cd out/KeggPathwayMapGeneAttributeFiles\r\n\n\n >mkdir $DISEASE_NAME\r\n\n\n >cd ../..\r\n\n\n Replace $DISEASE_NAME above with the disease name that you specified in Step 3.\r\n\n\n\r\n\n\n39) Run the java script \u201ccreateattributesforpathwaymap.jar\u201d to create a gene attributes file for each identified pathway, which will be used in the next step to customize KEGG pathway maps. Each pathway specific file contain identified gene symbols and color specifications depending on the number of SNP targeted genes per base pair. Replace $DISEASE_NAME with the disease name that you specified in Step 3.\r\n\n\n>java \u2013jar  createattributesforpathwaymap.jar  $DISEASE_NAME \r\n\n\nAt the end of this step, gene attribute file for each of the identified sub-networks are saved  under PANOGA_protocol/out/KeggPathwayMapGeneAttributeFiles/$DISEASE_NAME \r\n\n\n\r\n\n\n40) Color SNP targeted genes for the pathway of interest using the KEGG Mapper \u2013 Color Pathway tool available at: http://www.genome.jp/kegg/tool/map_pathway3.html.\r\n\n\n\r\n\n\n41) Type \u201chsa\u201d followed by the KEGG Term ID for the pathway of interest to the \u201cSelect KEGG pathway map:\u201d field. KEGG Term IDs of the pathways can be obtained from the first column of the $DISEASE_NAME_pathways_subnetwork_genes.csv file under PANOGA_procedure/out/$DISEASE_NAME/.\r\n\n\n\r\n\n\n42) Browse gene attribute file created in Step 39 for the pathway of interest.\r\n\n\n\r\n\n\n43) Hit \u201cExecute\u201d button.  KEGG Mapper \u2013 Color Pathway tool 61 generates a customized pathway map, where the SNP targeted genes are colored based on the number of SNPs per base pair."
+        },
+        {
+            "header": "Timing",
+            "content": "The time required to execute this protocol is most strongly related with the time required to run the jActiveModules plugin 59 of Cytoscape 68 to identify subnetworks and to obtain functional information of SNPs from F-SNP webserver 51. With a 1.5 Mbps ADSL connection under favorable operating conditions, it is reported to take approximately 9 min to download Cytoscape 69. For <sub>30,000 SNPs, it takes approximately 40 secs to get functional information from SPOT webserver 49; 20 secs from SNPinfo webserver 50; 10 mins from SNPnexus webserver 73; and 3 hours from F-SNP webserver 51. On a PC with 500 GB of memory, loading a human PPI network of </sub>10,000 nodes and <sub>80,000 edges requires approximately 10 secs; importing a gene attribute file with </sub>4,000 genes and 2 separate attributes for each gene requires 4secs. On such a network, the subnetwork identification step of PANOGA takes approximately 4 hours once jActiveModules plugin 59 is used with two attributes for each node. On a PC with the same configurations, ClueGO plugin requires approximately 45 mins for functional enrichment of ~500 subnetworks. The running times of each of the unspecified jar programs take less than 5 mins. Overall, an experienced user can execute the full protocol described within 9 hours."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "Out-of-memory errors\r\n\n\nSubnetwork identification step \\(Step 31) of PANOGA procedure is realized by jActiveModules plugin 59 of Cytoscape 68. While Cytoscape is working with big networks \\(~10,000 nodes) memory problems might appear. If such a case happens in Step 31 of PANOGA procedure, Cytoscape will display an error message such as a Java Null Pointer Exception. You can address this problem by freeing memory via deleting big and unnecessary networks or via closing other applications that are running on the same computer 69. Alternatively, you can increase the memory reserved for Cytoscape via changing the following lines in the Cytoscape.vmoptions file, which is located under .cytoscape folder under your home directory:\r\n\n\n-Xmx20G\r\n\n\n-Xss30M\r\n\n\nFurther instructions on how to increase memory space for Cytoscape are available at:\r\n\n\nhttp://www.cytoscape.org/cgi-bin/moin.cgi/How_to_increase_memory_for_Cytoscape."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "PANOGA will create pathway and gene tables with several features in .csv format \\(comma separated values) as shown in \"Table 1\":http://www.nature.com/protocolexchange/system/uploads/2151/original/PANOGA_NatProtExch_Table1.doc?1338222879 \"Table 2\":http://www.nature.com/protocolexchange/system/uploads/2152/original/PANOGA_NatProtExch_Table2.doc?1338222913 \"Table 3\":http://www.nature.com/protocolexchange/system/uploads/2153/original/PANOGA_NatProtExch_Table3.doc?1338222943 \r\n\n\n and \"Table 4\":http://www.nature.com/protocolexchange/system/uploads/2154/original/PANOGA_NatProtExch_Table4.doc?1338222973 , respectively. The files can be opened by Microsoft Excel or Open Office and displayed as spreadsheets. Each row of the pathway spreadsheet will correspond to the features of the identified pathway, i.e., KEGG term, KEGG term ID, p-value, rank, number of times found significant for different subnetworks, number of SNP targeted genes, number of typed SNPs in GWAS that are associated with the genes as part of the pathway under study, number of regulatory SNPs which are also found significant in GWAS, SNP targeted genes and their SNP counts. \r\n\n\n\r\n\n\nGene table file, as shown in \"Table 4\":http://www.nature.com/protocolexchange/system/uploads/2154/original/PANOGA_NatProtExch_Table4.doc?1338222973 , will include different features of the genes that are found as part of the identified pathways. While some of these genes are SNP targeted genes, some others are identified as the neighbours of SNP targeted genes within the generated sub-networks. Each row of the gene spreadsheet will correspond to a gene symbol, entrez gene ID, number of times found in subnetwork, number of associated pathways, list of associated pathways, number of typed SNPs in GWAS, functional information of the typed SNPs in GWAS, SNP regulatory potential, number of regulatory SNPs. If the number of typed SNPs in GWAS is zero, that means this gene is identified through neighbour effect.\r\n\n\n\r\n\n\nPANOGA will also create customized KEGG pathway map for pathway under study, as shown in \"Figure 3\":http://www.nature.com/protocolexchange/system/uploads/2150/original/PANOGA_NatProtExch_Figure3.png?1338222828 . In this map, the shade of red color in genes map to the number of targeted SNPs \\(typed in the GWAS of RA), per base pair of the gene. Hence, this pathway map will help the users to visualize affected genes along different routes within the pathway map."
+        },
+        {
+            "header": "References",
+            "content": "Bakir-Gungor, B. & Sezerman, O. U. A New Methodology to Associate SNPs with Human Diseases According to Their Pathway Related Context. PLoS One 6, doi:ARTN e26277\r\n\n\nDOI 10.1371/journal.pone.0026277 \\(2011).\r\n\n\n\r\n\n\nBindea, G. et al. ClueGO: a Cytoscape plug-in to decipher functionally grouped gene ontology and pathway annotation networks. Bioinformatics 25, 1091-1093, doi:10.1093/bioinformatics/btp101 \\(2009).\r\n\n\n\r\n\n\nChelala, C., Khan, A. & Lemoine, N. R. SNPnexus: a web database for functional annotation of newly discovered and public domain single nucleotide polymorphisms. Bioinformatics 25, 655-661, doi:DOI 10.1093/bioinformatics/btn653 \\(2009).\r\n\n\n\r\n\n\nCline, M. S. et al. Integration of biological networks and gene expression data using Cytoscape. Nat Protoc 2, 2366-2382, doi:DOI 10.1038/nprot.2007.324 \\(2007)\r\n\n\n\r\n\n\nLee, P. H. & Shatkay, H. F-SNP: computationally predicted functional SNPs for disease association studies. Nucleic Acids Res 36, D820-D824, doi:Doi 10.1093/Nar/Gkm904 \\(2008).\r\n\n\n\r\n\n\nSaccone, S. F. et al. SPOT: a web-based tool for using biological databases to prioritize SNPs after a genome-wide association study. Nucleic Acids Res 38, W201-W209, doi:Doi 10.1093/Nar/Gkq513 \\(2010).\r\n\n\n\r\n\n\nShannon, P. et al. Cytoscape: A software environment for integrated models of biomolecular interaction networks. Genome Res 13, 2498-2504, doi:Doi 10.1101/Gr.1239303 \\(2003).\r\n\n\n\r\n\n\nXu, Z. L. & Taylor, J. A. SNPinfo: integrating GWAS and candidate gene information into functional SNP selection for genetic association studies. Nucleic Acids Res 37, W600-W605, doi:Doi 10.1093/Nar/Gkp290 \\(2009)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1371/journal.pone.0026277",
+                "date": "2012-05-28 16:52:30",
+                "title": "A New Methodology to Associate SNPs with Human Diseases According to Their Pathway Related Context",
+                "authors": [
+                    "Burcu Bakir-Gungor",
+                    "Osman Ugur Sezerman",
+                    "and Joaqu\u00edn Dopazo"
+                ],
+                "journal": "PLoS ONE",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 18072,
+                "identity": "2a78fc56-69fe-45c6-b70e-26726fbab573",
+                "order_by": 0,
+                "name": "Burcu Bakir-Gungor",
+                "email": "burcub@gatech.edu",
+                "orcid": "",
+                "institution": "Sezerman Lab, Sabanci University",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Burcu",
+                "middleName": "",
+                "lastName": "Bakir-Gungor",
+                "suffix": ""
+            },
+            {
+                "id": 18073,
+                "identity": "6c7029e9-efdf-4bf2-ac05-e41f8e0e9745",
+                "order_by": 1,
+                "name": "Osman Ugur Sezerman",
+                "email": "",
+                "orcid": "",
+                "institution": "Sabanc\u0131 University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Osman",
+                "middleName": "Ugur",
+                "lastName": "Sezerman",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2012-05-28 16:56:25",
+        "currentVersionCode": 2,
+        "declarations": "",
+        "doi": "10.21203/rs.2.1035/v2",
+        "doiUrl": "https://doi.org/10.21203/rs.2.1035/v2",
+        "draftVersion": [],
+        "editorialEvents": [
+            {
+                "content": "https://doi.org/10.1038/protex.2012.019",
+                "type": "published",
+                "date": "2012-05-29T20:46:45+00:00"
+            }
+        ],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2610739,
+                "identity": "578d3d5a-e5b2-47ab-a8b4-3cd675ad011b",
+                "added_by": "58586f49-be87-4f05-bd22-b2c713abd53c",
+                "created_at": "2020-09-25 20:51:50",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 81176,
+                "visible": true,
+                "origin": "",
+                "legend": "Outline of PANOGA protocol.    In Step 1, a gene-wise Pw-value for association with disease was computed by integrating functional information. In Step 2, significant Pw-values were loaded as two separate attributes of the genes in a PPI network and visualized using Cytoscape. At this step, active sub-networks of interacting gene products that were also associated with the disease, are identified using jActive Modules plugin. In Step 3, genes in an identified active sub-network were tested whether they are part of functionally important KEGG pathways. Step 4 integrates the functional enrichments of the generated sub-networks.",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-2399/v2/figure_1.png"
+            },
+            {
+                "id": 2610741,
+                "identity": "05cef11a-ac9d-4b2f-a1da-2dcd08bb1208",
+                "added_by": "58586f49-be87-4f05-bd22-b2c713abd53c",
+                "created_at": "2020-09-25 20:51:50",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 106096,
+                "visible": true,
+                "origin": "",
+                "legend": "PANOGA input files\u2019 formats   GWAS result and Protein-protein interaction network file formats, required by PANOGA protocol.",
+                "description": "",
+                "filename": "figure2.png",
+                "url": "https://assets.researchsquare.com/files/nprot-2399/v2/figure_2.png"
+            },
+            {
+                "id": 2610363,
+                "identity": "100de0a6-d261-4a2f-9053-36d1f7e6218c",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:36",
+                "extension": "png",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 15212,
+                "visible": true,
+                "origin": "",
+                "legend": "Customized KEGG pathway map of an identified SNP targeted pathway.   Customized KEGG pathway map for JAK-STAT signaling pathway. The shade of red color in genes map to the number of targeted SNPs (typed in the GWAS), per base pair of the gene. Red refers to the highest targeted gene, whereas white refers to a gene product, not targeted by the SNPs.",
+                "description": "",
+                "filename": "figure3.png",
+                "url": "https://assets.researchsquare.com/files/nprot-2399/v2/figure_3.png"
+            },
+            {
+                "id": 2610365,
+                "identity": "57cc022b-22d1-43aa-a7e0-4d5df558cc81",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:36",
+                "extension": "png",
+                "order_by": 4,
+                "title": "Figure 4",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 43591,
+                "visible": true,
+                "origin": "",
+                "legend": "Figure 1   Outline of PANOGA protocol   An image version of Figure.",
+                "description": "",
+                "filename": "figure4.png",
+                "url": "https://assets.researchsquare.com/files/nprot-2399/v2/figure_4.png"
+            },
+            {
+                "id": 13467151,
+                "identity": "3e4d8909-2bb6-4548-89c2-eb58dad48080",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:54:11",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 659664,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-2399/v2/0c6116c9-0b37-4e07-9dde-ded167d8f4d7.pdf"
+            },
+            {
+                "id": 2610359,
+                "identity": "7b06b6ac-fdc8-47c4-b4ff-0d387132055c",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:36",
+                "extension": "doc",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 52224,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 2   Pathway based representation of PANOGA results, focusing on subnetwork genes.    The top 5 SNP targeted KEGG pathways are shown along with their KEGG term IDs, ranks and p-values in the 1st, 3rd and 4th columns, respectively. Pathway associated genes that are found in the subnetworks are shown in the 5th column. While the genes without \u2018*\u2019 symbol are SNP targeted genes (e.g. JAK2 gene in the Jak-STAT signaling pathway), the genes with \u2018*\u2019 symbol are identified in the subnetwork due to the neighbour effect (e.g. JAK1 gene in the Jak-STAT signaling pathway). The genes with neighbour effect (not targeted by SNPs) are incorporated using PPI network in the subnetwork identification step of PANOGA and they help to identify SNP targeted pathways, which can not be picked up using SNP targeted genes only. Column 6 displays other members (genes) of the identified snp targeted pathway, that are not found in PANOGA subnetworks. ",
+                "description": "",
+                "filename": "supplement0.doc",
+                "url": "https://assets.researchsquare.com/files/nprot-2399/v2/supplement_0.doc"
+            },
+            {
+                "id": 2610361,
+                "identity": "cd5d526f-8ee3-4968-bc6b-8938c4b5301d",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:36",
+                "extension": "doc",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 48640,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 1   Pathway based representation of PANOGA results, focusing on SNP targeted genes.    The top 5 SNP targeted KEGG pathways are shown along with their KEGG term IDs, ranks and p-values in the 1st, 3rd and 4th columns, respectively. SNP targeted genes that are identified in PANOGA protocol are shown in the 5th column; along with the number of typed SNPs, shown in paranthesis. For each identified SNP targeted pathway, number of SNP targeted genes, number of associated SNPs in GWAS, number of regulatory GWAS SNPs and how many times this pathway is identified are shown in columns 6 to 9, respectively.",
+                "description": "",
+                "filename": "supplement0.doc",
+                "url": "https://assets.researchsquare.com/files/nprot-2399/v2/supplement_0.doc"
+            },
+            {
+                "id": 2610362,
+                "identity": "4992da32-2d49-48d1-a102-3be03a9c4eb7",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:36",
+                "extension": "doc",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 48640,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 3   Pathway based representation of PANOGA results, focusing on associated SNPs from GWAS and their associated genes (SNP targeted genes).   The top 5 SNP targeted KEGG pathways are shown along with their KEGG term IDs, ranks and p-values in the 1st, 3rd and 4th columns, respectively. For each identified SNP targeted pathway, column 5 displays pathway associated genes found in subnetworks, along with the rs IDs of the typed SNPs and their functional consequences on the gene, shown in brackets. For example, STAT1 gene is a SNP targeted gene in Jak-STAT signaling pathway. Column 5 indicates that while rs3024912 and rs16833177 are located near the 3\u2019 end of STAT1; rs1914408 and rs6718902 are located near the 5\u2019 end of STAT1; and rs11687659 is located in the intronic region of STAT1. ",
+                "description": "",
+                "filename": "supplement0.doc",
+                "url": "https://assets.researchsquare.com/files/nprot-2399/v2/supplement_0.doc"
+            },
+            {
+                "id": 2610364,
+                "identity": "ff48305b-aa88-4a2d-befc-16f90950f707",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:36",
+                "extension": "doc",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 47104,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 4   Gene list representation of PANOGA for the identified SNP targeted pathways.    For each SNP targeted gene, number of associated SNPs in GWAS, number of regulatory GWAS SNPs, how many times this pathway is identified, number of associated snp targeted pathways, list of these pathways, associated SNPs from GWAS, functional information regarding associated SNPs from GWAS, SNP regulatory potential and number of Regulatory SNPs are shown in columns 2 to 9, respectively.",
+                "description": "",
+                "filename": "supplement0.doc",
+                "url": "https://assets.researchsquare.com/files/nprot-2399/v2/supplement_0.doc"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": false,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Genome-wide association study, GWAS, human complex disease, single nucleotide polymorphism, SNP, pathway, protein protein interaction network, SNP functional information",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "The identification of the variants that explain familial risk of a specific disease is important since it enables the development of genetic risk prediction tests, diagnosis tools and therapeutical applications. One possible reason of multifactorial diseases is the alterations in the activity of biological pathways, where a series of mutations occur in distinct genes. While each of these variations extends slightly the likelihood of having the disease, they work together to give birth to the perturbations in normal biological processes. We provide a protocol \\(termed PANOGA, Pathway and Network Oriented GWAS \\(Genome-wide association study) Analysis) to devise functionally important pathways through the identification of genes within these pathways, where these genes are targeted by single nucleotide polymorphisms \\(SNPs) obtained from the GWAS analysis. Additionally, PANOGA helps to identify other disease related genes, not targeted by the SNPs, which are also located within these affected pathways. The program accepts tab delimited or excel file containing SNP rsIDs vs. genotypic p-values and is available at: http://akademik.bahcesehir.edu.tr/~bbgungor/panoga_protocol.zip",
+        "manuscriptTitle": "Identification of SNP Targeted Pathways From Genome-wide Association Study (GWAS) Data",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2012-05-29 11:28:55",
+                "doi": "10.1038/protex.2012.019",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "protocol.exchange@nature.com",
+                    "identity": "protocol-exchange",
+                    "isNatureJournal": false,
+                    "hasQc": false,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+                    "title": "Protocol Exchange",
+                    "twitterHandle": ""
+                }
+            },
+            {
+                "code": 2,
+                "date": "2019-05-22 05:10:46",
+                "doi": "10.21203/rs.2.1035/v2",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "protocol.exchange@nature.com",
+                    "identity": "protocol-exchange",
+                    "isNatureJournal": false,
+                    "hasQc": false,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+                    "title": "Protocol Exchange",
+                    "twitterHandle": ""
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9fc7b88a-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "May 22nd, 2019",
+        "published": true,
+        "revision": "",
+        "status": "published-in-journal",
+        "subjectAreas": [
+            {
+                "id": 6142,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 6143,
+                "name": "Genetics"
+            },
+            {
+                "id": 6144,
+                "name": "Biotechnology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": {
+            "articleIdentity": "nprot-2399",
+            "link": "https://doi.org/10.1038/protex.2012.019",
+            "journal": {
+                "identity": "protocol-exchange",
+                "isVorOnly": false,
+                "title": "Protocol Exchange"
+            },
+            "publishedOn": "2012-05-29 20:46:45",
+            "publishedOnDateReadable": "May 29th, 2012"
+        },
+        "versionCreatedAt": "2019-05-22 05:10:46",
+        "video": "",
+        "vorDoi": "10.1038/protex.2012.019",
+        "vorDoiUrl": "https://doi.org/10.1038/protex.2012.019",
+        "workflowStages": []
+    }
+}

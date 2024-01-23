@@ -1,0 +1,211 @@
+{
+    "identity": "pex-818",
+    "title": "<p>ChIP-Seq data processing, normalization and visualization</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>This procedure has been applied to process ChIPSeq data from the associated publication. Some aspect of this procedure can be used as inspiration for processing low input ChIPSeq datasets</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>1. Windows PC with atleast 12 GB RAM powerful enough to run EaSeq sessions listed in this article. </p><p> 2. Installed EaSeq software available freely at www.easeq.net</p><p><br></p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "ChIP-seq data processing\n1. ChIP-seq libraries were sequenced as 75 and 150 bp paired end reads on an Illumina NextSeq 500.\n2. Reads were trimmed using Trimmomatic\n1\nwith the settings \u201cILLUMINACLIP:TruSeq3-PE.fa:2:30:10 SLIDINGWINDOW:4:20 HEADCROP:15 CROP:120 MINLEN:40\u201d for H3K4me3, \u201cSLIDINGWINDOW:4:20 HEADCROP:5 CROP:50 MINLEN:30\u201d for MII H3K9me3 data, and \u201cSLIDINGWINDOW:4:20 HEADCROP:5 CROP:125 MINLEN:30\" for H3K36me3 and 2-cell H3K9me3 data.\n3. ChIP-seq reads were aligned as paired ends to the mm10 genome assembly using bowtie2\n2\nand the settings \u201c--local -X 2000\u201d, sorted and exported as bam-files using samtools\n3\n, and imported into EaSeq\n4\n(\nhttp://easeq.net\n) for subsequent analyses and visualization.\n4. In EaSeq, default settings for ChIP-seq data are used including filtering of reads with identical coordinates. Where nothing else is mentioned, values were normalized to fragments per million reads per kbp (FPKM).\nGeneral ChIP-seq data analysis and visualization\n1. Unless stated, then all analysis and visualization was performed using EaSeq v.1.05-1.111 (\nhttp://easeq.net\n) and its integrated tools using the default settings.\n2. All these analyses, visualizations and used data are available as a session file at\nhttp://easeq.net/Sessions/Sankar.eas\n. Please note that the session requires 12 GB of available RAM.\n3. Plots were exported for layout in Adobe Illustrator CS6 as pdfs using the beta tool \u2018Export snapshot as pdf\u2019.\n4. Gene bodies were extracted from the imported RefSeq \u2018Geneset\u2019 using the \u2018Extract\u2019 tool and \u2018Feature\u2019 set to \u2018Gene\u2019, \u2018Start position\u2019 set to \u2018Start\u2019, and \u2018End position\u2019 set to \u2018End\u2019.\n5. To obtain non-redundant genes without multiple identical termini, gene symbols were exported and duplicates were removed. The list of symbols was imported as a \u2018Regionset\u2019 using the \u2018Geneset\u2019 to lookup coordinates. For gene symbols with multiple annotated transcripts, this resulted in the most extreme coordinates being used for subsequent analysis. Possible gene symbols not matched by coordinates were removed using the gate tool.\n6. Broad H3K4me3 domains were acquired as described above and imported into EaSeq as \u2018Regionsets\u2019. The set of broad H3K4me3 regions were subselected for those at or above 20 kbp of size for further analyses.\n7. For broad domains and gene bodies, the H3K9me3 levels in replicate 1 were quantified using the \u2018Quantify\u2019 tool within windows corresponding to the entire length of the regions, and the order of the regions was changed according to these values using the \u2018Sort\u2019 tool.\n8. Heatmaps were generated using the \u2018HeatMap\u2019 plot type and ratiometric heatmaps showing pseudocolored differences between conditions were generated using the ratiomap plot type.\n9. For plots of gene bodies and broad H3K4me3 domains, settings were adjusted to a relative window size of 200% of the size of the visualized feature by checking \u2018rel.\u2019 and changing \u2018Window size\u2019 to 200 in the plot settings.\n10. For all heatmaps \u2018Maximum density\u2019 was adjusted as indicated by the FPKM values in the figures.\n11. Plots showing the average values at a set of regions were generated using the \u2018Average\u2019 tool, where  gene bodies and broad H3K4me3 domains adjusted to a relative window size of 200% of the size of the visualized feature by checking \u2018rel.\u2019 and changing \u2018Window size\u2019 to 200 in the plot settings. \u2018Y-axis Maximum\u2019 was adjusted as shown in the figures and multiple plots were overlaid using the \u2018Overlay\u2019 tool.\n12. Genome browser tracks were generated using the \u2018FillTrack\u2019 tool with \u2018Y-axis Maximum\u2019 adjusted as shown in the figures and for some tracks loci coinciding with broad H3K4me3 domains were coloured using the \u2018Highlight\u2019 option in the plot settings and the broad H3K4me3 domains as the feature to highlight.\n13. Tracks showing log2 fold differences were adjusted in the plot settings by setting \u2018Ratio\u2019 to the \u2018Dataset\u2019 in the denominator and for the Y-axis checking \u2018Log scale\u2019, setting the \u2018Base\u2019 to 2, and \u2018Maximum\u2019 to 2 and \u2018Minimum\u2019 to -2.\n14. 2D-histograms and associated correlation efficiencies were generated using the \u2018Scatter\u2019 tool and adjusted to show 100 bins on both axes in the plot settings. The visualized values were quantified at a set of regions corresponding to 10kbp windows within the entire span of mm10 genome using the \u2018Quantify\u2019 tool and \u2018Start position offset\u2019 and \u2018End position offset\u2019 adjusted to -5000 and 5000 bp, respectively.\n15. Visualized ratios were derived by applying the \u2018Calculate\u2019 tool with \u2018Division\u2019 and \u2018Logarithm\u2019 checked to the respective quantified values.\nChIP-seq data normalization (a comment)\n1. When assessing differences in H3K9me3 ChIP-seq signal in the\nKdm4a\n-/-\ncompared to\nKdm4a\n+/+\nMII oocytes using standard FPKM normalization, we observed a loss of signal at gene bodies, where H3K9me3 was enriched in the\nKdm4a\n+/+\noocytes.\n2. To cross-validate the distribution in the wild-type we used published H3K9me3 data from MII oocytes\n5\nand found similar enrichment at gene bodies as well as depletion within Broad H3K4me3 Domains (Extended Fig. 4 a, b).\n3. We have previously observed that large increases in the fraction of the genome covered by H3K4me3 in MII oocytes compared to e.g. mouse ES cells, results in a much lower local read density due to the sequenced reads being dispersed over a larger fraction of the genome\n6\n.\n4. This effect is unaccounted for by the widely used RPKM/FPKM normalization of ChIP-seq samples, and for the previous study we therefore used a normalization strategy based on H3K4me3 at the top-5000 ranked transcription start sites\n6\n.\n5. In this study, the widespread gain of H3K9me3 signal at the H3K4me3 enriched regions where it is normally depleted occurs in more than one fifth of the mouse genome\n6\n. This would not only elevate the signal in the normally depleted regions, but also lead to a considerably reduced signal in the areas of canonical enrichment (Extended Figure 4c).\n6. Therefore, we would be highly cautious about interpreting the loss of gene body H3K9me3 in absolute terms, and prefer conservative interpretations. Accordingly, we find it likely that the apparent loss of H3K9me3 is due to the susceptibility of ChIP-seq and FPKM normalization to pronounced increases in the fraction of the genome, which is covered by H3K9me3.\n7. As assessments of the extent of this in a quantitatively manner would require a spike-in setup, which have not yet been developed for the very small-scale ChIP-seq used here, we chose the commonly used FPKM-normalization for plots and analyses, and to make conservative statements that are unaffected by the choice of normalization.\n8. This conservative approach could lead to underestimations of the extent of H3K9me3 gain in broad domains, and to illustrate the consequences, we have done pairwise comparisons of FPKM normalized plots and similar plots normalized in a manner parallel to what was previously used\n6\n(Extended Figure 4 d,e)."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>Trimmed, mapped data uploading to genome browser for visualization or direct use for further analysis in EaSeq</p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bolger, A.M., Lohse, M. &amp; Usadel, B. Trimmomatic: a flexible trimmer for Illumina sequence data. <em>Bioinformatics</em> <strong>30</strong>, 2114-2120 (2014).</p><p>2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Langmead, B. &amp; Salzberg, S.L. Fast gapped-read alignment with Bowtie 2. <em>Nat Methods</em> <strong>9</strong>, 357-359 (2012).</p><p>3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Li, H.<em> et al.</em> The Sequence Alignment/Map format and SAMtools. <em>Bioinformatics</em> <strong>25</strong>, 2078-2079 (2009).</p><p>4.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lerdrup, M., Johansen, J.V., Agrawal-Singh, S. &amp; Hansen, K. An interactive environment for agile analysis and visualization of ChIP-sequencing data. <em>Nat Struct Mol Biol</em> <strong>23</strong>, 349-357 (2016).</p><p>5.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wang, C.<em> et al.</em> Reprogramming of H3K9me3-dependent heterochromatin during mammalian embryo development. <em>Nat Cell Biol</em> <strong>20</strong>, 620-631 (2018).</p><p>6.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dahl, J.A.<em> et al.</em> Broad histone H3K4me3 domains in mouse oocytes modulate maternal-to-zygotic transition. <em>Nature</em> <strong>537</strong>, 548-552 (2016).</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>John Arne Dahl, Principal Investigator, University of Oslo</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "",
+                "date": "",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 312726,
+                "identity": "b0a11117-4488-4a33-b6a0-61eb8255ddbb",
+                "order_by": 1,
+                "name": "ADITYA SANKAR",
+                "email": "adisankara2000@gmail.com",
+                "orcid": "https://orcid.org/0000-0002-1840-3356",
+                "institution": "University of Copenhagen",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "ADITYA",
+                "middleName": "",
+                "lastName": "SANKAR",
+                "suffix": ""
+            },
+            {
+                "id": 312727,
+                "identity": "a54e5aba-59ba-4274-aeb9-957d4f3f4bd3",
+                "order_by": 2,
+                "name": "Mads Lerdrup",
+                "email": "mads.lerdrup@bric.ku.dk",
+                "orcid": "https://orcid.org/0000-0002-7730-8973",
+                "institution": "University of Copenhagen",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Mads",
+                "middleName": "",
+                "lastName": "Lerdrup",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2020-01-21 14:35:53",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.2.21645/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.2.21645/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13487306,
+                "identity": "0b17ade8-28d1-4d44-981d-87936a550541",
+                "added_by": "auto",
+                "created_at": "2021-09-16 22:09:45",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 179655,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-818/v1/101bdf8d-a2a2-4dfc-8dca-5d901f6c4b79.pdf"
+            },
+            {
+                "id": 414676,
+                "identity": "b6eb2652-e80b-482a-8d2d-d1e167193d6a",
+                "added_by": "auto",
+                "created_at": "2020-01-27 20:45:53",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 527852,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "ExtendedFigure4.pdf",
+                "url": "https://assets.researchsquare.com/files/91069873-ec5f-47b2-8b0b-e7418fe7e7ed/v1/Extended Figure 4.pdf"
+            }
+        ],
+        "financialInterests": "No",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Chromatin, ChIPSeq, Histone modifications",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>This article explains the step-by-step processing of NGS data of ChIPSeq samples for H3K4me3, H3K9me3 and H3K36me3 immunoprecipitations performed in oocytes/embryos. This includes sections on visualization of data, and a comment on normalization.</p><p>the associated raw data have been deposited at GSE129735 on Gene Expression Omnibus. </p><p><br></p><p><br></p>",
+        "manuscriptTitle": "ChIP-Seq data processing, normalization and visualization",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2020-01-27 20:45:52",
+                "doi": "10.21203/rs.2.21645/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "14be28c6-3320-4815-a333-120623ffcd33",
+        "owner": [],
+        "postedDate": "January 27th, 2020",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 52431,
+                "name": "Computational biology and bioinformatics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2020-01-27 20:45:52",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

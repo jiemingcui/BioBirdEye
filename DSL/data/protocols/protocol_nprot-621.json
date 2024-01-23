@@ -1,0 +1,299 @@
+{
+    "identity": "nprot-621",
+    "title": "Accounting for population structure and relatedness in gene expression genome-wide association testing using a mixed-model approach",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Studies of the genetics of gene expression reveal expression SNPs \\(eSNP) that explain variation in transcript abundance.  Here we report a step-by-step protocol of a whole genome gene expression association mapping procedure using JMP Genomics \\(SAS Institute, Cary, NC) as described in ref. 1. The method accounts for population structure, ethnicity, relatedness and other variables and was applied on a sample of 194 individuals from a city and two villages in southern Morocco representing two ethnicities and a wide range of family relationships.\r\n\n\n\r\n\n\nGene expression genome-wide association testing between 516,792 SNPs from Illumina Human 610-Quad beadchips with expression measurements at 22,300 probes from Illumina HumanHT12 beadchips was performed. Filtering via Pearson correlation tests between expression and SNP genotypes was used prior to testing with more complex models that contained several fixed effects and relatedness between individuals as a random effect.  These models were run using processes implemented in JMP Genomics 4.1 released by SAS in December 2009."
+        },
+        {
+            "header": "Equipment",
+            "content": "1- A data set of gene expression measurements for a group of individuals\r\n\n\n2- A data set of genotypes \\(SNPs) from the same group of individuals\r\n\n\n3- Annotation files for genes and SNPs\r\n\n\n4- Experimental design files containing various relevant data on the individuals  \r\n\n\n5- Intel\u00ae Core<sup>TM</sup>2  Duo CPU, 2.33 GHz, 3.23 GB Ram with Windows XP\r\n\n\n6- JMP Genomics - \"http://www.jmp.com/software/genomics/\":http://www.jmp.com/software/genomics/"
+        },
+        {
+            "header": "Procedure",
+            "content": "The procedure of gene expression genome-wide association testing is performed once normalized \\(or standardized) gene expression and genotypic data are obtained. Detailed description of quality control measures to obtain gene expression and genotypic data is beyond the scope of this protocol and can be found in ref. 1.\r\n\n\n1- Input files for the procedure\r\n\n\n1-1- Gene expression data\r\n\n\n- Obtain raw gene expression data\r\n\n\n- Do a log2 transformation followed by appropriate data standardization or normalization using JMP Genomics that provides several methods for normalizing gene expression data sets3.\r\n\n\n- Retain the transcripts with expression above background levels. This procedure is described in ref. 2.\r\n\n\n1-2- Genotypic data\r\n\n\n- Extract genotypic data after stringent quality control. In ref. 1, a total of 579,144 SNPs were generated using BeadStudio \\(Illumina).\r\n\n\n- Generate molecular properties \\(minor allele frequency, heterozygosity\u2026.etc) for each marker using JMP Genomics.\r\n\n\n-  Numerically code the entire allelic data set using JMP Genomics as 0, 1, or 2 where each number represents the number of copies of the minor allele.\r\n\n\n- Retain markers with minor allele frequencies MAF > 5% for association testing. In ref. 1, a total of 516,792 have a MAF > 5%.\r\n\n\nSave both gene expression and genotypic data sets in JMP Genomics wide format with the samples as rows and molecular entities \\(numerical genotypes and gene expression measurements) as columns. Each data set must contain a column of individual identifiers which is used for merging the data sets together. Save the data also in JMP Genomics tall format along with an accompanying experimental design data set for certain analyses as described in JMP Genomics user guide3 where details about the different input file formats are described. Create also a data set comprising all gene expression and SNP genotype data as described below.\r\n\n\n2- Variables included in the association model\r\n\n\n2-1- Matrix of relatedness measures\r\n\n\n- Calculate relatedness \u00c2ij between each pair of individuals using the method described in ref. 4 for all individual pairs where \u00c2ij is averaged over l = 1 to n loci:\r\n\n\n\u00c2ij = \\[? \\(x il \u2013 2 p ). \\(\\(x jl \u20132 p ) / 2 pq )] / n\r\n\n\nwhere x il = 0, 1 or 2 according to whether individual i has genotype aa, Aa or AA at locus l, p \\(q) is allele frequency of A \\(a), and 2p is the mean of x l. Use only autosomal SNPs that satisfy quality control criteria for Hardy-Weinberg equilibrium \\(P value > 0.0001) and minor allele frequency \\(MAF > 0.05) to generate the matrix of relatedness measures.\r\n\n\n2-2- Genotypic principal component eigenvectors and clustered ethnicity\r\n\n\n- Perform principal component analyses on the entire genotypic dataset using the Eigenstrat method5 as implemented in JMP Genomics.\r\n\n\n- Retain scores from the significant genotypic PCs for inclusion in the association tests.\r\n\n\n- Inclusion of clustered ethnicity based on PC plots is optional. For example, the 194 samples studied in ref. 1 were clustered into four clusters to account for location in an unbiased manner relative to ethnicity. Deciding to include clustered ethnicity or not as a variable is best done on a case-by-case basis depending on the observed population structure patterns.\r\n\n\n3- Association testing\r\n\n\n- First use the JMP Genomics Cross Correlation process to test for Pearson correlation between all pairs of expression measurements and numerically coded SNP genotypes \\(>11 billion pairs in ref. 1) using the following basic correlation model, where Baseline is the mean measure of transcript abundance, and the error ? is assumed to be normally distributed with a mean of zero\r\n\n\nExpression = Baseline + SNP + ? \\(Model 1)\r\n\n\n- To significantly reduce computational time and the need for disk space for data storage save only hits below 0.05. This cut-off yielded 690 million significantly correlated SNP/gene pairs using the dataset in ref.1.\r\n\n\n-  If storage and computing power is not an issue all P values should be saved.\r\n\n\n- Bring the 10,000 most significant SNP-expression associations from this model \\(~P < 10-7) forward for two further analyses in a mixed model framework.\r\n\n\n- Apply more complex models to each of the 10,000 most significant SNP-expression pairs using the JMP Genomics Q-K Mixed Model process. For example the following model is used in ref. 1 to account for various effects including relatedness and population structure and various interaction effects:\r\n\n\nExpression = Baseline + Location + Gender + Relatedness + Significant Genotypic Principal Components + Clustered Ethnicity + SNP + SNP** Location + Gender** Clustered Ethnicity + Gender*Location + ? \\(Model2)\r\n\n\n- The JMP Genomics Q-K Mixed Model process fits a model as described in ref 6. to test for association between the gene expression variants and SNP genotypes while adjusting for fixed effects and the random effect relatedness. JMP Genomics calls the MIXED procedure in SAS/STAT to perform these analyses.\r\n\n\n- First create a data set comprising all expression and SNP genotype data as input for the Q-K Mixed Model process. Create a second data set containing the columns of the relatedness matrix named Col1, Col2,\u2026, Coln as well as a Row column indicating the row of the matrix .\r\n\n\n- In ref.1, because of the large number of SNP-expression pairs to be run, a JSL script was used to auto-generate the required JMP Genomics setting files. Each settings file contained the parameters needed for a single run of Q-K Mixed Model for one model for a single SNP-expression pair. All settings were run as a group in the JMP Genomics Workflow Builder and results were gathered into a single data set.\r\n\n\nModel 2 adjusted for relatedness, by specifying the column of the relatedness data set containing the relatedness measurements as a Random Effect, and using the PROC MIXED options LDATA= and TYPE=LIN\\(1) for the Random Statement Options."
+        },
+        {
+            "header": "Timing",
+            "content": "The analyses described in the Association Testing section below took approximately 47 hours using the computer described above."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "JMP Genomics and SAS provide comprehensive troubleshooting for the analyses involved in this procedure."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "This procedure yields various statistics for each pair SNP-gene expression measurement association test."
+        },
+        {
+            "header": "References",
+            "content": "1. Idaghdour, Y. et al. \\(2009) Geographical Genomics of Human Leukocyte Gene Expression Variation in Southern Morocco. Nat Genet doi: 10.1038/ng.495\r\n  2. Idaghdour, Y., Storey, J.D., Jadallah, S.J., &amp; Gibson, G. A Genome-Wide Gene Expression Signature of Environmental Geography in Leukocytes of Moroccan Amazighs. PLoS Genet 4\\(4): e1000052. doi:10.1371/journal.pgen.1000052 \\(2008).\r\n  3. SAS Institute Inc. JMP Genomics User Guide. Cary, NC: SAS Press. \\(2008)\r\n  4. Hayes, B.J., Visscher, P.M. &amp; Goddard, M.E. Increased accuracy of artificial selection by using the realized relationship matrix. Genet. Res. 91, 47-60 \\(2009).\r\n  5. Price, A.L., Patterson, N.J., Plenge, R.M., et al. Principal components analysis corrects for stratification in genome-wide association studies. Nat Genet 38: 904-909 \\(2006).\r\n  6. Yu, J., Pressoir, G., Briggs, W.H., et al. A unified mixed-model method for association mapping that accounts for multiple levels of relatedness, Nature Genetics 38, 203-208 \\(2006)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "YI is supported by a Fulbright scholarship and GG by an ARC Australian Professorial Fellowship."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/ng.495",
+                "date": "2009-12-03 06:18:02",
+                "title": "Geographical genomics of human leukocyte gene expression variation in southern Morocco",
+                "authors": [
+                    "Youssef Idaghdour",
+                    "Wendy Czika",
+                    "Kevin V Shianna",
+                    "Sang H Lee",
+                    "Peter M Visscher",
+                    "Hilary C Martin",
+                    "Kelci Miclaus",
+                    "Sami J Jadallah",
+                    "David B Goldstein",
+                    "Russell D Wolfinger",
+                    "and Greg Gibson"
+                ],
+                "journal": "Nature Genetics",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 11334,
+                "identity": "9f6ecf4a-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Greg  Gibson",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Genetics, North Carolina State University, Raleigh NC, USA/ School of Biological Sciences, University of Queensland, Queensland, Australia",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Greg",
+                "middleName": "",
+                "lastName": "Gibson",
+                "suffix": ""
+            },
+            {
+                "id": 11335,
+                "identity": "9f6ed20b-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Youssef  Idaghdour",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Genetics, North Carolina State University, Raleigh NC, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Youssef",
+                "middleName": "",
+                "lastName": "Idaghdour",
+                "suffix": ""
+            },
+            {
+                "id": 11336,
+                "identity": "9f6ed423-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Wendy  Czika",
+                "email": "",
+                "orcid": "",
+                "institution": " SAS Institute Inc., Cary NC, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Wendy",
+                "middleName": "",
+                "lastName": "Czika",
+                "suffix": ""
+            },
+            {
+                "id": 11337,
+                "identity": "9f6ed691-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": " Kelci  Miclaus",
+                "email": "",
+                "orcid": "",
+                "institution": " SAS Institute Inc., Cary NC, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Kelci",
+                "middleName": "",
+                "lastName": "Miclaus",
+                "suffix": ""
+            },
+            {
+                "id": 11338,
+                "identity": "9f6ed81f-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": " Sang H.  Lee",
+                "email": "",
+                "orcid": "",
+                "institution": "Queensland Institute of Medical Research, Brisbane, Queensland, Australia",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Sang",
+                "middleName": "H.",
+                "lastName": "Lee",
+                "suffix": ""
+            },
+            {
+                "id": 11339,
+                "identity": "9f6ed998-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Peter M.  Visscher",
+                "email": "",
+                "orcid": "",
+                "institution": "Queensland Institute of Medical Research, Brisbane, Queensland, Australia",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Peter",
+                "middleName": "M.",
+                "lastName": "Visscher",
+                "suffix": ""
+            },
+            {
+                "id": 11340,
+                "identity": "9f6edb06-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Russell D.  Wolfinger",
+                "email": "",
+                "orcid": "",
+                "institution": "SAS Institute Inc., Cary NC, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Russell",
+                "middleName": "D.",
+                "lastName": "Wolfinger",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2010-11-16 16:09:56",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/nprot.2009.216",
+        "doiUrl": "https://doi.org/10.1038/nprot.2009.216",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13464410,
+                "identity": "4e68f0f6-a2c3-459f-b8b4-d8e3abd42e02",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:43:14",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 158124,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-621/v1/6ecc16b8-f140-4f2f-ac22-02419fc845ec.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "gene expression, GWAS, eSNP, population structure, ethnicity, relatedness, mixed-model, SAS, JMP Genomics\r\n\r\n",
+        "license": {
+            "name": "None",
+            "url": ""
+        },
+        "manuscriptAbstract": "",
+        "manuscriptTitle": "Accounting for population structure and relatedness in gene expression genome-wide association testing using a mixed-model approach",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2009-12-15 05:19:55",
+                "doi": "10.1038/nprot.2009.216",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9f6e7289-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "December 15th, 2009",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 2367,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 2368,
+                "name": "Genetics"
+            },
+            {
+                "id": 2369,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 2370,
+                "name": "Biochemistry"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2009-12-15 05:19:55",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

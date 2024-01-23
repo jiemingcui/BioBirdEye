@@ -1,0 +1,328 @@
+{
+    "identity": "pex-383",
+    "title": "<p>An Inexpensive Way to Record and Quantify Bacterial Swarming</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>Coordinated multicellular migration across a moist surface known as bacterial swarming is an important phenotype that has been studied for decades in laboratories, including those inclinical settings. The colony expansion speed and morphological patterns are key parameters to describe bacterial swarming activity. We built an environment-controlled incubator to perform swarming assay. Inside the incubator, a digital camera was mounted on the top to take time-lapse images of the swarming activity. After the recording, images were transferred to a laptop for quantification of the swarming rate. The swarming area can be calculated manually using ImageJ plugins or identified automatically using a python script we developed. The system was tested by over 1,000 swarming events to assure the stability and reproducibility.</p><p>At first glance, one may think swarming assay is simple: just inoculate bacteria on an agar petri dish, then taking a picture of the plate after a period of incubation. However, it can be challenging to perform swarming assays with reproducible results and record high quality images for further analysis.&nbsp;Here we list a few technical challenges one may encounter and provide corresponding solutions:&nbsp;</p><p>1. A typical swarming event may take about 10 to 20 hours for the bacteria to cover a 9-cm petri dish. Besides the full coverage time, sometimes we need to know how long the lag phase lasts, by what time branches form at the colony edge, and at the microscopic level, when cell elongation happens. Thus, the researcher needs to check at the plate regularly. Suppose one starts the assay during daytime, he/she may need to scan the plates every 30 minutes over night. Otherwise, he/she may miss the details. In our protocol, time-lapse photography helps to capture the key frames so that the researcher does not have to stay up late or regularly check in order not to miss key events.&nbsp;</p><p>2. Bacterial swarming is highly sensitive to the environment. Fluctuations in temperature and humidity will cause large differences in swarming rate and colony pattern. In this case, a stable humidity and temperature-controlled environment is critical for the assay. In our system, we utilized a thermo-insulated tent, a humidity control unit, and a temperature control unit to minimize the environmental fluctuation during the assay. One can readily set different humidity and temperature for swarming strain screening.</p><p>3. Since agar gel contains nearly 99% water, condensation readily forms on the plate lid, which obscures photo taking. We designed the incubator in such a way that when the plates are invertedly placed on the platform, the temperature of the lid is slightly higher than that of the agar, which prevents condensation.</p><p>4. Taking a clean and clear photo of swarming plates is tricky. The swarming plate has three optical surfaces: the plate lid, the agar surface and the plate bottom. When the camera flashlight or auxiliary front light is used, some light is reflected by the lid and bottom of the plate to the camera, forming unexpected light spots in the photos. In our design, for one plate photo shooting, we used circularly fluorescent backlight plus an adjustable light shield. For multi-petri dish (up to 9) event, LED light strip was used for sidelight illumination. Image quality will be better using the light shield because the light field is well calibrated, but the efficiency is higher when using LED light since it shines on&nbsp;a larger area to fit 9 petri dishes at a time.</p><p>5. Quantification of the swarming rate takes much effort. Usually the researchers scan the plates and measure the radius of the swarm colony using a ruler. For an irregular shape of colony, they usually make a rough estimation of \u201ceffective radius\u201d. When multiple plates are used in the assay and one wants to plot the swarming area vs. time instead of just calculating the average swarming rate, it is a lot of work. In our case, developed a python script helped calculate the swarming colony area of each frame automatically. The accuracy was confirmed by ImageJ free selection tool.</p><p>Compared with other protocols in this field, our protocol has its distinctive advantages.</p><p>(1) <strong>Affordability.</strong> In 2015, Shrout team from University of Notre Dame developed a protocol on preparation, imaging and quantification of swarming assay<sup>4</sup>. However, in their protocol, they used a commercial equipment \u201cBruker in vivo imaging station\u201d. This product is no longer available from the company and a used one costs over $58,000 (dotmed.com). A lot of microbiology labs may not need many complex functions of the equipment, such as x-ray imaging or in vivo fluorescence imaging. These labs may not afford or be willing to invest such a big amount of money on a bacterial swarming chamber. In contrast, the cost of our system is around $1,000 with everything included.</p><p>(2) <strong>Accuracy.</strong> For Bruker imaging station, to maintain humidity, they proposed to place a plate of water on each of the swarming plates. In this way, it is hard to control the humidity within specific range because different amount of water will result in different humidity. Nevertheless, in our design, the chamber humidity is well controlled. One can set the parameters before the assay starts and the environment is controlled dynamically using the digital sensor and controllers.</p><p>(3) <strong>Efficiency. </strong>In 2018, independent researcher Maria Cobo developed a time lapse imaging chamber for bacterial colony morphology observation<sup>5</sup> which allows for photography one petri dish a time while the temperature is not controlled. In our case, up to nine 9-cm petri dishes can fit inside the incubator, increasing efficiency. It is not merely having a larger box since adjusting the size of the box will alter the optical path in a subtle way. The geometry of our incubator and light field for photography were well coupled to ensure best lighting. In Dr. Cobo\u2019s protocol, the time-lapse video flickers a lot, and fog forms on the lid. In our protocol, these problems have been completely fixed.</p><p>This protocol includes three parts: (1) assembly of the incubator; (2) swarming assay preparation; and (3) image taking and data processing. By strictly following the procedure, we guarantee that one can get a homemade bacteria incubator with stable swarming results and high-quality images as we had in our lab. The overall cost is around $1,000 dollars depending on what camera you use in the system. Indeed, any digital camera that has a \u201cManual Mode\u201d is adequate for the purpose. Swarming plate preparation is not difficult, but one needs to be very careful on certain details. For instance, bacterial swarming system is very sensitive to small environment perturbation as well as surface conditions such as the roughness of the agar surface. In the photo shooting part, we will show in detail how to tune the camera settings. Finally, we\u2019ll explain how to manually process the data using ImageJ, and also automatically quantify the swarming area using our Python script.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p><strong>Materials</strong></p><p><strong>(i) For building the photography incubator</strong></p><p>Hydroponic Indoor Garden Grow Tent (24\" x 24\" x 48\", Yaheetech, model no. YT-2801)</p><p><u>Photography unit</u></p><p>Digital camera (Panasonic, model no. DMC-FZ50)</p><p>LCD Timer Remote Control (JJC, model no. TMD)</p><p>AAA battery (2 pcs, Duracell)&nbsp;</p><p>Zinc-plated slotted angle (4 pcs, 1.5\u2019\u2019 x 14 Gauge x 36\u2019\u2019, Crown Bolt)</p><p>Zinc-plated slotted angle (10 pcs, 1.5\u2019\u2019 x 14 Gauge x 18\u2019\u2019, Crown Bolt)</p><p>Aluminum flat bar (0.75\u2019\u2019 x 36\u2019\u2019 x 0.125\u2019\u2019, Everbilt)</p><p>Black polyester cloth (20\u2019\u2019 x 20\u2019\u2019, Dazian)</p><p>Bolts and Nuts (40 pairs, M5, Crown Bolt)</p><p>Black acrylic sheet (2 pcs, 18\u2019\u2019 x 18\u2019\u2019 x 0.125\u2019\u2019, National Security Mirror)</p><p>LED light strip (3 meters, White, GuoTonG)&nbsp;</p><p>Power strip (6-outlet, Belkin)</p><p><u>Backlight shield</u></p><p>Black acrylic sheet (3 pcs, 12\u2019\u2019 x 12\u2019\u2019 x 0.118\u2019\u2019, National Security Mirror)&nbsp;</p><p>Fluorescent circline ceiling light (Sunlite, model no. FC12T9/CW) with starter ballast</p><p>Zinc threaded rod (4 pcs, 0.25\u2019\u2019 x 12\u2019\u2019, Everbilt)</p><p>Hex-plated nuts (24 pcs, 0.25\u2019\u2019, Everbilt)</p><p><u>Temperature and humidity control unit</u></p><p>Heated control module (Coy Lab, serial no. DC1807)</p><p>Fan (AC Infinity, model no. LS1225A-X)</p><p>Digital humidity controller outlet (Inkbird, model no. IHC200S)</p><p>Reptile humidifier (2L, Evergreen)&nbsp;</p><p>Beaker (500 mL)</p><p><strong>(ii) For swarm plate preparation</strong></p><p><u>Biological material</u></p><p><em>Enterobacter</em> sp. SM1, SM2, SM3, SM3_18, SM3_24</p><p><u>Reagents</u></p><p>Tryptone (Sigma-Aldrich, cat. no. 91079-40-2)</p><p>Yeast extract (accumedia, cat. no. 7184B)</p><p>Agar (Research Products International, cat. no. 9002-18-0)</p><p>Sodium chloride (Fisher Scientific, cat. no. 7647-14-5)</p><p>DI water (0.22 \u03bcm filter, Millipore)</p><p><br></p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p><strong>(iii) Equipment</strong></p><p>Labconco Purifier Class II Biosafety Cabinet (Delta Series)</p><p>Falcon 14 mL Polystyrene Round-Bottom Tube (17mm x 100 mm, Corning)</p><p>Sterilized wood sticks (2.5\u2019\u2019)</p><p>Pipet-aid (Drummond, 1000000 \u03bcl) with appropriate pipette</p><p>New Brunswick Innova 4300 Incubator Shaker</p><p>Weighing paper (4\u2019\u2019 x 4\u2019\u2019, Fisher Scientific, Cat. no. 09-898-12B)</p><p>Laboratory spatula (4 pcs, 6.5\u2019\u2019, stainless steel, Home Science Tools)</p><p>Pyrex glass bottle (250 mL, Corning, model no. 1395)</p><p>Pyrex graduated cylinder (500 mL, Corning, model no. 3022)&nbsp;</p><p>Hot plate magnetic stirrer (Barnstead International, model no. SP46925) with appropriate magnetic stir bar</p><p>Thermo-insulate gloves</p><p>Autoclave machine (AMSCO Scientific, model no. SV-120) with autoclavable tray</p><p>Petri dish (100 mm x 15 mm, sterile, polystyrene, Fisher Scientific, Cat. no. FB0875712)</p><p>Micropipette (0.5 - 10 \u03bcl, eppendorf, Cat. no. 3123000020)</p><p>Lenovo Yoga 3 Pro laptop computer</p><p>Scissors</p><p>Acrylic cutter (Fletcher)</p><p>Circle cutter (Bott)</p><p>Hand drill/table drill with appropriate drill bit set</p><p>Hacksaw </p><p><strong>(iv) Software</strong></p><p>Adobe Photoshop CC 2017</p><p>ImageJ 1.52g image analysis software (<a href=\"https://imagej.nih.gov/ij/\" target=\"_blank\">https://imagej.nih.gov/ij/</a>)</p><p>Python based area quantification software (codes available upon request)&nbsp;</p><p><br></p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "Part 1, set up the photography incubator\nTime: 1 d\ni) Assemble the camera stand\nTime: 3 h\n1.\u00a0\u00a0\u00a0\u00a0Setup the Yaheetech hydroponic tent according to the instruction manual. The manual comes with the product package. Assemble the skeleton first and then cover it with the polyester material.\n2.\u00a0\u00a0\u00a0\u00a0Use M5 bolts and nuts to assemble the camera frame, as illustrated in figure 1. Connect the Zinc-plated slotted angles first and then the aluminum bars. A rough estimation of the position of the aluminum bars is enough since they are just used to stabilize the structure. The slotted angles have holes by the side, but the aluminum bars don\u2019t. Drill holes by the ends of the aluminum bars with hand drill or table drill.\n3.\u00a0\u00a0\u00a0\u00a0Use acrylic cutter to cut the sides of 18\u2019\u2019 x 18\u2019\u2019 acrylic sheets slightly to fit in the sample platform.\n4.\u00a0\u00a0\u00a0\u00a0Use the circular cutter to cut a circle 9\u2019\u2019 in diameter out of one of the 18\u2019\u2019 x 18\u2019\u2019 acrylic sheets \u201cA\u201d from the center and leave the other one \u201cB\u201d uncut.\n5.\u00a0\u00a0\u00a0\u00a0Fix the sheet \u201cA\u201d on the sample platform. Drill appropriate holes on the side to allow bolts to go through all the way down to the holes of slotted angles.\n6.\u00a0\u00a0\u00a0\u00a0Fix the camera on the camera fixer with its lens facing downwards. Adjust the fixer back and forth to align the camera with the circle on the acrylic sheet.\n7.\u00a0\u00a0\u00a0\u00a0Tape the LED strip around the sample platform 1 inch above the acrylic sheet on the slotted angle. The position of the light cannot be too high because we want to avoid unnecessary reflections of the light from the plates.\n8.\u00a0\u00a0\u00a0\u00a0Cut two pieces of black cloth around 20\u2019\u2019 x 20\u2019\u2019 in size. Place one of them on the bottom of the tent as black photography background. For the other piece, cut a hole in the center to let the camera lens go through and hang the cloth onto the camera platform to shield any reflection from the top.\n9.\u00a0\u00a0\u00a0\u00a0Place the camera stand inside the tent.\n10.\u00a0\u00a0Load batteries for the LCD timer remote control and connect it with the camera through the hole on the top of the tent. Tighten the hole using the elastic cord.\nii) Make the light shield.\nTime: 3 h\n11.\u00a0Cut circles of diameter 9.2 cm, 5.75\u2019\u2019 and 9.5\u2019\u2019 respectively out of three pieces of acrylic\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0sheets. Drill \u00bc\u2019\u2019 holes on each of the corners of the sheets 3 cm from both edges. Assemble the light shield according to figure 2. Place the circular fluorescent light bulb between level I and the sample platform. Stick the starter ballast under the sample platform using tapes.\n12.\u00a0(Optional) Sometimes, the light bulb comes with metal spring clamps. You can fix the clamps on the sample platform and clamp the bulb.\nPause point\n: There are two modes of illumination. One is using backlight and the other is using side light (Figure 3). When taking high quality image of one-plate event, the light shield is used, and it has its own backlight light source. To take photos, place the light shield on the sample platform and align it with the camera. Turn off the LED light when using the light shield. On the other hand, when taking photos for more than one plate. The light shield is removed and the uncut 18\u2019\u2019 x 18\u2019\u2019 acrylic sheet is put on top of the circularly cut sample platform. To take photos, turn on the LED light as side light source.\niii) Install the temperature and humidity control system\nTime: 2 h\n13.\u00a0Put the heat control module inside the tent on the side of the bottom so that it will not show up in the swarming photos when using the light shield. Adjust the temperature setting to the desired temperature for swarming assay.\n14.\u00a0Set the humidifier outside the tent and connect the power cord to the humidity controller outlet. Extend the extractable plastic mist tube through the hole on the tent wall into the tent beneath the sample platform. Notice: check the camera preview and make sure the tube and the mist do not show up in the image.\n15.\u00a0Fill the humidifier tank with water. Plug in the humidity controller to the power strip and adjust the humidity value with tolerance range according to the controller manual. For\nEnterobacter\nsp. SM3, set the humidity for 40% RH \u00b1 5%RH tolerance (tol).\n16.\u00a0Place a 500 ml beaker under the mist tube to collect water droplets from the mist tube.\n17.\u00a0Fix the AC fan on one of the slotted angle legs facing the beaker using the bolts and nuts that come with the fan. The fan is used not only to blow the mist from the humidifier to avoid the fog showing up in the photos but also to improve ventilation and uniformity of the temperature and humidity in the chamber.\n18.\u00a0Tighten all the holes and seal the zip of the tent.\nPart 2, perform swarming assay\nTime: 2 d\ni) Grow bacteria suspension\nTime: 16 h\n19.\u00a0Weigh 0.5 g yeast extract, 1 g tryptone, and 0.5 g NaCl, placed in a 100 mL Pyrex bottle. Measure 100 mL deionized water and pour in the bottle.\n20.\u00a0Close the lid and shake the bottle until all the powders dissolve in water. You should see a clear yellow solution at this point. The solution is called LB broth (Lysogeny Broth).\n21.\u00a0Loose the bottle lid and put in an autoclavable tray with a thin layer of water inside. Autoclave the LB broth for 25 minutes under 15 psi pressure and 121 \u00b0C.\n22.\u00a0After autoclave is finished, take out the tray and wait for the broth to cool down to room temperature. Transfer 5 mL LB broth to a 14 mL tube using pipet aid in the hood.\n23.\u00a0Bring out the bacteria glycerol stock out of the -80 \u00b0C freezer. Use a piece of sterilized wood stick to scratch the bacterial containing ice surface and then dipping the stick into the LB broth. Put the glycerol stock back to the freezer and shake the inoculated LB broth overnight (~16 h) in the shaker. The temperature is set to 37 \u00b0C for SM3 and shaking frequency 200 rpm (revolutions per minute). Prepare the overnight suspension around 5 pm so that it will be ready for use around 9 am the next morning.\nii) Prepare the swarm plates\nTime: 5 h\n24.\u00a0Weigh 0.5 g yeast extract, 1.0 g Tryptone, 0.5 g NaCl, 0.5 g Agar and put them in a 100 mL Pyrex bottle. Measure 100 mL deionized water and pour it in the bottle.\n25.\u00a0Put the magnetic stir bar of appropriate size in the bottle, loosely close the lid, and place the bottle on a hot plate magnetic stirrer. Turn on the heat and the magnetic stirrer.\u00a0It takes roughly 10 - 15 minutes for the medium to boil.\nCAUTION: DO NOT LEAVE THE HOT PLATE UNATTENDED.\n26.\u00a0Turn off the stirring and heating after the medium start boiling. Wear thermos-insulate gloves to transfer the bottle to an autoclavable tray with a thin layer of water.\n27.\u00a0Loosen the bottle lid and start autoclaving for 25 minutes under 15 psi, 121 \u00b0C.\n28.\u00a0Once the autoclave is done, put the bottle of medium back to the magnetic stirrer with heating function off but stirring function on. In this step, we want the medium to cool down to 40~50 \u00b0C and the constant stirring is to avoid non-uniformity in the agar.\n29.\u00a0Once the target temperature is reached, set a flame and use a pipet aid to transfer LB agar medium to 6 petri dishes, with 15 ml on each petri dish.\n30.\u00a0Turn off the flame and wait for the agar to solidify. This will take about 2 hours.\n31.\u00a0(Optional) Use the freshly made plate or store the swarming plates in 4 \u00b0C cold room with them inverted for up to 2 days. Whenever you plan to use the swarming plates, you need to dry the plates in the hood first. This is to remove water on the agar surface. If there\u2019s water on the agar surface, the bacterial motility may be swimming rather than swarming. Thus, the next step is crucial.\n32.\u00a0Remove the lid of swarming plates in the hood. When the room humidity is above 50%RH, dry the plates for 20 minutes. When the room humidity is below 30%RH, the drying time is about 10 minutes. When the humidity is between 30-50%, you can adjust the drying time accordingly to around 15 minutes. Do not over dry the plates; otherwise, bacterial cells may not be able to swarm, due to either surface friction or dryness.\n33.\u00a0Use micropipette to inoculate 2 \u03bcL overnight bacteria suspension on the center of a swarm plate. Transfer the swarm plates into the incubator after the inoculation drop dried (3D hemisphere turns to a 2D circle).\nPart 3, time-lapse photo taken and swarming rate quantification\nTime: 1 d\n34.\u00a0To use the light shield, put one swarm plate inverted on the plate holder. Turn on the fluorescent light bulb and the camera. LED light strip stays off.\n35.\u00a0In the preview of the camera, you should see the plate sitting in the center of the screen. Otherwise move around the light shield to align the camera with the sample.\n36.\u00a0Rotate the nuts on the threaded rod to adjust the position of the acrylic sheets. The distance between the sample platform and Level I is about 1.5 inches. The distance between Level I and Level II is slightly under 1 inch (about 2 cm) while Level II and Level III are separated by 3.5 inches. If you see a round light spot on the petri dish, slightly lift Level III. If the petri dish is too dark, slightly lower Level III. If you cannot get a good image by adjusting Level III, then adjust Level II slightly up or down.\nCaution\n: Calibration of the light shield takes practice. There is a subtle distance relationship between each sheet to achieve the best image quality depending on the camera setting. We want the light to shine through the transparent agar and be reflected from the swarm colony. Once you find the right position, tighten all the nuts and the position is locked for later imaging.\n37.\u00a0Set the camera focal length to 35 mm - 65 mm. Adjust the zoom ring to have the sample occupy the full screen but not exceed the border. Use \u201cM\u201d manual mode to focus on the bacteria colony. The aperture is set to F5.6 -F7.1 and adjust the shutter speed until the resultant exposure value is 0 or -\u2153. This is to make image processing easier because overexposed images will lose information details.\n38.\u00a0For multi-plate assay, remove the light shield, turn on the LED light strip, and place the uncut acrylic sheet on the sample platform. Place the swarm plates inverted on the acrylic sheet so that water will not condensate on the lid. Check the camera preview to make sure all the plates are within the range of the screen.\n39.\u00a0(Optional) The mode of the scene can be \u201cAuto\u201d or \u201cfluorescent bulb\u201d. If you find the image too yellowish, you can adjust the white balance to add more blue tone. You can save the images as raw format if the memory card space allows.\n40.\u00a0Set the frame rate and frame number of the LCD camera timer control according to the manual. In the case of SM3, we set the frame number to 50 and time interval between frames as 15 min. Press \u201cstart\u201d button to start time-lapse photo shooting.\n41.\u00a0Seal the zip of the tent. The swarming assay may take about 10 h. You can leave the camera on for overnight and collect the images the next morning. During the photo taking process, DO NOT shake the incubator; otherwise the optical setup may be perturbed.\n42.\u00a0Make sure there is enough water in the humidifier water tank. If you want to check the condition inside the chamber, you may gently open the window on the top of tent to see the camera screen without disturbing the photographing.\n43.\u00a0Stop the timer controller when the swarming is finished. Connect the camera with a laptop using a USB data wire and download the images to the designated folder. Detach the laptop from the camera.\n44.\u00a0Check the images taken in your computer. If the brightness of the images varies, you can use the \u201cStack Deflicker\u201d plugin in ImageJ to calibrate brightness. If the sample position in the images varies over time, you can apply the \u201cImage Stabilizer\u201d plugin to fix it.\n45.\u00a0(Optional) Use a common software (Photoshop CC, ImageJ, etc.) to render a time lapse video of the images. Or you can just use ImageJ. Go to \u201cFile\u201d -- \u201cImport\u201d -- \u201cImage Sequence\u201d to Import the images. Go to \u201cImage\u201d -- \u201cStacks\u201d -- \u201cAnimations\u201d -- \u201cAnimation options\u201d to set the frame rate you want. Then, save the image sequence as an AVI file.\n46.\u00a0To manually calculate the swarm area, drag the image that you are interested in to the ImageJ control bar. Go to \u201cAnalyze\u201d -- \u201cSet Scale\u201d to calibrate the ratio of pixels to actual length. Then use the freehand \u201cselections tool\u201d to outline the colony edge and press \u201cM\u201d to calculate the area of the selected colony image by image.\n47.\u00a0To calculate the swarming speed automatically, open the python script and change the file directory to the directory where you store your image sequences. Running the script will calculate the swarming colony area over time and save the data in a .txt file. The python script utilizes the subtraction edge detection algorithm to identify the edge of the swarming colony and then calculate the enclosed area value in each frame uploaded."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p><strong>Problem 1: </strong>I can\u2019t get 18\u2019\u2019 slotted angles and it is hard to cut a circle out of a piece of acrylic.</p><p><strong>Reason &amp; solution:</strong> Sometimes certain model of products will be out of stock. In this case, one can try to cut the 36\u2019\u2019 into two halves with a hacksaw. To cut the circle, if one plans to use a hole saw or circle cutter, make sure to clamp the acrylic sheet first. One alternative is to go to an engineering workshop or carpenter\u2019s shop. They have the saber saw or jigsaw to cut the circle.</p><p><strong>Problem 2:</strong> Swarming strain does not swarm. They just form a dense colony spot by growth.</p><p><strong>Reason &amp; solution:</strong> The reason for this is due to roughness of the agar surface or the plate is too dry. Always use fresh plates or two days old at most. Beyond two days, the agar plate will become significantly drier than before and may inhibit swarming. Drying time in the hood may be too long. When the lab humidity is below 30% RH, 10 min of drying is enough. Also, pour the plates when the agar solution is not too cold. Cold agar will result in rough surface since solidification has already taken place in the bottle, forming small clusters. Finally, double check the tryptone or yeast. Occasionally, for certain Lot numbers, the chemicals do not dissolve thoroughly, which may change the texture of the agar surface and increase surface friction.</p><p><strong>Problem 3: </strong>Non-swarmer strains also \u201cswarm\u201d, even faster than the swarming strains.</p><p><strong>Reason &amp; solution: </strong>The agar concentration may be too low, or the drying time too short so the cells are swimming not swarming on the plates. Different swarming species may have different agar concentration tolerance. For SM strains, 0.5% agar is the concentration to distinguish swarmers and non-swarmers while for <em>B. Subtilis</em> 3610, 0.7% agar is the concentration to tell non-swarmer <em>B. Subtilis</em> DS215 from the swarming wild type. To fix the problem, one can try to increase the drying time, pour the plate when agar solution is colder, or raise the agar concentration.</p><p><strong>Problem 4: </strong>The swarming rate of the same strain varies a lot among different trials.</p><p><strong>Reason &amp; solution: </strong>The swarming rate may vary under different optical density (OD<sub>600</sub>). For SM bacteria strains, when the cells are at the first half of the growth exponential phase, or the death phase, the swarming lag is shortened and variations in swarming rate and morphology was noticed. However, in stationary phase (OD<sub>600</sub>: 1.5~1.8), the swarming rate hardly fluctuates. For, different bacteria species, situation may differ, but our suggestion is to use stationary phase cells every time one performs the assay.</p><p><strong>Problem 5: </strong>Condensation still happens, what shall I do?</p><p><strong>Reason &amp; solution: </strong>If one uses another thermo-insulate box instead of the one mentioned in the protocol, or uses another kind of temperature control unit, this could happen due to temperature gradient. Try to set up the plates upright instead of inverted, the condensation problem may be resolved.</p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>Step 1-10, camera stand assembly: ~3 h.</p><p>Step 11-12, light shield making: ~3 h.</p><p>Step 13-18, environment control system installation: ~2 h.</p><p>Step 19-23, overnight bacteria culture growth: ~16 h.</p><p>Step 24-33, swarming plates preparation: ~5 h.</p><p>Step 34-42, incubation and photo taking: ~10 h (it may vary among different bacterial species).</p><p>Step 43-47, image processing and swarming area quantification: ~3 h.</p><p>Overall, it may take one week to complete the full protocol.</p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>1. After step 18, the incubator is complete. The humidity and temperature should reach the setting value within 10 min after the power is on.</p><p>2. After step 42, photos of the swarming assays are taken, and one can use either ImageJ or Photoshop CC to render a swarming movie as shown in Supplementary video 1 &amp; 2.</p><p>3. After step 47, the area of swarming colony at each frame is calculated. The relation between swarming area and time can be plotted as shown in figure 4.</p><p>Supplementary video 1 ---- <strong>Time lapse video of <em>Enterobacter</em> sp. swarming assay taken with the light shield.</strong> 5 \u03bcL overnight culture of SM1, SM2, and SM3 were inoculated on 0.5% LB agar plate and incubated in the swarming incubator. Time lapse images were taken for 10 hours and the images were rendered into a .mp4 video file using Adobe Photoshop CC 2017 at 11 frames per second (fps). </p><p>Supplementary video 2 ---- <strong>Time lapse video of <em>Enterobacter</em> sp. SM3 swarming assay taken with LED light. </strong>2 \u03bcL SM3 and its mutant (SM3_18 or SM3_24, each in triplicates) overnight culture were inoculated on 0.5% LB agar plate and incubated in the photo chamber. Time lapse images were taken for 10 hours and the images were rendered into a .avi video file using ImageJ (ver. 1.59g) at 11 frames per second (fps).</p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>1. Harshey, R, M. Bacterial Motility on a Surface: Many Ways to a Common Goal. <em>Annual Review of Microbiology</em>. 57, 249\u201373 (2003).</p><p>2. Kearns, D, B. A field guide to bacterial \t\t\t   \t swarming motility. <em>Nature Reviews Microbiology</em>. 8(9), 634 (2010).</p><p>3.&nbsp;Steager, E, B., Kim, C, B. &amp; Kim, M, J. Dynamics of pattern formation in bacterial&nbsp;&nbsp;swarms. <em>Phys. Fluids.</em> 20, 073601 (2008).</p><p>4.&nbsp;Morales-Soto, N. et al. Preparation, Imaging, and Quantification of Bacterial Surface Motility Assays. <em>JoVE (Journal of Visualized Experiments)</em>. 98, 523-38 (2015).</p><p>5.&nbsp;Cobo, M. P. et al. Visualizing bacterial colony morphologies using time-lapse imaging chamber MOCHA. <em>Journal of bacteriology</em>. 200(2), 413-17 (2018).</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>We thank Shenming Fu for his contribution to the development of the swarming area calculation algorithm and the Python script coding. The studies presented here were supported in part by the Broad Medical Research Program at CCFA (Crohn\u2019s &amp; Colitis Foundation of America; Grant# 362520) (to S.M.); NIH R01 CA127231; CA 161879; 1R01ES030197-01 and Department of Defense Partnering PI (W81XWH-17-1-0479; PR160167) (S.M.).</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 126853,
+                "identity": "0f27acd4-9ac2-46f7-bd8e-07039d134464",
+                "order_by": 1,
+                "name": "Weijie Chen",
+                "email": "weijie_chen@brown.edu",
+                "orcid": "",
+                "institution": "Department of Medicine, Genetics and Molecular Pharmacology, Albert Einstein College of Medicine; Department of Physics, Brown University",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Weijie",
+                "middleName": "",
+                "lastName": "Chen",
+                "suffix": ""
+            },
+            {
+                "id": 126854,
+                "identity": "2508deea-3236-4b14-9b73-bc08af595435",
+                "order_by": 2,
+                "name": "Jay X. Tang",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Physics, Brown University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jay",
+                "middleName": "X.",
+                "lastName": "Tang",
+                "suffix": ""
+            },
+            {
+                "id": 126855,
+                "identity": "cf10322f-f61b-4f48-8c1f-07aa102d8056",
+                "order_by": 3,
+                "name": "Sridhar Mani",
+                "email": "sridhar.mani@einstein.yu.edu",
+                "orcid": "",
+                "institution": "Department of Medicine, Genetics and Molecular Pharmacology, Albert Einstein College of Medicine",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Sridhar",
+                "middleName": "",
+                "lastName": "Mani",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2019-05-28 20:59:10",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.2.9946/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.2.9946/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2619950,
+                "identity": "30afd221-9ccc-47d6-afb9-fb594e814630",
+                "added_by": "3499c5ce-8254-41a1-ae3a-f21bb2ef364f",
+                "created_at": "2020-09-25 20:57:59",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 22172,
+                "visible": true,
+                "origin": "",
+                "legend": "Schematics showing the structure of the camera frame. 4 pieces of 36\u2019\u2019 zinc-plated slotted angle stand perpendicular to the ground and connected by 10 pieces of 18\u2019\u2019 zinc-plated slotted angle using M5 bolts and nuts. The aluminum bars are to stabilize the whole structure with no specific position requirement. When using the light shield, the distance between the ground and the sample platform is 18\u2019\u2019. However, when using LED light illumination, the sample platform can be elevated by several inches to fit the petri dishes there.",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/pex-383/v1/figure_1.png"
+            },
+            {
+                "id": 2619942,
+                "identity": "28b37453-ebe7-46f0-9537-56bf9beca797",
+                "added_by": "3499c5ce-8254-41a1-ae3a-f21bb2ef364f",
+                "created_at": "2020-09-25 20:57:59",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 453551,
+                "visible": true,
+                "origin": "",
+                "legend": "Picture showing the structure of the light shield. 3 pieces of 12\u2019\u2019\u00d712\u2019\u2019 hollow acrylic sheets were connected by 4 pieces of 12\u2019\u2019 zinc threaded rod and fixed using hex-plated nuts. The distance between Level I sheet and the ground is about 1.5\u2019\u2019 which allows the circular fluorescent bulb to fit in. The height of Level II and Level III can be adjusted to realize the best illumination.",
+                "description": "",
+                "filename": "figure2.png",
+                "url": "https://assets.researchsquare.com/files/pex-383/v1/figure_2.png"
+            },
+            {
+                "id": 2619954,
+                "identity": "4c0fef34-03b7-4580-aa75-ff30ff8c40b4",
+                "added_by": "3499c5ce-8254-41a1-ae3a-f21bb2ef364f",
+                "created_at": "2020-09-25 20:57:59",
+                "extension": "png",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 882126,
+                "visible": true,
+                "origin": "",
+                "legend": "Taking photos using the light shield or LED light strip. a, Taking photos using the light shield. The circular fluorescent bulb is placed between Level I and the sample platform. The distance between Level II and Level I is about 2 cm while the distance between Level II and Level III is 3.5\u2019\u2019. b, Taking photos using the LED light strip. The LED light is fixed 1 inch from the sample platform on the horizontal zinc-plated slotted angles. If the light is too strong, one can insert a white paper belt to diffuse and reflect the light. The black cloth near the camera is necessary for blocking reflections from the plates.",
+                "description": "",
+                "filename": "figure3.png",
+                "url": "https://assets.researchsquare.com/files/pex-383/v1/figure_3.png"
+            },
+            {
+                "id": 2619952,
+                "identity": "9d6c2116-0450-4f55-a9d0-e4415f7f2bef",
+                "added_by": "3499c5ce-8254-41a1-ae3a-f21bb2ef364f",
+                "created_at": "2020-09-25 20:57:59",
+                "extension": "png",
+                "order_by": 4,
+                "title": "Figure 4",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 17811,
+                "visible": true,
+                "origin": "",
+                "legend": "Quantification of Enterobacter sp. SM1 and SM3 swarming motility. 5 \u03bcL overnight bacterial culture of SM1 and SM3 were inoculated on 0.5% LB agar plates and incubated in the swarming incubator (repeated 10 times). Time lapse images were taken every half an hour, and the swarm area was measured for each image. Data are represented as means with 95% confidence interval. When not shown, the errors are smaller than the size of the symbols.",
+                "description": "",
+                "filename": "figure4.png",
+                "url": "https://assets.researchsquare.com/files/pex-383/v1/figure_4.png"
+            },
+            {
+                "id": 13471572,
+                "identity": "0e7843c4-17d8-4525-ad7f-d73d2f48535b",
+                "added_by": "auto",
+                "created_at": "2021-09-16 21:09:32",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 1778138,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-383/v1/4ece194c-77a5-445b-937e-3100ffb7e4ee.pdf"
+            },
+            {
+                "id": 2619941,
+                "identity": "64a88d9b-c4fa-4c35-aefe-07876e283662",
+                "added_by": "3499c5ce-8254-41a1-ae3a-f21bb2ef364f",
+                "created_at": "2020-09-25 20:57:59",
+                "extension": "mp4",
+                "order_by": 1,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 3172511,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "supplement1.mp4",
+                "url": "https://assets.researchsquare.com/files/pex-383/v1/supplement_1.mp4"
+            },
+            {
+                "id": 2619958,
+                "identity": "0e06c8ad-a48e-4f3a-ab3b-2f78956a2b45",
+                "added_by": "3499c5ce-8254-41a1-ae3a-f21bb2ef364f",
+                "created_at": "2020-09-25 20:58:00",
+                "extension": "avi",
+                "order_by": 2,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 42810352,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "supplement2.avi",
+                "url": "https://assets.researchsquare.com/files/pex-383/v1/supplement_2.avi"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Bacterial swarming, bacterial motility, colony growth, incubation, time-lapse imaging",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>Bacterial swarming refers to a rapid spread, with coordinated motion, of flagellated bacteria on a semi-solid surface<sup>1</sup>. There has been extensive study on this particular mode of motility among microbiologists and biophysicists because of its interesting biological and physical properties (e.g. enhanced antibiotic resistance<sup>2</sup>, turbulent collective motion<sup>3</sup>). The existing equipment for recording swarm expansion rate can easily go beyond tens of thousands dollars<sup>4</sup>, yet the conditions are not accurately controlled, resulting in large variations across the assays. Here, we report a reliable protocol to perform reproducible bacterial swarming assays and an inexpensive way to record and quantify the swarming activity by time-lapse photography. This novel protocol consists of three main parts: 1) building a \u201chomemade\u201d, environment-controlled photographing incubator; 2) performing bacterial swarming assay; 3) taking serial photos over time and calculating the swarming rate. The homemade incubator is economical, easy to operate, and has wide applications. In fact, this system can be applied for any slow evolving biological process that needs to be monitored by camera under a controlled environment.&nbsp;</p><p><br></p>",
+        "manuscriptTitle": "An Inexpensive Way to Record and Quantify Bacterial Swarming",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2019-08-28 16:29:33",
+                "doi": "10.21203/rs.2.9946/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "3499c5ce-8254-41a1-ae3a-f21bb2ef364f",
+        "owner": [],
+        "postedDate": "August 28th, 2019",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 19887,
+                "name": "Microbiology"
+            },
+            {
+                "id": 19888,
+                "name": "Biological techniques"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2019-08-28 16:29:33",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

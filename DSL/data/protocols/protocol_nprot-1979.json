@@ -1,0 +1,403 @@
+{
+    "identity": "nprot-1979",
+    "title": "Protocol: Sonication-based Circular Chromosome Conformation Capture with next-generation sequencing analysis for the detection of chromatin interactions",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "The three-dimensional organization of chromatin in the nuclear space is considered to be a critical contributor to the regulation of gene expression. The formation of chromatin loops, for instance, allows distal cis-enhancer elements to communicate with gene promoters and thereby up-regulate or down-regulate transcription\\[1]<sup>,</sup>\\[2].\r\n\n\n\r\n\n\nHigh-resolution analysis of chromatin organization _in vivo_ was made possible by the invention of the Chromosome Conformation Capture \\(3C) method\\[3], which has been widely used to detect and quantify interactions between genomic loci of interest. In this assay, intact cells are treated with formaldehyde to cross-link chromatin segments that are in close proximity. Cross-linked chromatin is then digested by a restriction enzyme and ligated under dilute conditions that favor the formation of junctions between interacting DNA fragments. Finally, the cross-links are reversed and site-specific PCR primers are used to quantitatively detect ligation events between selected pairs of restriction fragments. However, as the 3C technique assumes prior knowledge of interacting sequences, it cannot be used to screen for unknown interactions. To address this limitation, the Circular Chromosome Conformation Capture \\(4C) approach was developed\\[4]<sup>,</sup>\\[5]<sup>,</sup>\\[6]<sup>,</sup>\\[7], enabling genome-wide interrogation of DNA segments associated with a given locus of interest, also known as the \u201cbait\u201d region. A typical 4C protocol operates on the same principles pioneered by 3C: formaldehyde cross-linking is carried out to capture DNA-protein interactions, and restriction digest generates DNA fragments which are then subjected to proximity ligation. Unlike in 3C, however, the generation of circular DNA during ligation is central to the 4C strategy. These circularized molecules serve as the template for inverse PCR using bait-specific primers that are strategically positioned to amplify interacting DNA sequences flanking the target region. The amplified sequences are subsequently identified either by large-scale sequencing or by microarray analysis.\r\n\n\n\r\n\n\nIn 2009, Chromatin Interaction Analysis with Paired-End Tags \\(ChIA-PET) was developed for high-throughput, global, _de novo_ detection of chromatin interactions without the requirement for a specific bait region\\[8]<sup>,</sup>\\[9]. Briefly, chromatin immunoprecipitation is performed on sonicated, cross-linked chromatin to reduce the complexity of the library and allow investigation of specific transcription factors. The chromatin is subjected to proximity ligation, reverse cross-linked, and sequenced using next-generation sequencing methods. In addition, Hi-C was developed for global detection of chromatin interactions\\[10]. Briefly, cross-linked chromatin is digested by restriction enzymes, subjected to proximity ligation, reverse cross-linked, and sequenced using next-generation sequencing methods. Blocks of DNA are then examined to determine the proximity of these regions of the DNA. As these methods are high-throughput, 4C methods can complement them through serving as validation studies, and in-depth analyses of specific regions.\r\n\n\n\r\n\n\nWhile the 4C protocol in the general form described above has been used in several studies \\[4]<sup>,</sup>\\[5]<sup>,</sup>\\[6]<sup>,</sup>\\[7], there are nonetheless certain technical limitations. A serious shortcoming of the original 4C technique lies in its inability to provide an accurate assessment of interaction frequencies and the possibility of false positives. It is important to recognize that the use of multiple rounds of PCR, both to select for bait-associated interactions and to generate sufficient DNA for sequencing or microarray hybridization, inevitably leads to massive clonal amplification of interacting DNA sequences. This could lead to false positives or negatives that would complicate the interpretation of sequencing or microarray data, making it difficult to determine true interaction frequencies. Generally, multiple independent rounds of 4C on different biological samples which show repeated PCR products has been accepted to indicate that  the chromatin interactions are _bona fide_; however, if a particular DNA sequence is always enriched because of PCR preferential clonal amplification biases, the chromatin interaction could nonetheless be a false positive.\r\n\n\n\r\n\n\nAnother major issue is the potential for bias associated with the use of restriction digest to fragment chromatin material, as performed in many 3C, 4C, and Hi-C protocols\\[10]<sup>,</sup>\\[11]<sup>,</sup>\\[12]. Certain chromatin regions \u2013 for example, transcriptionally active sites containing fewer histone proteins \u2013 may be relatively more accessible to endonucleases and hence be preferentially digested. Cross-linking stringency has been shown to be inversely related to restriction digest efficiency\\[13]; furthermore, long fragments arising from incomplete digestion are selected against during PCR amplification\\[14]. As a consequence, interacting sequences in regions with high cross-linking efficiency may be under-represented. The uneven distribution of restriction enzyme recognition sites may also contribute to bias, as different interacting segments may be over- or under-represented depending on the frequency of restriction sites in their respective genomic regions\\[14]<sup>,</sup>\\[15]. Moreover, some restriction enzymes may perform poorly in the presence of Sodium dodecyl sulphate \\(SDS) and Triton X-100, both of which are used in the 4C technique to prevent aggregation of nuclei and to open up chromatin for restriction enzyme digestion\\[14]. \r\n\n\n\r\n\n\nThe clonal amplification issue which could lead to high false positives has to a certain extent, been ameliorated in the microarray-based detection method. 4C microarray approaches work by normalizing PCR-amplified 4C data against PCR-amplified genomic background, thus normalizing clonal amplifications; followed by applying a running mean algorithm to define clusters of increased hybridization signals relative to the surrounding genomic area\\[4]<sup>,</sup>\\[16], hence enabling the detection of clusters indicating chromatin interactions. However, microarrays have a limited dynamic range and poor coverage of repetitive regions. Sequencing offers many advantages over microarrays: within reasonable cost limits, the dynamic range can be expanded to suit the needs of each experiment simply by increasing the total number of sequencing reads. Also, sequencing allows for direct counting. However, previous 4C studies that made use of the sequencing approach failed to exclude the possibility of sampling error as their analyses were focused on relatively small numbers of clones; moreover such studies would not have been able to eliminate the clonal amplification biases\\[5]<sup>,</sup>\\[6]<sup>,</sup>\\[7]. \r\n\n\n\r\n\n\nTo overcome these issues and develop an unbiased 4C sequencing-based assay, we have developed a modified 4C protocol which uses sonication instead of restriction digest to fragment chromatin DNA. Sonication has the benefit of eliminating any potential problems with restriction enzyme bias, as its acoustic-based physical shearing mechanism disrupts DNA in a random manner, generating fragments a few hundred base pairs in length with a random distribution of breakpoints. Hence, when two interacting DNA fragments are joined together, their breakpoints form a ligation junction that is defined by a unique set of genomic coordinates. Sequencing across ligation junctions is thus a potentially powerful means of identifying unique sequences from independent ligation events. The presence of multiple unique sequences clustered around the same locus would then indicate a likely interaction. Coupled with high-throughput next-generation sequencing, this strategy enables the identification of multiple unique sequences, indicating possible chromatin interactions.\r\n\n\n\r\n\n\n**Overview of the sonication-based 4C technique**\r\n\n\nThe 4C protocol described here is a genome-wide and unbiased approach for the _de novo_ detection of chromatin interaction targets with a particular bait. 4C makes use of the proximity ligation concept, pioneered by the 3C method, to capture interacting DNA segments within DNA-protein complexes. As opposed to the the original 4C strategy, our new 4C strategy uses sonication, as opposed to restriction enzyme digestion, to fragment chromatin fibers, allowing for the identification of partners in an unbiased manner by next generation sequencing \\(Figure 1). \r\n\n\n\r\n\n\n**Sonication-based 4C experimental design**\r\n\n\n_Site selection and inverse primer design._ Sites for 4C analysis were selected based on ChIA-PET data, but any non-repetitive site may be used for analysis. Primers were designed using Primer3 software \\(http://frodo.wi.mit.edu/primer3/)\\[17]. The RepeatMasker track in the UCSC Genome Browser was used to ensure that the primers did not lie in repeat regions \\(http://genome.ucsc.edu/)\\[18]. To ensure specificity, primer sequences were analyzed by BLAT \\(http://genome.ucsc.edu/cgi-bin/hgBlat)\\[19], and only unique primer sequences were used. Flanking inverse primers should be around 25 bp long for high specificity, which is critical for the first round of inverse PCR as it selects for the products that would be amplified by nested PCR. Nested inverse primers will need to be designed with the 454 adaptor sequences attached onto the 5\u2019 ends, such that the 454 adaptors can be incorporated into the PCR products. Hence, nested primers can be approximately 20 bp in size to reduce the cost and length of the final oligonucleotides used for nested PCR. Also, flanking inverse primers should be no more than 100 bp apart, and nested primers should be designed to be as close to the inverse primers as possible, because the probability of a randomly sheared DNA fragment containing the sequences necessary for successful priming and PCR amplification is inversely related to the genomic distance spanned by the primers. Hence, to amplify a larger and more diverse population of DNA fragments, the primers should be designed relatively close together. \r\n\n\n\r\n\n\n_Fragmentation of chromatin fibers_ Sonication-based 4C uses sonication instead of restriction enzyme digestion to fragment chromatin fibers. The advantages are that more regions of the genome can be interrogated than with restriction enzyme digestion, and also, unique end sequences are generated as opposed to non-unique restriction enzyme digestion ends. Unique end sequences allow clonal amplifications to be identified and removed. The unique tags can then be clustered to identify _bona fide_ chromatin interactions.\r\n\n\n\r\n\n\n_Sequencing of 4C material_ 4C material may be analyzed by 454 Titanium next-generation sequencing. 4C material consists of bait-target-bait structures, and long read lengths will enable read-through past the bait into the target sequences. While we used the 250 bp read length in the experiments described here, the use of 400 bp in the new Titanium system would allow for better read-throughs of the sequences. In its present form, sonication-based 4C cannot be used with Illumina or ABI SoLiD next-generation sequencing methods.\r\n\n\n\r\n\n\n_Data analysis_ Data analysis is then required to identify putative interactions. First, the sequences are mapped to the genome. BLAT or BLAST may be used. As the chromatin is sonicated, the probability of generating exactly identical DNA fragments is low; hence any redundant sequences are considered to be copies amplified during the cloning and/or PCR amplification processes. Therefore, only nonredundant distinct sequences are used for further analysis. Next, the \u201cmultiple overlaps\u201d concept is used to distinguish true signals from noise. The principle of this concept is that we expect PETs derived from nonspecific fragments to be randomly distributed in the genome as background sequences, whereas interacting sequences derived from the same _bona fide_ interactions will overlap with each other to form a cluster of interacting sequences. \r\n\n\n\r\n\n\n_Validations._ These can be performed using the 3C method, as well as FISH, to confirm whether there is an interaction. FISH is particularly useful as an orthogonal validation method that employs very different techniques from 4C to visualize the interaction. FISH probes may also then be used to study the interaction in clinical samples that generally involve very small amounts of cells. It should be noted that because FISH is limited by low resolution, it can only be performed on interactions that exceed 1 Mb. \r\n\n\n\r\n\n\n**Applications of the 4C method**\r\n\n\nThis protocol may be used to interrogate chromatin interactions that interact with a genomic region of interest, and can serve as a validation method for ChIA-PET, 5C, and other genome-wide analyses. With 4C, targeted questions may be asked in specific genome regions, for example, in analyses of the keratin gene cluster. Our analyses of the keratin gene cluster suggest that keratin genes may be brought together by chromatin interactions for coordination of transcription. Moreover, 4C may be combined with ChIP in order to interrogate chromatin interactions bound by particular proteins."
+        },
+        {
+            "header": "Reagents",
+            "content": "\u2022 454 Titanium sequencing kit \\(Roche)\r\n\n\n\u2022 Designed, HPLC-purified primers \\(IDT) \\(Sequence listing in Appendix V)\r\n\n\n\u2022 End-It kit \\(Epicentre, ER81050)\r\n\n\n\u2022 Plasmid-Safe DNAse \\(Epicentre, E3101K)\r\n\n\n\u2022 Formaldehyde, 37% \\(Sigma)\r\n\n\n\\! CAUTION: Formaldehyde is toxic and corrosive. It may be harmful by inhalation, ingestion, or skin absorption. Wear gloves and eye protection; avoid skin contact and the inhalation of fumes. Use in a chemical fume hood. Dispose of formaldehyde according to regulations on hazardous chemical waste.\r\n\n\n\u2022 Protease Inhibitor Complete EDTA-free \\(Roche, 04 693 132 001) \r\n\n\n\u2022 Trypsin \\(Invitrogen)\r\n\n\n\u2022 DMEM phenol-red medium, includes 4500mg/L Glucose,110mg/L sodium pyruvate, \\(pH6.8 \u00b10.3 ) \\(Invitrogen)\r\n\n\n\u2022 Clear, phenol-red free DMEM/F12 media, includes L-Glutamine and 15mM HEPES \\(Invitrogen)\r\n\n\n\u2022 Non-heat-inactivated Fetal Bovine Serum \\(FBS) \\(Invitrogen) \r\n\n\n\u2022 Charcoal-Dextran-stripped Fetal Bovine Serum \\(CD-FBS) \\(Hyclone)\r\n\n\n\u2022 Glycine \\(Invitrogen/Gibco)\r\n\n\n\u2022 17 beta-estradiol \\(E2) \\(Sigma)\r\n\n\n\u2022 Penicillin/Streptomycin \\(Invitrogen)\r\n\n\n\u2022 Gentamycin \\(Invitrogen)\r\n\n\n\u2022 L-Glutamine \\(Invitrogen)\r\n\n\n\u2022 10x Phosphate Buffered Saline \\(PBS) \\(1st Base)\r\n\n\n\u2022 10x T4 DNA Ligase Buffer \\(NEB, B0202S) \r\n\n\n\\! CAUTION:  Ligase buffer contains dithiothreitol \\(DTT), a strong reducing agent that emits a foul odor. It may be harmful by inhalation, ingestion, or skin absorption. \r\n\n\n\\! CRITICAL:  DTT may be oxidised over time. Use new ligase buffer if reagent is too old.\r\n\n\n\u2022 T4 DNA ligase \\(30U/\u03bcl) \\(Fermentas, EL0017)\r\n\n\n\u2022 Proteinase K Solution \\(~20 mg/ml), 1 ml \\(Fermentas, E00491)\r\n\n\n\u2022 6x Loading Dye \\(Fermentas, R0611)\r\n\n\n\u2022 25 bp DNA ladder \\(Invitrogen, 10597-011)\r\n\n\n\u2022 Low Mass DNA ladder \\(Invitrogen, 10068-013)\r\n\n\n\u2022 6% Tris-Borate-EDTA \\(TBE) Polyacrylamide gel electrophoresis \\(PAGE) gel \\(5 wells) \\(Invitrogen, EC6264BOX)\r\n\n\n\u2022 SYBR\u00ae Green I \\(Molecular Probes) \\(Invitrogen, S-7585) \r\n\n\n\\! CAUTION:  Although SYBR Green is considered to be a safer replacement for ethidium bromide, it binds to DNA with high affinity and thus is potentially carcinogenic. Wear gloves and avoid skin contact; dispose of SYBR Green-containing solutions in appropriate waste containers. \r\n\n\n\u2022 Phusion\u2122 High-Fidelity PCR Master Mix with HF buffer \\(Finnzymes, F-531)\r\n\n\n\u2022 Buffer EB \\(250 ml) \\(Qiagen, 19086)\r\n\n\n\u2022 10% Sodium dodecyl sulphate \\(SDS) \\(500 ml) \\(1st Base, 2051-500ml)\r\n\n\n\\! CAUTION:  SDS may be harmful by inhalation or ingestion.\r\n\n\n\u2022 Triton X-100 \\(Sigma, T8787)\r\n\n\n\u2022 Tris-HCl \\(pH8.1, Fisher Scientific)\r\n\n\n\u2022 0.5M EDTA pH 8.0 \\(100 ml) \\(Ambion, AM9260G)\r\n\n\n\u2022 3M Sodium acetate pH 5.2 \\(100 ml) \\(Ambion, AM9740)  \r\n\n\n\u2022 5M Sodium chloride \\(100 ml) \\(Ambion, AM9760G)\r\n\n\n\u2022 Nuclease-free water \\(50 ml) \\(Ambion, AM9937)\r\n\n\n\u2022 GlycoBlue \\(15 mg/ml), \\(Ambion, AM9516)\r\n\n\n\u2022 Phenol:Chloroform:IAA, 25:24:1, pH 7.9, 100 ml \\(Ambion, AM9730) \r\n\n\n\\! CAUTION:  Phenol-chloroform is highly toxic and corrosive. Wear gloves and eye protection; avoid skin contact and the inhalation of fumes. Use in a chemical fume hood. Dispose of phenol-chloroform according to regulations on hazardous chemical waste.\r\n\n\n\\! CRITICAL:  DNA partitioning is pH dependent; at pH 7.0 or higher, both DNA and RNA partition into the aqueous phase. At an acidic pH, below pH 7.0, DNA will be denatured and partition into the organic phase and interphase, leaving the RNA alone in the aqueous phase. Hence, it is necessary to adjust the pH of all new phenol-chloroform bottles by adding the included buffer according to manufacturer\u2019s instructions. \r\n\n\n\\! CRITICAL:  Store phenol-chloroform at 4\u2070C in the dark. Storage at room temperature and exposure to light may cause oxidation of phenol-chloroform. In such cases, phenol-chloroform samples must be discarded as they can lead to cleavage of DNA in solution.\r\n\n\n\u2022 Buffer Tris-EDTA \\(TE) \\(pH8.0), 500 ml \\(Ambion, AM9849)\r\n\n\n\u2022 10x Tris-Borate-EDTA \\(TBE) buffer \\(1st Base, 3010-10x1L)\r\n\n\n\u2022 Isopropanol \\(Sigma, I-9516-500ml) \r\n\n\n\\! CAUTION:  Highly flammable. Handle absolute ethanol in a chemical fume hood. \r\n\n\n\u2022 Analytical reagent grade absolute ethanol \\(Fisher Scientific)\r\n\n\n\\! CAUTION:  Highly flammable. Handle absolute ethanol in a chemical fume hood. \r\n\n\n\u2022 Quant-iT\u2122 PicoGreen\u00ae dsDNA reagent \\(10 x 100\u03bcl) \\(Invitrogen, P11495)\r\n\n\n\u2022 DNA from calf thymus \\(genomic, unsheared) \\(Sigma, D4764)\r\n\n\n\u2022 Agilent DNA 1000 Reagents \\(Agilent Technologies, 5607-1505)\r\n\n\n\u2022 Agilent DNA 1000 Kit \\(Agilent Technologies, 5607-1504) \r\n\n\nOTHER CONSUMABLES\r\n\n\n\u2022 IWAKI flat bottom polystyrene 96-well microtiter plate \r\n\n\n\u2022 Microseal 96-well PCR plate \\(Bio-Rad)\r\n\n\n\u2022 Eppendorf Combitips plus 0.2 ml\r\n\n\n\u2022 Eppendorf Combitips plus 0.1 ml\r\n\n\n\u2022 BD Falcon polypropylene conical tubes \\(15-ml) \\(Becton Dickinson, 352097)\r\n\n\n\u2022 BD Falcon polypropylene conical tubes \\(50-ml) \\(Becton Dickinson, 352070)\r\n\n\n\u2022 1.7-ml tubes \\(500) \\(Axygen)\r\n\n\n\u2022 DNA LoBind Tubes, 1.5-ml PCR clean \\(Eppendorf, 0030 108.051)\r\n\n\n\u2022 0.6-ml tubes \\(500) \\(Axygen)\r\n\n\n\u2022 0.2-ml PCR tubes \\(Axygen)\r\n\n\n\u2022 Spin X columns \\(Corning)\r\n\n\n\u2022 50-ml Oak Ridge PPCO centrifuge tubes \\(Nalgene, 3119-0050)\r\n\n\n\u2022 Gel handler, 10sheets/pk \\(Sigma, Z376957-1PAK)\r\n\n\n\u2022 Phase Lock Gel light tubes \\(Eppendorf)\r\n\n\n\u2022 MaXtract High Density, 25x50ml \\(Qiagen, 129073)\r\n\n\n\u2022 MaXtract High Density, 100x15ml \\(Qiagen, 129065)\r\n\n\n\u2022 T175 Cell culture flasks \\(Biomed Diagnostics)\r\n\n\n\u2022 150 mm diameter cell culture plates \\(Biomed Diagnostics)\r\n\n\n\u2022 Blade scrapers \\(Corning)\r\n\n\n\u2022 21G needle \\(Becton Dickinson)\r\n\n\n\u2022 Stainless steel sterile surgical blades \\(Myco Medical Supplies Inc.)\r\n\n\n\\! CAUTION:  Handle needles and blades with care, and dispose of them in the sharps bin.\r\n\n\n\r\n\n\nREAGENT SETUP\r\n\n\n\u2022 Growth media for MCF-7 cells\r\n\n\nPhenol-Red DMEM media supplemented with 5% FBS, 1% penicillin/streptomycin, and 0.3% gentamycin \r\n\n\n\\! CRITICAL:  Ensure that growth media is not exposed to any bacterial or fungal contamination. Store at 4\u2070C.\r\n\n\n\u2022 Starvation media for MCF-7 cells\r\n\n\nClear, phenol-red free DMEM/F12 media supplemented with 5% CD-FBS, 1% penicillin/streptomycin, and 0.3% gentamycin \r\n\n\n\\! CRITICAL:  Ensure that growth media is not exposed to any bacterial or fungal contamination. Store at 4\u2070C.\r\n\n\n\u2022 Triton-X lysis buffer\r\n\n\nFinal concentration of 0.25% Triton X-100, 10 mM EDTA, 10 mM Tris HCl \\(pH 8.1), 100 mM NaCl, supplemented with 1x EDTA-free Protease Inhibitor.\r\n\n\n\\! CRITICAL:  Add protease inhibitor immediately prior to use.\r\n\n\n\u2022 SDS lysis buffer\r\n\n\nFinal concentration: 1% SDS, 5 mM EDTA, 50 mM Tris HCl, \\(pH 8.1), supplemented with 1x EDTA-free Protease Inhibitor\r\n\n\n\\! CRITICAL:  Add protease inhibitor immediately prior to use."
+        },
+        {
+            "header": "Equipment",
+            "content": "\u2022 Centrifuges \r\n\n\n- Eppendorf 5415 R microcentrifuge \\(for 4\u2070C)\r\n\n\n- Eppendorf 5415 D microcentrifuge \\(for room temperature)\r\n\n\n- Eppendorf 5810 R\r\n\n\n- Sorvall RC 5C Plus; SS-34 rotor\r\n\n\n\u2022 Belly Dancer \\(Stovall)\r\n\n\n\u2022 Stuart Roller Mixer SRT9\r\n\n\n\u2022 Agilent 2100 Bioanalyzer \\(Agilent Technologies)\r\n\n\n\u2022 Bioruptor \\(Diagenode)\r\n\n\n\\! CAUTION:  Sonication produces high-frequency sounds which can damage hearing. Wear ear protection when operating sonicator. \r\n\n\n\u2022 Novex Mini-Cell \\(Invitrogen)\r\n\n\n\u2022 TECAN GENios Automated Microplate reader\r\n\n\n\u2022 Mastercycler EP for PCR reactions \\(Eppendorf)\r\n\n\n\u2022 MJ Thermocycler \\(MJ Research)\r\n\n\n\u2022 Incubator \\(Memmert)\r\n\n\n\u2022 Cell culture humidified CO2 incubator \\(Sanyo Air jacket CO<sub>2</sub> incubator)\r\n\n\n\u2022 Cell culture hood \\(Nuaire)\r\n\n\n\u2022 Laminar flow hood \\(Nuaire) \r\n\n\n\u2022 Chemical Fume hood \\(Kewaunee)\r\n\n\n\u2022 ND-1000 Spectrophotometer \\(Nanodrop)\r\n\n\n\u2022 DarkReader Transilluminator \\(Clare Chemical Research)\r\n\n\n\u2022 Roche 454 GS-FLX \\(454 Life Sciences) \r\n\n\n\u2022 Microscope \\(Nikon Eclipse TS100)"
+        },
+        {
+            "header": "Procedure",
+            "content": "**General points to note:**\r\n\n\n- Chromatin material and enzymes are sensitive to both proteases and nucleases. Care should be taken to avoid introducing these contaminants. Precautionary procedures such as swabbing down lab benches with 70% ethanol are advised, as well as the use of nuclease-free water.\r\n\n\n- The use of DNA Lo-Bind tubes \\(Eppendorf) is recommended to reduce loss of sample.\r\n\n\n- A general note for all enzymatic reactions: because excessive glycerol from the enzyme stock may interfere with the reaction, ensure the volume of enzyme is <10% of the final reaction mixture. \r\n\n\n\r\n\n\nThe starting material is cells. The chromatin should be isolated from about 10\n6\n- 10\n7\ncells such that there will be sufficient chromatin material for library construction and the resulting library will be of high complexity. The cells may be treated with drugs as appropriate \\(Appendix I). The results shown came from a 4C library prepared from estrogen-treated MCF-7 cells. \r\n\n\n\r\n\n\n**A. Chromatin preparation**\r\n\n\nTiming: ~ 1-2 days\r\n\n\n\r\n\n\n1. To treated MCF-7 human breast adenocarcinoma cells growing in a 150 mm diameter plate in 20 ml of media \\(Appendix I), add 540 \u03bcl of fresh formaldehyde \\(37% stock) to obtain a final concentration of 1% formaldehyde for cross-linking. Rotate on a belly dancer for 10 min at 22\u00b0C.   \r\n  \r\n\n\n\\! CRITICAL STEP:  Fresh formaldehyde should be used. The amount and timing of formaldehyde cross-linking should be controlled and optimized, as too much formaldehyde cross-linking will make sonication difficult as well as increase the level of non-specific interactions, while too little formaldehyde would result in insufficient capture of chromatin interactions.\r\n\n\n\r\n\n\n2. Add 2 ml of 2.5 M filter-sterilized glycine to stop the cross-linking. Rotate on a belly dancer for 5 min at 22\u00b0C. Pour away the medium into a waste flask.\r\n  \r\n\n\n3. Wash 2x with 10 ml of cold \\(4\u00b0C) 1x PBS with gentle shaking. Pour away the PBS into a waste flask.\r\n  \r\n\n\n4. Add 2 ml of 1x PBS and 2 ml of trypsin to each plate. Mix well and let the plates sit for 10 min at 22\u00b0C.\r\n  \r\n\n\n5. Add 4 ml of growth media to stop the trypsinization.\r\n  \r\n\n\n6. Use a blade scraper to scrape off the cells. Collect cells into a 15 ml falcon tube.\r\n  \r\n\n\n7. Wash the plates with 4 ml of 1x PBS and place these cells into the same 15 ml falcon tube.\r\n  \r\n\n\n8. Pellet cells at 3,000 rpm \\(800xg, Eppendorf) for 15 min at 4\u00b0C and remove the supernatant.\r\n  \r\n\n\n9. Wash the pellet with 5 ml of 1x PBS, then pellet cells at 3,000 rpm \\(800xg, Eppendorf) for 5 min at 4\u00b0C and remove the supernatant.\r\n  \r\n\n\n10. Resuspend and wash each pellet with 5 ml of Triton X-100 lysis buffer. Incubate at 4\u00b0C with gentle agitation \\(Stuart Roller Mixer SRT9) for 30 minutes. \r\n  \r\n\n\n11. Spin at 3,000 rpm \\(800xg, Eppendorf) for 5 min at 4\u00b0C and pour away supernatant. \r\n  \r\n\n\n\\! PAUSE POINT: The pellet may be stored for several months at -80\u00b0C.\r\n\n\n\r\n\n\n12. Resuspend the pellet \\(nuclear lysate) with 600 \u03bcl SDS lysis buffer.\r\n  \r\n\n\n13. Sonicate the nuclear lysate for 8 min using the Bioruptor \\(Diagenode) operated in a 4\u00b0C cold room, 30 seconds on, 30 seconds off, at high power.\r\n  \r\n\n\n14. Pellet cell debris at 13,000 rpm \\(15700xg, Eppendorffor 10 min at 4\u00b0C and transfer the supernatant \\(chromatin) into a fresh 1.7 ml tube. Store at -80\u00b0C.\r\n  \r\n\n\n\\! CRITICAL STEP:  Ensure that the sonicator is balanced. Clean probes with 70% ethanol before and after sonication. Sonication of the chromatin should be done to a DNA size of approximately 500 bp with a range from 100-2000 bp, and be checked by reverse cross-linking an aliquot of 5 \u00b5l of nuclear lysate with 1 \u00b5l proteinase K \\(20 mg/ml) at 37\u00b0C for 1h and running on an 1% agarose gel to check the sizes of the DNA. Also, quantitate the reverse cross-linked DNA concentration with Picogreen Fluorimetry \\(Appendix II).\r\n\n\n\r\n\n\n\\! PAUSE POINT: The chromatin may be stored for several months at -80\u00b0C. \r\n\n\n\r\n\n\n**B. 4C library preparation**\r\n\n\nTiming: ~ 3-4 days\r\n\n\n\r\n\n\n1. To a 125 \u03bcl aliquot \\(corresponding to approximately 10\n6\ncells) of sonicated, cross-linked chromatin containing 0.1% SDS, add 6.5 \u00b5l of 20% Triton-X. \r\n  \r\n\n\n\\! CRITICAL STEP:  If taking aliquots out of -80\u02daC, thaw chromatin samples gently on ice, and let them stand at 37\u02daC for 1h to equilibrate. Clarify chromatin to remove any remaining cellular debris by spinning down chromatin in a microcentrifuge at maximum speed for 20 min at 4\u02daC, and keeping the supernatant. Chromatin samples must contain 0.1% SDS \u2013 if samples contain no SDS, add SDS, or if samples contain too much SDS, then dilute down the sample in Buffer EB, mix well, and let chromatin samples stand at 37\u02daC for 1h to equilibrate. The volume of the aliquot here is given for reference; the actual volume of the reference to be used should be calculated based on the DNA concentration. A maximum of 100 \u00b5g of DNA can be used. \r\n\n\n\r\n\n\n2. For each sample, prepare the following End-blunting reaction mix:\r\n  DNA 263 \u00b5l  \\(this comes from two 125 \u03bcl aliquots of chromatin)\r\n\n\n10x End-Repair Buffer 33 \u00b5l \r\n\n\n2.5mM dNTP Mix 15 \u00b5l\r\n\n\n10mM ATP 15 \u00b5l\r\n\n\nEnd-Repair Enzyme Mix 5 \u00b5l\r\n\n\nTotal volume: 330 \u00b5l\r\n\n\nIncubate at room temperature for 45 min. \r\n\n\n\r\n\n\n3. Set up the following ligation reaction:\r\n  DNA 330 \u00b5l\r\n\n\n10x T4 DNA Ligase Buffer \\(NEB) 5 ml \r\n\n\nT4 DNA Ligase \\(30u/\u00b5l, Fermentas) 166 \u00b5l\r\n\n\nWater \\(with 1x protease inhibitor) 44.5 ml\r\n\n\nTotal volume: 50 ml\r\n\n\n Incubate at 16\u02daC overnight \\(at least 16h).\r\n\n\n\r\n\n\n\\! CRITICAL STEP:  Dissolve protease inhibitor tablets in autoclaved water just before use. For proximity ligation, the concentration of the DNA should not be higher than 2 ng/\u00b5l).\r\n\n\n\r\n\n\n4. Perform reverse cross-linking by adding 375 \u00b5l of Proteinase K \\(20mg/ml, Invitrogen), mixing by inverting the tube several times and standing at 65\u00b0C overnight \\(at least 16h).\r\n  \r\n\n\n5. Split each ligation reaction into three 16.7 ml portions, and transfer each portion to a separate Maxtract High Density \\(50 ml) tube. Add an equal volume of phenol-chloroform and mix by inverting for about 2 min. Centrifuge at 1800 \u00d7 g \\(3000 rpm), 5 min, room temperature \\(22-25\u00b0C). \r\n  \r\n\n\n\\! CRITICAL STEP: Pre-pellet the phase lock gel in the Maxtract tubes by centrifugation at 1800 \u00d7 g \\(3000 rpm), 5 min, room temperature \\(22-25\u00b0C).\r\n\n\n\r\n\n\n6. Transfer the upper aqueous phase to a 50-ml Nalgene PPCO tube.  Perform isopropanol precipitation by adding:\r\n  Sodium acetate \\(3 M, pH 5.2) 1.7 ml\r\n\n\nGlycoblue 6 \u00b5l\r\n\n\nIsopropanol 17 ml\r\n\n\nTotal volume: 17.7 ml\r\n\n\n \r\n\n\nIncubate at -80\u00b0C for at least 1 h. \r\n\n\n\r\n\n\n7. Pre-chill the Sorvall centrifuge to 4\u00b0C and pellet the DNA at 38730 \u00d7 g \\(18000 rpm), 30 min, 4\u00b0C, using the SS-34 fixed rotor. \r\n  \r\n\n\n8. Carefully decant the supernatant and wash the pellet twice with 30 ml 75% ethanol. Allow the pellet to air dry in a laminar flow hood and re-suspend in 100 \u00b5l EB buffer.\r\n  \r\n\n\n9. Quantitate the DNA concentration using Picogreen Fluorimetry \\(Appendix II).\r\n  \r\n\n\n\\! PAUSE POINT: DNA may be stored for several months at -20\u00b0C. We recommend aliquots be stored at -20\u00b0C in case the downstream procedures fail for some reason. In this protocol, we assume half was stored.\r\n\n\n\r\n\n\n10. Further purify the DNA by removing RNAs. \r\n  DNA 49.5 \u00b5l\r\n\n\nRNase A \\(Qiagen, diluted to 2 \u00b5g/\u00b5l in EB buffer) 1 \u00b5l \r\n\n\nEB buffer  49.5 \u00b5l\r\n\n\nTotal Volume: 100 \u00b5l\r\n\n\nIncubate at 37\u00b0C for 30 min. \r\n\n\n\r\n\n\n11. Purify using phenol-chloroform extraction \\(Appendix III) followed by isopropanol precipitation \\(Appendix IV). Re-suspend each sample in 50 \u00b5l of EB buffer and quantitate using Picogreen \\(Appendix II).\r\n  \r\n\n\n12. Remove non-circular DNA by setting up the following reaction:\r\n  DNA 49 \u00b5l\r\n\n\n25 \u00b5M ATP 2 \u00b5l\r\n\n\n10 x reaction buffer \\(provided with the plasmid-safe DNase kit) 6 \u00b5l\r\n\n\nPlasmid-safe DNase 1 \u00b5l \r\n\n\nWater  2 \u00b5l\r\n\n\nTotal volume: 60 \u00b5l\r\n\n\nIncubate overnight at 37\u00b0C.\r\n\n\n\r\n\n\n13. Inactivate plasmid-safe DNase by incubating the samples at 70\u00b0C for 20 min. Purify using phenol-chloroform extraction \\(Appendix III) followed by isopropanol precipitation \\(Appendix IV). Resuspend in 100 \u00b5l of EB buffer and quantitate using Picogreen \\(Appendix II).\r\n  \r\n\n\n**C. 4C library amplification**\r\n\n\nTiming: ~ 2-3 days\r\n\n\n1. Amplify the samples by nested inverse PCR \\(All PCR primers and adapters are listed in Appendix VI). For the first round of inverse PCR, prepare the following reaction mix:\r\n  DNA 100 ng\r\n\n\nInverse primer 1 \\(25 \u00b5M) 1 \u00b5l\r\n\n\nInverse primer 2 \\(25 \u00b5M) 1 \u00b5l\r\n\n\n2 x Phusion Master Mix 25 \u00b5l \r\n\n\nWater To 50 \u00b5l\r\n\n\nTotal volume: 50 \u00b5l\r\n\n\n\r\n\n\nCycle conditions are:\r\n\n\n98 \u00b0C, 30 s\r\n\n\n98 \u00b0C, 10 s\r\n\n\n  70 \u00b0C, 30 s     20 cycles\r\n\n\n  72 \u00b0C, 45 s\r\n\n\n  72 \u00b0C, 10 min; hold at 4 \u00b0C \r\n\n\n \r\n\n\n2. To carry out nested PCR, prepare the following reaction mix:\r\n  Undiluted product from inverse PCR 1 \u00b5l\r\n\n\nNested, adaptor B-tailed primer 1 \\(biotinylated) \\(25 \u00b5M) 1 \u00b5l\r\n\n\nNested, adaptor A-tailed primer 2 \\(25 \u00b5M) 1 \u00b5l\r\n\n\n2 x Phusion Master Mix 25 \u00b5l \r\n\n\nNuclease-free H2O 22 \u00b5l\r\n\n\n 50 \u00b5l\r\n\n\n\r\n\n\n Cycle conditions are:\r\n\n\n                        98 \u00b0C, 30 s\r\n\n\n98 \u00b0C, 10 s\r\n\n\n  72 \u00b0C, 30 s         20 cycles\r\n\n\n  72 \u00b0C, 1 min\r\n\n\n72 \u00b0C, 10 min; hold at 4 \u00b0C \r\n\n\n\r\n\n\n\\! CRITICAL STEP: Because the PCR step selects sequences for analysis, it is critical that PCR cycle conditions be optimized for every 4C experiment. The use of 2-step PCR \\(the first few cycles is done with reference to the melting temperature of the primer without the adapter, and the next few cycles is done with reference to the melting temperature of the primer with the adapter as the proportion of PCR products containing flanking adaptor sequences increases) might be useful for certain primers. \r\n\n\n\r\n\n\n3. Run the PCR products in a 4-20% TBE PAGE gel at 200 V, 40 min in a Novex mini-cell. Stain with SYBR Green for 15 min in the dark and visualize on a DarkReader. We should observe a smear band across a range of approximately 200bp to >600bp. \r\n  \r\n\n\n4. Carry out additional nested PCR reactions using the products obtained from the first round of inverse PCR. At least four 50 \u00b5l reactions are recommended.\r\n  \r\n\n\n5. Run the PCR products in a 6% TBE PAGE gel for 30 min at 200V in a Novex mini-cell, together with 500 ng 25bp DNA ladder. Stain with SYBR Green for 15 min in the dark and visualize on a DarkReader. \r\n  \r\n\n\n\\! CRITICAL STEP: We have observed that certain DNA ladders that work well on agarose gel do not work on PAGE gels. We have tested Invitrogen\u2019s 25 bp DNA ladder and Low Mass ladder and found these to work well on PAGE gels.\r\n\n\n\r\n\n\n6. Excise the smear band in the region of 400bp to >600bp, using a sharp scalpel and gel-handler sheets to protect the DarkReader. Take a photo of the gel before and after excision. Purify by the gel-crush protocol \\(Appendix V). Resuspend the pellet in 40 \u00b5l TE buffer. \r\n  \r\n\n\n7. Quantitate DNA concentration using Picogreen \\(Appendix II). Perform a quality control check using an Agilent DNA 7500 LabChip according to the manufacturer\u2019s guidelines. \r\n  \r\n\n\n8. Prepare and sequence the sample with Roche 454 Titanium sequencing according to the manufacturer\u2019s guidelines."
+        },
+        {
+            "header": "Timing",
+            "content": "A: 1-2 days\r\n\n\nB: 3-4 days\r\n\n\nC: 2-3 days\r\n\n\nTotal timing: 6-9 days"
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "Possible Problem 1: Quality Control run of annealed linkers yield two or more discrete bands. The reason might be that unequal molar amounts of oligonucleotides resulting in incomplete annealing. The solution is to test different ratios of oligos to determine the optimal ratio for stoichiometric annealing; if necessary, run an Agilent 1000 DNA chip to double check.\r\n\n\n\r\n\n\nPossible Problem 2: Quality Control run of PCR products shows a very weak smear/no smear. Possible reasons could include sub-optimal PCR cycle conditions, in which case solutions may include increasing the number of cycles used \\(do not use more than 25 cycles), decreasing annealing temperature or increasing elongation time, and another possible reason might be insufficient template DNA, in which case the solution is to Increase the starting amount of  template DNA in the PCR reaction.\r\n\n\n\r\n\n\nPossible Problem 3: Very bright smear/ doughnut-shaped band/ no band observed after PCR scale-up. Possible reasons may be that too much DNA was loaded onto the PAGE gel. Solutions include decreasing the number of PCR reactions, or splitting samples up into more wells.\r\n\n\n\r\n\n\nPossible Problem 4: Library has many repeated reads. Possible reasons may be that the library has low complexity. To minimize this problem, use high amounts of starting and template DNA to maximize the amount of DNA used in the PCR; reduce the number of PCR cycles. We have found that despite trying these options, many libraries still have many repeated reads, suggesting that chromatin interactions are inherently rare events.\r\n\n\n\r\n\n\nPossible Problem 5: Poor results observed upon sequencing and data analysis \\(few/ low quality chromatin interactions). One reason may be that there were problems with upstream chromatin preparation procedures; eg. poor cross-linking. Troubleshoot chromatin preparation procedures \u2013 ensure that formaldehyde used is fresh and functional, and ensure that sonication worked by running a quality control agarose gel. Another reason may be that the region of interest is repetitive. To troubleshoot, check to ensure that a region which is not highly repetitive \\(and hence difficult to analyze by sequencing followed by unique mapping) is not used.\r\n\n\n\r\n\n\nPossible Problem 6: Mapping errors are observed \\(mapping is wrong upon manual double-checking of a few examples using UCSC BLAT and other mapping methods). This could be because the mapping was incorrectly done. To troubleshoot, ensure that only unique mappings are used to identify chromatin interactions."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "A successful library preparation would show the following successful quality controls: \\(1) Well-sonicated chromatin \\(Figure 2a); \\(2) A smear of about 200 to more than 500 bp in the quality control gel run after PCR \\(Figure 2b) \\(3) chromatin interactions following library sequencing \\(Figure 2c-e).\r\n\n\n\r\n\n\nIn an experiment performed on a keratin gene cluster region, 454 GSFLX \\(a prior version to Titanium) sequencing generated approximately half a million sequences. All the sequences were mapped to reference genome \\(hg18 human genome assembly) to identify the target regions in relation to the bait region, and 0.44 million sequences \\(95%) showed at least one hit to the genome. Sequences that did not show at least two mapping regions were filtered away, as these could be incompletely sequenced ligation products or DNA sequences that did not ligate. 95,050 \\(21.6%) reads had at least 2 hits, with the first hit mapping correctly to the primer site.  In further experiments, the longer sequencing read lengths offered by the new 454 Titanium system, as well as even longer ligation times, could address this issue.\r\n\n\n\r\n\n\nSequences were filtered to remove redundant clonal amplifications \\(repeated sequences). Of 95,050 reads, 3660 \\(3.9%) sequences were found to be unique. Many redundant clonal amplification sequences were observed, indicating that clonal amplifications within 4C libraries are indeed an issue. Previous use of restriction enzymes to fragment the chromatin would not have been able to distinguish clonal amplifications from _bona fide_ enriched chromatin interaction signals. In future experiments, further increasing the amount of starting template, and amount used as PCR template, could help to reduce the redundancy. Also, while reducing the number of PCR cycles could reduce amount of selection performed on the 4C library and hence increase non-specific 4C ligation noise, this modification might also reduce the amount of redundancy seen in the library.\r\n\n\n\r\n\n\nThe majority of the non-redundant sequences either mapped randomly along the genome as potential non-specific 4C products, or mapped to the \u201cbait\u201d region within 1 kb, suggesting self-ligation products in the 4C experiment. 3,429 \\(93.7%) sequences were intrachromosomal ligation products, and they comprised 3388 \\(98.8%) self-ligation products, 30 \\(0.9%) inter-ligation products representing expected interactions, and 11 \\(0.3%) other long-range inter-ligations typical of random noise. Manual inspection of the 30 sequences that mapped to expected interaction loci revealed 7 unique ligation events, which were then collapsed into 4 distinct interactions. 2 interaction clusters \\(2 or more overlapping unique PETs) were found, namely chr12:50828808-50880947 \\(genomic span=52 kb; 2 ligation events) and chr12:50828801-50883887 \\(genomic span=54 kb; 3 ligation events). The remaining 2 interactions \u2013 chr12:50828832-51024898, with a genomic span of 196 kb, and chr12:50828839-51575465, with a genomic span of 746.6 kb \u2013 were represented by single unique ligation events \\(Figure 2c-e).\r\n\n\n\r\n\n\nWe noted that the 4C data showed a very clean background \\(Figure 2d, e). From the bait region to the first and the second interaction sites \\(about 200 kb distance), there are no background sequences in the intervals. Given that we prepared the chromatin material used for our 4C analysis by sonication, which is different from the standard 3C and 4C protocols, this result suggests that the sonication method could be very efficient in \u201cshaking off\u201d non-specific chromatin fragments randomly attached to the specific chromatin interaction complexes. We expect to obtain discrete interaction peaks formed by clusters of inter-ligation sequences from sonicated material, because we expect real interactions to been captured by proximity ligation process. While the detached non-specific chromatin fragments would still be present in the DNA pool, they would not be amplified by the 4C PCR detection method. \r\n\n\n\r\n\n\nWe specifically looked at the KRT gene cluster site \\(previously identified by ChIA-PET\\[9]), where the \u201cbait\u201d region lay, from which we designed our inverse 4C PCR primers. Moving right from the \u201cbait\u201d region, we identified overlapping sequence clusters that correlated very well with the locations of the interaction sites identified by ChIA-PET data, cross-validating both the ChIA-PET data as well as the 4C protocol \\(Figure 2c, e). \r\n\n\n\r\n\n\nInterestingly, analysis of chromatin interactions by 4C and ChIA-PET in the keratin region suggests that chromatin interactions are correlated with gene expression coordination. Both ChIA-PET and 4C data shows that KRT7, KRT8, and KRT18 are all pulled into the \u201chub\u201d of the same interaction complex. KRT7, 8, and 18 are known to be expressed in breast carcinomas. In particular, KRT8 and KRT18 are tightly coexpressed genes, and the gene products bind tightly to each other, pairing up by the formation of a heterodimer between KRT8 \\(a \u201ctype II\u201d keratin) and KRT18 \\(a \u201ctype I\u201d keratin). Without the formation of a heterodimer, type I and type II keratins are rapidly degraded\\[20]. These two genes are connected by many inter-ligations. By contrast, KRT5, 6, 1, 2, and other keratins involved in other aspects such as in hair development for example KRT72 and KRT75, are not expressed, and they are present in the \u201cloop\u201d of the interaction complex. Hence, chromatin interactions in the keratin region may bring together relevant genes into transcriptional foci, and loop out irrelevant genes, in order to achieve tightly coordinated gene expression regulation.\r\n\n\nIn conclusion, our novel sonication-based 4C protocol has enabled the identification of bona fide chromatin interactions for ChIA-PET validation of chromatin interactions in the keratin gene cluster, demonstrating that chromatin interactions in the keratin cluster may function to coordinate gene transcription. With sonication, non-specific noise could be \u201cshook off\u201d, thus reducing the very high non-specific noise seen in the original 3C and 4C protocols. Moreover, with sonication as opposed to restriction enzyme digestion, a previously unrecognized problem with regards to high amounts of sequenced clonal amplifications may be reduced. With further optimizations, sonication-based 4C could become a robust method for use in conjunction with next-generation sequencing to identify and study chromatin interactions. Moreover, sonication-based 4C could be coupled with faster and cheaper third-generation sequencing methods such as Pacific Biosciences\\[21] as they become available. With the improved throughput, reduced sample requirements of the new third-generation sequencing methods, it may become possible to omit part C of the sonication-based 4C protocol presented here, and simply sequence the entire library of proximity-ligated sonicated chromatin, which would allow for ultra-high-throughput analysis of global chromatin interactions at high resolution."
+        },
+        {
+            "header": "References",
+            "content": "1. de Laat W, Klous P, Kooren J, Noordermeer D, Palstra RJ, et al. \\(2008) Three-dimensional organization of gene expression in erythroid cells. Curr Top Dev Biol 82: 117-139.\r\n  2. Simonis M, de Laat W \\(2008) FISH-eyed and genome-wide views on the spatial organisation of gene expression. Biochim Biophys Acta 1783: 2052-2060.\r\n  3. Dekker J, Rippe K, Dekker M, Kleckner N \\(2002) Capturing chromosome conformation. Science 295: 1306-1311.\r\n  4. Simonis M, Klous P, Splinter E, Moshkin Y, Willemsen R, et al. \\(2006) Nuclear organization of active and inactive chromatin domains uncovered by chromosome conformation capture-on-chip \\(4C). Nat Genet 38: 1348-1354.\r\n  5. Zhao Z, Tavoosidana G, Sjolinder M, Gondor A, Mariano P, et al. \\(2006) Circular chromosome conformation capture \\(4C) uncovers extensive networks of epigenetically regulated intra- and interchromosomal interactions. Nat Genet 38: 1341-1347.\r\n  6. Wurtele H, Chartrand P \\(2006) Genome-wide scanning of HoxB1-associated loci in mouse ES cells using an open-ended Chromosome Conformation Capture methodology. Chromosome Res 14: 477-495.\r\n  7. Lomvardas S, Barnea G, Pisapia DJ, Mendelsohn M, Kirkland J, et al. \\(2006) Interchromosomal interactions and olfactory receptor choice. Cell 126: 403-413.\r\n  8. Fullwood MJ, Han Y, Wei CL, Ruan X, Ruan Y \\(2010) Chromatin interaction analysis using paired-end tag sequencing. Curr Protoc Mol Biol Chapter 21: Unit 21 15 21-25.\r\n  9. Fullwood MJ, Liu MH, Pan YF, Liu J, Xu H, et al. \\(2009) An oestrogen-receptor-alpha-bound human chromatin interactome. Nature 462: 58-64.\r\n  10. Lieberman-Aiden E, van Berkum NL, Williams L, Imakaev M, Ragoczy T, et al. \\(2009) Comprehensive mapping of long-range interactions reveals folding principles of the human genome. Science 326: 289-293.\r\n  11. Dekker J \\(2006) The three 'C' s of chromosome conformation capture: controls, controls, controls. Nat Methods 3: 17-21.\r\n  12. Simonis M, Kooren J, de Laat W \\(2007) An evaluation of 3C-based methods to capture DNA interactions. Nat Methods 4: 895-901.\r\n  13. Splinter E, Grosveld F, de Laat W \\(2004) 3C technology: analyzing the spatial organization of genomic loci in vivo. Methods Enzymol 375: 493-507.\r\n  14. Gondor A, Rougier C, Ohlsson R \\(2008) High-resolution circular chromosome conformation capture assay. Nat Protoc 3: 303-313.\r\n  15. Ohlsson R, Gondor A \\(2007) The 4C technique: the 'Rosetta stone' for genome biology in 3D? Curr Opin Cell Biol 19: 321-325.\r\n  16. Palstra RJ, Simonis M, Klous P, Brasset E, Eijkelkamp B, et al. \\(2008) Maintenance of long-range DNA interactions after inhibition of ongoing RNA polymerase II transcription. PLoS One 3: e1661.\r\n  17. Rozen S, Skaletsky H \\(2000) Primer3 on the WWW for general users and for biologist programmers. In: Krawetz S, Misener S, editors. Bioinformatics Methods and Protocols: Methods in Molecular Biology. Totowa, NJ: Humana Press. pp. 365-386.\r\n  18. Smit AFA, Hubley R, Green P \\(1996-2004) RepeatMasker Open-3.0.\r\n  19. Karolchik D, Baertsch R, Diekhans M, Furey TS, Hinrichs A, et al. \\(2003) The UCSC Genome Browser Database. Nucleic Acids Res 31: 51-54.\r\n  20. Lu X, Lane EB \\(1990) Retrovirus-mediated transgenic keratin expression in cultured fibroblasts: specific domain functions in keratin stabilization and filament formation. Cell 62: 681-696.\r\n  21. Eid J, Fehr A, Gray J, Luong K, Lyle J, et al. \\(2009) Real-time DNA sequencing from single polymerase molecules. Science 323: 133-138."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "The authors acknowledge the Genome Technology and Biology Group and the Cancer Biology and Pharmacology group at the Genome Institute of Singapore for technical support in developing the protocol. The authors acknowledge the bioinformatics group supervised by Dr Ken Sung, as well as Mr. Atif Shahab, Mr. Chan Chee Seng, and Mr. Fabianus H. Mulawadi for computing support; and Drs Shujun Luo and Gary Schroth for Illumina sequencing support. M.J.F., P.Y.H.H., and Y.H. are supported by A**STAR Scholarships. M.J.F. is supported by a 2009 L\u2019Oreal For Women In Science National Fellowship and a 2010 Lee Kuan Yew Post-Doctoral Fellowship. Y.R. and C.L.W. are supported by A**STAR of Singapore and NIH ENCODE grants \\(R01 HG004456-01, R01HG003521-01, and part of 1U54HG004557-01)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nature08497",
+                "date": "2010-12-14 07:26:36",
+                "title": "An oestrogen-receptor-\u03b1-bound human chromatin interactome",
+                "authors": [
+                    "Melissa J. Fullwood",
+                    "Mei Hui Liu",
+                    "You Fu Pan",
+                    "Jun Liu",
+                    "Han Xu",
+                    "Yusoff Bin Mohamed",
+                    "Yuriy L. Orlov",
+                    "Stoyan Velkov",
+                    "Andrea Ho",
+                    "Poh Huay Mei",
+                    "Elaine G. Y. Chew",
+                    "Phillips Yao Hui Huang",
+                    "Willem-Jan Welboren",
+                    "Yuyuan Han",
+                    "Hong Sain Ooi",
+                    "Pramila N. Ariyaratne",
+                    "Vi"
+                ],
+                "journal": "Nature",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 11608,
+                "identity": "9f8b7dc2-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Melissa Jane Fullwood",
+                "email": "mjfullwood@gmail.com",
+                "orcid": "",
+                "institution": "Genome Technology and Biology, Genome Institute of Singapore",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Melissa",
+                "middleName": "Jane",
+                "lastName": "Fullwood",
+                "suffix": ""
+            },
+            {
+                "id": 11609,
+                "identity": "9f8b7fd8-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Yijun Ruan",
+                "email": "ruanyj@gis.a-star.edu.sg",
+                "orcid": "",
+                "institution": "Genome Technology and Biology, Genome Institute of Singapore",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Yijun",
+                "middleName": "",
+                "lastName": "Ruan",
+                "suffix": ""
+            },
+            {
+                "id": 11600,
+                "identity": "9f8b6e6c-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Phillips Y.H. Huang",
+                "email": "",
+                "orcid": "",
+                "institution": "Genome Technology and Biology, Genome Institute of Singapore",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Phillips",
+                "middleName": "Y.H.",
+                "lastName": "Huang",
+                "suffix": ""
+            },
+            {
+                "id": 11601,
+                "identity": "9f8b71c1-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Yuyuan  Han",
+                "email": "",
+                "orcid": "",
+                "institution": "Genome Technology and Biology, Genome Institute of Singapore",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Yuyuan",
+                "middleName": "",
+                "lastName": "Han",
+                "suffix": ""
+            },
+            {
+                "id": 11602,
+                "identity": "9f8b73a9-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Lusy Handoko",
+                "email": "",
+                "orcid": "",
+                "institution": "Genome Technology and Biology, Genome Institute of Singapore",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Lusy",
+                "middleName": "",
+                "lastName": "Handoko",
+                "suffix": ""
+            },
+            {
+                "id": 11603,
+                "identity": "9f8b7545-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Stoyan Velkov",
+                "email": "",
+                "orcid": "",
+                "institution": "Genome Technology and Biology, Genome Institute of Singapore",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Stoyan",
+                "middleName": "",
+                "lastName": "Velkov",
+                "suffix": ""
+            },
+            {
+                "id": 11604,
+                "identity": "9f8b7796-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Eleanor Wong",
+                "email": "",
+                "orcid": "",
+                "institution": "Genome Technology and Biology, Genome Institute of Singapore",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Eleanor",
+                "middleName": "",
+                "lastName": "Wong",
+                "suffix": ""
+            },
+            {
+                "id": 11605,
+                "identity": "9f8b792d-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Edwin Cheung",
+                "email": "",
+                "orcid": "",
+                "institution": "Cancer Biology and Pharmacology, Genome Institute of Singapore",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Edwin",
+                "middleName": "",
+                "lastName": "Cheung",
+                "suffix": ""
+            },
+            {
+                "id": 11606,
+                "identity": "9f8b7ab6-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Xiaoan Ruan",
+                "email": "",
+                "orcid": "",
+                "institution": "Genome Technology and Biology, Genome Institute of Singapore",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Xiaoan",
+                "middleName": "",
+                "lastName": "Ruan",
+                "suffix": ""
+            },
+            {
+                "id": 11607,
+                "identity": "9f8b7c41-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Chia-Lin Wei",
+                "email": "",
+                "orcid": "",
+                "institution": "Genome Technology and Biology, Genome Institute of Singapore",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Chia-Lin",
+                "middleName": "",
+                "lastName": "Wei",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2010-12-14 08:15:22",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2010.207",
+        "doiUrl": "https://doi.org/10.1038/protex.2010.207",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2608198,
+                "identity": "dc32de82-4dcf-484b-971f-0df636917c4e",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:00",
+                "extension": "tif",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 338000,
+                "visible": true,
+                "origin": "",
+                "legend": "Schematic comparison of 4C procedures.   a. Outline of the original 4C method. b. Outline of the sonication-based 4C method.",
+                "description": "",
+                "filename": "figure1.tif",
+                "url": "https://assets.researchsquare.com/files/nprot-1979/v1/figure_1.tif"
+            },
+            {
+                "id": 2608199,
+                "identity": "b5a168eb-7086-4959-b5b5-e4b6e404f44b",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:01",
+                "extension": "tif",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 443526,
+                "visible": true,
+                "origin": "",
+                "legend": "4C validations   a. Sonication quality control gel showing that the chromatin has been successfully fragmented into sizes of about 200 \u2013 2000 bp. b. The 4C PCR products using the \u201cbait\u201d primer pair based at the KRT chromatin interaction region. The boxed range of DNA amplicon was gel-excised for sequencing analysis. c. Chromatin interactions at the KRT gene cluster identified by ER\u03b1 ChIA-PET analysis. d. An enlarged view (10 Mb) of 4C sequence mapping centered at the KRT gene cluster shows that the 4C data is very clean. e. The 4C sequences mapped at the KRT gene cluster locus, aligned with the view in c. The highest 4C sequence mapping peak is at the 4C \u201cbait\u201d site (indicated by a blue dot). The interaction anchors of this interaction complex were mapped 4C sequences. ",
+                "description": "",
+                "filename": "figure2.tif",
+                "url": "https://assets.researchsquare.com/files/nprot-1979/v1/figure_2.tif"
+            },
+            {
+                "id": 13464679,
+                "identity": "167e4c9a-0cad-4ec0-b3c0-4e9b8259fa17",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:44:18",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 708150,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-1979/v1/3c7f4ec6-c78d-48fb-86d9-5598d168b7ca.pdf"
+            },
+            {
+                "id": 2608201,
+                "identity": "6229c703-d1fc-45ca-9990-20faf05cda81",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:50:01",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 223555,
+                "visible": true,
+                "origin": "",
+                "legend": "Supplementary Document 1   Appendices",
+                "description": "",
+                "filename": "supplement0.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-1979/v1/supplement_0.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Chromatin interactions, DNA sequencing",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "The three-dimensional organization of chromatin in the nuclear space is involved in regulation of gene expression. Circular Chromosome Conformation Capture \\(4C) is an established method for genome-wide screening of chromatin interactions associated with a given locus of interest, without prior knowledge of the identity of interacting partners. Briefly, 4C involves the cross-linking of chromatin material, followed by restriction enzyme digestion of the chromatin, proximity-based ligation of interacting DNA fragments within the same DNA-protein complex, and amplification of interacting sequences by inverse PCR. The use of restriction enzyme digestion together with PCR could lead to biases in detection as well as false positives through repeated identification of clonal products. Here, we present a modification of the original 4C method, in which sonication is used to randomly fragment chromatin fibers instead of restriction enzymes at specific sites, to eliminate these biases, thus enabling high-throughput analysis by next-generation sequencing to detect interacting sequences.\r\n\n\n\r\n\n\nP.Y.H.H. and Y.H. made equal and critical contributions to this manuscript.",
+        "manuscriptTitle": "Protocol: Sonication-based Circular Chromosome Conformation Capture with next-generation sequencing analysis for the detection of chromatin interactions",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2010-12-14 12:20:15",
+                "doi": "10.1038/protex.2010.207",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9f8b0286-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "December 14th, 2010",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 2490,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 2491,
+                "name": "Genetics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2010-12-14 12:20:15",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

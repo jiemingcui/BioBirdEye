@@ -1,0 +1,286 @@
+{
+    "identity": "nprot-7329",
+    "title": "_In vivo_ combinatorial knockout screens using CRISPR-Cpf1",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "CRISPR screens are a powerful approach to systematically identify the genetic factors involved in a biological function of interest 1. While the vast majority of CRISPR screens to date have focused on the contributions of individual genes, many biological phenomena cannot be fully captured at the single-gene level due to existence of genetic interactions 2,3. A number of recent studies have demonstrated the use of double-knockout/perturbation CRISPR-Cas9 screens to characterize these genetic interactions 4\u20139. However, current Cas9-based approaches for mapping genetic interactions have important limitations that hinder their broader utility and applicability. Towards this end, Cpf1 \\(also known as Cas12a) has notable advantages over Cas9, as Cpf1 can autonomously process a single array containing multiple crRNAs and subsequently induce multi-site mutagenesis 10\u201313. In the associated publication, we describe an approach for combinatorial knockout screens using massively-parallel CRISPR-Cpf1 crRNA array profiling \\(MCAP). Compared to prior Cas9-based combinatorial screens, MCAP is unparalleled in its simplicity of oligo design, library cloning, and downstream analysis, thereby facilitating its application to the study of complex processes in vivo. \"Figure 1\":http://www.nature.com/protocolexchange/system/uploads/7575/original/protocolExchange-fig1.png?1550118900 illustrates an example MCAP workflow to identify genetic interactions driving metastasis. We anticipate the MCAP system to be of use to the scientific community for the study of two-gene or even higher-order genetic interactions.\r\n\n\n\r\n\n\n<a href=\"http://www.nature.com/protocolexchange/system/uploads/7575/original/protocolExchange-fig1.png?1550118900\" > <img src=\"http://www.nature.com/protocolexchange/system/uploads/7575/thumbnail/protocolExchange-fig1.png?1550118900\" > </a>"
+        },
+        {
+            "header": "Reagents",
+            "content": "**Plasmids & DNA**\r\n\n\n1. Plasmids: pRC10 \\(pLenti-EFS-huLbCpf1-2A-Blast-WPRE; Addgene #123359), pRC11 \\(pLenti-U6-DR-crRNA-BsmbI\\(x2)/EFS-Puro-WPRE; Addgene #123360), pRC11-MCAP_Met \\(pLenti-U6-MCAP_Met_lib/EFS-Puro-WPRE; Addgene #123361), pRG01 \\(pLenti-U6-DR-crRNA-BsmbI\\(x2)-6T/EFS-Puro-2A-Fluc-WPRE; Addgene #123362), pRC49 \\(pLenti-U6-DR-crRNA-BsmbI\\(x2)-6T/EFS-Puro-2A-Fluc-2A-EGFP_NLS-WPRE; Addgene #123363), pMD2.G \\(Addgene #12259), psPAX.2 \\(Addgene #12260), pcDNA3-EGFP \\(Addgene #13031)\r\n  2. Cpf1 crRNA oligos: DNA oligos to clone into the lentiviral crRNA expression vectors, see below for details on oligo design for library-scale or single-construct cloning \r\n  3. Readout primers: DNA oligos to sequence the U6 expression cassettes and readout library-wide crRNA representation. See \"Table 1\":http://www.nature.com/protocolexchange/system/uploads/7577/original/Table1-readout-primers.xlsx?1550119626\r\n  \r\n\n\n**Bacteria**\r\n\n\n1. Stbl3 bacteria or other recombination-deficient competent bacteria.\r\n  2. Endura ElectroCompetent cells \\(Lucigen #60242)\r\n  \r\n\n\n**Cell lines**\r\n\n\n1. Cell line of interest to be studied. For instance, the KPD cell line derived from KrasG12D/p53-/-/Dicer1-/- murine lung adenocarcinoma 14. \r\n  2. HEK293FT cells \\(ThermoFisher)\r\n  \r\n\n\n**Mice**\r\n\n\n1. Appropriate mouse strain that allows engraftment of the target cell line. For instance, KPD cells engraft successfully in nude mice \\(Jackson Laboratory) but not C57BL/6J mice.\r\n  \r\n\n\n**Kits, Chemicals, and Reagents**\r\n\n\n1. DMEM, high glucose, pyruvate \\(ThermoFisher #11995065)\r\n  2. Opti-MEM I Reduced Serum Medium \\(ThermoFisher #31985070)\r\n  3. Fetal Bovine Serum \\(Sigma-Aldrich #F4135-500ML)\r\n  4. S.O.C. Medium \\(ThermoFisher #15544034)\r\n  5. Carbenicillin disodium salt \\(Sigma-Aldrich #C1389)\r\n  6. 50% Glycerol \\(Boston BioProducts #LB-717)\r\n  7. PEI MAX \u2013 Transfection Grade Linear Polyethylenimine Hydrochloride \\(MW 40,000) \\(Polysciences #24765)\r\n  8. T4 Ligation Buffer \\(New England Biolabs #M0202S)\r\n  9. T4 Polynucleotide Kinase \\(New England Biolabs #M0201S)\r\n  10. QIAamp DNA Mini Kit \\(Qiagen #51304)\r\n  11. QIAprep Spin Miniprep kit \\(Qiagen #27104)\r\n  12. EndoFree Plasmid Maxi Kit \\(Qiagen #12362)\r\n  13. FastDigest Esp3I \\(ThermoFisher #FD0454)\r\n  14. FastAP Thermosensitive Alkaline Phosphatase \\(ThermoFisher #EF0651)\r\n  15. E-Gel EX Agarose Gels, 2% \\(ThermoFisher #G401002)\r\n  16. Gibson Assembly Master Mix \\(New England Biolabs #E2611S)\r\n  17. Quick Ligation Kit \\(New England Biolabs #M2200S)\r\n  18. QIAquick Gel Extraction Kit \\(Qiagen #28704)\r\n  19. Phusion Flash High-Fidelity PCR Master Mix \\(ThermoFisher #F548S)\r\n  20. E-Gel\u2122 Low Range Quantitative DNA Ladder \\(ThermoFisher #12373031)\r\n  21. T7E1 \\(New England BioLabs #M0302S)\r\n  22. Nextera XT DNA Library Preparation Kit \\(Illumina FC-131-1024)\r\n  23. Nextera XT Index Kit v2 Set A \\(Illumina FC-131-2001)\r\n  24. NK Lysis Buffer \\(50 mM Tris, 50 mM EDTA, 1% SDS, pH 8.0) supplemented with 30 \u03bcL of 20 mg/mL Proteinase K \\(Qiagen)\r\n  25. RNAse A \\(Qiagen)\r\n  26. 100% isopropanol"
+        },
+        {
+            "header": "Equipment",
+            "content": "1. PCR Thermocycler\r\n  2. ThermoMixer\r\n  3. Tissue culture hood\r\n  4. Pipettes and tips\r\n  5. Next generation sequencing machines \\(Illumina)\r\n  6. Cell culture incubators \\(37\u00b0, 5% CO2)\r\n  7. Electroporator\r\n  8. Carbenicillin or ampicillin LB agar plates\r\n  9. Carbenicillin LB broth\r\n  10. Nanodrop"
+        },
+        {
+            "header": "Procedure",
+            "content": "**Construction of MCAP vectors**\r\n\n\n_Small-scale cloning of crRNA arrays into MCAP expression vectors \\(4 days)_\r\n\n\n1. Identify target genes for knockout. Here we use Nf2 and Trim72 as illustrative examples, but note that any genomic loci with a Cpf1 PAM sequence \\(TTTV) may be targeted.\r\n  2. Design LbCpf1 crRNAs \\(20-23nt spacers) with Benchling, Cas-Designer 15, or other computational tools. A non-targeting crRNA or control crRNA can also be included.\r\n  LbCpf1 direct repeat \\(DR): TAATTTCTACTAAGTGTAGAT\r\n\n\ncrNf2 spacer: AAGGCCTCGATCTCCGTCTT \r\n\n\ncrTrim72 spacer:  TGCCGTGCCTGCCTGATCCG\r\n\n\n3. Synthesize oligonucleotides according to the following schema, where the \u201ccore sequence\u201d is defined as Spacer1-DR-Spacer2-DR, and \u201crevComp\u201d denotes the reverse complement. Here, we use the crNf2 spacer as Spacer1, and crTrim72 spacer as Spacer2.\r\n  a) For cloning into pRC11: Forward oligo = TAGAT \u2013 core sequence \u2013 TTTTTTA; Reverse oligo = AGCTTAAAAAA \u2013 revComp\\(core sequence) \u2013 A. \r\n\n\nb) For cloning into pRG01 and pRC49: Forward oligo = TAGAT \u2013 core sequence \u2013 T; Reverse oligo = AAAAA \u2013 revComp\\(core sequence) \u2013 A. \r\n\n\n4. Anneal the forward and reverse oligos with the following reaction: \r\n  1 \u03bcl of 100 \u03bcM forward oligo\r\n\n\n1 \u03bcl of 100 \u03bcM reverse oligo\r\n\n\n1 \u03bcl of 10x T4 Ligation Buffer\r\n\n\n6.5 \u03bcl of ddH2O\r\n\n\n0.5 \u03bcl of T4 PNK\r\n\n\nTotal vol = 10 \u03bcl. \r\n\n\nThermocycler conditions: 37\u00b0C for 30 minutes, 95\u00b0C for 5 minutes, then ramp down to 25\u00b0C at 5\u00b0C / minute.\r\n\n\n5. Digest pRC11 \\(puromycin resistance only), pRG01 \\(puromycin resistance and firefly luciferase), or pRC49 \\(puromycin resistance, firefly luciferase, and nuclear EGFP) with the following reaction:\r\n  5 \u03bcg of plasmid \\(pRC11, pRG01, or pRC49)\r\n\n\n3 \u03bcl of FastDigest Esp3I\r\n\n\n4 \u03bcl of FastAP\r\n\n\n5 \u03bcl of 10x FastDigest Buffer\r\n\n\nX \u03bcl of ddH2O to 50 \u03bcl\r\n\n\nTotal vol = 50 \u03bcl. \r\n\n\nThermocycler conditions: 37\u00b0C for 30 minutes.\r\n\n\n6. Run the plasmid digestion on an agarose gel, alongside an uncut enzyme control. Confirm the linearization of the digested plasmid, then gel purify with the QIAquick Gel Extraction Kit.\r\n  7. Dilute the annealed oligos from step 4 at 1:200 dilution in ddH2O.\r\n  8. Ligate the annealed oligos into the purified BsmBI-digested plasmid with the following reaction:\r\n  X \u03bcl of BsmBI-digested plasmid \\(from step 5) to 50 ng\r\n\n\n1 \u03bcl of diluted oligo duplex \\(from step 7)\r\n\n\n5 \u03bcl of 2x Quick Ligase Buffer\r\n\n\n1 \u03bcl of Quick Ligase\r\n\n\nX \u03bcl of ddH2O to 11 \u03bcl\r\n\n\nTotal vol = 11 \u03bcl\r\n\n\nIncubate at room temperature for 10 minutes. \r\n\n\n9. Transform into Stbl3 bacteria. On ice, add 1 \u03bcl of ligation product to bacteria and swirl gently to mix. Incubate on ice for 20 minutes, then heat shock by incubating at 42\u00b0C for 45 seconds. Immediately place bacteria back on ice and incubate for 20 minutes. Add 250 \u03bcl of S.O.C. media to bacteria, mix, and plate onto carbenicillin-containing LB agar plates.\r\n  10. The following day, pick colonies and shake overnight in 4 mL of carbenicillin LB broth.\r\n  11. Take 0.5 mL of the bacterial cultures and mix in 50% glycerol. Store in -20\u00b0C short-term, or -80\u00b0C long-term. \r\n  12. Purify the plasmids from the remaining bacterial cultures with the QIAprep Spin Miniprep kit.\r\n  13. Sequence the plasmids with the following primer: GAGGGCCTATTTCCCATGAT. Confirm successful ligation of the oligos containing the crRNA array into the expression vector.\r\n  \r\n\n\n_MCAP library design, cloning, and readout \\(4 days hands-on, not including chip oligo synthesis and next-generation sequencing)_\r\n\n\n1. Identify crRNA spacer sequences as described above for all genes to be represented in the library. Include control crRNA spacers that are non-targeting, or targeting a known control locus \\(i.e. noncoding regions or gene deserts). As a rule of thumb, the control crRNAs should ideally comprise at least 10% of the total library size in order to accurately model the null distribution. Since the cutting efficiencies of different crRNAs is quite variable, it is also essential to design multiple independent crRNAs targeting each gene.\r\n  2. Here, we describe barcoded MCAP library design for double knockout studies, but we note that triple knockout studies are also feasible using this approach. Design MCAP library oligos according to the schema detailed below, where the \u201ccore sequence\u201d is defined as Spacer1-DR-Spacer2-DR, and \u201crevComp\u201d denotes the reverse complement. For each possible gene pair, randomly assign the constituent genes to either the first or second crRNA position. In our experience, the position of the crRNA within the array does not significantly influence Cpf1 cutting efficiency.\r\n  \r\n\n\nFor cloning into pRC11: \r\n\n\n5\u2019 - TCTTGTGGAAAGGACGAAACACCGTAATTTCTACTAAGTGTAGAT \u2013 core sequence \u2013 TTTTTTNNNNNNNNNNAAGCTTGGCGTGGATCCGATATCAA - 3\u2019\r\n\n\n \r\n\n\nb) For cloning into pRG01 or pRC49:\r\n\n\n5\u2019 - TCTTGTGGAAAGGACGAAACACCGTAATTTCTACTAAGTGTAGAT \u2013 core sequence \u2013 TTTTTTNNNNNNNNNNTTTTTTAAGCTTGGCGTGGATCCGATATCAA - 3\u2019\r\n\n\n\r\n\n\n3. Synthesize the MCAP library using an oligo pool service, such as CustomArray.\r\n  4. PCR amplify the library using the following primers to add Gibson homology arms:\r\n  arrayF_MCAP: TAACTTGAAAGTATTTCGATTTCTTGGCTTTATATATCTTGTGGAAAGGACGAAACACCG\r\n\n\narrayR_MCAP: TTGTCTCAAGATCTAGTTGATATCGGATCCACGCCAAGCTT\r\n\n\nUse a 50 \u03bcl reaction volume. \r\n\n\nThermocycler conditions using Phusion Flash: 98\u00b0C for 1 min, 32 cycles of \\(98\u00b0C for 1s, 59\u00b0C for 5s, 72\u00b0C for 10s), 72\u00b0C for 2 min.\r\n\n\n5. Run the PCR product on a gel. The product should be 210 bp. Purify with the QIAquick Gel Extraction Kit.\r\n  6. Clone the purified PCR product into the appropriate vector by Gibson assembly according to manufacturer instructions. Use 330 ng of the digested vector and 50 ng of the PCR-amplified library pool.\r\n  7. Using 1 \u03bcl of the Gibson product, electroporate the library into Endura ElectroCompetent cells according to manufacturer instructions. Use 1 vial of cells \\(split into two electroporations) for every 10,000 constructs represented in the library. \r\n  8. After electroporation, recover the cells with 975 \u03bcl of Recovery Media. Transfer to a bacterial culture tube and shake at 37\u00b0C for 1.5 hours. \r\n  9. Take 10 \u03bcl of the culture \\(from 1 mL total), dilute with 990 \u03bcl of LB with carbenicillin \\(1:100 dilution). Then take 100 \u03bcl of the diluted cells and mix further with 900 \u03bcl of LB \\(1:1000 dilution). Plate 100 \u03bcl of the 1:1000 dilution on a small carbenicillin LB agar plate to calculate transformation efficiency. Plate the remaining cultures on large 245mm LB agar plates using a bacterial spreader. \r\n  10. The following day, count the number of colonies on the small plate. Multiply the number of colonies by 10,000 to estimate the number of unique colonies represented in each of the large LB agar plates. The goal is to have approximately 500x the library size across all successfully transformed colonies. \r\n  11. Add 10 mL of LB to the large plates, and harvest the cells with a cell spreader. Proceed with plasmid purification using the EndoFree Plasmid Maxi Kit.\r\n  12. Fully sequence the plasmid library by Illumina sequencing. To do so, PCR amplify the U6 expression cassette using the following primers:\r\n  MCAP_rdt1_F: AATGGACTATCATATGCTTACCGTAACTTGAAAGTATTTCG\r\n\n\nMCAP_rdt1_R: CTTTAGTTTGTATGTCTGTTGCTATTATGTCTACTATTCTTTCCC\r\n\n\nThermocycler conditions using Phusion Flash: 98 \u00b0C for 1 min, 15 cycles of \\(98 \u00b0C for 1s, 60 \u00b0C for 5s, 72 \u00b0C for 15s), and 72 \u00b0C for 1 min.\r\n\n\n13. Take 1 \u03bcl of the PCR product and amplify with a second round of PCR to add Illumina sequencing adapters. \r\n  MCAP_rdt2_F: AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCTTAAGTAGAGTCTTGTGGAAAGGACGAAACACCG\r\n\n\nMCAP_rdt2_R: CAAGCAGAAGACGGCATACGAGATAAGTAGAGGTGACTGGAGTTCAGACGTGTGCTCTTCCGATCTTTCTACTATTCTTTCCCCTGCACTGT\r\n\n\nThermocycler conditions using Phusion Flash: 98 \u00b0C for 1 min, 20 cycles of \\(98 \u00b0C for 1s, 60 \u00b0C for 5s, 72 \u00b0C for 15s), and 72 \u00b0C for 1 min.\r\n\n\n14. Sequence the diluted libraries with 5-20% PhiX, with 150bp paired-end reads.\r\n  15. Merge the raw paired-end fastq read files to single fastq files by PEAR with the settings -y 8G -j 8 -v 3. \r\n  16. Filter and demultiplex the merged fastq files using Cutadapt, using two different sets of adapters for extraction of crRNA array sequences or the 10mer barcode. For the crRNA array, use the following settings: cutadapt --discard-untrimmed -g tcttGTGGAAAGGACGAAACACCg, followed by cutadapt --discard-untrimmed -a TGTAGATTTTTTT. \r\n  17. Map the trimmed sequences to the MCAP library using Bowtie: bowtie -v 3 -k 1 -m 1. For the 10mer degenerate barcodes, use the following Cutadapt settings: cutadapt --discard-untrimmed -a AAGCTTGGCGTGGATC, followed by cutadapt --discard-untrimmed -g TACTAAGTGTAGATTTTTTT. \r\n  18.  Quantify the resultant sequences to a reference of all possible 10mer sequences. Tabulate all reads that successfully mapped to both the MCAP library and contained a valid barcode.\r\n  \r\n\n\n**Generating the MCAP-transduced cell pool**\r\n\n\n1. Grow HEK293FT cells to 80% confluency in 15-cm tissue culture dishes. One hour prior to transfection, change media to Opti-MEM.\r\n  2. Transfect HEK293FT cells with 20 ug MCAP lentiviral plasmid library, 10 ug pMD2.G, 15 ug psPAX2, and 1 ug pcDNA3-GFP, using polyethyleneimine \\(PEI).\r\n  3. 6 hours following transfection, change media to DMEM with 10% FBS.\r\n  4. Collect supernatant at 48 and 72 hours after transfection. Centrifuge for 10 minutes at 1500g to remove cell debris. Freeze aliquots in -80\u00b0C.\r\n  5. Infect the target cells of interest using a variety of different lentiviral volumes. Add 3 \u03bcg/mL of puromycin 24 hours following lentiviral infection to select the transduced cells. Calculate the ratio of surviving cells after 24 hours of puromycin selection, compared to the initial cell count at time of infection.\r\n  6. Once the lentiviral titer has been determined, infect the target cells at an MOI of 0.2, aiming for at least 1000x library coverage. As an example, for a library size of 10,000 arrays, infecting 1x108 cells at MOI of 0.2 will lead to ~2000x coverage.\r\n  7. The following day, add 3 \u03bcg/mL of puromycin. Continue culturing the cells in puromycin-containing media for 7 days to ensure complete selection.\r\n  \r\n\n\n**Mouse model of tumorigenesis and metastasis**\r\n\n\n1. Continuing with puromycin selection, expand the cell pool in 15 cm tissue culture plates until there are sufficient cells for experiments. For KPD cells, we inject 4\u00d710\n6\ncells per mouse, though the numbert of cells should be determined based on the cell type of interest. Once the required cell number has been reached, resuspend the cells to a final concentration such that each mouse will receive a 100 \u03bcl injection of the cell suspension.\r\n  2. Anesthetize the mice according to animal protocol. For KPD cells, we inject 100 ul of the 4\u00d710\n7 cells / ml cell suspension \\(for a total of 4\u00d710\n6^ cells) into the right flanks of nu/nu mice. \r\n  3. As the tumors engraft and begin to grow, measure tumor sizes by caliper approximately every two days. To calculate the tumor volume, use the formula Volume \\(mm\n3\n) = \u03c0/6**x**y*z.\r\n  4. Euthanize mice at 28-35 days after the initial injection for KPD cells. For other cell types or starting cell numbers, the time of euthanization needs to be optimized for the emergence of metastasis.\r\n  5. Harvest the primary tumors and lung lobes. Freeze in liquid nitrogen, then grind the tissue.\r\n  6. Resuspend each sample in 6 ml of NK Lysis Buffer \\(50 mM Tris, 50 mM EDTA, 1% SDS, pH 8.0) supplemented with 30 \u03bcL of 20 mg/mL Proteinase K \\(Qiagen) in 15 mL conical tubes, and incubate at 55 \u00b0C bath overnight.\r\n  7. Add 30 \u03bcl of 10 mg/mL RNAse and incubate at 37 \u00b0C for 30 min. Chill on ice, then add 2 mL of pre-chilled 7.5 M ammonium acetate. \r\n  8. Invert, vortex for 30s, then centrifuge at 4,000g for 10 min. Decant supernatant into 15 ml tube, then add 6 ml 100% isopropanol. Invert 50 times and centrifuge at 4000g for 10 min. DNA should be visible as a small white pellet.\r\n  9. Discard supernatant, add 6 ml of 70% ethanol, mix, then centrifuge at 4000g for 10 min. Discard supernatant, and remove residual ethanol by pipette. Air dry for 20 minutes. \r\n  10. Resuspend DNA by adding 200-500 ul of ddH2O. Measure concentration by Nanodrop. Normalize to 1000 ng/\u03bcl for PCR.\r\n  \r\n\n\n**MCAP library readout from tumor genomic DNA**\r\n\n\n1. For PCR readout from tumor genomic DNA, use 10-20 \u03bcg of gDNA per sample, divided over 5-10 replicate PCR reactions as necessary. For readout from the pre-injection cell pool, use 20 \u03bcg of gDNA divided over 10 replicate PCR reactions.\r\n  2. For the 1st PCR, use the readout primers MCAP_rdt1_F and MCAP_rdt1_R as previously described for initial plasmid library sequencing. Thermocycler conditions using Phusion Flash: 98 \u00b0C for 1 min, 15 cycles of \\(98 \u00b0C for 1s, 60 \u00b0C for 5s, 72 \u00b0C for 15s), and 72 \u00b0C for 1 min. \r\n  3. Pool together 1st PCR products from each biological replicate. Take 2 \u03bcl of the mixed 1st PCR products as the template for 2nd round PCR, using the barcoded primers detailed in \"Table 1\":http://www.nature.com/protocolexchange/system/uploads/7577/original/Table1-readout-primers.xlsx?1550119626 to uniquely label each independent sample. Note down the barcoding scheme for each sample. Thermocycler conditions using Phusion Flash: 98 \u00b0C for 1 min, 15 cycles of \\(98 \u00b0C for 1s, 60 \u00b0C for 5s, 72 \u00b0C for 15s), and 72 \u00b0C for 1 min.\r\n  4. Quantify 2 ul of the 2nd PCR products on a 2% E-gel EX using the E-Gel Low Range Quantitative DNA Ladder. Use these quantities to equally mix the 2nd PCR products of each sample. Purify using the QIAquick PCR Purification Kit as well as the Gel Extraction Kit. \r\n  5. Sequence the diluted libraries with 5-20% PhiX, with 150bp paired-end reads.\r\n  \r\n\n\n**Analysis of MCAP library readout**\r\n\n\n1. Use PEAR 16 to merge paired-end fastq files. \r\n  2. Filter and demultiplex using Cutadapt 17.  To remove extra sequences downstream \\(i.e. 3\u2019 end) of the crRNA array sequences, including the DR and U6 terminator, execute the following command: cutadapt --discard-untrimmed \u2013e 0.1 -a aagcttggcgtGGATCCGATATCa -m 80. \r\n  3. As the forward PCR primers used to readout crRNA array representation were designed to have a variety of barcodes to facilitate multiplexed sequencing, demultiplex these filtered reads with the following settings: cutadapt -g file:fbc.fasta --no-trim, where fbc.fasta contains the 12 possible barcode sequences within the forward primers noted in Table 1. \r\n  4. To remove extraneous sequences upstream \\(i.e. 5\u2019 end) of the crRNA array spacers, run this command: cutadapt --discard-untrimmed \u2013e 0.1 -g tcttGTGGAAAGGACGAAACACCg -m 80. \r\n  5. Remove the 5\u2019 DR sequence as follows: cutadapt --discard-untrimmed -e 0.1 -g TAATTTCTACTAAGTGTAGAT -m 80. \r\n  6. Map the filtered fastq reads to the MCAP-MET reference index. To do so, first generate a Bowtie index of the MCAP-MET library using the bowtie-build command in Bowtie 1.1.2 18. Using these bowtie indexes, map the filtered fastq read files using the following command bowtie -n 2 -k 1 -m 1 --best. These settings ensure that only single-match reads would be retained for downstream analysis. \r\n  7. For data processing on the level of barcoded-crRNAs, we utilized the same trimmed fastq files as above, but instead used the barcoded-crRNA plasmid library \\(described above) as the reference Bowtie index.\r\n  8. Tabulate the number of reads that had mapped to each crRNA array within the library using the Bowtie mapping output. Normalize the number of reads in each sample by converting raw crRNA array counts to reads per million \\(rpm).\r\n  9. To analyze the data at the level of barcoded-crRNAs, convert the counts per barcoded-crRNA in each sample to percentages of total reads.\r\n  10. To identify crRNA arrays that are enriched in individual samples, utilize the control crRNA arrays to model the empirical null distribution. Enriched crRNA arrays can be defined as those exceeding the abundance of the \u201ctop\u201d control crRNA. \r\n  11. For identifying potential synergistic interactions, calculate the synergy coefficient \\(SynCo) for each gene pair with the following formula: SynCo = DKONM - SKO\u00acN- SKOM. The DKONM value is the median log2 rpm abundance \\(averaged over all samples) of all corresponding DKO crRNA arrays \\(i.e., crN.crM), while SKO\u00acN and SKOM values are defined as the median log2 rpm abundance of all corresponding SKO crRNA arrays. By this definition, a SynCo score > 0 would indicate that a given DKO crRNA array is synergistic, as the DKO score would thus be greater than the sum of the individual SKO scores.\r\n  \r\n\n\n**Validation of individual genes and pairs**\r\n\n\n1. Having identified potential genetic interactions from the primary tumors and/or metastases, validation experiments using individual crRNA arrays can be performed. Use the oligo-cloning protocol described above to clone in the specific crRNA arrays of interest.\r\n  2. The in vivo tumor model can be performed similarly. We inject 1.8x106 KPD cells per flank, as the cells all contain the same crRNA array and do not necessitate larger cell numbers to accommodate library diversity.\r\n  3. Proceed with tumor growth measurements and tissue dissection procedures as done previously.\r\n  \r\n\n\n**T7E1 assays**\r\n\n\n1. 7 days following the initial lentiviral infection, harvest the puromycin-resistant cells and isolate genomic DNA using the QIAamp DNA Mini Kit.\r\n  2. Design PCR primers to amplify target loci from genomic DNA around cutting site. Input the crRNA spacer sequence into NCBI Blat, then click \u201cView->Get DNA.\u201d Retrieve the 600 bp of DNA sequence upstream and downstream of the crRNA cut site within the genome.\r\n  3. Copy the ~1200 bp sequence into NCBI Primer-BLAST. Make sure to select the Refseq representative genome for the correct organism of interest under the \u201cPrimer Pair Specificity Checking Parameters\u201d section. Other parameters such as melting temperature, oligo length, and PCR product size can be optimized as desired.\r\n  4. Using the primers designed from step 3, Perform PCR on the isolated genomic DNA. Run PCR amplicons on 2% E-gel EX and purify \\(with known band size) using QIAquick Gel Extraction Kit.\r\n  5. After purification, denature and anneal 200 ng of purified PCR product in NEB Buffer 2 according to the manufacturer protocol, then digest with T7E1 at 37\u00b0C for 45min.\r\n  6. Load digested PCR products into 2% E-gel EX and quantify DNA fragment abundance using E-Gel\u2122 Low Range Quantitative DNA Ladder \\(ThermoFisher). Calculate the mutation frequency using the formula: 100 x \\(1 \u2013 \\(1- fraction cleaved)\n1/2\n).\r\n  \r\n\n\n**Next-generation sequencing analysis of indels**\r\n\n\n1. Using the PCR primers designed above for T7E1, the indel frequency can additionally be determined by next-generation sequencing.\r\n  2. Dilute the PCR amplicons and prepare sequencing libraries using the Nextera XT kit.\r\n  3. Sequence using paired-end reads on an Illumina sequencer.\r\n  4. Map paired reads to the reference genome \\(expected sequences provided in FASTA form to generate indices) using BWA-MEM 19 with the command: bwa mem -t 8 -w 200.\r\n  5. Run VarScan20 v2 using the pileup2indel command, which utilizes Samtools mpileup 21.  \r\n  6. Filter indels to those that occur within a \u00b1 7 bp window around the predicted cut site.\r\n  7. Sum the variant frequencies of the filtered indels to determine the indel frequency."
+        },
+        {
+            "header": "Timing",
+            "content": "Vector construction: 4-6 weeks, depending on pooled oligo synthesis\r\n\n\nLentiviral production and titration: 1 week\r\n\n\nPooled lentiviral transduction and selection: 1-2 weeks\r\n\n\nMouse model of tumorigenesis and metastasis: 4 weeks, depending on cell type and injected cell number\r\n\n\nTumor dissection, genomic DNA extraction, and PCR readout: 8 hours"
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "See table below.\r\n\n\n<a href=\"http://www.nature.com/protocolexchange/system/uploads/7573/original/troubleshooting-table.png?1550118552\" > <img src=\"http://www.nature.com/protocolexchange/system/uploads/7573/thumbnail/troubleshooting-table.png?1550118552\" > </a>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "Chow RD**, Wang G**, Ye L*, Codina A, Kim HR, Shen L, Dong MB, Errami Y, Chen S. In vivo profiling of metastatic double knockouts through CRISPR-Cpf1 screens. Nature Methods. 2019"
+        },
+        {
+            "header": "References",
+            "content": "1. Shalem, O., Sanjana, N. E. & Zhang, F. High-throughput functional genomics using CRISPR-Cas9. Nat. Rev. Genet. 16, 299\u2013311 \\(2015).\r\n  2. Hartman, J. L., Garvik, B. & Hartwell, L. Principles for the Buffering of Genetic Variation. Science 291, 1001\u20131004 \\(2001).\r\n  3. Costanzo, M. et al. The Genetic Landscape of a Cell. Science 327, 425\u2013431 \\(2010).\r\n  4. Han, K. et al. Synergistic drug combinations for cancer identified in a CRISPR screen for pairwise genetic interactions. Nat. Biotechnol. 35, 463\u2013474 \\(2017).\r\n  5. Erard, N., Knott, S. R. V. & Hannon, G. J. A CRISPR Resource for Individual, Combinatorial, or Multiplexed Gene Knockout. Mol. Cell 67, 348-354.e4 \\(2017).\r\n  6. Najm, F. J. et al. Orthologous CRISPR-Cas9 enzymes for combinatorial genetic screens. Nat. Biotechnol. 36, 179\u2013189 \\(2018).\r\n  7. Shen, J. P. et al. Combinatorial CRISPR-Cas9 screens for de novo mapping of genetic interactions. Nat. Methods 14, 573\u2013576 \\(2017).\r\n  8. Boettcher, M. et al. Dual gene activation and knockout screen reveals directional dependencies in genetic networks. Nature Biotechnology 36, 170\u2013178 \\(2018).\r\n  9. Horlbeck, M. A. et al. Mapping the Genetic Landscape of Human Cells. Cell 0, \\(2018).\r\n  10. Fonfara, I., Richter, H., Bratovi\u010d, M., Le Rhun, A. & Charpentier, E. The CRISPR-associated DNA-cleaving enzyme Cpf1 also processes precursor CRISPR RNA. Nature 532, 517\u2013521 \\(2016).\r\n  11. Zetsche, B. et al. Cpf1 Is a Single RNA-Guided Endonuclease of a Class 2 CRISPR-Cas System. Cell 163, 759\u2013771 \\(2015).\r\n  12. Zetsche, B. et al. Multiplex gene editing by CRISPR-Cpf1 using a single crRNA array. Nat Biotech 35, 31\u201334 \\(2017).\r\n  13. Chow, R. D., Kim, H. R. & Chen, S. Programmable sequential mutagenesis by inducible Cpf1 crRNA array inversion. Nature Communications 9, 1903 \\(2018).\r\n  14. Kumar, M. S. et al. Dicer1 functions as a haploinsufficient tumor suppressor. Genes Dev 23, 2700\u20132704 \\(2009).\r\n  15. Park, J., Bae, S. & Kim, J.-S. Cas-Designer: a web-based tool for choice of CRISPR-Cas9 target sites. Bioinformatics 31, 4014\u20134016 \\(2015).\r\n  16. Zhang, J., Kobert, K., Flouri, T. & Stamatakis, A. PEAR: a fast and accurate Illumina Paired-End reAd mergeR. Bioinformatics 30, 614\u2013620 \\(2014).\r\n  17. Martin, M. Cutadapt removes adapter sequences from high-throughput sequencing reads. EMBnet.journal 17, 10\u201312 \\(2011).\r\n  18. Langmead, B., Trapnell, C., Pop, M. & Salzberg, S. L. Ultrafast and memory-efficient alignment of short DNA sequences to the human genome. Genome Biology 10, R25 \\(2009).\r\n  19. Li, H. Aligning sequence reads, clone sequences and assembly contigs with BWA-MEM. arXiv:1303.3997 \\[q-bio] \\(2013).\r\n  20. Koboldt, D. C. et al. VarScan 2: somatic mutation and copy number alteration discovery in cancer by exome sequencing. Genome Res. 22, 568\u2013576 \\(2012).\r\n  21. Li, H. et al. The Sequence Alignment/Map format and SAMtools. Bioinformatics 25, 2078\u20132079 \\(2009)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 16225,
+                "identity": "a1af3f10-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Sidi Chen",
+                "email": "sidi.chen@yale.edu",
+                "orcid": "",
+                "institution": "Sidi Chen Laboratory",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Sidi",
+                "middleName": "",
+                "lastName": "Chen",
+                "suffix": ""
+            },
+            {
+                "id": 16222,
+                "identity": "a1af391b-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Ryan Chow",
+                "email": "",
+                "orcid": "",
+                "institution": "Sidi Chen Laboratory",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Ryan",
+                "middleName": "",
+                "lastName": "Chow",
+                "suffix": ""
+            },
+            {
+                "id": 16223,
+                "identity": "a1af3c0a-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Guangchuan Wang",
+                "email": "",
+                "orcid": "",
+                "institution": "Sidi Chen Laboratory",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Guangchuan",
+                "middleName": "",
+                "lastName": "Wang",
+                "suffix": ""
+            },
+            {
+                "id": 16224,
+                "identity": "a1af3db3-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Lupeng Ye",
+                "email": "",
+                "orcid": "",
+                "institution": "Sidi Chen Laboratory",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Lupeng",
+                "middleName": "",
+                "lastName": "Ye",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2019-02-15 15:54:39",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2019.018",
+        "doiUrl": "https://doi.org/10.1038/protex.2019.018",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2610345,
+                "identity": "ad4541df-cc67-463f-b101-be28a52d5a0e",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:35",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 299675,
+                "visible": true,
+                "origin": "",
+                "legend": "Experiment schematic",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-7329/v1/figure_1.png"
+            },
+            {
+                "id": 2610341,
+                "identity": "5713993b-2518-497d-b1d0-8cc325910284",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:35",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 254654,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 2   Troubleshooting",
+                "description": "",
+                "filename": "figure2.png",
+                "url": "https://assets.researchsquare.com/files/nprot-7329/v1/figure_2.png"
+            },
+            {
+                "id": 13466159,
+                "identity": "8f2824aa-d4e2-4536-ae7e-f6a200caa8fa",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:49:48",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 772507,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-7329/v1/153a5ef2-4bdc-408a-95cb-9472fc7369ed.pdf"
+            },
+            {
+                "id": 2610343,
+                "identity": "05b059af-c667-4aa2-a660-91b0b0735dec",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:35",
+                "extension": "xlsx",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 9188,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 1   Readout primer sequences",
+                "description": "",
+                "filename": "supplement0.xlsx",
+                "url": "https://assets.researchsquare.com/files/nprot-7329/v1/supplement_0.xlsx"
+            }
+        ],
+        "financialInterests": "A provisional patent has been filed at Yale University related to this study",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "CRISPR, Cpf1, Cas12a, cancer, screen, in vivo, genetic interactions, double knockout, metastasis",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "Genetic interactions have long been challenging to investigate systematically. Recently, CRISPR-Cas9 based approaches have been described that can dissect genetic interactions in a high-throughput manner. However, these existing approaches have important disadvantages that limit their flexibility and scalability, hindering their application to in vivo screens. Here, we develop MCAP \\(massively-parallel CRISPR-Cpf1 crRNA array profiling), an approach for combinatorial interrogation of double knockouts in vivo. This protocol accompanies Chow et al. Nature Methods, \u201cIn vivo profiling of metastatic double knockouts through CRISPR-Cpf1 screens\u201d.",
+        "manuscriptTitle": "In vivo combinatorial knockout screens using CRISPR-Cpf1",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2019-04-09 20:08:39",
+                "doi": "10.1038/protex.2019.018",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a1a37b53-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "April 9th, 2019",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 4519,
+                "name": "Genetics"
+            },
+            {
+                "id": 4520,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 4521,
+                "name": "Molecular Biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2019-04-09 20:08:39",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

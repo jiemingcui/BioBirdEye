@@ -1,0 +1,190 @@
+{
+    "identity": "pex-627",
+    "title": "<p>Transcriptome-wide m<sup>6</sup>A detection with DART-Seq</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>General notes:</p><p>The DART-Seq approach assumes that APOBEC1-YTH and APOBEC1-YTH<sup>mut</sup> fusion proteins have been cloned into an expression vector appropriate for the application. We have tested mammalian expression under the CMV promoter, but others will likely work as well.&nbsp;</p><p>Prior to starting, pilot studies are recommended to ensure that expression of fusion proteins are not toxic to cells and that adequate expression is achieved.&nbsp;</p><p>Practice good RNA handling technique during library preparation.&nbsp;</p><p>For standard RNA-seq, we use 1 microgram of total cellular RNA for library preparation with the NEBNext Ultra II Directional RNA Library Prep Kit for Illumina (New England Biolabs). We have also prepared libraries from as little as 10 nanograms of total RNA with good results. As with any RNA-seq library preparation, lower amounts of starting RNA may require more sensitive library preparation methods. We have used the Single Cell/Low Input RNA Library Prep Kit (New England Biolabs) for our low-input libraries with good results. Other library preparation methods are also compatible with DART-Seq and can be tested by the user.</p><p>&nbsp;</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": ""
+        },
+        {
+            "header": "Procedure",
+            "content": "A. Transfect and grow cells\nThe protocol described here has been used for adherent HEK293T cells. Adjustments may be needed for other cell types.\n1. Plate 10-cm plates (or other appropriate size) of HEK293T cells by diluting approximately 1:8 and plating.\n2. Approximately 12-24 hours later, transfect cells with APOBEC1-YTH fusion proteins using desired method (we have had good success with Fugene HD).\n3. Grow cells for 24h at 37\u00b0C (5% CO2) to ~70-80% confluency. For HEK293T cells we use Dulbecco's Modified Eagle's Medium (DMEM; Corning) with 10% FBS and 1% Penicillin-Streptomycin (100X; Thermo Fisher). We observe good C to U editing with no cell death after 24h, although shorter/longer time points may be desired and can be tested by the user.\nNote: We typically have at least 2-3 biological replicates each for cells expressing: APOBEC1-YTH, APOBEC1-YTH\nmut\n, and APOBEC1 alone.\nB. Harvest RNA\n1. Total RNA is harvested using the RNeasy Plus Mini kit and using either on-column DNase treatment or post-purification DNase treatment (RNase-free DNaseI, New England Biolabs). Alternatively, RNA can be isolated with Trizol followed by digestion with RNase-free DNase.\n2. Quantify RNA and assess RNA integrity by running on a gel or with a Bioanalyzer.\nC. Next-generation sequencing\nA variety of options are available for sequencing library preparation. We use the NEBNext Ultra II Directional RNA Library Prep Kit for Illumina (New England Biolabs) for 1ug total RNA as starting material or the Single Cell/Low Input RNA Library Prep Kit (New England Biolabs) for samples using < 100ng total RNA as starting material.\nSequencing can be carried out using paired-end or single-read sequencing. We typically use SR 50bp sequencing on an Illumina HiSeq4000 or similar machine. We achieve 30-50 million reads per sample using this platform.\nD. Identify C to U editing events and m\n6\nA sites\n1. Demultiplex sequencing reads and remove adapter sequences. These steps will depend on the sequencing library prep method and barcode method used. For adapter removal, we use FLEXBAR\n3\n.\n2. Collapse exact duplicates using the fastq2collapse command in the CLIP Tool Kit (CTK) suite\n4\n. Several processing steps utilize various CTK commands; an excellent web resource for these tools can be found here:\nhttps://zhanglab.c2b2.columbia.edu/index.php/CTK_Documentation\n3. Align reads to the genome. We use Novoalign with the options below or BWA according to the current recommendations of the CTK developers (see the link above).\nnovoalign -t 85 -d file.nix -f file.fastq -l 16 -s 1 -o SAM -r None > file.sam\n4. Remove duplicate reads and prepare file for parsing:\nsamtools sort file.sam -O BAM -o file.sorted.bam\nnovosort --markduplicates --keeptags\u00a0file.sorted.bam -i -o file.uniq.bam\nsamtools fillmd file.novo.uniq.bam file.fa | gzip -c > file.sorted.md.sam.gz\nBAM files can be merged using samtools merge or loaded individually into the genome browser of choice (we use IGV). This enables viewing of mutations at individual sites throughout the transcriptome.\n5. Parse SAM file using the CTK program:\nparseAlignment.pl -v --map-qual 1 --min-len 18 --mutation-file file.mutation.txt file.sorted.md.sam.gz - | gzip -c > file.tag.uniq.bed.gz\n6. Collapse PCR duplicates with CTK:\ntag2collapse.pl -v -big -weight --weight-in-name --keep-max-score --keep-tag-name file.tag.bed file.tag.uniq.bed\n7. Get mutations in unique tags using CTK:\njoinWrapper.py file.mutation.txt file.tag.uniq.bed 4 4 N file.tag.uniq.mutation.txt\n8. Merge replicates:\ncat file1.tag.uniq.bed file2.tag.uniq.bed file3.tag.uniq.bed > file.tag.uniq.bed\ncat file1.tag.uniq.mutation.txt file2.tag.uniq.mutation.txt file3.tag.uniq.mutation.txt > file.tag.uniq.mutation.txt\n9. Find C to T transitions\nTo isolate C to T transitions, we use a script from the miCLIP method\n5\n, which also identifies C to T mutations adjacent to m\n6\nA sites:\nawk '{if($6==\"+\" && $8==\"C\" && $9==\">\" && $10==\"T\"\u00a0||\u00a0\u00a0$6==\"-\" && $8==\"G\" && $9==\">\" && $10==\"A\") {print $0}}' file.tag.uniq.mutation.txt | cut -f 1-6 > file.tag.uniq.C2T.bed\n10. Run CIMS with CTK:\nCIMS.pl -big -v -n 5 -p -c cache_dir file.tag.uniq.bed file.tag.uniq.C2T.bed file.tag.uniq.C2T.CIMS.txt\n11. Identify CIMS with desired FDR:\nawk \"{if(\\$9<=1)\u00a0{print \\$1\\\"\\t\\\"\\$2\\\"\\t\\\"\\$3\\\"\\t$1_\\\"\\$4\\\"_\\\"\\$9\\\"\\t\\\"\\$5\\\"\\t\\\"\\$6}}\" file.tag.uniq.C2T.CIMS.txt | sort -k 9,9n -k 8,8nr -k 7,7n | cut -f 1-6 > file.tag.uniq.C2T.CIMS.p1.bed\n12. Filter C to T sites:\nThis step can be varied to achieve the desired stringency of site detection. Our standard protocol is to take C to T sites identified with the p<1 threshold (Step 11) and keep only those with a minimum of 2 mutations, at least 10 reads per replicate, and a mutation/read (m/k) threshold of 10-60%. We find that adjusting the number of mutations, reads per replicate, and m/k threshold is a good way to increase/decrease stringency of m\n6\nA site calls to a desired level. In addition to these filtering steps, known mutations in the genome from the dbSNP database (https://www.ncbi.nlm.nih.gov/snp/), as well as endogenous C to U editing sites identified by sequencing of wild type cells, are also removed. Lastly, we recommend removing sites identified from cells expressing APOBEC1 alone. These filtering steps can all be completed using bedtools intersect from the bedtools suite (https://bedtools.readthedocs.io/en/latest/).\n13. Calculate enrichment over APOBEC1-YTH\nmut\n-expressing cells.\nTo further ensure high-confidence identification of m\n6\nA sites, we filter C to U editing sites to include only those with a minimum threshold of mutations per read compared to sites obtained by expression of APOBEC1-YTH\nmut\n:\nA. First, use bedtools intersect to find C to T transitions that are present only in APOBEC1-YTH samples. Ensure that the YTH and mut .bed files you use have mutations/read (m/k) in column 5. These will be merged back in later.\nbedtools intersect -s -v -a yth.filt.bed -b mut.bed > ythnotmut.filt.bed\nB. Next, merge the YTH and mut files for common sites.\nbedtools intersect -s -wa -wb -a yth.filt.bed -b mut.bed > yth.filt.mergemut.bed\nC. Then use awk to identify sites that have a m/k ratio that is 1.5-fold greater than in APOBEC1-YTH\nmut\nsamples:\nawk '{a=$5/$11;print $0,a;}' yth.filt.mergemut.bed | awk '$13 >= 1.5 {print $1\"\\t\"$2\"\\t\"$3\"\\t\"$13\"\\t\"$5\"\\t\"$6}' > yth.filt.mk1.5overmut.bed\nThe 1.5-fold cutoff can be adjusted by the user to be more/less stringent as desired.\nD. Now, add back the sites in YTH that were not in mut:\ncat yth.filt.mk1.5overmut.bed ythnotmut.filt.bed > yth.mk1.5overmut.final.bed\nWe find that the above filters are a good starting point for identifying m\n6\nA sites with DART-Seq. Further filtering steps can also be implemented (e.g., limiting to sites immediately following an A; limiting to sites in a DRACH motif, excluding sites lost in methyltransferase-depleted cells, etc.)."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": ""
+        },
+        {
+            "header": "Time Taken",
+            "content": ""
+        },
+        {
+            "header": "Anticipated Results",
+            "content": ""
+        },
+        {
+            "header": "References",
+            "content": "<p>1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dominissini, D.<em> et al.</em> Topology of the human and mouse m6A RNA methylomes revealed by m6A-seq. <em>Nature</em> <strong>485</strong>, 201-6 (2012).</p><p>2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Meyer, K.D.<em> et al.</em> Comprehensive analysis of mRNA methylation reveals enrichment in 3' UTRs and near stop codons. <em>Cell</em> <strong>149</strong>, 1635-46 (2012).</p><p>3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dodt, M., Roehr, J.T., Ahmed, R. &amp; Dieterich, C. FLEXBAR-Flexible Barcode and Adapter Processing for Next-Generation Sequencing Platforms. <em>Biology (Basel)</em> <strong>1</strong>, 895-905 (2012).</p><p>4.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shah, A., Qian, Y., Weyn-Vanhentenryck, S.M. &amp; Zhang, C. CLIP Tool Kit (CTK): a flexible and robust pipeline to analyze CLIP sequencing data. <em>Bioinformatics</em> <strong>33</strong>, 566-567 (2017).</p><p>5.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Linder, B.<em> et al.</em> Single-nucleotide-resolution mapping of m6A and m6Am throughout the transcriptome. <em>Nat Methods</em> (2015).</p><p>&nbsp;</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": ""
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "unpublished": "\n"
+            },
+            {
+                "doi": "10.1038/s41592-019-0570-0",
+                "date": "2019-09-23 16:03:16",
+                "title": "DART-seq: an antibody-free method for global m6A detection",
+                "authors": [
+                    "Kate D. Meyer"
+                ],
+                "journal": "Nature Methods",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 124252,
+                "identity": "908172a0-38e8-471e-b007-87fbd1ed735a",
+                "order_by": 1,
+                "name": "Kate D. Meyer",
+                "email": "kate.meyer@duke.edu",
+                "orcid": "https://orcid.org/0000-0001-7197-4054",
+                "institution": "Duke University School of Medicine",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Kate",
+                "middleName": "D.",
+                "lastName": "Meyer",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2019-07-25 22:59:53",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.2.12189/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.2.12189/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 15665597,
+                "identity": "e946a27c-f097-4615-91d6-a40979e5a86f",
+                "added_by": "auto",
+                "created_at": "2021-11-18 13:32:25",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 136745,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-627/v1/9041e4ba-6e8c-4bbb-9083-e6a50a547f30.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "RNA, epitranscriptome, RNA methylation, m6A, methyladenosine, DART-Seq",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>m<sup>6</sup>A is the most abundant internal mRNA modification and plays diverse roles in gene expression regulation. Much of our current knowledge about m<sup>6</sup>A has been driven by recent advances in the ability to detect this mark transcriptome-wide. Antibody-based approaches have been the method of choice for global m<sup>6</sup>A mapping studies. These methods rely on m<sup>6</sup>A antibodies to immunoprecipitate methylated RNAs, followed by next-generation sequencing to identify m<sup>6</sup>A-containing transcripts<sup>1,2</sup>. While these methods enabled the first identification of m<sup>6</sup>A sites transcriptome-wide and have dramatically improved our ability to study m<sup>6</sup>A, they suffer from several limitations. These include requirements for high amounts of input RNA, costly and time-consuming library preparation, high variability across studies, and m<sup>6</sup>A antibody cross-reactivity with other modifications. Here, we describe DART-Seq (<u>d</u>eamination <u>a</u>djacent to <u>R</u>NA modification <u>t</u>argets), an antibody-free method for global m<sup>6</sup>A detection. In DART-Seq, the C to U deaminating enzyme, APOBEC1, is fused to the m<sup>6</sup>A-binding YTH domain. This fusion protein is then introduced to cellular RNA either through overexpression in cells or with <em>in vitro </em>assays, and subsequent deamination of m<sup>6</sup>A-adjacent cytidines is then detected by RNA sequencing to identify m<sup>6</sup>A sites. DART-Seq can successfully map m<sup>6</sup>A sites throughout the transcriptome using as little as 10 nanograms of total cellular RNA, and it is compatible with any standard RNA-seq library preparation method.</p>",
+        "manuscriptTitle": "Transcriptome-wide m6A detection with DART-Seq",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2019-09-23 17:01:38",
+                "doi": "10.21203/rs.2.12189/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "c8e21224-571e-4e8b-b84c-17473d038033",
+        "owner": [],
+        "postedDate": "September 23rd, 2019",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 19342,
+                "name": "Molecular Biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2019-09-23 17:01:38",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

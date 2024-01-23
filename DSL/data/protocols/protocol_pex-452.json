@@ -1,0 +1,242 @@
+{
+    "identity": "pex-452",
+    "title": "<p>Assigning scRNA-seq data to known and <em>de novo</em> cell types using CellAssign</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>Assigning cells to known or de-novo cell types is an important step in the analysis of single-cell RNA-sequencing (scRNA-seq) data. CellAssign is a recently published statistical model that models the over-expression of a set of marker genes for each pre-specified cell type. CellAssign then computes a probability that each cell is of a given cell type, or is of an \u201cunknown\u201d cell type (does not reflect the expected expression of any of the specified cell types). These assignments can then be used to (i) study the cell type composition of each sample, (ii) focus in on a given cell type for further analysis (e.g. unsupervised clustering), or (iii) remove nuisance cell types.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": ""
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>Software:</p><p>R computing environment (&gt; version 3.5)</p><p>The devtools R package</p><p>The cellassign R package (<a href=\"https://github.com/Irrationone/cellassign\" target=\"_blank\">https://github.com/Irrationone/cellassign</a>)</p><p><br></p><p><br></p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "1. Install Tensorflow within R:\ninstall.packages(\"tensorflow\")\ntensorflow::install_tensorflow()\n2. Install cellassign by running\ndevtools::install_github(\u201c\nIrrationone/cellassign\n\u201d)\nand load by calling library(cellassign)\n3. Prepare single-cell expression data in the form of a SingleCellExperiment object\nhttps://bioconductor.org/packages/release/bioc/html/SingleCellExperiment.html\nWe will assume this object is \u201csce\u201d. In rowData(sce) should be fields \u201cID\u201d, corresponding to ensembl gene ID, and \u201cSymbol\u201d, corresponding to HGNC symbol.\n4. Compute size factors using scran\nsce <- computeSumFactors(sce)\n5. Specify marker gene data\nThis is in the form of a list, where the names of the list are the cell types and the contents are marker genes for the cell types. An example can be found in the CellAssign package by calling data(example_TME_markers). As a simple example, we can create one for T cells and epithelial cells:\nmarker_list <- \u00a0list(t_cells = c(\u201cPTPRC\u201d, \u201cCD2\u201d), epithelial = \u201cEPCAM\u201d)\nNote that there is no requirement marker genes should be mutually exclusive or not expressed in other cell types.\n6. Turn marker list into binary matrix using marker_list_to_mat\nmarker_mat <- marker_list_to_mat(marker_list)\nOptional: an \u201cunknown\u201d cell type may be included by passing include_other = TRUE to marker_list_to_mat\n7. Match IDs to rows of the SingleCellExperiment\nmm <- match(rownames(marker_mat), rowData(sce)$Symbol)\n8. Subset SingleCellExperiment to markers only\nsce_marker <- sce[mm,]\n9. Run CellAssign\nfit <- cellassign(exprs_obj = sce_marker,\nmarker_gene_info = marker_mat,\ns = sizeFactors(sce_marker))\nNote that covariates can be included at this point by passing an argument named \u201cx\u201d to cellassign. For more information see the vignette below.\n10. View assigned cell types\nprint(fit$cell_type)\n11. View maximum likelihood parameter estimates\nprint(fit$mle_params)\nThis includes the cell assignment probabilities in fit$mle_params$gamma\nFor more detailed example see the package vignette at\nhttps://irrationone.github.io/cellassign/introduction-to-cellassign.html"
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p>Common errors include:</p><p>Including cells in the SingleCellExperiment or gene expression matrix passed to \u201ccellassign\u201d that have no counts remaining, after subsetting to marker genes only.</p><p>Not subsetting to marker genes only, ie passing a full SingleCellExperiment with all genes to \u201ccellassign\u201d. The marker matrix and expression data passed to cellassign should be for marker genes only.</p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>Time end-to-end for a beginner user should be around 2 hours.</p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>The resulting object returned by \u201ccellassign\u201d includes cell type assignments and maximum likelihood parameter estimates. This is in the form of a \u201ccellassign_fit\u201d object. This allows users to perform useful downstream analyses such as correlating cell type composition with phenotypes or further unsupervised analysis on cell subsets.</p>"
+        },
+        {
+            "header": "References",
+            "content": ""
+        },
+        {
+            "header": "Acknowledgements",
+            "content": ""
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41592-019-0529-1",
+                "date": "2019-09-09 16:04:05",
+                "title": "Probabilistic cell-type assignment of single-cell RNA-seq for tumor microenvironment profiling",
+                "authors": [
+                    "Allen W. Zhang",
+                    "Ciara O\u2019Flanagan",
+                    "Elizabeth A. Chavez",
+                    "Jamie L. P. Lim",
+                    "Nicholas Ceglia",
+                    "Andrew McPherson",
+                    "Matt Wiens",
+                    "Pascale Walters",
+                    "Tim Chan",
+                    "Brittany Hewitson",
+                    "Daniel Lai",
+                    "Anja Mottok",
+                    "Clementine Sarkozy",
+                    "Lauren Chong",
+                    "Tomohiro Aoki",
+                    "Xuehai Wang",
+                    "Andrew P Weng",
+                    "Jessica N. McAlpine",
+                    "Samuel Aparicio",
+                    "Christian Steidl",
+                    "Kieran R. Campbell",
+                    "Sohrab P. Shah"
+                ],
+                "journal": "Nature Methods",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 98360,
+                "identity": "20e511f1-7ed3-4902-bb52-89645a05ff4a",
+                "order_by": 1,
+                "name": "Allen W Zhang",
+                "email": "",
+                "orcid": "",
+                "institution": "University of British Columbia",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Allen",
+                "middleName": "W",
+                "lastName": "Zhang",
+                "suffix": ""
+            },
+            {
+                "id": 98361,
+                "identity": "1ab273db-eb55-4c23-808e-bb4d0ef641d0",
+                "order_by": 2,
+                "name": "Kieran R Campbell",
+                "email": "kicampbell@bccrc.ca",
+                "orcid": "",
+                "institution": "University of British Columbia",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Kieran",
+                "middleName": "R",
+                "lastName": "Campbell",
+                "suffix": ""
+            },
+            {
+                "id": 98362,
+                "identity": "2c2526c2-a897-4ed2-af60-376e60f9bee5",
+                "order_by": 3,
+                "name": "Sohrab P Shah",
+                "email": "shahs3@mskcc.org",
+                "orcid": "",
+                "institution": "Memorial Sloan Kettering Cancer Center",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Sohrab",
+                "middleName": "P",
+                "lastName": "Shah",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2019-06-17 16:17:17",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.2.10442/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.2.10442/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 15665636,
+                "identity": "ce5830b7-4b75-400f-a26e-3e74567e23e6",
+                "added_by": "auto",
+                "created_at": "2021-11-18 13:32:37",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 145731,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-452/v1/04b9254c-d353-4a97-961a-7a308d5d3f3a.pdf"
+            }
+        ],
+        "financialInterests": "S.P.S. is a founder, shareholder, and consultant of Contextual Genomics Inc.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "scRNA-seq,cell types,cell type assignment,RNA-seq,microenvironment,cell type composition",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>Assigning cells to known or de-novo cell types is an important step in the analysis of single-cell RNA-sequencing (scRNA-seq) data. This protocol outlines how to use the CellAssign R package to accomplish this.</p>",
+        "manuscriptTitle": "Assigning scRNA-seq data to known and de novo cell types using CellAssign",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2019-11-20 13:22:23",
+                "doi": "10.21203/rs.2.10442/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "e984ceb1-c0d7-4c2b-98cf-5f8b3255ff99",
+        "owner": [],
+        "postedDate": "November 20th, 2019",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 13703,
+                "name": "Computational biology and bioinformatics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2019-11-20 13:22:23",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

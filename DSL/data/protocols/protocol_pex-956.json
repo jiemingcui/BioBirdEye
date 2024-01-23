@@ -1,0 +1,346 @@
+{
+    "identity": "pex-956",
+    "title": "<p>Forecasting the long-term trend of COVID-19 epidemic using a dynamic model</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>Coronavirus disease 2019 (COVID-19) is an infectious pneumonia caused by severe acute respiratory syndrome coronavirus 2. The disease was first reported in December 2019 in Wuhan city, the capital of Hubei province in China, and has since then spread across China and globally. As of 6 April 2020, a total of 1.27 million<sup> </sup>COVID-19 cases and 69,400 deaths have been reported in more than 200 countries and territories. The World Health Organization (WHO) has declared the COVID-19 outbreak as a Public Health Emergency of International Concern and a pandemic recently.</p><p>Forecasting long-term trend of the epidemic can help health authorities determine the transmission characteristics of the virus and take appropriate prevention and control strategies beforehand. Recently, some researchers applied the traditional epidemic models like Susceptible-Exposed-Infective-Recovery (SEIR) or machine learning models like logistic regression to fit the trend of COVID-19. To the best of our knowledge, most of those researches were performed retrospectively, or subject to overfitting or under-fitting problems. The validity of SEIR model depends on accurate estimation of virus transmission characteristics such as the basic reproduction number R<sub>0</sub>, incubation period and infectious period. In a real scenario, those parameters are not easy to estimate. On the other hand, due to scarcity of training data and valid features, machine learning models were subject to overfitting, restricted to retrospective analysis, or only forecasting short-term trends.</p><p>To address the aforementioned issues, we propose a novel model named Dynamic-Susceptible-Exposed-Infective-Quarantined (D-SEIQ), by making appropriate transformations of the SEIR model and integrating machine learning based parameter optimization under reasonable constraints, which improved the performance of long-term trend forecast for COVID-19 in China. In addition, the model parameters could provide insights into the analysis of COVID-19 transmission characteristics and the effectiveness of interventions.</p><p><br></p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p>Not applicable because this is a computational modeling study</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>Not applicable because this is a computational modeling study</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "\ufeff\nD-SEIQ model\nThe primary differences from our D-SEIQ model and SEIR model are 1) replacing recovered individuals R with quarantined individuals Q, and 2) introducing dynamics to the calculation of the effective reproduction number R\nt\nthat is dependent on time.\nSome previous work employed the traditional SEIR model, which assumes that the exposed individuals (who have been infected but no symptoms yet) are not infectious. However, it is reported that COVID-19 might be transmissible for exposed individuals . Besides, due to lack of specialized treatment, the infectious period should not be interpreted as time between infective (I) and recovered (R) but time between infection (I) and quarantined (Q). Therefore, we proposed to replace the recovered individuals R with the quarantined individuals Q and the model became the SEIQ model. The quarantined individuals Q indicated the confirmed cases who were centrally quarantined. The epidemic spreading model for the SEIQ model is shown in Figure 1.\nThe transmission dynamics are governed by the following system of equations:\nEq(1) (Equation can not be displayed here, please refer to supplementary file)\nwhere N = S(t) + E(t) + I(t) + Q(t) is the total population, which is assumed consistent.\nLike the SEIR model, parameter \u03b2 indicates the infectious rate with \u03b2 = Rt/TE where R\nt\nis the dynamic effective reproduction number and TE is the average duration of incubation; parameter \u03c3 indicates the incubation rate with \u03c3 = 1/TE. However, in our model, parameter \u03b3 indicates the quarantine rate with \u03b3 = 1/TI (where TI is average duration of an infectious individual to be detected and quarantined). The parameter TI may vary across different regions and the difference reflects the timeliness of patient detection and admission.\nThe basic reproduction number R\n0\nis the most important parameter to determine the intrinsic transmissibility of COVID-19, and it is defined as the average number of infections one infectious agent can generate over the course of the infectious period without any interventions. R\n0\nwas assumed to be a constant or arbitrarily modified at specific points for forecasting in previous work [12, 13]. However, in real-world scenarios, with the development of epidemic, more and more interventions are often taken to control the spread, which gradually reduce R\n0\n. In this work, the basic reproduction number R\n0\nis generalized to a dynamic value R\nt\n, which is defined as the average number of secondary infectious cases generated by an infectious at time t. After the worldwide outbreak of COVID-19, many governments took considerable measures to contain the spread of the virus. In our preliminary analysis and similar to previous work [14], the infectious rate \u03b2 was shown to decrease exponentially with time. As parameter TE is constant, the effective reproduction number R\nt\nshould follow similar pattern as decreasing exponentially with time. Thus, we introduced time-dependent dynamics to the calculation of R\nt\nfor better simulation of the real-world transmission,\nEq (2) (Equation can not be displayed here, please refer to supplementary file)\nwhere R\u221e is the final reproduction number at the end of the pandemic and \u03b8 is the decrease ratio of the reproduction number, which is associated with the corresponding interventions. When t = 0, R\nt\n=R\n0\n, and it gradually reduces to R\u221e.\nThe epidemic is considered to be under control with R\nt\n< 1, and the reasonable range of R\u221e was referred to some previous analysis of coronavirus.\nParameter constraints and optimization\nThe simulation and prediction of the D-SEIQ model requires determination of the parameters R\n0\n, R\u221e\uff0cTE, TI, \u03b8. Although we incorporated machine learning to help us to fit the reported data, the parameter range needs to be set carefully and to conform to epidemiological rationality. For instance, Wu et al. applied an adjusted SEIR model to estimate R\n0\n(R\n0\n= 2\u00b768) in major cities of China by analyzing the number of cases exported from Wuhan internationally. Some work concluded that the daily reproduction number varied between 2 and 7. Therefore, we set the reasonable range for parameter R\n0\nto be [2, 7]. Likewise, after reviewing the previous work on the analysis of COVID-19, we summarized the ranges for parameters in our model as Table 1 (supplementary file). And, we set TE > TI as additional constraints. Therefore, the parameter optimization process is as follows:\na.\u00a0\u00a0\u00a0Initialize the number of confirmed cases Q at time t = 0 according to the official report.\nb.\u00a0\u00a0\u00a0Initialize the parameters R\n0\n, R\u221e, TE, TI, \u03b8\nc.\u00a0\u00a0\u00a0Calculate the time-dependent effective reproduction number R\nt\nd.\u00a0\u00a0\u00a0Solve ordinary differential equations in Equation (1) to determine E(t), I(t), Q(t)\ne.\u00a0\u00a0\u00a0Set loss function as the sum of mean squared errors of daily and cumulative confirmed numbers, and then estimate the parameters R\n0\n, TE, TI, R\u221e, \u03b8 based on grid search with dynamically adapted search steps to obtain the best D-SEIQ model at time t.\nData processing\nWe obtained the updated data of the cumulative confirmed cases from the National Health Commission (NHC) of the People\u2019s Republic of China. The newly confirmed cases were also collected on a daily basis. Considering that medical resources and interventions might vary in different regions, we fitted our model on the data from three different regions: 1) China excluding Hubei, 2) Hubei excluding Wuhan, and 3) Wuhan.\nMoreover, we adjusted the number of newly confirmed cases in Wuhan between 12 February and 14 February, due to the inclusion of clinically confirmed cases without coronavirus test. The clinically confirmed cases between 12 February and 14 February were assumed to be suspicious cases in last 7 days. Specifically, we redistributed the clinically confirmed cases according to the distribution of suspected cases over the past 7 days."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p>We identified two issues that may arise during the implementation of the protocol: data processing issue and parameter learning issue.</p><p><br></p><p>1) Data processing:</p><p>In China, the criteria for ascertainment of COVID-19 was changed during Feb 12 to Feb 14,</p><p>due to the inclusion of clinically confirmed cases without coronavirus test. </p><p>We arbitrarily redistributed the clinically confirmed cases according to the distribution of suspected cases over the past 7 days. However, one can redistributed the numbers using different approaches, only if the process is sound and reasonable. Moreover, when applying the model to other countries, one should pre-process the data accordingly to make the reported number less biased.</p><p><br></p><p>2) Parameter learning:</p><p>We set the reasonable range for parameters using the current available evidence by April.</p><p>If any evidence changed through time, one should adjust the reasonable range accordingly if it is scientific valid.</p><p><br></p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>Not applicable</p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>With the proposed D-SEIQ model and accumulating COVID-19 cases in different country, one can forecast the long-term trend of COVID-19 and expected turning point, which might serve as a reflection of containment measures currently taken in different areas. Moreover, the learned parameters provides estimates of virus transmission characteristics, including basic reproduction number, incubation period and infection period. Those parameters help authorities determine the transmission potential of the new virus and make appropriate intervention strategies.</p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>1&nbsp;&nbsp;&nbsp;&nbsp;Zhou X, Hong N, Ma Y, et al. Forecasting the Worldwide Spread of COVID-19 based on Logistic Model and SEIR Model. <em>medRxiv</em> 2020: 2020.03.26.20044289.</p><p>2&nbsp;&nbsp;&nbsp;Wu JT, Leung K, Leung GM. Nowcasting and forecasting the potential domestic and international spread of the 2019-nCoV outbreak originating in Wuhan, China: a modelling study. <em>The Lancet</em> 2020; <strong>395</strong>(10225): 689-97.</p><p>3&nbsp;&nbsp;&nbsp;&nbsp;T\u00e1trai D, V\u00e1rallyay Z. COVID-19 epidemic outcome predictions based on logistic fitting and estimation of its reliability. <em>arXiv e-prints</em>, 2020. <a href=\"https://ui.adsabs.harvard.edu/abs/2020arXiv200314160T\" rel=\"noopener noreferrer\" target=\"_blank\">https://ui.adsabs.harvard.edu/abs/2020arXiv200314160T</a> (accessed March 01, 2020).</p><p>4&nbsp;&nbsp;&nbsp;Roosa K, Lee Y, Luo R, et al. Real-time forecasts of the COVID-19 epidemic in China from February 5th to February 24th, 2020. <em>Infectious Disease Modelling</em> 2020; <strong>5</strong>: 256-63.</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": ""
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "unpublished": "Not available"
+            }
+        ],
+        "authors": [
+            {
+                "id": 610252,
+                "identity": "a45c7b46-6579-4fb4-824e-5fc81cec400f",
+                "order_by": 1,
+                "name": "Jichao Sun",
+                "email": "jichaosun@tencent.com",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Jichao",
+                "middleName": "",
+                "lastName": "Sun",
+                "suffix": ""
+            },
+            {
+                "id": 610253,
+                "identity": "3046cc73-40e6-4ebc-b224-2987c1f46be7",
+                "order_by": 2,
+                "name": "Xi Chen",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Xi",
+                "middleName": "",
+                "lastName": "Chen",
+                "suffix": ""
+            },
+            {
+                "id": 610254,
+                "identity": "8db5ec36-b44f-4433-bfcc-9a78391cdeab",
+                "order_by": 3,
+                "name": "Ziheng Zhang",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Ziheng",
+                "middleName": "",
+                "lastName": "Zhang",
+                "suffix": ""
+            },
+            {
+                "id": 610255,
+                "identity": "8b34cb2e-20d8-4442-a1b1-bf173aed6936",
+                "order_by": 4,
+                "name": "Shengzhang Lai",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Shengzhang",
+                "middleName": "",
+                "lastName": "Lai",
+                "suffix": ""
+            },
+            {
+                "id": 610256,
+                "identity": "e2cba162-4282-4f2d-89da-ac66b6feab83",
+                "order_by": 5,
+                "name": "Bo Zhao",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Bo",
+                "middleName": "",
+                "lastName": "Zhao",
+                "suffix": ""
+            },
+            {
+                "id": 610257,
+                "identity": "9862c344-f36a-4bcf-a2e2-9332f060c666",
+                "order_by": 6,
+                "name": "Hualuo Liu",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Hualuo",
+                "middleName": "",
+                "lastName": "Liu",
+                "suffix": ""
+            },
+            {
+                "id": 610258,
+                "identity": "a7db3c50-62d4-4cc7-a668-7fa188898272",
+                "order_by": 7,
+                "name": "Ruihui Zhao",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Ruihui",
+                "middleName": "",
+                "lastName": "Zhao",
+                "suffix": ""
+            },
+            {
+                "id": 610259,
+                "identity": "a6d68d6c-4eda-4b55-a1be-f610d2eb4452",
+                "order_by": 8,
+                "name": "Alexander Ng",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Alexander",
+                "middleName": "",
+                "lastName": "Ng",
+                "suffix": ""
+            },
+            {
+                "id": 610260,
+                "identity": "5aeb051c-7629-49bf-902d-0a027dd1a21b",
+                "order_by": 9,
+                "name": "Yefeng Zheng",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Yefeng",
+                "middleName": "",
+                "lastName": "Zheng",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2020-05-26 12:02:07",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-956/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-956/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 1232444,
+                "identity": "bdf3cded-c5b8-45db-bcb9-bafca30ffe2f",
+                "added_by": "auto",
+                "created_at": "2020-06-02 17:30:25",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 14046,
+                "visible": true,
+                "origin": "",
+                "legend": "Figure 1 Epidemic spreading diagram for SEIQ model\nS: susceptible; E: exposed; I: infective; Q: quarantined; \u03b2 indicates the infectious rate. Parameter \u03c3 indicates the incubation rate with \u03c3 = 1/TE (incubation period). Parameter \u03b3 indicates the quarantine rate with \u03b3 = 1/TI (infectious period).",
+                "description": "",
+                "filename": "Figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/pex-956/v1/Figure1.jpg"
+            },
+            {
+                "id": 13535050,
+                "identity": "6b8d9812-d99c-4d8c-ba06-9b3492735b57",
+                "added_by": "auto",
+                "created_at": "2021-09-17 01:27:02",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 201046,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-956/v1/d86f51a3-b0f7-4745-9daa-d704f55d8df4.pdf"
+            },
+            {
+                "id": 1232445,
+                "identity": "54d48496-00bc-4ba1-88ea-eb86d0c9d7e0",
+                "added_by": "auto",
+                "created_at": "2020-06-02 17:30:25",
+                "extension": "docx",
+                "order_by": 1,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 28692,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "protocol.docx",
+                "url": "https://assets.researchsquare.com/files/pex-956/v1/protocol.docx"
+            }
+        ],
+        "financialInterests": "No financial interest was involved",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Coronavirus disease 2019, Forecasting model, machine learning, Dynamic-Susceptible-Exposed-Infective-Quarantined",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>The current outbreak of coronavirus disease 2019 (COVID-19) has recently been declared as a pandemic and spread over 200 countries and territories. Forecasting the long-term trend of the COVID-19 epidemic can help health authorities determine the transmission characteristics of the virus and take appropriate prevention and control strategies beforehand. This protocol introduced a new model named Dynamic-Susceptible-Exposed-Infective-Quarantined (D-SEIQ), by making appropriate modifications of the Susceptible-Exposed-Infective-Recovered (SEIR) model and integrating machine learning based parameter optimization under epidemiological rational constraints. The model could be applied to forecast the long-term trend of the current COVID-19 epidemic. The parameters obtained by the model could help assess the effectiveness of prevention and intervention strategies on epidemic control in different countries.</p><p><br></p>",
+        "manuscriptTitle": "Forecasting the long-term trend of COVID-19 epidemic using a dynamic model",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2020-06-02 17:30:24",
+                "doi": "10.21203/rs.3.pex-956/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "2f6e0651-bb6a-471a-b5c5-f23f7f586442",
+        "owner": [],
+        "postedDate": "June 2nd, 2020",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 108279,
+                "name": "Information theory and computation"
+            },
+            {
+                "id": 108280,
+                "name": "Engineering"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2020-06-02 17:30:24",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

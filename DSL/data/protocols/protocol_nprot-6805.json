@@ -1,0 +1,202 @@
+{
+    "identity": "nprot-6805",
+    "title": "Beginner's Guide to THUNDER",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Electron cryo-microscopy \\(cryoEM) is now a powerful tool in determining atomic structures of biological macromolecules under nearly natural conditions. In single particle cryoEM, micrographs, each of which contains hundreds of single particles, are captured by cameras. Using softwares like CTFFind or GCTF, CTF parameters are determined. Moreover, by particle picking, single particle images are extracted from micrographs. Here, THUNDER uses single particle images to obtain a 3D model of the target macromolecule.\r\n\n\n    \r\n\n\n    THUNDER needs several files for running, as shown in Figure 1. It parses a JSON parameter file for obtaining parameters of THUNDER. This JSON parameter file contains the crucial information of running, including whether it is refinement, 2D classification or 3D classification, and the path of .thu file and initial model.\r\n\n\n    \r\n\n\n    A typical workflow of THUNDER contains several steps. Firstly, a 2D classification is performed to discard the obvious bad particles. Secondly, a 3D classification is performed to analysis the homogeneity of the dataset. By selecting the good class\\(es) from the result of 3D classification, 3D model of the targeted macromolecule can be obtained by refinement."
+        },
+        {
+            "header": "Equipment",
+            "content": "**Hardware Requirement**\r\n\n\nA computer cluster with shared storage is recommended for running THUNDER on. MPI environment should be set up on this computer cluster. Moreover, if multiple users share this computer cluster, a job scheduler, like LSF, is highly recommended. If you want THUNDER runs on a GPU, GPUs with CUDA compatibility 3.0 or more are required.\r\n\n\n\r\n\n\n**Software Requirement**\r\n\n\n\r\n\n\n_C/C++ compiler supporting C++98 standard along with MPI wrapper_\r\n\n\n_cmake_\r\n\n\n\r\n\n\nWe recommend gcc and Intel C/C++ compiler as C/C++ compiler. Moreover, gcc42 has been tested as the oldest supporting version of gcc. OpenMPI and MPICH both can be used as MPI standard. In Tsinghua, we use openmpi-gcc43 as the C/C++ compiler for compiling THUNDER.\r\n\n\n    \r\n\n\n    cmake is a tool for configuring source code for installation.\r\n\n\n    \r\n\n\n    openmpi-gcc43 is open-source software, which can easily installed using yum on CentOS and apt-get on Ubuntu. cmake has been already installed in most Linux operating systems. If not, it can also be conveniently installed by yum on CentOS and apt-get on Ubuntu.\r\n\n\n            \r\n\n\n    CUDA 8 or higher version of CUDA is required for installing GPU version of THUNDER.\r\n\n\n\r\n\n\n**Get THUNDER Source Code and Install THUNDER**\r\n\n\n\r\n\n\nTHUNDER is a open-source software package, source code of which is held on Github. You may download the source code at https://github.com/thuem/THUNDER. You may compile and install THUNDER under the tutorial in the manual directory of this package."
+        },
+        {
+            "header": "Procedure",
+            "content": "**JSON Parameter File Preparation**\r\n\n\n\r\n\n\nThe JSON parameter file contains the parameter of THUNDER, where  typical JSON parameter file is shown as Figure 2. It follows JSON file standard. The meaning of each attribute of the JSON parameter file is listed below.\r\n\n\n\r\n\n\n _Number of Threads Per Process_\r\n\n\nIt stands the number of threads used in each MPI process. Usually, THUNDER hosts one process in each node, for the purpose of minimizing the usage of memory by sharing memory property of threading. As only one process hosted in each node, occupying all cores of CPU\\(s) in each node is accomplished by threads. This value should be set to the number of cores in each node, in this circumstance.\r\n\n\n\r\n\n\n_2D or 3D Mode_\r\n\n\nIt stands for whether THUNDER acts in 2D or 3D. This attributes only takes string 2D or 3D, for setting THUNDER in 2D mode or 3D mode, respectively. If the user desires to perform 2D classification, this attribute should be set to 2D. On the other hand, if the user aims to perform 3D refinement or 3D classification, this attribute should be set to 3D.\r\n\n\n \r\n\n\n_Global Search_\r\n\n\nIt stands for whether THUNDER performs global search or not.\r\n\n\n\r\n\n\n_Local Search_\r\n\n\nIt stands for whether THUNDER performs local search or not.\r\n\n\n\r\n\n\n_CTF Search_\r\n\n\nIt stands for whether THUNDER refines defocus of each single particle or not.\r\n\n\n\r\n\n\n_Number of Classes_\r\n\n\nIt stands for the number of classes the user desires that the dataset classified into. For refinement, this attribute is set to 1.\r\n\n\n\r\n\n\n_Pixel Size \\(Angstrom)_\r\n\n\nIt stands for the size of each pixel in Angstrom.\r\n\n\n\r\n\n\n_Radius of Mask on Images \\(Angstrom)_\r\n\n\nIt stands for the radius of mask, which will be masked on each single particle image. This attribute should be set to slightly larger than the radius of the targeted macromolecule.\r\n\n\n\r\n\n\n_Estimated Translation \\(Pixel)_\r\n\n\nIt stands for the standard deviation of in-plane translation of single particle images. As the translation is unknown before running THUNDER, this attribute is estimated by the user. Larger this attribute is, the wider THUNDER will search in in-plane translation, the longer computing time will be.\r\n\n\n\r\n\n\n_Initial Resolution \\(Angstrom)_\r\n\n\nIt stands for the resolution THUNDER starts its iteration. If the user aims to eliminate the bias of initial model, he or she should set this attribute to a low resolution.\r\n\n\n\r\n\n\n_Perform Global Search Under \\(Angstrom)_\r\n\n\nIt stands for the resolution threshold where search type switches from global search to local search.\r\n\n\n\r\n\n\n_Symmetry_\r\n\n\nIt stands for symmetry type of the macromolecule. For example, C5 stands for 5-fold rotation symmetry along Z axis; D7 stands for 7-fold rotation symmetry along Z axis and 2-fold rotation symmetry along X axis; T stands for tetrahedral symmetry; O stands of octahedral symmetry; I stands for icosahedral symmetry. If the macromolecule is asymmetrical, it should be set to C1.\r\n\n\n\r\n\n\n_Initial Mode_\r\n\n\nIt stands for the path where THUNDER reads in the initial model.\r\n\n\n\r\n\n\n_.thu File Storing Paths and CTFs of Images_\r\n\n\nIt stands for the path where THUNDER reads in the .thu File. If THUNDER starts from global search, the path and CTF information of each single particle image will be read in. If THUNDER starts from local search or CTF search, besides path and CTF information, the rotation and translation information of each single particle image will be read in as well.\r\n\n\n\r\n\n\n_Prefix of Particles_\r\n\n\nIt stands for a prefix added before the path of each single particle image, in order to help THUNDER find the correct path of image.\r\n\n\n\r\n\n\n_Prefix of Destination_\r\n\n\nIt stands for a prefix added before the path of output file. It helps THUNDER redirects the output files.\r\n\n\n\r\n\n\n_Calculate FSC Using Core Region_\r\n\n\nIt stands for whether THUNDER calculates FSC of the reference\\(s) masked by a sphere or not.\r\n\n\n\r\n\n\n_Calculate FSC Using Masked Region_\r\n\n\nIt stands for whether THUNDER calculates FSC of the masked region of the reference\\(s), where the mask is provided by the user.\r\n\n\n\r\n\n\n_Particle Grading_\r\n\n\nIt stands for whether THUNDER uses particle grading to weight the contribution of each single particle image during reconstruction.\r\n\n\n\r\n\n\nThe JSON parameter file also contains more parameters. However, those parameters are designed for professional users, as beginners can just use default values. Users can find a full description of parameters in JSON parameter file in THUNDER's website.\r\n\n\n\r\n\n\n**.thu File Format**\r\n\n\n\r\n\n\nTHUNDER uses .thu file for inputing and output information of each image, including CTF parameters, classification, rotation, translation, defocus adjustment and grading weight.\r\n\n\n    \r\n\n\n .thu file is a simple space-separate plain text file with .thu as suffix. Each column of it stands for an attribute, as listed below.\r\n\n\n    \r\n\n\n1. voltage of the electron microscope \\(in volt)\r\n   2. first defocus value defined in CTFFind\n1\n3. second defocus value defined in CTFFind\r\n  4. theta of defocus defined in CTFFind\r\n  5. spherical aberration in Angstrom\r\n  6.amplitude constrast\r\n\n\n7. phase shift in radian\r\n  8. path of the single particle image\r\n  9. path of the micrograph which the single particle image belong to\r\n  10. coordinate X in micrograph\r\n  11. coordinate Y in micrograph\r\n  12. group ID\r\n  13. class ID\r\n  14. 1st element of the unit quaternion for rotation\r\n  15. 2nd element of the unit quaternion for rotation\r\n  16. 3rd element of the unit quaternion for rotation\r\n  17. 4th element of the unit quaternion for rotation\r\n  18. 1st standard deviation of rotation\r\n  19. 2nd standard deviation of rotation\r\n  20. 3rd standard deviation of rotation\r\n  21. translation in X\r\n  22. translation in Y\r\n  23. standard deviation of translation in X\r\n  24. standard deviation of translation in Y\r\n  25. defocus factor to adjust defocus\r\n  26. standard deviation of defocus factor\r\n  27. particle grading score\r\n  \r\n\n\n**Running THUNDER**\r\n\n\n\r\n\n\nThe only file THUNDER directly reads in is the JSON parameter file. By parsing it, THUNDER will fetch .thu file for information of each particle and read in the initial model. Further, THUNDER will try to obtain each image by the path described in .thu file. Those files should should be prepared before running THUNDER.\r\n\n\n\r\n\n\nTHUNDER is a multiple-process software, where at least 3 processes should be assigned for it. Typically, one process should be hosted on each node. Threading is used for occupying all cores in each node.\r\n\n\n    \r\n\n\nMultiple processes should be governed by MPI environment. Users are able to use _mpirun_ or _mpiexec_ tool run MPI jobs of THUNDER. If a job scheduler is available on the cluster, users can entrust it with THUNDER MPI jobs."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "The running status of THUNDER will be output as a log format in file _thunder.log_.\r\n\n\n    \r\n\n\n    The reference\\(s) will be output as file\\(s) as _Reference_XXX_A_Round_XXX.mrc_ and _Reference_XXX_B_Round_XXX.mrc_ during 3D refinement, as the two half maps. Meanwhile, during 3D classification, the average maps of the two half maps will be output as _Reference_XXX_Round_XXX.mrc_. Finally, during 2D classification, the average maps will be output in an image stack as _Reference_XXX_Round_XXX.mrcs_.\r\n\n\n    \r\n\n\n    Classification, rotation, translation and defocus adjustment of each particle image will be saved in a .thu file in each iteration, as file _Meta_Round_XXX.thu_, the format of which has been introduced above.\r\n\n\n    \r\n\n\n    FSC\\(FRC) curve of all reference\\(s) in each iteration will be output as _FSC_Round_XXX.txt_. The first column of it stands for the frequency in pixel, and the second column of it stands for the frequency in Angstrom. The following column\\(s) stand for FSC\\(FRC) curves for each reference, respectively.\r\n\n\n    \r\n\n\n    Classification information will be summarized and output in file _Class_Info_Round_XXX.txt_. The first, second and third column of it stands for the index, resolution and the percentage of images belonged of each class."
+        },
+        {
+            "header": "References",
+            "content": "1. Rohou, A, and N. Grigorieff. \"CTFFIND4: Fast and accurate defocus estimation from electron micrographs.\" Journal of Structural Biology 192.2\\(2015):216-221."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 15693,
+                "identity": "a171bae8-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Mingxu Hu",
+                "email": "hmx13@mails.tsinghua.edu.cn",
+                "orcid": "",
+                "institution": "Xueming Li's Lab",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Mingxu",
+                "middleName": "",
+                "lastName": "Hu",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2018-05-03 05:34:12",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2018.060",
+        "doiUrl": "https://doi.org/10.1038/protex.2018.060",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2610130,
+                "identity": "b83caba1-066d-48a2-809f-9804d3e0074e",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:26",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 119994,
+                "visible": true,
+                "origin": "",
+                "legend": "Flow Diagram of THUNDER",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-6805/v1/figure_1.png"
+            },
+            {
+                "id": 2610132,
+                "identity": "34fee29b-a7eb-469a-86ac-7d61a3c40850",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:26",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 422636,
+                "visible": true,
+                "origin": "",
+                "legend": "A Typical JSON Parameter File",
+                "description": "",
+                "filename": "figure2.png",
+                "url": "https://assets.researchsquare.com/files/nprot-6805/v1/figure_2.png"
+            },
+            {
+                "id": 13466047,
+                "identity": "687cf070-f36e-4cff-ae8a-67d74df9f880",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:49:19",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 582978,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-6805/v1/c879db97-d54e-412b-b4a6-515c44cb1a54.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "cryoEM, image processing, THUNDER",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "Electron cryo-microscopy \\(cryoEM) is now a powerful tool in determining atomic structures of biological macromolecules under nearly natural conditions. THUNDER is a particle-filter algorithm based cryoEM image processing software. Here, we describe a protocol for using THUNDER to analysis cryoEM images in purpose of achieving a 3D model. A JSON file is used for setting parameters in THUNDER. Meaning of each attribute is discussed in this protocol. The .thu file format is defined for storing information of each particle image, including CTF parameters, rotation, translation, defocus adjustment and grading weight. The definition of this .thu file is introduced in this protocol. Finally, the procedure of running THUNDER and examining the output of THUNDER is contained in this protocol.",
+        "manuscriptTitle": "Beginner's Guide to THUNDER",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2018-07-16 15:04:08",
+                "doi": "10.1038/protex.2018.060",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a1713a24-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "July 16th, 2018",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 4274,
+                "name": "Structural biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2018-07-16 15:04:08",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

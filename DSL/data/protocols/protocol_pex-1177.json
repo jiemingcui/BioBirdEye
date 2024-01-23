@@ -1,0 +1,257 @@
+{
+    "identity": "pex-1177",
+    "title": "<p>UMI-linked nanopore consensus sequencing (UMIC-seq) of highly similar gene variants</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>Accurate consensus sequences of nanopore reads are commonly generated for genome assemblies, where every sequencing read represents a unique fragment that overlaps with many others, facilitating stacking for accurate consensus generation<sup>1,2</sup>. By contrast, libraries in directed protein evolution comprise rather closely related members. Here the sequence diversity in randomized gene libraries is typically low: protein variants with a few or even a single point mutation can be functionally different. An erroneous raw third-generation sequencing read cannot reliably be assigned to its template, when multiple template candidates differing only in few point mutations are possible. This inability to assign reads to any one parental molecule therefore renders consensus-based \u2018polishing\u2019 from unlinked reads impossible. Similar samples in which individual members differ merely in a few nucleotides can also be found in e.g. immune repertoires, metagenomic 16S amplicons or medical diagnostics, calling for a suitably high-quality sequencing solution. </p><p>Here, we introduce an accurate nanopore consensus sequencing workflow based on a bioinformatic sequence link between descendant reads and their origin molecule by introducing random DNA barcodes (i.e. unique molecular identifiers, UMIs) prior to amplification for sequencing. UMIs are random sequence tags most commonly used to retain information on true molecule numbers before PCR amplification. Specifically, the distinct template identity marked by the UMI enables confident identification and quantification of PCR duplicates<sup>3</sup>. This method has been applied to achieve unbiased counting of molecules for expression data in RNA-seq experiments<sup>4,5</sup> and the accurate quantification of rare mutations<sup>6,7</sup>. Here, we leverage UMI-tags to assign erroneous nanopore reads to their origin molecule, facilitating clustering for accurate consensus formation even when starting with a pool of highly similar sequences (e.g. a library of gene variants in protein evolution containing only point mutations) that could not be reliably distinguished in the ordinary nanopore sequencing output.</p><p>The UMIs have to be highly diverse to allow faithful assignment of raw, low-accuracy nanopore reads to the corresponding variant. Based on our experience, 50 bp UMIs are chosen to enable high efficiency clustering at comparatively high nanopore sequencing error rates. The UMIs are incorporated using primers in two PCR cycles, with deliberately low amplification so that potential PCR bias is reduced. UMI-variant complexity is constricted by a transformation step into cells, because an exact number of molecules is represented in the number of transformant colonies, directly combining selective amplification and control over molecule count in a straightforward molecular biology step. Finally, DNA is straightforwardly isolated from individual colonies and sequenced using current standard nanopore amplicon protocols. UMI clustering is performed with a fast, \u2018greedy\u2019 agglomerative algorithm (see the scripts available at <a href=\"https://github.com/fhlab/UMIC-seq\" rel=\"noopener noreferrer\" target=\"_blank\">https://github.com/fhlab/UMIC-seq</a>)<sup>8</sup> due to the immense number of sequence comparisons that need to be performed, limiting the use of most conventional all-vs-all comparisons for clustering. Potential mutations are identified for each cluster via signal-level analysis with nanopolish<sup>1,9</sup>, using the parental gene sequence as a reference.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p>Nuclease-free water (Ambion)</p><p> Plasmid DNA (Pool of variants in pASK-IBA63b+)</p><p> Acceptor plasmid (pRSFDuet-1)</p><p> Primers (Supplementary Table S1)</p><p> Q5 High-Fidelity 2X Master Mix (NEB)</p><p> Gibson Assembly Master Mix (NEB)</p><p> FastDigest <em>Kpn</em>I and <em>Bam</em>HI</p><p> Phosphate Buffered Saline (PBS)</p><p> AMPure XP SPRI beads (Beckman Coulter)</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p><strong>Library preparation:</strong></p><p>Zymo Clean &amp; Concentrator-5 (Zymo Research)</p><p>High-efficiency electrocompetent <em>E. coli</em> cells (e.g. E. cloni 10G ELITE, Lucigen, #60051-1)</p><p>GeneJET Plasmid Miniprep Kit (ThermoFischer Scientific)</p><p>SQK-LSK109 sequencing kit and flow cell (Oxford Nanopore Technologies, ONT)</p><p><strong>Generation of consensus sequences:</strong></p><p>Unix-based operating system: MacOS, Windows Subsystem for Linux, Ubuntu or similar.</p><p> Python (version &gt; 3.6) </p><p> Python packages</p><p> &nbsp;&nbsp;&nbsp;<em>scikit-bio, scikit-allel, biopython</em></p><p> Nanopolish (version &gt; 10.1)</p><p> NanoPlot<em> </em>and NanoFilt</p><p> Porechop</p><p> &nbsp;&nbsp;&nbsp;<em>Porechop can be used to demultiplex reads. As it is no longer officially maintained, demultiplexing was </em></p><p><em> &nbsp;&nbsp;&nbsp;also incorporated into the UMIC-seq scripts.</em></p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "Library preparation:\nAny plasmid can be used as template, as the variants are tagged via PCR. In this case, we used pASK-IBA63b+. After UMI-tagging, it is useful to switch to a different acceptor plasmid that has an alternative selection marker to eliminate the transfer of non-tagged variants. We used pRSFDuet-1 with kanamycin resistance for this purpose. To prepare the sequencing input, the tagged variants are excised from the plasmid with restriction sites that were introduced on the primers. In this protocol, the PCR annealing temperature is given according to the primers used (see below) and the PCR extension time is given according to the gene length in this study (~1.1 kb). Both parameters can be adjusted to suit other experiments.\nPrimers used here:\nName\nSequence\n\u2022 F_BC1\nACCATCATCACCACAGCCAGGATCC GATAC AAGAAAGTTGTCGGTGTCTTTGTG\nCTAGAAATAATTTTGTTTAACTTTAAGAAGGAGATATACCATG\n\u2022 F_BC2\nACCATCATCACCACAGCCAGGATCC GATAC TCGATTCCGTTTGTAGTCGTCTGT\nCTAGAAATAATTTTGTTTAACTTTAAGAAGGAGATATACCATG\n\u2022 F_BC3\nACCATCATCACCACAGCCAGGATCC GATAC GAGTCTTGTGTCCCAGTTACCAGG\nCTAGAAATAATTTTGTTTAACTTTAAGAAGGAGATATACCATG\n\u2022 R_UMI\nGTTTCTTTACCAGACTCGAGGGTACC GATAC NNNNNNNNNNNNNNNNNNNNNNNNN\nGATAC NNNNNNNNNNNNNNNNNNNNNNNNN GCTCCAAGCGCTCTCGAG\n\u2022 F_gibson\nACCATCATCACCACAGCCAG\n\u2022 R_gibson\nGTTTCTTTACCAGACTCGAGGGTAC\nAll steps are performed in parallel for each experiment-specific reaction until sequencing. In this case, the pools of variants from three rounds of evolution are treated in parallel with experiment-specific barcodes.\n1) Attaching the UMI and an experiment-specific barcode to the pooled variants\n\u2022 Prepare UMI tagging reaction in one PCR tube per experiment (e.g. each round of evolution):\nReaction:\n25 \u00b5l\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Q5 High-Fidelity 2X Master Mix\n2.5 \u00b5l\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Forward primer: F_BC\n2.5 \u00b5l\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Reverse primer: R_UMI\n500 ng\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Template DNA (Variant plasmid pool)\nto 50 \u00b5l\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Nuclease-free water\nPCR Program:\n98 \u00b0C\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a01 min\n98 \u00b0C\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a010 s\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0| 2 cycles\n60 \u00b0C\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a030 s\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0|\n72 \u00b0C\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a01 min\u00a0\u00a0\u00a0|\n72 \u00b0C\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a05 min\n4 \u00b0C\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Hold\n\u2022 Purify PCR reaction with the Zymo Clean & Concentrator-5 according to the manufacturer\u2019s instructions. Elute DNA in 10 \u00b5l elution buffer.\n\u2022 Limited amplification PCR\nReaction:\n25 \u00b5l\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Q5 High-Fidelity 2X Master Mix\n2.5 \u00b5l\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Forward primer: F_gibson\n2.5 \u00b5l\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Reverse primer: R_gibson\n250 ng\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Template DNA (purified PCR reaction from previous step)\nto 50 \u00b5l\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Nuclease-free water\nPCR Program:\n98 \u00b0C\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a01 min\n98 \u00b0C\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a010 s\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0| 5-15 cycles\n60 \u00b0C\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a030 s\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0|\n72 \u00b0C\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a01 min\u00a0\u00a0\u00a0|\n72 \u00b0C\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a05 min\n4 \u00b0C\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Hold\n\u2022 Purify each reaction via agarose gel extraction and clean-up with the Zymo Clean & Concentrator\u20115. Elute in 10 \u00b5l elution buffer.\n2) Sub-cloning to restrict molecule diversity via Gibson assembly and transformation.\n\u2022 Prepare acceptor plasmid via digestion\nReaction:\n3 \u00b5l\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a010X FastDigest Green Buffer\n1 \u00b5g\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Acceptor plasmid (pRSFDuet-1)\n1 \u00b5l\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0FastDigest\nBam\nHI\n1 \u00b5l\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0FastDigest\nKpn\nI\nto 30 \u00b5l\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Nuclease-free water\nPCR Program:\n37 \u00b0C\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a060 min\n80 \u00b0C\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a05 min\n\u2022 Purify linearized acceptor plasmid via agarose gel extraction and clean-up with the Zymo Clean & Concentrator-5\n\u2022 Prepare the Gibson assembly of the tagged variants from step 1 and the acceptor plasmid for each reaction.\nReaction:\n100 ng\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Linearized acceptor plasmid\n100 ng\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Tagged variants (~3-fold molar excess over plasmid)\n10 \u00b5l\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Gibson Assembly Master Mix (2X)\nto 20 \u00b5l\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Nuclease-free water\nPCR Program:\n50 \u00b0C\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a060 min\n\u2022 Purify with Zymo Clean & Concentrator-5. Elute in 10 \u00b5l nuclease-free water.\n\u2022 Transform 25 \u00b5l electrocompetent E. cloni 10G ELITE with 5 \u00b5l of the purified Gibson assembly for each reaction. Plate a dilution series.\n3) Isolation of linear, amplified and tagged molecules\n\u2022 Select number of colonies:\nThis determines the number of final consensus sequences that will be generated. Here, 500-1000 variants were obtained during each round of evolution. To achieve at least 3-fold oversampling, 3000 colonies were selected.\n\u2022 Scrape the selected number of colonies off the transformation plates with the help of ~2 ml PBS, pellet the cells and perform plasmid isolation (GeneJET Miniprep Kit).\n\u2022 Digest the isolated plasmids to receive the tagged variant sequences for each reaction\nReaction:\n5 \u00b5l\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a010X FastDigest Green Buffer\n3 \u00b5g\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Plasmid isolation from the previous step\n2 \u00b5l\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0FastDigest\nBam\nHI\n2 \u00b5l\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0FastDigest\nKpn\nI\nto\n50 \u00b5l\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Nuclease-free water\nPCR Program:\n37 \u00b0C\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a060 min\n80 \u00b0C\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a05 min\n\u2022 Purify the tagged insert via agarose gel extraction and clean-up with the Zymo Clean & Concentrator-5. Elute in 100 \u00b5l elution buffer.\n\u2022 Purify again with AMPure XP SPRI beads. Elute in 25 \u00b5l nuclease-free water.\n4) Nanopore sequencing\n\u2022 Pool purified tagged fragments equimolarly per barcoded-reaction to a final content of 200 fmol DNA in 47 \u00b5l nuclease-free water.\n\u2022 Follow instructions for further library preparation and sequencing with ONT\u2019s Ligation Sequencing Kit (SQK-LSK109).\n\u2022 Run the sequencing until 100X* expected coverage is reached. Here, 3000 colonies were selected in three barcoded experiments, which thus corresponds to 9000 unique fragments after isolation. The tagged fragment length is ~1250\u00a0bp, thus sequencing is run until at least 9000 * 100 = 900,000 reads or 9000 * 100 * 1250 \u2248 1.1 Gb are sequenced.\nGeneration of accurate consensus sequences:\nTools made for this study are made available as Python scripts, hosted on GitHub (\nhttps://github.com/fhlab/UMIC-seq\n). Additionally, an example is provided on GitHub, showing the core steps based on a small dataset in detail. Some settings, such as the length filtering, have to be adjusted from experiment to experiment. Here, the expected read length was ~1250 bp.\nRequirements:\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Raw and basecalled nanopore reads\n(fast5 / fastq)\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0List of barcodes for demultiplexing\n(fasta)\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Probe sequence for UMI extraction\n(fasta)\n1) Quality control and read filtering\n\u2022 Plot sequencing metrics for quality control: Visualize read quality and length distribution to find suitable thresholds for filtering.\n$NanoPlot -summary sequencing_summary.txt -o nanoplot_folder --drop_outliers\n\u2022 Filter sequences based on length and average read quality: In our case, the quality filtering was stringent \u2013 approximately 25% of all reads were discarded during filtering.\n$cat merged.fastq | NanoFilt -q 10 --length 1200 --maxlength 1300 > filtered.fastq\n2) Demultiplex reads belonging to different experiments\n\u2022 Demultiplex the experiment specific barcodes, here to separate the three rounds of evolution. The barcode sequences were taken from the PCR Barcoding Expansion Pack 1-96 (EXP-PBC096).\n$porechop -i filtered.fastq -b demultiplexed_folder --barcode_threshold 65 --barcode_diff 10 --end_threshold 100 --no_split -v 1 --untrimmed\nAlternative: As porechop is officially unsupported as of October 2018, demultiplexing was integrated into a helper script. A list of barcodes for demultiplexing must be supplied\n(fasta)\n, as well as the basecalled reads\n(fastq)\nand alignment thresholds.\n$python UMIC-seq_helper.py demultiplex --barcodes barcodes.fasta --input filtered.fastq --threshs 22 29 --output demultiplexed_folder\n3) Extraction and clustering of UMIs\n\u2022 UMI extraction: To extract the UMI, a probe sequence must be supplied (\nfasta\n). This probe sequence should be a short constant region (e.g. 50 bp) next to the UMI, i.e. a part of the reference gene. Extraction will copy the sequence next to the probe into a new file. The following steps are run individually for each of the demultiplexed experiments.\n$python UMIC-seq.py UMIextract --input demultiplexed.fastq --probe probe.fasta --umi_loc down --umi_len 65 --output ExtractedUMIs.fasta\n\u2022 UMI clustering threshold approximation: To estimate a suitable clustering threshold, a threshold approximation can be run. The thresholds to test can be specified, e.g. as --steps 20 70 10, which will sample thresholds from 20 to 70 with a step width of 10. The script will output similarity histograms and a clustering test plot. In the similarity histogram, a randomly chosen UMI is aligned to all other UMI sequences and the resulting alignment scores are plotted as a histogram. Here, a lot of low alignment scores as well as few sequences with high alignment scores (a potential cluster) are expected. A suitable clustering threshold separates the two. The clustering test plot will provide clustering information (cluster size and similarity of sequences in a cluster) for clusters with each of the sampled thresholds. A suitable threshold is found when both metrics begin to saturate. In our experience, the clustering threshold will be close to the length of the UMI.\n$python UMIC-seq.py clustertest --input ExtractedUMIs.fasta --steps 20 70 10 --output UMIclustertest\n\u2022 UMI clustering: Full clustering is performed with the previously determined threshold. The size threshold specifies the minimal size of a cluster to be written to file.\n$python UMIC-seq.py clusterfull --input ExtractedUMIs.fasta --reads demultiplexed.fastq \u2013aln_thresh 60 --size_thresh 50 --output cluster_folder\n3) Sequence polishing and calling of mutations with Nanopolish\n\u2022 Each cluster file can now be used for signal level analysis with Nanopolish. Nanopolish will be run on each cluster file to generate the mutations of that cluster (\n.vcf\n). See the nanopolish documentation for details.\n#Example nanopolish commands\n$nanopolish index -d read_folder -s sequencing_summary.txt clusterfile.fasta\n$minimap2 -ax map-ont reference.fasta clusterfile.fasta | samtools sort -o clustermap.bam -T map.tmp\n$samtools index clustermap.bam\n$nanopolish variants --consensus -q dam,dcm -o mutations.vcf -r clusterfile.fasta -b clustermap.bam -g reference.fasta\nTo automate the execution of nanopolish on each cluster file, the UMIC-seq_helper script can generate a shell script performing the command on all cluster files. A list of cluster filenames needs to be provided, it can be generated e.g. with\n$ls *.fasta > clusterfiles_list.txt\n. The commands that should be run on each cluster are provided as a text file, with a keyword to be replaced by each cluster file name, e.g. clusterfile.fasta replaced by keyword in the example commands above.\n#Generate the shell script\n$python UMIC-seq_helper.py generateSH --input clusterfiles_list.txt --output run_polish.sh --arguments arguments.txt --keyword keyword\n#Execute the generated shell script\n$chmod +x run_polish.sh\n$./run_polish.sh\n\u2022 To combine all mutations in all the individual vcf files into full length sequences in one multi-fasta file, the helper script can be run again. Additionally, filtering of mutations by support fraction can be performed.\n#A list of filenames needs to be provided\n$ls *.vcf > filenames.txt\n#Run the helper script to extract and filter the mutations\n$python UMIC-seq_helper.py vcf2fasta --input filenames.txt --output consensus_sequences.fasta --min_suppfrac 0.6 --reference reference.fasta\n\u2022 Alternative: Run a quicker, but potentially less accurate consensus generation with medaka instead of nanopolish. Run the consensus mode on each cluster file.\n$medaka_consensus -i clusterfile.fasta -d reference.fasta -o outdir -t threads -m r941_min_high"
+        },
+        {
+            "header": "Troubleshooting",
+            "content": ""
+        },
+        {
+            "header": "Time Taken",
+            "content": ""
+        },
+        {
+            "header": "Anticipated Results",
+            "content": ""
+        },
+        {
+            "header": "References",
+            "content": "<p>1.&nbsp;Loman, N. J., Quick, J. &amp; Simpson, J. T. A complete bacterial genome assembled de novo using only nanopore sequencing data. <em>Nat. Methods</em> <strong>12</strong>, 733\u2013735 (2015).</p><p>2.&nbsp;Vaser, R., Sovic, I., Nagarajan, N. &amp; Sikic, M. Fast and accurate de novo genome assembly from long uncorrected reads. <em>Genome Res.</em> gr.214270.116 (2017) doi:10.1101/gr.214270.116.</p><p>3. McCloskey, M. L., St\u00f6ger, R., Hansen, R. S. &amp; Laird, C. D. Encoding PCR Products with Batch-stamps and Barcodes. <em>Biochem. Genet.</em> <strong>45</strong>, 761\u2013767 (2007).</p><p>4.&nbsp;Kivioja, T. <em>et al.</em> Counting absolute numbers of molecules using unique molecular identifiers. <em>Nat. Methods</em> <strong>9</strong>, 72\u201374 (2012).</p><p>5.&nbsp;Islam, S. <em>et al.</em> Quantitative single-cell RNA-seq with unique molecular identifiers. <em>Nat. Methods</em> <strong>11</strong>, 163\u2013166 (2014).</p><p>6.&nbsp;Kinde, I., Wu, J., Papadopoulos, N., Kinzler, K. W. &amp; Vogelstein, B. Detection and quantification of rare mutations with massively parallel sequencing. <em>Proc. Natl. Acad. Sci.</em> <strong>108</strong>, 9530\u20139535 (2011).</p><p>7.&nbsp;Schmitt, M. W. <em>et al.</em> Detection of ultra-rare mutations by next-generation sequencing. <em>Proc. Natl. Acad. Sci. U. S. A.</em> <strong>109</strong>, 14508\u201314513 (2012).</p><p>8. Zurek, P. J., Knyphausen, P., Neufeld, K., Pushpanath, A. &amp; Hollfelder, F. UMI-linked consensus sequencing enables phylogenetic analysis of directed evolution. <em>Github Fhlab UMIC-Seq</em> (2020) doi:10.5281/zenodo.4055319.</p><p>9.&nbsp;Quick, J. <em>et al.</em> Real-time, portable genome sequencing for Ebola surveillance. <em>Nature</em> <strong>530</strong>, 228\u2013232 (2016).</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41467-020-19687-9 ",
+                "date": "",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 2829528,
+                "identity": "870a8f07-069d-4012-a8b1-fcb3921b9507",
+                "order_by": 0,
+                "name": "Paul Jannis Zurek",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-7049-0813",
+                "institution": "University of Cambridge",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Paul",
+                "middleName": "Jannis",
+                "lastName": "Zurek",
+                "suffix": ""
+            },
+            {
+                "id": 2829529,
+                "identity": "54a0cfd7-6da7-44ed-b8aa-eb7b8056d8e8",
+                "order_by": 1,
+                "name": "Philipp Knyphausen",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Philipp",
+                "middleName": "",
+                "lastName": "Knyphausen",
+                "suffix": ""
+            },
+            {
+                "id": 2829530,
+                "identity": "75e2eba7-98a6-4f5b-9915-e6914d3577f4",
+                "order_by": 2,
+                "name": "Katharina Neufeld",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Katharina",
+                "middleName": "",
+                "lastName": "Neufeld",
+                "suffix": ""
+            },
+            {
+                "id": 2829531,
+                "identity": "2674e7f5-e555-4eb8-9fe4-e7cf161ba7b5",
+                "order_by": 3,
+                "name": "Ahir Pushpanath",
+                "email": "",
+                "orcid": "",
+                "institution": "Johnson Matthey",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Ahir",
+                "middleName": "",
+                "lastName": "Pushpanath",
+                "suffix": ""
+            },
+            {
+                "id": 2829532,
+                "identity": "7bff8584-4fbe-4ce5-81e0-541c0d2dca63",
+                "order_by": 4,
+                "name": "Florian Hollfelder",
+                "email": "fh111@cam.ac.uk",
+                "orcid": "https://orcid.org/0000-0002-1367-6312",
+                "institution": "University of Cambridge",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Florian",
+                "middleName": "",
+                "lastName": "Hollfelder",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2020-09-28 10:22:49",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1177/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1177/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13620763,
+                "identity": "f682c948-9188-4c44-8752-2229628deaf2",
+                "added_by": "auto",
+                "created_at": "2021-09-17 07:07:11",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 361732,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1177/v1/c96b045a-fe46-4838-9705-dea2204ddd9c.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "nanopore sequencing, consensus sequences, amplicon sequencing, directed evolution, protein engineering",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>Here we present a straightforward unique molecular identifier (UMI)-linked nanopore consensus sequencing workflow (UMIC-seq), resulting in cost-effective and accurate long-read sequencing of amplicons. Short random molecular barcodes (i.e. unique molecular identifiers, UMIs) are attached to a pool of gene variants prior to nanopore sequencing to enable reliable clustering and the generation of accurate consensus sequences, even when starting from highly similar gene variants (e.g. a library of point mutants in directed protein evolution) that could not be reliably distinguished in the ordinary nanopore sequencing output.&nbsp;</p>",
+        "manuscriptTitle": "UMI-linked nanopore consensus sequencing (UMIC-seq) of highly similar gene variants",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2020-11-30 09:24:30",
+                "doi": "10.21203/rs.3.pex-1177/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "aad43939-4085-434d-9c39-a4b8be13d312",
+        "owner": [],
+        "postedDate": "November 30th, 2020",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 654405,
+                "name": "Biochemistry"
+            },
+            {
+                "id": 654406,
+                "name": "Molecular biology"
+            },
+            {
+                "id": 654407,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 654408,
+                "name": "Computational biology and bioinformatics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2020-11-30 09:24:30",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

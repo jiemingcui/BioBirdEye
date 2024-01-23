@@ -1,0 +1,256 @@
+{
+    "identity": "pex-1635",
+    "title": "<p>Quantifying medical histories with the Kaplan-Meier (KM) estimator for feature extraction of electronic health records in machine learning</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>Implementation of electronic health records (EHRs) is a high-resource investment which increases healthcare costs and burden in clinical workflow. Meanwhile, efficiency without exposing harm to patient is mandated due to emerging adoption of insurance-based healthcare worldwide. This adoption also warrants more preventive measures in current practice; thus, clinical prediction models have been developed for several health outcomes, including those using either EHRs or machine learning.<sup>1-4</sup> The most of well-known successes were clinical prediction models by machine learning, that used data from medical devices stored in EHRs.<sup>5-7</sup> Medical histories of diagnoses and procedures in EHRs are abundant but not optimally explored compared to other data types, e.g. laboratory tests, medical imaging, and genomic data.<sup>8</sup></p><p>\tRecorded as a diagnosis/procedure code, a condition affects a health state in the future relative to the time interval between that condition and the health state at the time of the prediction. The effect may be improving, devastating, or undifferentiated, but there should be a quantity that differentiates through time; thus, a computer is able to associate such a trend of a condition with health states among individuals. That quantity should also differ among conditions given the same time interval to the time of prediction, and be inferred from the population as a generalized quantity for each individual given the time interval. This is the intuition behind application of the Kaplan-Meier (KM) estimator in this protocol. It also allows comparable medical history across healthcare providers, since this type of data is often isolated within each healthcare provider. By population-level historical rate, it is possible to utilize the isolated data across healthcare providers without accessing the respective databases.</p><p>\tThis protocol was already applied in a project consisting multiple studies that compared a human-machine learning algorithm with those applying human learning with statistical methods and those applying other machine learning algorithms. Ethical clearance was waived by the Taipei Medical University Joint Institutional Review Board (TMU-JIRB number: N202106025). We aimed to describe data transformation procedure of medical histories from electronic health records (EHRs) to historical rates by Kaplan-Meier (KM) estimation for developing but not limited to a machine learning prediction model.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": ""
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>To conduct this protocol, we used R 4.0.2 programming language (R Foundation, Vienna, Austria). The integrated development environment software was RStudio 1.3.959 (RStudio PBC, Boston, MA, USA). We used Bioconductor 3.11 to ensure reproducibility;<sup>9</sup> thus, versions of the included R packages were all in sync according to versions in this Bioconductor version. Since the main context of this protocol was machine learning predictive modeling, we used an R package of caret 6.0.86, particularly for data partition, and we also created an R package medhist 0.1.0 which facilitated most steps of this protocol. Our package is available for download from this repository <a href=\"https://github.com/herdiantrisufriyana\" rel=\"noopener noreferrer\" target=\"_blank\">https://github.com/herdiantrisufriyana</a>. Details on other R package versions and all of the source codes (vignette) for the data analysis are available in <a href=\"https://github.com/herdiantrisufriyana/hist_rate\" rel=\"noopener noreferrer\" target=\"_blank\">https://github.com/herdiantrisufriyana/hist_rate</a>.</p><p>To reproduce our work, a set of hardware requirements may be needed. We used a single machine. It was equipped by 8 logical processors for the 3.40 GHz central processing unit (CPU) (Core (TM) i7-4770, Intel\u00ae, Santa Clara, CA, USA), and 16 GB RAM. But, one can use a machine with only 4 logical processors and 4 GB RAM, if the sample size is smaller than that of dataset we used in this protocol.</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "1. Compute time intervals between code or variable encounters and each visit of any subject\nThis step was to quantify medical histories into time intervals. In addition to a single-code variable, we also used variables that assigned multiple codes of diagnosis and procedure. Details of the codes are available in the source codes. We computed the number of days for a code or variable in the latest encounter before the current visit (the time of prediction or\nd\n0\n).\n2. Split a dataset randomly for a derivation and validation set\nWe only used the derivation set to infer KM estimates at the population level. Later, we also used it for training set of a prediction model; thus, our models were blinded to the distribution of KM estimates of any external validation sets.\n3. Calculate KM estimate for each code or variable\nThe KM estimate (equation in Figure 1),\n10\nas we denote it as an estimator of the historical function\nH(d)\n, is a probability or a fraction of visits that a condition is longer than\nd\ndays before\nd\n0\n. This consists of\nd\ni\nas\na day when at least an encounter occurred for a code or variable that refers to that condition,\ne\ni\nis the number of encounters for the code or variable on day\nd\ni\n, and\nv\ni\nis a visit recorded that did not encounter the code or variable (it was censored) up to day\nd\ni\n.\n4. Apply interpolation between time points of historical rates\nBecause there might be a day on which no code or variable is encountered in the population, we applied a linear interpolation between time points at which a KM estimate was able to be calculated. Other methods of interpolation are also available in medhist 0.1.0, an R package, that allows future investigators to implement this historical rate.\n5. Compute provider-wise time intervals\nMedical histories for derivation set were nationwide, while those for training set were provider-wise by estimation. This means our prediction models only used medical histories recorded by a healthcare provider, which was blinded to those recorded by others. This reflects most real-world situations in which a healthcare provider does not have access to medical records of other providers.\n6. Transform a provider-wise time interval into a nationwide KM estimate.\nA KM estimate of a code for an individual was then determined given the number of days from a code or variable encounter to the current visit. The number of days was matched with those in historical rates of each code. We already have nationwide historical (KM) rates for each code or variable, derived from the training set only. All medical histories in days of a subject in each healthcare provider were transformed into historical rates. This technique allowed generalization of individual data based on nationwide, population-level data, without the need to access data from other providers."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p><strong>Step 1 and 5</strong></p><p><em><u>Problem</u></em></p><p>Premature stop of computation</p><p><em><u>Possible reason</u></em></p><p>Dataset consists of a large sample size or number of variables.</p><p><em><u>Solution</u></em></p><p>Consider to use computer with larger memory size or RAM. Alternatively, split table into ones consisting unique sets of variables.</p><p><br></p><p><strong>Step 2</strong></p><p><em><u>Problem</u></em></p><p>Unexpected error</p><p><em><u>Possible reason</u></em></p><p>Proportion of a partition may be too small.</p><p><em><u>Solution</u></em></p><p>Consider to increase the proportion.</p><p><br></p><p><br></p><p><strong>Step 3 to 4</strong></p><p><em><u>Problem</u></em></p><p>Unable to calculate KM estimate</p><p><em><u>Possible reason</u></em></p><p>A variable is only available in a visit.</p><p><em><u>Solution</u></em></p><p>Remove this kind of variable.</p><p><br></p><p><br></p><p><strong>Step 6</strong></p><p><em><u>Problem</u></em></p><p>Unexpected error</p><p><em><u>Possible reason</u></em></p><p>There is no expected variable in the source of historical rates.</p><p><em><u>Solution</u></em></p><p>Check if the variable exists or the variable name is correct.</p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p><strong>All steps</strong></p><p>Approximate time: 10 to 20 minutes (pre-computed)</p><p><br></p><p><strong>Step 1 and 5</strong></p><p>Approximate time: 5 to 10 minutes (pre-computed)</p><p><br></p><p><strong>Step 2</strong></p><p>Approximate time: 1 to 2 minutes</p><p><br></p><p><strong>Step 3 to 4</strong></p><p>Approximate time: 1 to 2 minutes</p><p><br></p><p><strong>Step 6</strong></p><p>Approximate time: 1 to 2 minutes</p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>A historical rate ranges from 0 to 1. If interpolation is not used, then one may find multiple instances with the same historical rate although the time intervals are different. This was why we need interpolation to estimate the rate in a period of two time points, in which there was no available data for a code or variable.</p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>1. Sufriyana, H., et al. Comparison of Multivariable Logistic Regression and Other Machine Learning Algorithms for Prognostic Prediction Studies in Pregnancy Care: Systematic Review and Meta-Analysis. JMIR Med Inform 8, e16503 (2020).</p><p><br></p><p>2. Fleuren, L.M., et al. Machine learning for the prediction of sepsis: a systematic review and meta-analysis of diagnostic test accuracy. Intensive Care Med 46, 383-400 (2020).</p><p><br></p><p>3.&nbsp;Lee, Y., et al. Applications of machine learning algorithms to predict therapeutic outcomes in depression: A meta-analysis and systematic review. J Affect Disord 241, 519-532 (2018).</p><p><br></p><p>4.&nbsp;Gonem, S., Janssens, W., Das, N. &amp; Topalovic, M. Applications of artificial intelligence and machine learning in respiratory medicine. Thorax 75, 695-701 (2020).</p><p><br></p><p>5.&nbsp;Bien, N., et al. Deep-learning-assisted diagnosis for knee magnetic resonance imaging: Development and retrospective validation of MRNet. PLoS Med 15, e1002699 (2018).</p><p><br></p><p>6.&nbsp;Hannun, A.Y., et al. Cardiologist-level arrhythmia detection and classification in ambulatory electrocardiograms using a deep neural network. Nat Med 25, 65-69 (2019).</p><p><br></p><p>7.&nbsp;Rajpurkar, P., et al. Deep learning for chest radiograph diagnosis: A retrospective comparison of the CheXNeXt algorithm to practicing radiologists. PLoS Med 15, e1002686 (2018).</p><p><br></p><p>8.&nbsp;Scott, I., Carter, S. &amp; Coiera, E. Clinician checklist for assessing suitability of machine learning applications in healthcare. BMJ Health Care Inform 28(2021).</p><p><br></p><p>9.&nbsp;Huber, W., et al. Orchestrating high-throughput genomic analysis with Bioconductor. Nat Methods 12, 115-121 (2015).</p><p><br></p><p>10.&nbsp;Stalpers, L.J.A. &amp; Kaplan, E.L. Edward L. Kaplan and the Kaplan-Meier Survival Curve. BSHM Bulletin: Journal of the British Society for the History of Mathematics 33, 109-135 (2018).</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>The social security administrator for health or <em>badan penyelenggara jaminan sosial (BPJS) kesehatan</em> in Indonesia gave permission to access the sample dataset in this protocol (dataset request approval number: 5064/I.2/0421). This protocol was funded by the Ministry of Science and Technology (MOST) in Taiwan (grant number MOST109-2221-E-038-018 and MOST110-2628-E-038-001) and the Higher Education Sprout Project from the Ministry of Education (MOE) in Taiwan (grant number DP2-110-21121-01-A-13) to Emily Chia-Yu Su.</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 49763176,
+                "identity": "06150829-f16e-4ddf-8fe9-da08bfbb8ca8",
+                "order_by": 0,
+                "name": "Herdiantri Sufriyana",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0001-9178-0222",
+                "institution": "(1) Graduate Institute of Biomedical Informatics, College of Medical Science and Technology, Taipei Medical University, 250 Wu-Xing Street, Taipei 11031, Taiwan. (2) Department of Medical Physiology, Faculty of Medicine, Universitas Nahdlatul Ulama Surabaya, 57 Raya Jemursari Road, Surabaya 60237, Indonesia.",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Herdiantri",
+                "middleName": "",
+                "lastName": "Sufriyana",
+                "suffix": ""
+            },
+            {
+                "id": 49763177,
+                "identity": "b2c1f45b-9f0f-4307-98e2-a1bcc6ae130f",
+                "order_by": 1,
+                "name": "Yu Wei Wu",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-5603-1194",
+                "institution": "(1) Graduate Institute of Biomedical Informatics, College of Medical Science and Technology, Taipei Medical University, 250 Wu-Xing Street, Taipei 11031, Taiwan. (2) Clinical Big Data Research Center, Taipei Medical University Hospital, 250 Wu-Xing Street, Taipei 11031, Taiwan.",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Yu",
+                "middleName": "Wei",
+                "lastName": "Wu",
+                "suffix": ""
+            },
+            {
+                "id": 49763178,
+                "identity": "70d690c4-af92-4709-947e-222baba68196",
+                "order_by": 2,
+                "name": "Emily Chia-Yu Su",
+                "email": "emilysu@tmu.edu.tw",
+                "orcid": "https://orcid.org/0000-0003-4801-5159",
+                "institution": "(1) Graduate Institute of Biomedical Informatics, College of Medical Science and Technology, Taipei Medical University, 250 Wu-Xing Street, Taipei 11031, Taiwan. (2) Clinical Big Data Research Center, Taipei Medical University Hospital, 250 Wu-Xing Street, Taipei 11031, Taiwan. (3) Research Center for Artificial Intelligence in Medicine, Taipei Medical University, 250 Wu-Xing Street, Taipei 11031, Taiwan.",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Emily",
+                "middleName": "Chia-Yu",
+                "lastName": "Su",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2021-09-03 04:29:00",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1635/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1635/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 14477758,
+                "identity": "4f7fd938-1cbe-4954-b93b-342d52198665",
+                "added_by": "auto",
+                "created_at": "2021-10-13 08:44:31",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 363715,
+                "visible": true,
+                "origin": "",
+                "legend": "Equation of historical rate",
+                "description": "",
+                "filename": "histratefigure1.png",
+                "url": "https://assets.researchsquare.com/files/pex-1635/v1/f8ef8b7212a4beb4fd8feb31.png"
+            },
+            {
+                "id": 14477760,
+                "identity": "550a5cf5-35c8-4940-aa71-58abeb0d59e7",
+                "added_by": "auto",
+                "created_at": "2021-10-13 08:44:35",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 336505,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1635/v1/be679847-3895-4e2b-97cb-e8a8388a0305.pdf"
+            },
+            {
+                "id": 14477759,
+                "identity": "62c8ec74-767a-4fca-8664-d7d8518ec21f",
+                "added_by": "auto",
+                "created_at": "2021-10-13 08:44:31",
+                "extension": "pdf",
+                "order_by": 1,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 18079,
+                "visible": true,
+                "origin": "",
+                "legend": "Supplementary information for source code description",
+                "description": "",
+                "filename": "suppprotocolhistrate.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1635/v1/0999ccf8c3743ad082d2374e.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "medical history, electronic health record, Kaplan-Meier estimator, feature extraction, machine learning",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>This protocol aimed to describe data transformation procedure of medical histories from electronic health records (EHRs) to historical rates by Kaplan-Meier (KM) estimation.&nbsp;The applicability is to extract features from real-world, time-varying data of EHRs, for developing but not limited to a machine learning prediction model. By this extraction technique, machine can learn medical history of a condition in each healthcare provider, as a differential quantity through time in term of affecting a future health state, without a need to access EHRs of other healthcare providers. However, this protocol needs a sufficient amount of longitudinal data from the most subjects in EHRs. The key stages consisted of time interval computation, historical rate derivation, and data transformation into historical rates.</p>",
+        "manuscriptTitle": "Quantifying medical histories with the Kaplan-Meier (KM) estimator for feature extraction of electronic health records in machine learning",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2021-10-13 08:44:30",
+                "doi": "10.21203/rs.3.pex-1635/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "0c701e94-2fd4-4b1a-8893-957eeabc4181",
+        "owner": [],
+        "postedDate": "October 13th, 2021",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 6927528,
+                "name": "Information theory and computation"
+            },
+            {
+                "id": 6927529,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 6927530,
+                "name": "Risk factors"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2021-10-13 08:44:30",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

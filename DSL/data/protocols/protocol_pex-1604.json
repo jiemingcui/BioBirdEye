@@ -1,0 +1,302 @@
+{
+    "identity": "pex-1604",
+    "title": "<p>Droplet-based single-cell RNA sequencing of paraformaldehyde-fixed cells</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>Drop-seq is a popular scRNA-seq technology. However, it is currently not suitable for PFA-fixed cells. To allow greater flexibility for researchers, here we introduced FD-seq, an easy-to-use droplet-based scRNA-seq methods for PFA-fixed cells. FD-seq can be readily used with existing Drop-seq setups, and do not involve additional complicated processing steps.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p><u>Fixation and permeabilization reagents</u></p><p>1. 4% PFA in PBS (Santa Cruz Biotechnology, cat sc-281692).</p><p>2. Trion X-100 molecular biology grade</p><p><br></p><p><u>Prepare FD-seq reagents</u></p><p>1. Lysis buffer: 22 ml nuclease free water, 15 ml 20% Ficoll (Sigma, cat F5415), 10 ml 1M Tris pH 7.5, 2 ml 0.5M EDTA, 1 ml 10% Sarkosyl (Teknova, cat S3377). Store at 4C.</p><p>2. TE-SDS: 46.9 ml nuclease free water, 500 ul 1M Tris pH 8.0, 100 ul 0.5M EDTA, 2.5 ml 10% SDS. Store at room temperature.</p><p>3. TE-TW: 49.4 ml nuclease free water, 500 ul 1M Tris pH 8.0, 100 ul 0.5M EDTA, 5 ul 100% Tween-20. Store at room temperature.</p><p>4. 10 mM Tris pH 8.0: 49.5 ml nuclease free water, 500 ul 1M Tris pH 8.0. Store at room temperature.</p><p>5. 6X SSC: 350 ml nuclease free water, 150 ml 20X SSC. Store at room temperature.</p><p>6. Drop-seq beads: ChemGenes Corp, cat Macosko-2011-10(V+). Upon receipt, wash the beads according to the manufacturer's instruction, then resuspend the beads in TE-TW and store at 4C.</p><p>7. Perfluorooctan-1-ol: Synquest (cat 2101-3-20)</p><p><br></p><p><u>Primers</u></p><p>1. TSO_RNAhybrid (for reverse transcription): AAGCAGTGGTATCAACGCAGAGTGAATrGrGrG.</p><p>2. TSO_PCR (for whole transcriptome amplification): AAGCAGTGGTATCAACGCAGAGT.</p><p>3. P5-TSO (for tagmentation): AATGATACGGCGACCACCGAGATCTACACGCCTGTCCGCGGAAGCAGTGGTATCAACGCAGAGT*A*C.</p><p>4. Nextera_N7XX index (for tagmentation): CAAGCAGAAGACGGCATACGAGAT[i7]GTCTCGTGGGCTCGG (replace [i7] with the desired indexing barcode sequence).</p><p>5. Custom read 1 primer (for next generation sequencing): GCCTGTCCGCGGAAGCAGTGGTATCAACGCAGAGTAC.</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>1. Droplet Generation Microfluidic Chip: commercial chip or prepared according to Macosko et al, Cell (2015).</p><p>2. Syringe pumps: Harvard Apparatus Pump 33 DDS and/or KD Scientific model 100.</p><p>3. 1.5 ml DNA LoBind tubes: Eppendorf (cat 022431021).</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "Hydrophobic treatment of PDMS Droplet Generation Microfluidic Chip\n1. Remove the glass bulb from an Aquapel Glass Treatment Applicator (cat 47100). Carefully break open the bulb, and fill a BD 3 ml Luer-Lok syringe with Aquapel. Remove air from the syringe.\n2. Inject Aquapel to the chip through the cell inlet, incubate at room temperature for 2-3 minutes, and blow air through the bead inlet to dry the chip.\n3. Cover the chip inlets with Scotch Tape, and let the chip rest at room temperature at least overnight before using.\n4. Discard unused Aquapel.\nCell fixation and permeabilization\n1. Prepare wash buffer: PBS with 1% BSA (molecular biology grade) and 40 U/ml RNase inhibitor (NEB, cat N0447S)\n2. Wash cells once with 1 ml of 1% BSA (molecular biology grade) in PBS. Use centrifugation setting 400g for 5 minutes.\n3. Add 1 ml of 4% PFA in PBS to the cells, and incubate at room temperature for 15 minutes.\n4. Spin cells at 400g for 5 minutes, discard PFA, and wash once with 1 ml of wash buffer.\n5. Proceed to permeabilization if needed, or directly to FD-seq. Cells can also be stored in wash buffer at 4C overnight.\n6. Permeabilize cells by adding 500 ul of 0.1% Triton X-100 (molecular biology grade, diluted in wash buffer) to the cell pellet, and incubate at room temperature for 15 minutes.\n7. Add 1 ml of wash buffer to the cells, spin 400g 5 minutes and discard supernatant.\n8. Wash the cells once more with 1 ml of wash buffer.\n9. Perform blocking and/or intracellular staining as required. Note that the blocking reagent and antibodies should be diluted in wash buffer as described in step 1.\nSet up for droplet generation\n1. Prepare 0.01% BSA: mix molecular biology grade BSA in PBS, prepare at least 10 ml per sample.\n2. Count Drop-seq beads by adding 20 ul of beads to 20 ul of 20% Ficoll, and pipet the beads to a Fuchs-Rosenthal (FR) hemocytometer.\n3. Add 50 ul 1M DTT and 50 ul of 800 units/ml proteinase K (NEB) for every 1 ml of lysis buffer. Prepare 2 ml per sample, filter with a 40 um cell strainer, and store on ice.\n4. Wash the PFA-fixed cells 2-3 times, each with at least 2 ml of 0.01% BSA.\n5. Filter the cells using an appropriate cell strainer, count the cells, and resuspend the cells at 100,000 cells/ml in 0.01% BSA. Prepare at least 1.2 ml of the cells per sample.\n6. Resuspend Drop-seq beads in lysis buffer (with DTT and proteinase K added) at 120,000 beads/ml, and store on ice.\nPerform droplet generation\n1. Add Bio-Rad oil (cat 1864006) into a BD 10 ml Luer-Lok syringe (BD, cat 302995).\n2. Add cells into a BD 3 ml Luer-Lok syringe (BD, cat 309657).\n3. Insert a magnetic disc (V&P Scientific, cat VP 772DP-N42-5-2) into a BD 3 ml Luer-Lok syringe, and add beads to the syringe.\n4. Place the cell, bead, and oil syringes on a syringe pump. Connect the syringes to a Droplet Generation Microfluidic Chip via needles (BD, cat 305111) and tubings (Scientific Commodities, cat BB31695PE/2).\n5. Use a magnetic stirrer (V&P Scientific, cat VP710D2) to gently mix the bead syringe. This is to prevent the beads from settling during the experiment.\n5. Set the flow rates of cell, bead, and oil syringe pumps to 3, 3 and 12 ml/h, respectively.\n6. Start the pump in the following order: cell, then bead, then oil.\n7. Collect the droplets in a 50 ml centrifuge tube for approximately 20 minutes per sample. Inspect the Chip's droplet generation junction to ensure that the generation process is stable.\nCross-link reversal\n1. Carefully plate the 50 ml centrifuge tube with the droplets on a heat block, and incubate at 56C for 1 hour.\n2. Carefully remove the tube from the heat block, then leave it at room temperature for 10 minutes, then put it on ice for 5 minutes.\n3. Pipet approximately 15 ul of oil and 5 ul of droplets into an FD hemocytometer, and visually check that most droplets contain at most 1 bead per droplet.\nDroplet breaking\n1. Remove as much oil from the 50 ml tube as possible, without disturbing the droplets.\n2. Add 30 ml of 6X SSC to the droplets, then add 1 ml of Perfluorooctan-1-ol into the tube inside a chemical hood.\n3. Close the tube tightly, strongly shake it vertically by hands 4 times, and spin the tube at 1000g for 1 minute.\n4. Transfer approximately 30 ml of the supernatant above the oil interface to a new 50 ml centrifuge tube.\n5. Add 30 ml of 6X SSC to the old 50 ml tube to resuspend the beads at the oil interface, wait for approximately 2-3 seconds, then transfer 30 ml of the supernatant above the oil interface to another new 50 ml tube.\n6. Spin both new 50 ml tubes at 1000g for 3 minutes.\n7. Discard the supernatant from both tubes, then pool the beads at the bottom of the two tubes into a 1.5 ml DNA LoBind tube.\n8. Wash the beads twice with 1 ml of 6X SSC, then once with 300 ul of 5X Maxima H- RT buffer (Thermo Fisher, cat EP0753). Use centrifuge settings of 1000g and 1 minute.\n9. Discard supernatant.\nReverse transcription\n1. Add 200 ul of RT mix to the beads: 80 ul nuclease free water, 40 ul 5X Maxima H- RT buffer, 40 ul 20% Ficoll, 20 ul 10 mM dNTPs (NEB, cat N0447S), 5 ul RNase inhibitor (NEB, cat M0314L), 5 ul 100 uM TSO_RNAhybrid, 10 ul Maxima H- reverse transcriptase (Thermo Fisher, cat EP0753).\n2. Incubate the beads at room temperature for 30 minutes with rotation, then 42C for 1.5 hours with rotation.\n3. Spin the beads and discard the supernatant, then wash once with 1 ml TE-SDS, twice with 1 ml TE-TW, and once with 10 mM Tris pH 8.0.\n4. Discard supernatant.\nExonuclease I digestion\n1. Add 200 ul of Exo I mix to the beads: 170 ul nuclease free water, 20 ul 10X Exo I buffer, 10 ul Exo I (NEB, M0293S).\n2. Incubate at 37C for 45 minutes with rotation.\n3. Spin the beads and discard the supernatant, then wash once with 1 ml TE-SDS, and twice with 1 ml TE-TW.\n4. If proceeding immediately to whole transcriptome amplification, resuspend the beads in 1 ml nuclease free water. If not, store the beads in 1 ml TE-TW at 4C, then resuspend the beads in 1 ml nuclease free water when ready.\nWhole transcriptome amplification (WTA)\n1. Count the beads as described in the \"Set up for droplet generation\" section.\n2. Resuspend the beads in water such that the bead concentration is at most 5,000 beads per 24.6 ul.\n3. Distribute beads into a 96-well plate, such that each well contains 5,000 beads in 24.6 ul nuclease free water.\n4. Set up 50 ul PCR reaction: 24.6 ul of water and beads, 0.4 ul 100 uM TSO_PCR primer, 25 ul Kapa HiFi Readymix (Roche, cat 7958935001).\n5. Thermal cycling program: 95C 3 min; 4 cycles of 98C 20s, 65C 45s, 72C 3 min; 10 cycles of 98C 20s, 67C 20s, 72C 3 min; 72C 5 min; 4C hold.\nAmpure XP bead purification\n1. Equilibrate Ampure XP beads (Beckman Coulter, cat A63880) at room temperature for 15-30 minutes.\n2. Add 10 ul nuclease free water into each WTA well, pipet mix and spin the plate at 1000g 1 minute.\n3. Pool 50 ul from each WTA well into a 1.5 ml DNA LoBind tube, then add the equivalent of 30 ul of Ampure beads per well (ie, 0.6X bead ratio) and mix well.\n4. Incubate at room temperature for 5 minutes, then place the tube on a magnetic rack.\n5. Wait 5 minutes for the beads to be collected, discard the supernatant, and wash the beads four times, each with 1 ml of 80% ethanol.\n6. Remove ethanol, let the beads dry for 5 minutes, and discard all residual ethanol.\n7. Remove the tube from the magnetic rack, elute the beads in the equivalent of 10 ul nuclease free water per well, and mix well.\n8. Incubate the beads at room temperature for 5 minutes, then place the tube on the magnetic rack.\n9. Wait at least 3 minutes, then transfer the supernatant to a new 1.5 ml DNA LoBind tube without disturbing the magnetic beads.\n10. Store the purified WTA products at -20C.\nTagmentation\nWe will use Nextera XT DNA Library Prep Kit (Illumina, cat FC-131-1024) for Tagmentation.\n1. Quantify the purified WTA products using Qubit.\n2. Start a thermal cycling program for 55C hold and 20 ul PCR volume.\n3. Prepare 2 tagmentation reactions on ice, using a PCR strip or 96-well plate, as following. For each reaction, use 450 pg of WTA products, and dilute them to 5 ul with nuclease free water.\n4. Add 10 ul of Tagment DNA mix to the WTA products, pipet mix, then add 5 ul of Amplicon Tagment mix and pipet mix.\n5. Quickly spin the samples down, and incubate them on the preheated thermal cycler at 55C for exactly 5 minutes.\n6. Immediately place the samples on ice after 5 minutes, then add 5 ul of neutralization (NT) buffer, pipet mix, incubate at room temperature for 5 minutes, and place them on ice.\n7. Add the following reagents in order: 8 ul nuclease free water, 1 ul 10 uM P5-TSO primer, 1 ul 10 uM Nextera_N7XX index primer, 15 ul Nextera PCR master mix.\n8. Thermal cycle the samples: 95\u00b0C 30s; 12 cycles of 95\u00b0C 10s, 55\u00b0C 30s, 72\u00b0C 30s; 72\u00b0C 5 min; 4\u00b0C hold.\nAmpure XP bead purification\n1. Perform Ampure XP bead purification with 0.6X bead ratio as above.\n2. Store the purified tagmented library at -20C.\nNext generation sequencing\nWe will use NextSeq system, with at least 75 cycles.\n1. Quantify the library with BioAnalyzer.\n2. Denature the library according to the manufacturer's guideline. Ideally, one 20-minute collection of droplets will be fully sequenced with a high output kit.\n3. Use custom read 1 primer.\n4. Perform single index, paired end sequencing: read 1 = 20bp, read 2 = 60 bp, index 1 = 8 bp."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p>The droplet generation process might not work well. When this happens, you can see under the microscope a long stream of cells and beads flowing the middle of the microfluidic channel. In this case, you should switch to another chip, because this problem suggests that the hydrophobic treatment is not good enough for this chip.</p><p><br></p><p>When the droplet generation process works well, you will see a blur at the droplet generation junction. This blur is caused by pinching of the stream of cells and beads by the flow of oil.</p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>1. Sample fixation, permeabilization and staining: 2 hours.</p><p>2. Sample preparation and droplet generation: 1.5 hours.</p><p>3. Cross-link reversal: 1 hours and 15 minutes.</p><p>4. Reverse transcription: 2.5 hours.</p><p>5. Exo I digestion: 1 hours.</p><p>6. Whole transcriptome amplification: 3 hours.</p><p>7. Sample purification: 0.5 hours.</p><p>8. Tagmentation: 2 hours.</p><p>9. Sample purification: 0.5 hours.</p><p>10. Next generation sequencing: 12 hours.</p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>The WTA products should be a broad band with a peak between 600-700 bp (Figure 1). The tagmented library should be a broad band with a peak around 400 bp (Figure 2).</p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>1. Macosko, Evan Z., et al. Highly parallel genome-wide expression profiling of individual cells using nanoliter droplets.&nbsp;Cell&nbsp;161.5, 1202-1214 (2015).</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41467-021-25871-2",
+                "date": "",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 44497687,
+                "identity": "d7c1ab14-06a6-4807-bc5f-fe2db30d552e",
+                "order_by": 0,
+                "name": "Hoang Van Phan",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-0162-4283",
+                "institution": "The University of Chicago",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Hoang",
+                "middleName": "Van",
+                "lastName": "Phan",
+                "suffix": ""
+            },
+            {
+                "id": 44497688,
+                "identity": "4df43bd7-d518-42d0-a5dc-c9a9ec00b1cb",
+                "order_by": 1,
+                "name": "Michiel van Gent",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0003-3798-5360",
+                "institution": "The University of Chicago",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Michiel",
+                "middleName": "van",
+                "lastName": "Gent",
+                "suffix": ""
+            },
+            {
+                "id": 44497689,
+                "identity": "5edf0d75-8e5b-4ff4-af72-412db3bb4f96",
+                "order_by": 2,
+                "name": "Nir Drayman",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0003-4460-9558",
+                "institution": "The University of Chicago",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Nir",
+                "middleName": "",
+                "lastName": "Drayman",
+                "suffix": ""
+            },
+            {
+                "id": 44498542,
+                "identity": "2580bd70-2a31-46e3-8700-8e0435e440bf",
+                "order_by": 3,
+                "name": "Anindita Basu",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0001-9468-3727",
+                "institution": "The University of Chicago",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Anindita",
+                "middleName": "",
+                "lastName": "Basu",
+                "suffix": ""
+            },
+            {
+                "id": 44498543,
+                "identity": "bad872cd-6668-47c7-bb9a-8d7a04a40614",
+                "order_by": 4,
+                "name": "Michaela U. Gack",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0002-2163-2598",
+                "institution": "Cleveland Clinic",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Michaela",
+                "middleName": "U.",
+                "lastName": "Gack",
+                "suffix": ""
+            },
+            {
+                "id": 44498544,
+                "identity": "342b2925-61a9-4c49-9e9c-a89ff46b180c",
+                "order_by": 5,
+                "name": "Savas Tay",
+                "email": "tays@uchicago.edu",
+                "orcid": "https://orcid.org/0000-0002-1912-6020",
+                "institution": "The University of Chicago",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Savas",
+                "middleName": "",
+                "lastName": "Tay",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2021-08-08 14:12:10",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-1604/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-1604/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 14196425,
+                "identity": "bb86b722-2608-45b3-9b93-f6830769c932",
+                "added_by": "auto",
+                "created_at": "2021-10-01 16:32:18",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 98085,
+                "visible": true,
+                "origin": "",
+                "legend": "Example quantification of WTA products with TapeStation.",
+                "description": "",
+                "filename": "rep1WTA.png",
+                "url": "https://assets.researchsquare.com/files/pex-1604/v1/2276d0759b924141e3371732.png"
+            },
+            {
+                "id": 14196426,
+                "identity": "da35d104-695a-44b8-9201-e82276755278",
+                "added_by": "auto",
+                "created_at": "2021-10-01 16:32:18",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 110987,
+                "visible": true,
+                "origin": "",
+                "legend": "Example quantification of tagmented library with Fragment Analyzer.",
+                "description": "",
+                "filename": "rep1tagmented.png",
+                "url": "https://assets.researchsquare.com/files/pex-1604/v1/54c5531c7cee9d18d1561526.png"
+            },
+            {
+                "id": 14196427,
+                "identity": "aaa6ddbc-f110-4e62-b1c1-0a097fe568fa",
+                "added_by": "auto",
+                "created_at": "2021-10-01 16:32:25",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 330679,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-1604/v1/01da4f9c-43d4-41cf-80fd-e7d7d393edbd.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "scRNA-seq,Drop-seq,Paraformaldehyde",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>Paraformaldehyde (PFA) fixation is a common fixation technique. However, current high-throughput single-cell RNA sequencing (scRNA-seq) methods are not compatible with PFA-fixed cells. Here we introduce FD-seq (Fixed Droplet RNA Sequencing), a method for droplet-based scRNA-seq of PFA-fixed, stained and sorted cells. FD-seq offers greater flexibility for researchers, and can readily be incorporated with existing Drop-seq experimental setup.</p>",
+        "manuscriptTitle": "Droplet-based single-cell RNA sequencing of paraformaldehyde-fixed cells",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2021-10-01 16:32:16",
+                "doi": "10.21203/rs.3.pex-1604/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "7c686431-9e77-4fcc-80a8-26e47eeb317b",
+        "owner": [],
+        "postedDate": "October 1st, 2021",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 7594450,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 7594451,
+                "name": "Molecular biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2021-10-01 16:32:16",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

@@ -1,0 +1,240 @@
+{
+    "identity": "nprot-6743",
+    "title": "Annotating metabolic enzymes in parasitic worm proteomes",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Enzyme annotation using amino acid sequence isn\u2019t a simple process and multiple methods have been published that accomplish this using different approaches. This protocol uses some of these complementary methods to obtain a high-confidence set of enzymes encoded in the genome.\r\n\n\n\r\n\n\n<a href=\"#figures\" data-url=\"http://www.nature.com/protocolexchange/system/uploads/6577/original/metabolism_protocol_figure.jpg?1523555241\">See figure in Figures section.</a>\r\n\n\n\r\n\n\n**Figure 1: Overview of the protocol.** EC sets in green box are high confidence ECs. EC set C \\(in red box) is a lower confidence set with less false negatives.\r\n\n\n\r\n\n\nAs shown in **Figure 1**, the first step is to annotate enzymes using the protein sequences and multiple annotation methods. Most of these methods use different characteristics of the protein sequence and assign an enzyme activity, formally represented as an Enzyme Commission number \\(EC) to it if it passes certain qualification thresholds. KAAS<sup>1</sup>, which uses the KEGG database<sup>2</sup> assigns KEGG Orthology \\(KO) IDs, which can then be translated to corresponding EC IDs using information from the KEGG database. PRIAM<sup>3</sup> uses position-specific scoring matrices derived for ECs in the ENZYME database<sup>4</sup>. Since, we consider KAAS and PRIAM to have a potential for greater false positive rates, we only use an intersection of their EC annotations. On the other hand, predictions from the BRENDA database<sup>5</sup>, comprising literature-curated predictions, and the DETECT pipeline<sup>6</sup>, a prediction approach accounting for sequence diversity across enzyme families, are considered robust. Thus KAAS/PRIAM predictions are combined with annotations from DETECTv1 and BRENDA to yield a high-confidence set of ECs \\(EC set A in **Figure** **1**).This set is unlikely to suffer from high false-positive rates, because DETECT considers probabilities of all sequences and BRENDA is a literature-curated set of enzymes. However, due to stringency of annotation parameter, it is possible that some ECs will be missed in some draft genomes \\(i.e. false negatives).\r\n\n\nFor applications that are sensitive to false negatives \\(e.g. determining amino acid auxotrophies), a second step is introduced to add additional ECs to EC set A. This is done using the pathway hole-filling algorithm of the Pathway Tools package<sup>7</sup>. Pathway Tools reconstructs metabolic networks using reference pathways, together with an input EC set \\(EC set A in this case). Based on the coverage of reference pathways and input genome sequences, the hole-filling algorithm identifies genes that are likely to encode for candidate false negative ECs. These ECs are further pruned by considering only those supported by KEGG, PRIAM, and EFICaZ<sup>8</sup> and are subsequently added to EC set A. Together the set of high-confidence EC annotations \\(EC set A) and those identified through the hole filling procedure constitute the final set of high-quality EC predictions \\(EC set B).  \r\n\n\nFor large scale comparative studies, we also use gene family information to infer additional ECs that were not identified by the annotation pipeline. Since sequence orthology does not always correlate with shared enzyme activity, we only infer ECs when there are no conflicts in the orthogroup\u2019s EC annotation, and the annotation is supported by some high quality genomes as part of the gene family. Note, these low-confidence ECs \\(EC set C) are only used to validate results obtained from EC set B, rather than for de-novo analysis."
+        },
+        {
+            "header": "Reagents",
+            "content": "KEGG database v70.\r\n\n\n\r\n\n\nBiocyc Database.\r\n\n\n\r\n\n\nCompara Database generated using species of interest.\r\n\n\n\r\n\n\nLocal installation or access to any relevant webservers for Pathway Tools, DETECT v1.0, KAAS v2, PRIAM, BRENDA, EFICAz v2.5."
+        },
+        {
+            "header": "Equipment",
+            "content": "Computer cluster."
+        },
+        {
+            "header": "Procedure",
+            "content": "**Step A: Annotate ECs using 4 different methods**\r\n\n\nThe input to Step A is the protein sequences for the parasitic worms. \r\n\n\n1. Use BRENDA for predicting ECs. Sequences from SWISSPROT\n9\nannotated with EC numbers in BRENDA for each organism are mapped to sequences in the genome via a two-way reciprocal BLAST-based search strategy.\r\n  2. Use DETECT v1.0 to predict ECs. Here we used a high confidence cutoff ILS of 0.9 \\(inclusive), requiring at least 5 positive matches. Further processing is used to include hits with ILS>0.2: sequences annotated with the same EC in DETECT and BLAST against SWISSPROT database are retained, whereas discordant ECs with a higher E-value in BLAST \\(>1e-30) were added if: 1) it was a different EC; or 2) replaced if the ECs differed only in the fourth digit of the classification hierarchy.   \r\n  3. Use PRIAM to predict ECs. The parameter set to be used : minimum probability >0.5, profile coverage >70%, check catalytic - TRUE)\r\n  4. Use KAAS \\(KEGG Automatic Annotation Server) to predict ECs. For this, a locally installed version 2 of KAAS can be used with default settings \\(i.e. bi-directional best hit with bit-score threshold of 35). The KOs \\(KEGG Orthologs) annotated by KAAS are then associated with corresponding ECs using the KO and EC definitions in KEGGv70.\r\n  5. For each species, find the ECs common between predictions of PRIAM and KAAS from steps 3 and 4 above. Call this set of ECs \u201cEC_set_1\u201d.\r\n  6. For each species, combine the ECs obtained using BRENDA and DETECT in steps 1 and 2 above with EC_set_1 \\(i.e. take union of these ECs). This is \u201cEC set A\u201d.\r\n  The output from Step A is a set of high confidence ECs for each species whose proteome was used for predictions.\r\n\n\n\r\n\n\n**Step B: Pathway hole filling using Pathway Tools**\r\n\n\nThe input to Step B is \u201cEC set A\u201d for all the species of interest. Also required is an installation of Pathway Tools pipeline \\(v18.5) along with definitions of metabolic pathways from Biocyc database\n3\n. \r\n\n\n1. Run Pathway Tools pipeline for each species. It uses a set of rules to assign evidence scores for pathway predictions based on: presence of most of the ECs for a pathway, presence of unique ECs, presence of the first two steps \\(for a degradation pathway), presence of the last two steps \\(for a biosynthetic pathway), presence of >50% enzymes \\(for energy metabolism pathways). It also uses taxonomic pruning, wherever information is available, to reduce false-positives. \r\n  2. From the reference pathways in KEGG database, remove those that aren\u2019t relevant to helminths. This is done by including only the KEGG pathways that have at least one reference pathway for a nematode/platyhelminth species in the KEGG database. This meant excluding pathways such as \u2018Carbon fixation in photosynthetic organisms\u2019, even if some of the enzymes implicated in these pathways are found in helminths. In addition, some manual curation may be needed. E.g. excluding caffeine metabolism, which does have a reference pathway for some nematodes \\(C. elegans and C. briggsae KEGG v70) but is deemed unlikely to be of relevance to most helminths studied by us. For KEGG v70, this leaves 65 KEGG pathways deemed to be \u2018helminth-relevant\u2019.\r\n  3. For these helminth-relevant pathways, use the pathway hole-filler component \\(default settings) of Pathway Tools to assign genes to pathway holes.\r\n  4. Only include Predictions for those genes from step 3 above that either \\(a) had no assigned ECs by Step A above; or \\(b) were assigned a different EC by that method but also had support for the alternative EC \\(i.e. the one supported by pathway hole-filler) based on at least one of KAAS, PRIAM, or EFICAz v2.5 predictions \\(default settings).\r\n  5. Combine any ECs obtained by step 4 above with \u201cEC set A\u201d \\(i.e. take union of the sets) to yield \u201cEC set B\u201d.\r\n  The output from Step B is an expanded set of high quality ECs for each species whose proteome was used for predictions.\r\n\n\n\r\n\n\n**Step C: Using Compara database to expand the set of ECs**.\r\n\n\nStep C can be optionally used when a Compara database\n10\nis available that has been generated for the set of helminth species used in Steps A and B. The resulting ECs could have higher false positive rates, and should be used for applications sensitive to false negatives. \r\n\n\nThe input to Step C is \u201cEC set B\u201d obtained after step B above along with the corresponding EC-gene mappings for each species. \r\n\n\n1. From the helminth species analyzed, identify a set of \u201cTier 1\u201d species whose genomes and gene models are deemed to have high quality. \r\n  2. From the Compara gene families, remove those that have different ECs assigned after Step B to at least 2 genes from Tier 1 species.\r\n  3. From the remaining Compara gene families, remove those that have less than 2 genes from Tier 1 species annotated with an EC after Step B. \r\n  4. For each of the remaining Compara gene family, there should be a unique EC annotated to Tier 1 genes. Assign this EC to any genes in the family without EC annotation after Step B. This new set of ECs for each of the species is the \u201cEC set C\u201d.\r\n  The output from Step C is an expanded set of relatively lower confidence ECs for each species whose proteome was used for predictions."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "The output from the protocol is a set of high confidence ECs annotated for each helminth species whose proteome was input. A lower confidence set of ECs is also obtained after optional Step C, which can be used for validation of results obtained using the high confidence ECs that may be sensitive to false negatives."
+        },
+        {
+            "header": "References",
+            "content": "1. Moriya, Y., Itoh, M., Okuda, S., Yoshizawa, A.C. & Kanehisa, M. KAAS: an automatic genome annotation and pathway reconstruction server. Nucleic Acids Res 35, W182-5 \\(2007).\r\n  2. Kanehisa, M. et al. Data, information, knowledge and principle: back to metabolism in KEGG. Nucleic Acids Res 42, D199-205 \\(2014).\r\n  3. Claudel-Renard, C., Chevalet, C., Faraut, T. & Kahn, D. Enzyme-specific profiles for genome annotation: PRIAM. Nucleic Acids Res 31, 6633-9 \\(2003).\r\n  4. Bairoch, A. The ENZYME database in 2000. Nucleic Acids Res 28, 304-5 \\(2000).\r\n  5. Schomburg, I. et al. BRENDA in 2013: integrated reactions, kinetic data, enzyme function data, improved disease classification: new options and contents in BRENDA. Nucleic Acids Res 41, D764-72 \\(2013).\r\n  6. Hung, S.S., Wasmuth, J., Sanford, C. & Parkinson, J. DETECT--a density estimation tool for enzyme classification and its application to Plasmodium falciparum. Bioinformatics 26, 1690-8 \\(2010).\r\n  7. Karp, P.D. et al. Pathway Tools version 19.0 update: software for pathway/genome informatics and systems biology. Brief Bioinform 17, 877-90 \\(2016).\r\n  8. Kumar, N. & Skolnick, J. EFICAz2.5: application of a high-precision enzyme function predictor to 396 proteomes. Bioinformatics 28, 2687-8 \\(2012).\r\n  9. Boutet, E. et al. UniProtKB/Swiss-Prot, the Manually Annotated Section of the UniProt KnowledgeBase: How to Use the Entry View. Methods Mol Biol 1374, 23-54 \\(2016).\r\n  10. Moriya, Y., Itoh, M., Okuda, S., Yoshizawa, A.C. & Kanehisa, M. KAAS: an automatic genome annotation and pathway reconstruction server. Nucleic Acids Res 35, W182-5 \\(2007)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 15636,
+                "identity": "a167a0c5-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "John Parkinson",
+                "email": "jparkin@sickkids.ca",
+                "orcid": "",
+                "institution": "Hospital for Sick Children, Toronto, Canada",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "John",
+                "middleName": "",
+                "lastName": "Parkinson",
+                "suffix": ""
+            },
+            {
+                "id": 15633,
+                "identity": "a16795bd-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Swapna Seshadri",
+                "email": "",
+                "orcid": "",
+                "institution": "Hospital for Sick Children, Toronto, Canada",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Swapna",
+                "middleName": "",
+                "lastName": "Seshadri",
+                "suffix": ""
+            },
+            {
+                "id": 15634,
+                "identity": "a167995b-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Rahul Tyagi",
+                "email": "",
+                "orcid": "",
+                "institution": "Mitreva Lab (MGI, Washington University in St. Louis)",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Rahul",
+                "middleName": "",
+                "lastName": "Tyagi",
+                "suffix": ""
+            },
+            {
+                "id": 15635,
+                "identity": "a1679e84-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Makedonka Mitreva",
+                "email": "",
+                "orcid": "",
+                "institution": "MGI, Washington University in St. Louis",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Makedonka",
+                "middleName": "",
+                "lastName": "Mitreva",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2018-04-12 18:19:17",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2018.047",
+        "doiUrl": "https://doi.org/10.1038/protex.2018.047",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2610110,
+                "identity": "f1c7d883-8b51-4755-9e68-b7f6908f9506",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:25",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 313605,
+                "visible": true,
+                "origin": "",
+                "legend": "Overview of the protocol   EC sets in green box are high confidence ECs. EC set C (in red box) is a lower confidence set with less false negatives.",
+                "description": "",
+                "filename": "figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-6743/v1/figure_1.jpg"
+            },
+            {
+                "id": 13465700,
+                "identity": "16748f37-7172-4d28-bfc1-fe5800c8c709",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:47:51",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 191029,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-6743/v1/5e4cfe6c-1aa6-4293-8676-436cfc0fa800.pdf"
+            }
+        ],
+        "financialInterests": "none",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "enzyme annotation, genome annotation, metabolism, enzymes, helminths, nematoda, platyhelminthes",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "Ascertaining metabolic potential of parasites is an important step in understanding their biology, and getting insights into host-parasite interactions. This process starts with identifying enzymes using protein sequences encoded in their genome. Here we describe a computational protocol to obtain a set of high confidence predictions for enzymes encoded in worm genomes using multiple enzyme annotation methods. This also includes an optional gene-family based inference method to expand the results by adding a set of relatively lower confidence predictions, if needed.\r\n\n\n\r\n\n\nThis work was done jointly between the \"Mitreva Lab\":https://www.nature.com/protocolexchange/labgroups/1124733, and the Parkinson Lab \\(Hospital for Sick Children, Toronto)\r\n\n\nWebsite: \"http://www.compsysbio.org\":http://www.compsysbio.org.",
+        "manuscriptTitle": "Annotating metabolic enzymes in parasitic worm proteomes",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2018-04-17 13:16:08",
+                "doi": "10.1038/protex.2018.047",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a163bfa0-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "April 17th, 2018",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 4241,
+                "name": "Biochemistry"
+            },
+            {
+                "id": 4242,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 4243,
+                "name": "Biotechnology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2018-04-17 13:16:08",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

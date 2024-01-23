@@ -1,0 +1,273 @@
+{
+    "identity": "nprot-6411",
+    "title": "DNA methylation signatures analysis with Illumina Infinitum MethylationEPIC and Infinium Human Methylation 450K BeadChip",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "This protocol provides a pipeline for a two-stage genome-wide DNA methylation analysis for HIV-infected IDU in African American male. \r\n\n\nAll subjects were from a well-established longitudinal cohort, Veteran Aging Cohort Study \\(VACS). \r\n\n\nDNA samples were isolated from whole blood. \r\n\n\nDNA methylation profile: Illumina HumanMethylation 450k Beadchip. \r\n\n\nThe replication analysis was based on Illumina EPIC BeadChip. \r\n\n\n\r\n\n\nAnalysis pipeline: \r\n\n\n\r\n\n\n<a href=\"https://www.nature.com/protocolexchange/system/uploads/6021/original/workflow.png?1508355637\" > <img src=\"https://www.nature.com/protocolexchange/system/uploads/6021/original/workflow.png?1508355637\"  height=\"300\" width=\"550\"> </a>\r\n\n\nFigure 1 Analysis workflow"
+        },
+        {
+            "header": "Reagents",
+            "content": "Computer with at least 2 GB of RAM \\(Linux server required for large data set, but PC and Mac are also OK with the data set used in this protocol)\r\n\n\n\r\n\n\nHigh performance computer system with Linux system."
+        },
+        {
+            "header": "Equipment",
+            "content": "R ver >= 3.3.3\r\n\n\nminfi ver >= 1.18.1\r\n\n\ncaret ver >= 6.0-77"
+        },
+        {
+            "header": "Procedure",
+            "content": "1. Rawdata processing \r\n  \r\n\n\n1 a) download raw data: \r\n\n\nhttps://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE100264\r\n\n\n\r\n\n\n1 b). Detection Pvalue determination\r\n\n\n A total of 416 probes on chromosome Y were selected. \r\n\n\n A set of p-values, 5e-2, 1e-2, 1e-5, 1e-8, 1e-10, 1e-12, \u2026 1e-30, was used to calculate the call rate of each female subject using the 416 probes. \r\n\n\n A detection p-value was chosen considering ratio of non-0-call-rate subjects, and not too stringent to exclude too many signals.  \r\n\n\nFinally, the intensity values with detection P \u2265 1e-12 were set to missing data.\nFigure 2 450K Pvalue determination\nFigure 3 EPIC Pvalue determination\r\n\n\n\r\n\n\n1 c) Data QC\r\n\n\n\r\n\n\nThe data quality was checked by using minfi R package.\r\n\n\n\r\n\n\nProbe QC:\r\n\n\nAll the probes located in sex chromosome probes and within 10 bp SNP were removed.\r\n\n\nSex chromosome: 11,648 probes on sex chromosomes \r\n\n\nWithin 10 bp SNP: 36,142 probes within 10 bp SNPs. \r\n\n\nA total of 437,722 probes remained after removing the above probes.\r\n\n\n\r\n\n\nSample QC:\r\n\n\nWe determined the proportion of missing data per sample, enabling calculation of the sample call rate, and excluded samples with sample call rate < 98%. We also compared the predicted sex with the self-reported sex.  One sex mismatched sample and three samples with lower call rate than 0.98 were found and excluded in the further analysis.\nFigure 4 sex prediction results\nFigure 5 whole beta value distribution\nFigure 6 sample data quality check\r\n\n\n\r\n\n\nR code:\r\n\n\n#############################\r\n\n\nqc <- getQC\\(MSet)\r\n\n\nhead\\(qc)\r\n\n\n#plot QC\r\n\n\nplotQC\\(qc)\r\n\n\n\r\n\n\n#check sex\r\n\n\nplotSex\\(getSex\\(gRatioSet.quantile, cutoff = -2))\r\n\n\n#############################\r\n\n\n\r\n\n\n1 d) Intensity data processing and normalization\r\n\n\nBackground correction and within array normalization was conducted with preprocessIllumina function in minfi package. The original Green/Red channel intensity data was also transformed to Meth/Unmeth data. \r\n\n\n\r\n\n\nAll probes were divided to 3 types: Type I Green, Type I Red, and Type II. \r\n\n\nMeth/Unmeth data were subsequently divided into 6 groups: Meth and Unmeth for each type as above. \r\n\n\nEach group was normalized independently by using normalizeBetweenArrays function in Limma R package \\(version 3.26.2), and then were merged. Then Beta value of each probe was generated using getBeta function in minfi. \r\n\n\n\r\n\n\nR code:\r\n\n\n#############################\r\n\n\n#background correction & within-array normalization\r\n\n\nMSet.illumina <- preprocessIllumina\\(RGSet, bg.correct = TRUE,\r\n\n\n                               normalize = \"controls\")\r\n\n\n                               \r\n\n\n#between-array normalization after dividing the signals into 6 parts                             \r\n\n\nmeth.1 = normalizeBetweenArrays\\(my.meth\\[typeIProbesGrn,])\r\n\n\nmeth.2 = normalizeBetweenArrays\\(my.meth\\[typeIProbesRed,])\r\n\n\nmeth.3 = normalizeBetweenArrays\\(my.meth\\[typeIIProbes,])\r\n\n\nunmeth.1 = normalizeBetweenArrays\\(my.unmeth\\[typeIProbesGrn,])\r\n\n\nunmeth.2 = normalizeBetweenArrays\\(my.unmeth\\[typeIProbesRed,])\r\n\n\nunmeth.3 = normalizeBetweenArrays\\(my.unmeth\\[typeIIProbes,])\r\n\n\n#############################\r\n\n\n\r\n\n\n2. EWAS \r\n  The EWAS pipeline mainly contains four steps:\r\n\n\nPrincipal component analysis \\(PCA) on intensities of positive control probes \\(to remove batch effect)\r\n\n\nBlood cell type proportion was estimated \\(to adjust cell type confounders)\r\n\n\nPCA on intermediary residuals \\(to control global biological confounders)\r\n\n\nGeneral linear model of IDUs\r\n\n\n\r\n\n\n2 a) PCA on intensities of control probes\r\n\n\n\r\n\n\nPCA on the intensities of 237 positive control probes. \r\n\n\nPrior-adjustment: Top PCs were correlated with some technical biases. \r\n\n\nPost-adjustment: batch effect was significantly eliminated.\nFigure 7 Pre and post PCA adjustment on intensities of control probes\r\n\n\n\r\n\n\n2 b) Blood cell type proportions estimation\r\n\n\n\r\n\n\nSix blood cell sub-populations were estimated using the approach described by Houseman et al. \r\n\n\n600 probes highly correlated with blood cell types were applied to estimate each cell type composition. \r\n\n\nMinfi R package was used.\r\n\n\n\r\n\n\nR code:\r\n\n\n#############################\r\n\n\ncellCounts <- estimateCellCounts\\(RGSet)\r\n\n\n#############################\nFigure 8 CD4 estimated vs. lab measured\nFigure 9 CD8 estimated vs. lab measured\nFigure 10 pre and post cell type adjustment\r\n\n\n\r\n\n\n2 c) PCA on intermediary residuals\r\n\n\n\r\n\n\nRegression model 1: adjusted for technical bias using Control probe PCA and some essential biological factors \r\n\n\n\r\n\n\nGLM model:\r\n\n\nBeta ~ Age + WBC_total + CD8T + CD4T + Gran + NK + Bcell + Mono + PC1-30ControlProbe \r\n\n\n\r\n\n\n2 d) Final EWAS model\r\n\n\n\r\n\n\nRegression model 2:\r\n\n\n\r\n\n\nGLM model:\r\n\n\nBeta ~ ivdused + Age + logVL+ WBC_total + CD8T + CD4T + Gran + NK + Bcell + Mono + PC1-30ControlProbe + PC1-5residual\r\n\n\n\r\n\n\nPC1-30ControlProbe was used to control technical bias\r\n\n\nPC1-5residual was used to control other global confounders\r\n\n\nlogVL: lg\\(HIV Viral Load); to control HIV VL\r\n\n\nWBC_total, CD8T, CD4T, Gran, NK, Bcell, Mono: to control cell type\r\n\n\n\r\n\n\n3 Clustering\r\n\n\n\r\n\n\n3 a) hirarchical clustering\r\n\n\n\r\n\n\nR library heatmap3 was used.\r\n\n\n\r\n\n\nR code:\r\n\n\n#############################\r\n\n\nresult <- heatmap3\\(dat,\r\n\n\n    distfun = distfunc,\r\n\n\n    hclustfun = hclustfunc,\r\n\n\n    ColSideCut = ColSideCut,\r\n\n\n    ColSideAnn = ColSideAnn,\r\n\n\n    ColSideFun = function\\(x) \\{\r\n\n\n        showAnn\\(x)\r\n\n\n    },\r\n\n\n    ColSideWidth = ColSideWidth,\r\n\n\n    ColSideColors = ColSideColors,\r\n\n\n    RowAxisColors = RowAxisColors,\r\n\n\n    breaks  = breaks,\r\n\n\nl   egendfun = legendfun,\r\n\n\n    col = cols,\r\n\n\n    verbose = T,\r\n\n\n    scale = scale,\r\n\n\n    showRowDendro = T,\r\n\n\n    showColDendro = T,\r\n\n\n    RowSideLabs = F,\r\n\n\n    ColSideLabs = F\r\n\n\n    )\r\n\n\n#############################\nFigure 11 hierarchical clustering\r\n\n\n\r\n\n\n3 b) T-SNE visualization\r\n\n\n\r\n\n\nR library Rtsne was used\r\n\n\n\r\n\n\nR code:\r\n\n\n#############################\r\n\n\ntrain = dat\r\n\n\nlibrary\\(Rtsne)\r\n\n\nset.seed\\(123456789)\r\n\n\ntsne <- Rtsne\\(t\\(train), dims = 2, perplexity = 50, verbose = TRUE, max_iter = 2000, theta = 0)\r\n\n\n#############################\r\n\n\n\r\n\n\n4 Genome-wide differential DNA methylation region \\(DMR) analysis using bumphunter protocol. \r\n\n\n\r\n\n\nFirst define a regression model very similar with EWAS final model \\(refre to 2 d), and then define gene clusters with R object gRatioSet. At last produce DMRs with bumphunter fucntions in minfi. \r\n\n\n\r\n\n\nR code:\r\n\n\ndesignMatrix_cov <- model.matrix\\(~ logVL_new + adhmed+dcq1pot+dcq2coke+dcq3stim+dcq4opio+alcohol+ivdused+AGEBL+RACECOMG+WBC_new+CD8T+CD4T+Gran+NK+Bcell+Mono+Control_Probe_PC1+Control_Probe_PC2+Control_Probe_PC3+Control_Probe_PC4+Control_Probe_PC5+Control_Probe_PC6+Control_Probe_PC7+Control_Probe_PC8+Control_Probe_PC9+Control_Probe_PC10+Control_Probe_PC11+Control_Probe_PC12+Control_Probe_PC13+Control_Probe_PC14+Control_Probe_PC15+Control_Probe_PC16+Control_Probe_PC17+Control_Probe_PC18+Control_Probe_PC19+Control_Probe_PC20+Control_Probe_PC21+Control_Probe_PC22+Control_Probe_PC23+Control_Probe_PC24+Control_Probe_PC25+Control_Probe_PC26+Control_Probe_PC27+Control_Probe_PC28+Control_Probe_PC29+Control_Probe_PC30+resiPC1+resiPC2+resiPC3+resiPC4+resiPC5+resiPC6+resiPC7+resiPC8+resiPC9+resiPC10, targets)\r\n\n\n\r\n\n\nR code:\r\n\n\n#############################\r\n\n\nget_pos_chr_cluter_from_gRatio = function \\(cc_gRatioSet, maxGap=200000) \\{\r\n\n\n    annotation <- getAnnotation\\(cc_gRatioSet);\r\n\n\n    chr = annotation$chr;\r\n\n\n    pos = annotation$pos;\r\n\n\n    cl <- clusterMaker\\(chr, pos, maxGap = maxGap)\r\n\n\n    print\\(table\\(cl))\r\n\n\n    Indexes <- split\\(seq_along\\(cl), cl)\r\n\n\n    ret = list\\(chr=chr, pos=pos, cl=cl, Indexes = Indexes)\r\n\n\n}\r\n\n\ncluster_info = get_pos_chr_cluter_from_gRatio\\(cc_gRatioSet, maxGap);\r\n\n\ndmrs_cov.cl <- bumphunter\\(getBeta\\(cov_gRatioSet), design = designMatrix_cov, chr=cluster_info$chr, pos=cluster_info$pos, cluster=cluster_info$cl, cutoff = NULL, pickCutoff=T, maxGap = maxGap,  B=perm_num, type=\"Beta\", smooth=F, nullMethod=\"bootstrap\")\r\n\n\n#############################\r\n\n\n\r\n\n\n5 Machine learning analysis \r\n\n\n\r\n\n\n5 a) Support vector machine \\(SVM) algorithm and R package caret was used. The 386 samples in EWAS and 748 CpG sites were used as training set. A different set of 238 samples also from VACS was used as independent testing set. The training samples were divided into 5 equal number of subgroups with indexes of <16, 17\u201324, 25\u201334, 35\u201350, and >50.  In the testing samples, high and low HIV frailty was defined as VACS index scores above 50 \\(the upper 20% quantile in 386 training samples) and below 16 \\(lower 20% quantile). We then tested prediction performance on subjects with high \\(VACS index >50 vs. \u226450) and low HIV frailty \\(VACS index <16 vs. \u226516), respectively.\r\n\n\n\r\n\n\n5 b) 1000 times permutation test was conducted to study that if the 748 probes has a significant performance than random ones. AUROC was used in the analysis.\nFigure 12 independent test, TP \\(true positive), FP \\(false positive), TN \\(true negative), FN \\(false negative) distribution\r\n\n\n\r\n\n\n6 Pathway enrichment analysis\r\n\n\n\r\n\n\nIPA was used on pathway enrichment analysis of DMP and DMR genes\nFigure 13 Pathway enrichment analysis"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "The pipeline should produce the following results:\r\n\n\n\r\n\n\n1) QC figures and normalized raw methylation data \r\n\n\n2) EWAS results and significant probes\r\n\n\n3) Machine learning results with using data of the significant CpG sites"
+        },
+        {
+            "header": "References",
+            "content": "Lehne B, et al. A coherent approach for analysis of the Illumina HumanMethylation450 BeadChip improves data quality and performance in epigenome-wide association studies. Genome Biol 16, 37 \\(2015).\r\n\n\n\r\n\n\nHouseman EA, et al. DNA methylation arrays as surrogate measures of cell mixture distribution. BMC Bioinformatics 13, 86 \\(2012).\r\n\n\n\r\n\n\nJaffe AE, Irizarry RA. Accounting for cellular heterogeneity is critical in epigenome-wide association studies. Genome Biol 15, R31 \\(2014)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 15262,
+                "identity": "a13d732f-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Xinyu Zhang",
+                "email": "xinyu.zhang@yale.edu",
+                "orcid": "",
+                "institution": "Ke's Lab, Yale University",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Xinyu",
+                "middleName": "",
+                "lastName": "Zhang",
+                "suffix": ""
+            },
+            {
+                "id": 15269,
+                "identity": "a13d906d-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Ke Xu",
+                "email": "ke.xu@yale.edu",
+                "orcid": "",
+                "institution": "Department of Psychiatry, Yale School of Medicine, 300 George Street, New Haven, CT 06511",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Ke",
+                "middleName": "",
+                "lastName": "Xu",
+                "suffix": ""
+            },
+            {
+                "id": 15263,
+                "identity": "a13d79b3-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Ying Hu",
+                "email": "",
+                "orcid": "",
+                "institution": "NCI",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Ying",
+                "middleName": "",
+                "lastName": "Hu",
+                "suffix": ""
+            },
+            {
+                "id": 15264,
+                "identity": "a13d7cd6-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Amy Justice",
+                "email": "",
+                "orcid": "",
+                "institution": "VA Connecticut Healthcare System, 950 Campbell Ave, West Haven, CT 06516",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Amy",
+                "middleName": "",
+                "lastName": "Justice",
+                "suffix": ""
+            },
+            {
+                "id": 15265,
+                "identity": "a13d802a-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Boyang Li",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Biostatistics, Yale School of Public Health, New Haven, CT, 06511",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Boyang",
+                "middleName": "",
+                "lastName": "Li",
+                "suffix": ""
+            },
+            {
+                "id": 15266,
+                "identity": "a13d83af-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Zuoheng Wang",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Biostatistics, Yale School of Public Health, New Haven, CT, 06511",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Zuoheng",
+                "middleName": "",
+                "lastName": "Wang",
+                "suffix": ""
+            },
+            {
+                "id": 15267,
+                "identity": "a13d8766-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Hongyu Zhao",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Biostatistics, Yale School of Public Health, New Haven, CT, 06511",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Hongyu",
+                "middleName": "",
+                "lastName": "Zhao",
+                "suffix": ""
+            },
+            {
+                "id": 15268,
+                "identity": "a13d8bdd-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "John Krystal",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Psychiatry, Yale School of Medicine, 300 George Street, New Haven, CT 06511",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "John",
+                "middleName": "",
+                "lastName": "Krystal",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2017-11-17 15:14:24",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2018.080",
+        "doiUrl": "https://doi.org/10.1038/protex.2018.080",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13465743,
+                "identity": "ae42f410-25ea-4fda-8a74-b9cb74899f84",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:48:00",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 157930,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-6411/v1/710ac7ad-efdf-4e7a-b863-bcdacca07c6f.pdf"
+            }
+        ],
+        "financialInterests": "No conflicting financial interests to declare.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "IDU HCV 450K EPIC signature CpG island",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "This protocol provides detailed instructions on Quality Control, EWAS, and CpG island signature discovery with Illumina Infinitum MethylationEPIC and Infinium Human Methylation 450K BeadChip data. R package minfi and caret was used in this analysis.",
+        "manuscriptTitle": "DNA methylation signatures analysis with Illumina Infinitum MethylationEPIC and Infinium Human Methylation 450K BeadChip",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2018-06-12 16:04:11",
+                "doi": "10.1038/protex.2018.080",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a1341668-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "June 12th, 2018",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 4105,
+                "name": "Genetics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2018-06-12 16:04:11",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

@@ -1,0 +1,347 @@
+{
+    "identity": "nprot-7053",
+    "title": "Proximity-CLIP",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "_Proximity-CLIP_ employs covalent crosslinking of RNA with interacting proteins by photoreactive ribonucleoside-enhanced crosslinking<sup>2</sup>, combined with compartment specific protein biotinylation using the APEX2 system<sup>1</sup> to study transcripts localized in that compartment. The approach relies on the well-supported assumptions that most cellular RNAs are protein-bound throughout their life cycle<sup>3</sup>, including transcription, processing, mobilization, translation and degradation \\(Fig. 1a) and that RBPs from different subcellular compartments remain amenable to UV-crosslinking<sup>4</sup>.\r\n\n\nThe workflow of _Proximity-CLIP_ comprises the following steps: \\(1.) 4-thiouridine \\(4SU) labeling of RNAs in living cells expressing specifically localized APEX2; \\(2.) biotinylation of APEX2-proximate proteins by incubation of cells with biotin-phenol, followed by reaction activation with hydrogen peroxide \\(H<sub>2</sub>O<sub>2</sub>) for 1 min, and reaction quenching using sodium ascorbate, Trolox, and sodium azide; \\(3.) _in-vivo_ crosslinking of RNA and proteins using UV light \\(312- 365 nm) during the quenching step; and \\(4.) isolation of localized, biotinylated, and crosslinked ribonucleoprotein \\(RNP) complexes by affinity chromatography \\(Fig. 1b). \r\n\n\nThe covalent nature of the interactions between biotin, RBPs, and RNA renders the RNP complexes resistant to stringent purification steps, maximizing the signal-to-noise ratio in the downstream high-throughput proteomic<sup>1</sup> and transcriptomic analyses \\(Fig. 1b). Proximity biotinylation eliminates the need for cell fractionation schemes and allows for the isolation of compartments inaccessible to biochemical purification. Furthermore, the use of stringent extraction conditions promotes the preservation of the composition of the isolated cellular components. Nevertheless, it should be noted that protein and thus RNA yield from _Proximity-CLIP_ is expected to correlate with the number of cells and biotinylation efficiency with implications for the signal-to-noise ratio for subcellular compartments containing small amounts of protein and/or RNA.\r\n\n\n_Proximity-CLIP_ allows for \\(1.) the determination of the localized proteome in general and the RBPome in particular using MS; \\(2.) the profiling of localized transcripts using RNAseq; and \\(3.) the identification and quantification of RBP-occupied _cis_-acting elements on transcripts, by isolation of RNase-resistant footprints that are converted into next-generation sequencing compatible cDNA libraries \\(Fig. 1c). UV-crosslinking of 4SU-labeled RNA to interacting proteins leads to a structural change at the photoreactive nucleoside, resulting in a characteristic T-to-C mutation in the corresponding cDNA libraries<sup>4</sup>. This feature allows for efficient computational removal of contaminating sequences derived from non-crosslinked fragments of abundant cellular RNAs, further increasing the specificity of _Proximity-CLIP_ by reducing the false-positive detection rate in the profiling of localized RNAs.\r\n\n\nSections describing proteins Proximity biotinylation rely on Hung et. al. Nature Protocols 2016<sup>1</sup>. Sections describing 4SU labelling, far UV-crosslinking and small RNA cDNA library preparation for sequencing rely on Benhalevy, McFarland, Sarshad et. al. Methods 2017<sup>5</sup>, on Hafner et. al. Methods 2012<sup>6</sup>, and on Hafner et. al. Cell 2010<sup>2</sup>.\r\n\n\n\r\n\n\n<a href=\"http://www.nature.com/protocolexchange/system/uploads/7199/original/Figure1_Figure1.png?1537567679\" > <img src=\"http://www.nature.com/protocolexchange/system/uploads/7199/thumbnail/Figure1_Figure1.png?1537567679\" > </a> \r\n\n\n**Figure 1:** **_Proximity-CLIP_**** scheme | a,** _Proximity-CLIP_ takes advantage of the occupancy by RBPs of cellular RNAs throughout their life cycle. An APEX2 fusion protein is targeted to a cellular compartment of choice using a fused localization element \\(LE), and cellular RNAs are labeled with 4SU. **b,** Cells are incubated with biotin-phenol \\(BP) for 30 min, before APEX2-mediated BP oxidation is activated by addition of hydrogen peroxide, followed by reaction quenching and 4SU-dependent protein-RNA crosslinking by UV. BP radicals are created locally and either covalently tag proximate proteins or decay. Compartment-specific RNPs and proteins are captured by streptavidin affinity chromatography. **c,** The eluate from **b** is split in three parts: The compartment proteome is analyzed by mass spectrometry \\(left panel) and the RNA is either treated by RNAse and analyzed by small RNA cDNA library preparation of RBP-protected footprints, analogous to PAR-CLIP \\(middle panel), or by standard RNAseq \\(right panel)."
+        },
+        {
+            "header": "Reagents",
+            "content": "- Cell lines of interest \\(see Procedures/Reagents Setup).\r\n\n\n- DMEM \\(Gibco, 11995-065)\r\n\n\n- PenStrep \\(Gibco, 15140-122)\r\n\n\n- FBS\\(Atlanta Biologicals 11150)\r\n\n\n- Ponceau S solution \\(Sigma Aldrich, P7170)\r\n\n\n- Pierce 660-nm protein assay reagent \\(Thermo Fisher Scientific, 22660).\r\n\n\n- Sequencing Grade Modified Trypsin \\(Promega, V5111).\r\n\n\n- Mouse anti V5 \\(Life Technologies, R960-25).\r\n\n\n- GFP Tag Monoclonal Antibody \\(GF28R) \\(Thermo Fisher, MA5-15256).\r\n\n\n- Alexa488-coupled Goat\uf061Mouse \\(Thermo, A11001).\r\n\n\n- Vectashield with DAPI \\(VECTOR, H-1200)\r\n\n\n- 16% paraformaldehyde \\(EMS, 15710).\r\n\n\n- Streptavidin-horseradish peroxidase \\(Life Technologies, S-911).\r\n\n\n- Streptavidin Magnetic beads \\(Pierce, 88817).\r\n\n\n- NeutroAvidin biotin-binding protein \\(Invitrogen, A-2666).\r\n\n\n- Alexa Fluor 647 succinimidyl ester \\(Invitrogen, A-20006).\r\n\n\n- Dulbecco\u2019s PBS \\(Gibco, 10010-023).\r\n\n\n- Tween-20 \\(Sigma-Aldrich, P1379).\r\n\n\n- Triton X-100 \\(Sigma-Aldrich, T9284).\r\n\n\n- Sodium deoxycholate \\(Sigma-Aldrich, D6750).\r\n\n\n- SDS \\(Sigma-Aldrich, L3771).\r\n\n\n- Bromophenol Blue \\(Sigma-Aldrich, B0126).\r\n\n\n- Glycerol \\(Invitrogen, 1946C501).\r\n\n\n- Urea \\(VWR, EM-UX0065-1).\r\n\n\n- Biotin, \\(Sigma-Aldrich, B4501).\r\n\n\n- cOmplete Mini EDTA free Protease Inhibitor Cocktail Tablets \\(Sigma-Aldrich, 4693159001).\r\n\n\n- PMSF \\(G-Biosciences, 786-055).\r\n\n\n- Hydrogen peroxide solution \\(Sigma-Aldrich, H1009).\r\n\n\n- Poly L-Lysine \\(Sigma-Aldrich, P8920).\r\n\n\n- Biotin-Phenol \\(BP, iris-biotech, ls-3500.1000).\r\n\n\n- Ammonium bicarbonate \\(Sigma-Aldrich, A6141).\r\n\n\n- Sodium ascorbate \\(VWR, 95035-692).\r\n\n\n- Trolox \\(Sigma, 238813).\r\n\n\n- Sodium azide \r\n\n\n- DTT \\(Sigma-Aldrich, D9163).\r\n\n\n- Pierce\u2122 Iodoacetamide, Single-Use \\(Thermo Scientific, 90034).\r\n\n\n- Pierce\u2122 DTT \\(Dithiothreitol), No-Weigh\u2122 Format \\(Thermo Scientific, 20291)\r\n\n\n- Blasticidin \\(Life Technologies, A11139-02).\r\n\n\n- Tris-MOPS-SDS Running Buffer Powder \\(Genscript, M00138).\r\n\n\n- ExpressPlus\u2122 PAGE Gels,10\u00d710, 4-20%, 15 wells \\(Genscript, M42015L).\r\n\n\n- PageRuler\u2122 Prestained Protein Ladder, 10 to 180 kDa \\(Thermo Fisher, 26616).\r\n\n\n- Biophenol \\(Phenol:Chloroform:Isoamyl Alcohol 25:24:1, Saturated with 10mM Tris, pH 8.0, 1mM EDTA), \\(Sigma-Aldrich, P3803).\r\n\n\n- 4-thiouridine \\(4SU) \\(Sigma Aldrich, T4509)\r\n\n\n- RNase T1 \\(1000 U/\u03bcl) \\(Thermo, EN0541)\r\n\n\n- Calf intestinal phosphatase \\(NEB, M0290)\r\n\n\n- T4 polynucleotide kinase \\(NEB, M0201)\r\n\n\n- \u03b3-32P-ATP, 10 mCi/ml, concentration 1.6 \u03bcM Perkin Elmer, NEG002Z001MC)\r\n\n\n- Proteinase K \\(Roche, 03 115 879 001)\r\n\n\n- Glycoblue \\(15 mg/ml) \\(Ambion, AM9516)\r\n\n\n- Truncated and mutated RNA ligase 2, T4 Rnl2\\(1-249)K227Q \\(1 mg/ml) \\(NEB, M0351)\r\n\n\n- T4 RNA ligase, T4 Rnl1 \\(1 mg/ml) \\(ThermoFisher Scientific, EL0021)\r\n\n\n- Low melting point agarose \\(ThermoFisher Scientific, 16520050)\r\n\n\n- SuperScript\u2122 III Reverse Transcriptase \\(Invitrogen, 18080-044)\r\n\n\n- Taq DNA polymerase \\(Invitrogen, 10966018).\r\n\n\n- NEBNext\u00ae Ultra\u2122 RNA Library Prep Kit for Illumina \\(NEB, E7530).\r\n\n\n- NEB rRNA depletion kit \\(NEB, E6310)"
+        },
+        {
+            "header": "Equipment",
+            "content": "- Spectrolinker XL-1500 \\(Spectronics Corporation)\r\n\n\n- DNA LoBind Tube \\(Eppendorf, 022431021)\r\n\n\n- 3% Pippin gel cassettes \\(Sage Science, CSD3010)\r\n\n\n- DNA clean & concentrator \\(Zymo Research, D4014)\r\n\n\n- Gel breaker tubes \\(Fisher Scientific)\r\n\n\n- 5 \u03bcm filter tube \\(Fisher Scientific)\r\n\n\n- V16-2 Protein Gel Electrophoresis System\r\n\n\n- Urea Gel \\(National Diagnostics, EC-829)\r\n\n\n- Needle and Tweezers for picking up coverslips.\r\n\n\n- Round cover glass, #1.5 thickness, 12 mm, 100 pack \\(Warner instruments, 64-0712\\[CS-12R15]).\r\n\n\n- Mammalian cell culture standard consumables.\r\n\n\n- Fluorescence confocal Microscope.\r\n\n\n- Magnetic rack for streptavidin beads \\(microcentrifuge tubes).\r\n\n\n- Magnetic rack for SPRI beds \\(96 well).\r\n\n\n- Ultimate 3000-nLC \\(Thermo Fisher Scientific).\r\n\n\n- Orbitrap Fusion\r\n\n\n- EASY-Spray C18 column \\(Thermo; 75 \u03bcm x 25 cm inner diameter, 2 \u03bcm particle size and 100 \u00c5 pore size)"
+        },
+        {
+            "header": "Procedure",
+            "content": "Reagents Setup\r\n\n\nCells\r\n\n\nPer experiment, at least 3 cell lines are required: **a.** The parental cell that does not express APEX2. **b.** A cell line that expresses a V5-tagged APEX2 localized to a control compartment \\(often is the cytoplasm). **c.** A cell line expressing V5-tagged APEX2 localized to the compartment of interest. \r\n\n\nFor each sample cells should suffice for preparative protein and RNA assays as well as for Western blot and immunofluorescence controls. Thus at least 20x106 cells are required on the day cells are split for the experiment. IMPORTANT \u2013 maintain control of all cell lines at similar passage and at similar confluency \\(<100%) to minimize variability stemming from cell senescence, contact inhibition, variable growth rate etc\u2026 \r\n\n\n\r\n\n\nThis protocol was developed on Invitrogen HEK293 T-REX FlpIn cells as the parental lines, and stable cell lines were produced according to Invitrogen instructions, however it should be relatively easy to adjust it to any other cell culture systems.\r\n\n\nCRITICAL\\! HEK293 cells are relatively weakly adherent, therefore all steps involving accessing the plates for washing or liquid additions should be done with extreme caution. \r\n\n\n\r\n\n\nCell media\r\n\n\nStandard medium - \\(DMEM\\[Gibco, 11995-065], 10% FBS, 1:1000 PenStrep \\[Gibco, 15140-122]).\r\n\n\nPre-selection: Standard medium supplemented with 100 \u00b5g/ml Zeocin \\(frt site selection) + 15 \u00b5g/ml Blasticidin \\(tetR selection).\r\n\n\nPost-selection: Standard medium supplemented with 100 \u00b5g/ml Hygromycin \\(pFRT insert) + 15 \u00b5g/ml Blasticidin \\(tetR selection). \r\n\n\n\r\n\n\nBuffers\r\n\n\nRIPA lysis buffer: 50 mM Tris, 150 mM NaCl, 0.1% \\(wt/vol) SDS, 0.5% \\(wt/vol) sodium deoxycholate and 1% \\(vol/vol) Triton X-100 in Millipore water. Adjust the pH to 7.5 with HCl. This solution can be stored at 4 \u00b0C for many months.\r\n\n\nRNase T1 buffer: 20 mM Tris pH7.4, 150 mM NaCl, 2 mM EDTA, 1% NP40.\r\n\n\nPNK buffer without DTT: 50 mM Tris pH7.5, 50 mM NaCl, 10 mM MgCl\n2\n.\r\n\n\n\r\n\n\n\r\n\n\nProcedure\r\n\n\n\r\n\n\n1. Defrost cells in standard media.\r\n  2. Expand each of the control and experimental strains in its own selective media: Parental T-Rex cells in pre-selection medium and APEX2-expressing cells in post selection medium.\r\n  3. Collect and count cells, and split them into standard media as follows:\r\n  Splitting table:\n4. 16-24 hours after splitting the cells add 4-thiouridine \\(4SU) to the cell culture media \\(only to the 6 and 15 cm plates) to a final concentration of 100 \u03bcM. NOTE\\! 4SU stock concentration is 500 mM, so an intermediate x10 dilution in standard media to 50 mM is necessary, from which 2 \u03bcl should be added per ml of media. Also add Doxycycline \\(DOX) to all plates to a final concentration of 2 \u03bcg/ml. NOTE\\! Because of the low volumes of 24-wells an intermediate x100 dilution to 200 \u03bcg/ml is necessary from which 10 \u03bcl should be added per ml of media.\r\n  5. Prepare the 500 mM stock of BP: Dissolve BP in DMSO. The 500 mM stock may need to be sonicated \\(was not needed in our case). Divide the solution into 50-\u03bcl aliquots, and store the BP stock at \u2212 80 \u00b0C. These aliquots can be stored for several months.\r\n  6. Also prepare the 1M sodium azide stock: Dissolve sodium azide in Millipore water. Aliquots can be stored at \u2013 20 \u00b0C or below for several months.\r\n  \r\n\n\nTreatments and fluorescence staining plan:\n7. 16 hours after 4SU labeling and DOX induction, bring standard media to 37 \u00b0C and PBS to room temperature. Have liquid N\n2\nat the bench.\r\n  8. Weigh required amounts of Sodium ascorbate and Trolox \\(see step 10b-d).\r\n  9. Dilute the required amount of 500 mM BP stock 50 times in standard medium to 10 mM, and add 50 \u03bcl of the 10 mM BP per 1 ml of media to a final concentration of 500 \u03bcM BP. Return cells to incubator for 30 min. CRITICAL\\! The medium should be prewarmed to 37 \u00b0C to facilitate dissolution of the BP. The solution may need to be sonicated to fully dissolve.\r\n  10. During the BP incubation: **a.** Make 1500 \u00b5l fresh X100 stock of 100 mM H\n2\nO\n2\nin DPBS \\(dilute the 30% \\(wt/wt) H\n2\nO\n2\nreagent \\(about 10 M H\n2\nO\n2\nin water) into Dulbecco\u2019s PBS \\(DPBS) immediately before using it to label cells. Do not store this solution. **b.** Make fresh 1M Sodium ascorbate solution by dissolving the pre-weighed powder in Millipore water immediately before making solution. Do not store this stock. **c.** Make fresh 500 mM Trolox stock by dissolving the pre-weighed powder in DMSO. Sonicate it well. Prepare this stock immediately before making quencher solution. Do not store this stock. **d.** Make 500 ml of fresh quencher solution: 10 mM sodium ascorbate, 5 mM Trolox and 10 mM sodium azide solution in DPBS. Make this solution immediately before it is to be used to quench the biotinylation reaction. Do not store this solution. **e.** Make 4% PFA in PBS.\r\n  11. Dilute the 100 mM H\n2\nO\n2\n1:100 directly to the cell media and briefly agitate to achieve a final concentration of 1 mM. Incubate the cells at room temperature for 1 min.\r\n  12. Quickly aspirate the labeling solution and wash all cells three times in large volumes of quencher solution. CRITICAL\\! HEK293 cells will be lost at that stage, to reduce cell loss introduce the quencher solution gently and to the same location within the plate. Consider pouring-off the liquid rather than aspirating by vacuum. NOTE\\! Do not omit washes because they remove excess, unused BP probe left inside the cells. Make sure that the washes are performed using the quencher solution and not merely DPBS, so that BP radicals are quenched. NOTE\\! Due to the necessity to perform this step rapidly yet with great caution, we recommend limiting Proximity-CLIP experiments to up to 2 compartments of interest on top of the negative and control compartment. \r\n  13.  Pour the last wash, add 750 \u03bcl quenching solution, remove plate caps and crosslink the 6 / 15 cm plates with 0.4 J/cm\n2\nof 312 - 365 nm UV light in a UV Crosslinker \\(Spectronics, Spectrolinker XL-1500 or comparable instrument).\r\n  14. During UV crosslinking of the 6 / 15 cm plates, fix the 24 wells cells with 4% PFA in PBS for 20 minutes at RT. CAUTION\\! PFA work should be performed in chemical hood.\r\n  15. During PFA crosslinking, remove the 6 / 15 cm plates from the UV instrument, place them on ice and collect the cells with the quenching solution to pre-chilled tubes. Pellet cells by 5 min at 300g at 4 \u00b0C centrifugation, remove the supernatant and snap freeze cells in liquid N\n2\n. Keep the frozen cell pellets at -80 \u00b0C, continue working on them as described in sections 20 and 30.\r\n  16. Back to the 24 well: Wash the PFA-fixed cells 3 times with 1 ml PBS, and fix-perm cells in pre-chilled -20 \u00b0C Methanol. Incubate for 20 minutes at -20 \u00b0C.\r\n  17. Block cells with 5% BSA in PBS for 60 minutes and incubate at 4\u00baC O.N. in the presence of primary antibody \\(see Table 2 for details). IMPORTANT\\! Centrifuge the diluted antibody for 10 minutes at max speed to remove aggregates.\r\n  18. The next day, wash cells 3 times for 5 minutes with PBS, and incubated with secondary antibodies for 1 hour at room temperature \\(see Table 2 for details). IMPORTANT\\! Centrifuge the diluted antibody for 10 minutes at max speed to remove aggregates.\r\n  19. Finally, wash cells 3 times for 5 minutes with PBS and mount over 9 \u03bcl vectashield with dapi.\r\n  Processing of cells from 6cm control plates:\r\n\n\n20. Prepare 100 mM PMSF, 7x PI cocktail and fresh sodium ascorbate and Trolox solutions.\r\n  21. Prepare 4 ml RIPA lysis buffer supplemented with 1\u00d7 protease inhibitor cocktail, 1 mM PMSF and fresh quenchers \\(10 mM sodium azide, 10 mM sodium ascorbate \\[7.9 mg/4 ml] and 5 mM Trolox \\[5 mg in 40 \u00b5l DMSO / 4 ml]).\r\n  22. Lyse the cell pellets by gentle pipetting in 300 \u03bcl of the RIPA lysis buffer. After resuspension, leave the sample on ice for\n2 min. Clarify the extract by centrifuging at 15,000g for 10 min at 4 \u00b0C, transfer the supernatant to fresh pre-chilled tubes and keep them on ice throughout the procedure. Typically, the protein concentration of the clarified extract is\n1.2 \u03bcg/\u03bcl.\r\n  23. Quantify the amount of protein in each clarified whole-cell lysate by using the Pierce 660-nm assay. If necessary, dilute the clarified whole-cell lysate first so that the concentrations fall in the linear range of the assay. Prepare triplicate samples for each condition.\r\n  24. For each sample, take 15 \u03bcl aliquots of streptavidin magnetic beads. Note: when you are handling the streptavidin magnetic beads, use 200-\u03bcl or larger pipette tips whose tips have been cut off using a clean razor. Wash the beads twice with 1 ml of RIPA lysis buffer. \r\n  25. Incubate 150 \u03bcg of each whole-cell extract with 15 \u03bcl of streptavidin magnetic beads at 4 \u00b0C overnight on a rotator. Add 150 \u03bcl of RIPA buffer to each sample to facilitate rotation. Note: this step can also be done for 1 h at room temperature. Save the remaining whole-cell lysate for gel and western blot analysis.\r\n  26. Pellet the beads using a magnetic rack and collect the supernatant \\(\u2018flow-through\u2019 \\[FT]). Save the FT on ice for subsequent analysis. \r\n  27. Wash each bead sample with a series of buffers \\(1 ml for each wash) to remove nonspecific binders, as follows: Twice with RIPA lysis buffer, once with 1 M KCl, once with 0.1 M Na\n2\nCO\n3\n, once with 2 M urea in 10 mM Tris-HCl, pH 8.0 \\(freshly made), and twice with RIPA lysis buffer. Prechill and keep all wash buffers on ice throughout the procedure.\r\n  28. Elute biotinylated proteins from the beads by heating each sample in 60 \u03bcl of 3\u00d7 protein loading buffer supplemented with 2 mM biotin and 20 mM DTT for 10 min \\(97 \u00b0C, while vortexing). Let the samples cool, spin down and place on a magnetic rack to pellet the beads. Quickly collect the eluate to new tubes, and load 10 \u03bcl of them for western blot analysis.\r\n  29. For western blot analysis, prepare and boil the whole-cell lysate and corrected volumes of flow-through samples from the first replicate set in 1\u00d7 protein loading buffer. Cool the samples on ice and spin them briefly to bring down condensation. Load and run the whole-cell lysate, streptavidin enrichment eluate and flow-through samples on a 4-20% \\(wt/vol) gradient SDS gel. See excel for amounts and volumes loaded. Perform a streptavidin-HRP western. Check that there is no biotinylated material left in the flow-through.\r\n  \r\n\n\nProcessing of cells from 15 cm preparative plates:\r\n\n\n30. Prepare fresh quenchers.\r\n  31. Prepare 4 ml RIPA lysis buffer supplemented with 1\u00d7 protease inhibitor cocktail, 1 mM PMSF and fresh quenchers \\(10 mM sodium azide, 10 mM sodium ascorbate \\[7.9 mg/4 ml] and 5 mM Trolox \\[5 mg in 40 \u00b5l DMSO / 4 ml]).\r\n  32. Lyse the cell pellets derived from the 15 cm plates by gentle pipetting in 800 \u03bcl of RIPA lysis buffer. After resuspension leave the sample on ice for\n2 min. Clarify the lysates by centrifuging at 15,000g for 10 min at 4 \u00b0C. Keep the lysates on ice throughout the procedure. Typically, the protein concentration of the clarified sample is\n3 \u03bcg/\u03bcl.\r\n  33. Sample 30 \u03bcl of cell extracts for total RNA extraction \\(for RNA-seq) and ~80 \u03bcl \\(the remaining volume) for protein content analysis.\r\n  34.  For each sample, take 60 \u03bcl aliquots of streptavidin magnetic beads. Wash each aliquot of beads twice with 1 ml of RIPA lysis buffer. Then, incubate the cell extracts \\(~500 \u03bcl, or 1.5 mg) of each whole-cell lysate sample with 60 \u03bcl of streptavidin magnetic beads for 1 h at room temperature on a rotator. \r\n  35. Pellet the beads using a magnetic rack and collect the FT, which should be saved for subsequent analysis. \r\n  36. Wash each bead sample with a series of buffers \\(1 ml for each wash) to remove nonspecific binders: 2x RIPA lysis buffer, 1x with 1 M KCl, 1x with 0.1 M Na\n2\nCO\n3\n, 1x with 2 M urea in 10 mM Tris-HCl, pH 8.0 \\(freshly made), and 2x RNase treatment buffer \\(\u201cNP40 lysis buffer\u201d). Prechill all wash buffers and keep them on ice throughout the procedure.\r\n  37. Use the last wash step to split the beads into 3 aliquots: 1. 300 \u03bcl for Mass Spec \u2013 remove liquid and keep on ice. 2. 200 \u03bcl for RNA seq \\(No RNase treatment - remove liquid and freeze in -80 \u00b0C). 3. 500 \u03bcl for RNAse T1 treatment \\(continue immediately).\r\n  \r\n\n\nRNase T1 treatment and labelling of RNA footprints\r\n\n\n38. Resuspend the beads aliquots in 100 \u03bcl of RNase T1 buffer. Add RNase T1 to a final concentration of 1 U/\u03bcl and incubate for 15 min at 22 \u00b0C.\r\n  39. Cool the reaction on ice for 5 min. Wash beads 2 times with RNase T1 buffer and once with dephosphorylation buffer \\(NEB cutsmart x1).\r\n  40. Prepare 300 \u03bcl of dephosphorylation mix \\(30 \u03bcl of 10x cutSmart, 255 \u03bcl ddw, 15 \u03bcl CIP \\[stock conc. is 10 U/ \u03bcl]). Resuspend the beads in 60 \u03bcl of that mix \\(can go down to 1 bead volume) and incubate for 10 min at 37 \u00b0C with shaking. Note: adjust the shaking speed on the thermomixers so the beads do not settle.\r\n  41. Wash beads 2 times with 1 ml of dephosphorylation buffer.\r\n  42. Wash beads 2 times with 1 ml PNK buffer without DTT. Note: Exposure to > 1 mM DTT for a prolonged time may damage magnetic beads and should only be used in the reaction buffer.\r\n  43. Resuspend the beads in 60 \u03bcl \\(can go down to 1 bead volume) of HOT \\(radioactive) reaction mix: Hot Mix: 245 \u03bcl ddw, 30 \u03bcl 10x PNK buffer \\(with DTT), 30 \u03bcl PNK, 5 \u03bcl *ATP \\(0.5 \u03bcCi \u03b3-\n32\nP-ATP and 1 U/\u03bcl of T4 PNK). \r\n  44. Incubate for 30 min at 37 \u00b0C with shaking. Note: adjust the shaking speed on the thermomixers so the beads do not settle.\r\n  45. Add non-radioactive ATP to a final concentration of 100 \u03bcM and incubate for additional 5 min at 37 \u00b0C.\r\n  46. Place tubes on magnet, keep 50 \u03bcl of the radioactive waste, which is collected after the first bead wash, to mark the Urea-PAGEs described below.\r\n  47. Wash beads 5 times with 1 ml of PNK buffer without DTT. Note: Exposure to > 1 mM DTT for a prolonged time may damage magnetic beads and should only be used in the reaction buffer.\r\n  48.  Measure the radioactivity of the beads after washing is done.\r\n  49. Freeze the beads in a radioactive-approved -20 \u00b0C freezer and continue with the beads that were kept on ice for Mass Spec analysis.\r\n  \r\n\n\nPreparation of peptides for Mass Spectrometry analysis:\r\n\n\n50. Defrost the beads in 30 \u03bcl of 25 mM Ammonium bicarbonate and 20 mM DTT, shake for 1 hour at increasing temperatures: 25 \u00b0C \\(30 min), 37 \u00b0C \\(20 min), 56 \u00b0C \\(10 min).\r\n  51. Add 6 \u03bcl of 200 mM Iodoacetamide \\(in 25 mM Ammonium bicarbonate), shake for 1 hour at 25 \u00b0C.\r\n  52. Spin down, place tubes on magnet and collect the fluid \\(can be kept to verify that no protein was released).\r\n  53. Wash beads 3 times in 200 \u03bcl of 1 mM DTT in 25 mM Ammonium bicarbonate, to wash and quench the remaining of Iodoacetamide, and to **fully** deplete NP40.\r\n  54. Dissolve 20 \u03bcg of Trypsin in 1 ml of 25 mM Ammonium bicarbonate.\r\n  55. To the beads tube add 98 \u03bcl of 25 mM Ammonium bicarbonate, and 2 \u03bcl of Trypsin \\(40 ng). Shake O.N. at 37 \u00b0C with cap to avoid condensation. Add the same components to an empty tube as a control.\r\n  56. Spin down, place tubes on magnet, and transfer the eluate to fresh tubes.\r\n  57. Boil the remaining of beads in 30 \u03bcl of 3\u00d7 protein loading buffer supplemented with 2 mM biotin and 20 mM DTT for 10 min \\(97 \u00b0C, while vortexing). Spin down and place on a magnetic rack to pellet the beads. Collect the eluate to new tubes and store \\(in case it will be required to test if any proteins were remained on the beads due to trypsin failure.\r\n  \r\n\n\nReturning to work on beads coupled to intact and RNase T1-treated RNPs:\r\n\n\n58. Bring the non-labelled intact \\(for RNA seq) and\n32\nP-labelled \\(for PAR-CLIP) beads out of freezers, perform cold and hot proteolysis in parallel:\r\n  59. Release the RNA from the beads by digesting the proteins with proteinase K in three subsequent steps, each time adding to the existing volume to make a final volume of 500 \u03bcl:\r\n  a. add 1.2 mg/ml proteinase K in 200 \u03bcl of 1x Proteinase K buffer \\(50 mM Tris pH 7.5, 75 mM NaCl, 6.25 mM EDTA, 1% SDS). Incubate the sample at 50 \u00b0C in a heat block under vigorous shaking for 30 min \\(for 9x - weigh 2.16 mg and resuspend in 1.8 ml buffer). \r\n\n\nb. add 0.75 mg/ml proteinase K in 150 \u03bcl of 1x Proteinase K buffer. Incubate the sample at 50 \u00b0C in a heat block under vigorous shaking for 30 min \\(for 9x - weigh 1.01 mg and resuspend in 1.35 ml buffer).\r\n\n\nc. add 0.75 mg/ml proteinase K in 150 \u03bcl of 1x Proteinase K buffer. Incubate the sample at 50 \u00b0C in a heat block under vigorous shaking for 30 min \\(for 9x - weigh 1.01 mg and resuspend in 1.35 ml buffer).\r\n\n\n60. Place tubes on magnet and transfer the supernatant to a new 1.5 ml microcentrifuge tube, measure beads radioactivity and discard them.\r\n  \r\n\n\nExtraction of\n32\nP-labelled RNA footprints:\r\n\n\n61. To the supernatant, add 30 \u03bcl of 5 M NaCl and 300 \u03bcl acidic phenol-chloroform \\(pH 4.5), mix by vortexing, and incubate on the bench for 10 minutes.\r\n  62. Centrifuge at 12000g for 10 min and transfer the top of the aqueous phase \\(300 \u03bcl) to a new 1.5 ml microcentrifuge tube.\r\n  63. Add 300 \u03bcl of chloroform and mix by vortexing.\r\n  64. Centrifuge at 12000g for 7 min and transfer the aqueous phase to a new 1.5 ml microcentrifuge tube.\r\n  65. Precipitate the RNA by adding 1 \u00b5l of glycol- Blue \\(10mg/ml), mixing, followed by addition of 3 volumes of ethanol and incubation at -20 \u00b0C for at least 1 hr.\r\n  66. Centrifuge the sample at >12000g for 20 min and remove all ethanol traces.\r\n  67. Let pellets dry for 5 min at room temperature.\r\n  68. Dissolve the pellet in 20 \u03bcl of water.\r\n  \r\n\n\nExtraction of non-labelled bound RNA:\r\n\n\n69. To the supernatant, add 30 \u03bcl of 5 M NaCl and 300 \u03bcl acidic phenol-chloroform \\(pH 4.5), mix by vortexing, and incubate on the bench for 10 minutes.\r\n  70. Centrifuge at 12000g for 10 min and transfer the top of the aqueous phase \\(300 \u03bcl) to a new 1.5 ml microcentrifuge tube.\r\n  71. Add 300 \u03bcl of chloroform and mix by vortexing.\r\n  72. Centrifuge at 12000g for 7 min and transfer the aqueous phase to a new 1.5 ml microcentrifuge tube.\r\n  73. Precipitate the RNA by adding 1 \u00b5l of glycol- Blue \\(10mg/ml), mixing, followed by addition of 3 volumes of ethanol and incubation at -20 \u00b0C for at least 1 hr.\r\n  74. Spin at 4 \u00b0C for 15 minutes at max speed, wash pellets twice with 75% EtOH, air dry for 5 minutes and resuspend in 20 \u00b5l of DEPC ddw.\r\n  \r\n\n\nExtraction of total cell-extract RNA\r\n\n\n75. To the 30 \u00b5l samples of cell extracts, add 370 \u00b5l ddw DEPC and immediately after 400 \u00b5l biophenol, Vortex, incubate 15 min on bench, spin 10 min at max speed.\r\n  76. Transfer 200 \u00b5l of aqueous phase to new tube, add same volume of ddw-saturated chloroform, vortex and spin for 8 minutes at max speed.\r\n  77. Transfer 100 \u00b5l of aqueous phase to new tube, add 7 \u00b5l of 3 M NaAc and 400 \u00b5l of cold 100% EtOH, vortex and incubate at -80 \u00b0C for at least 3 hours. \r\n  78. Spin at 4 \u00b0C for 15 minutes at max speed, wash pellets twice with 75% EtOH, air dry for 5 minutes and resuspend in 20 \u00b5l of DEPC ddw.\r\n  Preparation of RNA-seq libraries:\r\n\n\n79. Prepare RNA-seq libraries according to the NEBNext\u00ae Ultra\u2122 RNA Library Prep Kit for Illumina manual with the following relevant info: **a**. Perform rRNA depletion only on total RNA samples. **b.** Perform RNA fragmentation for 10 minutes.\r\n  \r\n\n\nPreparation of sRNA cDNA libraries from the\n32\nP-labelled RNA footprints:\r\n\n\n80. Determine the size of RBP-protected RNA fragment by denaturing polyacrylamide electrophoresis as described in\n5\n.\r\n  81. Image the gel after O.N. radiography.\r\n  82. Excise fragments representing 20 - 40 and 41 - ~80 nt lengths from the gel.\r\n  83. Extract the RNA from the gel by: **a.** 1 min at Max speed centrifugation in gel breaker tube. **b.** Addition of 350 \u03bcl of 0.3 M NaCl. **c.** Shaking 1 hour at 60 \u00b0C. **d.** Centrifuge 1 min at 5000g in filter tube. **e.** Add 1 \u03bcl of Glyco-Blue + 1200 \u03bcl of EtOH, vortex, incubate >3 hours at -80 \u00b0C. **f.** Centrifugation for 15 min at max speed, air dry and resuspend in 8.7 \u03bcl ddw.\r\n  \r\n\n\n3\u2019 Adapters ligation\r\n\n\n84.  Prepare 3\u2019 ligation mix:\n85. To each 8.7 \u03bcl RNA add 8.3 \u03bcl mix +2 \u03bcl of the adenylated 3\u2019 adapter.\r\n  86. Incubate 1 min at 90 \u00b0C, and re-place in ice.\r\n  87. Add 1 \u03bcl T4 Rnl2\\(1-249)K227Q \\(1\u03bcg/\u03bcl), mix gently and incubate O.N. on ice.\r\n  \r\n\n\n3\u2019 ligation gel\r\n\n\n88. To each tube add 20 \u03bcl denaturing PAA gel loading solution.\r\n  89. Incubate 1 min at 90 \u00b0C, and load on 15% denaturing PAA gel.\r\n  90. Excise ligated footprints from just below the ligated 19 size marker \\(for 20-40) / 35 size marker \\(for 40-80) to the top of detected RNA.\r\n  91. Extract the RNA from the gel by: **a.** 1 min at Max speed centrifugation in gel breaker tube. **b.** Addition of 350 \u03bcl of 0.3 M NaCl. **c.** Shaking 1 hour at 60 \u00b0C. **d.** Centrifuge 1 min at 5000g in filter tube. **e.** Add 1 \u03bcl of Glyco-Blue + 1200 \u03bcl of EtOH, vortex, incubate >3 hours at -80 \u00b0C. **f.** Centrifugation for 15 min at max speed, air dry and resuspend in 9 \u03bcl ddw.\r\n  \r\n\n\n5\u2019 ligation\r\n\n\n92. Prepare the following mix and add 9 \u03bcl to each tube \\(mix):\n93. Incubate at 90 \u00b0C for 1 min to denature the RNA and put back on ice. \r\n  94. Add 2\u03bcl Rnl1 \\(1 mg/ml, ABI), incubate 1 hour at 37 \u00b0C.\r\n  \r\n\n\n5\u2019 ligation gel\r\n\n\n95. To 20 \u03bcl RNA add 20 \u03bcl denaturing PAA gel loading solution.\r\n  96. Incubate 1 min at 90 \u00b0C, and load on 12% denaturing PAA gel, as described in5.\r\n  97. Image the gel after O.N. radiography and excise the ligated RNA.\r\n  98. Extract the RNA from the gel by: **a.** 1 min at Max speed centrifugation in gel breaker tube. **b.** Addition of 350 \u03bcl of 0.3 M NaCl. **c.** Shaking 1 hour at 60 \u00b0C. **d.** Centrifuge 1 min at 5000g in filter tube. **e.** Add 1 \u03bcl of Glyco-Blue + 1200 \u03bcl of EtOH, vortex, incubate >3 hours at -80 \u00b0C. **f.** Centrifugation for 15 min at max speed, air dry and resuspend in 4.6 \u03bcl ddw.\r\n  \r\n\n\nReverse transcription\r\n\n\n99. Denature the RNA at 90 \u00b0C for 1 min.\r\n  100. Chill to 50 \u00b0C and add 9.7 \u03bcl of the following mix + 0.7 \u03bcl Superscript III.\n101. Mix and incubate for 1 hour at 50 \u00b0C.\r\n  \r\n\n\nPCR amplification\r\n\n\n102. Dilute each cDNA by addition of 85 \u03bcl of DEPC ddw \\(reaching a volume of 100 \u03bcl).\r\n  103. Set a 60 \u03bcl PCR reaction as follows:\n*Not added as a mix\r\n\n\n\r\n\n\n104. Split the mixture into 6 tubes and run with the following protocol:\r\n  2 min x 94 \u00b0C\r\n\n\n45 sec x 94 \u00b0C\r\n\n\n85 sec x 50 \u00b0C\r\n\n\n60 sec x 72 \u00b0C\r\n\n\n4 \u00b0C\u2026\r\n\n\n105. Remove a tube from the PCR cycler to ice after 9,11,13,15,17,19 cycles.\r\n  106. Load the entire tubes content on a 2.5% agarose gel and run for 1 hour. Select the optimal #cycles.\r\n  107. Setup an identical PCR mixture at a volume of 300 \u03bcl, and run the PCR for the optimal number of cycles \\(split to 3 tubes with 100 \u03bcl each). \r\n  108. Concentrate the PCR product by ZYMO PCR purification kit to 70 \u03bcl.\r\n  109. Size-select 30 \u03bcl of the library using PipenPrep to deplete the residual primers and adapter-adapter products based on the following expected sizes: Linker-Linker - 126bp, 20-40 nt footprint libraries: 146-166 bp, 40-80 nt footprint libraries: 166-196 bp."
+        },
+        {
+            "header": "References",
+            "content": "1. Hung, V. et al. Spatially resolved proteomic mapping in living cells with the engineered peroxidase APEX2. Nat Protoc 11, 456\u2013475 \\(2016).\r\n  2. Hafner, M. et al. Transcriptome-wide Identification of RNA-Binding Protein and MicroRNA Target Sites by PAR-CLIP. Cell 141, 129\u2013141 \\(2010).\r\n  3. Choder, M. mRNA imprinting: Additional level in the regulation of gene expression. Cell Logist 1, 37\u201340 \\(2011).\r\n  4. Ascano, M., Hafner, M., Cekan, P., Gerstberger, S. & Tuschl, T. Identification of RNA-protein interaction networks using PAR-CLIP. Wiley Interdiscip Rev RNA 3, 159\u2013177 \\(2012).\r\n  5. Benhalevy, D., McFarland, H. L., Sarshad, A. A. & Hafner, M. PAR-CLIP and streamlined small RNA cDNA library preparation protocol for the identification of RNA binding protein target sites. Methods 118-119, 41\u201349 \\(2016).\r\n  6. Hafner, M. et al. Barcoded cDNA library preparation for small RNA profiling by next-generation sequencing. Methods 58, 164\u2013170 \\(2012)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 15967,
+                "identity": "a1912066-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Daniel Benhalevy",
+                "email": "daniel.benhalevy@nih.gov",
+                "orcid": "",
+                "institution": "Laboratory of Muscle Stem Cells and Gene Regulation, National Institute of Arthritis and Musculoskeletal and Skin Disease, Bethesda, Maryland, USA.",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Daniel",
+                "middleName": "",
+                "lastName": "Benhalevy",
+                "suffix": ""
+            },
+            {
+                "id": 15969,
+                "identity": "a191289e-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Markus Hafner",
+                "email": "markus.hafner@nih.gov",
+                "orcid": "",
+                "institution": "Laboratory of Muscle Stem Cells and Gene Regulation, National Institute of Arthritis and Musculoskeletal and Skin Disease, Bethesda, Maryland, USA.",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Markus",
+                "middleName": "",
+                "lastName": "Hafner",
+                "suffix": ""
+            },
+            {
+                "id": 15968,
+                "identity": "a1912582-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Dimitrios Anastasakis",
+                "email": "",
+                "orcid": "",
+                "institution": "Laboratory of Muscle Stem Cells and Gene Regulation, National Institute of Arthritis and Musculoskeletal and Skin Disease, Bethesda, Maryland, USA.",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Dimitrios",
+                "middleName": "",
+                "lastName": "Anastasakis",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2018-09-22 00:13:00",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2018.115",
+        "doiUrl": "https://doi.org/10.1038/protex.2018.115",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2610275,
+                "identity": "b623a268-a27b-4393-b696-48052ed88255",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:32",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 719459,
+                "visible": true,
+                "origin": "",
+                "legend": "Proximity-CLIP scheme   *a,* Proximity-CLIP takes advantage of the occupancy by RBPs of cellular RNAs throughout their life cycle. An APEX2 fusion protein is targeted to a cellular compartment of choice using a fused localization element (LE), and cellular RNAs are labeled with 4SU. *b,* Cells are incubated with biotin-phenol (BP) for 30 min, before APEX2-mediated BP oxidation is activated by addition of hydrogen peroxide, followed by reaction quenching and 4SU-dependent protein-RNA crosslinking by UV. BP radicals are created locally and either covalently tag proximate proteins or decay. Compartment-specific RNPs and proteins are captured by streptavidin affinity chromatography. *c,* The eluate from *b* is split in three parts: The compartment proteome is analyzed by mass spectrometry (left panel) and the RNA is either treated by RNAse and analyzed by small RNA cDNA library preparation of RBP-protected footprints, analogous to PAR-CLIP (middle panel), or by standard RNAseq (right panel).",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-7053/v1/figure_1.png"
+            },
+            {
+                "id": 2610279,
+                "identity": "40d3612c-e451-458a-afc6-fbbb41ab46c5",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:32",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 82134,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 1   cell splitting guidelines",
+                "description": "",
+                "filename": "figure2.png",
+                "url": "https://assets.researchsquare.com/files/nprot-7053/v1/figure_2.png"
+            },
+            {
+                "id": 2610277,
+                "identity": "f1eaf2f5-393b-4951-8c34-a537b44b9a76",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:32",
+                "extension": "png",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 86928,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 2   cell treatments and immunofluorescence plan",
+                "description": "",
+                "filename": "figure3.png",
+                "url": "https://assets.researchsquare.com/files/nprot-7053/v1/figure_3.png"
+            },
+            {
+                "id": 2610278,
+                "identity": "5c65d1d7-f3a7-49b7-bb37-094a6d8ef969",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:32",
+                "extension": "png",
+                "order_by": 4,
+                "title": "Figure 4",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 40540,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 3   3' ligation mix",
+                "description": "",
+                "filename": "figure4.png",
+                "url": "https://assets.researchsquare.com/files/nprot-7053/v1/figure_4.png"
+            },
+            {
+                "id": 2610280,
+                "identity": "d84fb24c-90ba-499b-b791-aa2e3a7c3417",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:32",
+                "extension": "png",
+                "order_by": 5,
+                "title": "Figure 5",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 28946,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 4   5' ligation mix",
+                "description": "",
+                "filename": "figure5.png",
+                "url": "https://assets.researchsquare.com/files/nprot-7053/v1/figure_5.png"
+            },
+            {
+                "id": 2610281,
+                "identity": "7b65f223-247a-4509-b276-f4908d13aecb",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:32",
+                "extension": "png",
+                "order_by": 6,
+                "title": "Figure 6",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 56660,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 5   reverse transcription mix",
+                "description": "",
+                "filename": "figure6.png",
+                "url": "https://assets.researchsquare.com/files/nprot-7053/v1/figure_6.png"
+            },
+            {
+                "id": 2610284,
+                "identity": "12c96aec-f984-4e24-84de-d6580426e5da",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:33",
+                "extension": "png",
+                "order_by": 7,
+                "title": "Figure 7",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 76919,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 6   PCR mix",
+                "description": "",
+                "filename": "figure7.png",
+                "url": "https://assets.researchsquare.com/files/nprot-7053/v1/figure_7.png"
+            },
+            {
+                "id": 13465791,
+                "identity": "0f0c430a-52bc-4667-a883-0f24f55f8673",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:48:12",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 835540,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-7053/v1/cdfacb7d-c07f-4554-831f-03feb0f194ed.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "RNA, RNA Binding Proteins, RNA-Protein interaction, localization, subcellular, localized regulation, RNA intermediates, Proximity-CLIP, Proximity Biotinylation, RNA populations, Post Transcriptional Gene Regulation (PTGR), Cis regulatory element, RNA recognition element, 4-thiouridine (4SU), PAR-CLIP, UV crosslinking",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "Proximity-CLIP combines APEX2-mediated proximity biotinylation of proteins with photoactivatable ribonucleoside-enhanced crosslinking \\(PAR-CLIP) to simultaneously profile the proteome, as well as the transcriptome bound by RNA-binding proteins in any given subcellular compartment. The approach is fractionation-independent and enables to also study localized RNA processing intermediates, as well as the identification of regulatory RNA cis-acting elements occupied by proteins in a cellular compartment-specific manner. The sections focusing on _in cellulo_ Biotinylation and proteomic analysis rely on the 2016 Nature Protocols paper from Alice Ting lab<sup>1</sup>.",
+        "manuscriptTitle": "Proximity-CLIP",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2018-09-25 13:38:19",
+                "doi": "10.1038/protex.2018.115",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a190a05f-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "September 25th, 2018",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 4393,
+                "name": "Biochemistry"
+            },
+            {
+                "id": 4394,
+                "name": "Cell biology"
+            },
+            {
+                "id": 4395,
+                "name": "Genetics"
+            },
+            {
+                "id": 4396,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 4397,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 4398,
+                "name": "Molecular Biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2018-09-25 13:38:19",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

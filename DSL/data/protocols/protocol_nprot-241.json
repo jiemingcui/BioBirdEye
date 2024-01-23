@@ -1,0 +1,286 @@
+{
+    "identity": "nprot-241",
+    "title": "GPS: A computational protocol for kinase-specific phosphorylation site prediction",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Protein phosphorylation, one of the most ubiquitous post-translational modifications \\(PTM), is catalyzed by protein kinases \\(PKs). Each PK only modifies a specific set of substrates to ensure signaling fidelity, and defects of PK functions often induce a variety of diseases, including cancers1. Thus, identification of PK-specific phosphorylation sites is essential for molecular delineation of signaling cascade of physiology and potential intervention of pathology of diseases. This motivated the development of the Group-based Phosphorylation Scoring \\(GPS) algorithm<sup>1-3</sup>. \r\n\n\n\r\n\n\nGPS algorithm is based on the hypothesis that the pattern of phosphorylation sites of a specific PK might be compromised by heterogeneity of multiple structural determinants with different features. In this regard, we partition the known phosphorylation sites of each PK into several groups, and predict the query peptide as the phosphorylation site if it is significantly similar in sequence to the known phosphorylation sites in at least one group. The details of the algorithm can be found in our previously published works <sup>2, 3</sup>.\r\n\n\n\r\n\n\nThe current version 1.10 of GPS web service provides the prediction of phosphorylation sites for 71 PK groups, including 216 unique PKs, and is freely available at \"http://bioinformatics.lcd-ustc.org/gps_web\":http://bioinformatics.lcd-ustc.org/gps_web. The following protocol describes how to use GPS to predict the PK-specific phosphorylation sites, and to choose potentially interesting candidates for further consideration."
+        },
+        {
+            "header": "Reagents",
+            "content": "A single protein sequence or multiple protein sequences to be predicted are required in raw or FASTA format."
+        },
+        {
+            "header": "Equipment",
+            "content": "1. A personal computer with a typical operating system \\(Windows, Unix/Linux or Apple Mac OSX).\r\n  2. A web browser program to connect the GPS web site. The supported programs include Netscape, Firefox, Mozilla or Microsoft Internet Explorer."
+        },
+        {
+            "header": "Procedure",
+            "content": "**How to predict the PK-specific phosphorylation sites in protein sequences:**\r\n\n\n1. Open the prediction page at \"http://bioinformatics.lcd-ustc.org/gps_web/predict.php\":http://bioinformatics.lcd-ustc.org/gps_web/predict.php .\r\n  2. One or more protein sequences can be input into the text box of the prediction page of GPS web service, as shown in **Figure 1**. The sequence data can be in raw or FASTA format.\r\n  3. Choose the protein kinases \\(PKs) for prediction.\r\n  4. Select a proper cut-off value for each PK, or the default parameter will be used.  \r\n  5. Click on the \u201cSubmit\u201d button and wait for results.\r\n  \r\n\n\n**How to interpret the results**:\r\n\n\n6. If a single protein sequence is input in the raw sequence format, i.e. only the amino acid sequence, it will be named as ProteinWithNoName. \r\n  7. If protein sequences are provided in the FASTA format, the results will be separated by the description line, starting with \u201c>\u201d, of each sequence in FASTA format. \r\n  8. The prediction results are organized in tab delimited format. For each predicted phosphorylation site, the position, kinase, flanking peptide, GPS score and Cut-off value are presented. A higher score indicates that the peptide is more probable to be a real phosphorylation site. \r\n  9. The prediction results are downloadable as a text file, as in **Figure 2**, and can be easily accessed with other automatic analyzing programs."
+        },
+        {
+            "header": "Timing",
+            "content": "Approximately, 15~20 seconds per protein sequence using the aforementioned personal computer."
+        },
+        {
+            "header": "Critical Steps",
+            "content": "**Step 3**: Choosing protein kinases \\(PKs) for prediction is the most important step in this procedure. The phosphorylation sites on a protein can be mapped through large-scale phosphoproteome scanning with mass spectrometry or mutagenesis of the potential sites. And the predicted scores on these phosphorylation sites for all PK groups might be useful to infer which PK mediated the phosphorylation.\r\n\n\n\r\n\n\nIt would be productive to consider the spatio-temporal profile of a PK and its candidate substrates as PK can only phosphorylate proteins proximally co-localized. Thus, an additional layer of fidelity check is to ascertain if a PK is co-distributed with the predicted protein.  Conversely, our GPS is useful to predict a cognate kinase when a protein phosphorylation is experimentally confirmed but the mediating PK is unknown.\r\n\n\n\r\n\n\nMany other factors can also contribute to the specificity of PK recognition _in vivo_ <sup>4</sup>. These factors include co-complex of PKs with their substrates, interacting through modular docking sites, and phosphopeptide-binding mechanisms, etc. Thus, the prediction results of the GPS web service can be further refined using these factors. \r\n\n\n\r\n\n\n**Step 4**: Choosing a proper cut-off value is another essential step. In the GPS web service, lower threshold means lower specificity \\(Sp) but higher sensitivity \\(Sn), and higher threshold is vice versa. The default cut-off value stands for the balance between Sn and Sp. If a user wants to explore all the potential phosphorylation sites on a protein for further experimental investigation, a low threshold should be chosen to promise high sensitivity. While the predicted phosphorylation sites with a higher threshold are more likely to be true positives, since they are more similar to the known sites."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "The prediction page of GPS is shown in **Figure 1**. Here we use the prediction of Aurora-B specific phosphorylation sites on MCAK of Xenopus \\(shown in **Figure 2**) as an example. The predicted phospho-serine/threonine residues are highly consistent with experimental observations, as shown in **Figure 3**."
+        },
+        {
+            "header": "References",
+            "content": "1. Parsons, D.W. et al. Colorectal cancer: mutations in a signalling pathway. _Nature_ **436**, 792 \\(2005).\r\n  2. Xue, Y. et al. GPS: a comprehensive www server for phosphorylation sites prediction. _Nucleic Acids Res_ **33**, W184-187 \\(2005).\r\n  3. Zhou, F.F., Xue, Y., Chen, G.L. &amp; Yao, X. GPS: a novel group-based phosphorylation predicting and scoring method. _Biochem Biophys Res Commun_ **325**, 1443-1448 \\(2004).\r\n  4. Biondi, R.M. &amp; Nebreda, A.R. Signalling specificity of Ser/Thr protein kinases through docking-site-mediated interactions. _Biochem J_ **372**, 1-13 \\(2003)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "Y. Xue&#x2019;s and X. Yao&#x2019;s work is supported by Chinese Natural Science Foundation \\(39925018, 30270654 and 30270293), Chinese Academy of Science \\(KSCX2-2-01), Chinese 973 project \\(2002CB713700), Chinese Minister of Education \\(20020358051), American Cancer Society \\(RPG-99-173-01), National Institutes of Health \\(DK56292; CA92080) and a Distinguished Scholar award from the Georgia Cancer Coalition. F. Zhou&#x2019;s and Y. Xu&#x2019;s work is supported in part by the National Science Foundation \\(NSF/DBI-0354771, NSF/ITR-IIS-0407204, NSF/DBI-0542119, NSF/CCF0621700) and a Distinguished Scholar award from the Georgia Cancer Coalition."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 10270,
+                "identity": "9ef400ed-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Yu Xue",
+                "email": "",
+                "orcid": "",
+                "institution": "Laboratory of Cellular Dynamics, Hefei National Laboratory for Physical Sciences, and the University of Science and Technology of China, Hefei, China 230027",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Yu",
+                "middleName": "",
+                "lastName": "Xue",
+                "suffix": ""
+            },
+            {
+                "id": 10271,
+                "identity": "9ef403b0-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Fengfeng Zhou",
+                "email": "",
+                "orcid": "",
+                "institution": "Computational Systems Biology Laboratory, Department of Biochemical and Molecular Biology and Institute of Bioinformatics, University of Georgia, Athens, GA 30602, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Fengfeng",
+                "middleName": "",
+                "lastName": "Zhou",
+                "suffix": ""
+            },
+            {
+                "id": 10272,
+                "identity": "9ef40663-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Ying Xu",
+                "email": "",
+                "orcid": "",
+                "institution": "Computational Systems Biology Laboratory, Department of Biochemical and Molecular Biology and Institute of Bioinformatics, University of Georgia, Athens, GA 30602, USA",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Ying",
+                "middleName": "",
+                "lastName": "Xu",
+                "suffix": ""
+            },
+            {
+                "id": 10273,
+                "identity": "9ef40843-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Xuebiao Yao",
+                "email": "",
+                "orcid": "",
+                "institution": "Laboratory of Cellular Dynamics, Hefei National Laboratory for Physical Sciences, and the University of Science and Technology of China, Hefei, China 230027",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Xuebiao",
+                "middleName": "",
+                "lastName": "Yao",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2010-12-16 20:50:46",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/nprot.2007.219",
+        "doiUrl": "https://doi.org/10.1038/nprot.2007.219",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2607738,
+                "identity": "b5b8da5f-25df-48da-b6eb-8ce7e7471887",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:45",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 70141,
+                "visible": true,
+                "origin": "",
+                "legend": "The prediction page of GPS   \"http://bioinformatics.lcd-ustc.org/gps_web/predict.php\":http://bioinformatics.lcd-ustc.org/gps_web/predict.php",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-241/v1/figure_1.png"
+            },
+            {
+                "id": 2607740,
+                "identity": "16359a50-7370-4a0f-82be-dee0be281346",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:45",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 196595,
+                "visible": true,
+                "origin": "",
+                "legend": "The kinase Aurora-B specific phosphorylation sites on Xenopus MCAK (Q91636) is predicted.",
+                "description": "",
+                "filename": "figure2.png",
+                "url": "https://assets.researchsquare.com/files/nprot-241/v1/figure_2.png"
+            },
+            {
+                "id": 2607742,
+                "identity": "94ea26e7-f1f9-44d3-b6a8-349fd420d8ed",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:45",
+                "extension": "jpg",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 82799,
+                "visible": true,
+                "origin": "",
+                "legend": "Comparison of GPS prediction results of kinase Aurora-B with experimental results.   For Xenopus MCAK (Swissprot Accession No.: Q91636), GPS predicts seven sites as positive (T95, S110, S161, S177, S196, S253, and S555), of which six sites (T95, S110, S161, S177, S196, and S253) were experimentally verified as phosphorylation sites of Aurora-B.",
+                "description": "",
+                "filename": "figure3.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-241/v1/figure_3.jpg"
+            },
+            {
+                "id": 13464371,
+                "identity": "a23835cb-9396-4e4a-b44c-04409a412dce",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:43:06",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 441328,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-241/v1/c00556ec-9866-44b9-8e4b-07ed8e3b4060.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "phosphorylation, post-translational modification (PTM), protein PTM site prediction, GPS, FASTA, Aurora-B, kinase\r\n\r\n",
+        "license": {
+            "name": "None",
+            "url": ""
+        },
+        "manuscriptAbstract": "",
+        "manuscriptTitle": "GPS: A computational protocol for kinase-specific phosphorylation site prediction",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2007-05-11 06:07:34",
+                "doi": "10.1038/nprot.2007.219",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 2
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9ef3b274-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "May 11th, 2007",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 1724,
+                "name": "Biochemistry"
+            },
+            {
+                "id": 1726,
+                "name": "Computational biology and bioinformatics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2007-05-11 06:07:34",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

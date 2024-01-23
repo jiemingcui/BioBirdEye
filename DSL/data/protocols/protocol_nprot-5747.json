@@ -1,0 +1,264 @@
+{
+    "identity": "nprot-5747",
+    "title": "Combinatorial CRISPR-Cas9 Knockout Screen",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "In the CRISPR-Cas9 system, a guide-RNA \\(gRNA), in complex with the Cas9 protein, targets genomic sequences homologous to the gRNA1-7. Targeting new genomic elements entails modifying the gRNA sequence, thus enabling many targeted genome editing and regulation capabilities1. Notably, Cas9 also enables facile multiplex targeting via delivery of multiple gRNAs per cell8. As described in the associated publication, we have combined multiplex targeting with array-based oligonucleotide synthesis9-12 to create dual-gRNA libraries covering up to 105 defined gene pairs. In these libraries, each construct bears two gRNAs, with each gRNA designed to target either a gene or a scrambled non-targeting sequence absent from the genome. Thus, all combinations of gene-gene \\(double gene perturbation) and gene-scramble \\(single gene perturbation) are exhaustively assayed for effects on cell growth. Notably, by enabling determination of single-gene and dual-gene perturbation effects in the same assay, this approach generates data that allows for the systematic quantification of genetic interactions in humans."
+        },
+        {
+            "header": "Reagents",
+            "content": "Plasmids & DNA\r\n\n\n1. gRNA-LGP vector\r\n  2. step 3 inserts, synthesized commercially \\(Integrated DNA Technologies)\r\n  \r\n\n\nKits & Chemicals\r\n\n\n1. One Shot Stbl3 Chemically Competent E. coli \\(Invitrogen)\r\n  2. ElectroMAX Stbl4 Competent Cells \\(Invitrogen)\r\n  3. Kapa Hifi enzyme \\(Kapa Biosystems)\r\n  4. QIAquick gel extraction kit \\(Qiagen)\r\n  5. BsmBI \\(New England Biosciences)\r\n  6. Calf Intestinal Alkaline Phosphatase \\(New England Biosciences)\r\n  7. Carbenicillin\r\n  8. HiSpeed Plasmid Maxi Kit \\(Qiagen)\r\n  9. Centricon Plus-20 centrifugal ultrafilters with a cutoff 100,000 NMWL \\(Millipore)\r\n  10. Agencourt AMPure XP \\(Beckman Coulter)\r\n  11. QIAquick PCR Purification \\(Qiagen)\r\n  12. Next\u00ae Multiplex Oligos for Illumina \\(New England Biosciences)\r\n  13. Illumina Library Quantification kit \\(Kapa Biosystems)"
+        },
+        {
+            "header": "Equipment",
+            "content": "1. Tissue Culture Hood/Biosafety Cabinet\r\n  2. CO2 incubator at 37\u00b0C and 5% CO2 for mammalian cell culture\r\n  3. Cell counting system\r\n  4. Manual Pipettes \\(P2, P20, P200, P1000) & tips\r\n  5. 245 mm x 245 mm Bioassay dishes, tissue culture treated\r\n  5. Thermocycler for PCR\r\n  6. Electroporator\r\n  7. Bioanalyzer \\(Agilent)\r\n  8. Next-generation Sequencer \\(such as Illumina HiSeq)"
+        },
+        {
+            "header": "Procedure",
+            "content": "**Preparation of dual-gRNA library**\r\n\n\n\r\n\n\n_Library design_\r\n\n\n1) Identify genes and gene pairs to be tested in assay. In the associated publication we describe the testing of a square matrix of all pairwise interactions between 73 genes \\(73 x 73). However, the both gRNA for a dual-gRNA construct are directly specified during oligonucleotide synthesis thereby enabling the library constituents to be exactly defined to facilitate custom gRNA-pairing. Thus asymmetric formats \\(eg. 10 x 250, 25 x 100, ect.) are also possible. \r\n\n\n2) Design 20 bp gRNA to target each gene. Multiple on-line resources to design gRNA are now available13-15. Poly-T sequences \\(i.e., more than two consecutive T's) should be avoided and, to avoid off-target editing, gRNAs should require at least three substitutions in order to match any other sequence in the genome. We selected three gRNA per gene, it is possible to select more gRNA per gene. The total number of unique elements in the library, including non-targeting controls, should not exceed ~50,000 in order to keep tissue culture manageable. Ideally all steps of the process should be performed with a minimum of 200X coverage, meaning 200 unique copies of each gRNA. For a library of 50,000 elements this would require 10 mil cells.\r\n\n\n\r\n\n\n_Cloning Step 1: paired gRNA cloning_\r\n\n\n1) Purchase pooled oligonucleotide libraries from commercial vendor such as CustomArray \\(Bothell, WA).\r\n\n\n2) Amplify full-length oligonucleotides with dual gRNA spacers \\(i.e., 20-bp sequences used for targeting desired genes) using PCR using Kapa Hifi enzyme \\(Kapa Biosystems). Set up PCR reactions according to the manufacturer\u2019s protocol, using 1 \u03bcL of synthesized oligonucleotide template \\(typically around 20 ng), an annealing temperature of 55 \u00b0C, and an extension time of 15 s. The numbers of cycles of amplification should fall within the linear phase of amplification\r\n\n\nPrimer sequences: \r\n\n\nOLS_gRNA-SP_F: TATATATCTTGTGGAAAGGACGAAACACCG\r\n\n\nOLS_gRNA-SP_R: CTTATTTTAACTTGCTATTTCTAGCTCT\r\n\n\n3) Repeat ten 50 \u00b5L PCR reactions for each library, this is to obtain high yield coverage of the PCR products. Too much genomic starting material can interfere with PCR reaction, which is why to parallel reactions are needed.\r\n\n\n4) Run PCR product on 2% agarose gel electrophoresis, separate the 144 bp amplicon and purify with the QIAquick gel extraction kit \\(QIAGEN).\r\n\n\n5) Digest gRNA-LGP vector with BsmBI \\(New England Biosciences) via the following reaction at 55\u00b0C for 3 hours:\r\n\n\n\r\n\n\ngRNA-LGP vector      4 \u03bcg\r\n\n\nBuffer 3.1  5 \u03bcL\r\n\n\n10\u00d7 BSA 5 \u03bcL\r\n\n\nBsmBI 3 \u03bcL\r\n\n\nH2O Up to 50 \u03bcL\r\n\n\n\r\n\n\n6) After digestion, treat vector with 2 \u03bcL of Calf Intestinal Alkaline Phosphatase \\(New England Biosciences) at 37\u00b0C for 30 minutes,\r\n\n\n7) Purify with QIAquick PCR Purification Kit \\(Qiagen)\r\n\n\n8) Assemble the paired gRNAs into the vector using 10 Gibson assembly reactions in parallel with reactions as follows: \r\n\n\n\r\n\n\nLinearized gRNA-LGP vector  200 ng\r\n\n\nDual gRNA inserts 36 ng \\(molar ratio 1:10)\r\n\n\n2\u00d7 Gibson Assembly Master Mix \\(NEB) 10 \u03bcL\r\n\n\nH2O  Up to 20 \u03bcL\r\n\n\n\r\n\n\n9) Incubate at 50\u00b0C for 1 hour\r\n\n\n10) Purify with QIAquick PCR Purification Kit \\(Qiagen)\r\n\n\n11) Transform into One Shot Stbl3 Chemically Competent E. coli \\(Invitrogen). Approximately twenty parallel transformations are needed to ensure adequate library representation.\r\n\n\n12) Calculate library coverage: remove a small fraction \\(20-100 \u03bcL) of cultures and spread on carbenicillin \\(50 \u03bcg/ml) LB plates \r\n\n\n13) Amplify rest of cultures overnight in 150 ml LB medium, maintaining ~100X library coverage \r\n\n\n14) Extract plasmid DNA using the HiSpeed Plasmid Maxi Kit \\(Qiagen)\r\n\n\n15) Pick twenty independent clones for Sanger-sequencing to estimate the overall quality of the library\r\n\n\n\r\n\n\n_Cloning Step 2: Insertion of the gRNA scaffold and the mouse U6 promoter_\r\n\n\n1) Use BsmBI to digest the step 2 library plasmids as per the following reaction at 55\u00b0C for 3 hours:\r\n\n\n\r\n\n\nCloning Step 1 library 4 \u03bcg\r\n\n\nBuffer 3.1  5 \u03bcL\r\n\n\n10\u00d7 BSA 5 \u03bcL\r\n\n\nBsmBI 3 \u03bcL\r\n\n\nH2O Up to 50 \u03bcL\r\n\n\n\r\n\n\n2) Treat the linearized plasmids with 2 \u00b5L of Calf Intestinal Alkaline Phosphatase  at 37\u00b0C for 30 minutes; \r\n\n\n3) Gel-purified cut plasmids using via 0.6% agarose gel electrophoresis and QIAquick gel extraction \r\n\n\n4) Concurrently, digested the step 3 inserts with BsmBI per the following reaction at 55 \u00b0C for 3 hours. The inserts should be synthesized commercially \\(Integrated DNA Technologies or similar) and cloned into a TOPO vector. See sequence of insert below. \r\n\n\n\r\n\n\nPurified step 2 insert PCR product 0.8 \u03bcg\r\n\n\nBuffer 3.1  5 \u03bcL\r\n\n\n10\u00d7 BSA 5 \u03bcL\r\n\n\nBsmBI 3 \u03bcL\r\n\n\nH2O Up to 50 \u03bcL\r\n\n\n\r\n\n\nSequence of the step 2 insert, with left-gRNA scaffold \\(_italicized_) and mU6 promoters \\(**bold**):\r\n\n\nTATGAGGACGAATCTCCCGCTTATACGTCTCT _GTTTCAGAGCTATGCTGGAAACTGCATAGCAAGTTGAAATAAGGCTAGTCCGTTATCAACTTGAAAAAGTGGCACCGAGTCGGTGCTTTTTT_ GTACTGAGTCGCCCA **GTCTCAGATAGATCCGACGCCGCCATCTCTAGGCCCGCGCCGGCCCCCTCGCACAGACTTGTGGGAGAAGCTCGGCTACTCCCCTGCCCCGGTTAATTTGCATATAATATTTCCTAGTAACTATAGAGGCTTAATGTGCGATAAAAGACAGATAATCTGTTCTTTTTAATACTAGCTACATTTTACATGATAGGCTTGGATTTCTATAAGAGATACAAATACTAAATTATTATTTTAAAAAACAGCACAAAAGGAAACTCACCCTAACTGTAAAGTAATTGTGTGTTTTGAGACTATAAATATCCCTTGGAGAAAAGCCTTGTTT** GAGAGACGGTACAAGCACACGTTTGTCAAGACC\r\n\n\n\r\n\n\n5) Ligate with following reaction, involving overnight incubation at 16\u00b0C followed by heat inactivation at 65\u00b0C for 10 minutes:\r\n\n\n\r\n\n\n10X T4 DNA Ligase Buffer 2 \u03bcL\r\n\n\nStep 1 library, digested  100 ng\r\n\n\nStep 2 insert, digested  100 ng\r\n\n\nT4 DNA Ligase \\(high concentration) 1 \u03bcL\r\n\n\nH2O Up to 20 \u03bcL\r\n\n\n\r\n\n\n6) Transform 4 \u00b5L of reaction from step \\(5) into 100 \u00b5L  of ElectroMAX Stbl4 Competent Cells \\(Invitrogen) according to the manufacturer\u2019s protocol using an Eppendorf Electroporator. Spread a small fraction \\(1-10 \u00b5L) of cultures on carbenicillin \\(50 \u03bcg/ml) LB plates to calculate the library coverage. Use rest of the cultures to plate on ten 15 cm LB- carbenicillin plates and grow overnight at 37\u00b0C for amplification. Likely two parallel transformations were required to get ~100X library coverage. \r\n\n\n7) Extract plasmid DNA using HiSpeed Plasmid Maxi Kit \\(Qiagen). Library diversity is determined by deep sequencing.\r\n\n\n\r\n\n\n**Viral production**\r\n\n\n\r\n\n\n_Note: it is important to check your HEK cells for contamination with mycoplasma before using them for the production of lentiviral particles._\r\n\n\n\r\n\n\n1) To produce lentivirus, seed HEK293T cells in 15 cm tissue culture dishes one day before transfection so that they are 70-80% confluent at the time of transfection. HEK293T cells to be maintained in DMEM medium supplemented with 10% fetal bovine serum. \r\n\n\n2) On day of transfection, change to fresh culture media. \r\n\n\n3) For each 15 cm dish, dilute 36 \u00b5L of Lipofectamine 3000 \\(Life Technologies) in 1.2 mL OptiMEM \\(Life Technologies). \r\n\n\n4) Separately, dilute 3 \u00b5g pMD2.G \\(Addgene #12259), 12 \u00b5g of pCMV delta R8.2 \\(Addgene #12263), 9 \u00b5g of lentiviral vector and 48 \u00b5L of P3000 Reagent in 1.2 mL OptiMEM. Incubate for 5 min at room temperature.\r\n\n\n5) After incubation, combine the Lipofectamine 3000 mixture and DNA mixture and incubate at room temperature for 30 min. \r\n\n\n6) Add the mixture dropwise to HEK293T cells. \r\n\n\n7) Return HEK293T cells to incubator, remove and collect media 48 hours after transfection to harvest virus. Replace with fresh media.\r\n\n\n8) Remove and collect media again 72 hours after transfection.\r\n\n\n9) Combine 48 and 72 hr harvests and further concentrate virus using Centricon Plus-20 centrifugal ultrafilters with a cutoff 100,000 NMWL \\(Millipore) to a final volume of 450 \u00b5L, then aliquot and freeze at -80\u00b0C.\r\n\n\n\r\n\n\n**Cas9 cloning**\r\n\n\n\r\n\n\nPrior to screening cell lines must be engineered to express the CRISPR Cas9 nuclease. This can be done by stable integration into the human AAVS1 site, or using a lentiviral vector to package a Cas9 expression plasmid such as Addgene #52962, followed by antibiotic selection to for cells with the Cas9 vector.\r\n\n\n\r\n\n\n**Competitive growth experiments**\r\n\n\n\r\n\n\n_Note: It is important to maintain coverage \\(ideally 200X) at all stages of the competitive growth experiment. Also, at least 2 biological replicates \\(independent transductions) are needed for each cell line and/or condition of interest._\r\n\n\n\r\n\n\n1) Package the pooled library of double gRNA constructs into lentivirus \\(see above)\r\n\n\n2) Titer the library virus in the cell line of interest. The transduction efficiency of certain cell lines can be significantly less than 293T, so it is important to establish the functional titer in your specific cell line.\r\n\n\n3) Day -1: On day prior to transduction plate sufficient cells so that by next day there will be at three times the desired minimum coverage by day 1. For example, for 200X coverage of a 50,000 element library 30 mil cells would be needed. Use sufficient number of plates so that cells will be ~50%-60% confluent on day 1. To facilitate growing these large number of cells we use 245 mm x 245 mm Bioassay dishes \\(Corning).\r\n\n\n4) Day 0: Transduce cells with gRNA library virus at MOI of 0.3 or lower to ensure that each cell had 0-1 double gRNA constructs. Because approximately 2/3 of the cells will be killed it is important to start transduction with three times the desired minimal coverage.\r\n\n\n5) Day 1: Change media to remove virus\r\n\n\n6) Day 2: Passage cells if they are greater than 85% confluent, otherwise leave until Day 3\r\n\n\n7) Day 3: Count and passage cells. Freeze down enough cells to account for minimum desired coverage \\(snap freeze in N2, store at -80 C). Re-plate enough cells to account for minimum desired coverage. Start puromycin selection at predetermined selection dose.\r\n\n\n8) Days 4-28: Keep cells in exponential growth by passaging every 2-4 days as needed for your cell line. At every passage, re-plate enough cells to account for minimum desired coverage and freeze the rest.\r\n\n\n9) Extract DNA from cells harvested at 3, 14, 21 and 28-day time points using the Blood and Cell Culture DNA Mini Kit \\(Qiagen) according to manufacturer protocols. \r\n\n\n\r\n\n\n**NGS library preparation**\r\n\n\n\r\n\n\n1) Quantitate DNA extracted from step #9 above to ensure there is adequate coverage prior to starting library preparation.\r\n\n\nThe dual gRNA cassette will be amplified and prepared for deep sequencing using two steps of PCR.\r\n\n\n2) PCR 1: Perform this as 10 separate 50 \u03bcL reactions with 2 \u03bcg input genomic DNA per reaction \\(total 20 \u03bcg for each sample) using Kapa Hifi enzyme. PCR primers are as follows: \r\n\n\nNGS_dual-gRNA_SP_Lib_F: ACACTCTTTCCCTACACGACGCTCTTCCGATCT TATATATCTTGTGGAAAGGACGAAACACCG\r\n\n\nNGS_dual-gRNA_SP_Lib_R:  GACTGGAGTTCAGACGTGTGCTCTTCCGATCT CCTTATTTTAACTTGCTATTTCTAGCTCTA\r\n\n\n\r\n\n\nThermocycling parameters are: 95\u00b0C for 30 s, 21-26 cycles of \\(98\u00b0C for 15 s, 55\u00b0C for 15 s, 72\u00b0C for 45 s), and 72\u00b0C for 5 min. Test the numbers of cycles to fall within the linear phase of amplification.\r\n\n\n \r\n\n\n3) Pool amplicons \\(600 bp) of 10 reactions for each sample then size-select and purify with Agencourt AMPure XP beads \\(Beckman Coulter) at 0.8 ratio.\r\n\n\n4) Further purify with QIAquick PCR Purification \\(Qiagen). \r\n\n\n5) PCR 2: Use 4 separate 50 \u03bcL reactions with 5 ng of first-step PCR product per reaction \\(total 20 ng for each sample), using Next\u00ae Multiplex Oligos for Illumina \\(New England Biosciences) to attach Illumina adaptors and indexes. The thermocycling parameters are: 95\u00b0C for 30 s, 7-8 cycles of \\(98\u00b0C for 15 s, 72\u00b0C for 45 s), and 72\u00b0C for 5 min. \r\n\n\n6) Pool amplicons from these 4 reactions then size-select and purify twice using Agencourt AMPure XP beads at 0.8 ratio. \r\n\n\n7) Quantify the purified second step PCR library using real-time PCR with Illumina Library Quantification kit \\(Kapa Biosystems). \r\n\n\n\r\n\n\n**Next-generation sequencing**\r\n\n\n\r\n\n\nSequencing should be performed at a core facility with experience working with amplicon-based sequencing. To identify both gRNA on each construct 75 bp paired-end reads are required. Given the lack of base diversity in the amplicon it is necessary to spike in ~20% PhiX when sequencing using Illumina HiSeq Rapid run.  \r\n\n\n\r\n\n\n**Processing of paired-end reads, fitness estimation, and calculation of interaction scores**\r\n\n\n\r\n\n\nA software pipeline to analyze the raw sequencing data is available here: \r\n\n\n\r\n\n\nhttp://ideker.ucsd.edu/papers/rsasik2017/\r\n\n\n\r\n\n\nBelow is a brief description of how the pipeline processes the raw data. Inputs to the pipeline are FASTQ files for two replicates at Day 3, Day 14, Day 21, and Day 28 time points.\r\n\n\n\r\n\n\n1) Trim FASTQ files of scaffold sequence using cutadapt16, discarding trimmed reads of unexpected lengths <19 or >21 bps.\r\n\n\n2) Truncate remaining reads to 19 bases from the appropriate end, reverse-complement reads from reverse strand. \r\n\n\n3) Check both reads in a pair for sequence matches against gRNA sequences used in the library, allowing one mismatch anywhere in a read. \r\n\n\n4) Aggregate read pairs that matched to a known construct to compute the total counts for each construct in the relevant sample.\r\n\n\n5) Fit linear regression to each gRNA to determine fitness, removing data points that fall below minimum threshold of raw sequencing reads.\r\n\n\n6) Rank gRNA for each gene by absolute fitness effect and assign weights.\r\n\n\n7) Combine the weighted values for the 3 gRNA per gene to determine fitness effect for each gene\r\n\n\n8) Determine genetic interactions from measured fitness of double gRNA constructs and expected double knockout fitness calculated from single gene finesses \\(f\nc\n=f\np\n+f\np'\n+\u03c0\npp'\n) where \u03c0\npp'\nis the interaction, f\nc\nis the measured double gRNA fitness, and f\np\nand f\np'\nare the single gene effects."
+        },
+        {
+            "header": "References",
+            "content": "1. Mali, P., Esvelt, K.M. & Church, G.M. Cas9 as a versatile tool for engineering biology. Nat Methods 10, 957-63 \\(2013).\r\n  2. Cong, L. et al. Multiplex genome engineering using CRISPR/Cas systems. Science 339, 819-23 \\(2013).\r\n  3. Jinek, M. et al. RNA-programmed genome editing in human cells. Elife 2, e00471 \\(2013).\r\n  4. Gilbert, L.A. et al. Genome-Scale CRISPR-Mediated Control of Gene Repression and Activation. Cell 159, 647-61 \\(2014).\r\n  5. Shalem, O. et al. Genome-scale CRISPR-Cas9 knockout screening in human cells. Science 343, 84-7 \\(2014).\r\n  6. Wang, T., Wei, J.J., Sabatini, D.M. & Lander, E.S. Genetic screens in human cells using the CRISPR-Cas9 system. Science 343, 80-4 \\(2014).\r\n  7. Konermann, S. et al. Genome-scale transcriptional activation by an engineered CRISPR-Cas9 complex. Nature 517, 583-8 \\(2015).\r\n  8. Wong, A.S.L. et al. Multiplexed barcoded CRISPR-Cas9 screening enabled by CombiGEM. Proceedings of the National Academy of Sciences of the United States of America 113, 2544-2549 \\(2016).\r\n  9. Bassik, M.C. et al. A systematic mammalian genetic interaction map reveals pathways underlying ricin susceptibility. Cell 152, 909-22 \\(2013).\r\n  10. Horn, T. et al. Mapping of signaling networks through synthetic genetic interaction analysis by RNAi. Nat Methods 8, 341-6 \\(2011).\r\n  11. Laufer, C., Fischer, B., Billmann, M., Huber, W. & Boutros, M. Mapping genetic interactions in human cancer cells with RNAi and multiparametric phenotyping. Nat Methods 10, 427-31 \\(2013).\r\n  12. Wong, A.S. et al. Multiplexed barcoded CRISPR-Cas9 screening enabled by CombiGEM. Proc Natl Acad Sci U S A 113, 2544-9 \\(2016).\r\n  13. Sanjana, N.E., Shalem, O. & Zhang, F. Improved vectors and genome-wide libraries for CRISPR screening. Nat Methods 11, 783-4 \\(2014).\r\n  14. Doench, J.G. et al. Optimized sgRNA design to maximize activity and minimize off-target effects of CRISPR-Cas9. Nat Biotech 34, 184-191 \\(2016).\r\n  15. Chari, R., Mali, P., Moosburner, M. & Church, G.M. Unraveling CRISPR-Cas9 genome engineering parameters via a library-on-library approach. Nat Meth 12, 823-826 \\(2015).\r\n  16. Martin, M. Cutadapt removes adapter sequences from high-throughput sequencing reads. EMBnet.Journal 17, http://dx.doi.org/10.14806/ej.17.1.200 \\(2011)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/NMETH.4225",
+                "date": "2017-03-03 05:42:58",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 14557,
+                "identity": "a0f8ea8b-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Dongxin Zhao",
+                "email": "doz006@eng.ucsd.edu",
+                "orcid": "",
+                "institution": "Mali Lab",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Dongxin",
+                "middleName": "",
+                "lastName": "Zhao",
+                "suffix": ""
+            },
+            {
+                "id": 14558,
+                "identity": "a0f8f253-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "John Paul Shen",
+                "email": "jpshen@ucsd.edu",
+                "orcid": "",
+                "institution": "Ideker Lab",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "John",
+                "middleName": "Paul",
+                "lastName": "Shen",
+                "suffix": ""
+            },
+            {
+                "id": 14559,
+                "identity": "a0f8f9b6-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Roman Sasik",
+                "email": "rsasik@ucsd.edu",
+                "orcid": "",
+                "institution": "UCSD Center for Computational Biology & Bioinformatics",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Roman",
+                "middleName": "",
+                "lastName": "Sasik",
+                "suffix": ""
+            },
+            {
+                "id": 14560,
+                "identity": "a0f8fd3a-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Trey Ideker",
+                "email": "",
+                "orcid": "",
+                "institution": "Ideker Lab",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Trey",
+                "middleName": "",
+                "lastName": "Ideker",
+                "suffix": ""
+            },
+            {
+                "id": 14561,
+                "identity": "a0f90074-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Prashant Mali",
+                "email": "",
+                "orcid": "",
+                "institution": "Mali Lab",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Prashant",
+                "middleName": "",
+                "lastName": "Mali",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2017-03-03 06:09:36",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2017.063",
+        "doiUrl": "https://doi.org/10.1038/protex.2017.063",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2609672,
+                "identity": "baf1d2f6-abd1-4fd3-8d14-b581eee68c6c",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:06",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 27749,
+                "visible": true,
+                "origin": "",
+                "legend": "Schematic of cloning strategy for dual-gRNA library synthesis   Preparation of the dual-gRNA library involves a two-step cloning process whereby each synthesized oligonucleotide is assembled progressively with promoters and 3\u2019 gRNA scaffolds.",
+                "description": "",
+                "filename": "figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-5747/v1/figure_1.jpg"
+            },
+            {
+                "id": 13465015,
+                "identity": "c2c80d13-10bc-400c-81c6-bd85ebbaee3e",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:45:17",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 175705,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-5747/v1/0135e3ed-9af2-43b6-acc7-b63717889c54.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare that a patent has been submitted by the UCSD technology transfer office regarding this technology.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "CRISPR, Genetic Interaction, Synthetic Lethal, Cancer",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "Simultaneous mutation of two genes can produce a phenotype that is unexpected in light of each mutation\u2019s individual effect. This phenomenon, known as genetic interaction, identifies an underlying functional relationship between the genes, such as contributions to the same protein complex or pathway. Mapping these functional relationships has broad applicability for advancing our fundamental understanding of biological systems and also has direct implications for cancer therapeutic development. Here we describe a method using the CRISPR-Cas9 system to knockout pairs of genes, enabling high-throughput, systematic mapping of these genetic interaction networks in human cells. This protocol accompanies Shen et al \\(Nature Methods, publishing online 20 March, 2017; 10.038/nmeth.4225); it was added to the manuscript after formal peer review, as an aid to users.",
+        "manuscriptTitle": "Combinatorial CRISPR-Cas9 Knockout Screen",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2017-03-20 19:08:48",
+                "doi": "10.1038/protex.2017.063",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 1
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a0f84a8e-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "March 20th, 2017",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3849,
+                "name": "Cell biology"
+            },
+            {
+                "id": 3850,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 3851,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 3852,
+                "name": "Biotechnology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2017-03-20 19:08:48",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

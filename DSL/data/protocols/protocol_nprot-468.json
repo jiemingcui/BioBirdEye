@@ -1,0 +1,271 @@
+{
+    "identity": "nprot-468",
+    "title": "AlignDB: a computational protocol for analyzing the relationship between indels and SNPs in genome sequences",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "AlignDB is developed to investigate the distribution of single-nucleotide changes around insertion/deletions \\(indels) in genome comparisons. There are two set of analysis, two-way and three-way, in AlignDB.\r\n\n\n\r\n\n\n  The two-way analysis indicates that nucleotide divergence \\(D) is substantially elevated surrounding indels and decreases monotonically to near-background levels over several hundred bases. D is significantly correlated with both size and abundance of nearby indels. In a comparison of closely related species, the three-way analysis is available. We find that derived nucleotide substitutions surrounding indels occur in significantly greater numbers on the lineage containing the indel than on the one containing the ancestral \\(non-indel) allele; the same holds within species for single-nucleotide mutations surrounding polymorphic indels.\r\n\n\n\r\n\n\n  AlignDB is freely available on request from the authors. The parameters are fully modifiable. The following protocol describes how to use AlignDB to do two-way and three way genomic analyses for indels."
+        },
+        {
+            "header": "Equipment",
+            "content": "Hardware:\r\n\n\n* A machine capable of running a modern OS. \\(e.g. Window 2000 or newer, Linux kernel 2.6 or newer, OS X, etc.)\r\n  * 1 Gb of RAM.\r\n  * 80 Gb of hard drive space.\r\n  \r\n\n\nSoftware:\r\n\n\n* Perl 5.8.x or better.\r\n  * MySQL 5.0.x.\r\n  * ClustalW alignment program.\r\n  * Microsoft Excel or OpenOffice.org.\r\n  * AlignDB itself.\r\n  \r\n\n\nData:\r\n\n\n* Whole genome alignment.\r\n  * Genomic annotation. We use Ensembl as the genomic annotation source."
+        },
+        {
+            "header": "Procedure",
+            "content": "1. Install all AlignDB requirement software and dependent Perl modules. Read the README file in the AlignDB package root directory.\r\n  \r\n\n\n2. Install AlignDB itself. Follow the steps in doc/tutorial.pdf and use the example data in data/ directory coming with AlignDB for a trial run.\r\n  \r\n\n\n3. Prepare a set of input data in Blastz .axt file format. For example, you can download the completed genomic alignments from the UCSC Genome Bioinformatics Site.\r\n  \r\n\n\n4. Starting the GUI shell. Enter the base directory where you installed AlignDB. Type the follow command:\r\n      >perl gui\\gui2.pl\r\n\n\n    The GUI interface shows in Fig.1. DO NOT close the command line window, AlignDB need it.\r\n\n\n\r\n\n\n5. Two-way comparison steps.\r\n      Step 1: test your server. Click on the \u201cDB Server\u201d notebook tab, and check MySQL server setting. \r\n\n\n    Step 2: initiate your database. Then click the \u201cInit. alignDB\u201d button, which will call init\\init_alignDB.pl to build the skeleton of the database.\r\n\n\n    Step 3: generate two-way analysis database. Click the \u201cGene. alignDB\u201d button which will call init\\gene_alignDB.pl to analysis alignments and build the database.\r\n\n\n    Step 4: update features using Ensembl annotations. Click the \u201cFeature\u201d tab, change nothing and click the \u201cUpd. feature\u201d button, which will run init\\update_feature.pl.\r\n\n\n    Step 5: update misc features. Click the \u201cMisc\u201d tab. Click \u201cUpd. slippage\u201d to run init\\update_indel_slippage.pl and then click \u201cUpd. isw\u201d to run init\\update_isw_indel_id.pl.\r\n\n\n    Step 6: do statistics and get results. Then click \u201cCommon stat\u201d button. An Excel workbook with 25 worksheets will be generated.\r\n\n\n    Step 7: charting. If you run AlignDB on Windows, just like me, you could click the \u201cCommon chart\u201d button, which will run stat\\common_chart_factory.pl that call Excel to draw charts in .xls files by OLE. Fig.2 is an example workbook.\r\n\n\n\r\n\n\n6. Three-way comparison steps.\r\n  Three-way comparison needs three genome sequences to accomplish. So you should add a new genome sequence into the previous two-way comparison. This can be accomplished by joining two two-way comparisons, which share a common target sequence.\r\n\n\n    Step 1: build another two-way comparison. You can just do steps 1-3 and omit step 4-7 if you don\u2019t need statistical analysis for the new two-way database.\r\n\n\n    Step 2: generate three-way analysis database. Load two completed databases into \u201cfirst db\u201d and \u201csecond db\u201d. Generate \u201cgoal db\u201d name with the default naming rule. Leave the \u201cT/Q/R:\u201d options unchanged, and click the \u201cRef outgroup\u201d button. See Fig.3 for an example.\r\n\n\n    Step 3: update two-way features. Three-way comparison database is also a legal two-way database. Do step 4-5 of two-way comparison to update the new three-way database.\r\n\n\n    Step 4: update three-way features. Go to \u201cMisc\u201d tab in the \u201cThree-way\u201d pane and click the \u201cUpd. CpG\u201d button to run extra\\update_snp_cpg.pl.\r\n\n\n    Step 5: do statistics and get results. Then click \u201cThree stat\u201d button which will run stat\\three_stat_factory.pl. An Excel workbook with 11 worksheets will be generated.\r\n\n\n    Step 6: charting. This step is almost the same as step 7 in Two-way comparison. Just click the \u201cThree chart\u201d button, which will run stat\\three_chart_factory.pl."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nature07175",
+                "date": "2008-06-24 06:50:41",
+                "title": "Single-nucleotide mutation rate increases close to insertions/deletions in eukaryotes",
+                "authors": [
+                    "D Tian",
+                    "Q Wang",
+                    "P Zhang",
+                    "H Araki",
+                    "S Yang",
+                    "M Kreitman",
+                    "T Nagylaki",
+                    "R Hudson",
+                    "J Bergelson",
+                    "J-Q Chen"
+                ],
+                "journal": "Nature",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 10973,
+                "identity": "9f386623-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Qiang Wang",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Biology, Nanjing University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Qiang",
+                "middleName": "",
+                "lastName": "Wang",
+                "suffix": ""
+            },
+            {
+                "id": 10974,
+                "identity": "9f386943-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Jian-Qun Chen",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Biology, Nanjing University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jian-Qun",
+                "middleName": "",
+                "lastName": "Chen",
+                "suffix": ""
+            },
+            {
+                "id": 10975,
+                "identity": "9f386b01-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Dacheng Tian",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Biology, Nanjing University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Dacheng",
+                "middleName": "",
+                "lastName": "Tian",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2010-08-26 13:59:23",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/nprot.2008.208",
+        "doiUrl": "https://doi.org/10.1038/nprot.2008.208",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2607935,
+                "identity": "a1c09d20-1e09-4e46-8087-cddc8943f958",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:51",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 27280,
+                "visible": true,
+                "origin": "",
+                "legend": "The GUI shell of AlignDB.",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-468/v1/figure_1.png"
+            },
+            {
+                "id": 2607936,
+                "identity": "28a092d9-6478-44a0-9f78-ee9dfdf97249",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:51",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 29832,
+                "visible": true,
+                "origin": "",
+                "legend": "Result workbook of two-way analysis.",
+                "description": "",
+                "filename": "figure2.png",
+                "url": "https://assets.researchsquare.com/files/nprot-468/v1/figure_2.png"
+            },
+            {
+                "id": 2607938,
+                "identity": "cdadf893-ed49-42eb-a58b-8bdbd0e60c39",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:49:52",
+                "extension": "png",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 6700,
+                "visible": true,
+                "origin": "",
+                "legend": "Build a three-way database from two-way databases.",
+                "description": "",
+                "filename": "figure3.png",
+                "url": "https://assets.researchsquare.com/files/nprot-468/v1/figure_3.png"
+            },
+            {
+                "id": 13464617,
+                "identity": "489ff00e-24c5-45c7-982a-70afd9c9920f",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:44:03",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 169872,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-468/v1/9c40786c-c436-47c9-993b-7974e7e0390f.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "mutation hotspot, indel, insertion/deletion, SNP\r\n\r\n",
+        "license": {
+            "name": "None",
+            "url": ""
+        },
+        "manuscriptAbstract": "",
+        "manuscriptTitle": "AlignDB: a computational protocol for analyzing the relationship between indels and SNPs in genome sequences",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2008-09-22 11:52:09",
+                "doi": "10.1038/nprot.2008.208",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9f380a77-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "September 22nd, 2008",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 2126,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 2127,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 2128,
+                "name": "Biochemistry"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2008-09-22 11:52:09",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

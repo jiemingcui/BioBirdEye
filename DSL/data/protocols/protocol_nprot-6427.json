@@ -1,0 +1,242 @@
+{
+    "identity": "nprot-6427",
+    "title": "Generation of cell lines with light-controlled microtubule dynamics",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Optical control of protein activities is of great interest to cell biologists since it allows for instant and/or subtle spatiotemporally controlled manipulation of cellular processes, rather than slow genetic techniques that allow cells to adapt, and that achieve no subcellular spatiotemporal control. Most optogenetic tools described so far are gain-of-function methods in which dimerization is driven by light exposure<sup>1</sup>. This allows targeting of proteins to specific subcellular sites such as, for example, the plasma membrane, but is much harder to adapt to instantaneously and locally inactivate a protein of interest. The recently described LOV2/Zdk1 pair undergoes reversible photo-dissociation, which distinguishes it from other blue light controlled protein pairs<sup>2</sup>. We utilized LOV/Zdk1 to develop a conceptually new way of inactivating a specific protein activity by light in which protein domains dissociate in response to blue light exposure. As proof-of-principle, we made a photo-inactivated variant of the microtubule plus end tracking protein EB1 \\(\u03c0-EB1) that rapidly and reversibly splits into two halves in the presence of blue light, the MT binding CH domain and the EBH +TIP adapter domain. In the absence of blue light \u03c0-EB1 replaces the EB1 protein function. In contrast, blue light exposure results in dissociation of the +TIP protein complex associated with growing microtubule ends and reversible inhibition of microtubule growth. This enabled local inactivation of the EB dependent +TIP complex<sup>3</sup> and allowed us to probe the immediate consequences of local disruption of microtubule dynamics during cell migration. \r\n\n\n\r\n\n\nHere we describe two different methods by which we made \u03c0-EB1 H1299 non-small cell lung carcinoma cells used in our study, but we think that the same procedures can be adapted to generate other \u03c0-EB1 cell types to investigate microtubule function in cell and developmental processes. Although we have made \u03c0-EB1 constructs with different combinations of fluorophors, we find it most useful to keep the N-terminal half unlabeled and have the C-terminus tagged with EGFP. In this case, EGFP fluorescence can be used to identify positive cells, test that \u03c0-EB1 associates with MT ends normally, and leaves the longer wavelengths channels available to express other fluorescent markers. \r\n\n\n\r\n\n\n**Protocol I** describes the procedure for stably expressing both halves of \u03c0-EB1, followed by microscopy-based selection of correct clones, and subsequent shRNA mediated depletion of the endogenous EB1 protein via lentiviral shRNA that we developed previously<sup>4</sup>. \r\n\n\n\r\n\n\n<a href=\"#figures\" data-url=\"http://www.nature.com/protocolexchange/system/uploads/6175/original/shrna.jpg?1512018598\">See figure in Figures section.</a>\r\n\n\n\r\n\n\n**Protocol II** describes a CRISPR/Cas9-based approach to knockout the endogenous EB1 \\(and EB3) proteins, followed by stable expression of \u03c0-EB1. Knocking out the endogenous gene reduces cell-to-cell variation caused by incomplete shRNA-mediated depletion, which is a potential problem with protocol I.\r\n\n\n\r\n\n\n<a href=\"#figures\" data-url=\"http://www.nature.com/protocolexchange/system/uploads/6177/original/crispr.jpg?1512018827\">See figure in Figures section.</a>\r\n\n\n\r\n\n\nWe also included a description of how we designed the CRISPR gRNAs used to target exon 1 of endogenous EB1 and EB3, how to clone the gRNA coding sequences into a suitable plasmid, and a brief description of the Gibson Assembly method we used to assemble the \u03c0-EB1 encoding plasmids. Finally, we include some thoughts to consider when developing other \u03c0-variant proteins."
+        },
+        {
+            "header": "Reagents",
+            "content": "**Cell culture reagents**\r\n\n\nNCI-H1299 cells \\(ATCC CRL-5803)\r\n\n\nHEK293FT cells for lentivirus production \\(ThermoFisher, R70007)\r\n\n\nDMEM/F12 \\(i.e.Gibco / ThermoFisher 21331020)\r\n\n\nRPMI-1640 \\(i.e.Gibco / ThermoFisher 11875101) or cell type-appropriate medium\r\n\n\nPenicillin/Streptomycin 100x \\(i.e.Gibco / ThermoFisher 15140122)\r\n\n\nFetal bovine serum \\(Gibco or Atlanta Biologicals)\r\n\n\nNon-essential amino acids \\(NEAA) 100x \\(i.e.Gibco / ThermoFisher 11140050)\r\n\n\nL-glutamine 100x \\(i.e. Gibco / ThermoFisher 25030081)\r\n\n\nD-PBS 1x \\(i.e. Gibco / ThermoFisher 10010049)\r\n\n\nTrypsin/EDTA 0.25% \\(i.e. Gibco / ThermoFisher 25200056)\r\n\n\n**Transfection reagents**\r\n\n\nLipofectamine 2000 \\(ThermoFisher 11668019)\r\n\n\nOptimem \\(i.e.Gibco / ThermoFisher 31985088)\r\n\n\n**DNA extraction/purification reagents**\r\n\n\nEZ-10 Spin Column Plasmid DNA Miniprep kit \\(i.e. Bio Basic BS614)\r\n\n\nEZ-10 Spin Column DNA Gel Extraction kit \\(i.e. Bio Basic BS654)\r\n\n\nPurelink genomic DNA Miniprep kit \\(ThermoFisher K182001)\r\n\n\nDH5alpha chemically competent E.coli\r\n\n\nOne shot Stbl3 chemically competent E.coli \\(ThermoFisher C737303)\r\n\n\n**Plasmids**\r\n\n\nEB1N-LOV2 and EGFP-Zdk1-EB1C \\(both KanR; plasmids will be made available on Addgene)\r\n\n\npLKO.1 EB1 shRNA #3, Addgene Plasmid #37927\r\n\n\ngRNA/pSpCAS9\\(BB)-2a-GFP, Addgene Plasmid #48138 \\(plasmids with EB1/3 gRNAs will be made available on Addgene)\r\n\n\nViraPower Lentiviral Packaging Mix \\(ThermoFisher K497500)\r\n\n\n**Antibiotics for stable cell line selection**\r\n\n\nPuromycin \\(Gibco / ThermoFisher A1113802)\r\n\n\nG418 \\(Gibco / ThermoFisher 10131027)\r\n\n\n**Antibodies**\r\n\n\nanti-EB1, mouse monoclonal, 1A11/4, Thermo Fisher \\(recognizes EB1 N-terminus)\r\n\n\nanti-EB1, mouse monoclonal, Clone 5/EB1, BD Biosciences \\(recognizes EB1 C-terminus)\r\n\n\nanti-EB3, rat monoclonal, KT36, Absea Biotechnology"
+        },
+        {
+            "header": "Equipment",
+            "content": "Cell culture incubator \\(5% CO2/ 37\u00b0C)\r\n\n\nBSL-2 Biosafety cabinet\r\n\n\nBenchtop centrifuge for 15 ml and 50 ml conical tubes\r\n\n\nCell culture plasticware \\(plates, pipettes, cryovials, cell scrapers etc.)\r\n\n\nBacterial incubator 37\u00b0C \\(with tube roller for Minipreps)\r\n\n\nMicrocentrifuge for 1.5 and 2 ml tubes \\(~12000g) \r\n\n\nSDS-PAGE / immunoblotting equipment\r\n\n\nAgarose gel electrophoresis equipment\r\n\n\nSpinning disk confocal microscope with 60x oil immersion objective \\(or similar live epifluorescence imaging setup)\r\n\n\nTissue culture microscope\r\n\n\nGlass bottom dishes, 35mm, No.1.5 coverslip 20mm \\(i.e. Mattek P35G-1.5-20-C)\r\n\n\nNanodrop / UV-Vis Spectrophotometer\r\n\n\nPCR Thermal cycler\r\n\n\nFlow cytometry equipment \\(or access to FACS facility)"
+        },
+        {
+            "header": "Procedure",
+            "content": "**Protocol I: Stable expression of \u03c0-EB1 followed by shRNA mediated knockdown of endogenous EB1.** The advantage of this protocol is that \u03c0-EB1 expressing stable cell lines are generated before the endogenous protein is removed. Therefore, the cells never grow in the absence of EB1 function. The disadvantage is that shRNA is never complete, and cell-to-cell variability and remaining protein may add to experimental noise. The \u03c0-EB1 construct has silent mutations that renders it resistant to the shRNA used. We describe the procedure we used for H1299 cells; for other cell types the protocol may need to be adjusted.\r\n\n\n\r\n\n\nH1299 cells are cultured in RPMI-1640, 10% FBS, 1x Pen/Strep, 1x NEAA in a humidified incubator with 5% CO\n2\n/ 37\u00b0C. Cells are passaged 1:10 when they are 90% confluent \\(every ~4 days). Use cells with a low passage number, and make sure that the cells are actively dividing, and are not contaminated. \r\n\n\n\r\n\n\n**Day 1: \u03c0-EB1 plasmid transfection.** \u03c0-EB1 is composed of two halves \\(EB1N-LOV2 and EGFP-Zdk1-EB1C), that are expressed from two separate plasmids. Both plasmids are transfected together.\r\n\n\n\r\n\n\n\u2022 Plate H1299 cells at 20% confluency in a 10 cm dish in 10 ml culture medium. Make sure that the cells are distributed evenly by gently rocking the dish.\r\n\n\n\r\n\n\n**Day 2:**\r\n\n\n\u2022 Tube 1: Mix 500 \u03bcl Optimem with 15 \u03bcl Lipofectamine 2000 in a sterile 1.5 ml microfuge tube. Incubate 5 min at room temp.\r\n\n\n\u2022 Tube 2: Mix 500 \u03bcl Optimem with 7.5 \u03bcg of each plasmid encoding EB1N-LOV2 and EGFP-Zdk1-EB1C in a sterile 1.5 ml microfuge tube.\r\n\n\n\u2022 Mix the contents of tube 1 and 2 and incubate at room temperature for 15 min.\r\n\n\n\u2022 Add mixture dropwise to the 10 cm plate with H1299 cells. Gently swirl the dish a few times and place the dish back in the incubator for ~5 hrs.\r\n\n\n\u2022 Aspirate the transfection medium and replace with 10 ml of fresh culture medium and return cells to the incubator.\r\n\n\n\r\n\n\n**Day 3: Selection of transfected cells.**\r\n\n\n\u2022 Split the transfected cells 1:10 into two new 10 cm dishes\r\n\n\n\u2022 Add 500 \u03bcg/ml G418. Leave the cells for ~1-2 weeks. Replace the medium plus G418 every 3-4 days. \r\n\n\n\r\n\n\n_Note: Different cell types will likely require optimization of the G418 concentration._\r\n\n\n\r\n\n\n**Day 10: Pick EGFP positive clones and seed in a 96 well plate.**\r\n\n\n\u2022 Add 25 \u03bcl Trypsin/EDTA per well in a 96-well plate, depending on how many colonies are to be picked. Aspirate medium from the 10 cm dish with \u03c0-EB1 expressing colonies. Add 5 ml PBS.\r\n\n\n\u2022 Identify GFP positive colonies \\(ideally >50 cells) on an inverted tissue culture microscope with epifluorescence. Use a P200 pipette with a yellow tip to scrape the colony from the dish \\(Set the pipette to 100\u03bcl, and push the plunger down before sticking the pipette into the PBS). After scraping the colony, slowly release the plunger to draw up the cells. Transfer the cells to a 96-plate well with trypsin. Leave the cells in trypsin for up to 10 min. Then add 200 \u03bcl of medium to each well. Place the plate in the incubator.\r\n\n\n\u2022 Alternatively: FACS sort single cells that are GFP positive in a 96 well plate. Expand clones until there are enough cells to freeze at least 1 vial of each clone as a backup; a 6 cm dish is sufficient to freeze a vial.\r\n\n\n\r\n\n\n**Day 18:** \r\n\n\n\u2022 Seed the various clones in 35 mm Mattek glass bottom dishes.\r\n\n\n\r\n\n\n**Day 19: Analysis of \u03c0-EB1 clones.**\r\n\n\n\u2022 Analyze clones by Spinning Disk Confocal microscopy to determine the localization of EGFP-Zdk1-EB1C. Select clones in which EGFP-Zdk1-EB1C is clearly localized on growing MT ends. Because the EB1N-LOV2 recruits EGFP-Zdk1-EB1C to MT ends, we can deduce the presence of EB1N-LOV2 from the localization of Zdk1-EB1C. In the absence of the EB1N-LOV2, Zdk1-EB1C will have a predominantly diffuse cytoplasmic localization. One can obtain clones with a close to 1:1 stoichiometry of both halves by visually screening for cells that have a high EGFP-Zdk1-EB1C MT plus-end to cytoplasm ratio.\r\n\n\n\u2022 Discard colonies with low MT plus-end to cytoplasm ratio or colonies with strong MT lattice labelling because expression of both \u03c0-EB1 halves in such colonies is unequal or too high.\r\n\n\n\r\n\n\n**IMPORTANT:**: When making a stable \u03c0-EB1 cell line expressing EGFP-Zdk1-EB1C, be aware that the blue light used for exciting EGFP, also inactivates \u03c0-EB1 in less than a second. It works well to use the EGFP signal to find cells and focus, but the signal will not appear localized to MT ends. To see EGFP-Zdk1-EB1C on MT plus ends, one has to wait for at least 30 s to allow for \u03c0-EB1 re-association before acquiring an image. The half-life of EGFP-Zdk1-EB1C dissociation from MT ends is ~200 ms, so it is also important to keep the exposure time short to minimize \u03c0-EB1 photo-dissociation during image aquisition. Because blue light excited GFPs cannot be used for live imaging without inactivating \u03c0-EB1, we mostly use it as marker for generating cell lines, and as a control that \u03c0-EB1 photo-dissociation works as expected. For live cell imaging of other proteins \\(e.g. other +TIPs) before or during blue light inactivation we recommend using red fluorescent proteins such as mCherry.\r\n\n\n\r\n\n\n\u2022 Seed promising clones onto 6 cm dishes at 30% confluency \r\n\n\n\r\n\n\n**Day 21: EB1 shRNA lentiviral transduction** \r\n\n\n\u2022 Add 0.5 ml of virus containing supernatant to each of the 6 cm dishes. \u03c0-EB1 expressing cells should be ~80-90% confluent. \r\n\n\n\r\n\n\n_Note: Make EB1 shRNA lentivirus \\(see Support Protocol 1 below for lentivirus production) while generating the \u03c0-EB1 stable cell line._\r\n\n\n\r\n\n\n**Day 22:**\r\n\n\n\u2022 Replace medium.\r\n\n\n\u2022 Add 2 \u03bcg/ml puromycin to select for cells expressing the EB1 shRNA. Puromycin works very rapidly, so within 2 days most of the negative cells will die.\r\n\n\n\r\n\n\n**Day 23-40:**\r\n\n\n\u2022 Expand the surviving cells while under puromycin selection. Analyze clones by microscopy and by immunoblot to confirm shRNA depletion of endogenous EB1 \\(see Support Protocol 2 below for information on how to detect the \u03c0-EB1 halves by immunoblot).\r\n\n\n\u2022 Pick the clones that have an expression level close to endogenous expression levels, and in which both halves of \u03c0-EB1 are present at equal levels. Use these clones for further experimentation.\r\n\n\n__________\r\n\n\n\r\n\n\n**Protocol II: CRISPR/Cas9 mediated knockout of endogenous EB1 \\(and EB3), followed by stable expression of \u03c0-EB1.** The advantage of this protocol is that endogenous EB1 and EB3 proteins are completely replaced with the light-sensitive \u03c0-EB1 variant. This worked for EB1 and EB3 since we were able to generate viable cell lines that had no remaining EB1/3 expression, but this may not be possible with proteins required for cell viability. In this case, the procedure could be adapted to CRISP/Cas9 knockout a protein of interest in a cell line expressing a \u03c0-variant protein already, in which gRNA target sites are mutated similar to the shRNA strategy described above.\r\n\n\n\r\n\n\nSince there are many available CRISPR/Cas9 genome editing protocols, we only describe some of the specific details of the approach we took to knockout our genes of interest. For CRISPR/Cas9-mediated knockout we used the gRNA/pSpCAS9\\(BB)-2a-GFP \\(Addgene #48138) plasmid described previously\n5\n. This plasmid contains one cloning site \\(BbsI) for the insertion of a gRNA coding sequence, and allows sorting transfected cells based on Cas9-2a-GFP expression. \r\n\n\n\r\n\n\nTo knock out EB1 \\(EB3) we targeted exons 1 in both proteins to reduce the chance of expressing truncated proteins \\(even though nonsense-mediated decay mechanisms will degrade most mRNAs with premature stop codons). In our case this was possible because there are only one EB1 and EB3 transcript each. When targeting a gene for which multiple transcripts exist, it is advisable to target the first common exon. gRNAs were identified using the \"Zhang lab website\":http://crispr.mit.edu/ and by scanning the coding sequence for exon 1 of EB1 for gRNA binding sites. We selected three gRNAs targeting different parts of exon 1. We reasoned that expressing multiple gRNAs simultaneously would increase the chance of introducing larger deletions in exon1 which are easier to detect by genomic PCR \\(especially when multiple alleles are present). The six gRNA/pSpCAS9\\(BB)-2a-GFP plasmids containing each of the three gRNAs targeting either EB1 or EB3 will be available on Addgene. An example of our streamlined gRNA cloning strategy that may be useful for cloning other gRNAs is outlined in Support Protocol 3.\r\n\n\n\r\n\n\n**Day 1:**\r\n\n\n\u2022 Seed H1299 cells at 20% confluency in a 10 cm dish \r\n\n\n\r\n\n\n**Day 2:** \r\n\n\n\u2022 Transfect the plated H1299 cells with the mixture of three gRNA containing pSpCAS9\\(BB)-2a-GFP plasmids \r\n\n\n\u2022 Tube 1: Mix 500 \u03bcl Optimem with 15 \u03bcl Lipofectamine 2000 in a sterile 1.5 ml microfuge tube. Incubate 5 min at room temperature.\r\n\n\n\u2022 Tube 2: Mix 500 \u03bcl Optimem with 4 \u03bcg of each of the three gRNA plasmids.\r\n\n\n\u2022 Mix the contents of tube 1 and 2 and incubate at room temperature for 15 min.\r\n\n\n\u2022 Add mixture dropwise to the 10 cm plate with H1299 cells. Gently swirl the dish a few times and place the dish back in the incubator for ~5 hrs.\r\n\n\n\u2022 Aspirate the transfection medium and replace with 10ml of fresh culture medium and return cells to the incubator.\r\n\n\n\r\n\n\n**Day 3 or 4:**\r\n\n\n\u2022 Single cell FACS sort Cas9-2a-GFP positive cells into a 96-well plate.\r\n\n\n\r\n\n\n_Note: In our hands ~30% of the wells ended up with a colony. Cell sorting should be done within 1 or 2 days after transfection. Waiting longer may increase the probability of selecting clones that stably express the Cas9-2a-GFP._\r\n\n\n\r\n\n\n\u2022 Also FACS sort a population of Cas9-2a-GFP positive cells for analyzing gene editing efficiency.\r\n\n\n\r\n\n\n_Note: The more the expression of a protein of interest in this pool of Cas9-2a-GFP transfected cells is reduced, the more likely it is that many of these cells are knockout cells. This should serve as a guide how many individual clones need to be analyzed individually. In the case of EB1 and EB3 approximately 30% of Cas9-2a-GFP positive cells were knockouts._\r\n\n\n\r\n\n\n**Day 5-20**: \r\n\n\n\u2022 Expand clones until there are enough cells to analyze by genomic PCR, immunoblot or immunofluorescence. See Support Protocols below for more information on how to evaluate clones for EB1 and EB3 expression by genomic PCR and immunoblot. Continue experimenting with at least two homozygous knockout clones, and freeze others as backup.\r\n\n\n\r\n\n\n**IMPORTANT:** We have observed that some of the knockout clones continue to express GFP, indicative of stable Cas9 expression. Cas9-2a-GFP should only be expressed transiently to reduce the chances of off-target cleavage, and to prevent Cas9 from cleaving the \u03c0-EB1 rescue constructs \\(which will be transfected in the next step), so clones that remain GFP positive should be discarded.\r\n\n\n\r\n\n\n**Day 21-40:** \r\n\n\n\u2022 Generate EB1/3 knockout cells that stably express \u03c0-EB1 as described in Protocol I Day 1-19.\r\n\n\n__________\r\n\n\n\r\n\n\n**Support Protocol 1: EB1 shRNA lentivirus preparation in HEK293FT cells.** \r\n\n\n\r\n\n\n_Note: Even though this is a 3\nrd\ngeneration replication-deficient lentivirus system that has multiple biosafety features, we recommend BSL-2 cell culture procedures. In addition, make sure to follow local institutional guidelines for working with lentiviral expression systems._\r\n\n\n\r\n\n\n**Day 1:**\r\n\n\n\u2022 HEK293FT culture medium: DMEM/F12, 10% FBS, 1x Pen/Strep, 1x NEAA\r\n\n\n\u2022 Seed HEK293FT cells at 20% confluency in a 10 cm dish, in 10 ml of culture medium without antibiotics, and incubate at 37\u00b0C in a humidified 5% CO\n2\nincubator\r\n\n\n\r\n\n\n**Day 2:** \r\n\n\n\u2022 Transfection of HEK293T cells with Virapower and pLKO.1 EB1 shRNA #3 using Lipofectamine 2000, following manufacturer\u2019s instructions \\(See Virapower Lentiviral expression systems manual for additional information).\r\n\n\n\r\n\n\n_Note: Use the Stbl3 E.coli strain for production/maintenance of the pLKO.1 plasmid to minimize the likelihood of recombination of long terminal repeats in the lentivirus vector._\r\n\n\n\r\n\n\n\u2022 Add 9 \u00b5g of Virapower packaging mix, plus 3 \u00b5g of pLKO.1 EB1 shRNA #3 to 500 \u00b5l of Optimem in a sterile 1.5 ml microfuge tube \\(tube A)\r\n\n\n\u2022 Add 30 \u00b5l of Lipofectamine to 500 \u00b5l of Optimem in a sterile 1.5 ml microfuge tube \\(tube B)\r\n\n\n\u2022 Incubate both tubes at room temperature for 5 min. \r\n\n\n\u2022 Combine tube A and B by transferring the contents of tube A to tube B using a 1 ml pipette. Mix well, and incubate for 15 min at room temperature.\r\n\n\n\u2022 Add dropwise to the 10 cm dish with HEK293FT cells, and incubate the cells overnight at 37\u00b0C in a humidified 5% CO\n2\nincubator\r\n\n\n\r\n\n\n**Day 3:**\r\n\n\n\u2022 Replace the medium with 10 ml of fresh culture medium without antibiotics, and incubate the cells for 24 hrs at 37\u00b0C in a humidified 5% CO\n2\nincubator.\r\n\n\n\r\n\n\n**Day 4: Harvesting the virus.**\r\n\n\n\u2022 Collect virus-containing culture medium supernatant from the HEK293FT cells, centrifuge at 3000 RPM for 15 min in a 15 ml conical tube to remove cell debris.\r\n\n\n\u2022 Make 1 ml aliquots of the supernatant in cryovials and freeze and store at -80\u00b0C. For H1299 cells, use 0.5 ml for transduction of a 6 cm plate at 80% confluency. Other cell types may require optimization of lentivirus titer.\r\n\n\n__________\r\n\n\n\r\n\n\n**Support Protocol 2: Immunoblot analysis of \u03c0-EB1 expression.** Analysis of \u03c0-EB1 and EB1/EB3 protein amount by immunoblot is used to determine relative expression levels of both \u03c0-EB1 halves and the expression level of the \u03c0-EB1 relative endogenous EB1 protein in a control extract, and to screen CRISPR/Cas9 knockout clones for the presence or absence of EB1/3.\r\n\n\n\r\n\n\n**Preparation of cell extracts of \u03c0-EB1, control and CRISPR/Cas9 knockout cells:**\r\n\n\n\u2022 Aspirate and discard medium off a confluent 10 cm dish of cells. \r\n\n\n\u2022 Add 5 ml PBS. While cells are in 5ml PBS, scrape cells using a cell scraper, and collect cells in a 15 ml conical tube.\r\n\n\n\u2022 Pellet cells by centrifugation at 1000 RPM for 5 min.\r\n\n\n\u2022 Aspirate supernatant. Add 0.5 ml lysis buffer \\(20 mM HEPES pH 7.5, 150 mM KCl, 0,1% Triton X-100, 10% glycerol, Complete Protease Inhibitor cocktail. _Note: this buffer is not suitable for nuclear proteins)._\r\n\n\n \u2022 Resuspend pellet and transfer to a 1.5 ml microcentrifuge tube. Incubate on ice for 30 min, and resuspend cells every 10 min.\r\n\n\n\u2022 Pellet insoluble fraction by centrifugation at 12000 g for 10 min at 4\u00b0C. Keep supernatant.\r\n\n\n\u2022 Measure protein concentration by BCA assay. Add 5x SDS Sample Loading buffer. Heat samples to 95\u00b0C for 5 min. Store extracts at -80\u00b0C.\r\n\n\n\r\n\n\nFor detecting \u03c0-EB1 and EB1 by immunoblot, perform gel electrophoresis on 10-12% SDS-PAGE gels, and blotting for 1 hr at 60 V by wet transfer onto a nitrocellulose membrane \\(i.e. Nitropure, 0.45 micron, Item Number 1212590, GVS North America) using standard protocols. Load 15 \u00b5g of protein extract per well for detecting EB1N-LOV2 using the anti-EB1 mouse monoclonal 1A11/4 at 1:1000 \\(blocking solution 1x TBS, 0.2% Tween-20, 5% non-fat dry milk). Load 30 \u00b5g of protein extract for detecting EGFP-Zdk1-EB1C using the anti-EB1 mouse monoclonal clone 5/EB1 at 1:1000 \\(blocking solution 1x TBS, 0.2% Tween-20, 5% BSA). Load 30 \u00b5g of protein extract for detecting EB3 using the anti-EB3 rat monoclonal KT36 at 1:500 \\(blocking solution 1x TBS, 0.2% Tween-20, 5% BSA). Make sure to include a positive loading control. We use 4 ml antibody solution in 50 ml tubes on a rotator for all incubations, and use secondary HRP-conjugated antibodies at 1:5000.\r\n\n\n__________\r\n\n\n\r\n\n\n**Support Protocol 3: Cloning gRNA sequences into pSpCAS9\\(BB)-2a-GFP.** We are using EB1 g RNA sequence #2 as an example: TGTGGGCAACGGAGACGACGagg. Lower case agg is the protospacer adjacent motif \\(PAM).\r\n\n\n\r\n\n\n\u2022 Order gRNA oligonucleotides. Do not include the PAM. Lower case indicates Bbs1 overhangs, and an additional G/C pair for efficient transcription from the U6 promoter. \r\n\n\n\r\n\n\nFor example:\r\n\n\nEB1 gRNA#2 top strand: caccgTGTGGGCAACGGAGACGACG\r\n\n\nEB1 gRNA#2 bottom strand: aaacCGTCGTCTCCGTTGCCCACAc\r\n\n\n\r\n\n\nCloning the gRNA sequences into the BbsI sites of pSpCAS9\\(BB)-2a-GFP can be done in a single step digestion/ligation protocol without the need for gel extraction or purification steps:\r\n\n\n\u2022 Dilute oligonucleotides in dH\n2\nO to 200 \u00b5M. Mix 5 \u00b5l of both oligonucleotides in 1x NEB2.1 buffer in 50 \u00b5l final volume in a PCR tube. Use a PCR thermal cycler to anneal oligonucleotides by incubating the mixture at 95\u00b0C for 5 min and then slowly cooling to 20\u00b0C over a 2 hr period.\r\n\n\n\u2022 Digest pSpCAS9\\(BB)-2a-GFP with BbsI by mixing the following components in a 1.5 ml tube:\r\n\n\n2 \u00b5l 10x NEB Buffer 2.1\r\n\n\n16 \u00b5l dH\n2\nO\r\n\n\n1 \u00b5l pSpCAS9\\(BB)-2a-GFP \\(1\u00b5g/\u00b5l) \r\n\n\n 1 \u00b5l BbsI \\(New England Biolabs)\r\n\n\n\u2022 Incubate at 37\u00b0C for 1 hr.\r\n\n\n\u2022 Add the following ligation components directly to the digest \\(ligation of the insert renders the plasmid resistant to BbsI digestion):\r\n\n\n2.5 \u00b5l 10x T4 Ligase Buffer\r\n\n\n0.5 \u00b5l annealed oligos \\(20 \u00b5M stock; 0.8 \u00b5M final concentration)\r\n\n\n1.5 \u00b5l T4 DNA ligase\r\n\n\n\u2022 Incubate at 37\u00b0C for 1 hr.\r\n\n\n\u2022 Heat shock transform 5-10 \u00b5l of the ligation reaction into chemically competent DH5alpha.\r\n\n\n\u2022 Pick ~5 colonies and grow 3 ml overnight cultures.\r\n\n\n\u2022 Extract Miniprep DNA and analyze clones by sequencing. Typically more than 75% of the colonies are correct.\r\n\n\n\r\n\n\n**IMPORTANT:** BbsI is very unstable and needs to be stored at -80\u00b0C. Keep on ice at all times when using. If one obtains a very high background of empty colonies, the enzyme may have become inactive. \r\n\n\n__________\r\n\n\n\r\n\n\n**Support Protocol 4: Analysis of EB1/EB3 CRISPR/Cas9 knockout clones by genomic PCR.**\r\n\n\n\r\n\n\n\u2022 Grow 6 cm dishes of control cells and potential knockout clones to confluency.\r\n\n\n\u2022 Aspirate the cell culture medium, and add 2.5 ml PBS.\r\n\n\n\u2022 Aspirate PBS and add 0.3 ml Trypsin/EDTA, incubate for 3-5 min at 37\u00b0C.\r\n\n\n\u2022 Add 3 ml of cell culture medium and collect cells in a 15 ml conical tube. Spin down the cells at 1000 RPM for 5 min.\r\n\n\n\u2022 Aspirate medium, and keep cell pellet on ice.\r\n\n\n\u2022 Extract genomic DNA using the Purelink genomic DNA Miniprep kit following manufacturer\u2019s instructions. \r\n\n\n\u2022 Measure the concentration of the DNA using a Nanodrop UV-Vis spectrophotometer. In addition, DNA quality can be checked by running it on a 1% agarose gel \\(degraded DNA will result in smear, while high quality DNA will run as a single band near the top of the gel). Store genomic DNA at -20\u00b0C.\r\n\n\n\u2022 Perform PCR in 50 \u00b5l total volume using 50 ng of genomic DNA template, 0.5 \u00b5l Phusion Polymerase in HF buffer, 200 \u00b5M dNTPs, 4%DMSO, and 0.4 \u00b5M of forward and reverse oligos that span the gene editing site in exon 1: \r\n\n\nEB1forward \\(CTTCCCATGCTTTAGAAGATGGC), EB1reverse \\(CCCTGAACCTCTGTGTGTGGCTTTG) \r\n\n\nEB3forward \\(CCCCAGTGCTGACCTCACCTTTCT), EB3reverse \\(TTCCTTCCAGCAGGGCCACTTCCC)\r\n\n\n\u2022 Use the following PCR cycling parameters: One initial 2 min denaturation step at 95\u00b0C, 35 cycles of 20 s denaturation at 95\u00b0C, 15 s annealing at 62\u00b0C, 15 s extension at 72\u00b0C, followed by a final 5 min extension step at 72\u00b0C.\r\n\n\n\u2022 Prepare a 3% agarose gel with SYBR-safe DNA gel stain or ethidium bromide, and separate the PCR products. Use a 50 bp ladder \\(NEB) to determine the size of the products. Expected size of non-edited PCR products: EB1 \\(241 bp), EB3 \\(207 bp).\r\n\n\n\r\n\n\n_Note: In general, pick PCR primers outside the region that is targeted by Cas9 and make sure that the resulting PCR product is small \\(~200 bp) so that even a small deletion \\(Indel) will result in a clear band shift on a 3% agarose gel._\r\n\n\n\r\n\n\n**Interpretation of the results:** Because multiple gRNAs are used, larger indels may be expected compared with single gRNAs. In many of our knockout clones we observed clear down- or upshifts of the PCR product relative to the control lane. This indicates that in these clones, exon 1 was edited by Cas9 and repaired by non-homologous end-joining \\(NHEJ). In one of the clones three distinct bands were observed that were all downshifted compared with the control band, indicating that at least three EB1 alleles exist in the H1299 cell line \\(consistent with spectral karyotyping results of this cell line\n6\n. An Indel does not automatically mean that the gene is knocked out, because there could be an in frame deletion or insertion, resulting in a protein with a small insertion/deletion. It is therefore important to either sequence all alleles and/or to verify by immunoblot that the targeted protein is indeed absent.\r\n\n\n__________\r\n\n\n\r\n\n\n**Support Protocol 5: \u03c0-EB1 plasmid construction.** For cloning \u03c0-EB1 plasmids we used a modified version of Gibson assembly\n7\nthat omits the ligation step\n8\n, to assemble various DNA fragments into the target plasmid. We have used this procedure successfully to assemble 3-4 PCR products into a plasmid in a single step with >50% correct colonies. We used this procedure to assemble plasmids containing different versions of the two \u03c0-EB1 halves, and we include our protocols here as guides for the construction of other \u03c0-variant proteins requiring efficient assembly of multiple DNA pieces. Each DNA fragment should have ~25 bp overlap with its neighboring fragments. Primers used for PCR amplification of the individual sequences are typically 59-mers of which around 28 nucleotides are identical to the template. We recommend assembling the final plasmid DNA sequence in silico first, before ordering any oligos, to make sure that the reading frame is correct and there are no unintended stop codons.\r\n\n\n\r\n\n\n\u2022 Setup a restriction digestion of 5 \u00b5g of the target plasmid in 30 \u00b5l reaction volumes. Incubate for 4 hours at 37\u00b0C \\(unless the enzyme has a different optimal temperature).\r\n\n\n\u2022 Separate DNA fragments by agarose gel electrophoresis \\(~1% agarose for a 5 kb plasmid). \r\n\n\n\u2022 Excise the linearized plasmid from a 1% agarose gel on a UV transilluminator \\(use appropriate eye protection) using a clean razorblade. Transfer gel slice to a clean 1.5 ml tube and start gel-extraction procedure using the Bio-Basic gel extraction kit, following manufacturer\u2019s instructions. Elute in 50 \u00b5l elution buffer \\(typically the yield is ~30%, i.e. 25-35 ng/\u00b5l)\r\n\n\n\r\n\n\n**Insertion of multiple PCR products into the linearized plasmid by modified Gibson assembly:** \r\n\n\n\u2022 Prepare 5x Pre-Assembly buffer: 0.5 M Tris pH 7.5, 50 mM MgCl\n2\n, 1 mM of each dNTP, 50 mM DTT, 25% PEG-8000.\r\n\n\n\u2022 Prepare 400 \u00b5l of 2x Assembly Master Mix by mixing \r\n\n\n160 \u03bcl of Pre-Assembly buffer\r\n\n\n0.3 \u03bcl T5 exonuclease \\(10 units/\u03bcl)\r\n\n\n10 \u03bcl of Phusion polymerase \\(2 units/\u03bcl)\r\n\n\n230 \u03bcl dH\n2\nO.\r\n\n\n\u2022 Prepare 10 \u03bcl aliquots in 0.2 ml PCR tubes and store at -20\u00b0C. Use 1 aliquot per Gibson assembly reaction.\r\n\n\n\r\n\n\n\u2022 Thaw one 10 \u03bcl aliquot of the 2x Assembly Master Mix on ice\r\n\n\n\u2022 Add 50-100 ng of linearized plasmid, and add inserts at a 2:1 molar ratio \\(to the linearized plasmid, e.g. 100 ng of a 5000 bp plasmid, plus 40 ng of a 1000 bp insert). Add dH\n2\nO to a 20 \u03bcl final volume. Mix well.\r\n\n\n\u2022 Place the tube in PCR Thermal cycler and incubate for 1 hour at 50\u00b0C.\r\n\n\n\u2022 Transform and analyze Miniprep DNA from 5-10 colonies."
+        },
+        {
+            "header": "Timing",
+            "content": "Generation of stable cell lines takes ~2-3 weeks. The whole protocol preparing \u03c0-EB1 cell lines should take around 6 weeks. Much of this time is waiting for clonal colonies to expand."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "H1299 cells are relatively easy to transfect, and Miniprep DNA with a concentration of around 500 ng/\u03bcl is sufficient to get high transfection efficiency. Because it is much less time consuming to do Minipreps than Maxipreps, it was faster and easier to test a range of different variants of the \u03c0-protein. \r\n\n\n\r\n\n\nLow numbers of \u03c0-EB1 or Cas9-GFP expressing cells are likely due inefficient tranfection. In our hands CRISPR/Cas9 genome editing is very efficient if the plasmids get into the cell. Thus, in more hard to transfect cell lines, other transfection protocols may have to be used. It might be better to use high quality endotoxin free Maxiprep DNA, or a lentiviral expression system."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "The resulting \u03c0-EB1 cell lines should show a relatively homogenous expression of EGFP-Zdk1-EB1C throughout the cell population. In the dark, EGFP-Zdk1-EB1C is expected to be localized to growing microtubule ends from which it rapidly disappears following blue light exposure. This microtubule end association should only be visible in an image taken after sufficient recovery of the cells in the dark. \u03c0-EB1 photo-dissociation is too rapid to see by eye under the microscope and EGFP-Zdk1-EB1C signal will look cytoplasmic, possibly with some microtubule-independent enrichment at the centrosome.\r\n\n\n\r\n\n\n_Thoughts for developing other \u03c0-variant proteins:_\r\n\n\n\u2022 If one would want to use this strategy to develop a different light-sensitive protein by using this domain-splitting strategy, some of the things to keep in mind are:\r\n\n\n\u2022 Where to split the protein of interest? Most likely this strategy works best for proteins that have distinct domains that are connected by an unstructured linker region. Inserting the LOV2 and Zdk1 in or at the ends of the unstructured linker is less likely to interfere with protein function. It is probably a good idea to try splitting the protein at multiple positions.\r\n\n\n\u2022 For EB1, it worked well to use localization to the microtubule end as a tool to screen and evaluate different constructs. Defining a similar localization-based assay for protein dissociation will greatly simplify the testing and optimization process.\r\n\n\n\u2022 It is important that the C-terminus of the LOV2 domain remains untagged, which is essential for high-affinity Zdk1 binding<sup>2</sup>.\r\n\n\n\u2022 Do the two halves of the \u03c0-variant colocalize in cells? Do they interact in biochemical assays? Does the localization of the two halves of the \u03c0-variant resemble the localization of the wild-type protein? Although this does not necessarily mean that the \u03c0-variant is fully functional, but localization is likely an important determinant of function, so the more it resembles the localization of the wild-type protein the higher the chance of success. Additional specific assays will be required to determine that the \u03c0-variant can replace the endogenous protein function in the absence of blue light. \r\n\n\n\u2022 It is helpful to have antibodies that recognize both halves of the pi protein and that also recognize the full length protein, because that makes it easier to determine the relative expression levels by immunoblot.\r\n\n\n\u2022 If the target protein is essential for cell survival, it might be necessary to first stably express the \u03c0-variant of the protein, followed by CRISPR/Cas9 knockout or depletion of the endogenous protein."
+        },
+        {
+            "header": "References",
+            "content": "1. Repina, N. A., et al. At Light Speed: Advances in Optogenetic Systems for Regulating Cell Signaling and Behavior. Annu. Rev. Chem. Biomol. Eng 8, 13-39 \\(2017).\r\n    2. Wang, H., et al. LOVTRAP: an optogenetic system for photoinduced protein dissociation. Nat. Methods 13, 755-758 \\(2016).\r\n\n\n  3. Kumar, P. & Wittmann, T. +TIPs: SxIPping along microtubule ends. Trends Cell Biol. 22, 418-428 \\(2012).\r\n\n\n  4. Gierke, S. & Wittmann, T. EB1-recruited microtubule +TIP complexes coordinate protrusion dynamics during 3D epithelial remodeling. Curr. Biol. 22, 753-762 \\(2012).\r\n\n\n  5. Ran, F. A., et al. Genome engineering using the CRISPR-Cas9 system. Nat. Protoc. 8, 2281-2308 \\(2013).\r\n\n\n  6. Liu, J., et al. Genome and transcriptome sequencing of lung cancers reveal diverse mutational and splicing events. Genome Res. 22, 2315-2327 \\(2012).\r\n\n\n  7. Gibson, D. G., et al. Enzymatic assembly of DNA molecules up to several hundred kilobases. Nat. Methods 6, 343-345 \\(2009).\r\n\n\n  8. Fu, C., et al. Hot Fusion: an efficient method to clone multiple DNA fragments as well as inverted repeats without ligase. PLoS. One. 9, e115318 \\(2014)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41556-017-0028-5",
+                "date": "2018-01-29 16:52:29",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 15283,
+                "identity": "a140ca0a-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Torsten Wittmann",
+                "email": "torsten.wittmann@ucsf.edu",
+                "orcid": "",
+                "institution": "Wittmann Lab (UCSF)",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Torsten",
+                "middleName": "",
+                "lastName": "Wittmann",
+                "suffix": ""
+            },
+            {
+                "id": 15284,
+                "identity": "a140cf0b-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Jeffrey van Haren",
+                "email": "Antonius.VanHaren@ucsf.edu",
+                "orcid": "",
+                "institution": "Wittmann Lab (UCSF)",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Jeffrey",
+                "middleName": "van",
+                "lastName": "Haren",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2017-12-11 19:27:01",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2017.155",
+        "doiUrl": "https://doi.org/10.1038/protex.2017.155",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2609955,
+                "identity": "4e03f7a5-77e7-48d5-848d-66767f1da6d0",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:19",
+                "extension": "jpg",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 121957,
+                "visible": true,
+                "origin": "",
+                "legend": "Protocol I   Diagram of stable \u03c0-EB1 expression followed by EB1 shRNA depletion.",
+                "description": "",
+                "filename": "figure1.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-6427/v1/figure_1.jpg"
+            },
+            {
+                "id": 2609958,
+                "identity": "d907fc13-f01b-45e0-b690-b4a138b6aea3",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:19",
+                "extension": "jpg",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 125370,
+                "visible": true,
+                "origin": "",
+                "legend": "Protocol II   Diagram of CRISPR/Cas9 EB1 knockout followed by stable \u03c0-EB1 expression.",
+                "description": "",
+                "filename": "figure2.jpg",
+                "url": "https://assets.researchsquare.com/files/nprot-6427/v1/figure_2.jpg"
+            },
+            {
+                "id": 13465699,
+                "identity": "d6208602-4e05-45c3-9083-c5816dad7b60",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:47:51",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 289166,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-6427/v1/0a1c72c7-36ea-4c95-b661-67fdea60d0ab.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "microtubule dynamics, EB1, optogenetics, LOV2, Zdk1, photo-inactivation, shRNA, lentivirus, CRISPR/Cas9, genome editing",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "This protocol describes procedures for generating cell lines in which the MT plus end tracking protein EB1 is replaced by a photo-inactivated variant \\(\u03c0-EB1), which we generated by inserting a light sensitive protein interaction module between functional domains of EB1. \u03c0-EB1 photo-dissociation allows control of microtubule dynamics with high spatial and temporal accuracy and local investigation of microtubule functions in complex cell behaviors. Here we describe two protocols we have used to functionally replace EB1 with \u03c0-EB1 in a cancer cell line: \\(I) an shRNA-based protocol in which endogenous EB1 is depleted in cells stably expressing \u03c0-EB1, and \\(II) a CRISPR/Cas9-based protocol in which expression from the endogenous EB1 and EB3 loci is deleted, and subsequently replaced by the photo-inactivated variant. These protocols serve as guides for generating other \u03c0-EB1 cell lines. In addition, this domain-splitting strategy for replacing specific protein activities with photo-inactivated variants could be adapted to other multi-domain proteins.",
+        "manuscriptTitle": "Generation of cell lines with light-controlled microtubule dynamics",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2018-01-29 17:01:48",
+                "doi": "10.1038/protex.2017.155",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a14020d2-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "January 29th, 2018",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 4113,
+                "name": "Cell biology"
+            },
+            {
+                "id": 4115,
+                "name": "Biological techniques"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2018-01-29 17:01:48",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

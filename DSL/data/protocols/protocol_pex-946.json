@@ -1,0 +1,211 @@
+{
+    "identity": "pex-946",
+    "title": "<p>Zebrafish retinal mRNA RNA-seq data processing</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>This protocol describes the bioinformatic data processing pipeline for the associated manuscript.</p><p><br></p>"
+        },
+        {
+            "header": "Reagents",
+            "content": ""
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>Access to a high-performance computer cluster is recommended. Alternatively, a desktop workstation running either Linux or Mac OS with 32 GB RAM and high-end CPU(s). Cloud computing platforms such as Amazon Web Services (AWS) or Elastic Cloud (EC1) are also appropriate. Requisite software and packages include R <sup>2</sup>/R Studio <sup>3</sup> (version 3.5 or higher), FASTQC <sup>4</sup>, multiQC <sup>5</sup>, Trim Galore <sup>6</sup>, STAR <sup>7</sup>, HTSEQ <sup>8</sup>, DESeq2 <sup>9</sup>, GOseq <sup>10</sup>.&nbsp;</p><p><br></p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "1.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Raw sequencing data from mRNA SMARTSeq2 libraries (100bp paired-end [PE]) was converted from bcl to FASTQ format in BaseSpace per sample.\n2.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0All FASTQ reads were assessed for quality control using FASTQC and FastQ Screen. FastQ Screen is highly recommended as it assesses the library for sequence origin, ensuring the data match expectations.\n3.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Sequencing adapters (Illumina) and low quality read bases were trimmed using Trim Galore, removing reads with a quality Phred score under 6.\n4.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0To align the read sequences to the zebrafish genome, the complete genomic sequence (build GCRz10) file (FASTA) and GTF (general transfer format) / GFF (general feature format) (version 95) were obtained from Ensembl (downloaded: FA :\nftp://ftp.ensembl.org/pub/release-95/fasta/danio_rerio/dna/\nGTF:\nftp://ftp.ensembl.org/pub/release-95/gtf/danio_rerio/\n)\n5.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Appropriate index files were created using STAR (v2.7.1a):\nSTAR --runMode genomeGenerate --runThreadN 4 -genomeSAindexNbases 8 --genomeChrBinNbits 14 --genomeDir ./STARIndex/ --genomeFastaFiles ./GRCz11/Danio_rerio.GRCz11.dna.toplevel.fa --sjdbGTFfile ./GRCz11/Danio_rerio.GRCz11.95.gtf --sjdbOverhang 99\n6.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0PE FASTQ reads were aligned using STAR (v2.7.1a) in two-pass mode and guided by the GTF/GFF annotation:\nSTAR\u00a0--readFilesIn ${fq1} ${fq2} --readFilesCommand zcat --genomeDir ./STARIndex/ --runThreadN 4\u00a0--twopassMode Basic --outFileNamePrefix ${sample_id} --outSAMtype BAM SortedByCoordinate --outSAMunmapped Within --outSAMheaderHD @HD VN:1.4 --outSAMattrRGline ID:${sample_id} CN:UCL DS:RNAseq LB:Truseq PL:${library.platform} SM:${sample_id}\n7.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Resulting SAM files were sorted by coordinate, converted to BAM format, and indexed using samtools (v1.9):\nsamtools sort ${input.sam} -o ${output.sorted.bam} -O bam / samtools index ${output.sorted.bam}\n8.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0After mapping, read duplicates were marked using the Picard (v2.20.4) MarkDuplicates command and gene (or transcript) level counts calculated with a module of HTSeq (v0.11.3), htseq-count \u00a0keeping duplicate reads:\nhtseq-count --order=pos --stranded=no - ./GRCz11/Danio_rerio.GRCz11.95.gtf > ./counts/${BAM_file_name}_htseq_counts_keepdups.tsv\n9.\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Quality of mapping was carried out, summarizing the number of mapped, multimapped, unmapped, as well as mapped to exons, intergenic, or intragenic regions using RNA-SeQC/picard metrics/Qualimap.\n10.\u00a0\u00a0Summary reports of all metrics were created using MultiQC (v1.8)\n5\n.\n11.\u00a0\u00a0The R computing environment (>3.5) and Bioconductor packages, DESeq2 (v1.28.0) was used for statistical modelling of the count data, carrying out pairwise comparisons of optic fissure (OF) tissue and dorsal retina (DR) tissue at each specific developmental time point using WALD testing to generate p values. Metadata of the samples should include; sample id, condition, timepoint. Per sample count data was imported using tximport package, creating a single count dataframe. Low counts were filtered and removed (basemean <10) before modelling. Pairwise comparisons were carried out using specific contrasts called in the DESeq2 command. This ensured the complete dataset was preprocessed and consistent for all comparisons. For the time course analysis, DESeq2 was used with a likelihood-ratio test (LRT) to generate significance values on the complete data set using the interaction of time with tissue origin factors (time:tissue) .\n12.\u00a0\u00a0The data was explored using several graphical plots using ggplot2 in R\n11\n, including the MA plot \u2013 this shows the log2 fold change, per feature, plotted against the mean of normalized counts, for all the samples. An overview of the level of similarity was created using a sample-to-sample distance heatmap, using hierarchical clustering. Principle component analysis (PCA plot) was used to show the samples in a 2D space, separated by the first two principle components, key to identification of outliers and batch effects. All plots can be saved as resolution independent SVG images.\n13.\u00a0\u00a0Differentially expressed genes (DEGs) were defined in this dataset as those having an absolute log2 fold change >= 1 and an FDR <= 0.05.\n14.\u00a0\u00a0(optional) Genes can be further annotated using the biomaRt package\n12\n; providing common gene name, chromosomal location, biotype and strand specificity as well as associated protein identifiers and homologues in a number of species.\n15.\u00a0\u00a0Gene ontology over representation analysis was carried out using GOseq, which has the benefit of considering any length bias in the data. Alternative tools include GOrilla, DAVID and Enrichr (accessible through web interfaces and APIs).\n16.\u00a0\u00a0Hierarchical clustering of the identified DEGs can be used to identify clades/groups of differentially expressed genes, either up or down regulated in samples represented together colour coded in the heatmap output. The rows of the heatmap (representing an individual gene/transcript) are reordered according to the clustering result, putting similar observations close to one another. Clustering used the rlog transformed assay data from the DESeq2 object.\n17.\u00a0\u00a0For inter sample comparisons of specific gene(s) expression, transcripts per million (TPM) values were calculated\n13\nand appropriate plots created."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": ""
+        },
+        {
+            "header": "Time Taken",
+            "content": ""
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>Please see associated Publication</p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Richardson, R.<em> et al.</em> Transcriptome profiling of zebrafish optic fissure fusion. <em>Sci Rep</em> <strong>9</strong>, 1541, doi:10.1038/s41598-018-38379-5 (2019).</p><p>2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R Core Team.&nbsp;&nbsp;&nbsp;&nbsp;(Vienna, Austria, 2017).</p><p>3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RStudio Team.&nbsp;&nbsp;&nbsp;&nbsp;(Boston, MA, 2015).</p><p>4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Andrews, S. <em>FASTQC - A Quality Control tool for High Throughput Sequence Data</em>, &lt;<a href=\"http://www.bioinformatics.babraham.ac.uk/projects/fastqc/\" rel=\"noopener noreferrer\" target=\"_blank\">http://www.bioinformatics.babraham.ac.uk/projects/fastqc/</a>&gt; (2014).</p><p>5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ewels, P., Magnusson, M., Lundin, S. &amp; Kaller, M. MultiQC: summarize analysis results for multiple tools and samples in a single report. <em>Bioinformatics</em> <strong>32</strong>, 3047-3048, doi:10.1093/bioinformatics/btw354 (2016).</p><p>6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Krueger, F. <em>Trim Galore!</em>, &lt;<a href=\"https://www.bioinformatics.babraham.ac.uk/projects/trim_galore/\" rel=\"noopener noreferrer\" target=\"_blank\">https://www.bioinformatics.babraham.ac.uk/projects/trim_galore/</a>&gt; (2012).</p><p>7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dobin, A.<em> et al.</em> STAR: ultrafast universal RNA-seq aligner. <em>Bioinformatics</em> <strong>29</strong>, 15-21, doi:10.1093/bioinformatics/bts635 (2013).</p><p>8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Anders, S., Pyl, P. T. &amp; Huber, W. HTSeq--a Python framework to work with high-throughput sequencing data. <em>Bioinformatics</em> <strong>31</strong>, 166-169, doi:10.1093/bioinformatics/btu638 (2015).</p><p>9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Love, M. I., Huber, W. &amp; Anders, S. Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. <em>Genome Biol</em> <strong>15</strong>, 550, doi:10.1186/s13059-014-0550-8 (2014).</p><p>10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Young, M. D., Wakefield, M. J., Smyth, G. K. &amp; Oshlack, A. Gene ontology analysis for RNA-seq: accounting for selection bias. <em>Genome Biol</em> <strong>11</strong>, R14, doi:10.1186/gb-2010-11-2-r14 (2010).</p><p>11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wickham, H. <em>ggplot2: Elegant Graphics for Data Analysis</em>.&nbsp;(Springer-Verlag New York, 2016).</p><p>12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Durinck, S., Spellman, P. T., Birney, E. &amp; Huber, W. Mapping identifiers for the integration of genomic datasets with the R/Bioconductor package biomaRt. <em>Nat Protoc</em> <strong>4</strong>, 1184-1191, doi:10.1038/nprot.2009.97 (2009).</p><p>13&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wagner, G. P., Kin, K. &amp; Lynch, V. J. Measurement of mRNA abundance using RNA-seq data: RPKM measure is inconsistent among samples. <em>Theory Biosci</em> <strong>131</strong>, 281-285, doi:10.1007/s12064-012-0162-3 (2012).</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>\tThis research was funded by the Wellcome Trust (205174/Z/16/Z).</p><p><br></p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "https://doi.org/10.1038/s41598-018-38379-5",
+                "date": "2019-02-07 11:05:41",
+                "title": "Transcriptome profiling of zebrafish optic fissure fusion",
+                "authors": [
+                    "R. Richardson",
+                    "N. Owen",
+                    "M. Toms",
+                    "Rodrigo M. Young",
+                    "D. Tracey-White",
+                    "M. Moosajee"
+                ],
+                "journal": "Scientific Reports",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 584748,
+                "identity": "454bd732-bcd7-469e-92fc-96b7b24a8631",
+                "order_by": 1,
+                "name": "Nicholas Owen",
+                "email": "",
+                "orcid": "https://orcid.org/0000-0001-5598-6274",
+                "institution": "UCL Institute of Ophthalmology, London, UK",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Nicholas",
+                "middleName": "",
+                "lastName": "Owen",
+                "suffix": ""
+            },
+            {
+                "id": 584752,
+                "identity": "ee21f869-8cc4-49f9-bfae-208af7848c85",
+                "order_by": 2,
+                "name": "Mariya Moosajee",
+                "email": "m.moosajee@ucl.ac.uk",
+                "orcid": "https://orcid.org/0000-0003-1688-5360",
+                "institution": "UCL Institute of Ophthalmology, London, UK",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Mariya",
+                "middleName": "",
+                "lastName": "Moosajee",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2020-05-18 10:46:00",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-946/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-946/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13504297,
+                "identity": "f09d36f5-e9b4-445b-9a88-979de2eef258",
+                "added_by": "auto",
+                "created_at": "2021-09-16 23:22:43",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 141487,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-946/v1/5650541d-a698-4e8b-9e57-f666d48967f3.pdf"
+            }
+        ],
+        "financialInterests": "No",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "RNA-seq, zebrafish, spatio-temporal transcriptome, embryo development, retina, optic fissure",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>This protocol details the step-by-step procedures followed to process zebrafish retinal mRNA sequencing data generated by the SMARTSeq2 library preparation protocols in the manuscript Richardson et al 2019 <sup>1</sup>.</p><p><br></p>",
+        "manuscriptTitle": "Zebrafish retinal mRNA RNA-seq data processing",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2020-05-19 17:01:27",
+                "doi": "10.21203/rs.3.pex-946/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "c4f43aac-5b70-44cf-a35a-b8c5ab876a1c",
+        "owner": [],
+        "postedDate": "May 19th, 2020",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 102010,
+                "name": "Computational biology and bioinformatics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2020-05-19 17:01:27",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

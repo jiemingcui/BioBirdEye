@@ -1,0 +1,228 @@
+{
+    "identity": "nprot-5423",
+    "title": "Massively multiplex single-cell Hi-C by combinatorial indexing",
+    "content": [
+        {
+            "header": "Reagents",
+            "content": "Primers\r\n\n\n\r\n\n\nFor barcodes used for cellular indexing see Supplementary File 1 of associated manuscript\r\n\n\n\r\n\n\nIllumina F:\r\n\n\nAATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCT \r\n\n\n\r\n\n\nBarcoded Illumina R:\r\n\n\nCAAGCAGAAGACGGCATACGAGAT\\[10 bp barcode]TGACTGGAGTTCAGACGTGTGCT\r\n\n\n\r\n\n\nBuffers\r\n\n\n1X Cell Lysis buffer\r\n\n\n10 mM Tris-HCl pH8.0\r\n\n\n10 mM NaCl\r\n\n\n0.2% Igepal CA-630 \\(NP-40)\r\n\n\nAutoclaved water \r\n\n\n--- Store at 4\u00b0C\r\n\n\n\r\n\n\nAMPure Buffer\r\n\n\n20% PEG-8000\r\n\n\n2.5M NaCl\r\n\n\n--- Store at 4\u00b0C\r\n\n\n\r\n\n\n2X B&W buffer\r\n\n\n10 mM Tris-HCl pH8.0\r\n\n\n1 mM EDTA\r\n\n\n2 M NaCl\r\n\n\n-- Store at RT\r\n\n\n\r\n\n\n\u2022 NEBuffer 2 \\(NEB B7002S)\r\n\n\n\u2022       NEBuffer 3.1 \\(NEB B7203S)\r\n\n\n\u2022 10% \\(wt/vol) UltraPure SDS \\(Life Tech 15553-027)\r\n\n\n\u2022 DpnII \\(50U / uL, NEB R0543M)\r\n\n\n\u2022       MseI \\(50U / uL, NEB R0525M)\r\n\n\n\u2022       HaeIII \\(50U / uL, NEB R0108M)\r\n\n\n\u2022       100X BSA \\(NEB B9000S) \r\n\n\n\u2022 RNase A, DNase and protease-free \\(10 mg/ml) \\(Thermo Scientific EN0531)\r\n\n\n\u2022 Klenow Fragment \\(10 U/\u00b5L) \\(Thermo Scientific EP0052)\r\n\n\n\u2022 Klenow Fragment \\(exo\u2013) \\(5 U/\u00b5L) \\(Thermo Scientific EP0422)\r\n\n\n\u2022 T4 DNA Polymerase \\(5 U/\u00b5L) \\(Thermo Scientific EP0062)\r\n\n\n\u2022 T4 DNA Ligase \\(5 U/\u00b5L) \\(Thermo Scientific EL0012)\r\n\n\n\u2022 T4 Polynucleotide Kinase \\(10 U/\u00b5L) \\(Thermo Scientific EK0032)\r\n\n\n\u2022 10X T4 DNA Ligase Buffer w/ ATP \\(NEB B0202S)\r\n\n\n\u2022 Agencourt AMPure XP \\(Beckman Coulter A63880)\r\n\n\n\u2022 2X HotStart PCR ReadyMix \\(KAPA KK2601)\r\n\n\n\u2022 Proteinase K \\(Thermo Scientific EO0492)\r\n\n\n\u2022 FastDigest\u00ae BamHI \\(Thermo Scientific FERFD0504)\r\n\n\n\u2022 Dynabeads\u00ae MyOne\u2122 Streptavidin C1 \\(Life Tech 65001)\r\n\n\n\u2022 dNTP Set \\(100 mM 4x 0.25ml) \\(Thermo Scientific FERR0181)\r\n\n\n\u2022       Protease inhibitor cocktail \\(Roche 11873580001)"
+        },
+        {
+            "header": "Equipment",
+            "content": "Standard lab equipment, including a centrifuge, ThermoMixer \\(Eppendorf or the like), ThermalCycler, & multichannel pipettes."
+        },
+        {
+            "header": "Procedure",
+            "content": "1. Adaptor preparation:\r\n  \r\n\n\nFor the 5\u2019GATC-overhang two-oligo adaptors set up the following reactions in 96-well plate format:\r\n\n\n\r\n\n\nReagent Per reaction X96\r\n\n\n10X NEBuffer 2 10 \u03bcl 10 \u03bcl x 96\r\n\n\n5\u2019-GATC Biotin Forward oligo \\(100 uM) 45 \u03bcl ~\r\n\n\nIndexed Reverse oligo \\(100 uM) 45 \u03bcl ~\r\n\n\n\r\n\n\nFor the indexed Y-adaptors, set up the following reactions in 96-well plate format:\r\n\n\n\r\n\n\nReagent Per reaction X96\r\n\n\n10X NEBuffer 2 10 \u03bcl 10 \u03bcl x 96\r\n\n\nBarcoded Y-adaptor HI \\(100 uM) 20 \u03bcl ~\r\n\n\nBarcoded Y-adaptor LO \\(100 uM) 20 \u03bcl ~\r\n\n\nWater 50 uL 50 uL x 96\r\n\n\n\r\n\n\n\r\n\n\nFor both adaptors, heat to 98oC for 6 min, then ramp down \\(-0.1\u00b0C / s or slower) to RT. The final concentration of the 5\u2019-GATC internal bridge adaptors is 45 uM. The final concentration of Y-adaptors is 20 uM\r\n\n\n\r\n\n\nCheck the annealing efficiency by running oligos on 4% DNA Agarose gel\r\n\n\n\r\n\n\n2. Cell lysis and chromatin digestion with DpnII \\(5 - 10 million cells total)\r\n  2.1) Thaw a vial of 2% Formaldehyde-fixed human cells \\(HeLa S3 / HAP1 / GM12878 / K562) and a vial of 2.5% fixed Patski and 2% fixed MEFs at 37\u00b0C for 10-20 sec.\r\n\n\n2.2) Resuspend in 1 ml of ice-cold cell lysis buffer containing protease inhibitor cocktail \\(Roche).\r\n\n\n2.3) Transfer 2.5E6 of each type of cell to separate tubes.\r\n\n\n2.4) Centrifuge for 30 seconds at 800xg at RT.\r\n\n\n2.5) Discard the supernatant and resuspend the pellet in each tube in 95 \u03bcl of water and 5 \u03bcl 10% SDS.\r\n\n\n2.6) Incubate at 60\u00b0C for 10 min.\r\n\n\n2.7) Add 100 \u03bcl of water and 25 \u03bcl 10% Triton X-100 to each tube and mix well.\r\n\n\n2.8) Incubate at 37\u00b0C for 10 min.\r\n\n\n2.9) Add 40 \u03bcl NEBuffer 3.1, 8 \u03bcl DpnII \\(10 U/ul) and 120 \u03bcl water to each tube, mix well.\r\n\n\n2.10) Incubate at 37\u00b0C overnight.\r\n\n\n2.11) Centrifuge for 60 seconds at 850xg at RT.\r\n\n\n2.12) Discard the supernatant and resuspend the pellet in 384 \u03bcl water and 6 \u03bcl 100X BSA  in each tube, mix well.\r\n\n\n\r\n\n\n3. Ligation of the biotin-labeled, barcoded Bridge adaptors \\(1E5 cells / well, 10 \u03bcl reaction volume in at least 1 96 well plate)\r\n  \r\n\n\n3.1) Distribute T4 DNA ligase/buffer to each well of one \\(or more) 96 well plates \\(below master mix volumes are for 2 plates, with 3 \u03bcl per well),\r\n\n\nReagents Per reaction\r\n\n\nWater 380 \\(1.4x220) \u03bcl\r\n\n\n50% PEG-4000 100 \\(0.5x220) \u03bcl\r\n\n\n10X T4 DNA Ligase Buffer 220 \\(1x220) \u03bcl\r\n\n\nT4 DNA ligase \\(5 U/ \u03bcl) 24 \\(0.15x220) \u03bcl\r\n\n\n\r\n\n\n3.2) Distribute 2 uL of biotinylated barcoded double-stranded bridge adaptor \\(45 \u03bcM) to each well of each 96-well plate using a multi-channel pipette.\r\n\n\n3.3) Distribute 5 \u03bcl nuclei to each well.\r\n\n\n3.4) Incubate at 16\u00b0C overnight.\r\n\n\n3.5) Distribute 1 \u03bcl 0.25 M EDTA to each well to inactivate ligation reaction.\r\n\n\n3.6) On ice, pool the samples from each well together \\(1 ml) into two 1.5ml tubes. \r\n\n\n3.7) Centrifuge at 850xg at RT for 90 seconds.\r\n\n\n3.8) Resuspend in 291 \u03bcl of water, 6 \u03bcl 10%SDS, and 3 \u03bcl of 100X BSA, and combine the four tubes.\r\n\n\n3.9) Centrifuge at 850xg at RT for 40 seconds.\r\n\n\n3.10) Resuspend in 294 \u03bcl of water, 3 \u03bcl 10%SDS, and 3 \u03bcl of 100X BSA.\r\n\n\n3.11) Incubate at 37\u00b0C for 3 min.\r\n\n\n3.12) Centrifuge at 850xg at RT for 40 seconds.\r\n\n\n3.13) Resuspend in 294 \u03bcl of water, 3 \u03bcl 10%SDS, and 3 \u03bcl of 100X BSA. \r\n\n\n3.14) Centrifuge at 850xg at RT for 40 seconds.\r\n\n\n3.15) Resuspend in 237 \u03bcl of water, and 3 \u03bcl of 100X BSA, mix well.\r\n\n\n3.16) Add 5 \u03bcl 10% Triton X-100, mix well.\r\n\n\n\r\n\n\n4. Phosphorylation \r\n  4.1) Prepare the PNK-ligation master-mix for the nuclei as follows:\r\n\n\n\r\n\n\nNuclei 250 \u03bcl\r\n\n\n10x T4 DNA Ligase buffer 30 \u03bcl\r\n\n\nPNK \\(10 U/ \u03bcl) 20 \u03bcl\r\n\n\n\r\n\n\n4.2) Incubate both at 37\u00b0C for 1 hr.\r\n\n\n\r\n\n\n5. In situ ligation \r\n  5.1) Add the following to the above tube:\r\n\n\n\r\n\n\nWater 615 \u03bcl\r\n\n\n10x T4 DNA Ligase buffer 70 \u03bcl\r\n\n\nT4 DNA ligase \\(5 U/ \u03bcl) 8 \u03bcl\r\n\n\n100X BSA 7 \u03bcl\r\n\n\n\r\n\n\n5.2) Mix well, and incubate at RT for 4 hr. Divide into two tubes.\r\n\n\n5.3) Centrifuge at 850xg at RT for 90 seconds.\r\n\n\n5.4) Resuspend in 294 \u03bcl of water, 3 \u03bcl 10%SDS, and 3 \u03bcl of 100x BSA.\r\n\n\n5.5) Incubate at 37oC for 3 min.\r\n\n\n5.6) Centrifuge at 850xg at RT for 40 seconds.\r\n\n\n5.7) Resuspend in 294 \u03bcl of water, 3 \u03bcl 10%SDS, and 3 \u03bcl of 100x BSA. \r\n\n\n5.8) Centrifuge at 850xg at RT for 40 seconds.\r\n\n\n5.9) Resuspend in 294 \u03bcl of water, 3 \u03bcl 10%SDS, and 3 \u03bcl of 100x BSA.\r\n\n\n\r\n\n\n6. Serial dilution and reverse cross-linking \r\n  6.1) Carry out serial dilution as follows: transfer 5 \u03bcl from 5.9) to 980 \u03bcl water plus 10 \u03bcl 100X BSA and 5 \u03bcl 10% SDS, mix well; then transfer 100 \u03bcl of diluted nuclei to 885 \u03bcl water plus 10 \u03bcl 100X BSA and 5 \u03bcl 10% SDS and mix well; then transfer 100 \u03bcl of diluted nuclei to 885 \u03bcl water plus 10 \u03bcl 100X BSA and 5 \u03bcl 10% SDS, and mix well. There should be ~1 nucleus per 2 \u03bcl solution.  At last distribute 20 \u03bcl per well to a Lo-bind 96-well PCR plate.\r\n\n\n\r\n\n\n6.2) Make the following master mix for reverse crosslinking:\r\n\n\n\r\n\n\nReagent Per plate \\(x110)\r\n\n\nWater 15.5 \u03bcl \\(1705)\r\n\n\n10% SDS 0.5 \u03bcl \\(55)\r\n\n\n2X B&W Buffer 2 \u03bcl \\(220)\r\n\n\nProteinase K \\(20 mg / ml) 2 \u03bcl \\(220)\r\n\n\n\r\n\n\n6.3) Distribute 20 \u03bcl to each well.\r\n\n\n6.4) Incubate at 62\u00b0C overnight. Plates can then be stored at -20\u00b0C for later processing. At this point, 8-strip PCR tubes may be used for small-scale assays, and the remaining cells can be processed as a bulk control assay.\r\n\n\n\r\n\n\n7. Binding to 10 ul of Ampure beads \\(160 \u03bcl)\r\n  7.1) Dilute 1200 \u03bcl Ampure beads with 7 ml AMPure buffer and mix well.\r\n\n\n7.2) If the 96-well plate was stored at -20\u00b0C, thaw at 65\u00b0C for 10 min. \r\n\n\n7.3) Add 40 \u03bcl water to each well.\r\n\n\n7.4) Add 80 \u03bcl diluted AMPure beads to each well with 12-channel multipipette. Mix well.\r\n\n\n7.5) Incubate at RT for 10 min.\r\n\n\n7.6) Perform quick spin to bring volume to bottom of each well.\r\n\n\n7.7) Place the plate in a 96-well magnet and discard the supernatant with multichannel pipette.\r\n\n\n7.8) Wash two times with 160 \u03bcl 80% EtOH\r\n\n\n7.9) Remove the residue solution.\r\n\n\n7.10) Quick spin plate to get the beads to the bottom of each well.   \r\n\n\n7.11) Resuspend the beads in 5 \u03bcl water, mix well by moving the beads around on the magnet.\r\n\n\n7.12) Incubate at 37\u00b0C for 10 min.\r\n\n\n7.13) Quick spin to get the beads to the bottom of each well.        \r\n\n\n\r\n\n\n8. 4-cutter digestion \\(MseI + HaeIII) \\(10 \u03bcl)\r\n  8.1) Add 5 uL of the following reaction buffer to each well:\r\n\n\nReagent Per plate \\(x110)\r\n\n\nWater 3.4 \u03bcl \\(374)\r\n\n\n10X NEBuffer 2 1 \u03bcl \\(110)\r\n\n\nMseI \\(10 U / \u03bcl) 0.3 \u03bcl \\(33)\r\n\n\nHaeIII \\(10 U / \u03bcl) 0.3 \u03bcl \\(33)\r\n\n\n\r\n\n\n8.2) Quickly spin plate to bring volume to bottom of each well.\r\n\n\n8.3) Incubate at 37 \u00b0C for 20 h, 65\u00b0C for 30 min, and 4\u00b0C forever. \r\n\n\n\r\n\n\n9. End-repair to remove dangling ends \\(15 \u03bcl)\r\n  \r\n\n\n9.1) On ice, add 5 uL of the following reaction mix to each well:\r\n\n\nReagent Per plate \\(x110)\r\n\n\nWater 3.55 \u03bcl \\(391.5)\r\n\n\n10X NEBuffer 2 0.5 \u03bcl \\(55)\r\n\n\n10 mM dNTPs 0.2 \u03bcl \\(22)\r\n\n\nKlenow \\(10 U / \u03bcl) 0.15 \u03bcl \\(16.5)\r\n\n\nCarrier plasmid DNA  \\(220 ng/ul) 0.6 \u03bcl \\(60)\r\n\n\n\r\n\n\n9.2) Quick spin plate.\r\n\n\n9.3) Incubate at 18\u00b0C for 10 min, 65\u00b0C for 30 min., and 4\u00b0C forever.\r\n\n\n\r\n\n\n10. dA-tailing \\(20 \u03bcl)\r\n  10.1) Add 5 uL of dA-tailing reaction mix to each well:\r\n\n\nReagent Per reaction \\(x110)\r\n\n\n10X NEBuffer 2 0.5 \u03bcl \\(55)\r\n\n\n20 mM dATP 1 \u03bcl \\(110)\r\n\n\nKlenow \\(exo-) \\(5 U/ \u03bcl) 0.3 \u03bcl \\(33)\r\n\n\nWater 3.2 \u03bcl \\(352)\r\n\n\n\r\n\n\n10.2) Quick spin.\r\n\n\n10.3) Incubate at 37\u00b0C for 45 min, 65\u00b0C for 30 min., and 4\u00b0C forever.\r\n\n\n \r\n\n\n11. Ligation of sequencing adaptors \\(20 \u03bcl), 96 indexed adaptors\r\n  11.1) Add 19 uL ligation mix to each well:\r\n\n\nReagent Per reaction \\(x110)\r\n\n\nWater 10.8 \u03bcl \\(1188)\r\n\n\n10X T4 DNA Ligase Buffer 4 \u03bcl \\(440)\r\n\n\n50% PEG-4000 4 \u03bcl \\(440)\r\n\n\nT4 DNA ligase \\(5 U/ \u03bcl) 0.2 \u03bcl \\(22)\r\n\n\n\r\n\n\n11.2) Distribute 1 \u03bcl Indexed sequencing adaptor \\(20 \u03bcM) to each well.\r\n\n\n11.3) Quick spin.\r\n\n\n11.4) Incubate at 16\u00b0C for 20 h, 70\u00b0C for 10 min, and 4\u00b0C forever\r\n\n\n\r\n\n\n12. Purification and Biotin pull down\r\n  12.1) Combine each column of wells into 12 1.5 ml low-binding tubes. \r\n\n\n12.2) Use 100 \u03bcl EB to rinse each well and add to each respective tube.\r\n\n\n12.3) Add 40 \u03bcl 3M NaOAc, 4 \u03bcl GlycoBlue, and 500 \u03bcl isopropanol to each tube, mix well.\r\n\n\n12.4) Incubate tubes at -80oC for 2 h.\r\n\n\n12.5) Spin at max speed on a chilled tabletop centrifuge for 30 min.\r\n\n\n12.6) Resuspend and combine all 12 pellets in 100 \u03bcl EB.\r\n\n\n12.7) Use 100 \u03bcl EB to rinse each tube twice \\(final volume 300 uL EB).\r\n\n\n12.8) Add 100 \u03bcl AMPure Beads and 200 \u03bcl AMPure buffer. \r\n\n\n12.9) Incubate at RT for 5 min.\r\n\n\n12.10) Wash two times with 80% EtOH. \r\n\n\n12.11) Resuspend in 100 \u03bcl water in each tube.\r\n\n\n12.12) Bind to 10 \u03bcl M-280 Beads in 200 \u03bcl 1X B&W buffer\r\n\n\n12.13) Incubate at RT for 20 min.\r\n\n\n12.14) Wash 4 times with 200 \u03bcl 1X B&W buffer containing 0.1% Tween-20.\r\n\n\n12.15) Wash twice with 200 \u03bcl EB.\r\n\n\n12.16) Resuspend in 30 \u03bcl EB in each tube.\r\n\n\n\r\n\n\n13. Library amplification \\(80 \u03bcl)\r\n  13.1) Carry out 3 PCR reactions with the following reaction composition:\r\n\n\n\r\n\n\nWater 22 \u00b5l\r\n\n\n2X KAPA Hi-Fi Master Mix 40 \u03bcl\r\n\n\nIllumina F \\(10 uM) 4 \u03bcl\r\n\n\nBarcoded Illumina R \\(10 uM) 4 \u00b5l\r\n\n\nBeads 10 \u00b5l\r\n\n\n\r\n\n\n13.2) Carry out PCR amplification:\r\n\n\n\r\n\n\n 98 \u00b0C, 2 min;\r\n\n\n4 cycles: 98\u00b0C, 20s; 60\u00b0C, 30s; 72oC, 45 sec\r\n\n\n14-16 cycles: 98\u00b0C, 20s; 65\u00b0C, 20s; 72\u00b0C, 40 sec\r\n\n\n\r\n\n\n13.3) Pool together all samples from each PCR reaction.\r\n\n\n13.4) Add 30 \u03bcl AMPure beads and a volume of AMPure buffer necessary to achieve a 1:1 volumetric ratio of AMPure buffer + beads to sample. \r\n\n\n13.5) Incubate 5 min at RT, and wash once with 0.6 ml 80% EtOH.\r\n\n\n13.6) Resuspend in 200 \u03bcl water, add 155 \u03bcl AMPure buffer, mix well.\r\n\n\n13.7) Incubate 5 min at RT, wash twice with 0.8 ml 80% EtOH. \r\n\n\n13.8) Repeat 13.6 \u2013 13.7 three times.\r\n\n\n13.9) After final purification, elute DNA with 30 \u03bcl EB and measure concentration using a Qubit.\r\n\n\n13.10) Proceed to sequencing on a HiSeq 2500 instrument \\(PE 2x250 bp reads).\r\n\n\n \r\n\n\n14. Library validation by EcoRI digestion \\(optional)\r\n  14.1) Digest a small aliquot of the final combinatorial single cell Hi-C library with EcoRI to estimate the portion of molecules with valid ligated junctions \r\n\n\nReagent Experimental Control\r\n\n\n10X Cutsmart Buffer 1\u00b5l 1\u00b5l\r\n\n\nPCR Product 1-2 \u00b5l \\(20 ng) 1-2 \u00b5l \\(20 ng)\r\n\n\nEcoRI-HF 1 \u00b5l 0 \u00b5l\r\n\n\nWater to 10 \u00b5l to 10 \u00b5l\r\n\n\n\r\n\n\n14.2) Incubate at 37\u00b0C for 1 hr.  \r\n\n\n14.3) Run the entire volume of the reaction on a 6% TBE-PAGE gel. Digested libraries should demonstrate a marked shift, as properly ligated molecules will be cut with EcoRI."
+        },
+        {
+            "header": "Timing",
+            "content": "~7 days"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nmeth.4155",
+                "date": "2017-02-23 22:47:06",
+                "title": "Massively multiplex single-cell Hi-C",
+                "authors": [
+                    "Vijay Ramani",
+                    "Xinxian Deng",
+                    "Ruolan Qiu",
+                    "Kevin L Gunderson",
+                    "Frank J Steemers",
+                    "Christine M Disteche",
+                    "William S Noble",
+                    "Zhijun Duan",
+                    "and Jay Shendure"
+                ],
+                "journal": "Nature Methods",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 14277,
+                "identity": "a0da09b2-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Zhijun Duan",
+                "email": "zjduan@uw.edu",
+                "orcid": "",
+                "institution": "Shendure Lab",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Zhijun",
+                "middleName": "",
+                "lastName": "Duan",
+                "suffix": ""
+            },
+            {
+                "id": 14278,
+                "identity": "a0da0dd5-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Jay Shendure",
+                "email": "shendure@uw.edu",
+                "orcid": "",
+                "institution": "Shendure Lab",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Jay",
+                "middleName": "",
+                "lastName": "Shendure",
+                "suffix": ""
+            },
+            {
+                "id": 14276,
+                "identity": "a0da04b9-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Vijay Ramani",
+                "email": "",
+                "orcid": "",
+                "institution": "Shendure Lab",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Vijay",
+                "middleName": "",
+                "lastName": "Ramani",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2016-12-14 19:03:28",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2017.005",
+        "doiUrl": "https://doi.org/10.1038/protex.2017.005",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13464930,
+                "identity": "7c7a4f31-f152-47f2-93bb-1da127c02a8b",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:45:12",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 134021,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-5423/v1/caadc548-ddd3-4a57-a9a9-b96d057d3f0c.pdf"
+            },
+            {
+                "id": 2609593,
+                "identity": "4e7afa93-01b6-4239-aaed-71ef946ca185",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:02",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 144770,
+                "visible": true,
+                "origin": "",
+                "legend": "Protocol PDF   PDF of the protocol",
+                "description": "",
+                "filename": "supplement0.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-5423/v1/supplement_0.pdf"
+            }
+        ],
+        "financialInterests": "None",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Hi-C; single-cell",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "Here, we present a protocol for carrying out single-cell combinatorial indexed Hi-C \\(sciHi-C). This protocol accompanies Ramani et al \\(_Nature Methods_, published online January 30, 2017; 10.1038/nmeth.4155); it was added to the manuscript after formal peer review, as an aid to users.",
+        "manuscriptTitle": "Massively multiplex single-cell Hi-C by combinatorial indexing",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2017-02-24 17:37:43",
+                "doi": "10.1038/protex.2017.005",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a0d989d9-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "February 24th, 2017",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3755,
+                "name": "Genetics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2017-02-24 17:37:43",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

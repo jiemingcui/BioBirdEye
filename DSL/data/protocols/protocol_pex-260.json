@@ -1,0 +1,250 @@
+{
+    "identity": "pex-260",
+    "title": "<p>Assessing the clonal expansion strategy of landscape-forming plants</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>Many coastal landscapes emerge through two-way interrelations between landscape-forming plants and their physical environment. Clonally expanding plants can stimulate entrapment of airborne or water-suspended particles with increasing patch size and shoot density&nbsp;<sup>1-4</sup>. While rapid landscape colonization \u2013 by placing shoots further apart \u2013 can stimulate sediment accretion over a larger area, often a minimum number of closely spaced shoots is required for reducing wind or water flow below the sedimentation threshold. To investigate whether this trade-off between landscape colonization and exploitation can lead to inter-species or within-species differences in clonal expansion strategies, we developed a method to quantify the clonal network architecture and the resulting spatial shoot organization.&nbsp;&nbsp;This protocol is designed to derive step sizes between consecutive shoots in a clonal network as a proxy for clonal expansion strategy.&nbsp;</p><p>Probability distributions functions fitted on the derived step size data can subsequently be used to understand the patterns of clonal plant movement. As the clonal network of species can disintegrate over time \u2013 thereby complicating the reconstruction of clonal connections \u2013 we suggest investigating the clonal expansion strategy in the earlier phase of landscape colonization.</p><p><strong>&nbsp;</strong></p><p><strong>The approach</strong></p><p>Here, a methodology is proposed to derive the spatial coordinates of individual shoots within a clonal individual and to assess the inter-shoot distances in a clonal plant network. To that end, young clonal individuals are sampled from the edge of a biogeomorphic ecosystem (e.g. embryonic dunes, pioneer marshes or expanding seagrass meadows). Before starting sampling in an area it is recommended to scan the area well, so the plants (sufficient number of replicates N~5) you choose are representative of the area. To gain some experience in handling the plants and understanding the strength or vulnerability of the rhizomal architecture, we suggest digging out a few plants and trying to trace or reconstruct their network prior to sampling.&nbsp;</p><p><br></p><p>In this protocol we will describe two methods for describing the clonal expansion strategy of plants from still images. We refer to them as being the&nbsp;<em>manual&nbsp;</em>or the&nbsp;<em>automated&nbsp;</em>approach. The&nbsp;<em>automated</em>approach requires Matlab to run a script that derives the spatial coordinates of shoots from these images. It subsequently calculates their inter-shoot distributions using two connecting algorithms (i.e. traveling salesman and nearest neighbour method). The code required for this protocol is provided as Supplementary File 1 (see&nbsp;<em>Source code</em>section under&nbsp;<strong>Equipment&nbsp;</strong>for more information).&nbsp;</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>Sampling in the field:</em></p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Scissors or pruning shears for cutting of all shoots at ground level&nbsp;</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\u00b1 300 coloured individually-labelled (head) pins in contrasting colours that stand out from the environment (e.g. red, blue, pink). Note: make sure the labels can get wet and that the pin head is large enough to be visible from images and small enough to be pinned in plant tissue. For the&nbsp;<em>automated</em>approach no labels are required.</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Portable rectangular measurement frame of appropriate size for the involved species (for example: 1.5 x 1.5 m). The frame should be easily inserted in the sediment and have some measuring scale for deriving spatial dimensions from still images. In addition you can attach spirit levels to deploy the frame as level as possible. For example, Figure 1a shows a 1.4 x 1.4 aluminium frame that could be easily assembled and taken apart.</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Camera (handheld or smartphone) for shooting images.&nbsp;</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hand shovel for excavating the network</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Notebook (paper) or tablet for drawing the rhizomal network.</p><p><em>&nbsp;</em></p><p>2)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>Image analyses</em></p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Photoshop or equivalent for image manipulation.</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Image J for measuring step sizes, reorientation angles and branching degrees (<em>manual approach)</em>.</p><p>\u00b7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The algorithms for translating images to spatial coordinates and step size distributions are provided as a Matlab script (see&nbsp;<em>Source code</em>below).</p><p>&nbsp;</p><p>3)<em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Source code</em></p><p>The Matlab based tool (developed and tested for Matlab R2015b) for translating spatial images to shoot coordinates and subsequently calculating their step sizes is included as Supplementary file 1. The script for analysing the images (clonal_plant_analyses.m) is provided in a ZIP package that contains a test image (test.png) in which two individual plants are present (plant 1: red, plant 2:blue). The included functions (red_pins.m and blue_pins.m) are needed to detect the spatial coordinates of the shoots. The functions ts_solve.m is needed to derive the step sizes using the traveling salesman based approach.</p><p>&nbsp;</p><p>In addition, three different output files for each individual plant are provided (xy_plant[1,2].csv, distancesNN_plant[1,2].csv &amp; distancesTS_plant[1,2]). Finally, an example of a connected clonal individual using the&nbsp;<em>manual</em>approach is also included (connected.jpg).&nbsp;</p><p>&nbsp;</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "Manually reconstructing clonal plant networks in the field\n1)\u00a0\u00a0\u00a0First select appropriate candidate plants, take a reference picture before cutting of biomass (Figure 1a).\n2)\u00a0\u00a0\u00a0Cut off all shoots at the base (collect plant material if interested) and place a labelled pin in each shoot (Figure 1b).\n3)\u00a0\u00a0\u00a0Deploy the calibration frame (which holds a spatial scale for translating pixels to centimetres) as level as possible. Take a photo from an appropriate distance (position the camera parallel to measurement frame to prevent measurement inaccuracies) so all four corners are visible from the image. If you are unable to shoot the whole frame in one image, than take 2 or 4 images from the separate corners that can later be stitched together (test.png in Supplementary file includes an example of the latter).\n4)\u00a0\u00a0\u00a0Either draw the spatial shoot organization in the grid with the labels or use a field proof tablet or computer to assign labels to each individual shoot in the picture (Figure 1c).\n5)\u00a0\u00a0\u00a0Start digging out the plant and note the nearest connection/neighbour of each shoot in the clonal network (Figure 1d). This step requires some practising and experience. Please be careful when excavating the plants, depending on the species the rhizomes can disintegrate rapidly. When parts of the plants have all been noted down, you can remove them from the clonal plant to avoid confusion. Use your fingers when branching nodes (where shoots and rhizomes sprout from) are closely spaced apart. They may appear to be coming from the same point, but sometimes you can still feel a tiny piece of rhizome connecting the nodes.\n6)\u00a0\u00a0\u00a0After the plant has been excavated and all shoots in the network are connected, remove all labelled pins and replace the sand on the plant; it is likely to sprout again!\n7)\nComputer work\n: Load the images into the computer in Photoshop or equivalent software. Straighten the image into a square gird using a perspective crop tool (Figure 1c).\n8)\u00a0\u00a0\u00a0Use Image J or an equivalent program to set the scale of the photos (use the scale on the images to translate pixels to centimetres). Using Image J, you can now measure the length between connected shoots or measure the reorientation angle.\n9)\u00a0\u00a0\u00a0An example of a fully labelled image including the connections found in the field is included in the Supplementary file (connected.jpg).\nReconstructing clonal networks: the automated approach\nField methods:\nThis method was validated for two dune grass species (\nAmmophila arenaria\nand\nAmmophila breviligulata\n) only (see associated publication).\nStep 1-3 need to be performed as previously described, with the exception of the labelled pins. This method requires coloured pins that can be extinguished from still images, but they don\u2019t need to be labelled. After the image is taken, the plants need to be excavated to make sure all shoots are connected. However, the precise inter-shoot connections do not need to be noted down. Instead note down which clusters of shoots are connected to one another.\nComputer methods\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Repeat step 7 from the manual approach and straighten the image.\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0To make sure all pins are recognized in the Matlab script it is recommended to highlight all individual pins in Photoshop. Use different layers for each individual plant in the image and store the image as a .png image of a fixed size: for example 3600 x 3600 pixels. To easily recognize the pins, use the same colours (for example the shoots of plant 1 in the image get red pins (R-G-B :255-0-0) and the shoots of plant 2 get blue pins (R-G-B:0-0-255). The custom-made Matlab script (clonal_plant_analyses.m) uses the function ..._pins.m to recognize pins, functions for red (red_pins.m) and blue (blue_pins.m) are included. To make sure the script (clonal_plant_analyses.m) can recognize the pins it is recommended to create dots of sufficient size (for example 15 pixels).\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Open the readme.text from the ZIP package in Supplementary file 1. First use the script on the test.png image to understand the code. Read the annotations and change the plant parameter to whichever colour of pins you want to read (red = 1, blue = 2) in from your image. Note: you can change the colour of the pins yourself by creating new functions in matlab. Just copy the \u2026_pins.m function and change the values in the RGB channels.\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0The code saves the spatial coordinates for all shoots of an individual plant in a csv file (xy_plant\u2026csv). The unit of these coordinates is in pixels, it and can be translated to a spatial dimension (e.g. cm or mm) using the calibration scale from your images. These spatial coordinates can be used for connecting the shoots (set the connect parameter in the\u00a0\u00a0clonal_plant_analyses.m to 1) or to perform other spatial statistics (see the associated publication for examples).\n\u00b7\u00a0\u00a0\u00a0\u00a0\u00a0The script also connects all shoots within a clonal individual using two connecting algorithms: Nearest Neighbour search (NN) and Traveling Salesman (TS) (set connect to 1). These methods create a singular path through the clonal nodes (no branching probability is included), which results in a possible step size distribution which can be used as a proxy for clonal expansion strategy.\u00a0The first connecting algorithm tested is based on the Travelling Salesman principle (TS). The Travelling Salesman in a classical NP (non-deterministic polynomial time) problem from computer science that deals with computing the shortest possible route given N number of cities in which every city has to be visited once\n5\n. In our case we used a numerical approach that connected all shoots N in the clonal network in an open circuit until the total route length did not shorten anymore for N times (see ts_solve.m). The second algorithm searches for the nearest neighboring shoots consecutively until all shoots N are connected. The algorithm was iterated N times, starting at every individual shoot, and the route with the shortest total length was selected (see clonal_plant_analysis.m section:\nestimate pin (shoot) connections using NN).\nThe results from these connecting algorhitms are stored in the associated csv files (distancesNN_plantx.csv or distancesTS_plantx.csv)."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "<p><em>Field work</em></p><p>Selecting appropriate sites for studying the expansion strategy of colonizing landscape-forming plants can be challenging. As many coastal ecosystems are experiencing coastal squeeze they are declining or eroding&nbsp;<sup>6-8</sup>. Analysing aerial photos of areas of interest (for example using Google Earth) can aid in identifying appropriate places for studying the clonal expansion strategy of colonizing landscape-forming plants.&nbsp;</p><p>&nbsp;</p><p>This protocol explains how to derive the Euclidian distances between emerging shoots on the surface. Therefore it does not provide the \u2018real\u2019 rhizomal distance or clonal plant movement. To acquire this information you need to dig out the individual shoots and measure the rhizomes between connected shoots. Also, other proxies for clonal plant network architecture such as the number of nodes or inter-node distances are not measured using this method (for explanation of these methods see e.g.&nbsp;<sup>9-12</sup>).</p><p>&nbsp;</p><p><em>Computer analyses</em></p><p>As the Matlab scripts we provided in the Supplementary file are custom-made, there are always errors that can be encountered when applying them to new species, environments etc. We recommend reading the readme.txt and the annotations in the script and run the test file before using the script on newly acquired images. Basic knowledge of Matlab and functions is necessary to solve compiling errors. Note: the&nbsp;<em>automated</em>approach in which the step sizes are derived using two connecting algorithms (Nearest Neighbour and Traveling Salesman method) has so far only be validated for&nbsp;<em>Ammophila breviligulata&nbsp;</em>and&nbsp;<em>Ammophila arenaria</em>(see associated publication). Before they can be applied to different species in different environmental settings, be sure that the step size distribution you obtain using the&nbsp;<em>manual&nbsp;</em>approach agrees with the&nbsp;<em>automated</em>data.&nbsp;</p>"
+        },
+        {
+            "header": "Time Taken",
+            "content": "<p>The field work is best done in pairs to increase time efficiency and for safety reasons. The sampling of the plants in the field depends on the chosen spatial dimension (size of references frame) and the number of shoots within that frame. Furthermore, the&nbsp;<em>manual</em>approach is much more time consuming than the&nbsp;<em>automated&nbsp;</em>approach. Typically, mapping and reconstructing the network connections of a complete clonal individual plant with ~150 shoots would take around 3 hours. The&nbsp;<em>automated</em>approach, which only requires clipping of biomass, replacing them with coloured pins and rapidly digging out the shoots to identify clonal individuals, will taken about one hour.&nbsp;</p><p>&nbsp;</p><p>The image manipulating for the&nbsp;<em>manual</em>approach, which requires labelling the shoots and measuring all step sizes in the network will take approximately ~ 1-1.5 hours (see connected.jpg for an example image). For the&nbsp;<em>automated&nbsp;</em>approach, image manipulation and running the script will likely take about ~15-20 minutes.</p>"
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<p>This procedure will lead to acquiring data on the clonal expansion strategy of colonizing landscape-forming plant species. This data can then be analysed to see whether inter-species or inter-individual differences can be linked to environmental conditions, complexity or landscape formation. Overall, we anticipate that analysing the spatial organization of shoots on an individual clonal plant level can contribute in understanding landscape formation and to design restoration schemes that take the natural organization of plant species into account.&nbsp;&nbsp;</p>"
+        },
+        {
+            "header": "References",
+            "content": "<p>1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Maxwell, P. S.<em>et al.</em>The fundamental role of ecological feedback mechanisms for the adaptive management of seagrass ecosystems\u2013a review.&nbsp;<em>Biological Reviews, </em><strong>92</strong>, 1521-1538 (2017).</p><p>2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Silliman, B. R.<em>et al.</em>Facilitation shifts paradigms and can amplify coastal restoration efforts.&nbsp;<em>Proceedings of the National Academy of Sciences, </em><strong>112</strong>, 14295-14300 (2015).</p><p>3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dur\u00e1n, O. &amp; Moore, L. J. Vegetation controls on the maximum size of coastal dunes.&nbsp;<em>Proceedings of the National Academy of Sciences, </em><strong>110</strong>, 17217-17222 (2013).</p><p>4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Zarnetske, P. L.<em>et al.</em>Biophysical feedback mediates effects of invasive grasses on coastal dune shape.&nbsp;<em>Ecology, </em><strong>93</strong>, 1439-1450 (2012).</p><p>5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Durbin, R. &amp; Willshaw, D. An analogue approach to the travelling salesman problem using an elastic net method.&nbsp;<em>Nature, </em><strong>326</strong>, 689 (1987).</p><p>6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Barbier, E. B.<em>et al.</em>The value of estuarine and coastal ecosystem services.&nbsp;<em>Ecological monographs, </em><strong>81</strong>, 169-193 (2011).</p><p>7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Orth, R. J.<em>et al.</em>A global crisis for seagrass ecosystems.&nbsp;<em>Bioscience </em><strong>56</strong>, 987-996 (2006).</p><p>8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lotze, H. K.<em>et al.</em>Depletion, degradation, and recovery potential of estuaries and coastal seas.&nbsp;<em>Science, </em><strong>312</strong>, 1806-1809 (2006).</p><p>9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;McCulloch, C. &amp; Cain, M. Analyzing discrete movement data as a correlated random walk.&nbsp;<em>Ecology, </em><strong>70</strong>, 383-388 (1989).</p><p>10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Evans, J. P. &amp; Cain, M. L. A spatially explicit test of foraging behavior in a clonal plant.&nbsp;<em>Ecology, </em><strong>76</strong>, 1147-1155 (1995).</p><p>11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cain, M. L. Consequences of foraging in clonal plant species.&nbsp;<em>Ecology, </em><strong>75</strong>, 933-944 (1994).</p><p>12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Oborny, B., Mony, C. &amp; Herben, T. From virtual plants to real communities: a review of modelling clonal growth.&nbsp;<em>Ecological Modelling, </em><strong>234</strong>, 3-19 (2012).</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>We thank Jim van Belzen en Tjisse van de Heide for useful discussions on the methods. V.C.R. was financially supported by NWO-Building with Nature grant 850.13.052.</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41467-019-10699-8",
+                "date": "2019-06-14 10:26:28",
+                "title": "A L\u00e9vy expansion strategy optimizes early dune building by beach grasses",
+                "authors": [
+                    "Val\u00e9rie C. Reijers",
+                    "Koen Siteur",
+                    "Selwyn Hoeks",
+                    "Jim van Belzen",
+                    "Annieke C. W. Borst",
+                    "Jannes H. T. Heusinkveld",
+                    "Laura L. Govers",
+                    "Tjeerd J. Bouma",
+                    "Leon P. M. Lamers",
+                    "Johan van de Koppel",
+                    "Tjisse van der Heide"
+                ],
+                "journal": "Nature Communications",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 89452,
+                "identity": "9321feed-ab40-4e5b-a31d-9dd6d837dfcf",
+                "order_by": 1,
+                "name": "Valerie Reijers",
+                "email": "v.reijers@science.ru.nl",
+                "orcid": "https://orcid.org/0000-0002-7781-5019",
+                "institution": "Radboud University",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Valerie",
+                "middleName": "",
+                "lastName": "Reijers",
+                "suffix": ""
+            },
+            {
+                "id": 89453,
+                "identity": "176790b8-5944-43fe-a1a6-8769bc852df4",
+                "order_by": 2,
+                "name": "Selwyn Hoeks",
+                "email": "",
+                "orcid": "",
+                "institution": "Radboud University",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Selwyn",
+                "middleName": "",
+                "lastName": "Hoeks",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2019-05-10 11:10:37",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.2.9545/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.2.9545/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2612853,
+                "identity": "44bf434d-cb36-4dd3-99f3-fa56a5f97115",
+                "added_by": "4ced4735-a994-4bcd-8ddf-ac2141992867",
+                "created_at": "2020-09-25 20:53:14",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 9727246,
+                "visible": true,
+                "origin": "",
+                "legend": "Figure 1 | Picture overview showing the step-wise method for deriving step sizes between consecutive shoots in a clonal network. a, Select young colonizing plants on a 1.4 x 1.4m grid growing on the front of the dune. b, Cut of all aboveground biomass and place labeled pins at the shoot base. c) Deploy a leveled measurement frame with spatial references and take a calibrate image of the 1.4 x1.4 m grid to derive the spatial shoot coordinates. d) Excavate the shoots and note their inter-shoots connections to eventually reconstruct their rhizomal network.",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/pex-260/v1/figure_1.png"
+            },
+            {
+                "id": 13466971,
+                "identity": "ecd53be7-dbab-4a20-9343-6d472b26bae2",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:53:27",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 178609,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-260/v1/c9882b86-8d1e-4dc7-b848-ac10f228cfb1.pdf"
+            },
+            {
+                "id": 2612856,
+                "identity": "788cfcd2-2752-4ff4-b417-8a9e66316145",
+                "added_by": "4ced4735-a994-4bcd-8ddf-ac2141992867",
+                "created_at": "2020-09-25 20:53:14",
+                "extension": "zip",
+                "order_by": 1,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 38017242,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "supplement1.zip",
+                "url": "https://assets.researchsquare.com/files/pex-260/v1/supplement_1.zip"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "dune grass, clonal expansion strategy, network analyses, Ammophila, spatial organization, Traveling Salesman, Nearest Neighbour search",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>Vegetated coastal landscapes are often formed by clonally expanding plants. By developing rhizomes or stolons these plants can spread laterally and distribute themselves in space. In this protocol we describe a method for deriving the clonal expanding strategy of dune grasses from still images. First we will discuss a more labour intensive method that requires the excavation and reconstruction of a clonal network. Second, we will discuss a validated automated approach based on two connecting algorithms that allows for a less time-consuming expansion of a dataset.</p>",
+        "manuscriptTitle": "Assessing the clonal expansion strategy of landscape-forming plants",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2019-05-23 17:34:50",
+                "doi": "10.21203/rs.2.9545/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "4ced4735-a994-4bcd-8ddf-ac2141992867",
+        "owner": [],
+        "postedDate": "May 23rd, 2019",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 12567,
+                "name": "Plant sciences"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2019-05-23 17:34:50",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

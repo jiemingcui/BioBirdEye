@@ -1,0 +1,229 @@
+{
+    "identity": "nprot-19",
+    "title": "Genome-wide analysis of data generated on the Affymetrix 10K Xba 142 arrays for identification of regions with high probability to contain genes responsible for Micronodular \\(non-pigmented) Adrenocortical Hyperplasia",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Genome wide genotyping was ran on Affymetrix 10K xba 142 arrays producing 10,000 plus genotypes for each sample. \r\n\n\n\r\n\n\nThe samples themselves were derived from the adrenal tissue of affected individuals as well as from peripheral blood. There were 35 samples in total with 18 affected and 17 unaffected. Two samples existed for most cases with one from peripheral blood and the other directly from the tumor. When possible, blood samples were collected from unaffected parents and these served as the controls in the study. There is some ethnic diversity within the group, although most were Caucasian. The cases phenotype was a form of adrenal cancer called &#x201C;Micronodular \\(non-pigmented) Adrenocortical Hyperplasia&#x201D; \\(MAH) that occurs early in life.\r\n\n\n\r\n\n\nExemplar Genotyping Analysis Suite was applied to perform various analyses on the supplied data. The objective was to reduce the 10,000+ SNP&#x2019;s to a smaller subset of interesting candidates for further exploration."
+        },
+        {
+            "header": "Procedure",
+            "content": "The Exemplar modules to be utilized are the:\r\n\n\n\r\n\n\n1 Genetic Algorithm Module \\(GA Module) \u2013 This module implements an Artificial Intelligence approach to finding logical combinations of SNP\u2019s for association based studies\r\n\n\n\r\n\n\n2 Association Study Module \\(AS Module) \u2013 this module calculates many useful statistics like Chi Square, Yates, Fisher Exact, Odds Ratio, LD, D\u2019, etc.\r\n\n\n\r\n\n\n3 Chromosome Alteration module \\(CA Module) \u2013 this module performs LOH analysis on the dataset using user-specified controls as the reference set to identify possible deletions in the chromosome.\r\n\n\n\r\n\n\nThe difficulty with such a small sample size is the lack of statistical power. Nonetheless, we hoped that by performing multiple types of analysis on the data, we could reduce the problem space from ~10,000 SNP\u2019s to <50 SNP\u2019s for consideration. Then, applying the biological knowledge to thus reduced set of data will further help to select genes-candidates for the studied disorder. \r\n\n\n\r\n\n\n**Analytic Process**\r\n\n\n\r\n\n\n**STEP 1**\r\n\n\n\r\n\n\nExemplars AS Module are first utilized to provide extensive statistical analysis of the dataset including:\r\n\n\n\r\n\n\n1 Fishers Exact by genotype and by allele.\r\n\n\n2 Odds Ratio by genotype and by allele.\r\n\n\n\r\n\n\nThe AS module is also used for feature selection of the dataset prior to being input to the GA Module.\r\n\n\n\r\n\n\n**STEP 2**\r\n\n\n\r\n\n\nExemplars GA Module is run against the dataset many times with various parameter settings. A brief overview follows:\r\n\n\n\r\n\n\n1. GA module is run against the entire input dataset and attempts to build models of the smallest size that can effectively predict outcomes while minimizing False Positives and maximizing True Positives. Different sized and type models attempt to improve results as necessary.\r\n  \r\n\n\n2. Various feature selection methods are employed to reduce the input parameter space, these will include:\r\n  \r\n\n\na. Statistical Reduction \\(usually Fishers is used here) whereby each SNP has a p-value calculated and if their p-value does not fall below a certain threshold, they will be eliminated.\r\n\n\n\r\n\n\nb. Minor allele frequency changes \u2013 the minor allele frequency is calculated for each SNP for cases and controls, if the variance is below a certain defined threshold, the SNP is eliminated from consideration.\r\n\n\n\r\n\n\nComprehensive model results are provided in this reports including:\r\n\n\n\r\n\n\n1 Model predictive results for each sample\r\n\n\n\r\n\n\n2 Model statistical p-values when possible\r\n\n\n\r\n\n\n3 Relevant Ontology\u2019s for GA discovered SNP\u2019s\r\n\n\n\r\n\n\n4 Complete details of each discovered SNP including its id, position, chromosome, and related genes.\r\n\n\n\r\n\n\n**STEP 3**\r\n\n\n\r\n\n\nExemplars CA Module is run against the dataset to detect possible deletions in the chromosomes by looking for Loss Of Heterozygosity.\r\n\n\n\r\n\n\nEach SNP is assigned a p-value."
+        },
+        {
+            "header": "Timing",
+            "content": "Depends on the analysis required - between one week and one month; additional analysis may be required at later stages."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "**Fishers Exact Analysis Statistics Discussion**\r\n\n\n\r\n\n\nAs stated earlier, the statistical power of this study is low. Nonetheless, once correction was applied to the statistics by genotype \\(generated by building 2 x 2 contingency tables and doing proper counts of genotypes) and statistics by allele \\(generated by building 2 x 2 contingency tables and doing proper counts of alleles), only 2 SNP&#x2019;s fell below the significance threshold of p&lt;.05. To further expand the number of SNP&#x2019;s to consider, we looked for SNP&#x2019;s from proximate cytobands between the two analyses. As a reference point, the Affymetrix 10K platform that served as the basis for this study has 155 SNP&#x2019;s in the region \\(roughly ~43 million base pairs)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/ng1809",
+                "date": "2006-04-25 05:26:09",
+                "title": "A genome-wide scan identifies mutations in the gene encoding phosphodiesterase 11A4 (PDE11A) in individuals with adrenocortical hyperplasia",
+                "authors": [
+                    "Horvath",
+                    "A. et al."
+                ],
+                "journal": "Nature Genetics",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 9714,
+                "identity": "9e89dbb7-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Anelia Horvath",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Anelia",
+                "middleName": "",
+                "lastName": "Horvath",
+                "suffix": ""
+            },
+            {
+                "id": 9715,
+                "identity": "9e89df2a-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Sosipatros Boikos",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Sosipatros",
+                "middleName": "",
+                "lastName": "Boikos",
+                "suffix": ""
+            },
+            {
+                "id": 9716,
+                "identity": "9e89e105-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Kevin Cramer",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Kevin",
+                "middleName": "",
+                "lastName": "Cramer",
+                "suffix": ""
+            },
+            {
+                "id": 9717,
+                "identity": "9e89e33a-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Constantine Stratakis",
+                "email": "",
+                "orcid": "",
+                "institution": "",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Constantine",
+                "middleName": "",
+                "lastName": "Stratakis",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2010-08-05 12:32:37",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/nprot.2006.135",
+        "doiUrl": "https://doi.org/10.1038/nprot.2006.135",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13464415,
+                "identity": "69f7b86a-a01e-4f26-be9b-eca85f39155d",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:43:16",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 144536,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-19/v1/f8f6dcf5-c567-435e-9994-6022cc6de65e.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "genotyping, genome-wide scan, SNPs, LOH, linkage, linkage disequilibrium, hyperplasia, adrenocortical hyperplasia\r\n",
+        "license": {
+            "name": "None",
+            "url": ""
+        },
+        "manuscriptAbstract": "",
+        "manuscriptTitle": "Genome-wide analysis of data generated on the Affymetrix 10K Xba 142 arrays for identification of regions with high probability to contain genes responsible for Micronodular (non-pigmented) Adrenocortical Hyperplasia",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2006-06-29 08:49:32",
+                "doi": "10.1038/nprot.2006.135",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9e89767c-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "June 29th, 2006",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 1229,
+                "name": "Genetics"
+            },
+            {
+                "id": 1230,
+                "name": "Molecular Biology"
+            },
+            {
+                "id": 1231,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 1232,
+                "name": "Biochemistry"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2006-06-29 08:49:32",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

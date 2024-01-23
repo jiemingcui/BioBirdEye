@@ -1,0 +1,335 @@
+{
+    "identity": "nprot-6137",
+    "title": "Targeted capture of cpn60 gene fragments for PCR-independent microbial community profiling",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "The taxonomic composition of the microbiota of various environments can be assessed in a variety of ways. Most commonly, PCR-based amplification and sequencing of microbial gene targets within the 16S rRNA-encoding locus has been used. This method can provide a measurement of the microbial diversity of a sample along with an inventory of the community members, but it is necessarily restricted to the bacterial component of the microbial ecosystem. To access other Domains of life \\(Eukarya, Archaea) requires separate PCR amplification using distinct primer sets, adding substantially to the cost and complexity of this experimental approach. Moreover, biases associated with PCR are expected to alter the observed community composition due to stochastic effects of primer interaction with a complex template and due to the difficulties of targeting all organisms with a single set of PCR primers. Alternatively, whole community shotgun sequencing can avoid the biases associated with PCR and the taxonomic composition of the sample can be inferred by identifying taxonomic markers within the pan-community dataset using bioinformatics. However, that approach is very costly, since typically under 0.1% of the sequence reads correspond to taxonomic markers of interest, and even modern sequencing technologies can be challenged to provide an adequate depth of coverage in taxonomically rich samples such as soil.\r\n\n\n We have found that microbial community profiling using PCR amplification and sequencing of chaperonin-60 \\(cpn60), in contrast to 16S rRNA-encoding genes, can identify multiple Domains of life simultaneously \\(1). To maintain this advantage while avoiding the amplification biases associated with PCR-based microbial community profiling methods, we have investigated the feasibility of exploiting the features of solution-based hybridization to capture cpn60 DNA sequences without PCR to balance depth of coverage with breadth of representation. A capture array \\(MYbaits) based on the sequences contained within the chaperonin database cpnDB \\(2) \\(www.cpndb.ca), including both type I \\(Bacteria/Eukarya) and type II \\(Archaea) \\(3) was designed and RNA baits were synthesized by MYcroarray \\(http://www.mycroarray.com/). We have successfully used this bait library to assess complex microbial communities from soil, bovine manure storage tanks, and a terrestrial pond, providing a pan-Domain microbial community profile with a substantially lower sequencing effort than required for shotgun community sequencing.\r\n\n\n<a href=\"http://www.nature.com/protocolexchange/system/uploads/5775/original/Figure1.png?1499893774\" > <img src=\"http://www.nature.com/protocolexchange/system/uploads/5775/thumbnail/Figure1.png?1499893774\" > </a>"
+        },
+        {
+            "header": "Reagents",
+            "content": "AMPure XP 5 ml kit - Beckman coulter \\(Agencourt) #: A63880\r\n\n\nHigh Sensitivity DNA kit \\(for BioAnalyzer) - Agilent #: 5067-4626\r\n\n\nAmicon Ultra-0.5 ml Centrifugal filters - Fisher Scientific #: UFC501096\r\n\n\nMolecular Biology Grade water - Fisher Scientific #: BP2819-100\r\n\n\nDynabeads MyOneTM Streptavidin - Life Technologies #: 650-01\r\n\n\nQiaquick PCR purification kit \\(Qiagen # 28104,  28106)\r\n\n\nHerculase II Fusion DNA Polymerase \\(Stratagene #600677)\r\n\n\nQubit BR and HS dsDNA assay kits - Life Technologies #: Q32850\r\n\n\n100% ethanol - supplied locally\r\n\n\nGeneral lab consumables \\(microfuge tubes, PCR tubes, aerosol barrier pipette tips, etc.)\r\n\n\n10 N NaOH \\(prepared within 1 week of executing the protocol)\r\n\n\n0.1 N NaOH \\(prepared within 24 hours of executing the protocol)"
+        },
+        {
+            "header": "Equipment",
+            "content": "Bioruptor 300 \\(Diagenode # B01020001) and tubes \\(Diagenode #C30010015)  \r\n\n\nEppendorf 5415R or 5424 or MiniSpin plus microcentrifuge\r\n\n\nDNA LoBind tubes \\(Eppendorf #022431021)\r\n\n\nWaterbath\r\n\n\nLabQuake rotator \\(Thermo Scientific #400110Q)\r\n\n\nMagnetic particle concentrator \\(MPC)\r\n\n\nBioRad C1000 Thermocycler\r\n\n\nQubit fluorometer \\(Life Technologies)\r\n\n\nGeneral lab equipment \\(pipettors)\r\n\n\nVortex mixer\r\n\n\nVacuum concentrator\r\n\n\n2100 Bioanalzyer \\(Agilent)"
+        },
+        {
+            "header": "Procedure",
+            "content": "Base protocols:\r\n\n\n\u2022 MYbaits User Manual Version 1.3.7 - 10/30/2012\r\n\n\n\u2022 NEBNext Ultra DNA library prep kit for Illumina instruction manual NEB cat no E73705 S/L\r\n\n\nThe starting material is whole community genomic DNA extracted from a community of interest. The mode of extraction is not very important, and there is no need to take steps to prevent DNA shearing \\(as the first step of the protocol involves shearing the DNA using sonication). We routinely use a protocol \\(4) that combines chemical, physical, and enzymatic lysis steps to maximize the representation of various community members \\(keeping in mind that unlysed cells will not release DNA into the solution and hence will not be represented in the final community profile).\r\n\n\n\r\n\n\nA. Preparation of DNA for hybridization\r\n\n\n1. Dilute sample genomic DNA to 2.5 ng/\u00b5l in 100 \u00b5L of 10 mM Tris-HCl pH 8.0 \\(2500 ng total).\r\n  2. Add sample to hydroshear tubes and sonicate the sample using high power, 30 cycles of 30 seconds on/45 seconds off, with cooling to 4 \u00b0C.\r\n  3. Examine the shearing results by running 1 \u00b5l of the sheared DNA on a High Sensitivity DNA kit for the Bioanalyzer. See Figure 2 for an example of successful shearing results. Optimal fragment size is ~100-1000 bp, with a peak around 200 bp \u2013 use further cycles in the hydroshear if necessary to achieve this.\r\n  4. Concentrate the DNA using an Amicon YM-30 filter membrane to a volume of less than 60 \u00b5l, then adjust the volume to 60 \u00b5l using water or 10 mM Tris-Cl pH 8.0.\r\n  5. Determine DNA concentration using the Qubit fluorometer \\(BR kit, one replicate to preserve sample). We typically see concentrations in the range of 2-4 ng/\u00b5l of sonicated DNA, so that approximately 100-200 ng of DNA are used for adding Illumina adaptors \\(step 7 below).\r\n  6. At this point it is important to record which Illumina index will be assigned to each sample so that the sequencing information can be de-multiplexed after the Illumina sequencing is complete. The degree of multiplexing will depend on sample complexity and the requirements of a particular experiment; we have combined 8-12 soil samples on a single MiSeq run with suitable results.\r\n  7. Add Illumina adaptors to the sample following the NEBNext Ultra DNA library prep kit for Illumina instruction manual. At step 2.3 of that protocol, use size selection to target 300-500 bp insert size \\(=400-600 bp of total library fragment size). To achieve this, use 35 \u00b5l of Ampure beads in the first bead selection and 25 \u00b5l in the second bead selection.\r\n  8. To add the indices to the samples, follow the NEBNext protocol in section 2.4, using 10 cycles of PCR and the recommended conditions. Purify the adaptor-ligated DNA using Ampure beads as recommended.\r\n  9. Measure the DNA concentration using the Qubit \\(HS kit, 2 \u00b5l). We have observed concentrations of ~10-25 ng/\u00b5l.\r\n  10. Analyze 1 \u00b5l of a 1:5 dilution of the adaptor-ligated, size-selected DNA using a Bioanalyzer HS DNA kit. An example of typical results is shown in Figure 3.\r\n  11. The Bioanalyzer will provide sample data including average size and DNA concentration \u2013 we have used the Qubit-determined DNA concentrations for subsequent calculations. We typically aim to get 500 ng of DNA into the hybridization reaction, and approximately 25 \u00b5l of DNA should remain after preparing the sample dilution for the Bioanalyzer and determination of DNA concentration using the Qubit.\r\n  \r\n\n\nB. Hybridization\r\n\n\n1. Determine the volume of DNA required to have 500 ng total, and transfer that volume to a new Eppendorf DNA LoBind tube.\r\n  2. Concentrate the DNA using a vacuum concentrator \\(high setting, with heat) to < 3 \u00b5l \\(this typically takes 10 minutes in our experience), then adjust the volume to 3.4 \u00b5l with water. Place the tubes on ice.\r\n  3. At this point, follow the MYbaits User Manual \\(Version 1.3.7 - 10/30/2012) precisely. We have used a hybridization time of 24 hours.\r\n  4. For post-capture amplification, we have used Herculase II Fusion DNA polymerase as recommended in the protocol with success. We have also used the NEBNext High Fidelity PCR mastermix with success. For both polymerases, be sure to use the universal primer and the appropriate index primer from the NEBNext kit, and use 15 cycles of PCR using the same conditions used for index addition \\(section A, step 8 above).\r\n  5. Although the protocol stipulates that the reaction should be purified using Qiaquick columns, we have found that this can result in the co-purification of small DNA fragments that are anticipated to interfere with subsequent sequencing \\(Figure 4A). Therefore we have purified the post-capture PCR product using Ampure beads as recommended in the NEBNext protocol \\(section 2.5), which has eliminated this artifact \\(Figure 4B).\r\n  6. Determine the DNA concentration using Qubit HS dsDNA kit, and analyze 1 \u00b5l of a 1:5 dilution using a Bioanalyzer HS DNA chip. We have typically observed concentrations in the 3-11 ng/\u00b5l range.\r\n  \r\n\n\nC. Preparing samples for sequencing \\(MiSeq)\r\n\n\nFollow the Illumina protocol 15039740 rev. D., with suggestions below:\r\n\n\n1. Prepare a 4 nM pool using the DNA concentrations \\(fmol/\u00b5l, or nM) reported by the Bioanalyzer. This calculation should be more accurate than the Qubit fluorometer because it takes fragment size into account. Depending on the number of samples that will be pooled for a single run, dilute each sample to the appropriate concentration such that the final total is 4 nM. Note that only 5 \u00b5l of the 4 nM pool is required for the sequencing reaction, but typically a much larger volume is prepared \\(eg 100-200 \u00b5l) to provide reasonable pipetting volumes \\(i.e. > 1 \u00b5l).\r\n  2. We have successfully used a final concentration of 8 pM of denatured library. This has provided sufficient cluster density and good sequence quality. Also include denatured phiX174 DNA \\(12.5 pM if using V2 chemistry), prepared according to the manufacturer\u2019s recommendations."
+        },
+        {
+            "header": "Timing",
+            "content": "The overall time required to perform the procedure on a single sample is approximately 3-4 hours on day 1 and approximately 3 hours on day 2, excluding hybridization time \\(24 hours). Many samples can be done at once \\(we have done up to 8 simultaneously)."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "The recommended thermocycler to use for hybridization is a BioRad C1000 and we have not varied from this. Regardless of the manufacturer, the thermocycler must have a heated lid and an evaporation test should be performed to ensure that evaporation loss is less than 15%, as described in the MYbaits manual.\r\n\n\nThe hybridization time is one place where optimization of this protocol could be undertaken. We have successfully used both 24 and 48 hours of hybridization time, but we have not performed a formal experiment to assess the effect of hybridization time on the efficiency of cpn60 target capture."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "<a href=\"#figures\" data-url=\"http://www.nature.com/protocolexchange/system/uploads/5777/original/Figure2.png?1499893810\">See figure in Figures section.</a>\r\n\n\n<a href=\"#figures\" data-url=\"http://www.nature.com/protocolexchange/system/uploads/5779/original/Figure3.png?1499893849\">See figure in Figures section.</a>\r\n\n\n<a href=\"#figures\" data-url=\"http://www.nature.com/protocolexchange/system/uploads/5781/original/Figure4.png?1499893878\">See figure in Figures section.</a>"
+        },
+        {
+            "header": "References",
+            "content": "1. Links MG, Demeke T, Gr\u00e4fenhan T, Hill JE, Hemmingsen SM, Dumonceaux TJ. Simultaneous profiling of seed-associated bacteria and fungi reveals antagonistic interactions between microorganisms within a shared epiphytic microbiome on Triticum and Brassica seeds. New Phytol. 202, 542-553 \\(2014).\r\n  \r\n\n\n2. Hill JE, Penny SL, Crowell KG, Goh SH, Hemmingsen SM. cpnDB: A Chaperonin Sequence Database. Genome Res. 14\\(8),1669-1675 \\(2004).\r\n  \r\n\n\n3. Chaban B, Hill JE. A 'universal' type II chaperonin PCR detection system for the investigation of Archaea in complex microbial communities. ISME J. 6\\(2), 430-439 \\(2012).\r\n  \r\n\n\n4. Hill JE, Hemmingsen SM, Goldade BG, Dumonceaux TJ, Klassen J, Zijlstra RT, et al. Comparison of ileum microflora of pigs fed corn-, wheat-, or barley-based diets by chaperonin-60 sequencing and quantitative PCR. Appl Environ Microbiol. 71\\(2), 867-875 \\(2005)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 14960,
+                "identity": "a11f7173-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Tim Dumonceaux",
+                "email": "tim.dumonceaux@agr.gc.ca",
+                "orcid": "",
+                "institution": "Hill Lab",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Tim",
+                "middleName": "",
+                "lastName": "Dumonceaux",
+                "suffix": ""
+            },
+            {
+                "id": 14961,
+                "identity": "a11f747b-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Matthew Links",
+                "email": "",
+                "orcid": "",
+                "institution": "Hill Lab",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Matthew",
+                "middleName": "",
+                "lastName": "Links",
+                "suffix": ""
+            },
+            {
+                "id": 14962,
+                "identity": "a11f763d-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Jennifer Town",
+                "email": "",
+                "orcid": "",
+                "institution": "Hill Lab",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jennifer",
+                "middleName": "",
+                "lastName": "Town",
+                "suffix": ""
+            },
+            {
+                "id": 14963,
+                "identity": "a11f7809-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Janet Hill",
+                "email": "",
+                "orcid": "",
+                "institution": "Hill Lab",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Janet",
+                "middleName": "",
+                "lastName": "Hill",
+                "suffix": ""
+            },
+            {
+                "id": 14964,
+                "identity": "a11f799e-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Sean Hemmingsen",
+                "email": "",
+                "orcid": "",
+                "institution": "Hill Lab",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Sean",
+                "middleName": "",
+                "lastName": "Hemmingsen",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2018-06-12 17:11:15",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2017.100",
+        "doiUrl": "https://doi.org/10.1038/protex.2017.100",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2609854,
+                "identity": "7f29a3c5-ff08-4813-8418-0cbe615b37b9",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:14",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 25377,
+                "visible": true,
+                "origin": "",
+                "legend": "schematic   Approaches to microbial community profiling.",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-6137/v1/figure_1.png"
+            },
+            {
+                "id": 2609855,
+                "identity": "4e273cd4-9046-4e8a-bc16-11b82c88552c",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:14",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 103840,
+                "visible": true,
+                "origin": "",
+                "legend": "DNA shearing   Typical results of DNA shearing to prepare samples for Illumina index addition. Lanes 1-4, DNA isolated from manure storage tanks; lanes 5-8, the same DNA samples after shearing using the conditions provided in section A, step 3.",
+                "description": "",
+                "filename": "figure2.png",
+                "url": "https://assets.researchsquare.com/files/nprot-6137/v1/figure_2.png"
+            },
+            {
+                "id": 2609856,
+                "identity": "822c435e-ff79-4308-9898-39f8cf8d9ceb",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:14",
+                "extension": "png",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 32636,
+                "visible": true,
+                "origin": "",
+                "legend": "Shearing and adaptor ligation   Results observed on sheared DNA samples after adaptor ligation and size selection as described in section A, steps 7-10. Lanes 1-6, DNA isolated from manure storage tanks; lanes 7-8, DNA isolated from a terrestrial pond.",
+                "description": "",
+                "filename": "figure3.png",
+                "url": "https://assets.researchsquare.com/files/nprot-6137/v1/figure_3.png"
+            },
+            {
+                "id": 2609858,
+                "identity": "42c9044a-2782-42d8-b5cb-7290402b5f9a",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:14",
+                "extension": "png",
+                "order_by": 4,
+                "title": "Figure 4",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 59278,
+                "visible": true,
+                "origin": "",
+                "legend": "Post-capture DNA cleanup   Effect of post-capture DNA cleanup. A. Samples purified using QiaQuick columns as recommended by manufacturer. Lanes 1,3,5, DNA prior to hybridization; lanes 2,4,6, post-capture DNA purified by QiaQuick columns. B. Post-capture samples purified using Ampure beads.",
+                "description": "",
+                "filename": "figure4.png",
+                "url": "https://assets.researchsquare.com/files/nprot-6137/v1/figure_4.png"
+            },
+            {
+                "id": 13465744,
+                "identity": "96e7497b-f11a-44cd-9417-55993aa21a72",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:48:01",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 388130,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-6137/v1/8715a624-753f-4d39-8891-93099e996e40.pdf"
+            },
+            {
+                "id": 2609860,
+                "identity": "0881fc39-784d-4621-bd45-8902f84a9464",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:14",
+                "extension": "fna",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 2478619,
+                "visible": true,
+                "origin": "",
+                "legend": "Probe Sequences   --",
+                "description": "",
+                "filename": "supplement0.fna",
+                "url": "https://assets.researchsquare.com/files/nprot-6137/v1/supplement_0.fna"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Microbial community profiling, cpn60, metagenomics, sequence capture, Illumina sequencing",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "This protocol describes the laboratory steps required to capture cpn60 gene fragments from microbial community DNA obtained from an environment of interest. This approach facilitates the determination of the taxonomic composition of a sample, providing information that spans all Domains of life \\(Bacteria, Eukarya, and Archaea). This method is independent of amplification biases associated with PCR, and provides a microbial community profile that is consistent with that generated using whole community shotgun sequencing, with substantially less sequencing effort required for the same community coverage. The protocol involves shearing the whole community genomic DNA by sonication, adding Illumina index primers, then hybridizing the sheared DNA to biotinylated RNA probes that correspond to the entire cpn60 reference database. Hybrids are selected using magnetic streptavidin beads, washed, and sequenced using an Illumina MiSeq platform. The protocol involves approximately five hours of hands-on time per sample over two days, along with a 24 hour hybridization step. In this protocol we describe the major changes we have implemented using the manufacturer\u2019s recommendations as a starting point. We also provide tips and expected results.",
+        "manuscriptTitle": "Targeted capture of cpn60 gene fragments for PCR-independent microbial community profiling",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2018-06-12 17:45:52",
+                "doi": "10.1038/protex.2017.100",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a033f128-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "June 12th, 2018",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 4003,
+                "name": "Biotechnology"
+            },
+            {
+                "id": 4004,
+                "name": "Microbiology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2018-06-12 17:45:52",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

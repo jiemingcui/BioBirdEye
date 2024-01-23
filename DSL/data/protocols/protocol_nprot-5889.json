@@ -1,0 +1,317 @@
+{
+    "identity": "nprot-5889",
+    "title": "SITE-Seq: A Genome-wide Method to Measure Cas9 Cleavage",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "The CRISPR-Cas9 system is routinely used for genome editing in both basic research and biotechnology.  For some applications, such as human therapeutics, consideration of off-target cleavage activity may be critical to avoid deleterious outcomes.  A variety of genome-wide experimental methods have been recently developed, but these methods are potentially biased due to cellular context<sup>1,2</sup> or inefficiencies in recovering relevant cleavage sites<sup>3,4</sup>.  To address this, we have developed a genome-wide, biochemical off-target cleavage assay utilizing the selective enrichment and identification of tagged genomic DNA ends by sequencing \\(SITE-Seq).  SITE-Seq enables one to comprehensively list Cas9 cleavage sites in a sample genome, then probe those sites for cellular off-target editing in follow-up experiments.  This protocol describes the full SITE-Seq method, detailing \\(1) extraction and purification of high-molecular weight genomic DNA, \\(2) execution of Cas9 Ribonucleoprotein \\(RNP) cleavage, \\(3) fragmentation, adapter ligation, and affinity purification to enrich for Cas9 cleaved fragments, and \\(4) amplification and indexing of SITE-Seq libraries for Illumina sequencing.  The SITE-Seq method generally takes 4.5-6.5 days in total, and can be performed in high-throughput if desired."
+        },
+        {
+            "header": "Reagents",
+            "content": "1. Cell line of interest\r\n  2. Recombinant, purified  S. pyogenes Cas9 \r\n  3. Guide RNA of Interest \\(i.e. sgRNA, cr/tracrRNA)\r\n  4. Blood & Cell Culture DNA Maxi Kit \\(QIAGEN, 13362)\r\n  5. Ethylenediaminetetraacetic acid solution \\(Sigma-Aldrich, 03690-100ML)\r\n  6. SPRISelect Reagent Kit \\(Beckman Coulter, B23318)\r\n  7. Dynabeads\u00ae M-280 Streptavidin \\(Invitrogen, 11206D)\r\n  8. Q5\u00ae Hot Start High-Fidelty 2x Master Mix \\(NEB, M0494L)\r\n  9. NEBNext\u00ae dsDNA Fragmentase\u00ae \\(NEB, M0348L)\r\n  10. NEBNext\u00ae dA-tailing Kit \\(NEB, E6053L)\r\n  11. NEBNext Ultra End Repair / dA-tailing module \\(NEB, E7442L)\r\n  12. NEBNext\u00ae Ultra Ligation Kit \\(NEB, E7445L)\r\n  13. NEB Quick Ligation Kit \\(NEB, M2200L)\r\n  14. 10x T4 DNA Ligase Reaction Buffer \\(NEB, B0202S)\r\n  SYBR\u00ae Safe DNA Gel Stain \\(Thermo Scientific, S33102)\r\n\n\n15. 100bp DNA Ladder \\(NEB, N3231L)\r\n  16. Quick-Load\u00ae 1kb Extend DNA Ladder \\(NEB, N3239S)\r\n  17. Water \\(Molecular Biology Grade) \\(Sigma-Aldrich, W4502)\r\n  18. Ethanol, 200 proof, Molecular Biology Grade \\(Fisher Scientific, 3916EA)\r\n  19. Isopropanol for Molecular Biology \\(Fisher Scientific, BP26181)\r\n  20. 50x Tris/Acetic Acid/EDTA \\(TAE) Buffer \\(BioRad, 161-0743)\r\n  21. Agarose \\(BioExpress, 07-10-500G)\r\n  22. Gel Loading Dye \\(NEB, B7021S)\r\n  23. RNase A \\(Sigma-Aldrich, R4642-10MG)\r\n  24. Proteinase K \\(Denville Scientific, CB3210-5)\r\n  25. HEPES \\(Sigma Aldrich, H3375)\r\n  26. KCl \\(Sigma Aldrich, 746436)\r\n  27. NaCl \\(Sigma Aldrich, S5150)\r\n  28. TRIS-HCl, pH 8.0 \\(Sigma Aldrich, T3038)\r\n  29. MgCl2 \\(Sigma Aldrich, M1028)\r\n  30. Glycerol for molecular biology \\(Sigma Aldrich, G5516)\r\n  31. Agilent High Sensitivity DNA BioAnalayzer Kit\r\n  32. Oligonucleotides \\(IDT), \\(\u2020 = HPLC Purified):\r\n  \r\n\n\n\u2020Adapter 1 Forward\r\n\n\n/5Biosg/GTTGACATGCTGGATTGAGACTTCCTACACTCTTTCCCTACACGACGCTCTTCCGATC*T\r\n\n\n\r\n\n\nAdapter 1 Reverse\r\n\n\nGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTAGGAAGTCTCAATCCAGCATGTCAAC\r\n\n\n\r\n\n\n\u2020Adapter 2 N7 Forward\r\n\n\n/5Phos/GTCGTATTAGTAGTANNNNNNNAGATCGGAAGAGCACACGTCTGAACTCC\r\n\n\n\r\n\n\n\u2020Adapter 2 N6 Forward\r\n\n\n/5Phos/GTCGTATTAGTAGTANNNNNNAGATCGGAAGAGCACACGTCTGAACTCC\r\n\n\n\r\n\n\n\u2020Adapter 2 N5 Forward\r\n\n\n/5Phos/GTCGTATTAGTAGTANNNNNAGATCGGAAGAGCACACGTCTGAACTCC\r\n\n\n\r\n\n\nAdapter 2 Reverse\r\n\n\nACTACTAATACGAC*T\r\n\n\n\r\n\n\nRecovery PCR Forward\r\n\n\nGGAGTTCAGACGTGTGCTC\r\n\n\n\r\n\n\nRecovery PCR Reverse\r\n\n\nGTTGACATGCTGGATTGAGACTTC\r\n\n\n\r\n\n\nIndex Forward \\(N\u2019s denote Index sequences)\r\n\n\nAATGATACGGCGACCACCGAGATCTACACNNNNNNNNACACTCTTTCCCTACACGACG\r\n\n\n\r\n\n\nIndex Reverse \\(N\u2019s denote Index sequences)\r\n\n\nCAAGCAGAAGACGGCATACGAGATTANNNNNNNNGACTGGAGTTCAGACGTGTGCTC"
+        },
+        {
+            "header": "Equipment",
+            "content": "1. Thermal Cycler \\(Biorad, T100)\r\n  2. Nanodrop Spectrophotometer 2000 \\(Thermo Scientific)\r\n  3. 16-tube SureBeadsTM Magnetic Rack \\(Biorad, 161491)\r\n  4. Agencourt SPRIPlate 96R \u2013 Ring Super Magnet Plate \\(Beckman Coulter, A32782)\r\n  5. UltraCruz\u00ae Mini Tube Rotator \\(Santa Cruz Biotech, sc-363625)\r\n  6. Plate Centrifuge 5804 R \\(Eppendorf, 1226B31) \r\n  7. Tube Centrifgue 5417 R \\(Eppendorf, 05-406-8A)\r\n  8. Serological Pipette \\(Drummond Scientific, 4-000-100)\r\n  9. BioRad Gel Doc 2000 \\(Biorad)\r\n  10. Mini Vortex Mixer VM-3000 \\(VWR, 58816-121)\r\n  11. Wide Mini-Sub\u00ae Cell GT Horizontal Electrophoresis System \\(Biorad, 1640301)\r\n  12. Standard set of manual pipettes \\(2, 20, 200, 1000\u00b5L and multi-channel if necessary)\r\n  13. Recommended for QC/Sequencing:\r\n  2100 Electrophoresis Bioanalyzer \\(Agilent, G2939AA)\r\n\n\nStepOnePlusTM Real-Time PCR System \\(ThermoFisher, 4376600)\r\n\n\nIllumina Sequencing Technology"
+        },
+        {
+            "header": "Procedure",
+            "content": "**A. Purify high-molecular weight \\(HMW) genomic DNA \\(gDNA)**\r\n\n\nTime: ~6 hrs\r\n\n\nThe substrate for SITE-Seq is high molecular weight \\(HMW) genomic DNA \\(gDNA). To obtain this use the QIAGEN Blood & Cell Culture DNA Maxi Kit.  2 x 10^8 cells will generate ~1mg of HMW gDNA. 10\u00b5g is required for each SITE-Seq sample. The following protocol details the procedure, which is per the manufacturer\u2019s instructions with minor modifications: \r\n\n\n1. Use a 1 x107 cells/mL suspension. The following protocol is based on a 10mL suspension. Add 10mL ice-cold C1 Buffer, 30mL ice-cold molecular biology-grade water. Mix by inverting the tube several times. Incubate on ice for 10 minutes.\r\n  2. Centrifuged lysed cells at 4\u00b0C for 15 min at 1,300 x g. Discard the supernatant.\r\n  3. Wash with 2mL of ice-cold C1, with 6mLof ice-cold water. Resuspend by vortexing.\r\n  4. Centrifuge again at 4\u00b0C for 15 min at 1,300 x g, discard the supernatant.\r\n  5. Resuspend in 10mL G2 by vortexing for 10-30s at maximum speed. Completely resuspension is critical for good flow rate in later steps.\r\n  6. Add 200\u00b5L of QIAGEN Protease and incubate at 50\u00b0C for 30-60 minutes.\r\n  a. A full 60-minute incubation is recommended if suspension was not homogenous after vortexing in step 5.\r\n\n\n7. Equilibrate a Qiagen Genomic-tip 500/G with 10mL of QBT, allow to empty by gravity flow.\r\n  8. Vortex the digested suspension sample \\(from step 6) for 10s at maximum speed and apply it to the equilibrated Genomic-tip column, allow to empty by gravity flow.\r\n  a. If the column becomes clogged and gravity flow stops, positive pressure may be used, but do not allow the flow rate to exceed 20-40 drops/min.\r\n\n\n9. Wash the Genomic-tip column twice with 15mL QC each.\r\n  10. Elute the genomic DNA with 15mL of Buffer QF.\r\n  a. Preheating the QF to 50\u00b0C will increase yields.\r\n\n\n11. Precipitate the DNA by adding 10.5mL of room temperature isopropanol to the eluted DNA. Mix by inverting the tube 10-20 times, immediately centrifuge at >5,000 x g for 15 min at 4\u00b0C\r\n  a. After mixing, a white, string-like precipitate should be visible floating in the sample.\r\n\n\n12. Remove the supernatant and wash with 4mL of cold 70% ethanol. Centrifuge again for 10 min at > 5,000 x g and remove supernatant.\r\n  13. Allow to air-dry for 5-10 minutes\r\n  14. Resuspend in 0.5-1mL of a suitable buffer \\(TE or 10mM Tris-Cl is acceptable), dissolve the DNA on a shaker overnight or at 55\u00b0C for 1-2 hours. Do not vortex.\r\n  \r\n\n\n**B. Quantification and Qualification of HMW gDNA with Gel Electrophoresis.**\r\n\n\nIt is necessary to confirm that the genomic DNA is intact and HMW \\(i.e. >50kb). This step details that procedure.\r\n\n\n1. Ensure that the genomic DNA is fully thawed and well mixed before handling. HMW gDNA is very viscous and easily sheared. Mix by inverting or pipetting up and down with a 1mL tip. \r\n  2. Prepare a 1% agarose gel by adding 0.5g to 50mL of 1x TAE buffer per gel. \r\n  3. Heat sample until agarose is in solution, swirl. After agarose is fully dissolved, add 10,000x SYBR Safe gel stain and pour the gel. Allow ~30 minutes to cool.\r\n  4. Load 10\u00b5L DNA ladder and 0.5-1.5\u00b5g of HMWgDNA mixed with loading dye.\r\n  5. Run the gel at 85-100V for ~1-2 hrs. See **Figure 1** for a representative gel.\nSee figure in Figures section.\n**C. Digest high-molecular weight gDNA with RNP Complex.**\r\n\n\nThis step details the digestion of HMW gDNA with a Cas9 RNP complex. The RNP concentration can be varied from 0.25-1,024nM, with a guide RNA:Cas9 ratio of at least 3:1. This protocol assumes a single-guide RNA \\(sgRNA):\r\n\n\n1. Make up 5x Cas9 Cleavage buffer \\(CCB) according to the following:\r\n  100mM HEPES, pH 7.4\r\n\n\n750mM KCl\r\n\n\n50mM MgCl2\r\n\n\n25% glycerol\r\n\n\n\r\n\n\n2. Remove reagents from -20\u00b0C or -80\u00b0C, allow to thaw on ice.\r\n  3. Dilute sgRNAs to target concentration \\(10x final RNP concentration) in 15\u00b5L water.\r\n  4. Heat the sgRNAs to 95\u00b0C for 2 min, then let cool to room temperature \\(RT) for ~5 minutes. \r\n  5. During Step 4, dilute Cas9 in CCB buffer and water such that each reaction is 15\u00b5L of 3.3x CCB buffer and 3.3x final Cas9 concentration. \r\n  6. Mix the diluted Cas9 from step 5 with the re-folded sgRNAs from step 4 and incubate at 37\u00b0C for 10 min.\r\n  7. Dilute the HMW gDNA to ~500 ng/\u00b5L and add 20\u00b5L to each RNP reaction.\r\n  8. Incubate cleavage reaction at 37\u00b0C for 4 hours.\r\n  a. At this point, the reaction can be held at 4\u00b0C overnight or proceed to step 9 for quenching\r\n\n\n\r\n\n\n9. Terminate the cleavage reaction by adding 6.8\u00b5L of Proteinase K/RNase A mix to each cleavage reaction according to the following:\r\n  Proteinase K \\(20mg/mL)  \\(0.5\u00b5L)\r\n\n\nRNAse A \\(20mg/mL)  \\(2.2\u00b5L)\r\n\n\n5x CCB Buffer           \\(1.4\u00b5L)\r\n\n\nWater     \\(2.7\u00b5L)\r\n\n\nTotal Mix \\(1 rxn)   \\(6.8\u00b5L)\r\n\n\n\r\n\n\n10. Mix well by pipetting, then incubate the sample at 37\u00b0C for 20 min, then 55\u00b0C for 20 min.\r\n  11. Proceed to DNA cleanup with SPRIselect Reagent\r\n  \r\n\n\n**D. SPRISelect DNA cleanup 1 \\(SPRI 1).**\r\n\n\n1. Add one volume \\(56.8\u00b5L) of SPRISelect reagent to the sample.\r\n  a. Ensure that beads and gDNA are well mixed. Thorough mixing at this step is critical.\r\n\n\n2. Incubate the reaction mixture for 5 min at RT.\r\n  3. Place the sample on a compatible magnetic stand, allow beads to pellet for 5 min. \r\n  4. Remove supernatant.\r\n  5. Wash twice with 175\u00b5L freshly prepared 85% ethanol. Remove supernatant after 30 seconds for each wash.\r\n  6. Let ethanol evaporate for 10 minutes, until beads are dry. The beads should appear dry, but not cracked. Over-drying can lead to inefficient elutions.\r\n  7. Remove from the magnetic stand and add 50\u00b5L of water, mix until beads are resuspended.\r\n  8. Incubate the reaction mixture at room temperature for 5-10 min at RT.\r\n  9. Place the reaction mixture back on the magnetic stand, and allow beads to fully pellet.\r\n  10. Transfer 45\u00b5L of elution to a fresh tube. Continue to the dA tailing reaction step, or store the sample at -20\u00b0C until the next step can be started.\r\n  \r\n\n\n**E. dA-tailing reaction and adapter ligation 1.**\r\n\n\nThe dA-tailing reaction appends an adenine to the 3\u2019 end of each DNA molecule, enabling subsequent adapter ligation.\r\n\n\n1. Remove NEBNext\u00ae dA-tailing reagents from -20\u00b0C, allow to thaw on ice.\r\n  2. Assemble the following reaction using the NEBNext\u00ae dA-tailing module:\r\n  Cas9-treated gDNA         \\(42\u00b5L)\r\n\n\ndA-tailing reaction buffer \\(10x)      \\(5\u00b5L)\r\n\n\nKlenow Fragment         \\(3\u00b5L)\r\n\n\nTotal           \\(50\u00b5L)\r\n\n\n\r\n\n\n3. Incubate the reaction at 37\u00b0C for 30 min.\r\n  4. Make up 2x annealing buffer according to the following:\r\n  20mM Tris, pH 7.5\r\n\n\n100mM NaCl\r\n\n\n2mM EDTA\r\n\n\n\r\n\n\n\r\n\n\n5. Assemble adapter 1 according to the following:\r\n  Adapter 1 For \\(100\u00b5M)  \\(1\u00b5L)\r\n\n\nAdapter 1 Rev \\(100\u00b5M)  \\(1\u00b5L)\r\n\n\nWater     \\(8\u00b5L)\r\n\n\n2x annealing buffer   \\(10\u00b5L)\r\n\n\nTotal     \\(20\u00b5L)\r\n\n\n\r\n\n\n6. Incubate the adapter 1 mixture at 95\u00b0C for 5 minutes, then let the reaction to cool to RT for ~45 minutes. The adapter 1 oligos will anneal to form a functional adapter. \r\n  7. Assemble the ligation reaction according to the following:\r\n  dA-tailed DNA           \\(38\u00b5L)\r\n\n\nAdapter 1           \\(2\u00b5L)\r\n\n\nT4 DNA Ligase buffer \\(10x) \\(5\u00b5L)\r\n\n\nNEB Quick Ligase   \\(5\u00b5L)\r\n\n\nTotal     \\(50\u00b5L)\r\n\n\n\r\n\n\n8. Incubate the ligation reaction at 20\u00b0C for 30 minutes, then 16\u00b0C overnight.\r\n  9. Proceed to SPRISelect reagent cleanup 2.\r\n  \r\n\n\n**F. SPRISelect DNA cleanup 2 \\(SPRI 2).**\r\n\n\nThis cleanup step is necessary to remove residual adapter 1 from the ligation reaction. Any residual adapter 1 will be carried through and can potentially form short functional molecules \\(adapter dimer) that can be detrimental to sequencing downstream. \r\n\n\n1. Add 0.5x volumes \\(25\u00b5L) of SPRISelect reagent to the sample.\r\n  a. Ensure that beads and gDNA are well mixed. Thorough mixing at this step is critical.\r\n\n\n2. Incubate the reaction mixture for 5 min at RT.\r\n  3. Place the sample on a compatible magnetic stand, allow beads to pellet for 5 min. \r\n  4. Remove supernatant.\r\n  5. Wash twice with 175\u00b5L freshly prepared 85% ethanol. Remove supernatant after 30s for each wash.\r\n  6. Let ethanol evaporate for 10 minutes, until beads are dry. The beads should appear dry, but not cracked. Over-drying can lead to inefficient elutions.\r\n  7. Remove from the magnetic stand and add 50\u00b5L of water, mix until beads are resuspended.\r\n  8. Incubate the reaction mixture at room temperature for 5-10 min at RT.\r\n  9. Place the reaction mixture back on the magnetic stand, and allow beads to fully pellet.\r\n  10. Transfer 45\u00b5L of elution to a fresh tube. Continue to the fragmentation reaction or store the sample at -20\u00b0C until the next step can be started.\r\n  \r\n\n\n**G. gDNA fragmentation.**\r\n\n\nThis step details the fragmentation of the adapter 1 ligated gDNA. The aim of this step is to fragment the library to an appropriate size for sequencing \\(~200-800bp). The results of the fragmentation will depend on the integrity of the HMW gDNA. It may be necessary to perform a series of trial reactions adjusting fragmentase concentrations and reaction times to optimize each gDNA set.\r\n\n\n1. Remove NEBNext\u00ae dsDNA Fragmentase\u00ae reagents from -20\u00b0C, allow to thaw on ice. Vortex the dsFragmentase to ensure it is well mixed.\r\n  2. Assemble the fragmentation reaction according to the following:\r\n  Adapter 1-ligated DNA      \\(40\u00b5L)\r\n\n\ndsFragmentase Buffer v2 \\(10x)   \\(5\u00b5L)\r\n\n\ndsFragmentase Enzyme    \\(1.5\u00b5L)\r\n\n\nWater       \\(3.5\u00b5L)\r\n\n\nTotal       \\(50\u00b5L)\r\n\n\n\r\n\n\n3. Incubate for 37\u00b0C for one hour.\r\n  This step is time-sensitive, incubating for too long can lead to complete digestion of the gDNA.\r\n\n\n4. Immediately quench the reaction by adding 12.5\u00b5L of 0.5M EDTA, mix by pipetting up and down.\r\n  5. Add 37.5\u00b5L of water, then proceed immediately to SPRISelect reagent cleanup \\(diluting the samples with water at this stage has increased our yields in previous experiments).  \r\n  \r\n\n\n**H. SPRISelect DNA cleanup 3 \\(SPRI 3).**\r\n\n\n1. Add 0.9x volume \\(90\u00b5L) of SPRISelect reagent to the sample.\r\n  a. Ensure that beads and gDNA are well mixed. Thorough mixing at this step is critical.\r\n\n\n2. Incubate the reaction mixture for 5 min at RT.\r\n  3. Place the sample on a compatible magnetic stand, allow beads to pellet for 5 min. \r\n  4. Remove supernatant.\r\n  5. Wash twice with 175\u00b5L freshly prepared 85% ethanol. Remove supernatant after 30 seconds for each wash.\r\n  6. Let ethanol evaporate for 10 minutes, until beads are dry. The beads should appear dry, but not cracked. Over-drying can lead to inefficient elutions.\r\n  7. Remove from the magnetic stand and add 50\u00b5L of water, mix until beads are resuspended.\r\n  8. Incubate the reaction mixture at room temperature for 5-10 min at RT.\r\n  9. Place the reaction mixture back on the magnetic stand, and allow beads to fully pellet.\r\n  10. Transfer 45\u00b5L of elution to a fresh tube. PAUSE POINT: Continue to the dA tailing reaction step, or store the sample at -20\u00b0C until the next step can be started.\r\n  11. OPTIONAL: at this point, we recommend visualizing the fragmented DNA by gel Electrophoresis \\(see step B for gel preparation).  If performing multiple reactions, we typically combine them and then load 15 \u03bcL for analysis.  \r\n  \r\n\n\n**I. End-repair and adapter 2 ligation.**\r\n\n\n1. Remove NEBNext Ultra End Repair / dA-tailing module reagents from -20\u00b0C, thaw on ice.\r\n  \r\n\n\n\r\n\n\n\r\n\n\n2. Assemble the end-repair reaction as follows:\r\n  Fragmented DNA \\(from step H) \\(27.7\u00b5L)\r\n\n\nEnd-Repair Buffer \\(10x)            \\(3.3\u00b5L)\r\n\n\nEnd-Repair Enzyme Mix     \\(1.5\u00b5L)\r\n\n\nWater        \\(0.5\u00b5L)\r\n\n\nTotal        \\(33\u00b5L)\r\n\n\n\r\n\n\n3. Incubate reaction at 20\u00b0C for 30 min, then 65\u00b0C for 30 min.\r\n  4. During the end-repair procedure, form adapter 2 according to the following:\r\n  Adapter 2 N7 Forward \\(100\u00b5M) \\(1\u00b5L)\r\n\n\nAdapter 2 N6 Forward \\(100\u00b5M) \\(1\u00b5L)\r\n\n\nAdapter 2 N5 Forward \\(100\u00b5M) \\(1\u00b5L)\r\n\n\nAdapter 2 Rev \\(100\u00b5M)            \\(3\u00b5L)\r\n\n\n2x Annealing Buffer       \\(6\u00b5L)\r\n\n\nTotal          \\(1\u00b5L)\r\n\n\n\r\n\n\n5. Incubate the adapter 2 mixture at 95\u00b0C for 5 minutes, then let the reaction to cool to RT for ~45 minutes. The adapter 2 oligos will anneal to form a functional adapter.\r\n  6. Assemble the ligation reaction using the NEBNext\u00ae Ultra Ligation Module according to the following:\r\n  End-repaired DNA   \\(32.5\u00b5L)\r\n\n\nAdapter 2 \\(12.5\u00b5M)   \\(1.25\u00b5L)\r\n\n\nBlunt/TA Ligase Master Mix \\(7.5\u00b5L)\r\n\n\nLigation enhancer   \\(0.5\u00b5L)\r\n\n\nTotal     \\(41.75\u00b5L)\r\n\n\n\r\n\n\n**J. Affinity purification with Streptavidin beads.**\r\n\n\nIn this step, adapter 1 ligated fragments affinity purified by Streptavidin beads, enriching for sites that were cleaved by Cas9.\r\n\n\n1. Prepare 2x block and wash \\(B&W) buffer for the Dynabead affinity purification procedure:\r\n  10mM Tris, pH 7.5\r\n\n\n2 M NaCl\r\n\n\n1mM EDTA\r\n\n\n2. Remove the Dynabeads from 4\u00b0C, mix by gently inverting the tube.\r\n  3. Wash one volume \\(25\u00b5L per reaction) of dynabead mixture with 5 volumes \\(125\u00b5L) of 1x B&W Buffer. Rotate beads for 5 minutes.\r\n  4. Place washed Dynabead mixture on magnetic stand, allow time to pellet \\(~5 min), remove supernatant.\r\n  5. Repeat steps 3 and 4.\r\n  6. Resuspend beads in 41\u00b5L of 2x B&W Buffer.\r\n  7. Add 41\u00b5L to the adapter-ligated DNA \\(from step I). Allow bead/DNA mixture to rotate for 30 minutes at RT, with gentle inversion. Make sure that the beads are mixing.\r\n  8. After incubation, place samples on a compatible magnetic stand. Allow beads to pellet for 5 minutes, then remove the supernatant.\r\n  9. Wash the beads by adding 200\u00b5L of 1xB&W buffer, allowing to incubate for 30 seconds, then remove supernatant.\r\n  10. Repeat step 9 once with 1xB&W buffer, then a second time with 10mM Tris-HCl, pH 8.5\r\n  11. Remove the sample from the magnet, and add 20\u00b5L of 10mM Tris-HCl. Mix by pipetting up and down several times.\r\n  \r\n\n\n**K. Recovery and indexing PCR.**\r\n\n\nIn this step, the purified DNA fragments are amplified and indexed for Illumina Sequencing.\r\n\n\n1. Assemble a PCR Reaction according to the following:\r\n  Bead Mixture       \\(22.5\u00b5L)\r\n\n\nRecovery PCR Forward \\(10\u00b5M) \\(2.5\u00b5L)\r\n\n\nRecovery PCR Reverse \\(10\u00b5M) \\(2.5\u00b5L)\r\n\n\nQ5 Hot-Start 2x Master Mix    \\(22.5\u00b5L)\r\n\n\nTotal       \r\n\n\n\\(50\u00b5L)\r\n\n\n\r\n\n\nUse a thermal cycler to carry out the following PCR program:\r\n\n\n1. 98\u00b0C for 2 min\r\n  2. 98\u00b0C for 10s\r\n  3. 61\u00b0C for 30s\r\n  4. 72\u00b0C for 2 min\r\n  5. Repeat Steps 2-4 11x \\(12 total cycles)\r\n  6. 72\u00b0C for 2 min\r\n  7. Hold at 4\u00b0C \r\n  \r\n\n\n2. Remove the PCR recovery reaction samples from the thermal cycler, place the samples on a compatible magnetic stand, allow the beads to pellet for 5 min.\r\n  3. Transfer 30\u00b5L supernatant to a fresh tube.\r\n  4. Dilute the supernatant by adding 3\u00b5L of recovery PCR product to 148.5\u00b5L of water.\r\n  5. Set up the indexing PCR according to the following:\r\n  Recovery PCR DNA \\(Diluted)  \\(12\u00b5L)\r\n\n\nIndex Primer Forward \\(5\u00b5M)    \\(4\u00b5L)\r\n\n\nIndex Primer Reverse \\(5\u00b5M)  \\(4\u00b5L)\r\n\n\nQ5 2x Master Mix   \\(20\u00b5L)\r\n\n\nTotal     \\(40\u00b5L)\r\n\n\n\r\n\n\n6. Carry out the following PCR program:\r\n  1. 98\u00b0C for 2 min\r\n  2. 98\u00b0C for 10s\r\n  3. 60\u00b0C for 30s\r\n  4. 72\u00b0C for 2 min\r\n  5. Repeat Steps 2-4 11x \\(12 total cycles)\r\n  6. 72\u00b0C for 2 min\r\n  7. Hold at 4\u00b0C\r\n  \r\n\n\n**L. Sample Pooling.** \r\n\n\n1. Pool all samples from the indexing PCR step. Depending on how many samples are processed in parallel, pool between 5\u00b5L and 40\u00b5L from each. The final pool should be ~200-1000\u00b5L.\r\n  \r\n\n\n**M. SPRISelect Pool Cleanup.**\r\n\n\n1. Add 0.7x volume of SPRIselect reagent to the pooled sample, mix well by pipetting up and down.\r\n  2. Incubate the reaction mixture for 5 min at RT. \r\n  3. Place the reaction tube on a magnetic stand, then pellet the beads for 5 min. \r\n  4. Remove supernatant. \r\n  5. Wash 2 x 30 sec with 1 mL freshly prepared 85 % ethanol.  \r\n  6. Let ethanol evaporate for 10-15 min, or until beads are dry.  \r\n  7. Remove the tube from the magnetic stand, then add 1 volume of water, mix up and down by pipetting.\r\n  8. Incubate the reaction mixture for 10 min at RT.   \r\n  9. Place the reaction tube back on the magnetic stand, then pellet the beads for 5 min. \r\n  10. Transfer 0.95x volume of water to a new tube.  \r\n  11. PAUSE POINT: Libraries can be stored at -20\u00b0C, or proceed to desired method of library quantification prior to sequencing.  \r\n  \r\n\n\n**N. Library quality control**\r\n\n\n1. Dilute the final library 1:10 and 1:5 by volume in molecular biology grade water.\r\n  2. Load each of these samples on an Agilent Bioanalyzer High Sensitivity DNA chip.\r\n  3. Representative bioanalyzer traces are shown in **Figure 2**.\nSee figure in Figures section.\n4. If the size range is too large \\(more than 25% of library above 1,000bp) complete a 0.5x right-side SPRI cleanup to adjust the size range. Fragments larger than 1,000bp will alter quantification results but will not cluster on the sequencing flow cell.\r\n  a. Add 0.5x volume of SPRIselect reagent to the pooled sample, mix well by pipetting up and down. \r\n\n\nb. Incubate the reaction mixture for 5 min at RT. \r\n\n\nc. Place the reaction plate on a magnetic stand, then pellet the beads for 5 min. \r\n\n\nd. Remove supernatant and transfer into a fresh tube. \r\n\n\ne. Add 1.2x volumes of SPRIselect reagent, repeat steps b and c.\r\n\n\nf. Wash 2 x 30 sec with 1 mL freshly prepared 85 % ethanol.  \r\n\n\ng. Let ethanol evaporate for 10-15 min, until beads are dry.  \r\n\n\nh. Remove the reaction plate from the magnetic stand, then add 1 volume of water, mix up and down by pipetting.\r\n\n\ni. Incubate the reaction mixture for 10 min at RT.   Place the sample back on the magnetic stand, then pellet the beads for 5 min. \r\n\n\nj. Transfer 0.9x volume of water to a new tube.  \r\n\n\nk. Proceed to desired method of library quantification prior to sequencing. \r\n\n\n5. If necessary, repeat the 0.7x SPRI from Step M to remove any residual adapter dimer/small fragments from the library.\r\n  \r\n\n\n**O. Library Quantification and Sequencing**\r\n\n\n1. Quantify library using preferred method. We recommend either qPCR or Qubit 3.0. Quantification will require optimization for new sequencing platforms.\r\n  2. Required sequencing depth will depend on library quality and the particular application. 2-3 million reads \\(150 bp, single-end) per sample is recommended."
+        },
+        {
+            "header": "Timing",
+            "content": "Total Time: ~4-6 days\r\n\n\ngDNA Preparation: 1 day\r\n\n\nCas9 Cleavage, Termination and Adapter 1 Ligation: 1 day\r\n\n\nFragmentation, Adapter 2 Ligation, Affinity Purification, PCR: 1 day\r\n\n\nLibrary Cleanup, Quantification, QC: \u00bd day\r\n\n\nSequencing: 1-2 days \\(depending on sequencing instrument and reagents)"
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "A) \r\n\n\n**Issue:**\r\n\n\nInconsistent sample-to-sample DNA yields\r\n\n\n**Potential Cause:** \r\n\n\nConcentrated HMW gDNA is highly viscous, which can make precise pipetting and quantification difficult.\r\n\n\n**Solution/Tips:** \r\n\n\n-Before pipetting out of your HMW gDNA sample, place the tube on a rotator or shaker on a low setting at RT for ~5-10 minutes to ensure it is thawed and well-mixed. Do not vortex.\r\n\n\n- Use wide-bore pipettes whenever possible and take extreme care to pipette slowly and precisely whenever handling HMW gDNA \r\n\n\n\r\n\n\nB)\r\n\n\n**Issue:**\r\n\n\nSignificant adapter dimer peak \\(~150bp), much larger than library trace\r\n\n\n**Potential Cause:** \r\n\n\nLow input to recovery PCR leads to overamplification of small fragments and primer-dimer formation. This can be caused by over-fragmentation, or low yields during SPRI cleanup steps.\r\n\n\n**Solution/Tips:** \r\n\n\n- Ensure that samples are not over-fragmented. Fragments smaller than ~200bp will be removed in SPRI 3. Run optional gel \\(H11) to check. If over-fragmented, adjust fragmentase concentration or fragmentation time.\r\n\n\n- Periodically check DNA concentration using Qubit or NanoDrop, especially after SPRI steps. Inefficient mixing when binding beads or eluting will result in low yields. If using laboratory automation, custom mixing protocols may be necessary. At end of step H, DNA concentration should be ~10-20ng/\u00b5L.\r\n\n\n\r\n\n\n**Potential Cause:** \r\n\n\nInefficient adapter 1 ligation will result in very few functional DNA fragments, and the majority of amplifiable material will be residual adapter 1.\r\n\n\n**Solution/Tips:** \r\n\n\n-Check Quick Ligase lot and incubation procedure. \r\n\n\n-Check for any proteinase contamination or carryover from Step C9. \r\n\n\n\r\n\n\n\r\n\n\nC) \r\n\n\n**Issue:**\r\n\n\nSPRI beads clumping during binding step.\r\n\n\n**Potential Cause:** \r\n\n\nHigh viscosity of HMW gDNA can cause the beads to clump.\r\n\n\n**Solution/Tips:** \r\n\n\nThis is acceptable, and should not have an adverse effect on the results of the assay. Mix well by pipetting up and down.\r\n\n\n\r\n\n\nD) \r\n\n\n**Issue:**\r\n\n\nSPRI beads not resuspended after mixing during elution step.\r\n\n\n**Potential Cause:** \r\n\n\nBeads were over-dried.\r\n\n\n**Solution/Tips:** \r\n\n\nMix as much as possible by pipetting up and down, and allow for extended elution time. Use shorter drying-time in future experiments.\r\n\n\n\r\n\n\nE)\r\n\n\n**Issue:**\r\n\n\nStreptavidin Dynabeads settle quickly.\r\n\n\n**Potential Cause:** \r\n\n\nThis is normal in 10mM Tris-HCl.\r\n\n\n**Solution/Tips:** \r\n\n\nVortex the sample before starting the PCR reaction. The beads will settle quickly, but this is normal and will not impact the PCR efficiency.\r\n\n\n\r\n\n\nF)\r\n\n\n**Issue:**\r\n\n\nSequencing: Low alignments to reference genome\r\n\n\n**Potential Cause:** \r\n\n\nAdapter dimer still present in library will be sequenced and waste reads that will not align to your reference genome\r\n\n\n**Solution/Tips:** \r\n\n\nRepeat step N5 to remove any visible adapter dimer in the library. \r\n\n\n\r\n\n\nG)\r\n\n\n**Issue:**\r\n\n\nSequencing: Poor Index Read Quality\r\n\n\n**Potential Cause:** \r\n\n\nResidual adapter dimer and large fragments can reduce read quality on certain sequencing machines \\(specifically NextSeq 550)\r\n\n\n**Solution/Tips:** \r\n\n\nRemove as much adapter dimer as possible by repeating Steps N4 and N5 until the library trace looks like that in Figure 2A."
+        },
+        {
+            "header": "References",
+            "content": "1. Tsai, S. Q. et al. GUIDE-seq enables genome-wide profiling of off-target cleavage by CRISPR-Cas nucleases. Nat. Biotechnol. 33, 187\u2013197 \\(2015).\r\n  \r\n\n\n2. Frock, R. L. et al. Genome-wide detection of DNA double-stranded breaks induced by engineered nucleases. Nat. Biotechnol. 33, 179\u2013186 \\(2015).\r\n  \r\n\n\n3. Kim, D. et al. Digenome-seq: genome-wide profiling of CRISPR-Cas9 off-target effects in human cells. Nat. Methods 12, 237\u2013243, 1 p following 243 \\(2015).\r\n  \r\n\n\n4. Kim, D., Kim, S., Kim, S., Park, J. & Kim, J.-S. Genome-wide target specificities of CRISPR-Cas9 nucleases revealed by multiplex Digenome-seq. Genome Res. 26, 406\u2013415 \\(2016)."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nmeth.4284",
+                "date": "2017-04-11 05:23:51",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 14689,
+                "identity": "a10672ea-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Andrew P. May",
+                "email": "apmay1@gmail.com",
+                "orcid": "",
+                "institution": "Caribou Biosciences",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Andrew",
+                "middleName": "P.",
+                "lastName": "May",
+                "suffix": ""
+            },
+            {
+                "id": 14683,
+                "identity": "a1066168-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Peter Cameron",
+                "email": "",
+                "orcid": "",
+                "institution": "Caribou Biosciences ",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Peter",
+                "middleName": "",
+                "lastName": "Cameron",
+                "suffix": ""
+            },
+            {
+                "id": 14684,
+                "identity": "a106651d-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Alexander H. Settle",
+                "email": "",
+                "orcid": "",
+                "institution": "Caribou Biosciences",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Alexander",
+                "middleName": "H.",
+                "lastName": "Settle",
+                "suffix": ""
+            },
+            {
+                "id": 14685,
+                "identity": "a10667fb-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Chris K. Fuller",
+                "email": "",
+                "orcid": "",
+                "institution": "Caribou Biosciences",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Chris",
+                "middleName": "K.",
+                "lastName": "Fuller",
+                "suffix": ""
+            },
+            {
+                "id": 14686,
+                "identity": "a1066aa2-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Matthew S. Thompson",
+                "email": "",
+                "orcid": "",
+                "institution": "Caribou Biosciences",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Matthew",
+                "middleName": "S.",
+                "lastName": "Thompson",
+                "suffix": ""
+            },
+            {
+                "id": 14687,
+                "identity": "a1066d32-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "A. Mark  Cigan",
+                "email": "",
+                "orcid": "",
+                "institution": "DuPont Pioneer",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "A.",
+                "middleName": "Mark",
+                "lastName": "Cigan",
+                "suffix": ""
+            },
+            {
+                "id": 14688,
+                "identity": "a1066fa8-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Joshua K. Young",
+                "email": "",
+                "orcid": "",
+                "institution": "DuPont Pioneer",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Joshua",
+                "middleName": "K.",
+                "lastName": "Young",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2017-04-11 06:08:07",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2017.043",
+        "doiUrl": "https://doi.org/10.1038/protex.2017.043",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2609745,
+                "identity": "5907c5ef-ed6f-4957-8ee8-33b47bd1293a",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:09",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 126554,
+                "visible": true,
+                "origin": "",
+                "legend": "*HMW gDNA separation on an agarose gel for quality assurance*.   Lane L1 and L2 contain 10\u00b5L of 100bp and 1kb-extend ladder, respectively. Lanes 1,2, and 3 contains 0.5\u00b5g, 1\u00b5g, and 1.5\u00b5g, respectively. The primary band should be above 50kb, with minimal streaking.\r\n",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-5889/v1/figure_1.png"
+            },
+            {
+                "id": 2609747,
+                "identity": "b0eda892-6894-40ce-b04e-e020f9124818",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:09",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 402968,
+                "visible": true,
+                "origin": "",
+                "legend": "*Representative bioanalyzer traces*.   A) A bioanalyzer trace of a successfully cleaned-up SITE-Seq library. The average fragment size here is ~500-500bp, with minimal material >1,000bp and no detectable adapter dimer at ~180bp. B) A bioanalyzer trace of a library with too much adapter dimer and a high concentration of fragments > 1,000bp. This library would require additional SPRI Cleanup steps before sequencing.\r\n",
+                "description": "",
+                "filename": "figure2.png",
+                "url": "https://assets.researchsquare.com/files/nprot-5889/v1/figure_2.png"
+            },
+            {
+                "id": 13465087,
+                "identity": "d8e46d95-f495-409f-9360-8ce6ee59986a",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:45:37",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 641166,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-5889/v1/6e908eaf-6da4-4688-9210-c9bfc9600e18.pdf"
+            }
+        ],
+        "financialInterests": "The authors declare conflicts of interest. P.C., A.H.S., C.K.F., M.S.T., and A.P.M are current or former employees of Caribou Biosciences, Inc., a company that develops and commercializes genome-engineering technologies, and such individuals may own shares or stock options in Caribou Biosciences, Inc. J.K.Y. is an employees of DuPont Pioneer. Patent applications have been filed describing this work.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "CRISPR, Off-target, sequencing, high-throughput",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "CRISPR-Cas9 RNA-guided endonucleases are widely used in genome engineering, yet information on biochemical and cellular off-target cleavage activity is lacking.  Here, we present a biochemical method, based on the selective enrichment and identification of adapter-tagged DNA ends by sequencing \\(SITE-Seq). SITE-Seq can be used to identify off-target cleavage sites within a genomic DNA sample. This protocol details the preparation of SITE-Seq libraries for high throughput Next Generation Sequencing on the Illumina platform.",
+        "manuscriptTitle": "SITE-Seq: A Genome-wide Method to Measure Cas9 Cleavage",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2017-05-02 08:46:41",
+                "doi": "10.1038/protex.2017.043",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a105f7ad-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "May 2nd, 2017",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3890,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 3892,
+                "name": "Genetics"
+            },
+            {
+                "id": 3893,
+                "name": "Biotechnology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2017-05-02 08:46:41",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

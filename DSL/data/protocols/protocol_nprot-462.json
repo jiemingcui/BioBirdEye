@@ -1,0 +1,223 @@
+{
+    "identity": "nprot-462",
+    "title": "Modeling evolution of insect resistance to genetically modified crops",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Genetically modified crops producing insecticidal proteins from _Bacillus thuringiensis_ \\(Bt) for insect control have been planted on more than 200 million ha worldwide since 1996 \\[1].  Evolution of resistance by insect pests threatens the continued success of Bt crops \\[2, 3].  To delay pest resistance, refuges of non-Bt crops are planted near Bt crops to allow survival of susceptible pests \\[4, 5].   We used computer simulations of a population genetic model to determine if predictions from the theory underlying the refuge strategy match outcomes in the field documented with monitoring data \\[6].  The computer program is called SERBt for Simulated Evolution of Resistance to Bt crops.  For the six major pests modeled, the simulation results corresponded with the field data.  In particular, the simulations indicated that resistance would evolve fastest in _Helicoverpa zea_, a major cotton pest in the U.S., and this insect was the first with documented field-evolved resistance to a Bt crop.  The model can be readily modified to incorporate key biological parameters for many insects."
+        },
+        {
+            "header": "Equipment",
+            "content": "Computer with Microsoft Excel."
+        },
+        {
+            "header": "Procedure",
+            "content": "1)  Create a new workbook in Microsoft Excel.  Rename worksheet 1 \"Input\" and worksheet 2 \"Output.\"\r\n\n\n\r\n\n\n2)  If Microsoft Excel 2007 is used, open the Developer tab \\(right click on the main toolbar, select \"Customize Quick Access Toolbar\", select \"Popular\" from menu, and check box that says \"Show Developer Tab on the Ribbon\").  In earlier versions of Excel, open the Visual Basic Toolbar \\(Tools...Customize...Visual Basic)\r\n\n\n\r\n\n\n3)  Open the Visual Basic Editor \\(Button on toolbar).  Insert a module to the editor.  This can be done using the menus on top:  Insert...Module, or by right-clicking on Microsoft Excel Objects in the directory on the left of the screen.  Make sure the module \\(Module1 is the default) is shown as a Microsoft Excel Object.\r\n\n\n\r\n\n\n4)  The full computer program SERBt and comments are attached in a file and listed below.  Paste into the module screen the full text from the attached file \\(click download at bottom)or from immediately below:\r\n\n\n\r\n\n\nOption Explicit                                 ' Requires all variables to be declared\r\n\n\n\r\n\n\n'   Variable definitions\r\n\n\n\r\n\n\nDim Fss, Frs, Frr As Double                     ' Frequency of three genotypes \\(ss, rs, rr)\r\n\n\nDim RefWss, RefWrs, RefWrr As Double            ' Fitness of three genotypes in refuge\r\n\n\nDim BtWss, BtWrs, BtWrr As Double               ' Fitness of three genotypes in Bt field\r\n\n\nDim Wss, Wrs, Wrr As Double                     ' Fitness of each genotype \\(across both fields)\r\n\n\nDim PRef, PBt As Double                         ' Proportion of habitat planted to refuge and Bt fields\r\n\n\nDim Inits, Initr, Freqs, Freqr As Double        ' Initial frequency of alleles and frequency over time\r\n\n\nDim Wm As Double                                ' Population weighted mean fitness\r\n\n\nDim Deltar As Double                            ' Change in r allele frequency each generation\r\n\n\nDim GenYear As Integer                          ' Number of generations per year\r\n\n\nDim GeneCrit As Double                          ' Genotypic Criterion \\(FREQr = 0.5 is standard)\r\n\n\nDim Gen, A, Years As Integer                    ' Loop Counters\r\n\n\n\r\n\n\n' Beginning of program code\r\n\n\n\r\n\n\nSub BtResistance\\()\r\n\n\n\r\n\n\n    Sheets\\(\"Input\").Select      ' Input data on worksheet \"Input\" \\(Worksheet must be named \"Input\")\r\n\n\n     \r\n\n\n'   All input variables are drawn from worksheet \"Input\".  Values could be entered below directly if desired.\r\n\n\n    Inits = Cells\\(3, 1)         ' Initial frequency of s allele \\(Input taken from Row 3, Column A)\r\n\n\n    Initr = Cells\\(3, 2)         ' Initial frequency of r allele in \\(Input taken from Row 3, Column B)\r\n\n\n    Freqs = Inits               ' Frequency of s allele\r\n\n\n    Freqr = Initr               ' Frequency of r allele\r\n\n\n    PRef = Cells\\(6, 1)          ' Proportion refuge \\(Input taken from Row 6, Column A)\r\n\n\n    PBt = 1 - PRef              ' Proportion Bt\r\n\n\n    GenYear = Cells\\(6, 5)    ' Number of generations per year \\(Input taken from Row 6, Column E)\r\n\n\n    Years = Cells\\(6, 10)        ' Number of simulated years\r\n\n\n    Gen = Years  ==*== GenYear       ' Number of simulated generations\r\n\n\n    \r\n\n\n    RefWss = Cells\\(3, 5)        ' Fitness of ss in refuge \\(Input taken from Row 3, Column E)\r\n\n\n    RefWrs = Cells\\(3, 6)        ' Fitness of rs in refuge \\(Input taken from Row 3, Column F)\r\n\n\n    RefWrr = Cells\\(3, 7)        ' Fitness of rr in refuge \\(Input taken from Row 3, Column G)\r\n\n\n    BtWss = Cells\\(3, 10)        ' Fitness of ss in Bt field \\(Input taken from Row 3, Column J)\r\n\n\n    BtWrs = Cells\\(3, 11)        ' Fitness of rs in Bt field \\(Input taken from Row 3, Column K)\r\n\n\n    BtWrr = Cells\\(3, 12)        ' Fitness of rr in Bt field \\(Input taken from Row 3, Column L)\r\n\n\n     \r\n\n\n'   Values of generation counter determine number of generations to run unless stop point is reached\r\n\n\n     \r\n\n\n    For A = 1 To Gen\r\n\n\n    \r\n\n\n'   Calculate genotype frequencies at beginning of generation\r\n\n\n    \r\n\n\n        Fss = Freqs  ==*== Freqs\r\n\n\n        Frs = 2  ==**== Freqs  ==**== Freqr\r\n\n\n        Frr = Freqr  ==*== Freqr\r\n\n\n        \r\n\n\n'   Calculate fitness of each genotype and population weighted mean fitness\r\n\n\n\r\n\n\n        Wss = BtWss  ==**== PBt + RefWss  ==**== PRef\r\n\n\n        Wrs = BtWrs  ==**== PBt + RefWrs  ==**== PRef\r\n\n\n        Wrr = BtWrr  ==**== PBt + RefWrr  ==**== PRef\r\n\n\n        \r\n\n\n        Wm = Frr  ==**== Wrr + Frs  ==**== Wrs + Fss  ==*== Wss\r\n\n\n        \r\n\n\n'   Calculate change in r allele frequency in each generation\r\n\n\n\r\n\n\n        Deltar = \\(Freqr  ==**== Freqs  ==**== \\(Freqr  ==**== \\(Wrr - Wrs) + Freqs  ==**== \\(Wrs - Wss))) / Wm\r\n\n\n        \r\n\n\n'   Calculate allele frequencies after each generation\r\n\n\n\r\n\n\n        Freqr = Freqr + Deltar\r\n\n\n        Freqs = 1 - Freqr\r\n\n\n        \r\n\n\n' Delete old output \\(Requires a worksheet named \"Output\")\r\n\n\n\r\n\n\n        Sheets\\(\"Output\").Select\r\n\n\n        \r\n\n\n        If \\(A = 1) Then\r\n\n\n        \r\n\n\n        Cells.Select\r\n\n\n        Selection.ClearContents\r\n\n\n        Range\\(\"A1\").Select\r\n\n\n        \r\n\n\n        End If\r\n\n\n        \r\n\n\n' Output initial conditions to Row 2, Columns A-C \\(Requires a worksheet named \"Output\")\r\n\n\n\r\n\n\n        Cells\\(1, 1) = \"Generation\"\r\n\n\n        Cells\\(1, 2) = \"Years\"\r\n\n\n        Cells\\(1, 3) = \"s Freq\"\r\n\n\n        Cells\\(1, 4) = \"r Freq\"\r\n\n\n        Cells\\(1, 5) = \"ss Freq\"\r\n\n\n        Cells\\(1, 6) = \"rs Freq\"\r\n\n\n        Cells\\(1, 7) = \"rr Freq\"\r\n\n\n        Cells\\(1, 9) = \"Years to Reach Genotypic Criterion\"\r\n\n\n        Cells\\(1, 13) = \"Dominance, h\"\r\n\n\n        Cells\\(4, 9) = \"Frequency of r allele in Year 20\"\r\n\n\n        Cells\\(4, 13) = \"Frequency of rr genotype in Year 20\"\r\n\n\n        Cells\\(2, 1) = 0\r\n\n\n        Cells\\(2, 2) = 0\r\n\n\n        Cells\\(2, 3) = Inits\r\n\n\n        Cells\\(2, 4) = Initr\r\n\n\n        Cells\\(2, 5) = Inits  ==*== Inits\r\n\n\n        Cells\\(2, 6) = 2  ==**== Inits  ==**== Initr\r\n\n\n        Cells\\(2, 7) = Initr  ==*== Initr\r\n\n\n        Cells\\(2, 13) = \\(\\(BtWrs - BtWss) / \\(BtWrr - BtWss))\r\n\n\n        \r\n\n\n' Output conditions of model runs to Row 3+, Columns A-G, Worksheet \"Output\"\r\n\n\n        \r\n\n\n        Cells\\(A + 2, 1) = A\r\n\n\n        Cells\\(A + 2, 2) = A / GenYear\r\n\n\n        Cells\\(A + 2, 3) = Freqs\r\n\n\n        Cells\\(A + 2, 4) = Freqr\r\n\n\n        Cells\\(A + 2, 5) = Freqs  ==*== Freqs\r\n\n\n        Cells\\(A + 2, 6) = 2  ==**== Freqs  ==**== Freqr\r\n\n\n        Cells\\(A + 2, 7) = Freqr  ==*== Freqr\r\n\n\n        \r\n\n\n' Output years in which genotypic and phenotypic criteria are reached, Worksheet \"Output\"\r\n\n\n\r\n\n\n        If \\(Cells\\(A + 2, 4) >= 0.5 And Cells\\(A + 1, 4) < 0.5) Then\r\n\n\n        \r\n\n\n            Cells\\(2, 9) = Cells\\(A + 2, 2)\r\n\n\n            \r\n\n\n        End If\r\n\n\n        \r\n\n\n        If \\(A = Gen And Cells\\(A + 2, 4) < 0.5) Then\r\n\n\n        \r\n\n\n            Cells\\(2, 9) = \"Not Reached\"\r\n\n\n    \r\n\n\n        End If\r\n\n\n        \r\n\n\n' Output r allele frequency and rr genotype frequency after simulated number of years\r\n\n\n\r\n\n\n        If \\(A = Gen) Then\r\n\n\n        \r\n\n\n            Cells\\(5, 9) = Freqr\r\n\n\n            Cells\\(5, 13) = Frr\r\n\n\n            \r\n\n\n        End If\r\n\n\n        \r\n\n\n    Next A\r\n\n\n        \r\n\n\nEnd Sub\r\n\n\n\r\n\n\n5)  The values of the several variables are input to the program from the worksheet \"Input\".  The values can be entered directly into the program code, but we find it is easier to manipulate the variables on the spreadsheet.  The best way to do this is to format the Input Screen as Follows \\(corresponds with code above):\r\n\n\n\r\n\n\nRow 3, Column A:  Initial s allele frequency \\(Value from 0 to 1)\r\n\n\nRow 3, Column B:  Initial r allele frequency \\(Value from 0 to 1; 1 \u2013 Initial s)\r\n\n\nRow 3, Column E:  Fitness of ss genotype in refuge \\(Value from 0 to 1)\r\n\n\nRow 3, Column F:  Fitness of rs genotype in refuge \\(Value from 0 to 1)\r\n\n\nRow 3, Column G:  Fitness of rr genotype in refuge \\(Value from 0 to 1)\r\n\n\nRow 3, Column J:  Fitness of ss genotype in Bt field \\(Value from 0 to 1)\r\n\n\nRow 3, Column K:  Fitness of rs genotype in Bt field \\(Value from 0 to 1)\r\n\n\nRow 3, Column L:  Fitness of rr genotype in Bt field \\(Value from 0 to 1)\r\n\n\n\r\n\n\nRow 6, Column A:  Proportion Refuge \\(Value from 0 to 1)\r\n\n\nRow 6, Column E:  Number of generations per year \\(Integer greater than or equal to 1)\r\n\n\nRow 6, Column J:  Number of simulated years \\(Integer greater than or equal to 1)\r\n\n\n\r\n\n\nWe used Rows 1, 2, and 5 of the worksheet \"Input\" to label the variables.  No values from these rows are used as inputs to the program, but they are helpful for reference.\r\n\n\n\r\n\n\n6)  To run the program in Microsoft Excel 2007, click on Macros \\(Button on developer tab).  BtResistance should be highlighted.  Click on run.  In earlier versions of excel, click on Run macro \\(Button on Visual Basic Toolbar). Bt resistance should be highlighted.  Click on run.  All output of the program is displayed on the worksheet \"Output\".  Note:  the program automatically replaces old output.  If you are in design mode the program will not work.  You can exit design mode using button on Visual Basic Toolbar.\r\n\n\n\r\n\n\n7)  On future use of the program, when you open Excel, it will ask you about Macros.  Click \"Enable Macros\" upon opening Excel to use the program."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "The most likely causes of errors are forgetting to include a variable in the worksheet \"Input\" or inputting values for variables that are out of range.  The program will give an error message if population weighted mean fitness = 0, or if \\(BtWrr - BtWss) = 0 because this will result in division by 0."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "Test the program by inputting values from Table 1 Supplementary Material of Tabashnik et al. \\[6] and comparing your output to the results in Fig. 2 of that paper.  In general, expect resistance to evolve faster with increases in dominance of resistance \\(the fitness of heterozygotes on Bt crops; BtWrs) and the proportion of habitat occupied by Bt crops \\(PBt)."
+        },
+        {
+            "header": "References",
+            "content": "1. James, C. Global status of commercialized biotech/GM crops: 2007. ISAAA Brief No. 37, International Service for the Acquisition of Agri-Biotech Applications, Ithaca, NY, USA \\(2007).\r\n  2. Tabashnik, B.E. Evolution of resistance to _Bacillus  thuringiensis_.  _Annu. Rev. Entomol_. **39**, 47-94 \\(1994).\r\n  3. Tabashnik, B. E. et al.  2003.  Insect resistance to transgenic Bt crops:  lessons from the laboratory and field.  _J. Econ. Entomol_. **96**, 1031-1038 \\(2003).\r\n  4. Gould, F. Sustainability of transgenic insecticidal cultivars:  integrating pest genetics and ecology. _Annu. Rev. Entomol_. **43**, 701-726 \\(1998).\r\n  5. U.S. Environmental Protection Agency, The Environmental Protection Agency&#x2019;s White Paper on Bt Plant-Pesticide Resistance Management \\(EPA Publication 739-S-98-001, 1998; www.epa.gov/EPA-PEST/1998/January/Day-14/paper.pdf\r\n  6. Tabashnik, B. E., Gassmann, A.J., Crowder, D.W. &amp; Carri&#xE8;re, Y.  Insect resistance to Bt crops:  evidence versus theory.  _Nat.  Biotech_. **26**, 199-202 \\(2008)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "This work was supported by NRI, CSREES, USDA grant 2006-35302-17365."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nbt1382",
+                "date": "2008-06-16 16:42:43",
+                "title": "Insect resistance to Bt crops:  evidence versus theory",
+                "authors": [
+                    "Bruce E Tabashnik",
+                    "Aaron J Gassmann",
+                    "David W Crowder & Yves Carri\u00e9re"
+                ],
+                "journal": "Nature Biotechnology",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 10969,
+                "identity": "9f37284c-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Bruce E.  Tabashnik",
+                "email": "brucet@ag.arizona.edu",
+                "orcid": "",
+                "institution": "Department of Entomology, University of Arizona",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Bruce",
+                "middleName": "E.",
+                "lastName": "Tabashnik",
+                "suffix": ""
+            },
+            {
+                "id": 10970,
+                "identity": "9f372bd9-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "David W. Crowder",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Entomology, University of Arizona",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "David",
+                "middleName": "W.",
+                "lastName": "Crowder",
+                "suffix": ""
+            },
+            {
+                "id": 10971,
+                "identity": "9f372f5f-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Yves Carri\u00e8re",
+                "email": "",
+                "orcid": "",
+                "institution": "Department of Entomology, University of Arizona",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Yves",
+                "middleName": "",
+                "lastName": "Carri\u00e8re",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2010-08-20 15:47:54",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/nprot.2008.125",
+        "doiUrl": "https://doi.org/10.1038/nprot.2008.125",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13464508,
+                "identity": "d2a0dd1a-6201-47db-9629-458924f52997",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:43:36",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 139483,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-462/v1/ad0cdab8-2f98-4c27-86a5-ce0928aef98a.pdf"
+            }
+        ],
+        "financialInterests": "",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "genetically modified crops, Bacillus thuringiensis, resistance management, refuge strategy, Helicoverpa zea, evolution, Bt cotton, Bt corn, computer simulation, population genetics\r\n\r\n",
+        "license": {
+            "name": "None",
+            "url": ""
+        },
+        "manuscriptAbstract": "",
+        "manuscriptTitle": "Modeling evolution of insect resistance to genetically modified crops",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2008-06-19 06:15:41",
+                "doi": "10.1038/nprot.2008.125",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "9f36cd87-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "June 19th, 2008",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 2120,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 2121,
+                "name": "Genetics"
+            },
+            {
+                "id": 2122,
+                "name": "Plant sciences"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2008-06-19 06:15:41",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

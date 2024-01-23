@@ -1,0 +1,386 @@
+{
+    "identity": "pex-570",
+    "title": "<p>GPSeq reveals the radial organization of chromatin in the cell nucleus</p>",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "<p>In eukaryotic cells, the genome is spatially organized and its three-dimentional (3D) architecture is vital to the proper execution of its functions<sup>1</sup>. One key feature of the 3D genome is that individual chromosomes are non-randomly positioned with respect to the nuclear periphery<sup>2\u20139</sup>. The nuclear lamina is thought to be the key organizer of the radial arrangement of chromatin in interphase nuclei<sup>10</sup>, by creating a large nuclear compartment where the majority of inactive chromatin clusters in the form of lamina-associated domains (LADs)<sup>11\u201313</sup>. Specialized sub-chromosomal regions, such as centromeres and telomeres, as well as nucleolar organizing regions, are also non-randomly positioned in the nucleus<sup>14\u201318</sup>. The latter contain ribosomal RNA gene clusters that coalesce to form the core of the largest nuclear body, the nucleolus, and organize chromatin in and around them<sup>19</sup>. Furthermore, inter-chromosomal interactions around the nucleolus and nuclear speckles have also been implicated in shaping the 3D genome<sup>20</sup>.</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The preferential radial location of certain genomic loci in the nucleus has been variably attributed to gene density<sup>3,5,6</sup>, GC-content<sup>21\u201323</sup>, as well as chromosome size<sup>4,7,8,24</sup>. Additionally, transcriptional activity has also been implicated in radial nuclear organization, although it is still unclear whether transcription influences radiality or <em>vice versa</em><sup>25\u201335</sup>. Overall, the role of genomic and epigenomic features in shaping radiality remains to be quantified, despite several attempts to model the contribution of various factors<sup>35\u201337</sup>. In particular, it is unclear whether the nucleus merely consists of a peripheral transcriptionally inactive compartment as opposed to a central transcriptionally active one, or whether a finer stratification exists. In this context, a major obstacle until now has been the lack of dedicated genome-wide methods to specifically tackle this aspect of chromatin organization at high resolution. To overcome this limitation, here we develop a method that allows inferring radial locations genome-wide, all along the nuclear radius, which we name genomic loci positioning by sequencing or GPSeq. Using GPSeq, we generate the first high-resolution map of radial chromatin organization in human cells, which reveals a clear tendency of individual genomic regions to occupy specific radial locations, as well as gradients of chromatin modifications, transcriptional activity and replication timing, and a marked polar arrangement of chromosomes with respect to A/B compartments and subcompartments<sup>38,39</sup>. We develop a high-performance algorithm, <em>chromflock</em>, that dramatically improves the accuracy of whole-genome structure ensemble generation. Finally, we integrate GPSeq maps with DNA breaks and mutations data, revealing radial differences in DNA damage and mutational processes.</p>"
+        },
+        {
+            "header": "Reagents",
+            "content": "<p>\u00b7&nbsp;&nbsp;&nbsp;GPSeq adapter sequences are provided in <strong>Supplementary Table 1</strong></p><p>\u00b7&nbsp;&nbsp;&nbsp;Poly-L-Lysine&nbsp;(PLL) solution&nbsp;(Sigma, cat. no. P8920-100 ml)</p><p>\u00b7&nbsp;&nbsp;&nbsp;Methanol-free paraformaldehyde (PFA) 16% (EMS, cat. no. 15710)</p><p>\u00b7&nbsp;&nbsp;&nbsp;Glycine (Sigma-Aldrich, cat. no. 50046-250G)</p><p>\u00b7&nbsp;&nbsp;&nbsp;Nuclease-free Phosphate-Buffered Saline (10X) pH 7.4 (Thermo Fisher Scientific, cat. no.&nbsp;AM9625)</p><p>\u00b7&nbsp;&nbsp;&nbsp;Nuclease-free water (Thermo Fisher Scientific, cat. no. 4387936) (for <em>in situ</em> reactions and library preparation)</p><p>\u00b7&nbsp;&nbsp;&nbsp;CutSmart\u00ae buffer (NEB, cat. no. B7204S)</p><p>\u00b7&nbsp;&nbsp;&nbsp;HindIII-HF\u00ae (NEB, cat. no. R3104)</p><p>\u00b7&nbsp;&nbsp;&nbsp;MboI (NEB, cat. no. R0147M)</p><p>\u00b7&nbsp;&nbsp;&nbsp;Calf intestinal alkaline phosphatase (Promega, cat. no. M1821)</p><p>\u00b7&nbsp;&nbsp;&nbsp;T4 DNA Ligase (NEB, cat. no. M0202M)</p><p>\u00b7&nbsp;&nbsp;&nbsp;UltraPure\u2122 BSA (50 mg/ml) (Thermo Fisher Scientific, cat. no. AM2616)</p><p>\u00b7&nbsp;&nbsp;&nbsp;Triton\u00ae X-100 (Promega, cat.no. H5142)</p><p>\u00b7&nbsp;&nbsp;&nbsp;High-salt wash buffer (HSW): 10 mM Tris-HCl, 1M NaCl, 0.5% Triton X-100, pH 8 at 25 \u00b0C</p><p>\u00b7&nbsp;&nbsp;&nbsp;Dextran sulfate (Sigma, cat. no. D8906)</p><p>\u00b7&nbsp;&nbsp;&nbsp;Formamide (FA) (Ambion, cat. no. AM9342)</p><p>\u00b7&nbsp;&nbsp;&nbsp;<em>E.coli</em> tRNA (Sigma, cat. no. R1753)</p><p>\u00b7&nbsp;&nbsp;&nbsp;BSA (Ambion, cat. no. AM2616)</p><p>\u00b7&nbsp;&nbsp;&nbsp;YFISH wash buffer (YWB): 25% FA/2X SSC</p><p>\u00b7&nbsp;&nbsp;&nbsp;YFISH hybridization buffer (YHB): 10% Dextran sulfate/25% FA/1 mg/ml<em> E.coli</em> tRNA /0.02 % BSA/2X SSC</p><p>\u00b7&nbsp;&nbsp;&nbsp;Hoechst 33342 (Thermo Fisher Scientific, cat. no. H3570)</p><p>\u00b7&nbsp;&nbsp;&nbsp;DNA extraction buffer (DEB): 1% SDS, 100 mM NaCl, 50 mM EDTA, 10 mM Tris-HCl, pH 7.5 at 25 \u00b0C</p><p>\u00b7&nbsp;&nbsp;&nbsp;Proteinase K, Molecular Biology Grade (NEB, cat. no. P8107S)</p><p>\u00b7&nbsp;&nbsp;&nbsp;Phenol:Chloroform:Isoamyl Alcohol 25:24:1 Saturated with 10 mM Tris, pH 8.0, 1 mM (Sigma-Aldrich, cat. no. P2069)</p><p>\u00b7&nbsp;&nbsp;&nbsp;Chloroform (Sigma-Aldrich, cat. no. C2432)</p><p>\u00b7&nbsp;&nbsp;&nbsp;EDTA (Sigma-Aldrich, cat. no. P2069)</p><p>\u00b7&nbsp;&nbsp;&nbsp;Glycogen (Sigma-Aldrich, cat. no. 10901393001)</p><p>\u00b7&nbsp;&nbsp;&nbsp;Nuclease-free TE buffer (Thermo Fisher Scientific, cat. no. AM9849)</p><p>\u00b7&nbsp;&nbsp;&nbsp;AMPure XP (Beckman Coulter, cat. no. A63881)</p><p>\u00b7&nbsp;&nbsp;&nbsp;MEGAscript\u00ae T7 Transcription Kit (Thermo Fisher Scientific, cat. no. AM1334)</p><p>\u00b7&nbsp;&nbsp;&nbsp;RiboSafe RNase Inhibitor (Bioline, cat. no. 65027)</p><p>\u00b7&nbsp;&nbsp;&nbsp;DNase I, RNase-free (Thermo Fisher Scientific, cat. no. AM2222)</p><p>\u00b7&nbsp;&nbsp;&nbsp;RA3 adaptor and RTP, RP1 and RPI primers are the same as in the TruSeq Small RNA Library Preparation kit (Illumina, cat. no. RS-200-0012), but are custom-synthesized and purified using standard desalting</p><p>\u00b7&nbsp;&nbsp;&nbsp;RNAClean XP (Beckman Coulter, cat. no. A63987)</p><p>\u00b7&nbsp;&nbsp;&nbsp;RNaseOUT\u2122 Recombinant Ribonuclease Inhibitor (Invitrogen, cat. no. 10777-019)</p><p>\u00b7&nbsp;&nbsp;&nbsp;T4 RNA ligase 2, truncated (NEB, cat. no. M0242L)</p><p>\u00b7&nbsp;&nbsp;&nbsp;Deoxynucleotide (dNTP) Solution Set (NEB, cat. no. N0446S)</p><p>\u00b7&nbsp;&nbsp;&nbsp;SuperScript\u00ae IV Reverse Transcriptase (Thermo Fisher Scientific, cat. no. 18090050)</p><p>\u00b7&nbsp;&nbsp;&nbsp;NEBNext\u00ae High-Fidelity 2X PCR Master Mix (NEB, cat. no. M0541L)</p>"
+        },
+        {
+            "header": "Equipment",
+            "content": "<p>\u00b7&nbsp;&nbsp;&nbsp;Incubator (<em>e.g.</em>, Binder incubator, Model KB 53)</p><p>\u00b7&nbsp;&nbsp;&nbsp;Tabletop centrifuge (<em>e.g.</em>, Eppendorf\u00ae Microcentrifuge 5424)</p><p>\u00b7&nbsp;&nbsp;&nbsp;Thermoshaker (<em>e.g.</em>, Eppendorf\u00ae Thermomixer Compact)</p><p>\u00b7&nbsp;&nbsp;&nbsp;PCR cycler (<em>e.g.</em>, T3 Thermocycler, Biometra)</p><p>\u00b7&nbsp;&nbsp;&nbsp;Cell scrapers (Corning\u2122 Cell Lifter, cat. no. 3008)</p><p>\u00b7&nbsp;&nbsp;&nbsp;Eppendorf\u00ae DNA LoBind microcentrifuge tubes (cat. no. 0030108035 and 0030108051)</p><p>\u00b7&nbsp;&nbsp;&nbsp;Sonication device (Bioruptor\u00ae Plus, Diagenode, cat. no. B01020001)</p><p>\u00b7&nbsp;&nbsp;&nbsp;DynaMag\u2122-2 Magnet (Thermo Fisher Scientific, cat. no. 12321D)</p><p>\u00b7&nbsp;&nbsp;&nbsp;Qubit\u00ae 2.0 Fluorometer (Thermo Fisher Scientific, cat. no. Q32866)</p><p>\u00b7&nbsp;&nbsp;&nbsp;Qubit\u2122 dsDNA HS Assay (Thermo Fisher Scientific, cat. no. Q32851)</p><p>\u00b7&nbsp;&nbsp;&nbsp;Qubit\u2122 Assay Tubes (Thermo Fisher Scientific, cat. no. Q32856)</p><p>\u00b7&nbsp;&nbsp;&nbsp;Bioanalyzer 2100 (Agilent, cat. no. G2943CA)</p><p>\u00b7&nbsp;&nbsp;&nbsp;Agilent RNA 6000 Pico Kit (Agilent, cat. no. 5067-1513)</p><p>\u00b7&nbsp;&nbsp;&nbsp;Agilent High Sensitivity DNA Kit (Agilent, cat. no. 5067-4626)</p>"
+        },
+        {
+            "header": "Procedure",
+            "content": "Cell preparation\nNote\n: a separate set of samples (coverslips) should be prepared for visualization of gradual genome restriction by YFISH and for sequencing. The two sets of coverslips should be processed in parallel.\nFor adherent cells\n:\n1.\u00a0\u00a0\u00a0\u00a0\u00a0Wash the cells with 1X PBS containing Ca\n2+\nand Mg\n2+\npre-warmed to 37 \u00b0C\n2.\u00a0\u00a0\u00a0\u00a0\u00a0Incubate for 2 min at room temperature (RT)\n3.\u00a0\u00a0\u00a0\u00a0\u00a0Aspirate the PBS solution from the dish\n4.\u00a0\u00a0\u00a0\u00a0\u00a0Add 0.4X PBS with Ca\n2+\nand Mg\n2+\nat RT\n5.\u00a0\u00a0\u00a0\u00a0\u00a0Incubate for 1 min at RT\n6.\u00a0\u00a0\u00a0\u00a0\u00a0Aspirate the PBS solution\n7.\u00a0\u00a0\u00a0\u00a0\u00a0Add 0.4X PBS/4% PFA at RT\n8.\u00a0\u00a0\u00a0\u00a0\u00a0Incubate for 10 min at RT\n9.\u00a0\u00a0\u00a0\u00a0\u00a0Aspirate the fixative solution from the dish\n10.\u00a0\u00a0Quench the residual PFA by adding 1X PBS/125 mM glycine\n11.\u00a0\u00a0Incubate for 5 min at RT\n12.\u00a0\u00a0Briefly wash the cells in 1X PBS at RT\n13.\u00a0\u00a0Wash the cells in 1X PBS/0.05% Triton X-100 three times, 5 min each at RT, while shaking\n14.\u00a0\u00a0Aspirate the PBS solution and then add 1X PBS/0.5% Triton X-100 at RT\n15.\u00a0\u00a0Incubate for 20 min at RT\n16.\u00a0\u00a0Briefly wash the cells in 1X PBS at RT\n17.\u00a0\u00a0Briefly wash the cells in 1X PBS/20% glycerol at RT\n18.\u00a0\u00a0Incubate the samples in 1X PBS/20% glycerol for 18 h at RT\n19.\u00a0\u00a0Fill a cryo-resistant Dewar flask with liquid N\n2\n20.\u00a0\u00a0Remove the glycerol solution from the dish (leave a thin layer on top of the cells)\n21.\u00a0\u00a0Place the dish on the surface of liquid N\n2\nfor 20\u201330 sec\n22.\u00a0\u00a0Place the dish at RT and let the samples thaw gradually, making sure that they do not dry\n23.\u00a0\u00a0Once all the samples are thawed, fill the dish with fresh 1X PBS/20% glycerol at RT\n24.\u00a0\u00a0Incubate for 3 min at RT\n25.\u00a0\u00a0Repeat steps 20\u201323 four times\n26.\u00a0\u00a0Wash the samples in 1X PBS/0.05% Triton X-100 two times, 5 min each at RT, while shaking\n27.\u00a0\u00a0Briefly rinse the samples in 0.1 M HCl at RT\n28.\u00a0\u00a0Incubate the samples in 0.1 M HCl for 5 min at RT\nNote\n: the samples should be kept in HCl for a maximum of 5 min including the quick rinsing step below\n29.\u00a0\u00a0Briefly rinse the samples in 1X PBS/0.05% Triton X-100 at RT\n30.\u00a0\u00a0Wash the samples in 1X PBS/0.05% Triton X-100 two times, 5 min each at RT, while shaking\n31.\u00a0\u00a0Wash the samples for 5 min in 2X SSC\n32.\u00a0\u00a0Replace the solution to fresh 2X SSC and process the samples immediately or alternatively store them in 2X SSC/0.05% NaN\n3\nfor up to 1 month at 4 \u00b0C\nFor suspension cells\n:\n1.\u00a0\u00a0\u00a0\u00a0Place coverslips in a 10 cm dish, cover them with 5 ml of the PLL solution, and then gently shake the dishes for 15 min at RT\u00a0AT WHICH TEMPERATURE?\nNote\n: make sure that coverslips stay covered by liquid\n2.\u00a0\u00a0\u00a0\u00a0Aspirate the solution and transfer it into a 15 ml tube\nNote\n: the solution can be stored at 4 \u00b0C and used up to three times\u00a0(STORED AT WHICH TEMPERATURE?)\n3.\u00a0\u00a0\u00a0\u00a0Wash the coverslips three times with 1X PBS at RT and once with ethanol\u00a0(EtOH) 70%\n4.\u00a0\u00a0\u00a0\u00a0Air-dry the coverslips and proceed with cell spotting and fixation\nBreakpoint\n: if not used immediately, coverslips can be stored in EtOH 70% at 4 \u00b0C and air-dried just before use.\n5.\u00a0\u00a0\u00a0\u00a0Place the desired number of PLL-coated coverslips into a 6-well cell culture plate\n6.\u00a0\u00a0\u00a0\u00a0In each well, dispense a cell suspension freshly prepared in 1X PBS\u00a0with Ca\n2+\nand Mg\n2+\nNote\n: we usually spot up to 5\u00d710\n5\ncells onto a 22x22 mm coverslip\n7.\u00a0\u00a0\u00a0\u00a0Let the cells sediment onto the coverslip for 10 min at RT\n8.\u00a0\u00a0\u00a0\u00a0Slowly add 0.4X PBS with Ca\n2+\nand Mg\n2+\nat RT\n9.\u00a0\u00a0\u00a0\u00a0Incubate for 1 min at RT\n10.\u00a0Aspirate the PBS solution\n11.\u00a0Slowly add 0.4X PBS/4% PFA at RT\n12.\u00a0Incubate for 10 min at RT\n13.\u00a0Aspirate the fixative solution from the dish\n14.\u00a0Quench the residual PFA by adding 1X PBS/125 mM glycine\n15.\u00a0Briefly wash the cells in 1X PBS at RT\n16.\u00a0Wash the cells in 1X PBS/0.05% Triton X-100 three times, 5 min each at RT, while shaking\n17.\u00a0Aspirate the PBS solution and then add 1X PBS/0.5% Triton X-100 at RT\n18.\u00a0Incubate for 20 min at RT\n19.\u00a0Briefly wash the cells in 1X PBS at RT\n20.\u00a0Briefly wash the cells in 1X PBS/20% glycerol at RT\n21.\u00a0Incubate the samples in 1X PBS/20% glycerol for 18 h at RT\n22.\u00a0Fill a cryo-resistant Dewar flask with liquid N\n2\n23.\u00a0Remove the glycerol solution from the dish (leave a thin layer on top of the cells)\n24.\u00a0Place the dish on the surface of liquid N\n2\nfor 20\u201330 sec\n25.\u00a0Place the dish at RT and let the samples thaw gradually, making sure that they do not dry\n26.\u00a0Once all the samples are thawed, fill the dish with fresh 1X PBS/20% glycerol at RT\n27.\u00a0Incubate for 3 min at RT\n28.\u00a0Repeat steps 20\u201323 four times\n29.\u00a0Wash the samples in 1X PBS/0.05% Triton X-100 two times, 5 min each at RT, while shaking\n30.\u00a0Briefly rinse the samples in 0.1 M HCl at RT\n31.\u00a0Incubate the samples in 0.1 M HCl for 5 min at RT\nNote\n: the samples should be kept in HCl for a maximum of 5 min including the quick rinsing step below\n32.\u00a0Briefly rinse the samples in 1X PBS/0.05% Triton X-100 at RT\n33.\u00a0Wash the samples in 1X PBS/0.05% Triton X-100 two times, 5 min each at RT, while shaking\n34.\u00a0Wash the samples for 5 min in 2X SSC\n35.\u00a0Replace the solution to fresh 2X SSC and process the samples immediately or alternatively store them in 2X SSC/0.05% NaN\n3\nfor up to 1 month at 4 \u00b0C\nIn situ\ndigestion\n1.\u00a0\u00a0\u00a0\u00a0\u00a0Bring the 2X SSC/50 mM phosphate buffer/50% FA (FPS) solution to RT\n2.\u00a0\u00a0\u00a0\u00a0\u00a0Rinse the samples with FPS at RT\n3.\u00a0\u00a0\u00a0\u00a0\u00a0Exchange to fresh FPS and store at RT protected from light for 20 h\n4.\u00a0\u00a0\u00a0\u00a0\u00a0Wash the samples in 2X SSC for 5 min at RT\n5.\u00a0\u00a0\u00a0\u00a0\u00a0Wash the samples in 1X CutSmart, two times, 5 min each at RT, while gently rocking\n6.\u00a0\u00a0\u00a0\u00a0\u00a0Prepare the following digestion mix (volumes for one 22x22 mm coverslip):\n\u00b7\u00a0\u00a0\u00a0CutSmart (10X) \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a040\n\u03bcl\n\u00b7\u00a0\u00a0\u00a0HindIII-HF (20,000 U/ml)\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a010 \u03bcl\n\u00b7\u00a0\u00a0\u00a0Nuclease-free water\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Up to 400 \u03bcl\nAlternatively:\n\u00b7\u00a0\u00a0\u00a0CutSmart (10X) \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a040\n\u03bcl\n\u00b7\u00a0\u00a0\u00a0MboI (25,000 U/ml)\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a08\n\u03bcl\n\u00b7\u00a0\u00a0\u00a0Nuclease-free water\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Up to 400 \u03bcl\nNote\n: The choice of enzyme depends on the desired resolution and affordable sequencing depth. As a rule of thumb, HindIII can be used to obtain highly reproducible radiality maps at 1 Mb resolution using five different digestion durations and one sequencing run on NextSeq 500. MboI is preferable when a higher resolution is needed.\n7.\u00a0\u00a0\u00a0\u00a0\u00a0Pre-warm the digestion mix for at least 10 min at 37 \u00b0C\n8.\u00a0\u00a0\u00a0\u00a0\u00a0Dispense the digestion mix on a piece of Parafilm placed inside a humidity chamber\nNote\n: we make the chamber by covering the edges of a 15 cm dish with tissue paper pre-soaked in distilled water, and then laying a piece of parafilm on the dish bottom\n9.\u00a0\u00a0\u00a0\u00a0\u00a0Gently flip one sample at a time, onto a droplet of the digestion mix\n10.\u00a0\u00a0Incubate each coverslip at 37 \u00b0C in the sealed humidity chamber, for a selected period of time\nNote\n: each sample is incubated in the presence of the restriction enzyme for a different duration.\nHAP1 cells\n: for HindIII, we have used 10, 15, 30, 45 min, 1, 2, and 6 h, whereas, for MboI, we have used 1, 5, 10, 15, and 30 min, which were sufficient to produce reproducible radiality maps.\nGM06990 cells\n: for HindIII, we have used 10, 15, 30 min, and 2 h. For different cell types, it might be necessary to optimize the number and series of incubation times, by first monitoring the enzyme diffusion by YFISH (see below)\n11.\u00a0\u00a0Stop the digestion by washing the samples with ice-cold 1X PBS/50 mM EDTA/0.01% Triton X-100 three times, 5 min each, on ice\n12.\u00a0\u00a0Rinse the samples with 1X CutSmart/0.01 % Triton X-100 at RT\n13.\u00a0\u00a0Wash with 1X CutSmart/0.01 % Triton X-100 for 5 min at RT\nIn situ\ndephosphorylation\n1.\u00a0\u00a0\u00a0\u00a0\u00a0Wash the samples in 1X Alkaline phosphatase (AP) buffer for 5 min at RT\n2.\u00a0\u00a0\u00a0\u00a0\u00a0Prepare the following dephosphorylation mix (volumes for one 22x22 mm coverslip):\n\u00b7\u00a0\u00a0\u00a0AP buffer (10X)\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a040\n\u03bcl\n\u00b7\u00a0\u00a0\u00a0AP (1 U/\u03bcl)\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a06\n\u03bcl\n\u00b7\u00a0\u00a0\u00a0Nuclease-free water\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0354 \u03bcl\n3.\u00a0\u00a0\u00a0\u00a0\u00a0Dispense the dephosphorylation mix on a piece of Parafilm placed inside a humidity chamber\n4.\u00a0\u00a0\u00a0\u00a0\u00a0Gently flip one coverslip at a time, onto a droplet of the dephosphorylation mix\n5.\u00a0\u00a0\u00a0\u00a0\u00a0Incubate the samples for 2 h at 37 \u00b0C in the sealed humidity chamber\n6.\u00a0\u00a0\u00a0\u00a0\u00a0Transfer the samples back to a 6-well plate\n7.\u00a0\u00a0\u00a0\u00a0\u00a0Wash the samples with 1X CutSmart/0.01 % Triton X-100 two times, 5 min each at RT\nIn situ\nligation\n1.\u00a0\u00a0\u00a0\u00a0\u00a0Wash the samples in 1X T4 Ligase buffer two times, 5 min each at RT, while gently rocking\n2.\u00a0\u00a0\u00a0\u00a0\u00a0Prepare the following ligation mix I (volumes for one 22x22 mm coverslip):\n\u00b7\u00a0\u00a0\u00a0Ligase buffer (10X)\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a021\n\u03bcl\n\u00b7\u00a0\u00a0\u00a0ATP (10 mM)\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a024 \u03bcl\n\u00b7\u00a0\u00a0\u00a0BSA (5 mg/ml)\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a06 \u03bcl\n\u00b7\u00a0\u00a0\u00a0HindIII GPSeq adapter (10 \u00b5M)\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a06 \u03bcl\n\u00b7\u00a0\u00a0\u00a0Alternatively: MboI GPSeq adapter (10 \u00b5M)\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a018 \u03bcl\n\u00b7\u00a0\u00a0\u00a0Nuclease-free water\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0Up to 210 \u03bcl\nNote\n: thaw all reagents slowly on ice or at 4 \u00b0C\n3.\u00a0\u00a0\u00a0\u00a0\u00a0Dispense the ligation mix I on a piece of Parafilm placed inside a humidity chamber\n4.\u00a0\u00a0\u00a0\u00a0\u00a0Gently flip one sample at a time, onto the droplet of ligation mix I\n5.\u00a0\u00a0\u00a0\u00a0\u00a0Incubate the samples for 30 min at RT\n6.\u00a0\u00a0\u00a0\u00a0\u00a0Prepare the following ligation mix II (volumes for one 22x22 mm coverslip):\n\u00b7\u00a0\u00a0\u00a0Nuclease-free water\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a045\n\u03bcl\n\u00b7\u00a0\u00a0\u00a0Ligase buffer (10X)\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a09\n\u03bcl\n\u00b7\u00a0\u00a0\u00a0T4 Ligase enzyme\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a036\n\u03bcl\n7.\u00a0\u00a0\u00a0\u00a0\u00a0Gently pipette the ligase mix II under each coverslip in and out 7\u20138 times, making sure not to make bubbles\n8.\u00a0\u00a0\u00a0\u00a0\u00a0Incubate the samples for 18 h at 16 \u00b0C in the sealed humidity chamber\n9.\u00a0\u00a0\u00a0\u00a0\u00a0In a new 6-well plate, wash the samples in 1X HSW five times, 1 hour each at 37 \u00b0C, while shaking\n10.\u00a0\u00a0Wash the samples in 1X PBS three times, 5 min each at RT\nBreakpoint\n: at this point, the samples for sequencing can be stored in 1X PBS at 4 \u00b0C for several days until the results of YFISH (next section) are available\nYFISH\nNote\n: we recommend to check that the genome has been gradually digested by the enzyme, from the nuclear periphery towards the nucleus interior, before proceeding to sequencing\n1.\u00a0\u00a0\u00a0\u00a0\u00a0Equilibrate the samples in 2X SSC/25% FA\n2.\u00a0\u00a0\u00a0\u00a0\u00a0Prepare the following hybridization mix (volumes for one 22x22 mm coverslip):\n\u00b7\u00a0\u00a0\u00a0YHB\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0297\n\u03bcl\n\u00b7\u00a0\u00a0\u00a0Fluorescently labelled oligonucleotide (2\n\u03bcM)\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a03\n\u03bcl\n3.\u00a0\u00a0\u00a0\u00a0\u00a0Dispense the hybridization mix on a piece of Parafilm placed inside a humidity chamber\n4.\u00a0\u00a0\u00a0\u00a0\u00a0Gently flip one sample at a time, onto the droplet of hybridization mix\n5.\u00a0\u00a0\u00a0\u00a0\u00a0Incubate the samples for 18 h at 30 \u00b0C inside the sealed humidity chamber\nNote\n:\nthe samples are now light sensitive, therefore all the subsequent steps should be performed by protecting them from light\n6.\u00a0\u00a0\u00a0\u00a0\u00a0Transfer the samples into a 6-well plate pre-filled with 2 ml/well of YWB pre-warmed at RT\n7.\u00a0\u00a0\u00a0\u00a0\u00a0Exchange the YWB solution and incubate for 1 h at 30 \u00b0C, while gently shaking\n8.\u00a0\u00a0\u00a0\u00a0\u00a0Remove the YWB solution and add 2 ml/well of YWB/0.1 ng/ml Hoechst 33342\n9.\u00a0\u00a0\u00a0\u00a0\u00a0Incubate for 30 min at 30 \u00b0C, while gently shaking\n10.\u00a0\u00a0Quickly rinse the samples with 2X SSC\n11.\u00a0\u00a0Mount the samples and image them using wield-field microscopy or, if available, STED microscopy\nLibrary preparation\nNote\n: for each of the restriction times used, an individual sequencing library is prepared\nDNA Extraction\n1.\u00a0\u00a0\u00a0\u00a0\u00a0Wash the samples with nuclease-free water three times, 2 min each at RT\n2.\u00a0\u00a0\u00a0\u00a0\u00a0Scrape each coverslip in the following DNA extraction mix:\n\u00b7\u00a0\u00a0\u00a0DEB\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0100\n\u03bcl\n\u00b7\u00a0\u00a0\u00a0Proteinase K (0.8 U/\u03bcl)\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a010\n\u03bcl\n3.\u00a0\u00a0\u00a0\u00a0\u00a0Transfer each sample into a 1.5 ml Eppendorf\u00ae DNA LoBind tube\n4.\u00a0\u00a0\u00a0\u00a0\u00a0Incubate the samples for 18 h at 56 \u00b0C, while shaking at 800 rpm\n5.\u00a0\u00a0\u00a0\u00a0\u00a0Inactivate the enzyme by incubating for 10 min at 96 \u00b0C\n6.\u00a0\u00a0\u00a0\u00a0\u00a0Place the samples on ice\nDNA purification\n1.\u00a0\u00a0\u00a0\u00a0\u00a0To each sample, add an equal volume of phenol:chloroform:isoamyl alcohol 25:24:1, then shake the samples vigorously\n2.\u00a0\u00a0\u00a0\u00a0\u00a0Centrifuge the samples at 20,000 x g for 5 min at RT\n3.\u00a0\u00a0\u00a0\u00a0\u00a0Collect the upper phase and transfer it to a new 1.5 ml Eppendorf\u00ae DNA LoBind tube\n4.\u00a0\u00a0\u00a0\u00a0\u00a0Add an equal volume of chloroform to it, and shake vigorously\n5.\u00a0\u00a0\u00a0\u00a0\u00a0Centrifuge at 20,000 x g for 5 min at RT\n6.\u00a0\u00a0\u00a0\u00a0\u00a0Collect the upper phase and transfer it to a new 1.5 ml Eppendorf\u00ae DNA LoBind tube, then add sodium acetate to a final concentration of 0.3 M\n7.\u00a0\u00a0\u00a0\u00a0\u00a0Add 3.7 \u03bcl of glycogen per each 100 \u03bcl of the solution\n8.\u00a0\u00a0\u00a0\u00a0\u00a0Add 2.5X volumes of absolute ethanol at \u201320 \u00b0C and incubate the samples for 18 h at \u201380 \u00b0C\n9.\u00a0\u00a0\u00a0\u00a0\u00a0Centrifuge at 20,000 x g for 90 min at 4 \u00b0C\n10.\u00a0\u00a0Discard the liquid and wash the pellet with 600 \u03bcl of ice-cold 70% ethanol\n11.\u00a0\u00a0Centrifuge at 20,000 x g for 15 min at 4 \u00b0C\n12.\u00a0\u00a0Discard the liquid and wash the pellet with 600 \u03bcl of ice-cold 70% ethanol\n13.\u00a0\u00a0Centrifuge at 20,000 x g for 15 min at 4 \u00b0C\n14.\u00a0\u00a0Discard the supernatant and dry the pellet\nNote\n: do not over dry the pellet, as this might result in low DNA recovery\n15.\u00a0\u00a0Dissolve the pellet in 100 \u03bcl of TE buffer\nBreakpoint\n: at this point, the samples can be stored a \u201320 \u00b0C until sonication\nDNA sonication\nSonicate the samples aiming to achieve a mean DNA fragment size of 300\u2013500 base pairs (bp). We routinely use Bioruptor\u00ae Plus with the following settings: 30 sec ON, 90 sec OFF, high mode, 16 cycles. Alternatively, a Covaris S-series sonicator can be used with the following settings: duty 10%, intensity 4, time 30 sec, cycle/burst 200, 4 cycles in 50 \u03bcl TE/water.\nDNA concentration using AMPure beads\n1.\u00a0\u00a0\u00a0\u00a0\u00a0Pre-warm AMPure XP beads for 30 min at RT\n2.\u00a0\u00a0\u00a0\u00a0\u00a0To each sample, add 80 \u03bcl of AMPure XP bead suspension\n3.\u00a0\u00a0\u00a0\u00a0\u00a0Mix thoroughly by pipetting up-down 5\u20136 times\n4.\u00a0\u00a0\u00a0\u00a0\u00a0Incubate for 5 min at RT\n5.\u00a0\u00a0\u00a0\u00a0\u00a0Place the samples on a magnetic stand\n6.\u00a0\u00a0\u00a0\u00a0\u00a0Incubate for 5 min until all the beads have attached to the magnet and the liquid is completely transparent\n7.\u00a0\u00a0\u00a0\u00a0\u00a0Carefully aspirate and discard the supernatant\n8.\u00a0\u00a0\u00a0\u00a0\u00a0Add 200 \u03bcl per sample of ice-cold 80% ethanol, while the samples are attached to the magnetic stand\n9.\u00a0\u00a0\u00a0\u00a0\u00a0Aspirate the supernatant\n10.\u00a0\u00a0Repeat the wash in ice-cold 80% ethanol once\n11.\u00a0\u00a0Air-dry the beads for 5 min at RT\nNote\n: do not over-dry the beads, as this might result in low DNA recovery\n12.\u00a0\u00a0Remove the samples from the magnetic stand\n13.\u00a0\u00a0Resuspend each sample in 10 \u03bcl of nuclease-free water\n14.\u00a0\u00a0Incubate for 5 min at RT\n15.\u00a0\u00a0Place the samples on the magnetic stand\n16.\u00a0\u00a0Incubate for 5 min until all the beads have attached to the magnet\n17.\u00a0\u00a0Transfer 7.5 \u03bcl of the cleared solution into a 0.5 ml Eppendorf\u00ae DNA LoBind tube\n18.\u00a0\u00a0Measure DNA concentration using the Qubit\u00ae dsDNA HS Assay Kit\nCheckpoint\n: check the DNA fragment size distribution by loading 1 \u03bcl of sonicated DNA into an High Sensitivity DNA Kit, and run it on Bioanalyzer 2100.\nBreakpoint\n: at this point, the samples can be stored at \u201320 \u00b0C until\nin vitro\ntranscription\nIn vitro\ntranscription (IVT)\n1.\u00a0\u00a0\u00a0\u00a0\u00a0In a 0.5 ml Eppendorf\u00ae DNA LoBind tube prepare the following IVT mix:\n\u00b7\u00a0\u00a0\u00a0Sonicated DNA\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a07.5 \u03bcl\n\u00b7\u00a0\u00a0\u00a0rNTPs mix*\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a08 \u03bcl\n\u00b7\u00a0\u00a0\u00a0T7 polymerase buffer 10X*\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a02 \u03bcl\n\u00b7\u00a0\u00a0\u00a0T7 polymerase*\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a02 \u03bcl\n\u00b7\u00a0\u00a0\u00a0RiboSafe RNase Inhibitor\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a00.5 \u03bcl\nNote\n: For HAP1 samples digested with HindIII, we typically use 300 ng of sonicated DNA as input to the IVT reaction, whereas for those digested with MboI we use 50 ng. For GM06990 samples digested with HindIII, we use 133 ng of sonicated DNA\nNote\n: all the reagents marked by * are included in the MEGAscript\u00ae kit. The rNTPs mix is prepared by mixing equal volumes of each rNTP solution included in the MEGAscript\u00ae kit\n2.\u00a0\u00a0\u00a0\u00a0\u00a0Incubate the samples for 14 h at 37 \u00b0C in a thermocycler with the lid set at 70 \u00b0C\nRNA cleanup\n1.\u00a0\u00a0\u00a0\u00a0\u00a0To each sample, add 2U (1 \u03bcl) of DNase I\n2.\u00a0\u00a0\u00a0\u00a0\u00a0Incubate the samples for 15 min at 37 \u00b0C. Meanwhile, prewarm the Agencourt RNAClean XP beads for 30 min at RT\n3.\u00a0\u00a0\u00a0\u00a0\u00a0Transfer each IVT product into a 1.5 ml Eppendorf\u00ae DNA LoBind tube\n4.\u00a0\u00a0\u00a0\u00a0\u00a0Bring the volume of each sample up to 30 \u03bcl with nuclease-free water\n5.\u00a0\u00a0\u00a0\u00a0\u00a0Add a 1.8 vol./vol. ratio of RNAClean XP beads suspension to the IVT product\n6.\u00a0\u00a0\u00a0\u00a0\u00a0Mix thoroughly by pipetting up-down 5-6 times\n7.\u00a0\u00a0\u00a0\u00a0\u00a0Incubate for 10 min at RT\n8.\u00a0\u00a0\u00a0\u00a0\u00a0Place the samples on a magnetic stand\n9.\u00a0\u00a0\u00a0\u00a0\u00a0Incubate for 5 min until all the beads have attached to the magnet and the liquid is completely transparent\n10.\u00a0\u00a0Aspirate and discard the supernatant\n11.\u00a0\u00a0Add 200 \u03bcl per sample of ice-cold 80% ethanol, while the samples are attached to the magnetic stand\n12.\u00a0\u00a0Incubate for 1\u20132 min at RT\n13.\u00a0\u00a0Aspirate the supernatant\n14.\u00a0\u00a0Repeat the wash with ethanol 80% two times more\n15.\u00a0\u00a0Airdry the beads for 10 min at RT\nNote\n: do not over-dry the beads, as this might result in low DNA recovery\n16.\u00a0\u00a0Remove the samples from the magnetic stand\n17.\u00a0\u00a0Resuspend the beads in 7.5 \u03bcl of nuclease-free water\n18.\u00a0\u00a0Incubate for 5 min at RT\n19.\u00a0\u00a0Place the sample on the magnetic stand\n20.\u00a0\u00a0Incubate for 5 min until all the beads have attached to the magnet\n21.\u00a0\u00a0Transfer 6 \u03bcl of each sample into a separate 0.5 ml Eppendorf\u00ae DNA LoBind tube\nCheckpoint\n: check the RNA fragment size distribution by loading 1 \u03bcl of purified IVT product into an RNA 6000 Pico Kit, and run it on a Bioanalyzer 2100\nRA3 adapter ligation\nNote\n: all the subsequent steps are done on ice, unless otherwise specified\n1.\u00a0\u00a0\u00a0\u00a0\u00a0To each sample, add 1 \u03bcl of RA3 adapter\n2.\u00a0\u00a0\u00a0\u00a0\u00a0In a thermocycler, incubate for 2 min at 70 \u00b0C with the lid set at 70 \u00b0C\n3.\u00a0\u00a0\u00a0\u00a0\u00a0Immediately place the samples on ice\n4.\u00a0\u00a0\u00a0\u00a0\u00a0To each sample, add 3 \u03bcl of the following RNA ligase mix:\n\u00b7\u00a0\u00a0\u00a0T4 RNA Ligase buffer 10X\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a01 \u03bcl\n\u00b7\u00a0\u00a0\u00a0T4 RNA Ligase 2, truncated (200 U/\u03bcl)\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a01 \u03bcl\n\u00b7\u00a0\u00a0\u00a0RNaseOUT\u2122\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a01 \u03bcl\n5.\u00a0\u00a0\u00a0\u00a0\u00a0Incubate the samples for 2 h at 25 \u00b0C in a thermocycler with the lid set at 30 \u00b0C\n6.\u00a0\u00a0\u00a0\u00a0\u00a0Transfer the samples onto ice\nReverse transcription\nNote\n: all the subsequent steps are done on ice, unless otherwise specified\n1.\u00a0\u00a0\u00a0\u00a0\u00a0To each sample, add 3.5 \u03bcl of RTP (10 \u03bcM) primer\n2.\u00a0\u00a0\u00a0\u00a0\u00a0Incubate the samples for 2 min at 70 \u00b0C in a thermocycler with the lid set at 70 \u00b0C\n3.\u00a0\u00a0\u00a0\u00a0\u00a0Immediately place the samples on ice\n4.\u00a0\u00a0\u00a0\u00a0\u00a0Add 11.5 \u03bcl per sample of reverse transcription mix:\n\u00b7\u00a0\u00a0\u00a01st strand buffer* 5 \u03bcl\n\u00b7\u00a0\u00a0\u00a0dNTPs mix 0.5 \u03bcl\n\u00b7\u00a0\u00a0\u00a0DTT 100 mM* 2 \u03bcl\n\u00b7\u00a0\u00a0\u00a0SuperScript\u00ae IV* 2 \u03bcl\n\u00b7\u00a0\u00a0\u00a0RNaseOUT\u2122 2 \u03bcl\nNote\n: all the reagents marked by * are included in the SuperScript\u00ae IV Reverse Transcriptase kit\n5.\u00a0\u00a0\u00a0\u00a0\u00a0Incubate the samples for 1 h at 50 \u00b0C in a thermocycler\nBreakpoint\n: at this point, the samples can be stored at \u201320 \u00b0C\nLibrary indexing and amplification\n1.\u00a0\u00a0\u00a0\u00a0\u00a0Transfer each sample into a 200 \u03bcl PCR tube\n2.\u00a0\u00a0\u00a0\u00a0\u00a0To each sample, add 4 \u03bcl of the desired RPI (10 \u03bcM) primer\n3.\u00a0\u00a0\u00a0\u00a0\u00a0To each sample, add 71 \u03bcl of PCR mix:\n\u00b7\u00a0\u00a0\u00a0NEBNext\u00ae 2X PCR Mix 50 \u03bcl\n\u00b7\u00a0\u00a0\u00a0RP1 primer 4 \u03bcl\n\u00b7\u00a0\u00a0\u00a0Nuclease-free water 17 \u03bcl\n4.\u00a0\u00a0\u00a0\u00a0\u00a0Perform the following cycles in a thermocycler:\nA. 98 \u00b0C, 30 sec\nB.\u00a098 \u00b0C, 10 sec\nC.\u00a060 \u00b0C, 30 sec\nD. 72 \u00b0C, 30 sec\nE.\u00a0Go to B and repeat for 8\u201314 cycles\nF.\u00a072 \u00b0C, 10 min\nG. 4 \u00b0C, hold\nNote\n: the number of PCR cycles should be adjusted based on the amount of genomic DNA used in the IVT reaction and the restriction enzyme used. For example, for a 22x22 mm coverslip fully covered with HAP1 cells digested with HindIII, we typically use 9 PCR cycles.\nLibrary cleanup\n1.\u00a0\u00a0\u00a0\u00a0\u00a0Prewarm the AMPure XP beads for 30 min at RT\n2.\u00a0\u00a0\u00a0\u00a0\u00a0Transfer each PCR product into a 1.5 ml Eppendorf\u00ae DNA LoBind tube\n3.\u00a0\u00a0\u00a0\u00a0\u00a0Add a 0.8 vol./vol. ratio of AMPure XP bead suspension to each sample\n4.\u00a0\u00a0\u00a0\u00a0\u00a0Mix thoroughly by pipetting up-down 5-6 times\n5.\u00a0\u00a0\u00a0\u00a0\u00a0Incubate for 5 min at RT\n6.\u00a0\u00a0\u00a0\u00a0\u00a0Place the samples on a magnetic stand\n7.\u00a0\u00a0\u00a0\u00a0\u00a0Incubate for 5 min until all the beads have attached to the magnet and the liquid is completely transparent\n8.\u00a0\u00a0\u00a0\u00a0\u00a0Aspirate and discard the supernatant\n9.\u00a0\u00a0\u00a0\u00a0\u00a0Add 200 \u03bcl per sample of ice-cold 80% ethanol, while the samples are attached to the magnetic stand\n10.\u00a0\u00a0Aspirate the supernatant\n11.\u00a0\u00a0Repeat once the wash in ice-cold 80% ethanol\n12.\u00a0\u00a0Airdry the beads for 5 min at RT\nNote\n: do not over-dry the beads, as this might result in low DNA recovery\n13.\u00a0\u00a0Remove the samples from the magnetic stand\n14.\u00a0\u00a0Resuspend each sample in 20 \u03bcl of nuclease-free water\n15.\u00a0\u00a0Incubate for 5 min at RT\n16.\u00a0\u00a0Place the samples on the magnetic stand\n17.\u00a0\u00a0Incubate for 5 min until all the beads have attached to the magnet\n18.\u00a0\u00a0For each sample separately, transfer 17\u201318 \u03bcl of the cleared solution into a 1.5 ml Eppendorf\u00ae DNA LoBind tube\n19.\u00a0\u00a0Measure DNA concentration using the Qubit\u00ae dsDNA HS Assay Kit\n20.\u00a0\u00a0Store the libraries at \u201320 \u00b0C\nCheckpoint\n: 1 \u03bcl of library can be checked on a Bioanalyzer 2100 using a High Sensitivity DNA Kit\nNote\n: at this point, the libraries can be stored at \u201320 \u00b0C up to one year"
+        },
+        {
+            "header": "Troubleshooting",
+            "content": ""
+        },
+        {
+            "header": "Time Taken",
+            "content": ""
+        },
+        {
+            "header": "Anticipated Results",
+            "content": ""
+        },
+        {
+            "header": "References",
+            "content": "<p>1.&nbsp;Sleeman, J. E. &amp; Trinkle-Mulcahy, L. Nuclear bodies: new insights into assembly/dynamics and disease relevance. <em>Curr. Opin. Cell Biol.</em> <strong>28</strong>, 76\u201383 (2014).</p><p>2.&nbsp;&nbsp;Croft, J. A. <em>et al.</em> Differences in the localization and morphology of chromosomes in the human nucleus. <em>J. Cell Biol.</em> <strong>145</strong>, 1119\u20131131 (1999).</p><p>3.&nbsp;&nbsp;Bridger, J. M., Boyle, S., Kill, I. R. &amp; Bickmore, W. A. Re-modelling of nuclear architecture in quiescent and senescent human fibroblasts. <em>Curr. Biol. CB</em> <strong>10</strong>, 149\u2013152 (2000).</p><p>4.&nbsp;&nbsp;Cremer, M. <em>et al.</em> Non-random radial higher-order chromatin arrangements in nuclei of diploid human cells. <em>Chromosome Res. Int. J. Mol. Supramol. Evol. Asp. Chromosome Biol.</em> <strong>9</strong>, 541\u2013567 (2001).</p><p>5.&nbsp;&nbsp;Boyle, S. <em>et al.</em> The spatial organization of human chromosomes within the nuclei of normal and emerin-mutant cells. <em>Hum. Mol. Genet.</em> <strong>10</strong>, 211\u2013219 (2001).</p><p>6.&nbsp;&nbsp;Mayer, R. <em>et al.</em> Common themes and cell type specific variations of higher order chromatin arrangements in the mouse. <em>BMC Cell Biol.</em> <strong>6</strong>, 44 (2005).</p><p>7.&nbsp;&nbsp;Bolzer, A. <em>et al.</em> Three-dimensional maps of all chromosomes in human male fibroblast nuclei and prometaphase rosettes. <em>PLoS Biol.</em> <strong>3</strong>, e157 (2005).</p><p>8.&nbsp;&nbsp;Sun, H. B., Shen, J. &amp; Yokota, H. Size-dependent positioning of human chromosomes in interphase nuclei. <em>Biophys. J.</em> <strong>79</strong>, 184\u2013190 (2000).</p><p>9.&nbsp;&nbsp;Tanabe, H. <em>et al.</em> Evolutionary conservation of chromosome territory arrangements in cell nuclei from higher primates. <em>Proc. Natl. Acad. Sci. U. S. A.</em> <strong>99</strong>, 4424\u20134429 (2002).</p><p>10. van Steensel, B. &amp; Belmont, A. S. Lamina-Associated Domains: Links with Chromosome Architecture, Heterochromatin, and Gene Repression. <em>Cell</em> (2017) doi:10.1016/j.cell.2017.04.022.</p><p>11. Guelen, L. <em>et al.</em> Domain organization of human chromosomes revealed by mapping of nuclear lamina interactions. <em>Nature</em> <strong>453</strong>, 948\u2013951 (2008).</p><p>12. Peric-Hupkes, D. <em>et al.</em> Molecular Maps of the Reorganization of Genome-Nuclear Lamina Interactions during Differentiation. <em>Mol. Cell</em> (2010) doi:10.1016/j.molcel.2010.03.016.</p><p>13. Kind, J. <em>et al.</em> Genome-wide Maps of Nuclear Lamina Interactions in Single Human Cells. <em>Cell</em> (2015) doi:10.1016/j.cell.2015.08.040.</p><p>14. Alcobia, I., Dil\u00e3o, R. &amp; Parreira, L. Spatial associations of centromeres in the nuclei of hematopoietic cells: evidence for cell-type-specific organizational patterns. <em>Blood</em> <strong>95</strong>, 1608\u20131615 (2000).</p><p>15. Alcobia, I., Quina, A. S., Neves, H., Clode, N. &amp; Parreira, L. The spatial organization of centromeric heterochromatin during normal human lymphopoiesis: evidence for ontogenically determined spatial patterns. <em>Exp. Cell Res.</em> <strong>290</strong>, 358\u2013369 (2003).</p><p>16. Molenaar, C. <em>et al.</em> Visualizing telomere dynamics in living mammalian cells using PNA probes. <em>EMBO J.</em> <strong>22</strong>, 6631\u20136641 (2003).</p><p>17. Weierich, C. <em>et al.</em> Three-dimensional arrangements of centromeres and telomeres in nuclei of human and murine lymphocytes. <em>Chromosome Res. Int. J. Mol. Supramol. Evol. Asp. Chromosome Biol.</em> <strong>11</strong>, 485\u2013502 (2003).</p><p>18. Tjong, H. <em>et al.</em> Population-based 3D genome structure analysis reveals driving forces in spatial genome organization. <em>Proc. Natl. Acad. Sci. U. S. A.</em> <strong>113</strong>, E1663-1672 (2016).</p><p>19. N\u00e9meth, A. &amp; L\u00e4ngst, G. Genome organization in and around the nucleolus. <em>Trends Genet. TIG</em> <strong>27</strong>, 149\u2013156 (2011).</p><p>20. Quinodoz, S. A. <em>et al.</em> Higher-Order Inter-chromosomal Hubs Shape 3D Genome Organization in the Nucleus. <em>Cell</em> <strong>174</strong>, 744-757.e24 (2018).</p><p>21. Federico, C. <em>et al.</em> Gene-rich and gene-poor chromosomal regions have different locations in the interphase nuclei of cold-blooded vertebrates. <em>Chromosoma</em> <strong>115</strong>, 123\u2013128 (2006).</p><p>22. Grasser, F. <em>et al.</em> Replication-timing-correlated spatial chromatin arrangements in cancer and in primate interphase nuclei. <em>J. Cell Sci.</em> <strong>121</strong>, 1876\u20131886 (2008).</p><p>23. Hepperger, C., Mannes, A., Merz, J., Peters, J. &amp; Dietzel, S. Three-dimensional positioning of genes in mouse cell nuclei. <em>Chromosoma</em> <strong>117</strong>, 535\u2013551 (2008).</p><p>24. Kreth, G., Finsterle, J., von Hase, J., Cremer, M. &amp; Cremer, C. Radial arrangement of chromosome territories in human cell nuclei: a computer model approach based on gene density indicates a probabilistic global positioning code. <em>Biophys. J.</em> <strong>86</strong>, 2803\u20132812 (2004).</p><p>25. Andrulis, E. D., Neiman, A. M., Zappulla, D. C. &amp; Sternglanz, R. Perinuclear localization of chromatin facilitates transcriptional silencing. <em>Nature</em> <strong>394</strong>, 592\u2013595 (1998).</p><p>26. Sadoni, N. <em>et al.</em> Nuclear organization of mammalian genomes. Polar chromosome territories build up functionally distinct higher order compartments. <em>J. Cell Biol.</em> <strong>146</strong>, 1211\u20131226 (1999).</p><p>27. Kosak, S. T. <em>et al.</em> Subnuclear compartmentalization of immunoglobulin loci during lymphocyte development. <em>Science</em> <strong>296</strong>, 158\u2013162 (2002).</p><p>28. Kosak, S. T. <em>et al.</em> Coordinate gene regulation during hematopoiesis is related to genomic organization. <em>PLoS Biol.</em> <strong>5</strong>, e309 (2007).</p><p>29. Finlan, L. E. <em>et al.</em> Recruitment to the nuclear periphery can alter expression of genes in human cells. <em>PLoS Genet.</em> <strong>4</strong>, e1000039 (2008).</p><p>30. Reddy, K. L., Zullo, J. M., Bertolino, E. &amp; Singh, H. Transcriptional repression mediated by repositioning of genes to the nuclear lamina. <em>Nature</em> <strong>452</strong>, 243\u2013247 (2008).</p><p>31. Takizawa, T., Meaburn, K. J. &amp; Misteli, T. The meaning of gene positioning. <em>Cell</em> <strong>135</strong>, 9\u201313 (2008).</p><p>32. Peric-Hupkes, D. <em>et al.</em> Molecular maps of the reorganization of genome-nuclear lamina interactions during differentiation. <em>Mol. Cell</em> <strong>38</strong>, 603\u2013613 (2010).</p><p>33. Therizols, P. <em>et al.</em> Chromatin decondensation is sufficient to alter nuclear organization in embryonic stem cells. <em>Science</em> <strong>346</strong>, 1238\u20131242 (2014).</p><p>34. Shachar, S. &amp; Misteli, T. Causes and consequences of nuclear gene positioning. <em>J. Cell Sci.</em> <strong>130</strong>, 1501\u20131508 (2017).</p><p>35. Cook, P. R. &amp; Marenduzzo, D. Transcription-driven genome organization: a model for chromosome structure and the regulation of gene expression tested through simulations. <em>Nucleic Acids Res.</em> <strong>46</strong>, 9895\u20139906 (2018).</p><p>36. Ganai, N., Sengupta, S. &amp; Menon, G. I. Chromosome positioning from activity-based segregation. <em>Nucleic Acids Res.</em> <strong>42</strong>, 4145\u20134159 (2014).</p><p>37. K\u00fcpper, K. <em>et al.</em> Radial chromatin positioning is shaped by local gene density, not by gene expression. <em>Chromosoma</em> <strong>116</strong>, 285\u2013306 (2007).</p><p>38. Lieberman-Aiden, E. <em>et al.</em> Comprehensive mapping of long range interactions reveals folding principles of the human genome. <em>Science</em> <strong>326</strong>, 289\u2013293 (2009).</p><p>39. Rao, S. S. P. <em>et al.</em> A 3D map of the human genome at kilobase resolution reveals principles of chromatin looping. <em>Cell</em> <strong>159</strong>, 1665\u20131680 (2014).</p>"
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "<p>We thank Alexander van Oudenaarden (Hubrecht Institute) for initial discussions on how to analyze GPSeq data, and Irina Solovei (UMC Munich), Sandy L. Klemm (Stanford) and Britta Bouwman (Crosetto lab) for critically reading the manuscript. We thank Lei Xu (Bienko lab) and Reza Mirzazadeh (Crosetto lab) for help with probe production. We acknowledge Hans Blom at the Advanced Light Microscopy facility at the Science for Life Laboratory (SciLifeLab) for acquiring and processing STED images and for providing computing resources. This work was supported by a postdoctoral scholarship from the Swedish Society for Medical Research (SSMF) to E.W.; by funding from the Swedish Research Council (521-2014-2866), the Swedish Cancer Research Foundation (CAN 2015/585), the Ragnar S\u00f6derberg Foundation (Fellows in Medicine 2016), and the Strategic Research Programme in Cancer (StratCan) at Karolinska Institutet to N.C.; by funding from the Science for Life Laboratory, the Karolinska Institutet KID Funding Program, the Swedish Research Council (621-2014-5503), the Human Frontier Science Program (CDA-00033/2016-C), the Ragnar S\u00f6derberg Foundation (Fellows in Medicine 2016), and the European Research Council under the European Union\u2019s Horizon 2020 research and innovation programme (StG-2016_GENOMIS_715727) to M.B.</p>"
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/s41587-020-0519-y",
+                "date": "2020-05-25 16:02:35",
+                "title": "GPSeq reveals the radial organization of chromatin in the cell nucleus",
+                "authors": [
+                    "Gabriele Girelli",
+                    "Joaquin Custodio",
+                    "Tomasz Kallas",
+                    "Federico Agostini",
+                    "Erik Wernersson",
+                    "Bastiaan Spanjaard",
+                    "Ana Mota",
+                    "Solrun Kolbeinsdottir",
+                    "Eleni Gelali",
+                    "Nicola Crosetto",
+                    "Magda Bienko"
+                ],
+                "journal": "Nature Biotechnology",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 434723,
+                "identity": "55ab8429-3e41-4ff8-858a-8c871dbdef19",
+                "order_by": 1,
+                "name": "Joaquin Custodio",
+                "email": "",
+                "orcid": "",
+                "institution": "Science for Life Laboratory, Department of Medical Biochemistry and Biophysics, Karolinska Institutet",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Joaquin",
+                "middleName": "",
+                "lastName": "Custodio",
+                "suffix": ""
+            },
+            {
+                "id": 434724,
+                "identity": "dbe27ee7-365b-4c84-a4a7-983ea5dfa620",
+                "order_by": 2,
+                "name": "Tomasz Kallas",
+                "email": "",
+                "orcid": "",
+                "institution": "Science for Life Laboratory, Department of Medical Biochemistry and Biophysics, Karolinska Institutet",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Tomasz",
+                "middleName": "",
+                "lastName": "Kallas",
+                "suffix": ""
+            },
+            {
+                "id": 434725,
+                "identity": "cb5dcde0-76f9-471c-a9e2-42a8b9feaa5b",
+                "order_by": 3,
+                "name": "Gabriele Girelli",
+                "email": "",
+                "orcid": "",
+                "institution": "Science for Life Laboratory, Department of Medical Biochemistry and Biophysics, Karolinska Institutet",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Gabriele",
+                "middleName": "",
+                "lastName": "Girelli",
+                "suffix": ""
+            },
+            {
+                "id": 434726,
+                "identity": "9d9ae6eb-4727-4b2c-9d56-9d336d74c43f",
+                "order_by": 4,
+                "name": "Federico Agostini",
+                "email": "",
+                "orcid": "",
+                "institution": "Science for Life Laboratory, Department of Medical Biochemistry and Biophysics, Karolinska Institutet",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Federico",
+                "middleName": "",
+                "lastName": "Agostini",
+                "suffix": ""
+            },
+            {
+                "id": 434727,
+                "identity": "9ec5a84d-2ccf-4330-a6af-1bed5042ed7e",
+                "order_by": 5,
+                "name": "Erik Wernersson",
+                "email": "",
+                "orcid": "",
+                "institution": "Science for Life Laboratory, Department of Medical Biochemistry and Biophysics, Karolinska Institutet",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Erik",
+                "middleName": "",
+                "lastName": "Wernersson",
+                "suffix": ""
+            },
+            {
+                "id": 434728,
+                "identity": "929be94b-784a-4e83-853a-6cbc9bf7d9c8",
+                "order_by": 6,
+                "name": "Bastiaan Spanjaard",
+                "email": "",
+                "orcid": "",
+                "institution": "Berlin Institute of Medical Systems Biology, Max Delbr\u00fcck Center",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Bastiaan",
+                "middleName": "",
+                "lastName": "Spanjaard",
+                "suffix": ""
+            },
+            {
+                "id": 434729,
+                "identity": "08743723-7bff-419d-83e2-bc9544958d88",
+                "order_by": 7,
+                "name": "Ana Mota",
+                "email": "",
+                "orcid": "",
+                "institution": "Science for Life Laboratory, Department of Medical Biochemistry and Biophysics, Karolinska Institutet",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Ana",
+                "middleName": "",
+                "lastName": "Mota",
+                "suffix": ""
+            },
+            {
+                "id": 434730,
+                "identity": "8f8d488d-6d59-4e3d-96d0-6d4444a09fe9",
+                "order_by": 8,
+                "name": "Solrun Kolbeinsdottir",
+                "email": "",
+                "orcid": "",
+                "institution": "Science for Life Laboratory, Department of Medical Biochemistry and Biophysics, Karolinska Institutet",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Solrun",
+                "middleName": "",
+                "lastName": "Kolbeinsdottir",
+                "suffix": ""
+            },
+            {
+                "id": 434731,
+                "identity": "c8c697ce-2e8d-4617-b2ab-a9841bfe5e1d",
+                "order_by": 9,
+                "name": "Eleni Gelali",
+                "email": "",
+                "orcid": "",
+                "institution": "Science for Life Laboratory, Department of Medical Biochemistry and Biophysics, Karolinska Institutet",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Eleni",
+                "middleName": "",
+                "lastName": "Gelali",
+                "suffix": ""
+            },
+            {
+                "id": 434732,
+                "identity": "3818b2fb-d33a-4aaf-a2b9-49d73159a974",
+                "order_by": 10,
+                "name": "Nicola Crosetto",
+                "email": "nicola.crosetto@scilifelab.se",
+                "orcid": "",
+                "institution": "Science for Life Laboratory, Department of Medical Biochemistry and Biophysics, Karolinska Institutet",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Nicola",
+                "middleName": "",
+                "lastName": "Crosetto",
+                "suffix": ""
+            },
+            {
+                "id": 434733,
+                "identity": "ce2f7e1e-efbf-46c3-8203-d74333f57d51",
+                "order_by": 11,
+                "name": "Magda Bienko",
+                "email": "magda.bienko@scilifelab.se",
+                "orcid": "",
+                "institution": "Science for Life Laboratory, Department of Medical Biochemistry and Biophysics, Karolinska Institutet",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Magda",
+                "middleName": "",
+                "lastName": "Bienko",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2019-07-15 12:54:20",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.21203/rs.3.pex-570/v1",
+        "doiUrl": "https://doi.org/10.21203/rs.3.pex-570/v1",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 13532692,
+                "identity": "8cd826b2-8fa5-4557-93bd-0755b9ff8866",
+                "added_by": "auto",
+                "created_at": "2021-09-17 01:17:57",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 1371256,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/pex-570/v1/02186a02-406c-4ba5-abca-34d7afa32df6.pdf"
+            },
+            {
+                "id": 1178911,
+                "identity": "b7b315d3-d7a8-4357-83db-b8bab5a84a48",
+                "added_by": "auto",
+                "created_at": "2020-05-26 17:12:22",
+                "extension": "xlsx",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 66255,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "SupplementaryTable1.xlsx",
+                "url": "https://assets.researchsquare.com/files/pex-570/v1/SupplementaryTable1.xlsx"
+            }
+        ],
+        "financialInterests": "The Authors declare no financial or non-financial competing interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "GPSeq , radial location, epigenetics, nuclear architecture, Next-generation sequencing, T7 phage promoter",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "<p>With the exception of lamina-associated domains, the radial organization of chromatin in mammalian cells remains largely unexplored. Here, we describe genomic loci positioning by sequencing (GPSeq), a genome-wide method for inferring&nbsp;distances to the nuclear lamina all along the nuclear radius that works by gradual enzymatic restriction of chromatin from the nuclear lamina towards the nucleus center, followed by sequencing of the generated cut sites. Using GPSeq, we mapped the radial organization of the human genome at 100 kb resolution, which revealed radial patterns of genomic and epigenomic features, gene expression, as well as A/B subcompartments. By combining radial information with chromosome contact frequencies measured by Hi-C, we substantially improved the accuracy of whole-genome structure modeling. Finally, we charted the radial topography of DNA double-strand breaks, germline variants and cancer mutations, and found that they have distinctive radial arrangements in A/B subcompartments. We conclude that GPSeq can reveal fundamental aspects of genome architecture.</p>",
+        "manuscriptTitle": "GPSeq reveals the radial organization of chromatin in the cell nucleus",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2020-05-26 17:12:22",
+                "doi": "10.21203/rs.3.pex-570/v1",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a0ed4909-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "May 26th, 2020",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 73860,
+                "name": "Cell biology"
+            },
+            {
+                "id": 73861,
+                "name": "Genetics"
+            },
+            {
+                "id": 73862,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 73863,
+                "name": "Molecular Biology"
+            },
+            {
+                "id": 73864,
+                "name": "Computational biology and bioinformatics"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2020-05-26 17:12:22",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

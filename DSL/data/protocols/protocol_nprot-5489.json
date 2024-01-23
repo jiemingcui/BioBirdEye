@@ -1,0 +1,397 @@
+{
+    "identity": "nprot-5489",
+    "title": "Droplet On Tape: Protocol",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "For biological studies the main draw of X-ray free electron lasers \\(XFELs) is that their intense ultrashort pulses allow one to feasibly obtain time-resolved radiation damage free structural and electronic information at physiological temperatures. Achieving the same measurements at synchrotron sources are much more difficult, as a combination of low light flux and/or cryogenic temperatures are required to avoid damage for third generation sources. A myriad of approaches for coupling a reaction initiation scheme to a particular sample delivery method exist in the literature, each with various advantages and disadvantages. Here we describe Droplet On Tape \\(DOT), a flexible platform to approach a variety of time resolved reaction initiation schemes on biomolecules particularly where simultaneous X-ray signals are desired. DOT has been employed for X-ray diffraction and X-ray emission from protein micro-crystal slurry or protein solution as well as a number of ancillary signals \\(like transmission or fluorescence). As a platform, the system has a large number of configurable and optional components, depending on the needs of the user\u2019s experiment. We describe a number of the operational details and motivations behind the design decisions here that are not covered in the associated publication along with protocols for using individual components of the system.\r\n\n\n DOT is comprised of five main sub-systems: the ADE injector, controls systems, the conveyor belt, reaction initiation systems, and the sample environment. Reagents, materials, software, and protocols are given where appropriate under these system component headings."
+        },
+        {
+            "header": "Reagents",
+            "content": "The following reagents are for hydrophobic coating of the polyimide belts:\r\n\n\nfluoroalkylsilane \\(FAS), 1H, 1H, 2H,2H-Perfluorodecyltriethoxysilane \\(C10F17H4Si\\(OCH2CH3)3, 97% from Sigma-Aldrich)\r\n\n\nisopropanol\r\n\n\nn-octane\r\n\n\nMilli-Q water"
+        },
+        {
+            "header": "Equipment",
+            "content": "Agilent 33602 Function Generator\r\n\n\nAmplifier Research 500A250C RF Amplifier\r\n\n\nNewport XPS-8Q Motor Controller\r\n\n\nLinux/Mac/PC control computer\r\n\n\nLegato 130 Syringe Pump\r\n\n\nPolymicro 360 micron O.D., 180-250 micron I.D.\r\n\n\n100 MHz or greater digital Oscilloscope with remote access capability\r\n\n\nPrecision vacuum oven, model 19\r\n\n\nLexium M-Drive stepper motor\r\n\n\nPulsed laser system \\(for photo-activated experiments)\r\n\n\nNumerous custom machined components \\(see supplemental technical drawings attached to this protocol)."
+        },
+        {
+            "header": "Procedure",
+            "content": "**1 ADE Injector**\nOur Acoustic Droplet Ejection \\(ADE) setup is a straightforward implementation of prior work\n1,2\n. ADE involves focusing ultrasonic sound energy on a liquid-air interface to eject a small volume of liquid in to the air. The sound energy comes from an spot-focused ultrasonic transducer developed for ultrasonic imaging applications \\(Olympus V319-SU with 1\u2019\u2019 spherical focus). The transducer can eject droplets of sample when driven by a tone-burst typically less than 100 \u00b5s long. We use a waveform generator \\(Agilent 33612A) to produce tone-burst at the resonance frequency of the transducer \\(15 MHz in most cases) with controllable amplitude and duration. The tone-burst is amplified in an Amplifier Research 500A250C RF amplifier to produce a final driving voltage of around 40 volts. This amplifier is over-engineered for our application, but was available to us and made the amplification process extremely simple. To eject nano-liter sized droplets, send an amplified tone-burst via BNC cable through a bi-directional coupler to the trasducer. The bi-directional coupler samples the amplified signal in both forward and reverse directions with 30 dB coupling and allows one to examine acoustic echos from sample-air interface \\(discussed later). The bulk of the tone-burst power will be transmitted through the bi-directional coupler to the transducer. \r\n\n\nA few milliseconds prior to the ejection tone burst send a \u201cprobe\u201d spike that is a few hundred nanoseconds long to determine the fluid level in the sample reservoir. The operational principle here is similar to sonar: we are looking to see when a reflection of sound returns to the transducer.  Monitor this \u201cecho\u201d by collecting the reverse signal coming back from the transducer through the bi-directional coupler and examine it in an oscilloscope. We remotely access the oscilloscope \\(via remote desktop) to monitor the return time and amplitude of the echo signal and find this is critical for use at a beamline, where physical access to the oscilloscope is prohibited. When the transducer is focused on the sample-air interface \\(see Figure 1), an echo shows up at around 35 \u00b5s delay \\(for a 1 inch focal length transducer). We judge the focus quality by maximizing the amplitude of the return echo and once optimized the transducer position is fixed and the sample influx rate into the reservoir is adjusted to maintain temporal position of the echo. The temporal position of our probe echo pulse gives the ability to monitor the reservoir fluid level with better than 50 \u00b5m accuracy. In our present implementation, the sample influx rate is human controlled, but one can certainly envision a machine control of the flow rate based on the echo amplitude and position.\r\n\n\n\r\n\n\n**2 Control Systems**\r\n\n\nThere are a few pieces of hardware in the DOT setup that require remote control operation in order to ensure reasonable success when it is deployed in a restricted access \u201chutch\u201d: Syringe Pump, Waveform Generator, various actuator motors, tape drive motor, and various cameras. In general, we use EPICS \\(Experimental Physics Industrial Control Software) to provide network interface to all of these devices. In the case of our syringe pump and waveform generator we wrote custom IOC \\(Input Output Controller) applications to provide an EPICS interface and for the other devices existing IOC software, available from SLAC or APS IOC repositories, was used.  Our custom IOCs are publicly available on github: \r\n\n\n\u2022 Syringe pump control: https://github.com/fullerf/LEGATO130\r\n\n\n\u2022 Waveform generator control: https://github.com/fullerf/Agilent33600A\r\n\n\n\r\n\n\nTo make use of these software, install a base installation of EPICS, StreamDevice, and Asyn.  All our cameras are Allied Vision Manta-style cameras and SLAC can provide an IOC for them. For motor actuator control we used a Newport XPS-Q8 with an EPICS interface provided by SLAC. Our tape drive motor \\(Lexium M-Drive) is operated via its built-in serial terminal interface and can be directly connected the network.  To connect to it, use telnet from any linux or mac computer. We mainly control the speed via adjustments of the motor\u2019s slew rate \\(which are infrequently necessary once the correct speed is set; see Laser Timing section).\r\n\n\n\r\n\n\n**3 Conveyor Belt System**\r\n\n\nThe conveyor belt system is almost entirely custom engineered. A complete listing of all components would be overbearing, but the interested reader is welcome to browse the technical drawings and 3D files in attached to this protocol as a .zip archive. The general systems that are required are listed here with some of the design considerations that went into them.\r\n\n\n\r\n\n\n**3a Belt Material & Properties**\r\n\n\nWe have used seamless belts made of Kapton with dimensions ranging from 0.063-0.125\u2019\u2019 in width, 31-36\u2019\u2019 diameter, and 50 micron thickness, depending on our implementation of the tape drive \\(which changes from experiment to experiment). Belts of these dimensions are available, upon custom request, from a company BPB Inc., based out of the Bay Area, CA. We also used Mylar film at an early stage of DOT development, but found Kapton provides similar physical properties with superior x-ray scattering properties. The seamless nature of the belt is deemed necessary because with ultrasonically welded film belts \\(the main competing technology) we noticed the belt would skip as the weld passed over rollers, which creates problems for synchronizing the droplets to the XFEL. Belts are considered a consumable component of this setup, but one belt can last several shifts if one is careful to avoiding hitting the belt directly with the XFEL beam.\r\n\n\n\r\n\n\n**3b Surface Treatment of the Polyimide Belt**\r\n\n\nSeamless polyimide \\(PI) belts \\(Kapton 100H, C22H10O2N5, DuPont) were obtained from BPB Inc., USA. To clean the surface, sonicate the belt in Milli-Q water for 10 minutes followed by sonication in isopropanol for 10 minutes. PI belts must then be dried at 50 \u00b0C in a vacuum oven \\(Precision vacuum oven, model 19) for an hour before hydrophobicity treatment. To make the belts more hydrophobic, treat them with fluoroalkylsilane \\(FAS), 1H, 1H, 2H,2H-Perfluorodecyltriethoxysilane \\(C10F17H4Si\\(OCH2CH3)3, 97% from Sigma-Aldrich) to achieve optimum hydrophobicity. Our typical \"treatment\" of the belts involved refluxing them in 0.25% \\(w/v) solution of FAS in n-octane for 2 hours. To remove residual FAS, dry the belts in a vacuum oven at 150 \u00b0C for 3 hours. After FAS treatment, one should expect the water contact angle \\(WCA) to increase from ~60\u00b0 to 100\u00b0\u00b15\u00b0.\r\n\n\n\r\n\n\n**3c Tensioner**\nThere are numerous ways one can apply tension to the belt, but we highly recommend that one employ a system that allows for repeatable and consistent tension. Too much tension will irreversibly damage the belt and too little prevents the belt from tracking on the rollers correctly. Over tension is happening if the belt starts to curl when the tension is released. Our system, depicted in Figure 2b, uses a hanging weight to torque the belt over two rollers on a rotating arm. This system is easy to machine.  To modify the tension, simply add or subtract weights that are hung from the turn table.\r\n\n\n\r\n\n\n**3d Crowned Rollers**\r\n\n\nTo reduce friction as the belt move around, we pass the belt over high quality \\(ABEC 5), low friction ball bearing rollers.  In order to keep the belt centered on these rollers, a crown \\(slight outward radius of curvature) is added by press-fitting the bearing into a CNC machined cap.  We used a 3 inch radius of curvature for the crown.  Crowned rollers are common in numerous belt-driven applications for this same purpose.\r\n\n\n\r\n\n\n**3e Electrostatic Control**\r\n\n\nWe find that both passive and active control of static build up is required to avoid disturbing the ADE injector. We position steel anti-static brushes near the belt drive mechanism to mitigate static build up. We also spray ionized air on the belt using a Transforming Technologies IN3425 static gun. Position the static gun near the ADE deposition point to minimize electrostatic effects on the ejection process.\r\n\n\n\r\n\n\n**3f Mounting**\nOur system is mounted on a Newport UTS-100 motorized stage and constructed of a modified Thorlabs aluminum breadboards and mounting brackets. \\(Figure 3)\r\n\n\n\r\n\n\n**3g Drive Mechanism**\r\n\n\nA Lexium M-Drive LMDCE423 micro-stepping stepper motor directly coupled to a 1\u2019\u2019 diameter stainless steel shaft drives the conveyor belt. Originally a geared mechanism was attempted, but we find the gearing mechanism introduced unwanted error in the velocity and so a direct drive approach is recommended. Operate the drive at a speed that is appropriate for your measurement; we typically run the motor at less than 4 revolutions per second.\r\n\n\n\r\n\n\n**4 Sample Environment**\nA custom-made helium enclosure made of 0.5\u2019\u2019 acrylic was produced by Professional Plastics Inc. \\(designed by the authors). The main challenge here is to accommodate a large inflatable door with an wide aperture near the X-ray interaction region. A schematic of the helium chamber is shown in Figure 4. Where possible we had the acrylic joints solvent welded, otherwise rubber foam gaskets are used to prevent Helium from leaking out of the chamber. A custom-made feed-through panel was cut from 0.125\u2019\u2019 aluminum using a water jet to accommodate all the electronic, gas, water, and fiber feed-throughs into the box. Extend the helium environment as far as possible between the sample interaction and the detector.  We use thin inflatable bags to push the extent of the helium environment all the way up to the detector to minimize scatter from heavier atoms in the air.\r\n\n\n\r\n\n\n**5 Conveyor Belt Cleaning**\r\n\n\nCleaning the belt so that it is free of sample residue and water is critical for the successful operation of the DOT system. Accumulated sample residue can be detected quite sensitively by running the belt with no sample being injected onto it while probing the XES signal. This test was performed periodically through the course of our beamtimes. To clean the belt, cleaning run it over four high pressure \\(200+ psi) 500 \u00b5m I.D. water jets. Immediately afterwards, one must dry the belt on top and bottom as the rollers will not function properly while wet. We do this by using two compressed Helium blow off nozzles. Three gas-tight diaphragm pumps \\(KNF Neuberger N145.1.2AN.18) draw helium from the Helium chamber and then recirculate the compressed gas back into the chamber to power the blow-off nozzles.\r\n\n\n\r\n\n\n**6 Reaction Initiation Systems**\r\n\n\n**Laser excitation system**\nAs discussed in more detail later in this section, multi-step photo-initiated reactions \\(like that of Photosystem II) require a very high precision spatial grid of excitation points \\(Figure 5). To this end, we used a CNC machine to produce a high precision grid of holes \\(tolerance to 0.0005\u2019\u2019). Bare ended fibers are positioned in the grid of holes and then our fiber-coupled laser focusing system is aligned to the grid of holes by maximizing throughput into the bare ended fibers. Each of our three fiber-coupled excitations is given 5 degrees of freedom to optimize coupling into the end of the receiving bare fiber. To monitor the arrival time of droplets in the grid we use bare ended fibers that emit IR light the scatter of which is collected onto a photo-diode. The IR emitting fibers are also mounted in the high precision grid same as those that are used to align the excitation light. During operation, we collect the excitation light that passes through the belt and sample for all five fibers \\(3 excitation and 2 IR gates) on to photodiodes and monitor these on remote-accessible oscilloscopes.\r\n\n\n\r\n\n\n**7 Free Space Timing**\r\n\n\nFor experiments requiring only a single laser excitation, we typically employ a movable laser excitation point near the X-ray interaction region. Move the laser into the desired position by adjusting a motorized 1 m focal length lens upstream of the laser interaction region. In this way one can target droplets up to 6 mm in advance of the XFEL interaction, which means for typical belt speeds \\(60 mm/s to 300 mm/s) it is possible to achieve up to 100 ms to 20 ms delays respectively. To determine at which position the droplet should be hit in order to achieve a specific time delay, use a stroboscopic video system that observes the droplet orthogonal to the beam \\(in a plane approximately parallel to the ground). This \u201cside-view\u201d camera is synchronized to the XFEL arrival with a variable delay. When the camera is at zero delay with respect to the XFEL, one can observe the XFEL hitting droplets by seeing the droplet explode. Change the camera delay to a negative delay electronically to match the desired laser delay and note the position of the closest droplet to the interaction region. Move the laser spot to the noted position.  In this way we are able to directly confirm spatial overlap accurate to 100 microns \\(with a laser spotsize that is typically 400 microns) and temporal overlap to accurate within 200 microseconds \\(the camera exposure time). Laser timing \\(relative to XFEL arrival) is actually much more accurately determined \\(within nanoseconds) timing by relative photodiode measurements.\r\n\n\n\r\n\n\n**8 Fiber Excitation Timing**\nAs mentioned in the Laser excitation system section, the sample is passed over a grid of laser excitation points. Assuming a constant velocity of the belt, we can visualize the timing of the system through the use of a space-time representation. Trajectories of constant velocity appear as lines with a slope corresponding to their velocity and the excitation positions, which are fixed in space, are thus fixed in time. In order to make laser excitations match droplet arrival times we require first that the deposition time of the droplet be such that the droplet arrives at the XFEL position at the right time. In order for the optical laser pumps to also strike the droplets we require that the delay of the fiber laser excitations be set so that they strike the sample, which is a second degree of freedom. Adjust the deposition delay it until a droplet appears in the cross hairs of the XFEL beam \\(as seen on an in-line stroboscopic XFEL synchronized video monitor) and then fine adjust the deposition delay until the droplet is observed to explode whilst the camera is synchronized with the XFEL arrival. Additional confirmation that the droplet is being hit comes from the observation of solvent scatter in the forward scattering detector or emission signal in the emission detector. Once this delay is established, we change the belt velocity until the signal from the two IR gates overlap in time. This indicates that droplets passing over the IR gates are separated by a time equal to the deposition period, i.e. that a drop is on both IR gates at the same exact time. IR gates are separated by 60 mm from each other and 30 mm from the nearest excitation point. Provided that the belt speed is such that the spacing between droplets is an integer multiple \\(or divisor) of both 30 mm and 60 mm, the time coincidence of IR gate signals indicates that droplets will be simultaneously present on all excitation points. Thus allowed speeds at 10 Hz droplet rep rate are 30 mm/s, 60 mm/s, 150 mm/s, and 300 mm/s. The fiber excitation delay needs, therefore, to be time coincident with the IR gate signals. Using this feedback we can dial in the two delays \\(deposition and laser delay) so that we can be sure both optical pumps and the XFEL are hitting the droplets. Figure 6 illustrates these various delays in a space-time representation.  Note that the deposition delay and belt speed are coupled, so you will need to adjust the two parameters incrementally to achieve the desired result.\r\n\n\n\r\n\n\n**9 Gas Activated Reactions**\r\n\n\nTo generate reaction intermediates formed by interaction with a reactive gas we pass the conveyor belt through a region of reactive gas with limited extent. The region limits of the reactive gas \\(oxygen in our case) are created by differential pumping, i.e. separating the Helium partial pressure from reactive gas partial pressure via a series of small orifices. The conveyor belt passes through the orifices. A schematic is shown in associated publication. Unlike laser excitations, the gas region is not impulsive and so \u201ctiming\u201d is less involved. One is mainly concerned with the dead-time, i.e. the time the sample spends after it exits the reaction chamber before it is probed by the XFEL and the exposure time it receives in the chamber. The exposure time is given by extent of the reactive gas L divided by the tape velocity vtape: L/vtape. The dead-time is given by ratio of the distance from the end of the reactive gas extent to the XFEL interaction Lxfel to the tape velocity to : Lxfel/vtape. Be sure to seal the chamber \\(except at the opening and exit holes) with vacuum grease to prevent leakage."
+        },
+        {
+            "header": "Timing",
+            "content": "**Fabrication**: The custom components in our latest setup took about a month, distributed over several contractors.\r\n\n\n**Assembly**: Assembly of all components consumed about a month for two people.\r\n\n\n**Setup**: Setting up the system at the beamline took five days for 3 people.\r\n\n\n**Data collection**: For each experiment we collected data for 4-5 days at the beamline."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "See associated publication"
+        },
+        {
+            "header": "References",
+            "content": "1. Ellson, R. et al. Transfer of Low Nanoliter Volumes between Microplates Using Focused Acoustics \u2014 Automation Considerations. J. Assoc. Lab. Autom. 8, 29\u201334 \\(2003).\r\n  2. Yin, X. et al. Hitting the target\u202f: fragment screening with acoustic in situ co-crystallization of proteins plus fragment libraries on pin-mounted data-collection micromeshes research papers. Acta Crystallogr. Sect. D Biol. Crystallogr. 70, 1177\u20131189 \\(2014)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "FDF, SG, RC wrote the protocol with contributions from JFK, VKY, and JY."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [
+            {
+                "doi": "10.1038/nmeth.4195",
+                "date": "2017-02-27 22:35:14",
+                "title": "",
+                "authors": "",
+                "journal": "",
+                "logo": ""
+            }
+        ],
+        "authors": [
+            {
+                "id": 14340,
+                "identity": "a0e101f2-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Junko Yano",
+                "email": "jyano@lbl.gov",
+                "orcid": "",
+                "institution": "Yano/Yachandra Lab",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Junko",
+                "middleName": "",
+                "lastName": "Yano",
+                "suffix": ""
+            },
+            {
+                "id": 14335,
+                "identity": "a0e0f4b2-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Franklin Fuller",
+                "email": "fdfuller@lbl.gov",
+                "orcid": "",
+                "institution": "Yano/Yachandra Lab",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Franklin",
+                "middleName": "",
+                "lastName": "Fuller",
+                "suffix": ""
+            },
+            {
+                "id": 14336,
+                "identity": "a0e0f830-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Sheraz Gul",
+                "email": "",
+                "orcid": "",
+                "institution": "Yano/Yachandra Lab",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Sheraz",
+                "middleName": "",
+                "lastName": "Gul",
+                "suffix": ""
+            },
+            {
+                "id": 14337,
+                "identity": "a0e0fb44-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Ruchira Chatterjee",
+                "email": "",
+                "orcid": "",
+                "institution": "Yano/Yachandra Lab",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Ruchira",
+                "middleName": "",
+                "lastName": "Chatterjee",
+                "suffix": ""
+            },
+            {
+                "id": 14338,
+                "identity": "a0e0fd99-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Jan Kern",
+                "email": "",
+                "orcid": "",
+                "institution": "Yano/Yachandra Lab",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Jan",
+                "middleName": "",
+                "lastName": "Kern",
+                "suffix": ""
+            },
+            {
+                "id": 14339,
+                "identity": "a0e0ffcc-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Vittal Yachandra",
+                "email": "",
+                "orcid": "",
+                "institution": "Yano/Yachandra Lab",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Vittal",
+                "middleName": "",
+                "lastName": "Yachandra",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2017-02-10 23:51:39",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2017.017",
+        "doiUrl": "https://doi.org/10.1038/protex.2017.017",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2609616,
+                "identity": "bfdb40f5-3390-4c53-b4a5-248f08f092b8",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:03",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 104842,
+                "visible": true,
+                "origin": "",
+                "legend": "Cartoon of the ADE process   At the left: a driving pulse is sent to the transducer. The resulting acoustic wave (center) is focused on the sample-air interface creating a column of sample. A droplet of sample is ejected in the final step (right) and an echo of the driving pulse is returned to the transducer. The sample is connected to the transducer via a column of coupling water (that is isolated from the sample).",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-5489/v1/figure_1.png"
+            },
+            {
+                "id": 2609615,
+                "identity": "542ae7a9-4efa-489f-b8ab-e0b49d9f3e65",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:03",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 81026,
+                "visible": true,
+                "origin": "",
+                "legend": "important mechanical components   crowned bearings (a) and the belt tensioner (b). The tensioner contacts the belt (depicted in brown color) via two crowned bearings on a rotating turntable.",
+                "description": "",
+                "filename": "figure2.png",
+                "url": "https://assets.researchsquare.com/files/nprot-5489/v1/figure_2.png"
+            },
+            {
+                "id": 2609620,
+                "identity": "39491471-924d-41f3-8cea-8094d1280e43",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:03",
+                "extension": "png",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 176096,
+                "visible": true,
+                "origin": "",
+                "legend": "structural components    An overall Computer Aided Design (CAD) render of the conveyor belt system, highlighting the main structural components and motors.",
+                "description": "",
+                "filename": "figure3.png",
+                "url": "https://assets.researchsquare.com/files/nprot-5489/v1/figure_3.png"
+            },
+            {
+                "id": 2609619,
+                "identity": "bb87a1e9-c1dd-4b5a-af00-295c85ac9dc6",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:03",
+                "extension": "png",
+                "order_by": 4,
+                "title": "Figure 4",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 288395,
+                "visible": true,
+                "origin": "",
+                "legend": "Helium Chamber   A CAD render of the wide-aperture Helium chamber used for simultaneous XRD/XES studies. Panel (a) shows the chamber from an angle looking up stream of the XFEL. Panel (b) shows the enclosure from the top with the XFEL beam running top to bottom. The front door of the enclosure (shown in grey) is a removable aluminum frame over which a flexible polyethylene film \u201cbag\u201d (not shown) was secured. The bag inflates when the chamber is filled, closing a variable gap between the chamber and the forward scattering detector. Another flexible polyethylene bag filled with Helium (not shown) is placed between the XES crystal spectrometer and the Helium chamber.",
+                "description": "",
+                "filename": "figure4.png",
+                "url": "https://assets.researchsquare.com/files/nprot-5489/v1/figure_4.png"
+            },
+            {
+                "id": 2609621,
+                "identity": "7ee7dde4-1bfe-4d22-8ad4-8e6d1fd30cef",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:03",
+                "extension": "png",
+                "order_by": 5,
+                "title": "Figure 5",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 1201490,
+                "visible": true,
+                "origin": "",
+                "legend": "Photosystem II (PS II) Laser Excitation   A CAD render of the custom fiber excitation mounting system used to study PS II. Three laser excitations are delivered at the two sides and in the center, each positioned with 5 degrees of freedom. Between the laser excitations, IR gates are positioned and their scatter is collected by angled 90\u00b0 reflective fiber couplers.",
+                "description": "",
+                "filename": "figure5.png",
+                "url": "https://assets.researchsquare.com/files/nprot-5489/v1/figure_5.png"
+            },
+            {
+                "id": 2609622,
+                "identity": "698dbe5d-50cf-481a-aced-3117db993c5e",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:03",
+                "extension": "png",
+                "order_by": 6,
+                "title": "Figure 6",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 36151,
+                "visible": true,
+                "origin": "",
+                "legend": "Degrees of Freedom for Multi-Excitation System   A space-time diagram illustrating the two degrees of freedom in the multi-excitation scheme we employed for PSII: \u0394\u03c4dep (the deposition delay) and \u0394\u03c4laser (the laser delay). Two different tape velocities are shown in red (slow) and blue (fast), evidenced by their different slopes.",
+                "description": "",
+                "filename": "figure6.png",
+                "url": "https://assets.researchsquare.com/files/nprot-5489/v1/figure_6.png"
+            },
+            {
+                "id": 13465144,
+                "identity": "7dcde831-9449-4197-b3b7-99503170319e",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:45:51",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 1309441,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-5489/v1/32915c03-32c9-434f-a5af-0c802130b612.pdf"
+            },
+            {
+                "id": 2609632,
+                "identity": "4fcac827-7df4-43b5-add3-6ed4e0c87c0a",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:04",
+                "extension": "zip",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 14589386,
+                "visible": true,
+                "origin": "",
+                "legend": "Supplemental_Technical_Drawings   Technical drawings and 3D print files   This .zip archive contains technical drawings and 3D solidworks files used to fabricate the numerous custom components in our setup.",
+                "description": "",
+                "filename": "supplement0.zip",
+                "url": "https://assets.researchsquare.com/files/nprot-5489/v1/supplement_0.zip"
+            }
+        ],
+        "financialInterests": "The authors declare that there are no competing financial interests.",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "Sample delivery, XFEL, acoustic droplet ejection, conveyor belt, photosynthesis, Metalloenzymes, X-ray emission, X-ray diffraction",
+        "license": {
+            "name": "CC BY-NC 3.0",
+            "url": "https://creativecommons.org/licenses/by-nc/3.0/"
+        },
+        "manuscriptAbstract": "A sample delivery instrument involving acoustic droplet ejection onto a conveyor belt for XFEL studies, its design and use, is described here. This protocol accompanies Fuller et al \\(Nature Methods, published online February 27, 2017; 10.1038/nmeth.4195); it was added to the manuscript after formal peer review, as an aid to users.",
+        "manuscriptTitle": "Droplet On Tape: Protocol",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2017-02-28 15:14:54",
+                "doi": "10.1038/protex.2017.017",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a0e06bfa-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "February 28th, 2017",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 3773,
+                "name": "Biological techniques"
+            },
+            {
+                "id": 3774,
+                "name": "Structural biology"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2017-02-28 15:14:54",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}

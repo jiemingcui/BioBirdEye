@@ -1,0 +1,298 @@
+{
+    "identity": "nprot-7209",
+    "title": "A computational protocol for sample selection in biological-derived infrared spectroscopy datasets using Morais-Lima-Martin \\(MLM) algorithm",
+    "content": [
+        {
+            "header": "Introduction",
+            "content": "Infrared \\(IR) spectroscopy is a vibrational spectroscopy technique that generates a unique chemical signature representing most of the molecules present in a material. It is much used to analyse biological materials \\(1), since it allows building protocols for analysing tissues, cells and biofluids in a non-destructive, fast and low-cost fashion \\(1,2). Computational methods are used to maximize processing time and extract relevant information. Chemometric methods are often applied to build predictive models where the complex spectral data are transformed to chemically-relevant and easy-to-interpret information by means of multivariate analysis techniques. In classification applications, samples are assigned to groups based on their IR spectrochemical signature. This includes, for example, differentiation of brain tumour types \\(3), identification of neurodegenerative diseases \\(4), cervical cancer screening \\(5), endometrial and ovarian cancer identification \\(6), identification of prostate cancer tissue samples \\(7), differentiation of endometrial tissue regions \\(8), toxicology screening \\(9,10), and microbiologic studies involving fungi and virus identification \\(11-13).\r\n\n\nHowever, before model construction, a fundamental step is to split the spectral dataset into at least two subsets: training and test. The training set is used for model construction and the test set for final model evaluation. Model optimization is often performed using cross-validation, where samples from the training set are used in an interactive process of model validation. Figure 1a contains a flowchart illustrating the fundamental steps for model construction. Usually, sample splitting is performed by random-selection or Euclidian-distance using the Kennard-Stone \\(KS) algorithm \\(14). This protocol provides a computational methodology for sample splitting based on a combination of the Euclidian-distance methodology of KS with a random-mutation factor to optimize sample selection, maximizing classification rates. This algorithm, named Morais-Lima-Martin \\(MLM), is illustrated in Figure 1b."
+        },
+        {
+            "header": "Equipment",
+            "content": "2.1 Requirements for running this protocol\r\n\n\n\u2022 MATLAB R2014b \\(version 8.4) or above \\(https://www.mathworks.com). The algorithm, however, might work in older versions of MATLAB;\r\n\n\n\u2022 MLM algorithm, available for download at https://doi.org/10.6084/m9.figshare.7393517.v1; \r\n\n\n\u2022 A classed spectroscopy dataset \\(a sample dataset is provided together with the algorithm).\r\n\n\n2.2 Preparing data files\r\n\n\nMLM algorithm only works within MATLAB environment. Data should be loaded and saved in .mat format. Spectral data must be organized into matrices, where each spectrum corresponds to a row, and spectral variables are distributed among the columns. Figure 2a illustrates an example of dataset with 2 classes within MATLAB environment.\r\n\n\nCAUTION. IR spectra must be pre-processed before sample selection. Pre-processing methodologies for IR spectral data of biological materials can be found elsewhere\\(1)."
+        },
+        {
+            "header": "Procedure",
+            "content": "**Algorithm installation**\r\n\n\n\\(1) Download and extract the \u201cMLM.zip\u201d file to a folder of choice; \r\n\n\n\\(2) start MATLAB; \r\n\n\n\\(3) navigate within MATLAB to the folder where the \u201cMLM.zip\u201d file was extracted; \r\n\n\n\\(4) within MATLAB, right click on the folder \u201cMLM\u201d and select \u201cAdd to Path > Selected Folders and Subfolders\u201d.\r\n\n\n\r\n\n\n**Selecting the dataset**\r\n\n\nTo execute the example dataset, go to the folder \u201cMLM > DATASET\u201d within MATLAB, and double-click on the file \u2018DATASET.mat\u2019. For running the algorithm with another dataset, navigate within MATLAB to the \u201cwork\u201d folder \\(i.e., the folder containing the dataset of interest), and double-click on it.\r\n\n\n\r\n\n\n**Using MLM algorithm**\r\n\n\nMLM algorithm was built to divide the spectral cohort into training and test sets. The training set should contain 70% of the samples, and the test set 30% of the samples. For this, firstly it is necessary to calculate how many samples must be assigned to the training and test set. For example, in the example dataset depicted in Figure 2a, class 1 is divided into 98 samples for training \\(70%, 0.7  ** 140 = 98) and 42 samples for test \\(30%, 0.3 ** 140 = 42); and class 2 is divided into 70 samples for training \\(70%, 0.7  ** 100 = 70) and 30 samples for test \\(30%, 0.3 ** 100 = 30).\r\n\n\nAfter the number of training and test sample for each class is calculated, the algorithm should be applied by typing the commands depicted in Figure 2b in the MATLAB Command Window. In this figure, the following steps are performed:\r\n\n\n\\(1) Sample splitting for class 1, where 98 is the number of training samples and 42 is the number of test samples:\r\n\n\n\\[Train1,Test1,Group_Train1,Group_Test1] = mlm\\(X1,Y1,98,42);\r\n\n\n\\(2) Sample splitting for class 2, where 70 is the number of training samples and 30 is the number of test samples:\r\n\n\n\\[Train2,Test2,Group_Train2,Group_Test2] = mlm\\(X2,Y2,70,30);\r\n\n\n\\(3) Building the Training set by combining the training samples of class 1 and 2:\r\n\n\nTrain=\\[Train1;Train2];\r\n\n\n\\(4) Building the Test set by combining the test samples of class 1 and 2:\r\n\n\nTest=\\[Test1;Test2];\r\n\n\n\\(5) Building the group category representing the training samples:\r\n\n\nGroup_Train=\\[Group_Train1;Group_Train2];\r\n\n\n\\(6) Building the group category representing the test samples:\r\n\n\nGroup_Test=\\[Group_Test1;Group_Test2];\r\n\n\nFor more than two classes, the procedure is the same, where the sample splitting is performed for each class separately. The random-mutation factor is set as 10% \\(default).\r\n\n\nCAUTION. The number of training and test samples for each class must be an integer value. In the case of 70% and 30% generate numbers with decimal places, they must be rounded to the closest integer value \\(e.g., 25.7 to 26; 14.2 to 14; 70.9 to 71; etc)."
+        },
+        {
+            "header": "Timing",
+            "content": "Time is dependent on the computer setup, number of spectra, and number of variables \\(wavenumbers) in the dataset. Time of analysis of each dataset was practically instantaneous \\(<1 second) using the follow computational settings: Intel\u00ae CoreTM i7 \\(2.80 GHz) processor with 16.0 GB of RAM memory."
+        },
+        {
+            "header": "Troubleshooting",
+            "content": "If MLM algorithm does not work: verify that the MLM folder containing the MATLAB routines was added to the MATLAB path. Also, verify if the input numbers of samples \\(i.e., number of training samples + number of test samples) are equal to the total number of samples.\r\n\n\nIf you cannot load the sample dataset: verify that your current working directory within MATLAB is the folder containing the dataset \\(folder named \u2018DATASET\u2019)."
+        },
+        {
+            "header": "Anticipated Results",
+            "content": "The sample dataset used in this protocol is composed of 140 spectra representing control brain tissue samples \\(class 1) and 100 spectra representing cancer \\(glioblastoma) brain tissue samples \\(class 2) \\(Figure 3a). Further details about this dataset can be found in Gajjar et al. \\(15). Samples were divided into training \\(70%) and test \\(30%) sets as depicted in Figure 2b. Two classification algorithms were applied: principal component analysis linear discriminant analysis \\(PCA-LDA) \\(16) and partial least squares discriminant analysis \\(PLS-DA) \\(17). PCA-LDA was applied using 9 principal components \\(99% cumulative explained variance) with cross-validation venetian blinds \\(10 data splits). Similarly, PLS-DA was performed using 9 latent variables \\(98% cumulative explained variance) with cross-validation venetian blinds \\(10 data splits). Models were built using the Classification Toolbox for MATLAB \\(http://www.michem.unimib.it/) \\(18) and the PLS Toolbox version 7.9.3 \\(Eigenvector Research, Inc., US). Data were mean-cantered before analysis. The classification performance of these algorithms in the training and test sets are shown in Table 1. In both PCA-LDA and PLS-DA, the accuracy values of the training and test sets are similar, indicating absence of overfitting. Also, MLM algorithm provided well-balanced sensitivities and specificities, indicating that the classification methods have similar predictive performance in both classes \\(control and cancer). \r\n\n\nPLS-DA model achieved the best classification performance, with an accuracy of 94% in the test set. Figure 3b shows the discriminant function \\(DF) graph of PCA-LDA, where some superposition between control and cancer samples are observed. On the other hand, the DF graph for PLS-DA \\(Figure 3c), shows a clear separation between the two group of samples, with only a few cancer samples misclassified as control. The receiver operating characteristic \\(ROC) curve for PLS-DA shows the great performance of this algorithm towards differentiation of control and cancer brain tissue, where an area under the curve \\(AUC) value of 0.971 is obtained \\(Figure 3d). Gliobastoma is the type of brain cancer with the poorest survival rate, particularly due to its poor prognosis, and its clinical diagnosis is much dependent on subjective and time-consuming analysis \\(15). New clinical methodologies for tumour detection are needed in order to overcome these limitations; and IR spectroscopy, due to its non-destructive nature, fast data acquisition and processing, and relative low-cost might aid this type of diagnosis in the future. This protocol demonstrates the usage of sample selection, by means of MLM algorithm, for building classification models with good predictive performance in IR spectral datasets of biological-derived applications."
+        },
+        {
+            "header": "References",
+            "content": "1. Baker, M.J. et al. Using Fourier transform IR spectroscopy to analyze biological materials. Nat. Protoc. 9, 1771\u20131791 \\(2014). \r\n  2. Martin, F.L. et al. Distinguishing cell types or populations based on the computational analysis of their infrared spectra. Nat. Protoc. 5, 1748\u20131760 \\(2010).\r\n  3. Bury, D. et al. Spectral classification for diagnosis involving numerous pathologies in a complex clinical setting: A neuro-oncology example. Spectrochim. Acta A Mol. Biomol. Spectrosc. 206, 89\u201396 \\(2019).\r\n  4. Paraskevaidi, M. et al. Differential diagnosis of Alzheimer\u2019s disease using spectrochemical analysis of blood. Proc. Natl. Acad. Sci. U.S.A. 114, E7929\u2013E7938 \\(2017).\r\n  5. Neves, A.C.O. et al. ATR-FTIR and multivariate analysis as a screening tool for cervical cancer in women from northeast Brazil: a biospectroscopic approach. RSC Adv. 6, 99648\u201399655 \\(2016).\r\n  6. Paraskevaidi, M. et al. Potential of mid-infrared spectroscopy as a non-invasive diagnostic test in urine for endometrial or ovarian cancer. Analyst 143, 3156\u20133163 \\(2018).\r\n  7. Siqueira, L.F.S. et al. LDA vs. QDA for FT-MIR prostate cancer tissue classification. Chemometr. Intell. Lab. Syst. 162, 123\u2013129 \\(2017).\r\n  8. Theophilou, G. et al. Synchrotron- and focal plane array-based Fourier-transform infrared spectroscopy differentiates the basalis and functionalis epithelial endometrial regions and identifies putative stem cell regions of human endometrial glands. Anal. Bioanal. Chem. 410, 4541\u20134554 \\(2018).\r\n  9. Duan, P. et al. 4-Nonylphenol effects on rat testis and sertoli cells determined by spectrochemical techniques coupled with chemometric analysis. Chemosphere 218, 64\u201375 \\(2019).\r\n  10. Morais, C.L.M. et al. Assessing Binary Mixture Effects from Genotoxic and Endocrine Disrupting Environmental Contaminants Using Infrared Spectroscopy. ACS Omega 3, 13399\u201313412 \\(2018).\r\n  11. Costa, F.S.L. et al. Attenuated total reflection Fourier transform infrared \\(ATR-FTIR) spectroscopy as a new technology for discrimination between Cryptococcus neoformans and Cryptococcus gattii. Anal. Methods 8, 7107\u20137115 \\(2016).\r\n  12. Morais, C.L.M.; Costa, F.S.L. & Lima, K.M.G. Variable selection with a support vector machine for discriminating Cryptococcus fungal species based on ATR-FTIR spectroscopy. Anal. Methods 9, 2964\u20132970 \\(2017).\r\n  13. Santos, M.C.D. et al. Spectroscopy with computational analysis in virological studies: A decade \\(2006\u20132016). Trends Analyt. Chem. 97, 244\u2013256 \\(2017).\r\n  14. Kennard, R.W. & Stone, L.A. Computer Aided Design of Experiments. Technometrics 11, 137\u2013148 \\(1969).\r\n  15. Gajjar, K. et al. Diagnostic segregation of human brain tumours using Fourier-transform infrared and/or Raman spectroscopy coupled with discriminant analysis. Anal. Methods 5, 89\u2013102 \\(2013).\r\n  16. Morais, C.L.M. & Lima, K.M.G. Principal Component Analysis with Linear and Quadratic Discriminant Analysis for Identification of Cancer Samples Based on Mass Spectrometry. J. Braz. Chem. Soc. 29, 472\u2013481 \\(2018).\r\n  17. Brereton, R.G. & Lloyd, G.R. Partial least squares discriminant analysis: taking the magic away. J. Chemom. 28, 213\u2013225 \\(2014).\r\n  18. Ballabio, D. & Consonni, V. Classification tools in chemistry. Part 1: linear models. PLS-DA. Anal. Methods 5, 3790\u20133798 \\(2013)."
+        },
+        {
+            "header": "Acknowledgements",
+            "content": "Camilo L. M. Morais would like to thank Coordena\u00e7\u00e3o de Aperfei\u00e7oamento de Pessoal de N\u00edvel Superior \\(CAPES) - Brazil \\(grant 88881.128982/2016-01) for financial support."
+        }
+    ],
+    "attributes": {
+        "acceptedTermsAndConditions": true,
+        "allowDirectSubmit": true,
+        "archivedVersions": [],
+        "articleType": "Method Article",
+        "associatedPublications": [],
+        "authors": [
+            {
+                "id": 16115,
+                "identity": "a1a33e19-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Camilo LM Morais",
+                "email": "cdlmedeiros-de-morai@uclan.ac.uk",
+                "orcid": "",
+                "institution": "University of Central Lancashire",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Camilo",
+                "middleName": "LM",
+                "lastName": "Morais",
+                "suffix": ""
+            },
+            {
+                "id": 16117,
+                "identity": "a1a346bd-516f-11e9-9e20-12b504df345a",
+                "order_by": 0,
+                "name": "Francis L Martin",
+                "email": "flmartin@uclan.ac.uk",
+                "orcid": "",
+                "institution": "University of Central Lancashire",
+                "correspondingAuthor": true,
+                "prefix": "",
+                "firstName": "Francis",
+                "middleName": "L",
+                "lastName": "Martin",
+                "suffix": ""
+            },
+            {
+                "id": 16116,
+                "identity": "a1a34346-516f-11e9-9e20-12b504df345a",
+                "order_by": 1,
+                "name": "Kassio MG Lima",
+                "email": "",
+                "orcid": "",
+                "institution": "Federal University of Rio Grande do Norte",
+                "correspondingAuthor": false,
+                "prefix": "",
+                "firstName": "Kassio",
+                "middleName": "MG",
+                "lastName": "Lima",
+                "suffix": ""
+            }
+        ],
+        "badges": [],
+        "createdAt": "2018-12-01 02:12:05",
+        "currentVersionCode": 1,
+        "declarations": "",
+        "doi": "10.1038/protex.2018.141",
+        "doiUrl": "https://doi.org/10.1038/protex.2018.141",
+        "draftVersion": [],
+        "editorialEvents": [],
+        "editorialNote": "",
+        "failedWorkflow": [],
+        "files": [
+            {
+                "id": 2610323,
+                "identity": "ddf260d4-b854-48a2-baca-783dd9a091f4",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:34",
+                "extension": "png",
+                "order_by": 1,
+                "title": "Figure 1",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 300358,
+                "visible": true,
+                "origin": "",
+                "legend": "A computational methodology for sample splitting based on a combination of the Euclidian-distance methodology of KS with a random-mutation factor to optimize sample selection.   (a) Flowchart for IR data processing in classification applications; (b) illustration of sample selection using MLM algorithm.",
+                "description": "",
+                "filename": "figure1.png",
+                "url": "https://assets.researchsquare.com/files/nprot-7209/v1/figure_1.png"
+            },
+            {
+                "id": 2610327,
+                "identity": "c0c3c3c1-3dc2-4dad-a03b-01b1ddf3a248",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:34",
+                "extension": "png",
+                "order_by": 2,
+                "title": "Figure 2",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 306116,
+                "visible": true,
+                "origin": "",
+                "legend": "Using the MLM algorithm   (a) Example dataset within MATLAB, containing 140 spectra for class 1 and 100 spectra for class 2; (b) commands for running MLM algorithm.",
+                "description": "",
+                "filename": "figure2.png",
+                "url": "https://assets.researchsquare.com/files/nprot-7209/v1/figure_2.png"
+            },
+            {
+                "id": 2610328,
+                "identity": "15c52f87-e46a-4f02-9c7d-d0942180231a",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:34",
+                "extension": "png",
+                "order_by": 3,
+                "title": "Figure 3",
+                "display": "",
+                "copyAsset": false,
+                "role": "figure",
+                "size": 623840,
+                "visible": true,
+                "origin": "",
+                "legend": "The sample dataset used in this protocol.   (a) Pre-processed spectra (in blue: control samples; in red: cancer samples); (b) discriminant function (DF) graph representing the canonical variables of PCA-LDA (circles: training samples; diamonds: test samples); (c) discriminant function (DF) graph showing the predicted values of PLS-DA (circles: training samples; diamonds: test samples); (d) Receiver operating characteristic (ROC) curve for PLS-DA, where AUC stands for area under the curve.",
+                "description": "",
+                "filename": "figure3.png",
+                "url": "https://assets.researchsquare.com/files/nprot-7209/v1/figure_3.png"
+            },
+            {
+                "id": 13465800,
+                "identity": "299ff620-0a56-4ca4-a462-1ae8c44c1936",
+                "added_by": "auto",
+                "created_at": "2021-09-16 20:48:14",
+                "extension": "pdf",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "manuscript-pdf",
+                "size": 875583,
+                "visible": true,
+                "origin": "",
+                "legend": "",
+                "description": "",
+                "filename": "manuscript.pdf",
+                "url": "https://assets.researchsquare.com/files/nprot-7209/v1/fd28bd3a-8e0b-489a-8c30-6ed1be4bd971.pdf"
+            },
+            {
+                "id": 2610326,
+                "identity": "e9238d0a-0385-4b98-a1ce-562e58e64a71",
+                "added_by": "29b0f50f-991e-4cf6-96fc-2c41c75f34f2",
+                "created_at": "2020-09-25 20:51:34",
+                "extension": "docx",
+                "order_by": 0,
+                "title": "",
+                "display": "",
+                "copyAsset": false,
+                "role": "supplement",
+                "size": 34572,
+                "visible": true,
+                "origin": "",
+                "legend": "Table 1   Classification performance of PCA-LDA and PLS-DA algorithms applied to the sample dataset.",
+                "description": "",
+                "filename": "supplement0.docx",
+                "url": "https://assets.researchsquare.com/files/nprot-7209/v1/supplement_0.docx"
+            }
+        ],
+        "financialInterests": "The authors declare no competing financial interests",
+        "fulltextSource": "",
+        "fullText": "",
+        "funders": [],
+        "hasOptedInToPreprint": true,
+        "hasPassedJournalQc": "",
+        "hideJournal": true,
+        "highlight": "",
+        "institution": "",
+        "isAuthorSuppliedPdf": false,
+        "isDeskRejected": "",
+        "isHiddenFromSearch": false,
+        "isInQc": false,
+        "isInWorkflow": false,
+        "journal": {
+            "display": true,
+            "email": "protocol.exchange@nature.com",
+            "identity": "protocol-exchange",
+            "isNatureJournal": false,
+            "hasQc": false,
+            "allowDirectSubmit": true,
+            "externalIdentity": "",
+            "sideBox": "",
+            "submissionUrl": "https://protocolexchange.researchsquare.com/submission",
+            "title": "Protocol Exchange",
+            "twitterHandle": ""
+        },
+        "keywords": "infrared spectroscopy, sample selection, data splitting, pre-processing, computational analysis, chemometrics, algorithm",
+        "license": {
+            "name": "CC BY 4.0",
+            "url": "https://creativecommons.org/licenses/by/4.0/"
+        },
+        "manuscriptAbstract": "Infrared \\(IR) spectroscopy is a powerful analytical technique that can be applied to investigate a wide range of biological materials \\(e.g., biofluids, cells, tissues), where a specific biochemical signature is obtained representing the \u2018fingerprint\u2019 signal of the sample being analysed. This chemical information can be used as an input data for classification models in order to distinguish or predict samples groups based on computational algorithms. One fundamental step towards building such computational models is sample selection, where a fraction of the samples measured during an experiment are used for building the classifier, whereas the remaining ones are used for evaluating the model classification performance. This protocol shows how sample selection can be performed in a computational environment \\(MATLAB) by using a combination of Euclidian-distance calculation and random selection, named Morais-Lima-Martin \\(MLM) algorithm, as a previous step before building classification models in biological-derived IR datasets.",
+        "manuscriptTitle": "A computational protocol for sample selection in biological-derived infrared spectroscopy datasets using Morais-Lima-Martin (MLM) algorithm",
+        "msid": "",
+        "msnumber": "",
+        "nonDraftVersions": [
+            {
+                "code": 1,
+                "date": "2018-12-20 13:56:50",
+                "doi": "10.1038/protex.2018.141",
+                "editorialEvents": [
+                    {
+                        "type": "communityComments",
+                        "content": 0
+                    }
+                ],
+                "status": "published",
+                "journal": {
+                    "display": true,
+                    "email": "info@researchsquare.com",
+                    "identity": "researchsquare",
+                    "isNatureJournal": false,
+                    "hasQc": true,
+                    "allowDirectSubmit": true,
+                    "externalIdentity": "",
+                    "sideBox": "",
+                    "submissionUrl": "/submission",
+                    "title": "Research Square",
+                    "twitterHandle": "researchsquare"
+                }
+            }
+        ],
+        "origin": "",
+        "ownerIdentity": "a1a2e376-516f-11e9-9e20-12b504df345a",
+        "owner": [],
+        "postedDate": "December 20th, 2018",
+        "published": true,
+        "revision": "",
+        "status": "posted",
+        "subjectAreas": [
+            {
+                "id": 4461,
+                "name": "Chemistry"
+            },
+            {
+                "id": 4462,
+                "name": "Computational biology and bioinformatics"
+            },
+            {
+                "id": 4463,
+                "name": "Mathematics and computing"
+            },
+            {
+                "id": 4464,
+                "name": "Biochemistry"
+            },
+            {
+                "id": 4465,
+                "name": "Biological techniques"
+            }
+        ],
+        "tags": [],
+        "versionOfRecord": [],
+        "versionCreatedAt": "2018-12-20 13:56:50",
+        "video": "",
+        "vorDoi": "",
+        "vorDoiUrl": "",
+        "workflowStages": []
+    }
+}
